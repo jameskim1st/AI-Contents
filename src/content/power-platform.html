@@ -1,0 +1,956 @@
+<Layout title="Power Platform">
+<!-- PART 3: POWER PLATFORM -->
+<div class="part-header" id="part3">
+  <div class="part-header-inner">
+    <span class="part-header-num" style="color:var(--blue)">Part 3</span>
+    <h2 class="part-header-title">Power Platform & Copilot Studio</h2>
+    <p class="part-header-desc">코딩 없이 앱, 자동화, AI 에이전트를 만드는 Microsoft 플랫폼</p>
+    <p style="font-size:.85rem;color:var(--blue);margin-bottom:1rem;">🔗 Part 1의 Agent 이론, Part 2의 코딩 실습을 거쳐, 이제 <strong>코딩 없이도 업무 자동화와 AI 에이전트를 구축</strong>하는 엔터프라이즈 도구를 배웁니다.</p>
+    <nav class="ch-nav">
+      <a href="#p3-ch1"><span class="cn">01</span>Power Platform이란?</a>
+      <a href="#p3-ch2"><span class="cn">02</span>5대 핵심 구성요소</a>
+      <a href="#p3-ch3"><span class="cn">03</span>Copilot Studio</a>
+      <a href="#p3-ch4"><span class="cn">04</span>전체 아키텍처</a>
+      <a href="#p3-ch5"><span class="cn">05</span>기초 용어 사전</a>
+    </nav>
+  </div>
+</div>
+
+<section class="ch reveal" id="p3-ch1">
+  <div class="ch-head">
+    <div class="ch-num" style="color:var(--teal)">01</div>
+    <div class="ch-title">Power Platform이란?</div>
+  </div>
+
+  <p><strong>Microsoft Power Platform</strong>은 마이크로소프트가 제공하는 <strong>로우코드(Low-Code) / 노코드(No-Code) 비즈니스 솔루션 플랫폼</strong>입니다. 2018년에 출시되어 지금까지 진화를 거듭해 왔으며, 코딩을 거의 모르는 사람도 업무 앱, 자동화 워크플로우, 데이터 분석 대시보드, 웹사이트, AI 에이전트까지 만들 수 있게 해주는 도구 모음입니다.</p>
+
+  <div class="analogy" style="background:var(--accent-bg)">
+    레고 블록을 조립하듯이, 미리 만들어진 부품(커넥터, 템플릿)을 끌어다 놓기(Drag & Drop)로 연결해서 원하는 업무 도구를 만드는 플랫폼입니다. 개발자가 아니어도 됩니다!
+  </div>
+
+  <div class="big-nums reveal">
+    <div class="big-num">
+      <div class="bn-val" style="color:var(--accent)">5개</div>
+      <div class="bn-label">핵심 구성요소</div>
+    </div>
+    <div class="big-num">
+      <div class="bn-val" style="color:var(--teal)">1,000+</div>
+      <div class="bn-label">외부 서비스 커넥터</div>
+    </div>
+    <div class="big-num">
+      <div class="bn-val" style="color:var(--blue)">No-Code</div>
+      <div class="bn-label">코딩 없이 시작 가능</div>
+    </div>
+  </div>
+
+  <p>기존에는 업무에 필요한 앱이나 자동화 시스템을 만들려면 개발팀에 요청하고 몇 주~몇 달을 기다려야 했습니다. Power Platform은 이 간극을 좁혀서, <strong>업무를 가장 잘 아는 현업 담당자가 직접</strong> 솔루션을 만들 수 있게 합니다. 이런 사람들을 <strong>"시민 개발자(Citizen Developer)"</strong>라고 부릅니다.</p>
+
+  <div class="info">
+    <div class="info-title">🎯 왜 지금 Power Platform인가?</div>
+    <p style="margin:0;font-size:.92rem;line-height:1.9">2026년 현재, Microsoft는 Power Platform에 <strong>AI 에이전트</strong> 기능을 대폭 강화하고 있습니다. 단순 자동화를 넘어서, AI가 스스로 판단하고 업무를 처리하는 "에이전트 시대"를 열고 있죠. Copilot Studio를 통해 누구나 AI 비서를 만들 수 있게 되었습니다.</p>
+  </div>
+
+  <div class="dia reveal">
+    <div class="dia-title">Power Platform의 위치: Microsoft 생태계 속에서</div>
+    <div class="flow" style="gap:.3rem">
+      <div class="flow-item">
+        <div class="flow-icon" style="background:var(--blue-bg);border:1px solid var(--blue-border)">☁️</div>
+        <div class="flow-label">Microsoft 365<br><span style="color:var(--blue)">Teams, Outlook</span></div>
+      </div>
+      <div class="flow-arrow">⟷</div>
+      <div class="flow-item">
+        <div class="flow-icon" style="background:var(--accent-bg);border:1px solid var(--accent-border)">⚡</div>
+        <div class="flow-label">Power Platform<br><span style="color:var(--accent-light)">Apps, Automate</span></div>
+      </div>
+      <div class="flow-arrow">⟷</div>
+      <div class="flow-item">
+        <div class="flow-icon" style="background:var(--teal-bg);border:1px solid var(--teal-border)">🗄️</div>
+        <div class="flow-label">Dataverse<br><span style="color:var(--teal)">데이터 저장소</span></div>
+      </div>
+      <div class="flow-arrow">⟷</div>
+      <div class="flow-item">
+        <div class="flow-icon" style="background:var(--amber-bg);border:1px solid var(--amber-border)">🏢</div>
+        <div class="flow-label">Dynamics 365<br><span style="color:var(--amber)">ERP, CRM</span></div>
+      </div>
+      <div class="flow-arrow">⟷</div>
+      <div class="flow-item">
+        <div class="flow-icon" style="background:var(--green-bg);border:1px solid var(--green-border)">🔗</div>
+        <div class="flow-label">외부 서비스<br><span style="color:var(--green)">SAP, Salesforce</span></div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════ CH2: 5대 핵심 구성요소 ═══════ -->
+<section class="ch reveal" id="p3-ch2">
+  <div class="ch-head">
+    <div class="ch-num" style="color:var(--accent-light)">02</div>
+    <div class="ch-title">5대 핵심 구성요소</div>
+  </div>
+
+  <p>Power Platform은 <strong>5개의 핵심 제품</strong>과 이들을 연결하는 <strong>공통 데이터 인프라(Dataverse)</strong>로 구성됩니다. 각각의 역할을 하나씩 살펴보겠습니다.</p>
+
+  <div class="dia reveal">
+    <div class="dia-title">Power Platform 5대 구성요소 한눈에 보기</div>
+    <div class="flow" style="gap:.2rem">
+      <div class="flow-item">
+        <div class="flow-icon" style="background:var(--accent-bg);border:1px solid var(--accent-border)">📱</div>
+        <div class="flow-label"><span style="color:var(--accent-light)">Power Apps</span><br>앱 개발</div>
+      </div>
+      <div class="flow-arrow">+</div>
+      <div class="flow-item">
+        <div class="flow-icon" style="background:var(--blue-bg);border:1px solid var(--blue-border)">⚙️</div>
+        <div class="flow-label"><span style="color:var(--blue)">Power Automate</span><br>자동화</div>
+      </div>
+      <div class="flow-arrow">+</div>
+      <div class="flow-item">
+        <div class="flow-icon" style="background:var(--amber-bg);border:1px solid var(--amber-border)">📊</div>
+        <div class="flow-label"><span style="color:var(--amber)">Power BI</span><br>데이터 분석</div>
+      </div>
+      <div class="flow-arrow">+</div>
+      <div class="flow-item">
+        <div class="flow-icon" style="background:var(--green-bg);border:1px solid var(--green-border)">🌐</div>
+        <div class="flow-label"><span style="color:var(--green)">Power Pages</span><br>웹사이트</div>
+      </div>
+      <div class="flow-arrow">+</div>
+      <div class="flow-item">
+        <div class="flow-icon" style="background:var(--pink-bg);border:1px solid var(--pink-border)">🤖</div>
+        <div class="flow-label"><span style="color:var(--pink)">Copilot Studio</span><br>AI 에이전트</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Power Apps -->
+  <div class="card reveal" id="powerApps">
+    <div class="card-icon">📱</div>
+    <div class="card-name" style="color:var(--accent-light)">Power Apps</div>
+    <div class="card-sub">"코딩 없이 업무용 앱을 만드는 도구"</div>
+    <div class="card-desc">
+      <p style="margin-bottom:.8rem">Power Apps를 사용하면 드래그 & 드롭 방식으로 모바일/웹 업무용 앱을 만들 수 있습니다. 예를 들어, 출장 경비 신청 앱, 재고 관리 앱, 고객 방문 기록 앱 등을 개발자 없이 직접 만들 수 있습니다.</p>
+      
+      <div class="tabs">
+        <div class="tab-bar">
+          <button class="tab-btn active" onclick="switchTab(event,'pa-canvas')">캔버스 앱</button>
+          <button class="tab-btn" onclick="switchTab(event,'pa-model')">모델 기반 앱</button>
+        </div>
+        <div class="tab-pane active" id="pa-canvas">
+          <p style="font-size:.9rem;line-height:1.9;margin:0"><strong style="color:var(--accent-light)">캔버스 앱(Canvas App)</strong> — 빈 화면(캔버스)에 자유롭게 요소를 배치하여 만드는 앱입니다. 파워포인트 슬라이드를 꾸미듯이 버튼, 텍스트, 이미지 등을 원하는 위치에 놓고, 데이터 소스(Excel, SharePoint 등)를 연결하면 됩니다. <strong>디자인 자유도가 높아</strong> 간단한 업무 앱이나 현장용 모바일 앱에 적합합니다. 반면 데이터 구조가 복잡한 경우에는 Model-driven이 더 나을 수 있으므로, <strong>용도에 따라 선택</strong>하는 것이 중요합니다.</p>
+        </div>
+        <div class="tab-pane" id="pa-model">
+          <p style="font-size:.9rem;line-height:1.9;margin:0"><strong style="color:var(--accent-light)">모델 기반 앱(Model-Driven App)</strong> — Dataverse의 데이터 구조(테이블, 관계)를 기반으로 자동 생성되는 앱입니다. 데이터 모델을 설계하면 앱이 자동으로 폼과 보기를 만들어줍니다. <strong>대규모 데이터 관리</strong>에 적합하며, CRM 같은 복잡한 시스템에 주로 사용됩니다.</p>
+        </div>
+      </div>
+    </div>
+    <div class="analogy" style="background:var(--accent-bg)">
+      파워포인트로 슬라이드를 만들 줄 알면, Power Apps로 업무 앱을 만들 수 있습니다. 난이도가 비슷해요!
+    </div>
+  </div>
+
+  <!-- Power Apps UI Mock -->
+  <div class="dia reveal">
+    <div class="dia-title">Power Apps — 이런 앱을 만들 수 있어요 (출장 경비 신청)</div>
+    <div style="max-width:400px;margin:0 auto;background:var(--bg);border:2.5px solid var(--accent);border-radius:20px;overflow:hidden;font-size:.78rem">
+      <!-- 모바일 상단바 -->
+      <div style="background:var(--accent);padding:.5rem 1rem;display:flex;justify-content:space-between;align-items:center">
+        <span style="color:white;font-weight:700;font-size:.8rem">📱 출장 경비 신청</span>
+        <span style="color:rgba(255,255,255,.7);font-size:.7rem">← 🏠</span>
+      </div>
+      <!-- 폼 영역 -->
+      <div style="padding:1rem">
+        <div style="margin-bottom:.8rem">
+          <div style="font-size:.68rem;color:var(--text-dim);margin-bottom:.2rem">출장 목적</div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:.4rem .6rem;color:var(--text)">고객사 미팅 (삼성전자)</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.8rem">
+          <div>
+            <div style="font-size:.68rem;color:var(--text-dim);margin-bottom:.2rem">출장일</div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:.4rem .6rem;color:var(--text)">2026-04-07</div>
+          </div>
+          <div>
+            <div style="font-size:.68rem;color:var(--text-dim);margin-bottom:.2rem">금액</div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:.4rem .6rem;color:var(--text)">₩ 45,000</div>
+          </div>
+        </div>
+        <div style="margin-bottom:.8rem">
+          <div style="font-size:.68rem;color:var(--text-dim);margin-bottom:.2rem">영수증 첨부</div>
+          <div style="background:var(--surface);border:1px dashed var(--border);border-radius:6px;padding:.6rem;text-align:center;color:var(--text-muted);font-size:.72rem">📎 사진 찍기 또는 파일 선택</div>
+        </div>
+        <div style="display:flex;gap:.5rem">
+          <div style="flex:1;background:var(--accent);color:white;text-align:center;padding:.5rem;border-radius:8px;font-weight:600;font-size:.78rem">제출하기</div>
+          <div style="flex:1;background:var(--surface);border:1px solid var(--border);text-align:center;padding:.5rem;border-radius:8px;color:var(--text-dim);font-size:.78rem">임시저장</div>
+        </div>
+      </div>
+      <!-- 하단 내비게이션 -->
+      <div style="background:var(--surface);border-top:1px solid var(--border);padding:.5rem 1rem;display:flex;justify-content:space-around;font-size:.6rem;color:var(--text-dim)">
+        <div style="text-align:center"><div style="font-size:.9rem">📝</div>신청</div>
+        <div style="text-align:center"><div style="font-size:.9rem">📋</div>내역</div>
+        <div style="text-align:center;color:var(--accent)"><div style="font-size:.9rem">✅</div>승인현황</div>
+        <div style="text-align:center"><div style="font-size:.9rem">👤</div>내정보</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Power Automate -->
+  <div class="card reveal" id="powerAutomate">
+    <div class="card-icon">⚙️</div>
+    <div class="card-name" style="color:var(--blue)">Power Automate</div>
+    <div class="card-sub">"반복 업무를 자동으로 처리해주는 워크플로우 도구"</div>
+    <div class="card-desc">
+      <p style="margin-bottom:.8rem">이메일 첨부파일을 자동 저장, 결재 요청 시 자동 알림, 데이터 입력 자동 동기화 등 <strong>반복적인 수작업</strong>을 자동화합니다. "만약 ~하면 ~해라"라는 조건 규칙을 시각적으로 구성합니다.</p>
+      
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1rem">
+        <div style="background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:10px;padding:1rem">
+          <div style="font-family:var(--mono);font-size:.78rem;font-weight:600;color:var(--blue);margin-bottom:.3rem">☁️ 클라우드 플로우</div>
+          <div style="font-size:.82rem;line-height:1.8">트리거 기반으로 클라우드에서 자동 실행. 예: 이메일 도착 시 → Teams 알림</div>
+        </div>
+        <div style="background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:10px;padding:1rem">
+          <div style="font-family:var(--mono);font-size:.78rem;font-weight:600;color:var(--blue);margin-bottom:.3rem">🖥️ 데스크톱 플로우 (RPA)</div>
+          <div style="font-size:.82rem;line-height:1.8">PC 화면의 마우스/키보드를 자동 조작. 예: 엑셀 데이터 → 레거시 시스템 입력</div>
+        </div>
+      </div>
+    </div>
+    <div class="analogy" style="background:var(--blue-bg)">
+      <span style="color:var(--blue)">"이메일 오면 → 자동으로 드라이브에 저장"</span> 같은 자동화를 코딩 없이, 블록을 연결하듯 만들 수 있습니다.
+    </div>
+  </div>
+
+  <!-- Power Automate UI Mock -->
+  <div class="dia reveal">
+    <div class="dia-title">Power Automate — 워크플로우는 이렇게 생겼어요</div>
+    <div style="max-width:500px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:0">
+      <!-- 트리거 -->
+      <div style="background:var(--blue-bg);border:2px solid var(--blue);border-radius:12px;padding:.7rem 1.2rem;text-align:center;width:80%">
+        <div style="font-size:.65rem;color:var(--text-dim);margin-bottom:.2rem">트리거 (When)</div>
+        <div style="font-size:.82rem;font-weight:600;color:var(--blue)">📧 새 이메일이 도착하면</div>
+        <div style="font-size:.7rem;color:var(--text-dim);margin-top:.2rem">보낸 사람: 거래처 (*@samsung.com)</div>
+      </div>
+      <div style="color:var(--blue);font-size:1rem">↓</div>
+      <!-- 조건 -->
+      <div style="background:var(--amber-bg);border:2px solid var(--amber);border-radius:12px;padding:.7rem 1.2rem;text-align:center;width:80%">
+        <div style="font-size:.65rem;color:var(--text-dim);margin-bottom:.2rem">조건 (Condition)</div>
+        <div style="font-size:.82rem;font-weight:600;color:var(--amber)">📎 첨부파일이 있는가?</div>
+      </div>
+      <div style="display:flex;gap:2rem;margin-top:.3rem;width:80%;justify-content:center">
+        <div style="text-align:center;font-size:.7rem;color:var(--green)">✅ Yes ↓</div>
+        <div style="text-align:center;font-size:.7rem;color:var(--coral)">❌ No ↓</div>
+      </div>
+      <div style="display:flex;gap:.8rem;width:80%">
+        <!-- Yes 분기 -->
+        <div style="flex:1;background:var(--green-bg);border:1.5px solid var(--green);border-radius:10px;padding:.5rem .7rem;text-align:center">
+          <div style="font-size:.78rem;font-weight:600;color:var(--green)">📁 OneDrive에 저장</div>
+          <div style="font-size:.68rem;color:var(--text-dim);margin-top:.2rem">폴더: /거래처/첨부파일</div>
+        </div>
+        <!-- No 분기 -->
+        <div style="flex:1;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:.5rem .7rem;text-align:center">
+          <div style="font-size:.78rem;font-weight:600;color:var(--text-dim)">⏭️ 건너뛰기</div>
+        </div>
+      </div>
+      <div style="color:var(--blue);font-size:1rem;margin-top:.3rem">↓</div>
+      <!-- 마지막 액션 -->
+      <div style="background:var(--teal-bg);border:2px solid var(--teal);border-radius:12px;padding:.7rem 1.2rem;text-align:center;width:80%">
+        <div style="font-size:.65rem;color:var(--text-dim);margin-bottom:.2rem">액션 (Action)</div>
+        <div style="font-size:.82rem;font-weight:600;color:var(--teal)">💬 Teams에 알림 보내기</div>
+        <div style="font-size:.7rem;color:var(--text-dim);margin-top:.2rem">#경비처리 채널 → "새 거래처 메일 도착"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Power BI -->
+  <div class="card reveal" id="powerBI">
+    <div class="card-icon">📊</div>
+    <div class="card-name" style="color:var(--amber)">Power BI</div>
+    <div class="card-sub">"데이터를 시각적 대시보드로 바꿔주는 분석 도구"</div>
+    <div class="card-desc">
+      <p style="margin-bottom:.8rem">엑셀, 데이터베이스, 클라우드 서비스 등 <strong>다양한 데이터를 연결</strong>해서 차트, 그래프, 대시보드 형태의 시각적 보고서를 만듭니다. 실시간으로 업데이트되며, 조직 내 누구나 웹/모바일에서 볼 수 있습니다.</p>
+    </div>
+    <div class="analogy" style="background:var(--amber-bg)">
+      <span style="color:var(--amber)">엑셀 피벗 테이블의 진화형이라고 생각하면 됩니다.</span> 엑셀보다 훨씬 예쁘고 인터랙티브한 대시보드를 만들 수 있어요.
+    </div>
+  </div>
+
+  <!-- Power BI UI Mock -->
+  <div class="dia reveal">
+    <div class="dia-title">Power BI — 대시보드는 이렇게 생겼어요</div>
+    <div style="max-width:100%;background:var(--bg);border:2px solid var(--amber);border-radius:14px;overflow:hidden;font-size:.78rem">
+      <!-- 상단 바 -->
+      <div style="background:var(--amber);padding:.4rem 1rem;display:flex;justify-content:space-between;align-items:center">
+        <span style="color:var(--bg);font-weight:700;font-size:.8rem">📊 월간 매출 리포트</span>
+        <div style="display:flex;gap:.5rem;font-size:.68rem;color:rgba(0,0,0,.6)">
+          <span style="background:rgba(255,255,255,.3);padding:.15rem .4rem;border-radius:4px">이번 달</span>
+          <span style="background:rgba(255,255,255,.5);padding:.15rem .4rem;border-radius:4px;font-weight:600">이번 분기</span>
+        </div>
+      </div>
+      <!-- KPI 카드 -->
+      <div style="padding:.8rem;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:.5rem">
+        <div style="background:var(--surface);border-radius:8px;padding:.6rem;text-align:center;border:1px solid var(--border)">
+          <div style="font-size:.6rem;color:var(--text-muted)">총 매출</div>
+          <div style="font-size:1.1rem;font-weight:700;color:var(--amber)">₩2.4B</div>
+          <div style="font-size:.6rem;color:var(--green)">▲ 12.3%</div>
+        </div>
+        <div style="background:var(--surface);border-radius:8px;padding:.6rem;text-align:center;border:1px solid var(--border)">
+          <div style="font-size:.6rem;color:var(--text-muted)">신규 고객</div>
+          <div style="font-size:1.1rem;font-weight:700;color:var(--teal)">147</div>
+          <div style="font-size:.6rem;color:var(--green)">▲ 8.5%</div>
+        </div>
+        <div style="background:var(--surface);border-radius:8px;padding:.6rem;text-align:center;border:1px solid var(--border)">
+          <div style="font-size:.6rem;color:var(--text-muted)">평균 단가</div>
+          <div style="font-size:1.1rem;font-weight:700;color:var(--accent-light)">₩16.3M</div>
+          <div style="font-size:.6rem;color:var(--coral)">▼ 2.1%</div>
+        </div>
+        <div style="background:var(--surface);border-radius:8px;padding:.6rem;text-align:center;border:1px solid var(--border)">
+          <div style="font-size:.6rem;color:var(--text-muted)">목표 달성률</div>
+          <div style="font-size:1.1rem;font-weight:700;color:var(--green)">94%</div>
+          <div style="font-size:.6rem;color:var(--text-muted)">목표: ₩2.5B</div>
+        </div>
+      </div>
+      <!-- 차트 영역 -->
+      <div style="padding:0 .8rem .8rem;display:grid;grid-template-columns:2fr 1fr;gap:.5rem">
+        <!-- 막대 차트 -->
+        <div style="background:var(--surface);border-radius:8px;padding:.6rem;border:1px solid var(--border)">
+          <div style="font-size:.65rem;color:var(--text-muted);margin-bottom:.5rem">부서별 매출</div>
+          <div style="display:flex;align-items:flex-end;gap:6px;height:60px">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px">
+              <div style="width:100%;height:55px;background:var(--accent);border-radius:3px 3px 0 0"></div>
+              <span style="font-size:.5rem;color:var(--text-muted)">컨설팅</span>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px">
+              <div style="width:100%;height:40px;background:var(--teal);border-radius:3px 3px 0 0"></div>
+              <span style="font-size:.5rem;color:var(--text-muted)">딜즈</span>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px">
+              <div style="width:100%;height:30px;background:var(--amber);border-radius:3px 3px 0 0"></div>
+              <span style="font-size:.5rem;color:var(--text-muted)">어슈어런스</span>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px">
+              <div style="width:100%;height:20px;background:var(--blue);border-radius:3px 3px 0 0"></div>
+              <span style="font-size:.5rem;color:var(--text-muted)">세무</span>
+            </div>
+          </div>
+        </div>
+        <!-- 도넛 차트 -->
+        <div style="background:var(--surface);border-radius:8px;padding:.6rem;border:1px solid var(--border);text-align:center">
+          <div style="font-size:.65rem;color:var(--text-muted);margin-bottom:.3rem">고객 유형</div>
+          <div style="width:60px;height:60px;border-radius:50%;background:conic-gradient(var(--accent) 0% 45%, var(--teal) 45% 75%, var(--amber) 75% 100%);margin:.3rem auto;display:flex;align-items:center;justify-content:center">
+            <div style="width:30px;height:30px;border-radius:50%;background:var(--surface)"></div>
+          </div>
+          <div style="display:flex;gap:.3rem;justify-content:center;flex-wrap:wrap;margin-top:.3rem;font-size:.55rem">
+            <span style="color:var(--accent)">● 대기업</span>
+            <span style="color:var(--teal)">● 중견</span>
+            <span style="color:var(--amber)">● 공공</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Power Pages -->
+  <div class="card reveal" id="powerPages">
+    <div class="card-icon">🌐</div>
+    <div class="card-name" style="color:var(--green)">Power Pages</div>
+    <div class="card-sub">"외부 사용자를 위한 비즈니스 웹사이트 제작 도구"</div>
+    <div class="card-desc">
+      <p style="margin-bottom:.8rem">고객 포털, 파트너 사이트, 민원 접수 페이지 등 <strong>외부인이 접근하는 웹사이트</strong>를 노코드로 만듭니다. 템플릿 기반으로 시작하며, Dataverse의 데이터를 안전하게 외부에 노출할 수 있습니다.</p>
+    </div>
+    <div class="analogy" style="background:var(--green-bg)">
+      <span style="color:var(--green)">Wix나 Squarespace 같은 웹사이트 빌더인데,</span> 회사 내부 데이터와 연결되는 "업무용 웹사이트"를 만드는 데 특화되어 있습니다.
+    </div>
+  </div>
+
+  <!-- Power Pages UI Mock -->
+  <div class="dia reveal">
+    <div class="dia-title">Power Pages — 외부용 웹사이트 예시 (고객 포털)</div>
+    <div style="max-width:100%;background:var(--bg);border:2px solid var(--green);border-radius:14px;overflow:hidden;font-size:.78rem">
+      <!-- 헤더 -->
+      <div style="background:var(--green);padding:.5rem 1.2rem;display:flex;justify-content:space-between;align-items:center">
+        <span style="color:var(--bg);font-weight:700;font-size:.82rem">🌐 PwC 고객 포털</span>
+        <div style="display:flex;gap:.6rem;font-size:.7rem;color:rgba(0,0,0,.5)">
+          <span>프로젝트 현황</span>
+          <span>문서함</span>
+          <span>문의하기</span>
+          <span style="background:rgba(255,255,255,.3);padding:.15rem .4rem;border-radius:4px">로그인</span>
+        </div>
+      </div>
+      <!-- 히어로 -->
+      <div style="padding:1.5rem 1.2rem;text-align:center;background:linear-gradient(135deg,rgba(74,222,128,.05),rgba(45,212,191,.05))">
+        <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.3rem">프로젝트 진행 상황을 실시간으로 확인하세요</div>
+        <div style="font-size:.78rem;color:var(--text-dim)">프로젝트별 마일스톤, 산출물, 일정을 한눈에</div>
+      </div>
+      <!-- 카드 그리드 -->
+      <div style="padding:.8rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem">
+        <div style="background:var(--surface);border-radius:8px;padding:.8rem;border:1px solid var(--border)">
+          <div style="font-size:.65rem;color:var(--green);font-weight:600;margin-bottom:.3rem">🔄 진행중</div>
+          <div style="font-size:.85rem;font-weight:600;color:var(--text)">디지털 전환 Phase 2</div>
+          <div style="font-size:.68rem;color:var(--text-dim);margin-top:.2rem">진행률 68%</div>
+          <div style="height:4px;background:var(--border);border-radius:2px;margin-top:.3rem"><div style="width:68%;height:100%;background:var(--green);border-radius:2px"></div></div>
+        </div>
+        <div style="background:var(--surface);border-radius:8px;padding:.8rem;border:1px solid var(--border)">
+          <div style="font-size:.65rem;color:var(--amber);font-weight:600;margin-bottom:.3rem">📋 검토중</div>
+          <div style="font-size:.85rem;font-weight:600;color:var(--text)">AI 도입 전략 수립</div>
+          <div style="font-size:.68rem;color:var(--text-dim);margin-top:.2rem">진행률 42%</div>
+          <div style="height:4px;background:var(--border);border-radius:2px;margin-top:.3rem"><div style="width:42%;height:100%;background:var(--amber);border-radius:2px"></div></div>
+        </div>
+        <div style="background:var(--surface);border-radius:8px;padding:.8rem;border:1px solid var(--border)">
+          <div style="font-size:.65rem;color:var(--accent-light);font-weight:600;margin-bottom:.3rem">✅ 완료</div>
+          <div style="font-size:.85rem;font-weight:600;color:var(--text)">보안 감사 2025</div>
+          <div style="font-size:.68rem;color:var(--text-dim);margin-top:.2rem">진행률 100%</div>
+          <div style="height:4px;background:var(--border);border-radius:2px;margin-top:.3rem"><div style="width:100%;height:100%;background:var(--accent-light);border-radius:2px"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Copilot Studio -->
+  <div class="card reveal" id="copilotStudio">
+    <div class="card-icon">🤖</div>
+    <div class="card-name" style="color:var(--pink)">Copilot Studio (구 Power Virtual Agents)</div>
+    <div class="card-sub">"AI 에이전트(챗봇)를 만드는 도구"</div>
+    <div class="card-desc">
+      <p style="margin-bottom:.8rem">자연어를 이해하는 AI 챗봇/에이전트를 코딩 없이 만듭니다. 고객 문의 응대, 사내 FAQ, IT 헬프데스크 등 <strong>대화형 AI 비서</strong>를 구축하고, Teams, 웹사이트, 앱 등 다양한 채널에 배포할 수 있습니다. (이 부분은 Chapter 3에서 자세히!)</p>
+    </div>
+    <div class="analogy" style="background:var(--pink-bg)">
+      <span style="color:var(--pink)">ChatGPT 같은 AI 챗봇을 "우리 회사 맞춤형"으로 만드는 도구입니다.</span> 우리 회사의 문서, 데이터, 시스템과 연결된 AI 비서를 만들 수 있어요.
+    </div>
+  </div>
+
+  <!-- Copilot Studio UI Mock -->
+  <div class="dia reveal">
+    <div class="dia-title">Copilot Studio — AI 챗봇은 이렇게 생겼어요</div>
+    <div style="max-width:420px;margin:0 auto;background:var(--bg);border:2px solid var(--pink);border-radius:16px;overflow:hidden;font-size:.78rem">
+      <!-- 챗봇 헤더 -->
+      <div style="background:var(--pink);padding:.5rem 1rem;display:flex;align-items:center;gap:.5rem">
+        <div style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:.8rem">🤖</div>
+        <div>
+          <div style="color:white;font-weight:700;font-size:.8rem">PwC IT 헬프데스크</div>
+          <div style="color:rgba(255,255,255,.6);font-size:.6rem">● 온라인</div>
+        </div>
+      </div>
+      <!-- 대화 영역 -->
+      <div style="padding:.8rem;display:flex;flex-direction:column;gap:.5rem;min-height:180px">
+        <!-- 봇 메시지 -->
+        <div style="display:flex;gap:.4rem;align-items:flex-start">
+          <div style="width:24px;height:24px;border-radius:50%;background:var(--pink-bg);display:flex;align-items:center;justify-content:center;font-size:.65rem;flex-shrink:0">🤖</div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:0 10px 10px 10px;padding:.5rem .7rem;max-width:80%;font-size:.78rem;color:var(--text);line-height:1.6">
+            안녕하세요! PwC IT 헬프데스크입니다. 무엇을 도와드릴까요?
+          </div>
+        </div>
+        <!-- 유저 메시지 -->
+        <div style="display:flex;gap:.4rem;align-items:flex-start;justify-content:flex-end">
+          <div style="background:var(--accent);border-radius:10px 0 10px 10px;padding:.5rem .7rem;max-width:80%;font-size:.78rem;color:white;line-height:1.6">
+            VPN 연결이 안 돼요
+          </div>
+        </div>
+        <!-- 봇 응답 -->
+        <div style="display:flex;gap:.4rem;align-items:flex-start">
+          <div style="width:24px;height:24px;border-radius:50%;background:var(--pink-bg);display:flex;align-items:center;justify-content:center;font-size:.65rem;flex-shrink:0">🤖</div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:0 10px 10px 10px;padding:.5rem .7rem;max-width:80%;font-size:.78rem;color:var(--text);line-height:1.6">
+            VPN 연결 문제를 도와드리겠습니다.<br><br>
+            <strong>1.</strong> VPN 클라이언트를 재시작해보세요<br>
+            <strong>2.</strong> 네트워크 연결 상태를 확인해주세요<br><br>
+            <span style="font-size:.72rem;color:var(--text-dim)">위 방법으로 해결되지 않으면 "담당자 연결"을 눌러주세요.</span>
+            <div style="display:flex;gap:.4rem;margin-top:.4rem">
+              <span style="background:var(--pink-bg);border:1px solid var(--pink-border);padding:.2rem .5rem;border-radius:5px;font-size:.68rem;color:var(--pink);cursor:pointer">✅ 해결됨</span>
+              <span style="background:var(--amber-bg);border:1px solid var(--amber-border);padding:.2rem .5rem;border-radius:5px;font-size:.68rem;color:var(--amber);cursor:pointer">👤 담당자 연결</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 입력 영역 -->
+      <div style="border-top:1px solid var(--border);padding:.5rem .8rem;display:flex;gap:.4rem;align-items:center">
+        <div style="flex:1;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:.4rem .8rem;font-size:.75rem;color:var(--text-muted)">메시지를 입력하세요...</div>
+        <div style="width:30px;height:30px;border-radius:50%;background:var(--pink);display:flex;align-items:center;justify-content:center;font-size:.75rem;color:white">➤</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 비교 표 -->
+  <div class="dia reveal">
+    <div class="dia-title">5대 구성요소 비교 요약</div>
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>구성요소</th>
+          <th>한마디 요약</th>
+          <th>만드는 것</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:var(--accent-light);font-weight:600">Power Apps</td>
+          <td>앱 빌더</td>
+          <td>모바일/웹 업무 앱</td>
+        </tr>
+        <tr>
+          <td style="color:var(--blue);font-weight:600">Power Automate</td>
+          <td>워크플로우 자동화</td>
+          <td>업무 자동화 플로우</td>
+        </tr>
+        <tr>
+          <td style="color:var(--amber);font-weight:600">Power BI</td>
+          <td>데이터 분석</td>
+          <td>시각적 대시보드/보고서</td>
+        </tr>
+        <tr>
+          <td style="color:var(--green);font-weight:600">Power Pages</td>
+          <td>웹사이트 빌더</td>
+          <td>외부용 비즈니스 웹사이트</td>
+        </tr>
+        <tr>
+          <td style="color:var(--pink);font-weight:600">Copilot Studio</td>
+          <td>AI 에이전트 빌더</td>
+          <td>AI 챗봇/에이전트</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════ CH3: Copilot Studio 딥다이브 ═══════ -->
+<section class="ch reveal" id="p3-ch3">
+  <div class="ch-head">
+    <div class="ch-num" style="color:var(--pink)">03</div>
+    <div class="ch-title">Copilot Studio 딥다이브</div>
+  </div>
+
+  <p>Copilot Studio는 Power Platform에서 가장 빠르게 진화하고 있는 제품입니다. 코딩 없이 <strong>AI 에이전트(Agent)</strong>를 만들 수 있는 그래픽 기반 도구로, "원하는 에이전트를 말로 설명하면" AI가 초기 설정을 자동으로 구성해줍니다.</p>
+
+  <div style="padding:.8rem 1rem;border-left:3px solid var(--teal);background:var(--teal-bg);border-radius:0 8px 8px 0;margin-bottom:1.5rem;font-size:.88rem;color:var(--text-dim);">
+    💡 <strong style="color:var(--text-bright);">Part 1에서 배운 개념과의 연결:</strong> Part 1에서 Agent란 <strong style="color:var(--teal);">Memory + Tools + Planning</strong>을 갖춘 자율 시스템이라고 배웠습니다. Copilot Studio는 바로 이 개념을 <strong style="color:var(--teal);">코딩 없이 구현</strong>할 수 있게 해주는 도구입니다.<br>
+    <span style="font-size:.82rem;">• Part 1의 <strong>Memory</strong> → Copilot Studio의 <strong>Knowledge</strong> (지식 소스 연결)<br>
+    • Part 1의 <strong>Tools</strong> → Copilot Studio의 <strong>Actions</strong> (Power Automate 연동)<br>
+    • Part 1의 <strong>Planning</strong> → Copilot Studio의 <strong>Topics + Orchestration</strong> (대화 흐름 설계)</span>
+  </div>
+
+  <!-- 에이전트란? -->
+  <div class="dia reveal">
+    <div class="dia-title">에이전트(Agent)란 무엇인가?</div>
+    <div style="text-align:center;padding:1rem 0">
+      <div style="display:inline-block;background:var(--pink-bg);border:2px solid var(--pink-border);border-radius:20px;padding:1.5rem 2.5rem;margin-bottom:1rem">
+        <div style="font-size:2.5rem;margin-bottom:.5rem">🤖</div>
+        <div style="font-family:var(--display);font-weight:700;color:var(--pink);font-size:1.1rem">AI 에이전트</div>
+        <div style="font-size:.82rem;color:var(--text);margin-top:.3rem">사용자와 대화하며 업무를 처리하는 AI 비서</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-top:1rem">
+      <div style="text-align:center;padding:.8rem;background:var(--surface);border-radius:10px">
+        <div style="font-size:1.3rem;margin-bottom:.3rem">💬</div>
+        <div style="font-family:var(--mono);font-size:.72rem;color:var(--white);margin-bottom:.2rem">대화 이해</div>
+        <div style="font-size:.7rem;color:var(--text-dim)">자연어를 이해하고 응답</div>
+      </div>
+      <div style="text-align:center;padding:.8rem;background:var(--surface);border-radius:10px">
+        <div style="font-size:1.3rem;margin-bottom:.3rem">📚</div>
+        <div style="font-family:var(--mono);font-size:.72rem;color:var(--white);margin-bottom:.2rem">지식 활용</div>
+        <div style="font-size:.7rem;color:var(--text-dim)">회사 문서/데이터 참조</div>
+      </div>
+      <div style="text-align:center;padding:.8rem;background:var(--surface);border-radius:10px">
+        <div style="font-size:1.3rem;margin-bottom:.3rem">🔧</div>
+        <div style="font-family:var(--mono);font-size:.72rem;color:var(--white);margin-bottom:.2rem">도구 사용</div>
+        <div style="font-size:.7rem;color:var(--text-dim)">외부 시스템과 연동</div>
+      </div>
+      <div style="text-align:center;padding:.8rem;background:var(--surface);border-radius:10px">
+        <div style="font-size:1.3rem;margin-bottom:.3rem">🎯</div>
+        <div style="font-family:var(--mono);font-size:.72rem;color:var(--white);margin-bottom:.2rem">자율 판단</div>
+        <div style="font-size:.7rem;color:var(--text-dim)">최적의 행동을 결정</div>
+      </div>
+    </div>
+  </div>
+
+  <p>에이전트는 단순 챗봇과 다릅니다. 예전의 챗봇은 정해진 시나리오대로만 응답했지만, 에이전트는 <strong>상황을 파악하고 스스로 판단</strong>해서 가장 적절한 행동을 취합니다. Copilot Studio에서 에이전트를 구성하는 핵심 요소들을 살펴보겠습니다.</p>
+
+  <!-- Copilot Studio 구성요소 -->
+  <div class="ext-grid reveal">
+    <div class="ext-card" style="border-left:3px solid var(--pink)">
+      <div class="ext-name" style="color:var(--pink)">📋 지시사항 (Instructions)</div>
+      <div class="ext-type">에이전트의 성격과 역할 정의</div>
+      <div class="ext-desc">"당신은 친절한 HR 도우미입니다. 직원들의 휴가, 급여 관련 질문에 답변하세요." 처럼 에이전트가 어떻게 행동해야 하는지 자연어로 적어줍니다.</div>
+    </div>
+    <div class="ext-card" style="border-left:3px solid var(--amber)">
+      <div class="ext-name" style="color:var(--amber)">📚 지식 소스 (Knowledge)</div>
+      <div class="ext-type">에이전트가 참조할 정보의 원천</div>
+      <div class="ext-desc">웹사이트 URL, SharePoint 문서, Dataverse 테이블 등을 연결하면 에이전트가 해당 정보를 기반으로 답변합니다. 최대한 정확한 출처 기반 응답을 생성합니다.</div>
+    </div>
+    <div class="ext-card" style="border-left:3px solid var(--blue)">
+      <div class="ext-name" style="color:var(--blue)">🔧 도구 (Tools)</div>
+      <div class="ext-type">에이전트가 실행할 수 있는 작업</div>
+      <div class="ext-desc">Power Automate 플로우를 연결해서 에이전트가 직접 작업을 수행하게 합니다. 예: "휴가 신청해 줘" → 에이전트가 실제 휴가 시스템에 신청서를 접수합니다.</div>
+    </div>
+    <div class="ext-card" style="border-left:3px solid var(--teal)">
+      <div class="ext-name" style="color:var(--teal)">⚡ 트리거 (Triggers)</div>
+      <div class="ext-type">에이전트가 작동하는 시점</div>
+      <div class="ext-desc">사용자의 메시지, 특정 이벤트 발생, 스케줄 등에 의해 에이전트가 활성화됩니다. 예: Teams 채팅에서 누군가 에이전트를 호출하면 대화가 시작됩니다.</div>
+    </div>
+    <div class="ext-card" style="border-left:3px solid var(--green)">
+      <div class="ext-name" style="color:var(--green)">💬 토픽 (Topics)</div>
+      <div class="ext-type">대화의 주제별 시나리오</div>
+      <div class="ext-desc">특정 주제에 대한 대화 흐름을 정의합니다. "인사", "주문 조회", "비밀번호 초기화" 등 주제별로 에이전트의 응답 시나리오를 설계합니다. 자동 생성도 가능합니다.</div>
+    </div>
+    <div class="ext-card" style="border-left:3px solid var(--accent)">
+      <div class="ext-name" style="color:var(--accent-light)">📢 채널 (Channels)</div>
+      <div class="ext-type">에이전트를 배포하는 곳</div>
+      <div class="ext-desc">완성된 에이전트를 Microsoft Teams, 웹사이트, 모바일 앱, Slack 등 다양한 채널에 배포할 수 있습니다. 한 번 만들면 여러 곳에 동시에 배포 가능합니다.</div>
+    </div>
+  </div>
+
+  <!-- 에이전트 대화 모의 -->
+  <div class="agent-mock reveal">
+    <div class="agent-mock-bar">
+      <div class="dot" style="background:#ff5f57"></div>
+      <div class="dot" style="background:#ffbd2e"></div>
+      <div class="dot" style="background:#28c840"></div>
+      <div class="title">Copilot Studio — HR 도우미 에이전트 (미리보기)</div>
+    </div>
+    <div class="agent-mock-body">
+      <div class="agent-msg" style="flex-direction:row-reverse;">
+        <div class="agent-avatar" style="background:var(--blue-bg);color:var(--blue)">👤</div>
+        <div style="text-align:right;">
+          <div class="agent-label" style="background:var(--blue-bg);color:var(--blue)">사용자</div>
+          <div class="agent-bubble agent-bubble-user">올해 남은 연차가 몇 일인지 알 수 있을까요?</div>
+        </div>
+      </div>
+      <div class="agent-msg">
+        <div class="agent-avatar" style="background:var(--pink-bg);color:var(--pink)">🤖</div>
+        <div>
+          <div class="agent-label" style="background:var(--pink-bg);color:var(--pink)">HR 도우미</div>
+          <div class="agent-bubble agent-bubble-bot">
+            안녕하세요! 😊 HR 시스템을 확인해 볼게요.<br><br>
+            <span style="color:var(--teal)">✓ 확인 완료!</span><br>
+            김철수님의 2026년 잔여 연차는 <strong style="color:var(--white)">8일</strong>입니다.<br>
+            (총 15일 중 7일 사용)<br><br>
+            <span style="color:var(--text-dim);font-size:.78rem">📋 연차 신청이 필요하시면 "연차 신청"이라고 말씀해 주세요!</span>
+          </div>
+        </div>
+      </div>
+      <div class="agent-msg" style="flex-direction:row-reverse;">
+        <div class="agent-avatar" style="background:var(--blue-bg);color:var(--blue)">👤</div>
+        <div style="text-align:right;">
+          <div class="agent-label" style="background:var(--blue-bg);color:var(--blue)">사용자</div>
+          <div class="agent-bubble agent-bubble-user">다음 주 월요일에 연차 신청해 줘</div>
+        </div>
+      </div>
+      <div class="agent-msg">
+        <div class="agent-avatar" style="background:var(--pink-bg);color:var(--pink)">🤖</div>
+        <div>
+          <div class="agent-label" style="background:var(--pink-bg);color:var(--pink)">HR 도우미</div>
+          <div class="agent-bubble agent-bubble-bot">
+            <span style="color:var(--amber)">⚡ Power Automate 플로우 실행 중...</span><br><br>
+            <span style="color:var(--green)">✅ 연차 신청이 완료되었습니다!</span><br>
+            • 날짜: 2026년 4월 6일 (월)<br>
+            • 승인자: 박팀장님<br>
+            • 상태: 승인 대기 중<br><br>
+            <span style="color:var(--text-dim);font-size:.78rem">승인 결과는 Teams로 알림 드리겠습니다.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Copilot Studio 만드는 과정 -->
+  <div class="dia reveal">
+    <div class="dia-title">Copilot Studio에서 에이전트 만드는 3단계</div>
+    <div style="display:grid;grid-template-columns:1fr;gap:0">
+      <div style="padding:1.5rem 2rem;border:1px solid var(--border);border-radius:16px 16px 0 0;background:var(--surface)">
+        <div style="font-family:var(--display);font-size:.72rem;font-weight:700;letter-spacing:2px;color:var(--pink);text-transform:uppercase;margin-bottom:.4rem">Step 1 — 설계</div>
+        <div style="font-family:var(--display);font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:.4rem">에이전트를 말로 설명하기</div>
+        <div style="font-size:.88rem;line-height:1.9">"직원들의 IT 관련 질문에 답변하는 헬프데스크 에이전트를 만들어줘"라고 자연어로 입력하면, AI가 이름, 설명, 지시사항을 자동 생성합니다.</div>
+      </div>
+      <div style="text-align:center;padding:.3rem;color:var(--text-dim);font-size:1.2rem">↓</div>
+      <div style="padding:1.5rem 2rem;border:1px solid var(--border)">
+        <div style="font-family:var(--display);font-size:.72rem;font-weight:700;letter-spacing:2px;color:var(--amber);text-transform:uppercase;margin-bottom:.4rem">Step 2 — 구성</div>
+        <div style="font-family:var(--display);font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:.4rem">지식소스 + 도구 연결하기</div>
+        <div style="font-size:.88rem;line-height:1.9">회사 매뉴얼 문서(SharePoint), 사내 시스템(Dataverse), 자동화 플로우(Power Automate)를 에이전트에 연결합니다. 에이전트가 참조할 정보와 실행할 작업을 정의합니다.</div>
+      </div>
+      <div style="text-align:center;padding:.3rem;color:var(--text-dim);font-size:1.2rem">↓</div>
+      <div style="padding:1.5rem 2rem;border:1px solid var(--border);border-radius:0 0 16px 16px;background:var(--surface)">
+        <div style="font-family:var(--display);font-size:.72rem;font-weight:700;letter-spacing:2px;color:var(--green);text-transform:uppercase;margin-bottom:.4rem">Step 3 — 배포</div>
+        <div style="font-family:var(--display);font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:.4rem">테스트 후 채널에 게시하기</div>
+        <div style="font-size:.88rem;line-height:1.9">테스트 채팅으로 에이전트를 검증한 후, Teams, 웹사이트, 앱 등 원하는 채널에 배포합니다. 배포 후에도 대화 분석 대시보드에서 성과를 모니터링할 수 있습니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip reveal">
+    <div class="tip-title">🎯 실무 팁 — 좋은 에이전트를 만드는 핵심 포인트</div>
+    <div style="font-size:.88rem;line-height:1.9;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;">
+        <div>
+          <strong style="color:var(--pink);">① Instructions를 구체적으로</strong><br>
+          "친절하게 답변해" 보다 "존댓말을 사용하고, 모르는 질문은 '담당자에게 연결해드리겠습니다'로 응답해"가 훨씬 효과적입니다.
+        </div>
+        <div>
+          <strong style="color:var(--amber);">② Knowledge 소스는 최신으로</strong><br>
+          연결한 문서가 오래되면 에이전트도 잘못된 정보를 전달합니다. SharePoint 문서를 정기적으로 업데이트하세요.
+        </div>
+        <div>
+          <strong style="color:var(--green);">③ 테스트를 충분히</strong><br>
+          배포 전 다양한 질문 패턴으로 테스트하세요. 특히 에이전트가 "모르는 질문"에 어떻게 반응하는지 확인이 중요합니다.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════ CH4: 전체 아키텍처 ═══════ -->
+<section class="ch reveal" id="p3-ch4">
+  <div class="ch-head">
+    <div class="ch-num" style="color:var(--blue)">04</div>
+    <div class="ch-title">전체 아키텍처: 어떻게 연결되는가</div>
+  </div>
+
+  <p>Power Platform의 5개 제품은 독립적으로도 쓸 수 있지만, <strong>진짜 힘은 서로 연결될 때</strong> 나옵니다. 그 중심에는 <strong>Dataverse(데이터버스)</strong>라는 공통 데이터 플랫폼이 있습니다.</p>
+
+  <div class="dia reveal">
+    <div class="dia-title">Power Platform 전체 아키텍처</div>
+    
+    <!-- Top: User & Channels -->
+    <div class="arch-label" style="color:var(--green)">👤 사용자 접점 (채널)</div>
+    <div class="arch-row">
+      <div class="arch-box">
+        <div class="ab-icon">💬</div>
+        <div class="ab-name">Teams</div>
+      </div>
+      <div class="arch-box">
+        <div class="ab-icon">🌐</div>
+        <div class="ab-name">웹사이트</div>
+      </div>
+      <div class="arch-box">
+        <div class="ab-icon">📱</div>
+        <div class="ab-name">모바일 앱</div>
+      </div>
+      <div class="arch-box">
+        <div class="ab-icon">📧</div>
+        <div class="ab-name">Outlook</div>
+      </div>
+    </div>
+    
+    <div class="arch-connector">↕ ↕ ↕ ↕</div>
+    
+    <!-- Middle: Power Platform Products -->
+    <div class="arch-label" style="color:var(--accent-light)">⚡ Power Platform 제품군</div>
+    <div class="arch-row">
+      <div class="arch-box" style="border-color:var(--accent-border)">
+        <div class="ab-icon">📱</div>
+        <div class="ab-name" style="color:var(--accent-light)">Power Apps</div>
+        <div class="ab-desc">업무 앱</div>
+      </div>
+      <div class="arch-box" style="border-color:var(--blue-border)">
+        <div class="ab-icon">⚙️</div>
+        <div class="ab-name" style="color:var(--blue)">Power Automate</div>
+        <div class="ab-desc">자동화</div>
+      </div>
+      <div class="arch-box" style="border-color:var(--amber-border)">
+        <div class="ab-icon">📊</div>
+        <div class="ab-name" style="color:var(--amber)">Power BI</div>
+        <div class="ab-desc">분석</div>
+      </div>
+      <div class="arch-box" style="border-color:var(--green-border)">
+        <div class="ab-icon">🌐</div>
+        <div class="ab-name" style="color:var(--green)">Power Pages</div>
+        <div class="ab-desc">웹사이트</div>
+      </div>
+      <div class="arch-box" style="border-color:var(--pink-border)">
+        <div class="ab-icon">🤖</div>
+        <div class="ab-name" style="color:var(--pink)">Copilot Studio</div>
+        <div class="ab-desc">AI 에이전트</div>
+      </div>
+    </div>
+    
+    <div class="arch-connector">↕ ↕ ↕ ↕ ↕</div>
+    
+    <!-- Bottom: Data Layer -->
+    <div class="arch-label" style="color:var(--teal)">🗄️ 데이터 & 인프라 계층</div>
+    <div class="arch-row">
+      <div class="arch-box" style="border-color:var(--teal-border);flex:1;max-width:280px">
+        <div class="ab-icon">🗄️</div>
+        <div class="ab-name" style="color:var(--teal)">Dataverse</div>
+        <div class="ab-desc">공통 데이터 플랫폼</div>
+      </div>
+      <div class="arch-box" style="border-color:var(--orange-border);flex:1;max-width:280px">
+        <div class="ab-icon">🔗</div>
+        <div class="ab-name" style="color:var(--orange)">커넥터 (1000+)</div>
+        <div class="ab-desc">외부 서비스 연동</div>
+      </div>
+      <div class="arch-box" style="border-color:var(--text-dim);flex:1;max-width:280px">
+        <div class="ab-icon">🛡️</div>
+        <div class="ab-name">거버넌스</div>
+        <div class="ab-desc">보안·관리·규정</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dataverse 설명 -->
+  <div class="card reveal">
+    <div class="card-icon">🗄️</div>
+    <div class="card-name" style="color:var(--teal)">Dataverse (데이터버스)</div>
+    <div class="card-sub">"Power Platform의 심장 — 공통 데이터 저장소"</div>
+    <div class="card-desc">
+      <p style="margin-bottom:.8rem">Dataverse는 Power Platform의 모든 제품이 공유하는 <strong>클라우드 데이터베이스</strong>입니다. Excel의 테이블처럼 데이터를 행과 열로 저장하지만, 훨씬 강력한 기능(관계 설정, 보안 역할, 비즈니스 규칙 등)을 제공합니다.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-top:1rem">
+        <div style="background:var(--teal-bg);border-radius:8px;padding:.7rem;text-align:center">
+          <div style="font-size:1rem;margin-bottom:.2rem">📝</div>
+          <div style="font-family:var(--mono);font-size:.7rem;color:var(--teal)">테이블</div>
+          <div style="font-size:.72rem;color:var(--text-dim)">데이터 구조 정의</div>
+        </div>
+        <div style="background:var(--teal-bg);border-radius:8px;padding:.7rem;text-align:center">
+          <div style="font-size:1rem;margin-bottom:.2rem">🔒</div>
+          <div style="font-family:var(--mono);font-size:.7rem;color:var(--teal)">보안 역할</div>
+          <div style="font-size:.72rem;color:var(--text-dim)">접근 권한 관리</div>
+        </div>
+        <div style="background:var(--teal-bg);border-radius:8px;padding:.7rem;text-align:center">
+          <div style="font-size:1rem;margin-bottom:.2rem">📐</div>
+          <div style="font-family:var(--mono);font-size:.7rem;color:var(--teal)">비즈니스 규칙</div>
+          <div style="font-size:.72rem;color:var(--text-dim)">자동 검증/계산</div>
+        </div>
+      </div>
+    </div>
+    <div class="analogy" style="background:var(--teal-bg)">
+      <span style="color:var(--teal)">Dataverse = 초강력 엑셀 스프레드시트</span>라고 생각하세요. 여러 앱이 같은 데이터를 동시에 읽고 쓸 수 있는 "공유 데이터베이스"입니다.
+    </div>
+  </div>
+
+  <!-- 커넥터 설명 -->
+  <div class="card reveal">
+    <div class="card-icon">🔗</div>
+    <div class="card-name" style="color:var(--orange)">커넥터 (Connector)</div>
+    <div class="card-sub">"외부 서비스와 Power Platform을 잇는 다리"</div>
+    <div class="card-desc">
+      <p style="margin-bottom:.8rem">커넥터는 Power Platform이 외부 서비스/시스템과 통신하기 위한 <strong>사전 구축된 연결 모듈</strong>입니다. Microsoft 365, SharePoint, SQL Server는 물론이고 Salesforce, SAP, Google Sheets, Slack 등 <strong>1,000개 이상</strong>의 서비스에 연결할 수 있습니다.</p>
+    </div>
+    <div class="analogy" style="background:var(--orange-bg)">
+      <span style="color:var(--orange)">USB 케이블이라고 생각하세요.</span> 서로 다른 기기(서비스)를 연결하는 표준화된 연결 장치입니다. 각 서비스마다 전용 커넥터가 있고, 직접 "커스텀 커넥터"를 만들 수도 있습니다.
+    </div>
+  </div>
+
+  <!-- 실제 시나리오 -->
+  <div class="dia reveal">
+    <div class="dia-title">실제 시나리오: 모든 구성요소가 협력하는 흐름</div>
+    <div style="background:var(--surface);border-radius:12px;padding:1.5rem;font-size:.88rem;line-height:2">
+      <div style="margin-bottom:1rem">
+        <span style="color:var(--pink)">🤖 Copilot Studio 에이전트</span>가 고객 문의를 받습니다.<br>
+        <span style="color:var(--text-dim)">→</span> "주문번호 12345의 배송 상태를 알려주세요"
+      </div>
+      <div style="margin-bottom:1rem">
+        <span style="color:var(--blue)">⚙️ Power Automate</span> 플로우가 자동 실행되어 주문 시스템에서 데이터를 조회합니다.<br>
+        <span style="color:var(--text-dim)">→</span> <span style="color:var(--orange)">커넥터</span>를 통해 외부 물류 API 호출
+      </div>
+      <div style="margin-bottom:1rem">
+        <span style="color:var(--teal)">🗄️ Dataverse</span>에 저장된 고객 정보와 주문 내역을 참조합니다.<br>
+        <span style="color:var(--text-dim)">→</span> 고객의 이름, 연락처, 과거 주문 이력 확인
+      </div>
+      <div style="margin-bottom:1rem">
+        <span style="color:var(--pink)">🤖 에이전트</span>가 종합하여 고객에게 답변합니다.<br>
+        <span style="color:var(--text-dim)">→</span> "김철수님, 주문 12345는 현재 배송 중이며 내일 오전 도착 예정입니다."
+      </div>
+      <div>
+        <span style="color:var(--amber)">📊 Power BI</span> 대시보드에서 이 모든 고객 문의 데이터가 실시간으로 시각화됩니다.<br>
+        <span style="color:var(--text-dim)">→</span> 관리자는 문의 유형별 통계, 응답 시간 등을 한눈에 파악
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════ CH5: 기초 용어 사전 ═══════ -->
+<section class="ch reveal" id="p3-ch5">
+  <div class="ch-head">
+    <div class="ch-num" style="color:var(--amber)">05</div>
+    <div class="ch-title">기초 용어 사전</div>
+  </div>
+
+  <p>Power Platform과 Copilot Studio를 사용할 때 자주 만나게 되는 핵심 용어들을 정리했습니다. 처음에는 생소할 수 있지만, 하나씩 익히면 금방 익숙해집니다.</p>
+
+  <div class="glossary reveal">
+    <div class="gl-item">
+      <div class="gl-term">
+        <span class="gl-tag" style="background:var(--accent-bg);color:var(--accent-light)">핵심</span>
+        Low-Code / No-Code (로우코드 / 노코드)
+      </div>
+      <div class="gl-def"><strong>Low-Code</strong>는 최소한의 코딩으로 소프트웨어를 만드는 방식, <strong>No-Code</strong>는 코딩이 전혀 필요 없는 방식입니다. Power Platform은 둘 다 지원합니다. 드래그 & 드롭 인터페이스가 대표적인 노코드 방식이에요.</div>
+    </div>
+    <div class="gl-item">
+      <div class="gl-term">
+        <span class="gl-tag" style="background:var(--teal-bg);color:var(--teal)">데이터</span>
+        Dataverse (데이터버스)
+      </div>
+      <div class="gl-def">Power Platform의 공통 클라우드 데이터베이스입니다. 테이블, 열(컬럼), 행(레코드)으로 데이터를 저장하고 관리합니다. 보안, 관계 설정, 비즈니스 규칙을 기본 내장하고 있습니다.</div>
+    </div>
+    <div class="gl-item">
+      <div class="gl-term">
+        <span class="gl-tag" style="background:var(--orange-bg);color:var(--orange)">연결</span>
+        커넥터 (Connector)
+      </div>
+      <div class="gl-def">Power Platform과 외부 서비스(SharePoint, Outlook, Salesforce 등)를 연결하는 사전 구축된 모듈입니다. 표준 커넥터(무료)와 프리미엄 커넥터(유료)로 나뉩니다.</div>
+    </div>
+    <div class="gl-item">
+      <div class="gl-term">
+        <span class="gl-tag" style="background:var(--blue-bg);color:var(--blue)">자동화</span>
+        플로우 (Flow)
+      </div>
+      <div class="gl-def">Power Automate에서 만드는 자동화 워크플로우를 "플로우"라고 부릅니다. "트리거 → 조건 → 액션" 구조로 이루어지며, 예를 들어 "이메일 수신(트리거) → 첨부파일이 있으면(조건) → OneDrive에 저장(액션)"과 같은 흐름입니다.</div>
+    </div>
+    <div class="gl-item">
+      <div class="gl-term">
+        <span class="gl-tag" style="background:var(--blue-bg);color:var(--blue)">자동화</span>
+        트리거 (Trigger)
+      </div>
+      <div class="gl-def">플로우나 에이전트가 실행되는 <strong>시작 조건</strong>입니다. "이메일이 도착하면", "양식이 제출되면", "특정 시간이 되면" 등이 트리거의 예시입니다.</div>
+    </div>
+    <div class="gl-item">
+      <div class="gl-term">
+        <span class="gl-tag" style="background:var(--pink-bg);color:var(--pink)">AI</span>
+        에이전트 (Agent)
+      </div>
+      <div class="gl-def">사용자와 대화하며 작업을 수행하는 AI 비서입니다. 자연어를 이해하고, 지식소스를 참조하고, 도구(플로우 등)를 실행할 수 있습니다. Copilot Studio에서 만듭니다.</div>
+    </div>
+    <div class="gl-item">
+      <div class="gl-term">
+        <span class="gl-tag" style="background:var(--pink-bg);color:var(--pink)">AI</span>
+        토픽 (Topic)
+      </div>
+      <div class="gl-def">에이전트의 대화 시나리오 단위입니다. 특정 주제("주문 조회", "비밀번호 초기화")에 대한 대화 흐름을 정의합니다. 하나의 에이전트는 여러 토픽을 가질 수 있습니다.</div>
+    </div>
+    <div class="gl-item">
+      <div class="gl-term">
+        <span class="gl-tag" style="background:var(--pink-bg);color:var(--pink)">AI</span>
+        지식 소스 (Knowledge Source)
+      </div>
+      <div class="gl-def">에이전트가 답변 시 참조하는 정보 출처입니다. 웹사이트 URL, SharePoint 문서, Dataverse 테이블 등을 지식소스로 등록하면 에이전트가 해당 내용을 기반으로 응답합니다.</div>
+    </div>
+    <div class="gl-item">
+      <div class="gl-term">
+        <span class="gl-tag" style="background:var(--green-bg);color:var(--green)">관리</span>
+        환경 (Environment)
+      </div>
+      <div class="gl-def">Power Platform의 리소스(앱, 플로우, 데이터)를 담는 격리된 공간입니다. 개발용, 테스트용, 운영용 환경을 분리하여 관리할 수 있습니다. 회사 조직에서 가장 먼저 설정하는 항목입니다.</div>
+    </div>
+    <div class="gl-item">
+      <div class="gl-term">
+        <span class="gl-tag" style="background:var(--green-bg);color:var(--green)">관리</span>
+        DLP (Data Loss Prevention)
+      </div>
+      <div class="gl-def">데이터 손실 방지 정책입니다. 어떤 커넥터끼리 데이터를 주고받을 수 있는지 제어합니다. 예를 들어 회사 데이터가 개인 SNS로 전송되는 것을 차단할 수 있습니다.</div>
+    </div>
+    <div class="gl-item">
+      <div class="gl-term">
+        <span class="gl-tag" style="background:var(--accent-bg);color:var(--accent-light)">핵심</span>
+        시민 개발자 (Citizen Developer)
+      </div>
+      <div class="gl-def">전문 개발자가 아니지만, 로우코드/노코드 도구를 활용해 직접 업무 솔루션을 만드는 현업 담당자를 말합니다. Power Platform의 핵심 타겟 사용자입니다.</div>
+    </div>
+    <div class="gl-item">
+      <div class="gl-term">
+        <span class="gl-tag" style="background:var(--accent-bg);color:var(--accent-light)">핵심</span>
+        CoE (Center of Excellence)
+      </div>
+      <div class="gl-def">Power Platform의 거버넌스·보안·모범 사례를 관리하는 조직 내 전문 팀(또는 프레임워크)입니다. 시민 개발자들이 안전하게 개발할 수 있도록 가이드라인과 정책을 수립합니다.</div>
+    </div>
+  </div>
+</section>
+

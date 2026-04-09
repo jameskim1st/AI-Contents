@@ -1,0 +1,150 @@
+---
+// Layout.astro — 모든 페이지에 공통 적용되는 "액자"
+interface Props {
+  title?: string;
+  prev?: { href: string; label: string };
+  next?: { href: string; label: string };
+}
+
+const { title = 'AI Novice 교육 가이드', prev, next } = Astro.props;
+
+// 페이지 순서 정의 (네비게이션 + active tab 탐지용)
+const pages = [
+  { href: '/', label: 'Overview', emoji: '🏠' },
+  { href: '/01-ai-agents', label: 'AI Agents', emoji: '🤖' },
+  { href: '/02-vibe-basic', label: '바이브코딩', emoji: '💻' },
+  { href: '/03-vibe-master', label: '바이브코딩 심화', emoji: '🚀' },
+  { href: '/04-power-platform', label: 'Power Platform', emoji: '⚡' },
+];
+
+// 현재 페이지의 인덱스 찾기
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const currentIdx = pages.findIndex(p => p.href === currentPath);
+const prevPage = prev || (currentIdx > 0 ? { href: pages[currentIdx - 1].href, label: pages[currentIdx - 1].label } : null);
+const nextPage = next || (currentIdx < pages.length - 1 ? { href: pages[currentIdx + 1].href, label: pages[currentIdx + 1].label } : null);
+---
+
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <title>{title}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Progress Bar -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Logo -->
+  <a class="pwc-logo" href="/">
+    <img src="/logo.png" alt="Logo" />
+  </a>
+
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" id="themeToggle" title="라이트/다크 모드 전환">🌙</button>
+
+  <!-- Navigation Tabs (자동 생성 + active 표시) -->
+  <div class="main-tabs" id="mainTabs">
+    <div class="main-tabs-inner">
+      {pages.map((p) => (
+        <a href={p.href} class={`main-tab ${p.href === currentPath ? 'active' : ''}`}>
+          <span class="tab-emoji">{p.emoji}</span>{p.label}
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <!-- Page Content (각 페이지의 내용이 여기에 들어감) -->
+  <slot />
+
+  <!-- Prev / Next Navigation -->
+  {(prevPage || nextPage) && (
+    <nav style="max-width:920px;margin:0 auto;padding:2rem 1.5rem 1rem;display:flex;justify-content:space-between;gap:1rem;">
+      {prevPage ? (
+        <a href={prevPage.href} style="display:flex;align-items:center;gap:.5rem;padding:.7rem 1.2rem;border:1px solid var(--border);border-radius:10px;color:var(--text-dim);text-decoration:none;font-size:.88rem;transition:all .3s" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-dim)'">
+          ← {prevPage.label}
+        </a>
+      ) : <div />}
+      {nextPage ? (
+        <a href={nextPage.href} style="display:flex;align-items:center;gap:.5rem;padding:.7rem 1.2rem;border:1px solid var(--border);border-radius:10px;color:var(--text-dim);text-decoration:none;font-size:.88rem;transition:all .3s;margin-left:auto" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-dim)'">
+          {nextPage.label} →
+        </a>
+      ) : null}
+    </nav>
+  )}
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="fl">AI와 함께하는 새로운 업무 방식 🚀</div>
+    <div>AI Education · AI Agents · 바이브코딩 · Power Platform</div>
+  </footer>
+
+  <!-- Scroll to Top -->
+  <button class="scroll-top" id="scrollTop">↑</button>
+</body>
+</html>
+
+<!-- Global Styles -->
+<style is:global>
+  @import '../styles/global.css';
+</style>
+
+<!-- Global Scripts -->
+<script>
+  // Theme Toggle
+  function toggleTheme() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
+    const btn = document.getElementById('themeToggle');
+    if (btn) btn.textContent = next === 'light' ? '☀️' : '🌙';
+    localStorage.setItem('theme', next);
+  }
+
+  // Load saved theme
+  const saved = localStorage.getItem('theme');
+  if (saved === 'light') {
+    document.documentElement.setAttribute('data-theme', 'light');
+    const btn = document.getElementById('themeToggle');
+    if (btn) btn.textContent = '☀️';
+  }
+
+  // Theme toggle click
+  document.getElementById('themeToggle')?.addEventListener('click', toggleTheme);
+
+  // Scroll to top
+  document.getElementById('scrollTop')?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Progress bar + scroll-top visibility
+  window.addEventListener('scroll', () => {
+    const s = document.documentElement.scrollTop;
+    const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const bar = document.getElementById('progressBar');
+    const topBtn = document.getElementById('scrollTop');
+    if (bar) bar.style.width = (s / h * 100) + '%';
+    if (topBtn) topBtn.classList.toggle('visible', s > 500);
+  });
+
+  // Reveal on scroll
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((x) => { if (x.isIntersecting) x.target.classList.add('visible'); });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal, .diagram, .compare-card, .callout, .quote-block').forEach((el) => obs.observe(el));
+
+  // Active tab highlighting is handled server-side in Astro frontmatter
+</script>
+
+<script is:inline>
+  // Inline script: Runs before page render to prevent flash
+  (function() {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
+</script>
