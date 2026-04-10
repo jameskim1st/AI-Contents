@@ -645,64 +645,166 @@
     LLM이 한 문장을 생성하는 과정은 정해진 파이프라인을 따릅니다. 입력부터 출력까지, 단계별로 따라가 봅시다.
   </p>
 
-  <!-- Step-by-Step Generation Flow -->
+  <!-- Step-by-Step Generation Flow — Expanded -->
   <div class="dia reveal">
-    <div class="dia-title">🎲 문장 생성 파이프라인 — 5단계</div>
+    <div class="dia-title">🎲 문장 생성 파이프라인 — 5단계 상세</div>
+    <p style="font-size:.85rem;color:var(--text-dim);text-align:center;margin-bottom:1.5rem">입력: <strong style="color:var(--text)">"나는 오늘"</strong> → LLM이 다음 토큰을 예측하는 전체 과정</p>
 
-    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.3rem;max-width:800px;margin:0 auto;align-items:start">
-      <!-- Step 1 -->
-      <div style="text-align:center">
-        <div style="background:var(--surface);border:2px solid var(--violet);border-radius:12px;padding:.8rem .5rem;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center">
-          <div style="font-size:1.3rem;margin-bottom:.3rem">📝</div>
-          <div style="font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--violet)">Step 1</div>
-          <div style="font-size:.75rem;color:var(--text);font-weight:600;margin-top:.3rem">Tokenize</div>
-          <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem;line-height:1.4">입력 텍스트를<br>토큰으로 분할</div>
+    <!-- STEP 1: Tokenize -->
+    <div style="background:var(--surface);border:2px solid var(--violet);border-radius:14px;padding:1.5rem;margin-bottom:1rem">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1rem">
+        <div style="width:36px;height:36px;border-radius:8px;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">1</div>
+        <div><div style="font-size:.92rem;font-weight:700;color:var(--violet)">Tokenize — 텍스트를 토큰으로 분할</div>
+        <div style="font-size:.75rem;color:var(--text-dim)">LLM은 글자 단위가 아니라 "토큰" 단위로 텍스트를 읽습니다</div></div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap">
+        <div style="padding:.5rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:.88rem;color:var(--text)">"나는 오늘"</div>
+        <div style="color:var(--text-dim);font-size:1.2rem">→</div>
+        <div style="display:flex;gap:4px">
+          <div style="padding:.5rem .8rem;background:var(--violet);color:#fff;border-radius:6px;font-family:var(--mono);font-size:.82rem;font-weight:600">나는</div>
+          <div style="padding:.5rem .8rem;background:rgba(124,108,240,.7);color:#fff;border-radius:6px;font-family:var(--mono);font-size:.82rem;font-weight:600">오늘</div>
+        </div>
+        <div style="color:var(--text-dim);font-size:1.2rem">→</div>
+        <div style="display:flex;gap:4px">
+          <div style="padding:.5rem .8rem;background:var(--surface);border:1px solid var(--violet);border-radius:6px;font-family:var(--mono);font-size:.82rem;color:var(--violet)">ID: 4521</div>
+          <div style="padding:.5rem .8rem;background:var(--surface);border:1px solid var(--violet);border-radius:6px;font-family:var(--mono);font-size:.82rem;color:var(--violet)">ID: 8903</div>
         </div>
       </div>
-      <!-- Step 2 -->
-      <div style="text-align:center">
-        <div style="background:var(--surface);border:2px solid var(--blue);border-radius:12px;padding:.8rem .5rem;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center">
-          <div style="font-size:1.3rem;margin-bottom:.3rem">🔢</div>
-          <div style="font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--blue)">Step 2</div>
-          <div style="font-size:.75rem;color:var(--text);font-weight:600;margin-top:.3rem">Logit</div>
-          <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem;line-height:1.4">각 후보 토큰의<br>원시 점수 계산</div>
-        </div>
-      </div>
-      <!-- Step 3 -->
-      <div style="text-align:center">
-        <div style="background:var(--surface);border:2px solid var(--teal);border-radius:12px;padding:.8rem .5rem;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center">
-          <div style="font-size:1.3rem;margin-bottom:.3rem">📊</div>
-          <div style="font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--teal)">Step 3</div>
-          <div style="font-size:.75rem;color:var(--text);font-weight:600;margin-top:.3rem">Softmax</div>
-          <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem;line-height:1.4">점수를 확률로<br>변환 (합=100%)</div>
-        </div>
-      </div>
-      <!-- Step 4 -->
-      <div style="text-align:center">
-        <div style="background:var(--surface);border:2px solid var(--amber);border-radius:12px;padding:.8rem .5rem;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center">
-          <div style="font-size:1.3rem;margin-bottom:.3rem">🎯</div>
-          <div style="font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--amber)">Step 4</div>
-          <div style="font-size:.75rem;color:var(--text);font-weight:600;margin-top:.3rem">Sampling</div>
-          <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem;line-height:1.4">확률에 따라<br>다음 토큰 선택</div>
-        </div>
-      </div>
-      <!-- Step 5 -->
-      <div style="text-align:center">
-        <div style="background:var(--surface);border:2px solid var(--green);border-radius:12px;padding:.8rem .5rem;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center">
-          <div style="font-size:1.3rem;margin-bottom:.3rem">🔁</div>
-          <div style="font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--green)">Step 5</div>
-          <div style="font-size:.75rem;color:var(--text);font-weight:600;margin-top:.3rem">Repeat</div>
-          <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem;line-height:1.4">완성될 때까지<br>1~4단계 반복</div>
-        </div>
-      </div>
+      <div style="font-size:.72rem;color:var(--text-dim);text-align:center;margin-top:.6rem">각 토큰은 고유 ID(숫자)로 변환되어 모델에 입력됩니다</div>
     </div>
 
-    <!-- Arrows -->
-    <div style="display:flex;justify-content:center;gap:3.8rem;margin:.3rem 0;max-width:700px;margin-left:auto;margin-right:auto">
-      <span style="color:var(--text-dim);font-size:.8rem">→</span>
-      <span style="color:var(--text-dim);font-size:.8rem">→</span>
-      <span style="color:var(--text-dim);font-size:.8rem">→</span>
-      <span style="color:var(--text-dim);font-size:.8rem">→</span>
+    <!-- STEP 2: Logit -->
+    <div style="text-align:center;color:var(--text-dim);font-size:.9rem;margin-bottom:.3rem">▼</div>
+    <div style="background:var(--surface);border:2px solid var(--blue);border-radius:14px;padding:1.5rem;margin-bottom:1rem">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1rem">
+        <div style="width:36px;height:36px;border-radius:8px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">2</div>
+        <div><div style="font-size:.92rem;font-weight:700;color:var(--blue)">Logit — 원시 점수 계산</div>
+        <div style="font-size:.75rem;color:var(--text-dim)">모델이 어휘 속 모든 토큰에 "가능성 점수(logit)"를 매깁니다</div></div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap">
+        <div style="padding:.8rem 1.2rem;background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:10px;text-align:center">
+          <div style="font-family:var(--mono);font-size:.82rem;font-weight:700;color:var(--blue)">LLM 내부</div>
+          <div style="font-size:.72rem;color:var(--text-dim);margin-top:.3rem">수십억 파라미터 연산</div>
+        </div>
+        <div style="color:var(--text-dim);font-size:1.2rem">→</div>
+        <div style="display:flex;flex-direction:column;gap:3px">
+          <div style="display:flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.78rem">
+            <span style="color:var(--text)">학교에</span>
+            <span style="padding:.2rem .5rem;background:var(--blue-bg);color:var(--blue);border-radius:4px;font-weight:700">8.2</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.78rem">
+            <span style="color:var(--text)">행복</span>
+            <span style="padding:.2rem .5rem;background:var(--blue-bg);color:var(--blue);border-radius:4px">5.1</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.78rem">
+            <span style="color:var(--text-dim)">바다에</span>
+            <span style="padding:.2rem .5rem;background:var(--surface);border:1px solid var(--border);color:var(--text-dim);border-radius:4px">2.3</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.78rem">
+            <span style="color:var(--text-dim)">피자를</span>
+            <span style="padding:.2rem .5rem;background:var(--surface);border:1px solid var(--border);color:var(--text-dim);border-radius:4px">0.4</span>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:.72rem;color:var(--text-dim);text-align:center;margin-top:.6rem">Logit은 아직 "확률"이 아닙니다 — 크기 비교만 가능한 원시 점수. 음수도 가능.</div>
+    </div>
+
+    <!-- STEP 3: Softmax -->
+    <div style="text-align:center;color:var(--text-dim);font-size:.9rem;margin-bottom:.3rem">▼</div>
+    <div style="background:var(--surface);border:2px solid var(--teal);border-radius:14px;padding:1.5rem;margin-bottom:1rem">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1rem">
+        <div style="width:36px;height:36px;border-radius:8px;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">3</div>
+        <div><div style="font-size:.92rem;font-weight:700;color:var(--teal)">Softmax — 점수를 확률로 변환</div>
+        <div style="font-size:.75rem;color:var(--text-dim)">모든 logit을 0~1 사이 확률로 바꿉니다 (합 = 100%)</div></div>
+      </div>
+      <div style="max-width:500px;margin:0 auto">
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem">
+          <span style="width:55px;text-align:right;font-family:var(--mono);font-size:.82rem;color:var(--text)">학교에</span>
+          <div style="flex:1;height:26px;background:var(--card);border-radius:5px;overflow:hidden">
+            <div style="height:100%;width:65%;background:var(--teal);border-radius:5px;display:flex;align-items:center;padding-left:.5rem">
+              <span style="font-size:.7rem;font-weight:700;color:var(--bg)">65%</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem">
+          <span style="width:55px;text-align:right;font-family:var(--mono);font-size:.82rem;color:var(--text)">행복</span>
+          <div style="flex:1;height:26px;background:var(--card);border-radius:5px;overflow:hidden">
+            <div style="height:100%;width:20%;background:rgba(45,212,191,.6);border-radius:5px;display:flex;align-items:center;padding-left:.5rem">
+              <span style="font-size:.65rem;font-weight:600;color:var(--bg)">20%</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem">
+          <span style="width:55px;text-align:right;font-family:var(--mono);font-size:.78rem;color:var(--text-dim)">바다에</span>
+          <div style="flex:1;height:26px;background:var(--card);border-radius:5px;overflow:hidden">
+            <div style="height:100%;width:10%;background:rgba(45,212,191,.3);border-radius:5px"></div>
+          </div>
+          <span style="font-size:.68rem;color:var(--text-dim)">10%</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:.6rem">
+          <span style="width:55px;text-align:right;font-family:var(--mono);font-size:.78rem;color:var(--text-dim)">기타</span>
+          <div style="flex:1;height:26px;background:var(--card);border-radius:5px;overflow:hidden">
+            <div style="height:100%;width:5%;background:rgba(45,212,191,.15);border-radius:5px"></div>
+          </div>
+          <span style="font-size:.68rem;color:var(--text-dim)">5%</span>
+        </div>
+      </div>
+      <div style="font-size:.72rem;color:var(--text-dim);text-align:center;margin-top:.6rem">Softmax 공식: e^(logit_i) / Σe^(logit_j) — 큰 logit은 큰 확률, 작은 logit은 작은 확률</div>
+    </div>
+
+    <!-- STEP 4: Sampling -->
+    <div style="text-align:center;color:var(--text-dim);font-size:.9rem;margin-bottom:.3rem">▼</div>
+    <div style="background:var(--surface);border:2px solid var(--amber);border-radius:14px;padding:1.5rem;margin-bottom:1rem">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1rem">
+        <div style="width:36px;height:36px;border-radius:8px;background:var(--amber);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">4</div>
+        <div><div style="font-size:.92rem;font-weight:700;color:var(--amber)">Sampling — 확률에 따라 선택</div>
+        <div style="font-size:.75rem;color:var(--text-dim)">주사위를 던지듯, 확률 분포에 따라 다음 토큰을 "뽑습니다"</div></div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:3px;text-align:center">
+          <div style="display:flex;gap:2px;justify-content:center">
+            <div style="width:50px;height:40px;background:var(--amber);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;color:var(--bg)">65%</div>
+            <div style="width:30px;height:40px;background:rgba(251,191,36,.5);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--bg)">20%</div>
+            <div style="width:18px;height:40px;background:rgba(251,191,36,.25);border-radius:4px"></div>
+            <div style="width:10px;height:40px;background:rgba(251,191,36,.1);border-radius:4px"></div>
+          </div>
+          <div style="font-size:.68rem;color:var(--text-dim)">확률 분포 (룰렛)</div>
+        </div>
+        <div style="font-size:1.5rem;color:var(--amber)">🎯</div>
+        <div style="padding:.6rem 1.2rem;background:var(--amber);color:var(--bg);border-radius:10px;font-family:var(--mono);font-size:1rem;font-weight:800">학교에</div>
+      </div>
+      <div style="font-size:.72rem;color:var(--text-dim);text-align:center;margin-top:.6rem">65% 확률로 "학교에"가 선택됨. 하지만 20% 확률로 "행복"이 나올 수도 — <strong style="color:var(--text)">이것이 LLM이 매번 다른 답을 하는 이유</strong></div>
+    </div>
+
+    <!-- STEP 5: Repeat -->
+    <div style="text-align:center;color:var(--text-dim);font-size:.9rem;margin-bottom:.3rem">▼</div>
+    <div style="background:var(--surface);border:2px solid var(--green);border-radius:14px;padding:1.5rem">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1rem">
+        <div style="width:36px;height:36px;border-radius:8px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">5</div>
+        <div><div style="font-size:.92rem;font-weight:700;color:var(--green)">Repeat — 문장이 완성될 때까지 반복</div>
+        <div style="font-size:.75rem;color:var(--text-dim)">선택된 토큰을 입력에 이어붙이고, 1~4단계를 다시 실행</div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.4rem;max-width:500px;margin:0 auto">
+        <div style="display:flex;align-items:center;gap:.5rem;padding:.5rem .8rem;background:var(--card);border-radius:8px;font-family:var(--mono);font-size:.82rem">
+          <span style="color:var(--text-dim)">1회차:</span>
+          <span style="color:var(--text)">나는 오늘</span>
+          <span style="color:var(--text-dim)">→</span>
+          <span style="padding:.2rem .5rem;background:var(--green-bg);color:var(--green);border-radius:4px;font-weight:700">학교에</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:.5rem;padding:.5rem .8rem;background:var(--card);border-radius:8px;font-family:var(--mono);font-size:.82rem">
+          <span style="color:var(--text-dim)">2회차:</span>
+          <span style="color:var(--text)">나는 오늘 학교에</span>
+          <span style="color:var(--text-dim)">→</span>
+          <span style="padding:.2rem .5rem;background:var(--green-bg);color:var(--green);border-radius:4px;font-weight:700">갔다</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:.5rem;padding:.5rem .8rem;background:var(--green-bg);border:1px solid var(--green-border);border-radius:8px;font-family:var(--mono);font-size:.82rem">
+          <span style="color:var(--green)">3회차:</span>
+          <span style="color:var(--text)">나는 오늘 학교에 갔다</span>
+          <span style="color:var(--text-dim)">→</span>
+          <span style="padding:.2rem .5rem;background:var(--green);color:var(--bg);border-radius:4px;font-weight:700">[EOS]</span>
+        </div>
+      </div>
+      <div style="font-size:.72rem;color:var(--text-dim);text-align:center;margin-top:.6rem">[EOS] = End of Sequence. 모델이 "문장이 끝났다"고 판단하면 생성 중단. 이 전체 과정이 <strong style="color:var(--text)">자기회귀(Autoregressive)</strong> 생성.</div>
     </div>
   </div>
 
@@ -1122,60 +1224,135 @@
     </div>
   </div>
 
-  <!-- MoE 동작 원리 플로우 -->
+  <!-- MoE 동작 원리 플로우 — Expanded -->
   <div class="dia reveal">
-    <div class="dia-title">MoE 동작 원리 — 토큰이 전문가를 만나기까지</div>
-    <div style="display:flex;flex-direction:column;gap:0;max-width:700px;margin:0 auto">
+    <div class="dia-title">MoE 동작 원리 — 토큰이 전문가를 만나기까지 (상세)</div>
+    <p style="font-size:.85rem;color:var(--text-dim);text-align:center;margin-bottom:1.5rem">입력: <strong style="color:var(--text)">"나는 오늘 학교에"</strong> — 토큰 "학교에"가 MoE 레이어를 통과하는 과정</p>
 
-      <!-- Step 1: Input -->
-      <div style="display:flex;align-items:center;gap:1rem;padding:1.1rem;background:var(--surface);border:1px solid var(--border);border-radius:14px 14px 0 0">
-        <div style="width:40px;height:40px;border-radius:10px;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">1</div>
-        <div style="flex:1">
-          <div style="font-size:.88rem;font-weight:700;color:var(--white)">입력 토큰 도착</div>
-          <div style="font-size:.78rem;color:var(--text-dim);margin-top:.15rem">"나는 오늘 학교에" → 각 토큰이 순서대로 처리</div>
+    <!-- Step 1: Token Arrives -->
+    <div style="background:var(--surface);border:2px solid var(--violet);border-radius:14px;padding:1.5rem;margin-bottom:1rem;max-width:750px;margin-left:auto;margin-right:auto">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1rem">
+        <div style="width:36px;height:36px;border-radius:8px;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">1</div>
+        <div><div style="font-size:.92rem;font-weight:700;color:var(--violet)">입력 토큰이 MoE 레이어에 도착</div></div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap">
+        <div style="display:flex;gap:3px">
+          <div style="padding:.4rem .7rem;background:var(--surface);border:1px solid var(--border);border-radius:6px;font-family:var(--mono);font-size:.78rem;color:var(--text-dim)">나는</div>
+          <div style="padding:.4rem .7rem;background:var(--surface);border:1px solid var(--border);border-radius:6px;font-family:var(--mono);font-size:.78rem;color:var(--text-dim)">오늘</div>
+          <div style="padding:.4rem .7rem;background:var(--violet);border-radius:6px;font-family:var(--mono);font-size:.78rem;font-weight:700;color:#fff">학교에 ←</div>
         </div>
       </div>
-      <div style="text-align:center;padding:.2rem 0;color:var(--text-dim);font-size:.8rem">▼</div>
+      <div style="font-size:.72rem;color:var(--text-dim);text-align:center;margin-top:.6rem">각 토큰은 <strong style="color:var(--text)">독립적으로</strong> MoE 레이어를 통과합니다. "학교에" 토큰의 여정을 따라가 봅시다.</div>
+    </div>
 
-      <!-- Step 2: Router -->
-      <div style="display:flex;align-items:center;gap:1rem;padding:1.1rem;background:var(--accent-bg);border:2px solid var(--accent);border-radius:0">
-        <div style="width:40px;height:40px;border-radius:10px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">2</div>
-        <div style="flex:1">
-          <div style="font-size:.88rem;font-weight:700;color:var(--accent)">라우터(Router)가 판단 ⭐ 핵심</div>
-          <div style="font-size:.78rem;color:var(--text);margin-top:.15rem">각 토큰을 보고 <strong>"이 토큰에는 어떤 전문가가 적합한가?"</strong> 결정. 가벼운 게이팅 네트워크(Linear layer + Softmax)가 각 전문가에 대한 확률 점수를 계산.</div>
+    <!-- Step 2: Router -->
+    <div style="text-align:center;color:var(--text-dim);font-size:.9rem;margin-bottom:.3rem">▼</div>
+    <div style="background:var(--accent-bg);border:2px solid var(--accent);border-radius:14px;padding:1.5rem;margin-bottom:1rem;max-width:750px;margin-left:auto;margin-right:auto">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1rem">
+        <div style="width:36px;height:36px;border-radius:8px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">2</div>
+        <div><div style="font-size:.92rem;font-weight:700;color:var(--accent)">라우터(Router)가 전문가 적합도를 계산 ⭐</div>
+        <div style="font-size:.75rem;color:var(--text-dim)">가벼운 게이팅 네트워크: Linear Layer → Softmax → 전문가별 확률</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:center">
+        <div style="text-align:center">
+          <div style="padding:.6rem 1rem;background:var(--violet);color:#fff;border-radius:8px;font-family:var(--mono);font-size:.82rem;font-weight:700">"학교에"</div>
+          <div style="font-size:.68rem;color:var(--text-dim);margin-top:.3rem">입력 벡터</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px">
+          <div style="padding:.5rem .3rem;background:var(--blue);border-radius:6px;text-align:center">
+            <div style="font-size:.65rem;color:#fff;opacity:.8">Expert 1</div>
+            <div style="font-family:var(--mono);font-size:.85rem;font-weight:800;color:#fff">0.72</div>
+          </div>
+          <div style="padding:.5rem .3rem;background:var(--surface);border:1px solid var(--border);border-radius:6px;text-align:center">
+            <div style="font-size:.65rem;color:var(--text-dim)">Expert 2</div>
+            <div style="font-family:var(--mono);font-size:.85rem;font-weight:800;color:var(--text-dim)">0.15</div>
+          </div>
+          <div style="padding:.5rem .3rem;background:var(--surface);border:1px solid var(--border);border-radius:6px;text-align:center">
+            <div style="font-size:.65rem;color:var(--text-dim)">Expert 3</div>
+            <div style="font-family:var(--mono);font-size:.85rem;font-weight:800;color:var(--text-dim)">0.08</div>
+          </div>
+          <div style="padding:.5rem .3rem;background:var(--surface);border:1px solid var(--border);border-radius:6px;text-align:center">
+            <div style="font-size:.65rem;color:var(--text-dim)">...</div>
+            <div style="font-family:var(--mono);font-size:.85rem;font-weight:800;color:var(--text-dim)">0.05</div>
+          </div>
         </div>
       </div>
-      <div style="text-align:center;padding:.2rem 0;color:var(--text-dim);font-size:.8rem">▼</div>
+      <div style="font-size:.72rem;color:var(--text-dim);text-align:center;margin-top:.6rem">라우터 연산은 매우 가벼움 (전문가 연산의 1/100 수준). "학교에"라는 교육 관련 토큰 → Expert 1에 높은 점수.</div>
+    </div>
 
-      <!-- Step 3: Expert Selection -->
-      <div style="display:flex;align-items:center;gap:1rem;padding:1.1rem;background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:0">
-        <div style="width:40px;height:40px;border-radius:10px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">3</div>
-        <div style="flex:1">
-          <div style="font-size:.88rem;font-weight:700;color:var(--blue)">Top-K 전문가 선택</div>
-          <div style="font-size:.78rem;color:var(--text-dim);margin-top:.15rem">확률이 가장 높은 <strong style="color:var(--text)">1~2명의 전문가만 활성화</strong>. 나머지 전문가는 이 토큰에 대해 아무 계산도 안 함 → 이것이 "Sparse(희소)"의 핵심.</div>
+    <!-- Step 3: Top-K Selection -->
+    <div style="text-align:center;color:var(--text-dim);font-size:.9rem;margin-bottom:.3rem">▼</div>
+    <div style="background:var(--surface);border:2px solid var(--blue);border-radius:14px;padding:1.5rem;margin-bottom:1rem;max-width:750px;margin-left:auto;margin-right:auto">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1rem">
+        <div style="width:36px;height:36px;border-radius:8px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">3</div>
+        <div><div style="font-size:.92rem;font-weight:700;color:var(--blue)">Top-K 선택 — "Sparse"의 핵심</div>
+        <div style="font-size:.75rem;color:var(--text-dim)">확률이 가장 높은 K개(보통 1~2개) 전문가만 활성화, 나머지는 OFF</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:4px;max-width:500px;margin:0 auto;margin-bottom:.6rem">
+        <div style="height:45px;background:var(--blue);border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center">
+          <div style="font-size:.6rem;color:#fff;opacity:.8">E1</div>
+          <div style="font-size:.72rem;font-weight:700;color:#fff">ON</div>
+        </div>
+        <div style="height:45px;background:var(--surface);border:1px dashed var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--text-dim)">OFF</div>
+        <div style="height:45px;background:var(--surface);border:1px dashed var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--text-dim)">OFF</div>
+        <div style="height:45px;background:var(--surface);border:1px dashed var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--text-dim)">OFF</div>
+        <div style="height:45px;background:var(--surface);border:1px dashed var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--text-dim)">OFF</div>
+        <div style="height:45px;background:var(--surface);border:1px dashed var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--text-dim)">OFF</div>
+        <div style="height:45px;background:var(--surface);border:1px dashed var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--text-dim)">OFF</div>
+        <div style="height:45px;background:var(--surface);border:1px dashed var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--text-dim)">OFF</div>
+      </div>
+      <div style="text-align:center;font-size:.72rem;color:var(--text-dim)">8개 전문가 중 <strong style="color:var(--blue)">1개만 ON</strong>, 나머지 7개는 아무 연산도 안 함 = <strong style="color:var(--text)">87.5% 연산 절약</strong></div>
+      <div style="margin-top:.6rem;padding:.5rem .8rem;background:var(--card);border-radius:8px;font-size:.72rem;color:var(--text-dim);text-align:center">LLaMA 4 Maverick: 128개 전문가 중 1개 라우팅 + 1개 공유 = <strong style="color:var(--blue)">전체의 ~1.5%만 활성화</strong></div>
+    </div>
+
+    <!-- Step 4: Expert Processing -->
+    <div style="text-align:center;color:var(--text-dim);font-size:.9rem;margin-bottom:.3rem">▼</div>
+    <div style="background:var(--surface);border:2px solid var(--teal);border-radius:14px;padding:1.5rem;margin-bottom:1rem;max-width:750px;margin-left:auto;margin-right:auto">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1rem">
+        <div style="width:36px;height:36px;border-radius:8px;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">4</div>
+        <div><div style="font-size:.92rem;font-weight:700;color:var(--teal)">선택된 전문가가 처리</div>
+        <div style="font-size:.75rem;color:var(--text-dim)">각 전문가 = 독립적인 FFN(Feed-Forward Network). LLaMA 4는 공유 전문가도 함께 동작.</div></div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap">
+        <div style="padding:.8rem 1rem;background:var(--card);border:2px solid var(--teal);border-radius:10px;text-align:center">
+          <div style="font-size:.72rem;color:var(--teal);font-weight:600;margin-bottom:.2rem">Shared Expert (공유)</div>
+          <div style="font-size:.82rem;font-weight:700;color:var(--white)">모든 토큰에 항상 적용</div>
+          <div style="font-size:.68rem;color:var(--text-dim);margin-top:.2rem">공통 언어 능력 담당</div>
+        </div>
+        <div style="font-size:1.2rem;color:var(--text-dim)">+</div>
+        <div style="padding:.8rem 1rem;background:var(--blue-bg);border:2px solid var(--blue);border-radius:10px;text-align:center">
+          <div style="font-size:.72rem;color:var(--blue);font-weight:600;margin-bottom:.2rem">Routed Expert #1 (선택)</div>
+          <div style="font-size:.82rem;font-weight:700;color:var(--white)">이 토큰에 특화된 처리</div>
+          <div style="font-size:.68rem;color:var(--text-dim);margin-top:.2rem">"학교에" → 교육/장소 전문</div>
         </div>
       </div>
-      <div style="text-align:center;padding:.2rem 0;color:var(--text-dim);font-size:.8rem">▼</div>
+      <div style="font-size:.72rem;color:var(--text-dim);text-align:center;margin-top:.6rem">공유 전문가 = "모든 환자를 먼저 보는 일반의", 라우팅 전문가 = "해당 분야 전문의"</div>
+    </div>
 
-      <!-- Step 4: Expert Processing -->
-      <div style="display:flex;align-items:center;gap:1rem;padding:1.1rem;background:var(--surface);border:1px solid var(--border);border-radius:0">
-        <div style="width:40px;height:40px;border-radius:10px;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">4</div>
-        <div style="flex:1">
-          <div style="font-size:.88rem;font-weight:700;color:var(--teal)">선택된 전문가가 처리</div>
-          <div style="font-size:.78rem;color:var(--text-dim);margin-top:.15rem">활성화된 전문가(각각 독립적인 FFN 레이어)가 토큰을 처리. LLaMA 4에서는 <strong style="color:var(--text)">1개의 공유 전문가 + 1개의 라우팅 전문가</strong>가 항상 조합.</div>
+    <!-- Step 5: Weighted Sum -->
+    <div style="text-align:center;color:var(--text-dim);font-size:.9rem;margin-bottom:.3rem">▼</div>
+    <div style="background:var(--surface);border:2px solid var(--green);border-radius:14px;padding:1.5rem;max-width:750px;margin-left:auto;margin-right:auto">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1rem">
+        <div style="width:36px;height:36px;border-radius:8px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">5</div>
+        <div><div style="font-size:.92rem;font-weight:700;color:var(--green)">가중 합산 → 다음 레이어로</div>
+        <div style="font-size:.75rem;color:var(--text-dim)">전문가 출력을 라우터 확률로 가중 합산하여 최종 결과 생성</div></div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:.6rem;flex-wrap:wrap;font-family:var(--mono);font-size:.82rem">
+        <div style="padding:.5rem .8rem;background:var(--card);border:1px solid var(--teal-border);border-radius:8px">
+          <span style="color:var(--teal)">Shared</span> 출력
+        </div>
+        <span style="color:var(--text-dim)">× 1.0</span>
+        <span style="color:var(--green);font-size:1.2rem">+</span>
+        <div style="padding:.5rem .8rem;background:var(--card);border:1px solid var(--blue-border);border-radius:8px">
+          <span style="color:var(--blue)">Expert#1</span> 출력
+        </div>
+        <span style="color:var(--text-dim)">× 0.72</span>
+        <span style="color:var(--green);font-size:1.2rem">=</span>
+        <div style="padding:.5rem .8rem;background:var(--green);color:var(--bg);border-radius:8px;font-weight:700">
+          최종 결과
         </div>
       </div>
-      <div style="text-align:center;padding:.2rem 0;color:var(--text-dim);font-size:.8rem">▼</div>
-
-      <!-- Step 5: Combine -->
-      <div style="display:flex;align-items:center;gap:1rem;padding:1.1rem;background:var(--green-bg);border:1px solid var(--green-border);border-radius:0 0 14px 14px">
-        <div style="width:40px;height:40px;border-radius:10px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">5</div>
-        <div style="flex:1">
-          <div style="font-size:.88rem;font-weight:700;color:var(--green)">결과 합산 → 다음 레이어로</div>
-          <div style="font-size:.78rem;color:var(--text-dim);margin-top:.15rem">각 전문가의 출력을 라우터 확률로 <strong style="color:var(--text)">가중 합산(weighted sum)</strong> → 최종 결과. 이 과정이 모델의 각 레이어마다 반복.</div>
-        </div>
-      </div>
-
+      <div style="font-size:.72rem;color:var(--text-dim);text-align:center;margin-top:.6rem">이 과정이 모델의 <strong style="color:var(--text)">각 MoE 레이어마다 반복</strong>. Dense 레이어와 MoE 레이어가 번갈아 배치됨.</div>
     </div>
   </div>
 
