@@ -1603,6 +1603,10 @@ message = client.messages.create(
 </div>
 </div>
 
+<div style="margin-top:1.5rem;padding:.8rem 1.2rem;background:var(--surface);border:1px dashed var(--accent-border);border-radius:10px;font-size:.82rem;color:var(--text-dim);text-align:center">
+  🚀 Claude Code를 활용한 심화 도구 사용법은 <a href="/03-vibe-master" style="color:var(--accent);font-weight:600">Part 3 — 바이브코딩 심화</a>에서 다룹니다.
+</div>
+
 </section>
 
 <div class="divider"><hr></div>
@@ -1672,172 +1676,7 @@ message = client.messages.create(
 </div>
 </div>
 
-<!-- Mock-up/MVP 내용은 CH1(AI에게 말 거는 법)으로 이동됨 -->
-
-<div style="display:none"><!-- CH1에 복사 완료 — 이 블록은 숨김 처리 -->
-<div class="dia reveal">
-<div class="dia-title">목업은 이렇게 생겼습니다 — "그림만 있고, 클릭은 안 됨"</div>
-<div class="cmp-grid">
-<div class="cmp-card" style="border-color:var(--pink-border);position:relative;overflow:hidden;display:flex;flex-direction:column;">
-<div style="position:absolute;top:12px;right:12px;font-family:var(--mono);font-size:.68rem;background:var(--pink-bg);color:var(--pink);padding:.2rem .5rem;border-radius:4px;border:1px solid var(--pink-border)">MOCK-UP</div>
-<h4 style="color:var(--pink);font-size:.9rem;">🎨 목업 단계</h4>
-<!-- 대시보드 미리보기 -->
-<div style="margin-top:.8rem;background:var(--bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;font-size:.78rem;flex:1;">
-  <!-- 상단 내비게이션 바 -->
-  <div style="background:var(--surface);padding:.6rem 1rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);">
-    <span style="color:var(--white);font-weight:700;font-size:.8rem">📊 프로젝트 대시보드</span>
-    <div style="display:flex;gap:.5rem;align-items:center;">
-      <div style="width:22px;height:22px;border-radius:50%;background:var(--amber-bg);display:flex;align-items:center;justify-content:center;font-size:.6rem">🔔</div>
-      <div style="width:22px;height:22px;border-radius:50%;background:var(--blue-bg);display:flex;align-items:center;justify-content:center;font-size:.6rem">👤</div>
-    </div>
-  </div>
-  <!-- KPI 카드 -->
-  <div style="padding:.8rem;display:grid;grid-template-columns:1fr 1fr;gap:.5rem;">
-    <div style="background:var(--surface);border-radius:8px;padding:.6rem .8rem;text-align:center;border:1px solid var(--border);">
-      <div style="font-size:.65rem;color:var(--text-muted);margin-bottom:.3rem">매출</div>
-      <div style="font-size:1rem;color:var(--white);font-weight:700">₩12.5M</div>
-    </div>
-    <div style="background:var(--surface);border-radius:8px;padding:.6rem .8rem;text-align:center;border:1px solid var(--border);">
-      <div style="font-size:.65rem;color:var(--text-muted);margin-bottom:.3rem">프로젝트</div>
-      <div style="font-size:1rem;color:var(--white);font-weight:700">8건</div>
-    </div>
-  </div>
-  <!-- 차트 영역 (빈 플레이스홀더) -->
-  <div style="margin:0 .8rem .8rem;background:var(--surface);border-radius:8px;padding:1.2rem;text-align:center;border:1px dashed var(--border);">
-    <div style="color:var(--text-muted);font-size:.72rem;">📈 차트 영역</div>
-    <div style="color:var(--pink);font-size:.68rem;margin-top:.2rem;">클릭 안 됨 — 이미지만 표시</div>
-  </div>
-</div>
-<div style="margin-top:auto;padding-top:.8rem;font-size:.8rem;line-height:1.8;">
-  <div style="display:flex;gap:.4rem;align-items:center;"><span style="color:var(--green)">✅</span> 디자인/레이아웃 확인 가능</div>
-  <div style="display:flex;gap:.4rem;align-items:center;"><span style="color:var(--pink)">✗</span> 버튼 클릭, 데이터 연동 안 됨</div>
-  <div style="display:flex;gap:.4rem;align-items:center;"><span style="color:var(--pink)">✗</span> 실제 기능 없음 (그림만 있음)</div>
-</div>
-</div>
-<div class="cmp-card" style="border-color:var(--green-border);position:relative;overflow:hidden;display:flex;flex-direction:column;">
-<div style="position:absolute;top:12px;right:12px;font-family:var(--mono);font-size:.68rem;background:var(--green-bg);color:var(--green);padding:.2rem .5rem;border-radius:4px;border:1px solid var(--green-border)">실제 서비스</div>
-<h4 style="color:var(--green);font-size:.9rem;">✨ 완성된 서비스</h4>
-<!-- 대시보드 실제 -->
-<div style="margin-top:.8rem;background:var(--bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;font-size:.78rem;flex:1;">
-  <!-- 상단 내비게이션 바 -->
-  <div style="background:var(--surface);padding:.6rem 1rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);">
-    <span style="color:var(--white);font-weight:700;font-size:.8rem">📊 프로젝트 대시보드</span>
-    <div style="display:flex;gap:.5rem;align-items:center;">
-      <div style="width:22px;height:22px;border-radius:50%;background:var(--amber-bg);display:flex;align-items:center;justify-content:center;font-size:.6rem">🔔</div>
-      <div style="width:22px;height:22px;border-radius:50%;background:var(--blue-bg);display:flex;align-items:center;justify-content:center;font-size:.6rem">👤</div>
-    </div>
-  </div>
-  <!-- KPI 카드 -->
-  <div style="padding:.8rem;display:grid;grid-template-columns:1fr 1fr;gap:.5rem;">
-    <div style="background:var(--surface);border-radius:8px;padding:.6rem .8rem;text-align:center;border:1px solid var(--border);">
-      <div style="font-size:.65rem;color:var(--text-muted);margin-bottom:.3rem">매출</div>
-      <div style="font-size:1rem;font-weight:700"><span style="color:var(--green)">₩12.5M</span> <span style="font-size:.7rem;color:var(--green)">▲ 12%</span></div>
-    </div>
-    <div style="background:var(--surface);border-radius:8px;padding:.6rem .8rem;text-align:center;border:1px solid var(--border);">
-      <div style="font-size:.65rem;color:var(--text-muted);margin-bottom:.3rem">프로젝트</div>
-      <div style="font-size:1rem;color:var(--white);font-weight:700">8건</div>
-    </div>
-  </div>
-  <!-- 차트 영역 (실제 바 차트) -->
-  <div style="margin:0 .8rem .8rem;background:var(--surface);border-radius:8px;padding:.6rem .8rem;border:1px solid var(--border);">
-    <div style="font-size:.65rem;color:var(--text-muted);margin-bottom:.4rem">월별 매출 추이</div>
-    <div style="display:flex;align-items:flex-end;gap:4px;height:48px;">
-      <div style="flex:1;height:35%;background:var(--accent);border-radius:3px 3px 0 0;"></div>
-      <div style="flex:1;height:55%;background:var(--accent);border-radius:3px 3px 0 0;"></div>
-      <div style="flex:1;height:45%;background:var(--accent);border-radius:3px 3px 0 0;"></div>
-      <div style="flex:1;height:70%;background:var(--accent);border-radius:3px 3px 0 0;"></div>
-      <div style="flex:1;height:60%;background:var(--accent);border-radius:3px 3px 0 0;"></div>
-      <div style="flex:1;height:90%;background:var(--green);border-radius:3px 3px 0 0;"></div>
-    </div>
-    <div style="display:flex;justify-content:space-between;margin-top:.3rem;">
-      <span style="font-size:.55rem;color:var(--text-muted)">1월</span>
-      <span style="font-size:.55rem;color:var(--text-muted)">2월</span>
-      <span style="font-size:.55rem;color:var(--text-muted)">3월</span>
-      <span style="font-size:.55rem;color:var(--text-muted)">4월</span>
-      <span style="font-size:.55rem;color:var(--text-muted)">5월</span>
-      <span style="font-size:.55rem;color:var(--green);font-weight:600">6월</span>
-    </div>
-  </div>
-</div>
-<div style="margin-top:auto;padding-top:.8rem;font-size:.8rem;line-height:1.8;">
-  <div style="display:flex;gap:.4rem;align-items:center;"><span style="color:var(--green)">✅</span> 디자인/레이아웃 동일</div>
-  <div style="display:flex;gap:.4rem;align-items:center;"><span style="color:var(--green)">✅</span> 버튼 클릭, 필터 동작</div>
-  <div style="display:flex;gap:.4rem;align-items:center;"><span style="color:var(--green)">✅</span> 실시간 데이터 연동</div>
-</div>
-</div>
-</div>
-</div>
-
-<!-- MVP -->
-<div class="card reveal">
-<div class="card-name">MVP (Minimum Viable Product)</div>
-<div class="card-sub">최소 기능 제품 — 핵심 기능만 넣어서 빠르게 만든 첫 번째 버전</div>
-<div class="card-desc">
-처음부터 완벽한 서비스를 만드는 게 아니라, <strong>가장 핵심적인 기능만 넣어서 빠르게 출시</strong>하고, 사용자 반응을 보면서 개선해나가는 전략입니다.<br><br>
-바이브코딩이 특히 MVP에 강력한 이유가 있어요. AI에게 핵심 기능만 지시하면 <strong>몇 시간 만에 동작하는 프로토타입</strong>을 만들 수 있거든요. 완벽한 서비스를 6개월 개발하는 대신, MVP를 일주일 만에 만들어서 시장 반응을 먼저 테스트하는 것이죠.<br><br>
-<strong style="color:var(--amber)">MVP의 핵심 사고방식:</strong> "이 서비스에서 단 하나의 기능만 남긴다면?" → 그게 MVP입니다.
-</div>
-<div class="analogy">신규 서비스를 제안할 때, 200페이지짜리 완벽한 보고서를 3개월 만드는 대신, <strong>핵심 결론 5페이지를 먼저 보여주고 피드백을 받는 것</strong>과 같습니다. "빨리, 작게, 자주" 가 핵심이에요.</div>
-</div>
-
-<!-- MVP Feature Scoping Visual -->
-<div class="dia reveal">
-<div class="dia-title">MVP 사고법 — "무엇을 남기고, 무엇을 뺄 것인가"</div>
-<div style="max-width:600px;margin:0 auto;">
-<div style="font-size:.85rem;color:var(--text);margin-bottom:1rem;text-align:center">예시: <strong style="color:var(--white)">프로젝트 관리 대시보드</strong>를 만든다면</div>
-<!-- MVP features -->
-<div style="margin-bottom:.8rem;padding:1rem;background:var(--green-bg);border:1px solid var(--green-border);border-radius:10px">
-<div style="font-family:var(--mono);font-size:.7rem;color:var(--green);margin-bottom:.5rem;font-weight:600">✅ MVP에 포함 — 핵심 기능</div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem;font-size:.82rem">
-<div style="background:rgba(74,222,128,.08);border-radius:6px;padding:.5rem .7rem">📋 프로젝트 목록 보기</div>
-<div style="background:rgba(74,222,128,.08);border-radius:6px;padding:.5rem .7rem">➕ 새 프로젝트 추가</div>
-<div style="background:rgba(74,222,128,.08);border-radius:6px;padding:.5rem .7rem">📊 진행률 표시</div>
-<div style="background:rgba(74,222,128,.08);border-radius:6px;padding:.5rem .7rem">🔍 상태별 필터</div>
-</div>
-</div>
-<!-- Later features -->
-<div style="padding:1rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;opacity:.7">
-<div style="font-family:var(--mono);font-size:.7rem;color:var(--text-dim);margin-bottom:.5rem;font-weight:600">⏳ 나중에 추가 — 우선순위 낮음</div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem;font-size:.82rem;color:var(--text-dim)">
-<div style="background:var(--bg2);border-radius:6px;padding:.5rem .7rem">📧 이메일 알림</div>
-<div style="background:var(--bg2);border-radius:6px;padding:.5rem .7rem">📅 캘린더 연동</div>
-<div style="background:var(--bg2);border-radius:6px;padding:.5rem .7rem">💬 팀 채팅 기능</div>
-<div style="background:var(--bg2);border-radius:6px;padding:.5rem .7rem">📈 고급 통계 리포트</div>
-<div style="background:var(--bg2);border-radius:6px;padding:.5rem .7rem">🌍 다국어 지원</div>
-<div style="background:var(--bg2);border-radius:6px;padding:.5rem .7rem">🎨 커스텀 테마</div>
-</div>
-</div>
-</div>
-<div style="text-align:center;font-size:.82rem;color:var(--text-dim);margin-top:1rem"><strong style="color:var(--green)">4개 핵심 기능</strong>만으로 먼저 출시 → 사용자 반응 확인 → 나머지 기능을 <strong style="color:var(--text)">우선순위에 따라</strong> 추가</div>
-</div>
-
-<div class="dia reveal">
-<div class="dia-title">전체 발전 흐름 — 목업에서 완성까지</div>
-<div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:0;align-items:stretch;margin:0 auto;max-width:700px">
-<!-- Mockup -->
-<div style="background:var(--pink-bg);border:1px solid var(--pink-border);border-radius:12px;padding:1.2rem;text-align:center">
-<div style="font-size:1.8rem;margin-bottom:.4rem">🎨</div>
-<div style="font-family:var(--mono);font-size:.82rem;color:var(--pink);font-weight:600;margin-bottom:.4rem">Mock-up</div>
-<div style="font-size:.75rem;color:var(--text-dim);line-height:1.6">그림만 있음<br>클릭 ✕<br>데이터 ✕<br><br><strong style="color:var(--text)">소요: 1~2일</strong></div>
-</div>
-<div style="display:flex;align-items:center;padding:0 .3rem;color:var(--text-dim);font-size:1.2rem">→</div>
-<!-- MVP -->
-<div style="background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:12px;padding:1.2rem;text-align:center">
-<div style="font-size:1.8rem;margin-bottom:.4rem">🚀</div>
-<div style="font-family:var(--mono);font-size:.82rem;color:var(--amber);font-weight:600;margin-bottom:.4rem">MVP</div>
-<div style="font-size:.75rem;color:var(--text-dim);line-height:1.6">핵심 기능만<br>클릭 ✓<br>데이터 ✓ (기본)<br><br><strong style="color:var(--text)">소요: 1~2주</strong></div>
-</div>
-<div style="display:flex;align-items:center;padding:0 .3rem;color:var(--text-dim);font-size:1.2rem">→</div>
-<!-- Full -->
-<div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:12px;padding:1.2rem;text-align:center">
-<div style="font-size:1.8rem;margin-bottom:.4rem">✨</div>
-<div style="font-family:var(--mono);font-size:.82rem;color:var(--green);font-weight:600;margin-bottom:.4rem">완성 서비스</div>
-<div style="font-size:.75rem;color:var(--text-dim);line-height:1.6">전체 기능<br>클릭 ✓<br>데이터 ✓ (전체)<br><br><strong style="color:var(--text)">소요: 수개월</strong></div>
-</div>
-</div>
-</div>
-</div><!-- CH1으로 이동된 콘텐츠 끝 -->
-
+<!-- Mock-up/MVP 내용은 Ch.01(AI에게 말 거는 법)에서 다룹니다 -->
 <!-- ═══════ BONUS: DOCKER & CONTAINERS ═══════ -->
 <div style="display:flex;align-items:center;gap:.6rem;margin:3rem 0 1rem">
   <span style="font-family:var(--mono);font-size:.65rem;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border);padding:.2rem .55rem;border-radius:4px;letter-spacing:1.5px;text-transform:uppercase">Bonus</span>
@@ -2360,7 +2199,7 @@ message = client.messages.create(
 
 <!-- ═══════ CH8 ═══════ -->
 <section class="ch" id="p2-ch9">
-<div class="ch-head reveal"><div class="ch-num" style="color:var(--teal)">08</div><h2 class="ch-title">바이브코딩 실전 워크플로우</h2></div>
+<div class="ch-head reveal"><div class="ch-num" style="color:var(--teal)">08</div><h2 class="ch-title">입문 실전 가이드 — Bolt.new로 시작하기</h2></div>
 
 <p class="reveal">지금까지 배운 개념들이 실제로 어떻게 연결되는지 살펴봅시다. <strong>워크플로우 탭</strong>에서 전체 흐름을, <strong>환경 세팅 가이드 탭</strong>에서 실습 전 준비 사항을 확인하세요.</p>
 
