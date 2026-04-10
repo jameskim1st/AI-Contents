@@ -1,25 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import content from '../content/vibe-master.html?raw';
 ---
 
 <Layout title="바이브코딩 심화 — Claude Code 잘 쓰기">
-
-<div class="part-header">
-  <div class="part-header-inner">
-    <span class="part-header-num" style="color:var(--accent)">Part 3</span>
-    <h2 class="part-header-title">바이브코딩 심화 — Claude Code 잘 쓰기</h2>
-    <p class="part-header-desc">하네스 엔지니어링부터 멀티 에이전트까지, AI 코딩의 다음 단계</p>
-  </div>
-</div>
-
-<section style="max-width:920px;margin:0 auto;padding:5rem 1.5rem 2rem;text-align:center;">
-  <div style="font-size:4rem;margin-bottom:1rem">🚧</div>
-  <h2 style="font-family:var(--display);font-size:1.8rem;font-weight:800;color:var(--white);margin-bottom:1rem">Coming Soon</h2>
-  <p style="color:var(--text-dim);font-size:1rem;line-height:1.9;max-width:500px;margin:0 auto">
-    이 파트는 현재 준비 중입니다.<br>
-    Claude Code를 활용한 심화 바이브코딩 가이드가 곧 추가됩니다.
-  </p>
-  <a href="/" style="display:inline-block;margin-top:2rem;padding:.7rem 1.5rem;border:1px solid var(--border);border-radius:8px;color:var(--text-dim);text-decoration:none;font-size:.88rem;transition:all .3s" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-dim)'">← Overview로 돌아가기</a>
-</section>
-
+  <Fragment set:html={content} />
 </Layout>
