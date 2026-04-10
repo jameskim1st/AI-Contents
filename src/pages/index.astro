@@ -48,6 +48,19 @@ import Layout from '../layouts/Layout.astro';
 
   <!-- Part Cards -->
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;margin-bottom:3rem">
+    <a href="/00-llm" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--violet)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+      <div style="font-size:2rem;margin-bottom:.8rem">🧠</div>
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:2px;margin-bottom:.3rem">PART 0 · 기초 다지기</div>
+      <div style="font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:.6rem">LLM 완전 이해</div>
+      <p style="font-size:.85rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem">AI의 핵심 엔진, 거대 언어 모델. 트랜스포머부터 토큰, 문장 생성 원리까지 직관적으로.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:.3rem">
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--violet-dim);color:var(--violet);border:1px solid rgba(124,108,240,0.3)">트랜스포머</span>
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--violet-dim);color:var(--violet);border:1px solid rgba(124,108,240,0.3)">토큰</span>
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--violet-dim);color:var(--violet);border:1px solid rgba(124,108,240,0.3)">GPT vs BERT</span>
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--violet-dim);color:var(--violet);border:1px solid rgba(124,108,240,0.3)">할루시네이션</span>
+      </div>
+    </a>
+
     <a href="/01-ai-agents" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--teal)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
       <div style="font-size:2rem;margin-bottom:.8rem">🤖</div>
       <div style="font-family:var(--mono);font-size:.7rem;color:var(--teal);letter-spacing:2px;margin-bottom:.3rem">PART 1 · 이해하기</div>
@@ -103,37 +116,38 @@ import Layout from '../layouts/Layout.astro';
   <!-- Learning Flow -->
   <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2.5rem 2rem;margin-bottom:2rem">
     <div style="font-family:var(--mono);font-size:.82rem;color:var(--text-dim);letter-spacing:3px;text-transform:uppercase;margin-bottom:1.5rem;text-align:center">Learning Flow</div>
-    <div style="display:flex;align-items:center;justify-content:center;gap:1.2rem;flex-wrap:wrap">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:.4rem;min-width:120px">
-        <div style="width:64px;height:64px;border-radius:14px;background:var(--teal-bg);border:1px solid var(--teal-border);display:flex;align-items:center;justify-content:center;font-size:1.8rem">🧠</div>
-        <div style="font-size:.88rem;font-weight:700;color:var(--teal)">이해하기</div>
-        <div style="font-size:.75rem;color:var(--text-dim)">원리 파악</div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:.8rem;flex-wrap:wrap">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:.3rem;min-width:95px">
+        <div style="width:52px;height:52px;border-radius:12px;background:var(--violet-dim);border:1px solid rgba(124,108,240,0.3);display:flex;align-items:center;justify-content:center;font-size:1.4rem">🧠</div>
+        <div style="font-size:.78rem;font-weight:700;color:var(--violet)">LLM 기초</div>
       </div>
-      <div style="color:var(--text-dim);font-size:1.5rem">→</div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:.4rem;min-width:120px">
-        <div style="width:64px;height:64px;border-radius:14px;background:var(--accent-bg);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:1.8rem">💻</div>
-        <div style="font-size:.88rem;font-weight:700;color:var(--accent)">만들어보기</div>
-        <div style="font-size:.75rem;color:var(--text-dim)">직접 실습</div>
+      <div style="color:var(--text-dim);font-size:1.2rem">→</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:.3rem;min-width:95px">
+        <div style="width:52px;height:52px;border-radius:12px;background:var(--teal-bg);border:1px solid var(--teal-border);display:flex;align-items:center;justify-content:center;font-size:1.4rem">🤖</div>
+        <div style="font-size:.78rem;font-weight:700;color:var(--teal)">AI Agent</div>
       </div>
-      <div style="color:var(--text-dim);font-size:1.5rem">→</div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:.4rem;min-width:120px">
-        <div style="width:64px;height:64px;border-radius:14px;background:var(--accent-bg);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:1.8rem">🚀</div>
-        <div style="font-size:.88rem;font-weight:700;color:var(--accent)">깊게 파기</div>
-        <div style="font-size:.75rem;color:var(--text-dim)">프로덕션 레벨</div>
+      <div style="color:var(--text-dim);font-size:1.2rem">→</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:.3rem;min-width:95px">
+        <div style="width:52px;height:52px;border-radius:12px;background:var(--accent-bg);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:1.4rem">💻</div>
+        <div style="font-size:.78rem;font-weight:700;color:var(--accent)">만들어보기</div>
       </div>
-      <div style="color:var(--text-dim);font-size:1.5rem">→</div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:.4rem;min-width:120px">
-        <div style="width:64px;height:64px;border-radius:14px;background:var(--blue-bg);border:1px solid var(--blue-border);display:flex;align-items:center;justify-content:center;font-size:1.8rem">⚡</div>
-        <div style="font-size:.88rem;font-weight:700;color:var(--blue)">업무 적용</div>
-        <div style="font-size:.75rem;color:var(--text-dim)">노코드 자동화</div>
+      <div style="color:var(--text-dim);font-size:1.2rem">→</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:.3rem;min-width:95px">
+        <div style="width:52px;height:52px;border-radius:12px;background:var(--accent-bg);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:1.4rem">🚀</div>
+        <div style="font-size:.78rem;font-weight:700;color:var(--accent)">깊게 파기</div>
+      </div>
+      <div style="color:var(--text-dim);font-size:1.2rem">→</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:.3rem;min-width:95px">
+        <div style="width:52px;height:52px;border-radius:12px;background:var(--blue-bg);border:1px solid var(--blue-border);display:flex;align-items:center;justify-content:center;font-size:1.4rem">⚡</div>
+        <div style="font-size:.78rem;font-weight:700;color:var(--blue)">업무 적용</div>
       </div>
     </div>
   </div>
 
   <!-- Start Button -->
   <div style="text-align:center;padding:2rem 0;">
-    <a href="/01-ai-agents" style="display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 2rem;border:1.5px solid var(--teal);background:var(--teal-bg);color:var(--teal);border-radius:12px;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .3s;font-family:var(--sans);text-decoration:none" onmouseover="this.style.background='var(--teal)';this.style.color='#fff'" onmouseout="this.style.background='var(--teal-bg)';this.style.color='var(--teal)'">
-      Part 1부터 시작하기 <span style="font-size:1.2rem">→</span>
+    <a href="/00-llm" style="display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 2rem;border:1.5px solid var(--violet);background:var(--violet-dim);color:var(--violet);border-radius:12px;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .3s;font-family:var(--sans);text-decoration:none" onmouseover="this.style.background='var(--violet)';this.style.color='#fff'" onmouseout="this.style.background='var(--violet-dim)';this.style.color='var(--violet)'">
+      LLM 기초부터 시작하기 <span style="font-size:1.2rem">→</span>
     </a>
   </div>
 </section>

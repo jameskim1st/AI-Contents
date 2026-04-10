@@ -1,0 +1,1082 @@
+<Layout title="LLM 완전 이해">
+<!-- PART 0: LLM 완전 이해 -->
+<div class="part-header" id="part0">
+  <div class="part-header-inner">
+    <span class="part-header-num" style="color:var(--violet)">Part 0</span>
+    <h2 class="part-header-title">LLM 완전 이해</h2>
+    <p class="part-header-desc">AI의 핵심 엔진, 거대 언어 모델의 원리를 직관적으로 이해합니다</p>
+    <p style="font-size:.85rem;color:var(--violet);margin-bottom:1rem;">🧠 AI Agent, 바이브코딩, 자동화 — 모든 것의 출발점은 <strong>LLM을 이해하는 것</strong>입니다.</p>
+    <nav class="ch-nav">
+      <a href="#llm-ch1"><span class="cn">01</span>LLM이란?</a>
+      <a href="#llm-ch2"><span class="cn">02</span>언어 모델의 역사</a>
+      <a href="#llm-ch3"><span class="cn">03</span>트랜스포머</a>
+      <a href="#llm-ch4"><span class="cn">04</span>토큰</a>
+      <a href="#llm-ch5"><span class="cn">05</span>문장 생성 원리</a>
+      <a href="#llm-ch6"><span class="cn">06</span>한계와 활용</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ── Part 0 전체 로드맵 ── -->
+<div class="dia reveal" style="margin-bottom:2rem">
+<div class="dia-title">🗺️ Part 0 로드맵 — LLM의 세계를 6단계로 탐험합니다</div>
+<div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:1.2rem">LLM이 "무엇"이고, "어떻게" 작동하며, "어디까지" 할 수 있는지를 순서대로 이해합니다</div>
+
+<div style="display:grid;grid-template-columns:repeat(6,1fr);gap:.6rem;max-width:860px;margin:0 auto">
+  <div style="text-align:center">
+    <div style="background:var(--violet-dim);border:2px solid var(--violet);border-radius:14px;padding:.8rem .5rem;">
+      <div style="font-size:1.4rem;margin-bottom:.2rem">🍳</div>
+      <div style="font-family:var(--mono);font-size:.7rem;font-weight:700;color:var(--violet)">LLM이란?</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem;line-height:1.4">쉐프 비유로<br>핵심 개념</div>
+    </div>
+    <div style="font-size:.62rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">01장</div>
+  </div>
+  <div style="text-align:center">
+    <div style="background:var(--blue-bg);border:2px solid var(--blue);border-radius:14px;padding:.8rem .5rem;">
+      <div style="font-size:1.4rem;margin-bottom:.2rem">📜</div>
+      <div style="font-family:var(--mono);font-size:.7rem;font-weight:700;color:var(--blue)">역사</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem;line-height:1.4">통계 모델에서<br>ChatGPT까지</div>
+    </div>
+    <div style="font-size:.62rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">02장</div>
+  </div>
+  <div style="text-align:center">
+    <div style="background:var(--teal-bg);border:2px solid var(--teal);border-radius:14px;padding:.8rem .5rem;">
+      <div style="font-size:1.4rem;margin-bottom:.2rem">⚡</div>
+      <div style="font-family:var(--mono);font-size:.7rem;font-weight:700;color:var(--teal)">트랜스포머</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem;line-height:1.4">모든 것의<br>시작</div>
+    </div>
+    <div style="font-size:.62rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">03장</div>
+  </div>
+  <div style="text-align:center">
+    <div style="background:var(--amber-bg);border:2px solid var(--amber);border-radius:14px;padding:.8rem .5rem;">
+      <div style="font-size:1.4rem;margin-bottom:.2rem">🔤</div>
+      <div style="font-family:var(--mono);font-size:.7rem;font-weight:700;color:var(--amber)">토큰</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem;line-height:1.4">LLM의<br>기본 단위</div>
+    </div>
+    <div style="font-size:.62rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">04장</div>
+  </div>
+  <div style="text-align:center">
+    <div style="background:var(--green-bg);border:2px solid var(--green);border-radius:14px;padding:.8rem .5rem;">
+      <div style="font-size:1.4rem;margin-bottom:.2rem">🎲</div>
+      <div style="font-family:var(--mono);font-size:.7rem;font-weight:700;color:var(--green)">문장 생성</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem;line-height:1.4">확률로 만드는<br>다음 단어</div>
+    </div>
+    <div style="font-size:.62rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">05장</div>
+  </div>
+  <div style="text-align:center">
+    <div style="background:var(--pink-bg);border:2px solid var(--pink);border-radius:14px;padding:.8rem .5rem;">
+      <div style="font-size:1.4rem;margin-bottom:.2rem">⚠️</div>
+      <div style="font-family:var(--mono);font-size:.7rem;font-weight:700;color:var(--pink)">한계와 활용</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem;line-height:1.4">할루시네이션<br>프롬프트 팁</div>
+    </div>
+    <div style="font-size:.62rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">06장</div>
+  </div>
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 1: LLM이란 무엇인가 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="llm-ch1">
+  <div class="ch-head">
+    <div class="ch-num" style="color:var(--violet)">01</div>
+    <h2 class="ch-title">LLM이란 무엇인가</h2>
+  </div>
+  <p class="section-desc">
+    LLM(Large Language Model)은 방대한 텍스트 데이터를 학습하여 자연스러운 다음 단어를 예측하는 <strong>거대한 AI 모델</strong>입니다.
+    마치 세계 모든 요리책을 읽은 쉐프가 새로운 요리를 창작하듯, LLM은 데이터에서 패턴을 배워 새로운 텍스트를 생성합니다.
+  </p>
+
+  <!-- Chef Analogy: Learning vs Generation -->
+  <div class="dia reveal">
+    <div class="dia-title">🍳 쉐프(Chef) 비유 — LLM의 두 단계</div>
+    <div class="cmp-grid">
+      <div class="cmp-card" style="border-top:3px solid var(--violet)">
+        <div style="font-size:2.5rem;margin-bottom:.6rem">📚</div>
+        <h4 style="color:var(--violet)">학습 단계 (Training)</h4>
+        <p style="font-size:.85rem;color:var(--text-dim);line-height:1.8;margin-top:.6rem">
+          세계의 모든 요리책, 레시피, 리뷰를 읽고<br>
+          <strong style="color:var(--text)">재료 조합의 패턴</strong>을 익힘
+        </p>
+        <div style="margin-top:1rem;display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center">
+          <span class="cmp-tag" style="background:var(--violet-dim);color:var(--violet)">인터넷 텍스트</span>
+          <span class="cmp-tag" style="background:var(--violet-dim);color:var(--violet)">책</span>
+          <span class="cmp-tag" style="background:var(--violet-dim);color:var(--violet)">논문</span>
+          <span class="cmp-tag" style="background:var(--violet-dim);color:var(--violet)">코드</span>
+        </div>
+        <div style="margin-top:.8rem;font-size:.78rem;color:var(--text-dim);font-style:italic">
+          "짠맛 + 단맛 → 간장 소스" 같은 패턴을 수조 개 학습
+        </div>
+      </div>
+      <div class="cmp-card" style="border-top:3px solid var(--teal)">
+        <div style="font-size:2.5rem;margin-bottom:.6rem">🍽️</div>
+        <h4 style="color:var(--teal)">생성 단계 (Inference)</h4>
+        <p style="font-size:.85rem;color:var(--text-dim);line-height:1.8;margin-top:.6rem">
+          새로운 주문(프롬프트)을 받으면<br>
+          학습한 패턴을 바탕으로 <strong style="color:var(--text)">새 요리를 창작</strong>
+        </p>
+        <div style="margin-top:1rem;display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center">
+          <span class="cmp-tag" style="background:var(--teal-bg);color:var(--teal)">프롬프트 입력</span>
+          <span class="cmp-tag" style="background:var(--teal-bg);color:var(--teal)">패턴 매칭</span>
+          <span class="cmp-tag" style="background:var(--teal-bg);color:var(--teal)">텍스트 생성</span>
+        </div>
+        <div style="margin-top:.8rem;font-size:.78rem;color:var(--text-dim);font-style:italic">
+          "한국 수도는?" → 학습 패턴에서 "서울"을 높은 확률로 선택
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Insight -->
+  <div class="quote-block" style="border-left-color:var(--violet);background:var(--violet-dim)">
+    <div style="font-size:1rem;line-height:1.9;color:var(--text)">
+      <strong style="color:var(--violet)">핵심 통찰:</strong> LLM은 <strong>"이해"하는 게 아니라 "예측"</strong>한다 — 가장 그럴듯한 다음 단어를 확률적으로 선택합니다.
+    </div>
+    <div class="author">이것이 LLM의 모든 강점과 한계를 관통하는 핵심 원리입니다</div>
+  </div>
+
+  <!-- Why it matters now -->
+  <h3 style="color:var(--violet)">왜 지금 중요한가</h3>
+  <div class="dia reveal">
+    <div class="dia-title">🌍 LLM이 만든 변화 — 글로벌 임팩트</div>
+    <div style="display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem">
+      <div style="text-align:center;padding:1rem 1.5rem;background:var(--surface);border-radius:12px;min-width:120px">
+        <div style="font-family:var(--mono);font-size:1.8rem;font-weight:800;color:var(--violet)">2022.12</div>
+        <div style="font-size:.78rem;color:var(--text-dim);margin-top:.3rem">ChatGPT 출시</div>
+      </div>
+      <div style="text-align:center;padding:1rem 1.5rem;background:var(--surface);border-radius:12px;min-width:120px">
+        <div style="font-family:var(--mono);font-size:1.8rem;font-weight:800;color:var(--teal)">1억명</div>
+        <div style="font-size:.78rem;color:var(--text-dim);margin-top:.3rem">2개월 만에 돌파</div>
+      </div>
+      <div style="text-align:center;padding:1rem 1.5rem;background:var(--surface);border-radius:12px;min-width:120px">
+        <div style="font-family:var(--mono);font-size:1.8rem;font-weight:800;color:var(--amber)">2025</div>
+        <div style="font-size:.78rem;color:var(--text-dim);margin-top:.3rem">모든 산업에 LLM 도입</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap">
+      <span style="padding:.4rem .8rem;background:var(--violet-dim);border:1px solid rgba(124,108,240,.25);border-radius:8px;font-size:.8rem;color:var(--violet);font-weight:600">ChatGPT (OpenAI)</span>
+      <span style="padding:.4rem .8rem;background:var(--teal-bg);border:1px solid var(--teal-border);border-radius:8px;font-size:.8rem;color:var(--teal);font-weight:600">Gemini (Google)</span>
+      <span style="padding:.4rem .8rem;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:8px;font-size:.8rem;color:var(--amber);font-weight:600">Claude (Anthropic)</span>
+      <span style="padding:.4rem .8rem;background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:8px;font-size:.8rem;color:var(--blue);font-weight:600">LLaMA (Meta)</span>
+    </div>
+  </div>
+
+  <!-- Big Numbers -->
+  <div class="dia reveal">
+    <div class="dia-title">📊 GPT-4 스케일을 숫자로 느껴보기</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:700px;margin:0 auto">
+      <div style="text-align:center;padding:1.2rem;background:var(--surface);border-radius:14px;border:1px solid var(--border)">
+        <div style="font-family:var(--mono);font-size:2rem;font-weight:800;color:var(--violet)">~1.8T</div>
+        <div style="font-size:.72rem;color:var(--text-dim);margin-top:.2rem">추정 파라미터 수</div>
+        <div style="font-size:.65rem;color:var(--text-dim);margin-top:.1rem">(1.8조 = 1,800,000,000,000)</div>
+      </div>
+      <div style="text-align:center;padding:1.2rem;background:var(--surface);border-radius:14px;border:1px solid var(--border)">
+        <div style="font-family:var(--mono);font-size:2rem;font-weight:800;color:var(--teal)">13T+</div>
+        <div style="font-size:.72rem;color:var(--text-dim);margin-top:.2rem">학습 토큰 수</div>
+        <div style="font-size:.65rem;color:var(--text-dim);margin-top:.1rem">(13조 개 이상의 단어 조각)</div>
+      </div>
+      <div style="text-align:center;padding:1.2rem;background:var(--surface);border-radius:14px;border:1px solid var(--border)">
+        <div style="font-family:var(--mono);font-size:2rem;font-weight:800;color:var(--amber)">$100M+</div>
+        <div style="font-size:.72rem;color:var(--text-dim);margin-top:.2rem">추정 학습 비용</div>
+        <div style="font-size:.65rem;color:var(--text-dim);margin-top:.1rem">(약 1,300억원 이상)</div>
+      </div>
+    </div>
+    <div style="margin-top:1rem;font-size:.78rem;color:var(--text-dim);text-align:center">
+      파라미터(Parameter)란? LLM이 학습한 "기억"의 최소 단위. B = Billion(10억), T = Trillion(1조)
+    </div>
+  </div>
+
+  <div class="analogy">
+    LLM = 세계 모든 도서관의 책을 읽은 천재 — 하지만 "기억"이 아닌 "패턴"으로 저장했기에, 가끔 그럴듯하지만 틀린 답을 자신있게 말합니다.
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 2: 언어 모델의 역사 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="llm-ch2">
+  <div class="ch-head">
+    <div class="ch-num" style="color:var(--violet)">02</div>
+    <h2 class="ch-title">언어 모델의 역사</h2>
+  </div>
+  <p class="section-desc">
+    오늘날의 LLM은 하루아침에 나온 것이 아닙니다. 수십 년간의 연구가 축적되어 폭발적인 혁신을 만들어냈습니다.
+  </p>
+
+  <!-- Visual Timeline -->
+  <div class="dia reveal">
+    <div class="dia-title">📜 언어 모델 진화의 타임라인</div>
+
+    <div style="position:relative;padding-left:3rem;margin:1rem 0;max-width:700px;margin-left:auto;margin-right:auto">
+      <!-- Vertical line -->
+      <div style="position:absolute;left:12px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--blue),var(--teal),var(--violet),var(--amber),var(--pink),var(--green))"></div>
+
+      <!-- Era 1 -->
+      <div style="position:relative;margin-bottom:1.5rem;padding:1.2rem 1.5rem;background:var(--card);border:1px solid var(--border);border-radius:12px;transition:all .3s">
+        <div style="position:absolute;left:-2.55rem;top:1.2rem;width:12px;height:12px;border-radius:50%;border:2px solid var(--blue);background:var(--bg)"></div>
+        <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem">
+          <span style="font-size:1.3rem">📊</span>
+          <span style="font-family:var(--mono);font-size:.75rem;color:var(--blue);font-weight:700">~2010s</span>
+          <span style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--white)">통계적 언어 모델</span>
+        </div>
+        <div style="font-size:.85rem;color:var(--text-dim);line-height:1.7">N-gram 기반 — "이전 N개 단어"를 보고 다음 단어를 확률로 예측. 간단하지만 긴 문맥 이해 불가.</div>
+      </div>
+
+      <!-- Era 2 -->
+      <div style="position:relative;margin-bottom:1.5rem;padding:1.2rem 1.5rem;background:var(--card);border:1px solid var(--border);border-radius:12px;transition:all .3s">
+        <div style="position:absolute;left:-2.55rem;top:1.2rem;width:12px;height:12px;border-radius:50%;border:2px solid var(--teal);background:var(--bg)"></div>
+        <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem">
+          <span style="font-size:1.3rem">🔄</span>
+          <span style="font-family:var(--mono);font-size:.75rem;color:var(--teal);font-weight:700">2014-2017</span>
+          <span style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--white)">RNN / LSTM / Seq2Seq</span>
+        </div>
+        <div style="font-size:.85rem;color:var(--text-dim);line-height:1.7">순환 신경망 — 문장을 순서대로 읽으며 문맥을 기억. Google 번역에 적용. 하지만 <strong style="color:var(--text)">긴 문장에서 앞부분을 잊는 문제</strong>.</div>
+      </div>
+
+      <!-- Era 3 - Highlight -->
+      <div style="position:relative;margin-bottom:1.5rem;padding:1.2rem 1.5rem;background:var(--violet-dim);border:2px solid var(--violet);border-radius:12px;transition:all .3s">
+        <div style="position:absolute;left:-2.55rem;top:1.2rem;width:14px;height:14px;border-radius:50%;border:2px solid var(--violet);background:var(--violet)"></div>
+        <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem">
+          <span style="font-size:1.3rem">⚡</span>
+          <span style="font-family:var(--mono);font-size:.75rem;color:var(--violet);font-weight:700">2017</span>
+          <span style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--white)">Transformer 등장</span>
+          <span style="font-size:.65rem;background:var(--violet);color:var(--bg);padding:.15rem .5rem;border-radius:4px;font-weight:700">GAME CHANGER</span>
+        </div>
+        <div style="font-size:.85rem;color:var(--text);line-height:1.7">Google "Attention is All You Need" 논문 발표. <strong>Self-Attention</strong> 메커니즘으로 문장 전체를 동시에 처리. RNN의 한계를 돌파한 혁명적 구조.</div>
+      </div>
+
+      <!-- Era 4 -->
+      <div style="position:relative;margin-bottom:1.5rem;padding:1.2rem 1.5rem;background:var(--card);border:1px solid var(--border);border-radius:12px;transition:all .3s">
+        <div style="position:absolute;left:-2.55rem;top:1.2rem;width:12px;height:12px;border-radius:50%;border:2px solid var(--amber);background:var(--bg)"></div>
+        <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem">
+          <span style="font-size:1.3rem">🌿</span>
+          <span style="font-family:var(--mono);font-size:.75rem;color:var(--amber);font-weight:700">2018-2019</span>
+          <span style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--white)">BERT / GPT / T5 분화</span>
+        </div>
+        <div style="font-size:.85rem;color:var(--text-dim);line-height:1.7">Transformer를 기반으로 세 가지 방향으로 분화: BERT(이해), GPT(생성), T5(이해+생성). 각각 다른 강점.</div>
+      </div>
+
+      <!-- Era 5 -->
+      <div style="position:relative;margin-bottom:1.5rem;padding:1.2rem 1.5rem;background:var(--card);border:1px solid var(--border);border-radius:12px;transition:all .3s">
+        <div style="position:absolute;left:-2.55rem;top:1.2rem;width:12px;height:12px;border-radius:50%;border:2px solid var(--pink);background:var(--bg)"></div>
+        <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem">
+          <span style="font-size:1.3rem">🚀</span>
+          <span style="font-family:var(--mono);font-size:.75rem;color:var(--pink);font-weight:700">2020-2022</span>
+          <span style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--white)">GPT 스케일링 → ChatGPT</span>
+        </div>
+        <div style="font-size:.85rem;color:var(--text-dim);line-height:1.7">GPT-3(175B 파라미터)가 "크면 클수록 똑똑해진다"는 것을 증명. 2022년 12월, ChatGPT 출시로 AI 대중화 시대 개막.</div>
+      </div>
+
+      <!-- Era 6 -->
+      <div style="position:relative;margin-bottom:0;padding:1.2rem 1.5rem;background:var(--card);border:1px solid var(--border);border-radius:12px;transition:all .3s">
+        <div style="position:absolute;left:-2.55rem;top:1.2rem;width:12px;height:12px;border-radius:50%;border:2px solid var(--green);background:var(--bg)"></div>
+        <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem">
+          <span style="font-size:1.3rem">🌐</span>
+          <span style="font-family:var(--mono);font-size:.75rem;color:var(--green);font-weight:700">2023~현재</span>
+          <span style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--white)">LLM 시대</span>
+        </div>
+        <div style="font-size:.85rem;color:var(--text-dim);line-height:1.7">GPT-4, Claude, Gemini, LLaMA 등 경쟁. 멀티모달(텍스트+이미지+오디오), 100만 토큰 컨텍스트, AI 에이전트로 진화 중.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip">
+    <div class="tip-title">핵심 포인트</div>
+    <p style="font-size:.9rem;line-height:1.9">
+      2017년 <strong>Transformer</strong>가 등장하기 전과 후는 완전히 다른 세상입니다. 오늘날 모든 주요 LLM(GPT, Claude, Gemini, LLaMA)은 Transformer 구조 위에 만들어졌습니다.
+    </p>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 3: 트랜스포머 — 모든 것의 시작 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="llm-ch3">
+  <div class="ch-head">
+    <div class="ch-num" style="color:var(--violet)">03</div>
+    <h2 class="ch-title">트랜스포머 — 모든 것의 시작</h2>
+  </div>
+  <p class="section-desc">
+    2017년 Google이 발표한 Transformer는 <strong>Encoder-Decoder</strong> 구조로, 번역 문제를 해결하기 위해 탄생했지만, 이후 AI의 모든 것을 바꿨습니다.
+  </p>
+
+  <!-- Transformer Architecture -->
+  <div class="dia reveal">
+    <div class="dia-title">⚡ Transformer 기본 구조</div>
+    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;max-width:650px;margin:0 auto;align-items:center">
+      <div style="text-align:center;padding:1.5rem;background:var(--blue-bg);border:2px solid var(--blue);border-radius:16px">
+        <div style="font-size:2rem;margin-bottom:.5rem">📥</div>
+        <div style="font-family:var(--mono);font-size:1rem;font-weight:700;color:var(--blue)">Encoder</div>
+        <div style="font-size:.82rem;color:var(--text-dim);margin-top:.5rem;line-height:1.6">입력 텍스트를<br><strong style="color:var(--blue)">이해(NLU)</strong></div>
+        <div style="font-size:.72rem;color:var(--text-dim);margin-top:.6rem;padding:.4rem;background:var(--surface);border-radius:6px">
+          "I am a student"<br>→ 의미 벡터로 변환
+        </div>
+      </div>
+      <div style="font-size:2rem;color:var(--text-dim)">→</div>
+      <div style="text-align:center;padding:1.5rem;background:var(--green-bg);border:2px solid var(--green);border-radius:16px">
+        <div style="font-size:2rem;margin-bottom:.5rem">📤</div>
+        <div style="font-family:var(--mono);font-size:1rem;font-weight:700;color:var(--green)">Decoder</div>
+        <div style="font-size:.82rem;color:var(--text-dim);margin-top:.5rem;line-height:1.6">새로운 텍스트를<br><strong style="color:var(--green)">생성(NLG)</strong></div>
+        <div style="font-size:.72rem;color:var(--text-dim);margin-top:.6rem;padding:.4rem;background:var(--surface);border-radius:6px">
+          의미 벡터를 해석<br>→ "Je suis etudiant"
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:1.2rem;font-size:.82rem;color:var(--text-dim)">
+      NLU = Natural Language <strong style="color:var(--blue)">Understanding</strong> &nbsp;|&nbsp; NLG = Natural Language <strong style="color:var(--green)">Generation</strong>
+    </div>
+  </div>
+
+  <!-- Translation Step-by-Step -->
+  <div class="dia reveal">
+    <div class="dia-title">🌐 번역 예시: Encoder → Decoder 동작 과정</div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:.8rem;flex-wrap:wrap;padding:1rem 0">
+      <div class="box box-dark" style="white-space:normal">"I am a student"</div>
+      <div class="arrow">→</div>
+      <div class="box" style="background:var(--blue-bg);border-color:var(--blue);color:var(--blue)">Encoder<br><span style="font-size:.7rem">의미 파악</span></div>
+      <div class="arrow">→</div>
+      <div class="box box-violet">의미 벡터<br><span style="font-size:.65rem">[0.82, -0.31, ...]</span></div>
+      <div class="arrow">→</div>
+      <div class="box" style="background:var(--green-bg);border-color:var(--green);color:var(--green)">Decoder<br><span style="font-size:.7rem">문장 생성</span></div>
+      <div class="arrow">→</div>
+      <div class="box box-dark" style="white-space:normal">"Je suis etudiant"</div>
+    </div>
+  </div>
+
+  <!-- Three Branches -->
+  <h3 style="color:var(--violet)">Transformer에서 세 갈래로 분화</h3>
+  <div class="dia reveal">
+    <div class="dia-title">🌿 Transformer의 세 가지 변형</div>
+    <div style="text-align:center;margin-bottom:1.2rem">
+      <div class="box box-violet box-lg" style="display:inline-block">Transformer (2017)</div>
+    </div>
+    <div style="text-align:center;font-size:1.5rem;color:var(--text-dim);margin-bottom:1rem">↙ &nbsp;&nbsp;&nbsp;&nbsp; ↓ &nbsp;&nbsp;&nbsp;&nbsp; ↘</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem">
+      <!-- BERT -->
+      <div style="background:var(--blue-bg);border:2px solid var(--blue);border-radius:14px;padding:1.2rem;text-align:center">
+        <div style="font-size:1.5rem;margin-bottom:.4rem">📥</div>
+        <div style="font-family:var(--mono);font-size:.9rem;font-weight:700;color:var(--blue)">BERT</div>
+        <div style="font-size:.72rem;font-weight:600;color:var(--blue);margin:.3rem 0">Encoder Only</div>
+        <div style="font-size:.78rem;color:var(--text-dim);line-height:1.6;margin-top:.5rem">
+          빈칸 채우기 (양방향)<br>
+          "나는 [?]에 간다" → "학교"
+        </div>
+        <div style="margin-top:.6rem">
+          <span class="cmp-tag" style="background:var(--blue-bg);color:var(--blue);font-size:.65rem">감성분석</span>
+          <span class="cmp-tag" style="background:var(--blue-bg);color:var(--blue);font-size:.65rem">분류</span>
+          <span class="cmp-tag" style="background:var(--blue-bg);color:var(--blue);font-size:.65rem">검색</span>
+        </div>
+      </div>
+      <!-- GPT -->
+      <div style="background:var(--violet-dim);border:2px solid var(--violet);border-radius:14px;padding:1.2rem;text-align:center">
+        <div style="font-size:1.5rem;margin-bottom:.4rem">📤</div>
+        <div style="font-family:var(--mono);font-size:.9rem;font-weight:700;color:var(--violet)">GPT</div>
+        <div style="font-size:.72rem;font-weight:600;color:var(--violet);margin:.3rem 0">Decoder Only</div>
+        <div style="font-size:.78rem;color:var(--text-dim);line-height:1.6;margin-top:.5rem">
+          다음 단어 예측 (단방향)<br>
+          "나는 학교에" → "갑니다"
+        </div>
+        <div style="margin-top:.6rem">
+          <span class="cmp-tag" style="background:var(--violet-dim);color:var(--violet);font-size:.65rem">대화</span>
+          <span class="cmp-tag" style="background:var(--violet-dim);color:var(--violet);font-size:.65rem">글쓰기</span>
+          <span class="cmp-tag" style="background:var(--violet-dim);color:var(--violet);font-size:.65rem">코딩</span>
+        </div>
+      </div>
+      <!-- T5/BART -->
+      <div style="background:var(--teal-bg);border:2px solid var(--teal);border-radius:14px;padding:1.2rem;text-align:center">
+        <div style="font-size:1.5rem;margin-bottom:.4rem">🔄</div>
+        <div style="font-family:var(--mono);font-size:.9rem;font-weight:700;color:var(--teal)">T5 / BART</div>
+        <div style="font-size:.72rem;font-weight:600;color:var(--teal);margin:.3rem 0">Encoder-Decoder</div>
+        <div style="font-size:.78rem;color:var(--text-dim);line-height:1.6;margin-top:.5rem">
+          입력 → 변환 → 출력<br>
+          번역, 요약, Q&A
+        </div>
+        <div style="margin-top:.6rem">
+          <span class="cmp-tag" style="background:var(--teal-bg);color:var(--teal);font-size:.65rem">번역</span>
+          <span class="cmp-tag" style="background:var(--teal-bg);color:var(--teal);font-size:.65rem">요약</span>
+          <span class="cmp-tag" style="background:var(--teal-bg);color:var(--teal);font-size:.65rem">변환</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BERT vs GPT -->
+  <div class="dia reveal">
+    <div class="dia-title">⚔️ BERT vs GPT — 핵심 비교</div>
+    <div class="cmp-grid">
+      <div class="cmp-card" style="border-top:3px solid var(--blue)">
+        <h4 style="color:var(--blue)">BERT (Google, 2018)</h4>
+        <div style="font-size:.85rem;color:var(--text-dim);line-height:1.9;margin-top:.8rem">
+          <div style="margin-bottom:.5rem"><strong style="color:var(--text)">방향:</strong> 양방향 (Bidirectional)</div>
+          <div style="margin-bottom:.5rem"><strong style="color:var(--text)">방식:</strong> 빈칸 채우기 (Masked Language Model)</div>
+          <div style="margin-bottom:.5rem"><strong style="color:var(--text)">강점:</strong> 텍스트 "이해" — 분류, 감성분석</div>
+          <div><strong style="color:var(--text)">비유:</strong> 독해력이 뛰어난 분석가</div>
+        </div>
+        <div style="margin-top:.8rem;padding:.6rem;background:var(--surface);border-radius:8px;font-family:var(--mono);font-size:.78rem;text-align:center">
+          "나는 <span style="color:var(--blue);font-weight:700">[MASK]</span>에 갑니다" → <span style="color:var(--blue)">학교</span>
+        </div>
+      </div>
+      <div class="cmp-card" style="border-top:3px solid var(--violet)">
+        <h4 style="color:var(--violet)">GPT (OpenAI, 2018)</h4>
+        <div style="font-size:.85rem;color:var(--text-dim);line-height:1.9;margin-top:.8rem">
+          <div style="margin-bottom:.5rem"><strong style="color:var(--text)">방향:</strong> 단방향 (Unidirectional, 왼→오)</div>
+          <div style="margin-bottom:.5rem"><strong style="color:var(--text)">방식:</strong> 다음 단어 예측 (Autoregressive)</div>
+          <div style="margin-bottom:.5rem"><strong style="color:var(--text)">강점:</strong> 텍스트 "생성" — 대화, 글쓰기, 코딩</div>
+          <div><strong style="color:var(--text)">비유:</strong> 글솜씨가 뛰어난 작가</div>
+        </div>
+        <div style="margin-top:.8rem;padding:.6rem;background:var(--surface);border-radius:8px;font-family:var(--mono);font-size:.78rem;text-align:center">
+          "나는 학교에" → <span style="color:var(--violet);font-weight:700">갑니다</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GPT Evolution -->
+  <div class="dia reveal">
+    <div class="dia-title">📈 GPT의 진화 — 같은 구조, 다른 스케일</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;max-width:750px;margin:0 auto">
+      <div style="text-align:center;padding:1rem .6rem;background:var(--surface);border:1px solid var(--border);border-radius:12px">
+        <div style="font-family:var(--mono);font-size:.85rem;font-weight:700;color:var(--violet)">GPT-1</div>
+        <div style="font-size:.68rem;color:var(--text-dim);margin:.3rem 0">2018</div>
+        <div style="font-family:var(--mono);font-size:1.3rem;font-weight:800;color:var(--text)">117M</div>
+        <div style="font-size:.65rem;color:var(--text-dim)">파라미터</div>
+        <div style="margin-top:.5rem;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+          <div style="height:100%;width:1%;background:var(--violet);border-radius:3px"></div>
+        </div>
+      </div>
+      <div style="text-align:center;padding:1rem .6rem;background:var(--surface);border:1px solid var(--border);border-radius:12px">
+        <div style="font-family:var(--mono);font-size:.85rem;font-weight:700;color:var(--violet)">GPT-2</div>
+        <div style="font-size:.68rem;color:var(--text-dim);margin:.3rem 0">2019</div>
+        <div style="font-family:var(--mono);font-size:1.3rem;font-weight:800;color:var(--text)">1.5B</div>
+        <div style="font-size:.65rem;color:var(--text-dim)">파라미터</div>
+        <div style="margin-top:.5rem;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+          <div style="height:100%;width:8%;background:var(--violet);border-radius:3px"></div>
+        </div>
+      </div>
+      <div style="text-align:center;padding:1rem .6rem;background:var(--surface);border:1px solid var(--border);border-radius:12px">
+        <div style="font-family:var(--mono);font-size:.85rem;font-weight:700;color:var(--violet)">GPT-3</div>
+        <div style="font-size:.68rem;color:var(--text-dim);margin:.3rem 0">2020</div>
+        <div style="font-family:var(--mono);font-size:1.3rem;font-weight:800;color:var(--text)">175B</div>
+        <div style="font-size:.65rem;color:var(--text-dim)">파라미터</div>
+        <div style="margin-top:.5rem;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+          <div style="height:100%;width:35%;background:var(--violet);border-radius:3px"></div>
+        </div>
+      </div>
+      <div style="text-align:center;padding:1rem .6rem;background:var(--violet-dim);border:2px solid var(--violet);border-radius:12px">
+        <div style="font-family:var(--mono);font-size:.85rem;font-weight:700;color:var(--violet)">GPT-4</div>
+        <div style="font-size:.68rem;color:var(--text-dim);margin:.3rem 0">2023</div>
+        <div style="font-family:var(--mono);font-size:1.3rem;font-weight:800;color:var(--violet)">~1.8T</div>
+        <div style="font-size:.65rem;color:var(--text-dim)">파라미터 (추정)</div>
+        <div style="margin-top:.5rem;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+          <div style="height:100%;width:100%;background:var(--violet);border-radius:3px"></div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:1rem;font-size:.82rem;color:var(--text-dim)">
+      <strong style="color:var(--violet)">같은 Decoder-Only 구조</strong> 위에, 데이터와 파라미터만 기하급수적으로 키운 결과 = 극적인 성능 향상
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 4: 토큰 — LLM의 기본 단위 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="llm-ch4">
+  <div class="ch-head">
+    <div class="ch-num" style="color:var(--violet)">04</div>
+    <h2 class="ch-title">토큰 — LLM의 기본 단위</h2>
+  </div>
+  <p class="section-desc">
+    LLM은 글자를 하나씩 읽지 않습니다. <strong>토큰(Token)</strong>이라는 단위로 텍스트를 쪼개서 처리합니다. 토큰은 LLM의 비용, 속도, 한계를 모두 결정하는 핵심 개념입니다.
+  </p>
+
+  <!-- Token Visualization -->
+  <div class="dia reveal">
+    <div class="dia-title">🔤 토큰화(Tokenization) — 문장이 토큰으로 쪼개지는 과정</div>
+    <div style="text-align:center;margin-bottom:1.2rem">
+      <div style="font-size:.82rem;color:var(--text-dim);margin-bottom:.8rem">입력 문장:</div>
+      <div style="font-size:1.1rem;color:var(--white);font-weight:600;margin-bottom:1rem">"나는 오늘 학교에 갑니다"</div>
+      <div style="font-size:1.2rem;color:var(--text-dim);margin-bottom:1rem">↓ 토큰화</div>
+      <div style="display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap">
+        <span style="background:var(--violet-dim);border:2px solid var(--violet);color:var(--violet);font-size:.9rem;font-weight:700;padding:.5rem .8rem;border-radius:8px">나는</span>
+        <span style="background:var(--blue-bg);border:2px solid var(--blue);color:var(--blue);font-size:.9rem;font-weight:700;padding:.5rem .8rem;border-radius:8px">오늘</span>
+        <span style="background:var(--teal-bg);border:2px solid var(--teal);color:var(--teal);font-size:.9rem;font-weight:700;padding:.5rem .8rem;border-radius:8px">학교</span>
+        <span style="background:var(--amber-bg);border:2px solid var(--amber);color:var(--amber);font-size:.9rem;font-weight:700;padding:.5rem .8rem;border-radius:8px">에</span>
+        <span style="background:var(--green-bg);border:2px solid var(--green);color:var(--green);font-size:.9rem;font-weight:700;padding:.5rem .8rem;border-radius:8px">갑</span>
+        <span style="background:var(--pink-bg);border:2px solid var(--pink);color:var(--pink);font-size:.9rem;font-weight:700;padding:.5rem .8rem;border-radius:8px">니다</span>
+      </div>
+      <div style="font-size:.78rem;color:var(--text-dim);margin-top:.6rem">= 총 <strong style="color:var(--violet)">6토큰</strong></div>
+    </div>
+  </div>
+
+  <!-- English vs Korean -->
+  <div class="dia reveal">
+    <div class="dia-title">🌏 영어 vs 한국어 토큰화 차이</div>
+    <div class="cmp-grid">
+      <div class="cmp-card" style="border-top:3px solid var(--blue)">
+        <h4 style="color:var(--blue)">English</h4>
+        <div style="margin:1rem 0;display:flex;gap:.4rem;justify-content:center;flex-wrap:wrap">
+          <span style="background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue);font-size:.8rem;font-weight:600;padding:.3rem .6rem;border-radius:6px">I</span>
+          <span style="background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue);font-size:.8rem;font-weight:600;padding:.3rem .6rem;border-radius:6px">love</span>
+          <span style="background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue);font-size:.8rem;font-weight:600;padding:.3rem .6rem;border-radius:6px">artificial</span>
+          <span style="background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue);font-size:.8rem;font-weight:600;padding:.3rem .6rem;border-radius:6px">intelligence</span>
+        </div>
+        <div style="font-size:.82rem;color:var(--text-dim);text-align:center">
+          4단어 = <strong style="color:var(--blue)">~4토큰</strong><br>
+          <span style="font-size:.75rem">대략 1 단어 = 1 토큰</span>
+        </div>
+      </div>
+      <div class="cmp-card" style="border-top:3px solid var(--violet)">
+        <h4 style="color:var(--violet)">한국어</h4>
+        <div style="margin:1rem 0;display:flex;gap:.4rem;justify-content:center;flex-wrap:wrap">
+          <span style="background:var(--violet-dim);border:1px solid rgba(124,108,240,.25);color:var(--violet);font-size:.8rem;font-weight:600;padding:.3rem .6rem;border-radius:6px">나는</span>
+          <span style="background:var(--violet-dim);border:1px solid rgba(124,108,240,.25);color:var(--violet);font-size:.8rem;font-weight:600;padding:.3rem .6rem;border-radius:6px">인공</span>
+          <span style="background:var(--violet-dim);border:1px solid rgba(124,108,240,.25);color:var(--violet);font-size:.8rem;font-weight:600;padding:.3rem .6rem;border-radius:6px">지</span>
+          <span style="background:var(--violet-dim);border:1px solid rgba(124,108,240,.25);color:var(--violet);font-size:.8rem;font-weight:600;padding:.3rem .6rem;border-radius:6px">능을</span>
+          <span style="background:var(--violet-dim);border:1px solid rgba(124,108,240,.25);color:var(--violet);font-size:.8rem;font-weight:600;padding:.3rem .6rem;border-radius:6px">사랑</span>
+          <span style="background:var(--violet-dim);border:1px solid rgba(124,108,240,.25);color:var(--violet);font-size:.8rem;font-weight:600;padding:.3rem .6rem;border-radius:6px">합니다</span>
+        </div>
+        <div style="font-size:.82rem;color:var(--text-dim);text-align:center">
+          같은 의미인데 = <strong style="color:var(--violet)">~6토큰</strong><br>
+          <span style="font-size:.75rem">대략 1~2 글자 = 1 토큰</span>
+        </div>
+      </div>
+    </div>
+    <div style="padding:.8rem 1rem;background:var(--pink-bg);border:1px solid var(--pink-border);border-radius:10px;margin-top:.5rem;font-size:.82rem;color:var(--text);text-align:center;line-height:1.7">
+      <strong style="color:var(--pink)">한국어는 같은 내용이라도 토큰을 더 많이 사용</strong> → 비용이 더 높고, 컨텍스트 윈도우를 더 빨리 소모합니다
+    </div>
+  </div>
+
+  <!-- Token Cost -->
+  <div class="dia reveal">
+    <div class="dia-title">💰 토큰 = 비용 — GPT-4o 요금 예시 (2025년 기준)</div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem">
+      <div style="text-align:center;padding:1rem 1.5rem;background:var(--green-bg);border:1px solid var(--green-border);border-radius:12px">
+        <div style="font-size:.72rem;color:var(--green);font-weight:600;margin-bottom:.3rem">Input Token</div>
+        <div style="font-family:var(--mono);font-size:1.4rem;font-weight:800;color:var(--green)">$2.50</div>
+        <div style="font-size:.68rem;color:var(--text-dim)">/1M 토큰</div>
+      </div>
+      <div style="font-size:1.5rem;color:var(--text-dim)">+</div>
+      <div style="text-align:center;padding:1rem 1.5rem;background:var(--pink-bg);border:1px solid var(--pink-border);border-radius:12px">
+        <div style="font-size:.72rem;color:var(--pink);font-weight:600;margin-bottom:.3rem">Output Token</div>
+        <div style="font-family:var(--mono);font-size:1.4rem;font-weight:800;color:var(--pink)">$10.00</div>
+        <div style="font-size:.68rem;color:var(--text-dim)">/1M 토큰</div>
+      </div>
+      <div style="font-size:1.5rem;color:var(--text-dim)">=</div>
+      <div style="text-align:center;padding:1rem 1.5rem;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:12px">
+        <div style="font-size:.72rem;color:var(--amber);font-weight:600;margin-bottom:.3rem">Total Cost</div>
+        <div style="font-family:var(--mono);font-size:1.1rem;font-weight:800;color:var(--amber)">사용량 비례</div>
+        <div style="font-size:.68rem;color:var(--text-dim)">출력이 4배 비쌈</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Context Window -->
+  <div class="dia reveal">
+    <div class="dia-title">📏 컨텍스트 윈도우 비교 — 한 번에 처리할 수 있는 최대 토큰 수</div>
+    <div style="max-width:600px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:.8rem">
+        <div style="width:120px;font-size:.82rem;font-weight:600;color:var(--text);text-align:right">GPT-4o</div>
+        <div style="flex:1;height:32px;background:var(--surface);border-radius:6px;overflow:hidden;position:relative">
+          <div style="height:100%;width:12.8%;background:var(--violet);border-radius:6px;display:flex;align-items:center;padding-left:.5rem">
+            <span style="font-size:.7rem;font-weight:600;color:var(--bg)">128K</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:.8rem">
+        <div style="width:120px;font-size:.82rem;font-weight:600;color:var(--text);text-align:right">Claude 3.5</div>
+        <div style="flex:1;height:32px;background:var(--surface);border-radius:6px;overflow:hidden;position:relative">
+          <div style="height:100%;width:20%;background:var(--amber);border-radius:6px;display:flex;align-items:center;padding-left:.5rem">
+            <span style="font-size:.7rem;font-weight:600;color:var(--bg)">200K</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:.8rem">
+        <div style="width:120px;font-size:.82rem;font-weight:600;color:var(--text);text-align:right">Gemini 1.5 Pro</div>
+        <div style="flex:1;height:32px;background:var(--surface);border-radius:6px;overflow:hidden;position:relative">
+          <div style="height:100%;width:100%;background:var(--teal);border-radius:6px;display:flex;align-items:center;padding-left:.5rem">
+            <span style="font-size:.7rem;font-weight:600;color:var(--bg)">1M+</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:.4rem">
+        <div style="width:120px;font-size:.82rem;font-weight:600;color:var(--text);text-align:right">Claude Opus 4</div>
+        <div style="flex:1;height:32px;background:var(--surface);border-radius:6px;overflow:hidden;position:relative">
+          <div style="height:100%;width:100%;background:linear-gradient(90deg,var(--amber),var(--violet));border-radius:6px;display:flex;align-items:center;padding-left:.5rem">
+            <span style="font-size:.7rem;font-weight:600;color:var(--bg)">1M</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="font-size:.75rem;color:var(--text-dim);text-align:center;margin-top:.8rem">K = 1,000 토큰 &nbsp;|&nbsp; M = 1,000,000 토큰 &nbsp;|&nbsp; 컨텍스트가 클수록 더 긴 대화 가능</div>
+  </div>
+
+  <div class="analogy">
+    토큰 = 택시 미터기. 대화가 길수록(토큰 사용량 증가) 비용이 올라가고, 택시가 갈 수 있는 최대 거리(컨텍스트 윈도우)도 정해져 있습니다. 한국어는 영어보다 "미터기가 빨리 올라가는" 셈이죠.
+  </div>
+
+  <div class="tip">
+    <div class="tip-title">모델마다 토큰화가 다릅니다</div>
+    <p style="font-size:.88rem;line-height:1.9">
+      같은 텍스트라도 GPT와 Claude는 서로 다른 방식으로 토큰을 나눕니다. 따라서 <strong>같은 문장이라도 모델에 따라 토큰 수가 다를 수 있고</strong>, 비용도 달라집니다. Hugging Face 같은 플랫폼에서 모델별 토크나이저를 직접 확인할 수 있습니다.
+    </p>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 5: LLM은 어떻게 문장을 만드는가 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="llm-ch5">
+  <div class="ch-head">
+    <div class="ch-num" style="color:var(--violet)">05</div>
+    <h2 class="ch-title">LLM은 어떻게 문장을 만드는가</h2>
+  </div>
+  <p class="section-desc">
+    LLM이 한 문장을 생성하는 과정은 정해진 파이프라인을 따릅니다. 입력부터 출력까지, 단계별로 따라가 봅시다.
+  </p>
+
+  <!-- Step-by-Step Generation Flow -->
+  <div class="dia reveal">
+    <div class="dia-title">🎲 문장 생성 파이프라인 — 5단계</div>
+
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.3rem;max-width:800px;margin:0 auto;align-items:start">
+      <!-- Step 1 -->
+      <div style="text-align:center">
+        <div style="background:var(--surface);border:2px solid var(--violet);border-radius:12px;padding:.8rem .5rem;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center">
+          <div style="font-size:1.3rem;margin-bottom:.3rem">📝</div>
+          <div style="font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--violet)">Step 1</div>
+          <div style="font-size:.75rem;color:var(--text);font-weight:600;margin-top:.3rem">Tokenize</div>
+          <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem;line-height:1.4">입력 텍스트를<br>토큰으로 분할</div>
+        </div>
+      </div>
+      <!-- Step 2 -->
+      <div style="text-align:center">
+        <div style="background:var(--surface);border:2px solid var(--blue);border-radius:12px;padding:.8rem .5rem;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center">
+          <div style="font-size:1.3rem;margin-bottom:.3rem">🔢</div>
+          <div style="font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--blue)">Step 2</div>
+          <div style="font-size:.75rem;color:var(--text);font-weight:600;margin-top:.3rem">Logit</div>
+          <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem;line-height:1.4">각 후보 토큰의<br>원시 점수 계산</div>
+        </div>
+      </div>
+      <!-- Step 3 -->
+      <div style="text-align:center">
+        <div style="background:var(--surface);border:2px solid var(--teal);border-radius:12px;padding:.8rem .5rem;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center">
+          <div style="font-size:1.3rem;margin-bottom:.3rem">📊</div>
+          <div style="font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--teal)">Step 3</div>
+          <div style="font-size:.75rem;color:var(--text);font-weight:600;margin-top:.3rem">Softmax</div>
+          <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem;line-height:1.4">점수를 확률로<br>변환 (합=100%)</div>
+        </div>
+      </div>
+      <!-- Step 4 -->
+      <div style="text-align:center">
+        <div style="background:var(--surface);border:2px solid var(--amber);border-radius:12px;padding:.8rem .5rem;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center">
+          <div style="font-size:1.3rem;margin-bottom:.3rem">🎯</div>
+          <div style="font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--amber)">Step 4</div>
+          <div style="font-size:.75rem;color:var(--text);font-weight:600;margin-top:.3rem">Sampling</div>
+          <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem;line-height:1.4">확률에 따라<br>다음 토큰 선택</div>
+        </div>
+      </div>
+      <!-- Step 5 -->
+      <div style="text-align:center">
+        <div style="background:var(--surface);border:2px solid var(--green);border-radius:12px;padding:.8rem .5rem;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center">
+          <div style="font-size:1.3rem;margin-bottom:.3rem">🔁</div>
+          <div style="font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--green)">Step 5</div>
+          <div style="font-size:.75rem;color:var(--text);font-weight:600;margin-top:.3rem">Repeat</div>
+          <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem;line-height:1.4">완성될 때까지<br>1~4단계 반복</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arrows -->
+    <div style="display:flex;justify-content:center;gap:3.8rem;margin:.3rem 0;max-width:700px;margin-left:auto;margin-right:auto">
+      <span style="color:var(--text-dim);font-size:.8rem">→</span>
+      <span style="color:var(--text-dim);font-size:.8rem">→</span>
+      <span style="color:var(--text-dim);font-size:.8rem">→</span>
+      <span style="color:var(--text-dim);font-size:.8rem">→</span>
+    </div>
+  </div>
+
+  <!-- Probability Bars Example -->
+  <div class="dia reveal">
+    <div class="dia-title">📊 Softmax 이후 확률 분포 — "한국의 수도는" 다음 토큰은?</div>
+    <div style="max-width:500px;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.6rem">
+        <span style="width:50px;text-align:right;font-family:var(--mono);font-size:.82rem;color:var(--text)">서울</span>
+        <div style="flex:1;height:28px;background:var(--surface);border-radius:6px;overflow:hidden">
+          <div style="height:100%;width:85%;background:var(--violet);border-radius:6px;display:flex;align-items:center;padding-left:.5rem">
+            <span style="font-size:.7rem;font-weight:700;color:var(--bg)">85%</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.6rem">
+        <span style="width:50px;text-align:right;font-family:var(--mono);font-size:.82rem;color:var(--text)">부산</span>
+        <div style="flex:1;height:28px;background:var(--surface);border-radius:6px;overflow:hidden">
+          <div style="height:100%;width:7%;background:var(--blue);border-radius:6px;display:flex;align-items:center;padding-left:.5rem">
+            <span style="font-size:.65rem;font-weight:700;color:var(--bg)">7%</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.6rem">
+        <span style="width:50px;text-align:right;font-family:var(--mono);font-size:.82rem;color:var(--text)">대한</span>
+        <div style="flex:1;height:28px;background:var(--surface);border-radius:6px;overflow:hidden">
+          <div style="height:100%;width:4%;background:var(--teal);border-radius:6px"></div>
+        </div>
+        <span style="font-size:.68rem;color:var(--text-dim)">4%</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.6rem">
+        <span style="width:50px;text-align:right;font-family:var(--mono);font-size:.82rem;color:var(--text-dim)">기타</span>
+        <div style="flex:1;height:28px;background:var(--surface);border-radius:6px;overflow:hidden">
+          <div style="height:100%;width:4%;background:var(--border);border-radius:6px"></div>
+        </div>
+        <span style="font-size:.68rem;color:var(--text-dim)">4%</span>
+      </div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text-dim);text-align:center;margin-top:.5rem">
+      Sampling: 85% 확률로 "서울"이 선택되지만, 7% 확률로 "부산"이 나올 수도 있습니다
+    </div>
+  </div>
+
+  <!-- Temperature -->
+  <h3 style="color:var(--violet)">Temperature — 창의성 조절 다이얼</h3>
+  <div class="dia reveal">
+    <div class="dia-title">🌡️ Temperature가 확률 분포를 바꾸는 원리</div>
+    <div class="cmp-grid">
+      <div class="cmp-card" style="border-top:3px solid var(--blue)">
+        <h4 style="color:var(--blue)">Temperature = 0.1 (보수적)</h4>
+        <div style="margin:1rem 0">
+          <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+            <span style="width:40px;font-size:.72rem;color:var(--text-dim);text-align:right">서울</span>
+            <div style="flex:1;height:20px;background:var(--surface);border-radius:4px;overflow:hidden">
+              <div style="height:100%;width:97%;background:var(--blue);border-radius:4px"></div>
+            </div>
+            <span style="font-size:.68rem;color:var(--blue);font-weight:600">97%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+            <span style="width:40px;font-size:.72rem;color:var(--text-dim);text-align:right">부산</span>
+            <div style="flex:1;height:20px;background:var(--surface);border-radius:4px;overflow:hidden">
+              <div style="height:100%;width:2%;background:var(--blue);border-radius:4px"></div>
+            </div>
+            <span style="font-size:.68rem;color:var(--text-dim)">2%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:.5rem">
+            <span style="width:40px;font-size:.72rem;color:var(--text-dim);text-align:right">대한</span>
+            <div style="flex:1;height:20px;background:var(--surface);border-radius:4px;overflow:hidden">
+              <div style="height:100%;width:1%;background:var(--blue);border-radius:4px"></div>
+            </div>
+            <span style="font-size:.68rem;color:var(--text-dim)">1%</span>
+          </div>
+        </div>
+        <div style="font-size:.8rem;color:var(--text-dim);line-height:1.7;text-align:center">
+          <strong style="color:var(--blue)">거의 확정적</strong> — 항상 같은 답<br>
+          <span style="font-size:.72rem">사실 확인, Q&A, 코딩에 적합</span>
+        </div>
+      </div>
+      <div class="cmp-card" style="border-top:3px solid var(--pink)">
+        <h4 style="color:var(--pink)">Temperature = 1.5 (창의적)</h4>
+        <div style="margin:1rem 0">
+          <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+            <span style="width:40px;font-size:.72rem;color:var(--text-dim);text-align:right">서울</span>
+            <div style="flex:1;height:20px;background:var(--surface);border-radius:4px;overflow:hidden">
+              <div style="height:100%;width:45%;background:var(--pink);border-radius:4px"></div>
+            </div>
+            <span style="font-size:.68rem;color:var(--pink);font-weight:600">45%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+            <span style="width:40px;font-size:.72rem;color:var(--text-dim);text-align:right">부산</span>
+            <div style="flex:1;height:20px;background:var(--surface);border-radius:4px;overflow:hidden">
+              <div style="height:100%;width:25%;background:var(--pink);border-radius:4px"></div>
+            </div>
+            <span style="font-size:.68rem;color:var(--text-dim)">25%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:.5rem">
+            <span style="width:40px;font-size:.72rem;color:var(--text-dim);text-align:right">대한</span>
+            <div style="flex:1;height:20px;background:var(--surface);border-radius:4px;overflow:hidden">
+              <div style="height:100%;width:15%;background:var(--pink);border-radius:4px"></div>
+            </div>
+            <span style="font-size:.68rem;color:var(--text-dim)">15%</span>
+          </div>
+        </div>
+        <div style="font-size:.8rem;color:var(--text-dim);line-height:1.7;text-align:center">
+          <strong style="color:var(--pink)">확률이 평탄해짐</strong> — 다양한 답<br>
+          <span style="font-size:.72rem">창작, 브레인스토밍에 적합</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top-P -->
+  <div class="dia reveal">
+    <div class="dia-title">🎯 Top-P (Nucleus Sampling) — 확률 상위 N%만 고려</div>
+    <div style="max-width:550px;margin:0 auto">
+      <div style="font-size:.85rem;color:var(--text-dim);margin-bottom:1rem;text-align:center;line-height:1.7">
+        Top-P = 0.8 → 누적 확률이 80%에 도달할 때까지의 토큰만 후보로 남기고, 나머지는 제외
+      </div>
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+        <span style="width:50px;font-size:.78rem;text-align:right;color:var(--text)">서울</span>
+        <div style="flex:1;height:24px;background:var(--surface);border-radius:5px;overflow:hidden">
+          <div style="height:100%;width:65%;background:var(--green);border-radius:5px;display:flex;align-items:center;padding-left:.5rem">
+            <span style="font-size:.65rem;font-weight:700;color:var(--bg)">65%</span>
+          </div>
+        </div>
+        <span style="font-size:.7rem;color:var(--green);font-weight:600">선택 가능</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+        <span style="width:50px;font-size:.78rem;text-align:right;color:var(--text)">부산</span>
+        <div style="flex:1;height:24px;background:var(--surface);border-radius:5px;overflow:hidden">
+          <div style="height:100%;width:15%;background:var(--green);border-radius:5px;display:flex;align-items:center;padding-left:.4rem">
+            <span style="font-size:.62rem;font-weight:700;color:var(--bg)">15%</span>
+          </div>
+        </div>
+        <span style="font-size:.7rem;color:var(--green);font-weight:600">선택 가능</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;opacity:.5">
+        <span style="width:50px;font-size:.78rem;text-align:right;color:var(--text-dim)">대한</span>
+        <div style="flex:1;height:24px;background:var(--surface);border-radius:5px;overflow:hidden">
+          <div style="height:100%;width:10%;background:var(--border);border-radius:5px"></div>
+        </div>
+        <span style="font-size:.7rem;color:var(--pink);font-weight:600;text-decoration:line-through">제외 (누적 90%)</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.5rem;opacity:.5">
+        <span style="width:50px;font-size:.78rem;text-align:right;color:var(--text-dim)">기타</span>
+        <div style="flex:1;height:24px;background:var(--surface);border-radius:5px;overflow:hidden">
+          <div style="height:100%;width:5%;background:var(--border);border-radius:5px"></div>
+        </div>
+        <span style="font-size:.7rem;color:var(--pink);font-weight:600;text-decoration:line-through">제외</span>
+      </div>
+      <div style="margin-top:.8rem;padding:.6rem 1rem;background:var(--green-bg);border:1px dashed var(--green-border);border-radius:8px;text-align:center;font-size:.78rem;color:var(--text)">
+        누적 65% + 15% = <strong style="color:var(--green)">80% 도달</strong> → "서울"과 "부산"만 후보, 나머지 무시
+      </div>
+    </div>
+  </div>
+
+  <!-- Practical Tip -->
+  <div class="tip">
+    <div class="tip-title">실전 가이드: 언제 어떤 설정을 쓸까?</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:.8rem">
+      <div style="padding:.8rem;background:var(--surface);border-radius:10px;font-size:.82rem;line-height:1.7">
+        <div style="font-weight:700;color:var(--blue);margin-bottom:.3rem">낮은 Temperature (0.0~0.3)</div>
+        사실 기반 Q&A, 문서 요약, 코드 작성, 데이터 분석 — 정확성이 중요할 때
+      </div>
+      <div style="padding:.8rem;background:var(--surface);border-radius:10px;font-size:.82rem;line-height:1.7">
+        <div style="font-weight:700;color:var(--pink);margin-bottom:.3rem">높은 Temperature (0.7~1.5)</div>
+        소설 작성, 아이디어 브레인스토밍, 시/노래 가사, 마케팅 카피 — 창의성이 중요할 때
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 6: LLM의 한계와 올바른 활용 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="llm-ch6">
+  <div class="ch-head">
+    <div class="ch-num" style="color:var(--violet)">06</div>
+    <h2 class="ch-title">LLM의 한계와 올바른 활용</h2>
+  </div>
+  <p class="section-desc">
+    LLM은 강력하지만 완벽하지 않습니다. 한계를 정확히 알아야 <strong>올바르게 활용</strong>할 수 있습니다.
+  </p>
+
+  <!-- 3 Limitations -->
+  <div class="dia reveal">
+    <div class="dia-title">⚠️ LLM의 3대 한계</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem">
+      <!-- Hallucination -->
+      <div style="background:var(--pink-bg);border:2px solid var(--pink);border-radius:14px;padding:1.3rem;text-align:center">
+        <div style="font-size:2rem;margin-bottom:.5rem">🌀</div>
+        <div style="font-family:var(--mono);font-size:.9rem;font-weight:700;color:var(--pink)">할루시네이션</div>
+        <div style="font-size:.72rem;color:var(--text-dim);margin:.3rem 0">Hallucination</div>
+        <div style="font-size:.8rem;color:var(--text);line-height:1.7;margin-top:.5rem">
+          없는 사실을 자신있게 말함. <strong>거짓인데 진짜처럼</strong> 들리는 답변 생성.
+        </div>
+      </div>
+      <!-- Knowledge Cutoff -->
+      <div style="background:var(--amber-bg);border:2px solid var(--amber);border-radius:14px;padding:1.3rem;text-align:center">
+        <div style="font-size:2rem;margin-bottom:.5rem">📅</div>
+        <div style="font-family:var(--mono);font-size:.9rem;font-weight:700;color:var(--amber)">지식 단절</div>
+        <div style="font-size:.72rem;color:var(--text-dim);margin:.3rem 0">Knowledge Cutoff</div>
+        <div style="font-size:.8rem;color:var(--text);line-height:1.7;margin-top:.5rem">
+          학습 데이터 이후의 사건을 모름. <strong>최신 정보에 취약</strong>.
+        </div>
+      </div>
+      <!-- Bias -->
+      <div style="background:var(--blue-bg);border:2px solid var(--blue);border-radius:14px;padding:1.3rem;text-align:center">
+        <div style="font-size:2rem;margin-bottom:.5rem">⚖️</div>
+        <div style="font-family:var(--mono);font-size:.9rem;font-weight:700;color:var(--blue)">편향</div>
+        <div style="font-size:.72rem;color:var(--text-dim);margin:.3rem 0">Bias</div>
+        <div style="font-size:.8rem;color:var(--text);line-height:1.7;margin-top:.5rem">
+          학습 데이터의 편향을 그대로 반영. <strong>공정하지 않은 답변</strong> 가능.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hallucination Example -->
+  <div class="warn reveal">
+    <div class="warn-title">할루시네이션 실제 사례</div>
+    <div style="margin-top:.6rem;padding:1rem;background:var(--surface);border-radius:10px;font-size:.85rem;line-height:1.8">
+      <div style="color:var(--text-dim);margin-bottom:.3rem">질문: "김영희 교수의 2023년 논문을 알려줘"</div>
+      <div style="color:var(--pink);font-weight:600">LLM 답변: "김영희 교수는 2023년 <em>Journal of AI Research</em>에 'Deep Learning for Korean NLP'라는 논문을 발표했습니다. (DOI: 10.1234/fake.2023.001)"</div>
+      <div style="margin-top:.5rem;color:var(--text-dim);font-size:.78rem">
+        위 논문, 저널, DOI 모두 존재하지 않지만, LLM은 마치 실제인 것처럼 자연스럽게 생성합니다. 이것이 할루시네이션의 위험성입니다.
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 Prompt Tips -->
+  <h3 style="color:var(--violet)">LLM을 잘 쓰기 위한 5가지 프롬프트 원칙</h3>
+
+  <div class="dia reveal">
+    <div class="dia-title">📋 프롬프트 5대 원칙</div>
+    <div style="display:grid;grid-template-columns:1fr;gap:.6rem;max-width:700px;margin:0 auto">
+
+      <div style="display:flex;gap:1rem;padding:1.2rem;background:var(--surface);border-radius:12px;border-left:4px solid var(--violet);align-items:flex-start">
+        <div style="width:36px;height:36px;background:var(--violet);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.9rem;font-weight:800;color:var(--bg);flex-shrink:0">1</div>
+        <div>
+          <div style="font-weight:700;color:var(--text);font-size:.92rem;margin-bottom:.2rem">목적과 맥락을 명확히 전달</div>
+          <div style="font-size:.82rem;color:var(--text-dim);line-height:1.7">"마케팅 보고서 써줘" 대신 → "B2B SaaS 회사의 Q1 마케팅 성과를 경영진에게 보고하는 2페이지 보고서를 작성해줘"</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:1rem;padding:1.2rem;background:var(--surface);border-radius:12px;border-left:4px solid var(--blue);align-items:flex-start">
+        <div style="width:36px;height:36px;background:var(--blue);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.9rem;font-weight:800;color:var(--bg);flex-shrink:0">2</div>
+        <div>
+          <div style="font-weight:700;color:var(--text);font-size:.92rem;margin-bottom:.2rem">툴 사용 기준을 명확히</div>
+          <div style="font-size:.82rem;color:var(--text-dim);line-height:1.7">LLM이 잘하는 것(글쓰기, 요약)과 못하는 것(계산, 최신 정보)을 구분하여 적절한 도구와 조합하세요.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:1rem;padding:1.2rem;background:var(--surface);border-radius:12px;border-left:4px solid var(--teal);align-items:flex-start">
+        <div style="width:36px;height:36px;background:var(--teal);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.9rem;font-weight:800;color:var(--bg);flex-shrink:0">3</div>
+        <div>
+          <div style="font-weight:700;color:var(--text);font-size:.92rem;margin-bottom:.2rem">신뢰도 높은 정보 출처 유도</div>
+          <div style="font-size:.82rem;color:var(--text-dim);line-height:1.7">"출처를 함께 제시해줘", "확실하지 않은 정보는 구분해서 표시해줘"라고 명시하면 할루시네이션을 줄일 수 있습니다.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:1rem;padding:1.2rem;background:var(--surface);border-radius:12px;border-left:4px solid var(--amber);align-items:flex-start">
+        <div style="width:36px;height:36px;background:var(--amber);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.9rem;font-weight:800;color:var(--bg);flex-shrink:0">4</div>
+        <div>
+          <div style="font-weight:700;color:var(--text);font-size:.92rem;margin-bottom:.2rem">시스템 설정과 모델 한계 관리</div>
+          <div style="font-size:.82rem;color:var(--text-dim);line-height:1.7">Temperature, Top-P 등 파라미터를 목적에 맞게 조정하고, 컨텍스트 윈도우 한계를 인식하세요.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:1rem;padding:1.2rem;background:var(--surface);border-radius:12px;border-left:4px solid var(--pink);align-items:flex-start">
+        <div style="width:36px;height:36px;background:var(--pink);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.9rem;font-weight:800;color:var(--bg);flex-shrink:0">5</div>
+        <div>
+          <div style="font-weight:700;color:var(--text);font-size:.92rem;margin-bottom:.2rem">모르는 건 모른다고 하게 하기</div>
+          <div style="font-size:.82rem;color:var(--text-dim);line-height:1.7">"모르면 모른다고 말해줘"라는 지시를 추가하면, LLM이 무리해서 지어내는 것을 줄일 수 있습니다.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 2024-2025 LLM Landscape -->
+  <h3 style="color:var(--violet)">2024-2025 주요 LLM 비교</h3>
+  <div class="dia reveal">
+    <div class="dia-title">🏆 주요 LLM 비교표</div>
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:.82rem">
+        <thead>
+          <tr style="border-bottom:2px solid var(--border)">
+            <th style="padding:.7rem .8rem;text-align:left;color:var(--text-dim);font-size:.72rem;text-transform:uppercase;letter-spacing:1px">모델</th>
+            <th style="padding:.7rem .8rem;text-align:left;color:var(--text-dim);font-size:.72rem;text-transform:uppercase;letter-spacing:1px">회사</th>
+            <th style="padding:.7rem .8rem;text-align:left;color:var(--text-dim);font-size:.72rem;text-transform:uppercase;letter-spacing:1px">유형</th>
+            <th style="padding:.7rem .8rem;text-align:left;color:var(--text-dim);font-size:.72rem;text-transform:uppercase;letter-spacing:1px">컨텍스트</th>
+            <th style="padding:.7rem .8rem;text-align:left;color:var(--text-dim);font-size:.72rem;text-transform:uppercase;letter-spacing:1px">특징</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:.7rem .8rem;font-weight:600;color:var(--violet)">GPT-4o / o1</td>
+            <td style="padding:.7rem .8rem;color:var(--text)">OpenAI</td>
+            <td style="padding:.7rem .8rem"><span class="cmp-tag" style="background:var(--pink-bg);color:var(--pink)">Closed</span></td>
+            <td style="padding:.7rem .8rem;color:var(--text)">128K</td>
+            <td style="padding:.7rem .8rem;color:var(--text-dim)">멀티모달, 추론 특화(o1)</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:.7rem .8rem;font-weight:600;color:var(--amber)">Claude Opus 4</td>
+            <td style="padding:.7rem .8rem;color:var(--text)">Anthropic</td>
+            <td style="padding:.7rem .8rem"><span class="cmp-tag" style="background:var(--pink-bg);color:var(--pink)">Closed</span></td>
+            <td style="padding:.7rem .8rem;color:var(--text)">200K~1M</td>
+            <td style="padding:.7rem .8rem;color:var(--text-dim)">코딩 최강, 긴 문서 분석, 안전성</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:.7rem .8rem;font-weight:600;color:var(--teal)">Gemini 1.5 Pro</td>
+            <td style="padding:.7rem .8rem;color:var(--text)">Google</td>
+            <td style="padding:.7rem .8rem"><span class="cmp-tag" style="background:var(--pink-bg);color:var(--pink)">Closed</span></td>
+            <td style="padding:.7rem .8rem;color:var(--text)">1M+</td>
+            <td style="padding:.7rem .8rem;color:var(--text-dim)">멀티모달(영상 포함), 최대 컨텍스트</td>
+          </tr>
+          <tr>
+            <td style="padding:.7rem .8rem;font-weight:600;color:var(--blue)">LLaMA 3 (70B)</td>
+            <td style="padding:.7rem .8rem;color:var(--text)">Meta</td>
+            <td style="padding:.7rem .8rem"><span class="cmp-tag" style="background:var(--green-bg);color:var(--green)">Open</span></td>
+            <td style="padding:.7rem .8rem;color:var(--text)">128K</td>
+            <td style="padding:.7rem .8rem;color:var(--text-dim)">오픈소스, 로컬 실행 가능, 커스터마이징</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:1rem;display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;font-size:.75rem">
+      <span style="color:var(--pink)"><span class="cmp-tag" style="background:var(--pink-bg);color:var(--pink)">Closed</span> = API로만 사용, 내부 구조 비공개</span>
+      <span style="color:var(--green)"><span class="cmp-tag" style="background:var(--green-bg);color:var(--green)">Open</span> = 모델 가중치 공개, 직접 운영 가능</span>
+    </div>
+  </div>
+
+  <!-- Multimodal Note -->
+  <div class="card reveal">
+    <div class="card-name" style="color:var(--violet)">멀티모달 (Multimodal)</div>
+    <div class="card-sub">텍스트만이 아닌, 이미지 + 오디오 + 비디오까지 처리하는 LLM</div>
+    <div class="card-desc">
+      최신 LLM들은 텍스트뿐 아니라 <strong>이미지를 보고 설명하고, 음성을 듣고 텍스트로 바꾸고, 이미지를 직접 생성</strong>하는 능력을 갖추고 있습니다. GPT-4o는 텍스트+이미지+오디오를 동시에 처리하고, Gemini는 영상 분석까지 가능합니다.
+    </div>
+    <div class="analogy">
+      과거 LLM이 "눈만 있는 AI"였다면, 멀티모달 LLM은 "눈 + 귀 + 입이 모두 있는 AI"입니다. 세상을 여러 감각으로 인식하기 시작한 것이죠.
+    </div>
+  </div>
+
+  <!-- Korean Language Note -->
+  <div class="tip">
+    <div class="tip-title">한국어 성능 참고</div>
+    <p style="font-size:.88rem;line-height:1.9">
+      대부분의 LLM은 <strong>영어 데이터로 주로 학습</strong>되었기 때문에, 한국어에서는 영어 대비 토큰 효율이 낮고 성능이 다소 떨어질 수 있습니다. Claude와 GPT-4는 한국어 성능이 상대적으로 우수하며, <strong>프롬프트를 영어로 작성하면 더 좋은 결과</strong>를 얻는 경우도 있습니다.
+    </p>
+  </div>
+
+  <!-- Connection to Next Part -->
+  <div style="margin-top:2.5rem;padding:1.5rem 2rem;background:linear-gradient(135deg,rgba(124,108,240,0.08),rgba(45,212,191,0.08));border:1px solid rgba(124,108,240,.25);border-radius:16px;text-align:center" class="reveal">
+    <div style="font-size:1.8rem;margin-bottom:.5rem">🚀</div>
+    <div style="font-family:var(--display);font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:.6rem">
+      Part 0 완료 — 다음은 Part 1: AI Agents
+    </div>
+    <div style="font-size:.9rem;color:var(--text-dim);line-height:1.8;max-width:550px;margin:0 auto">
+      이제 LLM의 원리를 이해했으니, <strong style="color:var(--teal)">Part 1</strong>에서 이 LLM에 <strong>기억(Memory)</strong>, <strong>도구(Tools)</strong>, <strong>계획(Planning)</strong>을 장착해 <strong style="color:var(--teal)">자율적인 AI 에이전트</strong>로 만드는 방법을 배웁니다.
+    </div>
+    <div style="margin-top:1rem;display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap">
+      <span style="padding:.35rem .7rem;background:var(--violet-dim);border:1px solid rgba(124,108,240,.25);border-radius:6px;font-size:.75rem;color:var(--violet);font-family:var(--mono)">LLM (Part 0)</span>
+      <span style="color:var(--text-dim);font-size:1rem;display:flex;align-items:center">→</span>
+      <span style="padding:.35rem .7rem;background:var(--teal-bg);border:1px solid var(--teal-border);border-radius:6px;font-size:.75rem;color:var(--teal);font-family:var(--mono)">AI Agent (Part 1)</span>
+      <span style="color:var(--text-dim);font-size:1rem;display:flex;align-items:center">→</span>
+      <span style="padding:.35rem .7rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:6px;font-size:.75rem;color:var(--accent-light);font-family:var(--mono)">Vibe Coding (Part 2)</span>
+      <span style="color:var(--text-dim);font-size:1rem;display:flex;align-items:center">→</span>
+      <span style="padding:.35rem .7rem;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:6px;font-size:.75rem;color:var(--amber);font-family:var(--mono)">Power Platform (Part 3)</span>
+    </div>
+  </div>
+</section>
+
+</Layout>
