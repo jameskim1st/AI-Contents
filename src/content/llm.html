@@ -1053,15 +1053,257 @@
     </div>
   </div>
 
-  <!-- MoE Note -->
-  <div class="card reveal">
-    <div class="card-name" style="color:var(--blue)">MoE (Mixture of Experts) — 2026년의 새 아키텍처 트렌드</div>
-    <div class="card-sub">모든 파라미터를 쓰지 않고, 입력에 따라 "전문가"를 골라 활성화하는 구조</div>
-    <div class="card-desc">
-      LLaMA 4가 대표적입니다. Maverick은 총 400B 파라미터이지만 한 번에 <strong>17B만 활성화</strong>합니다 (128명의 전문가 중 필요한 전문가만 출동). 결과: <strong>적은 연산으로 큰 모델의 성능</strong>. GPU 1대에서도 돌릴 수 있는 Scout(17B active)가 GPT-4o를 이기는 이유입니다.
+  <!-- ═══ MoE Deep Dive ═══ -->
+  <h3 style="color:var(--blue);margin-top:2rem">MoE (Mixture of Experts) — 2026년의 핵심 아키텍처</h3>
+
+  <!-- MoE 한 줄 정의 -->
+  <div class="dia reveal">
+    <div class="dia-title">MoE란 무엇인가</div>
+    <div style="display:grid;grid-template-columns:auto 1fr;gap:1.5rem;align-items:center;max-width:700px;margin:0 auto">
+      <div style="font-size:4rem">🏥</div>
+      <div>
+        <div style="font-size:1rem;font-weight:700;color:var(--white);margin-bottom:.5rem">Mixture of Experts = "전문의 팀 진료 시스템"</div>
+        <div style="font-size:.88rem;color:var(--text-dim);line-height:1.85">종합병원에 <strong style="color:var(--text)">128명의 전문의</strong>가 있지만, 환자(입력 토큰)마다 <strong style="color:var(--blue)">필요한 1~2명의 전문의만 진료</strong>합니다. 전체 인력은 거대하지만 한 번에 투입되는 자원은 효율적. AI 모델에서도 똑같은 원리입니다.</div>
+      </div>
     </div>
-    <div class="analogy">
-      종합병원에 100명의 전문의가 있지만, 환자마다 필요한 2~3명의 전문의만 진료하는 것과 같습니다. 전체 인력은 거대하지만, 한 번에 투입되는 자원은 효율적.
+  </div>
+
+  <!-- Dense vs MoE 비교 -->
+  <div class="dia reveal">
+    <div class="dia-title">Dense 모델 vs MoE 모델 — 핵심 차이</div>
+    <div class="cmp-grid" style="max-width:750px;margin:0 auto">
+
+      <div class="cmp-card" style="border-color:var(--pink-border);text-align:left">
+        <h4 style="color:var(--pink);font-size:.95rem">🧱 Dense 모델 (기존 방식)</h4>
+        <div style="margin-top:.8rem;text-align:center">
+          <!-- Dense 시각화: 모든 뉴런이 활성 -->
+          <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:3px;max-width:250px;margin:0 auto;margin-bottom:.6rem">
+            <div style="height:20px;background:var(--pink);border-radius:3px;opacity:.9"></div>
+            <div style="height:20px;background:var(--pink);border-radius:3px;opacity:.85"></div>
+            <div style="height:20px;background:var(--pink);border-radius:3px;opacity:.8"></div>
+            <div style="height:20px;background:var(--pink);border-radius:3px;opacity:.75"></div>
+            <div style="height:20px;background:var(--pink);border-radius:3px;opacity:.7"></div>
+            <div style="height:20px;background:var(--pink);border-radius:3px;opacity:.65"></div>
+            <div style="height:20px;background:var(--pink);border-radius:3px;opacity:.6"></div>
+            <div style="height:20px;background:var(--pink);border-radius:3px;opacity:.55"></div>
+          </div>
+          <div style="font-size:.72rem;color:var(--pink);font-weight:600">모든 파라미터 활성 (100%)</div>
+        </div>
+        <div style="font-size:.82rem;color:var(--text-dim);line-height:1.7;margin-top:.8rem">
+          모든 입력에 대해 <strong style="color:var(--text)">모든 파라미터가 계산</strong>에 참여.<br>
+          GPT-3 (175B) → 매번 1,750억 개 전부 동원.
+        </div>
+        <div style="margin-top:.6rem;padding:.4rem .7rem;background:var(--pink-bg);border-radius:6px;font-size:.75rem;color:var(--pink)">😓 크면 클수록 느리고 비쌈</div>
+      </div>
+
+      <div class="cmp-card" style="border-color:var(--blue-border);text-align:left">
+        <h4 style="color:var(--blue);font-size:.95rem">⚡ MoE 모델 (새로운 방식)</h4>
+        <div style="margin-top:.8rem;text-align:center">
+          <!-- MoE 시각화: 일부만 활성 -->
+          <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:3px;max-width:250px;margin:0 auto;margin-bottom:.6rem">
+            <div style="height:20px;background:var(--blue);border-radius:3px"></div>
+            <div style="height:20px;background:var(--surface);border:1px solid var(--border);border-radius:3px"></div>
+            <div style="height:20px;background:var(--surface);border:1px solid var(--border);border-radius:3px"></div>
+            <div style="height:20px;background:var(--blue);border-radius:3px"></div>
+            <div style="height:20px;background:var(--surface);border:1px solid var(--border);border-radius:3px"></div>
+            <div style="height:20px;background:var(--surface);border:1px solid var(--border);border-radius:3px"></div>
+            <div style="height:20px;background:var(--surface);border:1px solid var(--border);border-radius:3px"></div>
+            <div style="height:20px;background:var(--surface);border:1px solid var(--border);border-radius:3px"></div>
+          </div>
+          <div style="font-size:.72rem;color:var(--blue);font-weight:600">필요한 전문가만 활성 (~4%)</div>
+        </div>
+        <div style="font-size:.82rem;color:var(--text-dim);line-height:1.7;margin-top:.8rem">
+          입력에 따라 <strong style="color:var(--text)">일부 전문가만 활성화</strong>.<br>
+          LLaMA 4 Maverick (400B) → 매번 17B만 동원.
+        </div>
+        <div style="margin-top:.6rem;padding:.4rem .7rem;background:var(--blue-bg);border-radius:6px;font-size:.75rem;color:var(--blue)">🎉 크지만 빠르고 저렴</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MoE 동작 원리 플로우 -->
+  <div class="dia reveal">
+    <div class="dia-title">MoE 동작 원리 — 토큰이 전문가를 만나기까지</div>
+    <div style="display:flex;flex-direction:column;gap:0;max-width:700px;margin:0 auto">
+
+      <!-- Step 1: Input -->
+      <div style="display:flex;align-items:center;gap:1rem;padding:1.1rem;background:var(--surface);border:1px solid var(--border);border-radius:14px 14px 0 0">
+        <div style="width:40px;height:40px;border-radius:10px;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">1</div>
+        <div style="flex:1">
+          <div style="font-size:.88rem;font-weight:700;color:var(--white)">입력 토큰 도착</div>
+          <div style="font-size:.78rem;color:var(--text-dim);margin-top:.15rem">"나는 오늘 학교에" → 각 토큰이 순서대로 처리</div>
+        </div>
+      </div>
+      <div style="text-align:center;padding:.2rem 0;color:var(--text-dim);font-size:.8rem">▼</div>
+
+      <!-- Step 2: Router -->
+      <div style="display:flex;align-items:center;gap:1rem;padding:1.1rem;background:var(--accent-bg);border:2px solid var(--accent);border-radius:0">
+        <div style="width:40px;height:40px;border-radius:10px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">2</div>
+        <div style="flex:1">
+          <div style="font-size:.88rem;font-weight:700;color:var(--accent)">라우터(Router)가 판단 ⭐ 핵심</div>
+          <div style="font-size:.78rem;color:var(--text);margin-top:.15rem">각 토큰을 보고 <strong>"이 토큰에는 어떤 전문가가 적합한가?"</strong> 결정. 가벼운 게이팅 네트워크(Linear layer + Softmax)가 각 전문가에 대한 확률 점수를 계산.</div>
+        </div>
+      </div>
+      <div style="text-align:center;padding:.2rem 0;color:var(--text-dim);font-size:.8rem">▼</div>
+
+      <!-- Step 3: Expert Selection -->
+      <div style="display:flex;align-items:center;gap:1rem;padding:1.1rem;background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:0">
+        <div style="width:40px;height:40px;border-radius:10px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">3</div>
+        <div style="flex:1">
+          <div style="font-size:.88rem;font-weight:700;color:var(--blue)">Top-K 전문가 선택</div>
+          <div style="font-size:.78rem;color:var(--text-dim);margin-top:.15rem">확률이 가장 높은 <strong style="color:var(--text)">1~2명의 전문가만 활성화</strong>. 나머지 전문가는 이 토큰에 대해 아무 계산도 안 함 → 이것이 "Sparse(희소)"의 핵심.</div>
+        </div>
+      </div>
+      <div style="text-align:center;padding:.2rem 0;color:var(--text-dim);font-size:.8rem">▼</div>
+
+      <!-- Step 4: Expert Processing -->
+      <div style="display:flex;align-items:center;gap:1rem;padding:1.1rem;background:var(--surface);border:1px solid var(--border);border-radius:0">
+        <div style="width:40px;height:40px;border-radius:10px;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">4</div>
+        <div style="flex:1">
+          <div style="font-size:.88rem;font-weight:700;color:var(--teal)">선택된 전문가가 처리</div>
+          <div style="font-size:.78rem;color:var(--text-dim);margin-top:.15rem">활성화된 전문가(각각 독립적인 FFN 레이어)가 토큰을 처리. LLaMA 4에서는 <strong style="color:var(--text)">1개의 공유 전문가 + 1개의 라우팅 전문가</strong>가 항상 조합.</div>
+        </div>
+      </div>
+      <div style="text-align:center;padding:.2rem 0;color:var(--text-dim);font-size:.8rem">▼</div>
+
+      <!-- Step 5: Combine -->
+      <div style="display:flex;align-items:center;gap:1rem;padding:1.1rem;background:var(--green-bg);border:1px solid var(--green-border);border-radius:0 0 14px 14px">
+        <div style="width:40px;height:40px;border-radius:10px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">5</div>
+        <div style="flex:1">
+          <div style="font-size:.88rem;font-weight:700;color:var(--green)">결과 합산 → 다음 레이어로</div>
+          <div style="font-size:.78rem;color:var(--text-dim);margin-top:.15rem">각 전문가의 출력을 라우터 확률로 <strong style="color:var(--text)">가중 합산(weighted sum)</strong> → 최종 결과. 이 과정이 모델의 각 레이어마다 반복.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LLaMA 4 실제 수치 -->
+  <div class="dia reveal">
+    <div class="dia-title">LLaMA 4 — MoE로 달성한 효율의 실체</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;max-width:750px;margin:0 auto">
+
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.3rem;text-align:center">
+        <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-bottom:.3rem">SCOUT</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.6rem">
+          <div style="padding:.5rem;background:var(--surface);border-radius:8px">
+            <div style="font-family:var(--mono);font-size:1.2rem;font-weight:800;color:var(--text-dim)">109B</div>
+            <div style="font-size:.65rem;color:var(--text-dim)">총 파라미터</div>
+          </div>
+          <div style="padding:.5rem;background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:8px">
+            <div style="font-family:var(--mono);font-size:1.2rem;font-weight:800;color:var(--blue)">17B</div>
+            <div style="font-size:.65rem;color:var(--blue)">활성 파라미터</div>
+          </div>
+        </div>
+        <div style="font-size:.78rem;color:var(--text-dim);line-height:1.6"><strong style="color:var(--text)">16</strong> experts · 컨텍스트 <strong style="color:var(--blue)">10M</strong><br>GPU 1대로 실행 가능</div>
+      </div>
+
+      <div style="background:var(--card);border:2px solid var(--blue);border-radius:14px;padding:1.3rem;text-align:center">
+        <div style="font-family:var(--mono);font-size:.72rem;color:var(--blue);margin-bottom:.3rem">MAVERICK ⭐</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.6rem">
+          <div style="padding:.5rem;background:var(--surface);border-radius:8px">
+            <div style="font-family:var(--mono);font-size:1.2rem;font-weight:800;color:var(--text-dim)">400B</div>
+            <div style="font-size:.65rem;color:var(--text-dim)">총 파라미터</div>
+          </div>
+          <div style="padding:.5rem;background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:8px">
+            <div style="font-family:var(--mono);font-size:1.2rem;font-weight:800;color:var(--blue)">17B</div>
+            <div style="font-size:.65rem;color:var(--blue)">활성 파라미터</div>
+          </div>
+        </div>
+        <div style="font-size:.78rem;color:var(--text-dim);line-height:1.6"><strong style="color:var(--text)">128</strong> experts · 컨텍스트 <strong style="color:var(--blue)">512K</strong><br>GPT-4o급 성능, 훨씬 적은 연산</div>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.3rem;text-align:center">
+        <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-bottom:.3rem">BEHEMOTH (출시 예정)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.6rem">
+          <div style="padding:.5rem;background:var(--surface);border-radius:8px">
+            <div style="font-family:var(--mono);font-size:1.2rem;font-weight:800;color:var(--text-dim)">2T</div>
+            <div style="font-size:.65rem;color:var(--text-dim)">총 파라미터</div>
+          </div>
+          <div style="padding:.5rem;background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:8px">
+            <div style="font-family:var(--mono);font-size:1.2rem;font-weight:800;color:var(--blue)">288B</div>
+            <div style="font-size:.65rem;color:var(--blue)">활성 파라미터</div>
+          </div>
+        </div>
+        <div style="font-size:.78rem;color:var(--text-dim);line-height:1.6"><strong style="color:var(--text)">128</strong> experts<br>GPT-4.5, Claude Sonnet 3.7 벤치 능가</div>
+      </div>
+
+    </div>
+    <div style="margin-top:1rem;padding:.7rem 1rem;background:var(--surface);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;max-width:750px;margin-left:auto;margin-right:auto;font-size:.82rem;color:var(--text-dim)">
+      💡 <strong style="color:var(--text)">핵심:</strong> Maverick은 400B 파라미터를 저장하지만, 추론 시 <strong style="color:var(--blue)">17B만 활성화</strong> — 연산량은 작은 모델 수준이면서 성능은 거대 모델 수준.
+    </div>
+  </div>
+
+  <!-- MoE 활용 모델 전체 지도 -->
+  <div class="dia reveal">
+    <div class="dia-title">2026년 주요 MoE 모델 지도 — "거의 모든 프론티어 모델이 MoE"</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;max-width:800px;margin:0 auto">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+        <div style="font-size:.88rem;font-weight:700;color:var(--blue);margin-bottom:.3rem">LLaMA 4</div>
+        <div style="font-size:.72rem;color:var(--text-dim)">Meta · Open</div>
+        <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-top:.3rem">17B active / 400B total</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+        <div style="font-size:.88rem;font-weight:700;color:var(--teal);margin-bottom:.3rem">DeepSeek-R1</div>
+        <div style="font-size:.72rem;color:var(--text-dim)">DeepSeek · Open</div>
+        <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-top:.3rem">37B active / 671B total</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+        <div style="font-size:.88rem;font-weight:700;color:var(--amber);margin-bottom:.3rem">Mixtral 8x22B</div>
+        <div style="font-size:.72rem;color:var(--text-dim)">Mistral · Open</div>
+        <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-top:.3rem">39B active / 176B total</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+        <div style="font-size:.88rem;font-weight:700;color:var(--pink);margin-bottom:.3rem">Qwen3-235B</div>
+        <div style="font-size:.72rem;color:var(--text-dim)">Alibaba · Open</div>
+        <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-top:.3rem">22B active / 235B total</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+        <div style="font-size:.88rem;font-weight:700;color:var(--accent);margin-bottom:.3rem">Gemini 2.5</div>
+        <div style="font-size:.72rem;color:var(--text-dim)">Google · Closed</div>
+        <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-top:.3rem">MoE 추정 (미공개)</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+        <div style="font-size:.88rem;font-weight:700;color:var(--violet);margin-bottom:.3rem">GPT-5.4</div>
+        <div style="font-size:.72rem;color:var(--text-dim)">OpenAI · Closed</div>
+        <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-top:.3rem">MoE 추정 (미공개)</div>
+      </div>
+    </div>
+    <div style="margin-top:1rem;text-align:center;font-size:.82rem;color:var(--text-dim)">
+      💡 2026년 기준, <strong style="color:var(--text)">오픈소스 Top 10 모델 전부가 MoE 아키텍처</strong>. Closed 모델(GPT, Gemini)도 내부적으로 MoE를 사용하는 것으로 추정됩니다.
+    </div>
+  </div>
+
+  <!-- 왜 MoE가 미래인가 -->
+  <div class="dia reveal" style="border:2px solid var(--blue-border);background:var(--blue-bg)">
+    <div style="text-align:center;padding:1rem">
+      <div style="font-family:var(--display);font-size:1.1rem;font-weight:800;color:var(--white);margin-bottom:.8rem">왜 MoE가 미래인가?</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;max-width:700px;margin:0 auto">
+        <div style="padding:.8rem;background:var(--surface);border-radius:10px;text-align:center">
+          <div style="font-size:1.2rem;margin-bottom:.3rem">⚡</div>
+          <div style="font-size:.82rem;font-weight:600;color:var(--white);margin-bottom:.2rem">10배 빠른 학습</div>
+          <div style="font-size:.72rem;color:var(--text-dim)">같은 품질을 더 적은 연산으로</div>
+        </div>
+        <div style="padding:.8rem;background:var(--surface);border-radius:10px;text-align:center">
+          <div style="font-size:1.2rem;margin-bottom:.3rem">💰</div>
+          <div style="font-size:.82rem;font-weight:600;color:var(--white);margin-bottom:.2rem">추론 비용 ↓</div>
+          <div style="font-size:.72rem;color:var(--text-dim)">활성 파라미터만 계산 = GPU 절약</div>
+        </div>
+        <div style="padding:.8rem;background:var(--surface);border-radius:10px;text-align:center">
+          <div style="font-size:1.2rem;margin-bottom:.3rem">📐</div>
+          <div style="font-size:.82rem;font-weight:600;color:var(--white);margin-bottom:.2rem">스케일링의 새 길</div>
+          <div style="font-size:.72rem;color:var(--text-dim)">전문가 수만 늘리면 모델 확장</div>
+        </div>
+        <div style="padding:.8rem;background:var(--surface);border-radius:10px;text-align:center">
+          <div style="font-size:1.2rem;margin-bottom:.3rem">🖥️</div>
+          <div style="font-size:.82rem;font-weight:600;color:var(--white);margin-bottom:.2rem">로컬 실행 가능</div>
+          <div style="font-size:.72rem;color:var(--text-dim)">Scout(17B active)는 GPU 1대 OK</div>
+        </div>
+      </div>
+      <div style="margin-top:1rem;font-size:.82rem;color:var(--text-dim)">
+        NVIDIA: <strong style="color:var(--text)">"MoE는 프론티어 모델을 움직이는 핵심 아키텍처이며, 같은 토큰 비용으로 10배 빠르게 돌아간다"</strong>
+      </div>
     </div>
   </div>
 
