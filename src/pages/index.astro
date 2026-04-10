@@ -2,103 +2,140 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="AI Novice 교육 가이드">
+<Layout title="AI Novice — 비주얼로 이해하는 AI 교육 가이드">
 
 <!-- HERO -->
 <section class="hero" id="top">
-  <div class="hero-badge">AI Education · 2026</div>
-  <h1>AI Literacy<br><em>역량강화 교육</em></h1>
-  <p class="hero-sub">AI 에이전트의 원리부터 바이브코딩, Power Platform까지<br>비개발자도 이해할 수 있는 AI 실무 교육 자료</p>
+  <div class="hero-badge">Visual AI Education · 2026</div>
+  <h1>복잡한 AI 개념을<br><em>눈으로 이해하다</em></h1>
+  <p class="hero-sub">텍스트 벽이 아닌, 도식·다이어그램·인터랙션으로<br>AI의 원리부터 실전까지 직관적으로 배우는 교육 가이드</p>
 </section>
 
-<!-- OVERVIEW CONTENT -->
+<!-- SITE CONCEPT -->
 <section style="max-width:920px;margin:0 auto;padding:4rem 1.5rem 2rem;">
+
+  <!-- What makes this different -->
   <div style="text-align:center;margin-bottom:3rem;">
-    <div style="font-family:var(--mono);font-size:.75rem;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:.8rem">Today's Learning Path</div>
-    <h2 style="font-family:var(--display);font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;color:var(--white);line-height:1.3;margin-bottom:.8rem">AI 시대, 실무자가 알아야 할<br>핵심 역량</h2>
-    <p style="color:var(--text-dim);font-size:1rem;max-width:600px;margin:0 auto;line-height:1.9">AI 에이전트의 원리를 이해하고, AI와 함께 코딩하고,<br>노코드 도구로 업무를 자동화하는 방법을 배웁니다.</p>
+    <div style="font-family:var(--mono);font-size:.75rem;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:.8rem">What Makes This Different</div>
+    <h2 style="font-family:var(--display);font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:800;color:var(--white);line-height:1.3;margin-bottom:1rem">교과서가 아닌, 시각 가이드</h2>
   </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:3rem">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center">
+      <div style="font-size:2rem;margin-bottom:.6rem">🎨</div>
+      <div style="font-size:.92rem;font-weight:700;color:var(--white);margin-bottom:.3rem">비주얼 퍼스트</div>
+      <div style="font-size:.78rem;color:var(--text-dim);line-height:1.7">모든 개념을 도식·플로우·<br>다이어그램으로 시각화</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center">
+      <div style="font-size:2rem;margin-bottom:.6rem">🧩</div>
+      <div style="font-size:.92rem;font-weight:700;color:var(--white);margin-bottom:.3rem">비개발자 친화</div>
+      <div style="font-size:.78rem;color:var(--text-dim);line-height:1.7">코딩 경험 없이도<br>이해 가능한 수준부터</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center">
+      <div style="font-size:2rem;margin-bottom:.6rem">🔄</div>
+      <div style="font-size:.92rem;font-weight:700;color:var(--white);margin-bottom:.3rem">인터랙티브</div>
+      <div style="font-size:.78rem;color:var(--text-dim);line-height:1.7">탭·토글·체크리스트로<br>능동적 학습</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center">
+      <div style="font-size:2rem;margin-bottom:.6rem">🌗</div>
+      <div style="font-size:.92rem;font-weight:700;color:var(--white);margin-bottom:.3rem">다크 / 라이트</div>
+      <div style="font-size:.78rem;color:var(--text-dim);line-height:1.7">환경에 맞춰<br>편안하게 학습</div>
+    </div>
+  </div>
+
+  <!-- Learning Path -->
+  <div style="font-family:var(--mono);font-size:.75rem;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:.8rem;text-align:center">Learning Path</div>
 
   <!-- Part Cards -->
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;margin-bottom:3rem">
     <a href="/01-ai-agents" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--teal)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
       <div style="font-size:2rem;margin-bottom:.8rem">🤖</div>
-      <div style="font-family:var(--mono);font-size:.7rem;color:var(--teal);letter-spacing:2px;margin-bottom:.3rem">PART 1</div>
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--teal);letter-spacing:2px;margin-bottom:.3rem">PART 1 · 이해하기</div>
       <div style="font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:.6rem">AI Agents 완전 가이드</div>
-      <p style="font-size:.88rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem">LLM의 원리부터 Memory, Tools, Planning까지 — AI 에이전트가 어떻게 작동하는지 도식으로 이해합니다.</p>
+      <p style="font-size:.85rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem">LLM의 원리부터 Memory, Tools, Planning, Multi-Agent까지 — AI 에이전트의 구조를 도식으로 이해합니다.</p>
       <div style="display:flex;flex-wrap:wrap;gap:.3rem">
-        <span style="font-size:.7rem;padding:.2rem .5rem;border-radius:4px;background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-border)">LLM</span>
-        <span style="font-size:.7rem;padding:.2rem .5rem;border-radius:4px;background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-border)">Memory</span>
-        <span style="font-size:.7rem;padding:.2rem .5rem;border-radius:4px;background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-border)">Tools</span>
-        <span style="font-size:.7rem;padding:.2rem .5rem;border-radius:4px;background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-border)">Planning</span>
-        <span style="font-size:.7rem;padding:.2rem .5rem;border-radius:4px;background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-border)">Multi-Agent</span>
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-border)">LLM</span>
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-border)">Memory</span>
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-border)">Tools · MCP</span>
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-border)">Planning</span>
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-border)">Multi-Agent</span>
       </div>
     </a>
 
     <a href="/02-vibe-basic" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
       <div style="font-size:2rem;margin-bottom:.8rem">💻</div>
-      <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:2px;margin-bottom:.3rem">PART 2</div>
-      <div style="font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:.6rem">바이브코딩 입문 가이드</div>
-      <p style="font-size:.88rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem">코딩 경험 없이 AI에게 지시해서 실제 서비스를 만드는 방법. 프롬프트부터 배포까지 8단계로 익힙니다.</p>
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:2px;margin-bottom:.3rem">PART 2 · 만들어보기</div>
+      <div style="font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:.6rem">바이브코딩 입문</div>
+      <p style="font-size:.85rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem">코딩 경험 없이 AI에게 지시해서 실제 서비스를 만드는 방법. 프롬프트부터 배포까지.</p>
       <div style="display:flex;flex-wrap:wrap;gap:.3rem">
-        <span style="font-size:.7rem;padding:.2rem .5rem;border-radius:4px;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border)">프롬프트</span>
-        <span style="font-size:.7rem;padding:.2rem .5rem;border-radius:4px;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border)">HTML/CSS/JS</span>
-        <span style="font-size:.7rem;padding:.2rem .5rem;border-radius:4px;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border)">IDE</span>
-        <span style="font-size:.7rem;padding:.2rem .5rem;border-radius:4px;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border)">Git</span>
-        <span style="font-size:.7rem;padding:.2rem .5rem;border-radius:4px;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border)">배포</span>
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border)">프롬프트</span>
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border)">HTML/CSS/JS</span>
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border)">Git · 배포</span>
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border)">Docker</span>
+      </div>
+    </a>
+
+    <a href="/03-vibe-master" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+      <div style="font-size:2rem;margin-bottom:.8rem">🚀</div>
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:2px;margin-bottom:.3rem">PART 3 · 깊게 파기</div>
+      <div style="font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:.6rem">바이브코딩 심화</div>
+      <p style="font-size:.85rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem">하네스 엔지니어링, TDD/SDD, 멀티 에이전트까지 — 프로덕션 수준의 AI 코딩.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:.3rem">
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border)">하네스</span>
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border)">CLAUDE.md</span>
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border)">멀티 에이전트</span>
       </div>
     </a>
 
     <a href="/04-power-platform" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--blue)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
       <div style="font-size:2rem;margin-bottom:.8rem">⚡</div>
-      <div style="font-family:var(--mono);font-size:.7rem;color:var(--blue);letter-spacing:2px;margin-bottom:.3rem">PART 3</div>
-      <div style="font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:.6rem">Power Platform & Copilot Studio</div>
-      <p style="font-size:.88rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem">코딩 없이 앱을 만들고, 업무를 자동화하고, AI 에이전트를 구축하는 Microsoft Power Platform을 배웁니다.</p>
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--blue);letter-spacing:2px;margin-bottom:.3rem">PART 4 · 업무 적용</div>
+      <div style="font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:.6rem">Power Platform</div>
+      <p style="font-size:.85rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem">코딩 없이 앱·자동화·AI 에이전트를 만드는 Microsoft 노코드 플랫폼.</p>
       <div style="display:flex;flex-wrap:wrap;gap:.3rem">
-        <span style="font-size:.7rem;padding:.2rem .5rem;border-radius:4px;background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)">Power Apps</span>
-        <span style="font-size:.7rem;padding:.2rem .5rem;border-radius:4px;background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)">Power Automate</span>
-        <span style="font-size:.7rem;padding:.2rem .5rem;border-radius:4px;background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)">Copilot Studio</span>
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)">Power Apps</span>
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)">Power Automate</span>
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)">Copilot Studio</span>
       </div>
     </a>
   </div>
 
   <!-- Learning Flow -->
-  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:3rem 2rem;margin-bottom:2rem">
-    <div style="font-family:var(--mono);font-size:.9rem;color:var(--text-dim);letter-spacing:3px;text-transform:uppercase;margin-bottom:2rem;text-align:center">Learning Flow</div>
-    <div style="display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem;min-width:140px">
-        <div style="width:80px;height:80px;border-radius:18px;background:var(--teal-bg);border:1px solid var(--teal-border);display:flex;align-items:center;justify-content:center;font-size:2.2rem">🧠</div>
-        <div style="font-size:1rem;font-weight:700;color:var(--teal)">이해하기</div>
-        <div style="font-size:.85rem;color:var(--text-dim)">AI Agent 원리</div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2.5rem 2rem;margin-bottom:2rem">
+    <div style="font-family:var(--mono);font-size:.82rem;color:var(--text-dim);letter-spacing:3px;text-transform:uppercase;margin-bottom:1.5rem;text-align:center">Learning Flow</div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:1.2rem;flex-wrap:wrap">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:.4rem;min-width:120px">
+        <div style="width:64px;height:64px;border-radius:14px;background:var(--teal-bg);border:1px solid var(--teal-border);display:flex;align-items:center;justify-content:center;font-size:1.8rem">🧠</div>
+        <div style="font-size:.88rem;font-weight:700;color:var(--teal)">이해하기</div>
+        <div style="font-size:.75rem;color:var(--text-dim)">원리 파악</div>
       </div>
-      <div style="color:var(--text-dim);font-size:1.8rem">→</div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem;min-width:140px">
-        <div style="width:80px;height:80px;border-radius:18px;background:var(--accent-bg);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:2.2rem">💻</div>
-        <div style="font-size:1rem;font-weight:700;color:var(--accent)">만들어보기</div>
-        <div style="font-size:.85rem;color:var(--text-dim)">바이브코딩 실습</div>
+      <div style="color:var(--text-dim);font-size:1.5rem">→</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:.4rem;min-width:120px">
+        <div style="width:64px;height:64px;border-radius:14px;background:var(--accent-bg);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:1.8rem">💻</div>
+        <div style="font-size:.88rem;font-weight:700;color:var(--accent)">만들어보기</div>
+        <div style="font-size:.75rem;color:var(--text-dim)">직접 실습</div>
       </div>
-      <div style="color:var(--text-dim);font-size:1.8rem">→</div>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem;min-width:140px">
-        <div style="width:80px;height:80px;border-radius:18px;background:var(--blue-bg);border:1px solid var(--blue-border);display:flex;align-items:center;justify-content:center;font-size:2.2rem">⚡</div>
-        <div style="font-size:1rem;font-weight:700;color:var(--blue)">만들어보기 2</div>
-        <div style="font-size:.85rem;color:var(--text-dim)">Power Platform</div>
+      <div style="color:var(--text-dim);font-size:1.5rem">→</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:.4rem;min-width:120px">
+        <div style="width:64px;height:64px;border-radius:14px;background:var(--accent-bg);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:1.8rem">🚀</div>
+        <div style="font-size:.88rem;font-weight:700;color:var(--accent)">깊게 파기</div>
+        <div style="font-size:.75rem;color:var(--text-dim)">프로덕션 레벨</div>
+      </div>
+      <div style="color:var(--text-dim);font-size:1.5rem">→</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:.4rem;min-width:120px">
+        <div style="width:64px;height:64px;border-radius:14px;background:var(--blue-bg);border:1px solid var(--blue-border);display:flex;align-items:center;justify-content:center;font-size:1.8rem">⚡</div>
+        <div style="font-size:.88rem;font-weight:700;color:var(--blue)">업무 적용</div>
+        <div style="font-size:.75rem;color:var(--text-dim)">노코드 자동화</div>
       </div>
     </div>
   </div>
 
-  <!-- Key Takeaway -->
-  <div style="text-align:center;padding:2rem 1rem;border:1px dashed var(--border);border-radius:14px">
-    <div style="font-size:1.5rem;margin-bottom:.5rem">🎯</div>
-    <div style="font-family:var(--display);font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:.5rem">오늘의 목표</div>
-    <p style="font-size:.92rem;color:var(--text-dim);line-height:1.9;max-width:500px;margin:0 auto">"AI가 어떻게 작동하는지 <strong style="color:var(--teal)">이해</strong>하고,<br>AI와 함께 무언가를 <strong style="color:var(--accent)">만들어보고</strong>,<br>실무에 바로 <strong style="color:var(--blue)">적용</strong>할 수 있는 자신감을 갖는 것"</p>
+  <!-- Start Button -->
+  <div style="text-align:center;padding:2rem 0;">
+    <a href="/01-ai-agents" style="display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 2rem;border:1.5px solid var(--teal);background:var(--teal-bg);color:var(--teal);border-radius:12px;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .3s;font-family:var(--sans);text-decoration:none" onmouseover="this.style.background='var(--teal)';this.style.color='#fff'" onmouseout="this.style.background='var(--teal-bg)';this.style.color='var(--teal)'">
+      Part 1부터 시작하기 <span style="font-size:1.2rem">→</span>
+    </a>
   </div>
 </section>
-
-<!-- 시작 버튼 -->
-<div style="text-align:center;padding:3rem 0 2rem;">
-  <a href="/01-ai-agents" style="display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 2rem;border:1.5px solid var(--teal);background:var(--teal-bg);color:var(--teal);border-radius:12px;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .3s;font-family:var(--sans);text-decoration:none" onmouseover="this.style.background='var(--teal)';this.style.color='#fff'" onmouseout="this.style.background='var(--teal-bg)';this.style.color='var(--teal)'">
-    AI Agents 시작하기 <span style="font-size:1.2rem">→</span>
-  </a>
-</div>
 
 </Layout>
