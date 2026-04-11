@@ -49,7 +49,7 @@ LLM Wiki Schema는 CLAUDE.md를 **지식 관리 영역으로 확장한 형태** 
 ## 출처
 
 - Anthropic Claude Code 공식 문서
-- Part 3 강의 콘텐츠
+- Part 3 학습 콘텐츠
 
 ## 업데이트 이력
 

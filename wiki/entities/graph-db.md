@@ -30,7 +30,7 @@
 - **Edge (Relationship)**: 방향·타입·속성을 가진 연결.
 - **Property**: Key-Value.
 
-또 다른 모델로 **RDF (Resource Description Framework)** — `(subject, predicate, object)` 트리플 기반, SPARQL 쿼리. 의미 웹과 온톨로지 영역에서 주류.
+또 다른 모델로 **RDF (Resource Description Framework)** — `(subject, predicate, object)` 트리플 기반, SPARQL 쿼리. 의미 웹과 [온톨로지(Ontology)](./ontology.md) 영역에서 주류. Property Graph가 "실용적 관계 그래프"라면 RDF/온톨로지는 "의미론적 그래프 + 자동 추론"이다.
 
 ### 왜 별도 DB가 필요한가
 
@@ -136,6 +136,8 @@ SELECT ?friend WHERE {
 - [NoSQL](./nosql.md) — Graph DB는 NoSQL 4대 유형 중 하나
 - [RDBMS](./rdbms.md) — 관계 탐색에서 Graph DB에 밀리는 대척점
 - [Data Warehouse](./data-warehouse.md) — 관계가 아닌 집계 분석의 담당자
+- [Ontology](./ontology.md) — 의미론과 자동 추론을 더한 사촌 기술
+- [GraphRAG](./graphrag.md) — Graph DB를 RAG에 적용한 패턴
 
 ## 출처
 

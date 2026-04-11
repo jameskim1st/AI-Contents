@@ -1073,51 +1073,478 @@
 </div>
 </div>
 
-<!-- 특수 저장소 -->
-<div class="dia reveal">
-<div class="dia-title">특수 저장소 — NoSQL · Graph · Vector · Time-series</div>
-<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:820px;margin:0 auto">
+<!-- ============================== -->
+<!-- 특수 저장소 — 본격 투어         -->
+<!-- ============================== -->
+<div class="dia reveal" id="sl-special">
+<div class="dia-title">특수 저장소 4종 — 본격 투어</div>
+<div style="max-width:920px;margin:0 auto">
+  <div style="font-size:.85rem;color:var(--text);line-height:1.85;margin-bottom:1.2rem">
+    위 5대 계층으로 95%의 사용 사례는 커버되지만, <strong style="color:var(--amber)">특정 워크로드에 압도적으로 적합한 4종의 특수 저장소</strong>가 있습니다. 5대 계층의 보완이지 대체가 아닙니다 — "이런 문제는 RDBMS로 못 풀어요" 같은 상황에서 등장합니다.
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;text-align:center;font-size:.7rem">
+    <a href="#sp-nosql" style="text-decoration:none;color:inherit">
+      <div style="padding:.7rem .3rem;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:all .3s" onmouseover="this.style.borderColor='var(--amber)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:1.5rem">📦</div>
+        <div style="font-weight:700;color:var(--amber);margin-top:.3rem">NoSQL</div>
+        <div style="color:var(--text-dim);font-size:.62rem;margin-top:.2rem">"유연 + 수평 확장"</div>
+      </div>
+    </a>
+    <a href="#sp-graph" style="text-decoration:none;color:inherit">
+      <div style="padding:.7rem .3rem;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:all .3s" onmouseover="this.style.borderColor='var(--amber)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:1.5rem">🕸️</div>
+        <div style="font-weight:700;color:var(--amber);margin-top:.3rem">Graph DB</div>
+        <div style="color:var(--text-dim);font-size:.62rem;margin-top:.2rem">"관계 추적"</div>
+      </div>
+    </a>
+    <a href="#sp-vector" style="text-decoration:none;color:inherit">
+      <div style="padding:.7rem .3rem;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:all .3s" onmouseover="this.style.borderColor='var(--amber)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:1.5rem">🔢</div>
+        <div style="font-weight:700;color:var(--amber);margin-top:.3rem">Vector DB</div>
+        <div style="color:var(--text-dim);font-size:.62rem;margin-top:.2rem">"의미 검색"</div>
+      </div>
+    </a>
+    <a href="#sp-tsdb" style="text-decoration:none;color:inherit">
+      <div style="padding:.7rem .3rem;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:all .3s" onmouseover="this.style.borderColor='var(--amber)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:1.5rem">⏱️</div>
+        <div style="font-weight:700;color:var(--amber);margin-top:.3rem">Time-series</div>
+        <div style="color:var(--text-dim);font-size:.62rem;margin-top:.2rem">"시간 축 최적화"</div>
+      </div>
+    </a>
+  </div>
+</div>
+</div>
 
-  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
-    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem">
-      <div style="font-size:1.3rem">📦</div>
-      <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber)">NoSQL (Document)</div>
-    </div>
-    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
-      <strong>MongoDB, DynamoDB, Couchbase.</strong> JSON 중심. 유연한 스키마, 수평 확장. 소셜·카탈로그·프로필 저장에 강함.
+<!-- ============================== -->
+<!-- ① NoSQL                         -->
+<!-- ============================== -->
+<div class="dia reveal" id="sp-nosql">
+<div class="dia-title">① NoSQL — "Not Only SQL", 4가지 변종 (2000년대 후반~)</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <!-- Concept -->
+  <div style="font-size:.85rem;color:var(--text);line-height:1.95;margin-bottom:1.2rem">
+    <strong style="color:var(--amber)">"RDBMS의 엄격한 스키마와 수직 확장이 웹 시대엔 너무 무거워."</strong><br>
+    2000년대 후반 Google Bigtable, Amazon Dynamo 논문에서 출발한 NoSQL은 <strong>"한 가지 유형이 아니라 4가지 다른 모델의 총칭"</strong>입니다. 공통 특징은 ① 유연한 스키마 ② 수평 확장(샤딩) ③ 트랜잭션·조인의 일부 포기.
+  </div>
+
+  <!-- 4 types diagram -->
+  <div style="background:var(--surface);border-radius:10px;padding:1.2rem;margin-bottom:1.2rem">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--text-dim);text-align:center;margin-bottom:.8rem">NoSQL 4대 유형</div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem">
+
+      <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:10px;padding:.9rem">
+        <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.4rem">
+          <span style="font-size:1.1rem">📄</span>
+          <span style="font-family:var(--display);font-weight:700;color:var(--amber);font-size:.85rem">① Document</span>
+        </div>
+        <div style="font-size:.72rem;color:var(--text);line-height:1.7">
+          JSON/BSON 문서 단위. 하나의 문서가 한 entity 전체를 표현 (중첩 OK).<br>
+          <strong style="color:var(--amber)">제품:</strong> MongoDB, Couchbase, Firestore, Amazon DocumentDB<br>
+          <strong style="color:var(--amber)">사용:</strong> 카탈로그, 사용자 프로필, 콘텐츠 관리
+        </div>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:10px;padding:.9rem">
+        <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.4rem">
+          <span style="font-size:1.1rem">🔑</span>
+          <span style="font-family:var(--display);font-weight:700;color:var(--amber);font-size:.85rem">② Key-Value</span>
+        </div>
+        <div style="font-size:.72rem;color:var(--text);line-height:1.7">
+          가장 단순한 모델. <code>get(key)</code> / <code>set(key, value)</code>만 있음. 극단적으로 빠름.<br>
+          <strong style="color:var(--amber)">제품:</strong> Redis, Amazon DynamoDB, etcd, Memcached<br>
+          <strong style="color:var(--amber)">사용:</strong> 캐시, 세션, 큐, 피처 스토어
+        </div>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:10px;padding:.9rem">
+        <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.4rem">
+          <span style="font-size:1.1rem">📊</span>
+          <span style="font-family:var(--display);font-weight:700;color:var(--amber);font-size:.85rem">③ Wide-column</span>
+        </div>
+        <div style="font-size:.72rem;color:var(--text);line-height:1.7">
+          한 행에 컬럼 수가 가변. 페타바이트 분산. Bigtable의 후예.<br>
+          <strong style="color:var(--amber)">제품:</strong> Cassandra, HBase, ScyllaDB, Google Bigtable<br>
+          <strong style="color:var(--amber)">사용:</strong> IoT 대용량 로그, 시계열, 메시징
+        </div>
+      </div>
+
+      <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:10px;padding:.9rem">
+        <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.4rem">
+          <span style="font-size:1.1rem">🕸️</span>
+          <span style="font-family:var(--display);font-weight:700;color:var(--amber);font-size:.85rem">④ Graph</span>
+        </div>
+        <div style="font-size:.72rem;color:var(--text);line-height:1.7">
+          노드·엣지·속성. NoSQL의 한 갈래지만 <strong>너무 다르고 중요해서</strong> 아래 ② Graph DB 섹션에서 별도 다룸.<br>
+          <strong style="color:var(--amber)">제품:</strong> Neo4j, Neptune, TigerGraph (→ 아래)
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
-    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem">
-      <div style="font-size:1.3rem">🕸️</div>
-      <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber)">Graph DB</div>
+  <!-- CAP theorem mini-diagram -->
+  <div style="background:var(--surface);border-radius:10px;padding:1.1rem;margin-bottom:1.2rem;font-family:var(--mono);font-size:.7rem">
+    <div style="color:var(--text-dim);text-align:center;margin-bottom:.6rem;font-size:.7rem">⚖️ CAP Theorem — 분산 DB의 3가지 중 2가지만 보장 가능</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;text-align:center">
+      <div style="padding:.5rem;background:var(--card);border:1px solid var(--amber-border);border-radius:6px">
+        <div style="color:var(--amber);font-weight:700">C</div>
+        <div style="color:var(--text-dim);font-size:.65rem;margin-top:.2rem">Consistency<br>일관성</div>
+      </div>
+      <div style="padding:.5rem;background:var(--card);border:1px solid var(--amber-border);border-radius:6px">
+        <div style="color:var(--amber);font-weight:700">A</div>
+        <div style="color:var(--text-dim);font-size:.65rem;margin-top:.2rem">Availability<br>가용성</div>
+      </div>
+      <div style="padding:.5rem;background:var(--card);border:1px solid var(--amber-border);border-radius:6px">
+        <div style="color:var(--amber);font-weight:700">P</div>
+        <div style="color:var(--text-dim);font-size:.65rem;margin-top:.2rem">Partition Tol.<br>분할 내성</div>
+      </div>
     </div>
-    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
-      <strong>Neo4j, Amazon Neptune.</strong> 노드·관계 중심. 소셜 그래프, 사기 탐지, 지식 그래프. Cypher/Gremlin 쿼리.
-    </div>
-  </div>
-
-  <div style="background:var(--card);border:2px solid var(--amber);border-radius:14px;padding:1.2rem">
-    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem">
-      <div style="font-size:1.3rem">🔢</div>
-      <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber)">Vector DB ⭐</div>
-    </div>
-    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
-      <strong>Pinecone, Weaviate, pgvector, Qdrant.</strong> 임베딩 벡터 저장·검색. RAG의 핵심. → <strong>Ch.08</strong>에서 상세.
-    </div>
-  </div>
-
-  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
-    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem">
-      <div style="font-size:1.3rem">⏱️</div>
-      <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber)">Time-series DB</div>
-    </div>
-    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
-      <strong>InfluxDB, TimescaleDB, Prometheus.</strong> 시계열 데이터에 최적화. IoT, 모니터링, 금융 틱 데이터.
+    <div style="margin-top:.6rem;font-size:.68rem;color:var(--text);line-height:1.7;text-align:center">
+      MongoDB·HBase = <span style="color:var(--amber)">CP</span> · &nbsp; Cassandra·DynamoDB = <span style="color:var(--amber)">AP</span> · &nbsp; RDBMS = <span style="color:var(--amber)">CA</span> (단일 노드)
     </div>
   </div>
 
+  <!-- When -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.2rem">
+    <div style="padding:.7rem .9rem;background:var(--amber-bg);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.75">
+      ✓ <strong>적합:</strong> 스키마가 자주 바뀜 / 페타바이트 수평 확장 / "유연한 JSON" / 캐시·세션
+    </div>
+    <div style="padding:.7rem .9rem;background:var(--surface);border-left:3px solid var(--text-dim);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text-dim);line-height:1.75">
+      ✗ <strong>한계:</strong> 복잡한 JOIN 어려움 / 트랜잭션 일부 포기 / "결과적 일관성" 수용해야
+    </div>
+  </div>
+
+  <!-- ─── UI 투어 ─── -->
+  <div style="border-top:1px dashed var(--border);padding-top:1.2rem">
+    <div style="font-size:.72rem;color:var(--amber);letter-spacing:1px;font-family:var(--mono);margin-bottom:.6rem">🖥️ UI 투어 — MongoDB Compass</div>
+    <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.7rem">RDBMS는 <strong style="color:var(--text)">테이블 그리드</strong>가 첫 화면이지만, MongoDB는 <strong style="color:var(--text)">JSON 문서 트리</strong>가 첫 화면입니다 — 같은 데이터의 본질이 어떻게 다른지 한눈에 보입니다.</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.7rem">
+      <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim);display:flex;justify-content:space-between">
+        <span>📦 MongoDB Compass — mongodb://localhost:27017</span>
+        <span style="color:var(--amber)">acme &gt; users</span>
+      </div>
+      <div style="display:grid;grid-template-columns:170px 1fr;min-height:240px">
+        <div style="background:var(--card);border-right:1px solid var(--border);padding:.7rem;color:var(--text);line-height:1.9">
+          ▼ 🗄️ acme<br>
+          &nbsp;&nbsp;📁 users (2,341)<br>
+          &nbsp;&nbsp;📁 orders (47,892)<br>
+          &nbsp;&nbsp;📁 products (1,205)<br>
+          ▼ 🗄️ logs<br>
+          &nbsp;&nbsp;📁 events (1.2B)
+        </div>
+        <div style="padding:.7rem;color:var(--text);line-height:1.7">
+          <span style="color:var(--text-dim)">// Document 1 of 2,341</span><br>
+          {<br>
+          &nbsp;&nbsp;<span style="color:var(--amber)">"_id"</span>: ObjectId(<span style="color:var(--text-dim)">"6618..."</span>),<br>
+          &nbsp;&nbsp;<span style="color:var(--amber)">"name"</span>: <span style="color:var(--text-dim)">"김영희"</span>,<br>
+          &nbsp;&nbsp;<span style="color:var(--amber)">"email"</span>: <span style="color:var(--text-dim)">"yh@acme.kr"</span>,<br>
+          &nbsp;&nbsp;<span style="color:var(--amber)">"addresses"</span>: [<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;{ <span style="color:var(--amber)">"type"</span>: <span style="color:var(--text-dim)">"home"</span>, <span style="color:var(--amber)">"city"</span>: <span style="color:var(--text-dim)">"서울"</span> },<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;{ <span style="color:var(--amber)">"type"</span>: <span style="color:var(--text-dim)">"work"</span>, <span style="color:var(--amber)">"city"</span>: <span style="color:var(--text-dim)">"성남"</span> }<br>
+          &nbsp;&nbsp;],<br>
+          &nbsp;&nbsp;<span style="color:var(--amber)">"tags"</span>: [<span style="color:var(--text-dim)">"vip"</span>, <span style="color:var(--text-dim)">"early-adopter"</span>]<br>
+          }<br>
+          <span style="color:var(--text-dim)">─────────────</span><br>
+          db.users.<span style="color:var(--amber)">find</span>({ <span style="color:var(--amber)">"tags"</span>: <span style="color:var(--text-dim)">"vip"</span> })<br>
+          <span style="color:var(--text-dim)">→ 47 documents · 12ms</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:.7rem;padding:.7rem .9rem;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:8px;font-size:.75rem;color:var(--text);line-height:1.7">
+      💡 <strong style="color:var(--amber)">핵심 차이:</strong> RDBMS에서는 사용자 1명에 주소·태그가 있으면 <strong>3개 테이블 + JOIN</strong>이 필요합니다. MongoDB는 <strong>하나의 문서</strong>로 저장 → 조회·수정이 한 번에 끝납니다.
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================== -->
+<!-- ② Graph DB                      -->
+<!-- ============================== -->
+<div class="dia reveal" id="sp-graph">
+<div class="dia-title">② Graph DB — 관계 자체가 데이터 (Neo4j 외)</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <!-- Concept -->
+  <div style="font-size:.85rem;color:var(--text);line-height:1.95;margin-bottom:1.2rem">
+    <strong style="color:var(--amber)">"친구의 친구의 친구를 RDBMS로 찾으면 JOIN 3번. 6단계는 폭발."</strong><br>
+    Graph DB는 데이터를 <strong>노드(Node) + 엣지(Edge) + 속성(Property)</strong>로 저장하고, "관계 탐색"을 1급 연산으로 지원합니다. 핵심 마법은 <strong style="color:var(--amber)">index-free adjacency</strong> — 노드에서 이웃 노드로 O(1) 이동, 홉 수가 늘어도 비용이 거의 선형.
+  </div>
+
+  <!-- Property graph mini diagram -->
+  <div style="background:var(--surface);border-radius:10px;padding:1.2rem;margin-bottom:1.2rem;font-family:var(--mono);font-size:.7rem">
+    <div style="color:var(--text-dim);text-align:center;margin-bottom:.7rem">🔗 Labeled Property Graph (LPG) — Neo4j 모델</div>
+    <div style="text-align:center;color:var(--text);line-height:2">
+      <span style="background:var(--amber-bg);border:1px solid var(--amber);border-radius:20px;padding:.3rem .7rem;color:var(--amber)">(Alice :Person {age:30})</span><br>
+      <span style="color:var(--text-dim)">│</span><br>
+      <span style="color:var(--amber)">[:FRIENDS_WITH {since:2019}]</span><br>
+      <span style="color:var(--text-dim)">↓</span><br>
+      <span style="background:var(--amber-bg);border:1px solid var(--amber);border-radius:20px;padding:.3rem .7rem;color:var(--amber)">(Bob :Person {age:32})</span><br>
+      <span style="color:var(--text-dim)">│</span><br>
+      <span style="color:var(--amber)">[:WORKS_AT]</span><br>
+      <span style="color:var(--text-dim)">↓</span><br>
+      <span style="background:var(--amber-bg);border:1px solid var(--amber);border-radius:20px;padding:.3rem .7rem;color:var(--amber)">(Acme :Company)</span>
+    </div>
+  </div>
+
+  <!-- 5 use cases grid -->
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;margin-bottom:1.2rem">
+    <div style="padding:.6rem;background:var(--surface);border-radius:6px;text-align:center">
+      <div style="font-size:1.1rem">📚</div>
+      <div style="font-size:.7rem;font-weight:700;color:var(--amber);margin-top:.2rem">지식 그래프</div>
+      <div style="font-size:.6rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">Google KG<br>LinkedIn</div>
+    </div>
+    <div style="padding:.6rem;background:var(--surface);border-radius:6px;text-align:center">
+      <div style="font-size:1.1rem">🛒</div>
+      <div style="font-size:.7rem;font-weight:700;color:var(--amber);margin-top:.2rem">추천</div>
+      <div style="font-size:.6rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">Amazon<br>Netflix</div>
+    </div>
+    <div style="padding:.6rem;background:var(--surface);border-radius:6px;text-align:center">
+      <div style="font-size:1.1rem">🚨</div>
+      <div style="font-size:.7rem;font-weight:700;color:var(--amber);margin-top:.2rem">사기 탐지</div>
+      <div style="font-size:.6rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">PayPal<br>은행</div>
+    </div>
+    <div style="padding:.6rem;background:var(--surface);border-radius:6px;text-align:center">
+      <div style="font-size:1.1rem">🌐</div>
+      <div style="font-size:.7rem;font-weight:700;color:var(--amber);margin-top:.2rem">네트워크</div>
+      <div style="font-size:.6rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">CMDB<br>Telco</div>
+    </div>
+    <div style="padding:.6rem;background:var(--surface);border-radius:6px;text-align:center">
+      <div style="font-size:1.1rem">🛡️</div>
+      <div style="font-size:.7rem;font-weight:700;color:var(--amber);margin-top:.2rem">보안</div>
+      <div style="font-size:.6rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">MITRE<br>ATT&amp;CK</div>
+    </div>
+  </div>
+
+  <!-- Ontology side box -->
+  <div style="background:var(--card);border:2px dashed var(--amber-border);border-radius:12px;padding:1.2rem;margin-bottom:1.2rem">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:1px;margin-bottom:.5rem">🧠 사이드 박스 — Ontology (온톨로지)</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.85;margin-bottom:.8rem">
+      Graph DB의 사촌이지만 <strong>다른 진영</strong>이 있습니다. 노드·엣지를 다루는 점은 같지만 <strong style="color:var(--amber)">"의미론과 자동 추론"</strong>을 더 얹은 것 — <strong>온톨로지(Ontology)</strong>입니다.
+    </div>
+    <div style="overflow-x:auto;margin-bottom:.8rem">
+    <table style="width:100%;border-collapse:collapse;font-size:.75rem;min-width:520px">
+      <thead>
+        <tr style="background:var(--surface)">
+          <th style="padding:.5rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">관점</th>
+          <th style="padding:.5rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">Property Graph (Neo4j)</th>
+          <th style="padding:.5rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">Ontology (RDF/OWL)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:.4rem;color:var(--text);font-weight:600">모델</td><td style="padding:.4rem;color:var(--text-dim)">노드·엣지·속성</td><td style="padding:.4rem;color:var(--text-dim)">Subject-Predicate-Object 트리플</td></tr>
+        <tr><td style="padding:.4rem;color:var(--text);font-weight:600">스키마</td><td style="padding:.4rem;color:var(--text-dim)">유연 (선택)</td><td style="padding:.4rem;color:var(--text-dim)">엄격 (필수)</td></tr>
+        <tr><td style="padding:.4rem;color:var(--text);font-weight:600">자동 추론</td><td style="padding:.4rem;color:var(--text-dim)">없음</td><td style="padding:.4rem;color:var(--text);font-weight:600">있음 (OWL reasoner)</td></tr>
+        <tr><td style="padding:.4rem;color:var(--text);font-weight:600">표준</td><td style="padding:.4rem;color:var(--text-dim)">Cypher (벤더), GQL (ISO)</td><td style="padding:.4rem;color:var(--text-dim)">RDF, OWL, SPARQL (W3C)</td></tr>
+        <tr><td style="padding:.4rem;color:var(--text);font-weight:600">사용</td><td style="padding:.4rem;color:var(--text-dim)">운영 그래프 (소셜·사기·CMDB)</td><td style="padding:.4rem;color:var(--text-dim)">도메인 지식 (의료·법률·과학)</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      <strong style="color:var(--amber)">예시:</strong> 온톨로지에 "Mammal ⊂ Animal", "Dog ⊂ Mammal"을 선언하면, "Dog는 Animal이다"를 <strong>자동으로 도출</strong>합니다. 사실 사례: <strong>Schema.org</strong>(웹), <strong>SNOMED CT</strong>(의료), <strong>Wikidata</strong>(1억+ 엔티티), <strong>Google Knowledge Graph</strong>(5천억+ 사실).
+    </div>
+    <div style="margin-top:.7rem;font-size:.75rem;color:var(--text-dim);line-height:1.7">
+      💡 2010년대엔 시들었지만 <strong style="color:var(--text)">LLM 시대에 부활</strong> 중 — LLM 환각 줄이기, 도메인 지식 주입, GraphRAG의 추론 백본. 자세히는 <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/ontology.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">wiki: ontology</a> · GraphRAG는 Part 4 Ch.09에서.
+    </div>
+  </div>
+
+  <!-- When -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.2rem">
+    <div style="padding:.7rem .9rem;background:var(--amber-bg);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.75">
+      ✓ <strong>적합:</strong> 다중 홉 관계 탐색 / 추천·사기 탐지 / 지식 그래프 / 영향도 분석
+    </div>
+    <div style="padding:.7rem .9rem;background:var(--surface);border-left:3px solid var(--text-dim);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text-dim);line-height:1.75">
+      ✗ <strong>한계:</strong> 범용 OLTP 대체 ❌ / 수평 확장 어려움 / 인재풀 작음
+    </div>
+  </div>
+
+  <!-- 대표 제품 -->
+  <div style="text-align:center;font-size:.75rem;color:var(--text-dim);margin-bottom:1.2rem">
+    🟢 Neo4j 5.x · ☁️ Amazon Neptune · 🔶 TigerGraph · ⚡ Memgraph · 🌐 ArangoDB · 🟣 Stardog (Ontology)
+  </div>
+
+  <!-- ─── UI 투어 ─── -->
+  <div style="border-top:1px dashed var(--border);padding-top:1.2rem">
+    <div style="font-size:.72rem;color:var(--amber);letter-spacing:1px;font-family:var(--mono);margin-bottom:.6rem">🖥️ UI 투어 — Neo4j Browser</div>
+    <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.7rem">Neo4j Browser는 Cypher 쿼리 결과를 <strong style="color:var(--text)">실제 그래프 그림</strong>으로 보여줍니다. 테이블이 아니라 <strong style="color:var(--text)">노드와 선</strong>이 첫 화면입니다.</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.7rem">
+      <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim);display:flex;justify-content:space-between">
+        <span>🟢 Neo4j Browser — neo4j://localhost:7687</span>
+        <span style="color:var(--amber)">▶ Run</span>
+      </div>
+      <div style="padding:.7rem;border-bottom:1px solid var(--border);color:var(--text);line-height:1.8">
+        <span style="color:var(--amber)">MATCH</span> (alice:Person {name:<span style="color:var(--text-dim)">"Alice"</span>})<span style="color:var(--amber)">-[:FRIENDS_WITH*1..3]-&gt;</span>(friend)<br>
+        <span style="color:var(--amber)">RETURN</span> alice, friend;
+      </div>
+      <div style="padding:.5rem .7rem;color:var(--text-dim);border-bottom:1px solid var(--border);font-size:.65rem">
+        ✓ 12 records · 8ms
+      </div>
+      <div style="padding:1rem;display:flex;justify-content:center;align-items:center;min-height:140px;background:var(--bg)">
+        <div style="position:relative;width:240px;height:120px">
+          <div style="position:absolute;left:90px;top:0;width:60px;height:60px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;color:#000;font-weight:700;font-size:.65rem">Alice</div>
+          <div style="position:absolute;left:0;top:60px;width:50px;height:50px;border-radius:50%;background:var(--amber-bg);border:2px solid var(--amber);display:flex;align-items:center;justify-content:center;color:var(--amber);font-weight:700;font-size:.6rem">Bob</div>
+          <div style="position:absolute;left:95px;top:65px;width:50px;height:50px;border-radius:50%;background:var(--amber-bg);border:2px solid var(--amber);display:flex;align-items:center;justify-content:center;color:var(--amber);font-weight:700;font-size:.6rem">Carol</div>
+          <div style="position:absolute;right:0;top:60px;width:50px;height:50px;border-radius:50%;background:var(--amber-bg);border:2px solid var(--amber);display:flex;align-items:center;justify-content:center;color:var(--amber);font-weight:700;font-size:.6rem">Dave</div>
+          <svg style="position:absolute;left:0;top:0;width:100%;height:100%" viewBox="0 0 240 120">
+            <line x1="100" y1="50" x2="35" y2="75" stroke="var(--amber)" stroke-width="1.5"/>
+            <line x1="120" y1="55" x2="115" y2="75" stroke="var(--amber)" stroke-width="1.5"/>
+            <line x1="140" y1="50" x2="195" y2="75" stroke="var(--amber)" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================== -->
+<!-- ③ Vector DB                     -->
+<!-- ============================== -->
+<div class="dia reveal" id="sp-vector">
+<div class="dia-title">③ Vector DB — 의미 검색의 새 표준 (2022~)</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="font-size:.85rem;color:var(--text);line-height:1.95;margin-bottom:1.2rem">
+    <strong style="color:var(--amber)">"'연차 규정'을 검색했는데 '휴가 신청서'도 같이 뜨면 좋겠어. 단어가 다르지만 뜻이 같으니까."</strong><br>
+    Vector DB는 임베딩 벡터(고차원 실수 배열)를 저장하고, "<strong>가장 가까운 이웃(k-NN)</strong>"을 millisecond에 찾는 데이터베이스입니다. RAG·시맨틱 검색·추천의 핵심 인프라가 되었습니다.
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.2rem">
+    <div style="padding:.9rem 1rem;background:var(--card);border:1px solid var(--amber-border);border-radius:10px">
+      <div style="font-size:.82rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">⭐ 위치만 잡고 본진은 Ch.07-08</div>
+      <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+        Vector DB는 단순한 "특수 저장소"가 아니라 <strong>AI 시대를 정의하는 새 계층</strong>이라, 본격 다루기는 두 챕터를 별도로 할당했습니다:<br><br>
+        · <strong style="color:var(--amber)">Ch.07 임베딩</strong> — 의미를 수학으로<br>
+        · <strong style="color:var(--amber)">Ch.08 벡터 DB</strong> — ANN 알고리즘, 8개 제품 비교, UI 투어 2종
+      </div>
+    </div>
+    <div style="padding:.9rem 1rem;background:var(--surface);border:1px solid var(--border);border-radius:10px">
+      <div style="font-size:.82rem;font-weight:700;color:var(--text-dim);margin-bottom:.4rem">📌 한 줄 미리보기</div>
+      <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+        <strong>제품:</strong> Pinecone, Weaviate, Qdrant, Milvus, Chroma, pgvector(PG 확장)<br>
+        <strong>알고리즘:</strong> HNSW (사실상 표준), IVF, PQ<br>
+        <strong>차원:</strong> 768 ~ 3072 (모델별)<br>
+        <strong>본진:</strong> Ch.07-08 ↓
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:.7rem 1rem;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:8px;font-size:.78rem;color:var(--text)">
+    🔗 본격 학습은 <a href="#p1-ch7" style="color:var(--amber);text-decoration:underline;font-weight:700">Ch.07 임베딩</a> · <a href="#p1-ch8" style="color:var(--amber);text-decoration:underline;font-weight:700">Ch.08 벡터 DB</a>에서.
+  </div>
+
+</div>
+</div>
+
+<!-- ============================== -->
+<!-- ④ Time-series DB                -->
+<!-- ============================== -->
+<div class="dia reveal" id="sp-tsdb">
+<div class="dia-title">④ Time-series DB — 시간이 1급 시민 (2010s~)</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="font-size:.85rem;color:var(--text);line-height:1.95;margin-bottom:1.2rem">
+    <strong style="color:var(--amber)">"센서가 1초에 10만 건씩 데이터를 쏟아내. 매일 80억 행이 들어와. PostgreSQL은 며칠 만에 죽어."</strong><br>
+    Time-series DB는 <strong>(timestamp, value, tags)</strong> 형태의 시계열에 최적화된 저장소입니다. IoT, 모니터링, 금융 틱 데이터, APM(애플리케이션 성능 모니터링)이 주 사용처. 핵심은 <strong style="color:var(--amber)">압축률(보통 90% 이상)</strong>과 <strong style="color:var(--amber)">시간 윈도우 집계</strong>입니다.
+  </div>
+
+  <!-- Time-series shape diagram -->
+  <div style="background:var(--surface);border-radius:10px;padding:1.2rem;margin-bottom:1.2rem;font-family:var(--mono);font-size:.7rem">
+    <div style="color:var(--text-dim);text-align:center;margin-bottom:.6rem">⏱️ 시계열 데이터의 모양</div>
+    <div style="color:var(--text);line-height:1.85">
+      <span style="color:var(--text-dim)">timestamp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;measurement&nbsp;&nbsp;tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value</span><br>
+      2026-04-12T09:00:00.001 &nbsp;cpu &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;host=web01&nbsp;&nbsp;<span style="color:var(--amber)">42.3</span><br>
+      2026-04-12T09:00:00.002 &nbsp;cpu &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;host=web02&nbsp;&nbsp;<span style="color:var(--amber)">38.1</span><br>
+      2026-04-12T09:00:00.003 &nbsp;mem &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;host=web01&nbsp;&nbsp;<span style="color:var(--amber)">7842</span><br>
+      <span style="color:var(--text-dim)">... 1초에 10만 건 ...</span>
+    </div>
+    <div style="margin-top:.6rem;font-size:.65rem;color:var(--text-dim);text-align:center">
+      → 같은 host의 값들은 <strong>거의 비슷</strong> (locality) → <strong>delta encoding + compression</strong>으로 90%+ 압축
+    </div>
+  </div>
+
+  <!-- Key features -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-bottom:1.2rem">
+    <div style="padding:.7rem .5rem;background:var(--surface);border-radius:8px;text-align:center">
+      <div style="font-size:1.1rem">🗜️</div>
+      <div style="font-size:.72rem;font-weight:700;color:var(--amber);margin-top:.2rem">고압축</div>
+      <div style="font-size:.62rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">90%+<br>delta encoding</div>
+    </div>
+    <div style="padding:.7rem .5rem;background:var(--surface);border-radius:8px;text-align:center">
+      <div style="font-size:1.1rem">📉</div>
+      <div style="font-size:.72rem;font-weight:700;color:var(--amber);margin-top:.2rem">다운샘플링</div>
+      <div style="font-size:.62rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">오래된 데이터<br>해상도 ↓</div>
+    </div>
+    <div style="padding:.7rem .5rem;background:var(--surface);border-radius:8px;text-align:center">
+      <div style="font-size:1.1rem">⏰</div>
+      <div style="font-size:.72rem;font-weight:700;color:var(--amber);margin-top:.2rem">Retention</div>
+      <div style="font-size:.62rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">자동 삭제<br>정책</div>
+    </div>
+    <div style="padding:.7rem .5rem;background:var(--surface);border-radius:8px;text-align:center">
+      <div style="font-size:1.1rem">📊</div>
+      <div style="font-size:.72rem;font-weight:700;color:var(--amber);margin-top:.2rem">윈도우 집계</div>
+      <div style="font-size:.62rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">5min avg<br>1h max</div>
+    </div>
+  </div>
+
+  <!-- When -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.2rem">
+    <div style="padding:.7rem .9rem;background:var(--amber-bg);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.75">
+      ✓ <strong>적합:</strong> IoT 센서 / APM 모니터링 / 금융 틱 데이터 / 메트릭 수집 / Observability
+    </div>
+    <div style="padding:.7rem .9rem;background:var(--surface);border-left:3px solid var(--text-dim);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text-dim);line-height:1.75">
+      ✗ <strong>한계:</strong> JOIN·관계 ❌ / UPDATE 부적합 / 시간 축이 없으면 의미 없음
+    </div>
+  </div>
+
+  <!-- 대표 제품 -->
+  <div style="text-align:center;font-size:.75rem;color:var(--text-dim);margin-bottom:1.2rem">
+    🟦 InfluxDB · 🐘 TimescaleDB (Postgres) · 🟧 Prometheus · 🌊 QuestDB · 🟣 VictoriaMetrics · ☁️ AWS Timestream
+  </div>
+
+  <!-- ─── UI 투어 ─── -->
+  <div style="border-top:1px dashed var(--border);padding-top:1.2rem">
+    <div style="font-size:.72rem;color:var(--amber);letter-spacing:1px;font-family:var(--mono);margin-bottom:.6rem">🖥️ UI 투어 — InfluxDB Data Explorer</div>
+    <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.7rem">Time-series DB의 첫 화면은 <strong style="color:var(--text)">시간 범위 선택기 + 라인 차트</strong>입니다 — 모든 쿼리가 "지난 N분/시간/일"이라는 시간 윈도우를 전제로 합니다.</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.7rem">
+      <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim);display:flex;justify-content:space-between">
+        <span>🟦 InfluxDB — Data Explorer</span>
+        <span style="color:var(--amber)">⏱ Past 1h ▾ &nbsp;|&nbsp; ▶ Run</span>
+      </div>
+      <div style="padding:.7rem;border-bottom:1px solid var(--border);color:var(--text);line-height:1.8">
+        <span style="color:var(--text-dim)">// Flux query</span><br>
+        <span style="color:var(--amber)">from</span>(bucket: <span style="color:var(--text-dim)">"infra"</span>)<br>
+        &nbsp;&nbsp;|&gt; <span style="color:var(--amber)">range</span>(start: -1h)<br>
+        &nbsp;&nbsp;|&gt; <span style="color:var(--amber)">filter</span>(fn: (r) =&gt; r._measurement == <span style="color:var(--text-dim)">"cpu"</span>)<br>
+        &nbsp;&nbsp;|&gt; <span style="color:var(--amber)">aggregateWindow</span>(every: 5m, fn: mean)
+      </div>
+      <div style="padding:.5rem .7rem;color:var(--text-dim);border-bottom:1px solid var(--border);font-size:.65rem">
+        ✓ 12 series · 144 points · 18ms
+      </div>
+      <div style="padding:1rem;background:var(--bg)">
+        <!-- Mock line chart -->
+        <div style="position:relative;height:90px;border-left:1px solid var(--border);border-bottom:1px solid var(--border);padding-left:.3rem">
+          <svg viewBox="0 0 300 80" style="width:100%;height:100%">
+            <polyline points="0,55 30,50 60,52 90,40 120,38 150,30 180,35 210,28 240,22 270,18 300,15"
+              fill="none" stroke="var(--amber)" stroke-width="1.5"/>
+            <polyline points="0,65 30,62 60,60 90,58 120,55 150,53 180,50 210,52 240,48 270,45 300,42"
+              fill="none" stroke="var(--amber)" stroke-width="1.5" opacity="0.5"/>
+            <polyline points="0,70 30,68 60,67 90,66 120,68 150,66 180,67 210,65 240,66 270,68 300,67"
+              fill="none" stroke="var(--amber)" stroke-width="1.5" opacity="0.3"/>
+          </svg>
+          <div style="position:absolute;top:5px;right:5px;font-size:.55rem;color:var(--text-dim)">
+            ━ web01 &nbsp; ━ web02 &nbsp; ━ db01
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:.55rem;color:var(--text-dim);margin-top:.3rem">
+          <span>09:00</span><span>09:15</span><span>09:30</span><span>09:45</span><span>10:00</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:.7rem;padding:.7rem .9rem;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:8px;font-size:.75rem;color:var(--text);line-height:1.7">
+      💡 <strong style="color:var(--amber)">RDBMS와의 결정적 차이:</strong> RDBMS는 SELECT * 가 기본이지만 TSDB는 <strong>"시간 범위 + 윈도우 집계"</strong>가 기본입니다. Grafana 대시보드의 모든 패널이 사실은 이런 쿼리입니다.
+    </div>
+  </div>
 </div>
 </div>
 
@@ -1216,8 +1643,12 @@
 
 <!-- NoSQL 쿼리 -->
 <div class="dia reveal">
-<div class="dia-title">② NoSQL / Graph 쿼리</div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:820px;margin:0 auto">
+<div class="dia-title">② NoSQL / Graph 쿼리 — 한 줄씩만 (본진은 Ch.03)</div>
+<div style="max-width:820px;margin:0 auto">
+<div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.8rem">
+  💡 NoSQL과 Graph DB의 본격적인 설명은 <a href="#sl-special" style="color:var(--amber);text-decoration:underline">Ch.03 특수 저장소 4종</a>에서 다뤘습니다. 여기서는 "쿼리 언어가 SQL과 어떻게 다른지"만 빠르게 봅니다.
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
 
   <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1.1rem">
     <div style="font-size:.82rem;font-weight:700;color:var(--amber);margin-bottom:.5rem">MongoDB (Document)</div>
@@ -1239,6 +1670,7 @@
     </div>
   </div>
 
+</div>
 </div>
 </div>
 

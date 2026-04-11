@@ -56,7 +56,7 @@
 
 ## 출처
 
-- vibe-master.html Ch.05 강의 콘텐츠
+- vibe-master.html Ch.05 학습 콘텐츠
 
 ## 업데이트 이력
 

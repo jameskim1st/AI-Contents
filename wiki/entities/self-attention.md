@@ -46,7 +46,7 @@
 ## 출처
 
 - "Attention Is All You Need" (Vaswani et al., 2017)
-- Part 0 강의 콘텐츠
+- Part 0 학습 콘텐츠
 
 ## 업데이트 이력
 

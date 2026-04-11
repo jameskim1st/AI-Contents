@@ -48,7 +48,7 @@
 
 - Epoch AI 분석 (GPT-4 reverse engineering)
 - "Outrageously Large Neural Networks" (Shazeer et al., 2017) — 원조 MoE 논문
-- Part 0 강의 콘텐츠
+- Part 0 학습 콘텐츠
 
 ## 업데이트 이력
 

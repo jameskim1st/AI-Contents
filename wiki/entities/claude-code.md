@@ -53,7 +53,7 @@ Anthropic이 만든 터미널 기반 AI 코딩 에이전트. [CLAUDE.md](./claud
 ## 출처
 
 - Anthropic 공식 문서
-- Part 3 강의 콘텐츠
+- Part 3 학습 콘텐츠
 
 ## 업데이트 이력
 

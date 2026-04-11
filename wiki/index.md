@@ -110,6 +110,7 @@
 - [Self-Attention](./entities/self-attention.md)
 - [Augmented LLM](./entities/augmented-llm.md)
 - [Memory (Agent)](./entities/memory.md)
+- [Ontology](./entities/ontology.md) — Graph DB의 의미론적 사촌, LLM 시대 부활 ⭐ NEW
 
 ## 인물
 
@@ -123,7 +124,7 @@
 
 ## 통계
 
-- entity 페이지: **69개** (28 → 69, +41)
+- entity 페이지: **70개** (28 → 70, +42)
 - 카테고리: 13개 (9 → 13, 신설: 저장 계층 · Open Table Formats · 데이터 파이프라인 · 데이터 품질·윤리)
 - Last ingest: 2026-04-12 (Data 파트 — 41개 신규 entity)
 - Last query: 2026-04-12 (Part 1 + Part 4 동시 합성, 45 entity 활용, 5495줄)

@@ -38,7 +38,7 @@ Karpathy의 LLM Wiki gist를 우리 프로젝트(AI 교육 콘텐츠)에 맞게 
 ## Reference
 - [Part X — Ch.YY 챕터제목](https://ai-contents-wine.vercel.app/0X-{slug}/#anchor)
 
-(배포된 Vercel URL을 사용. 사이트가 GitHub에 호스팅되어 wiki 파일도 GitHub에서 렌더링되므로, 강의 링크는 배포 사이트로 보내야 작동한다. `Part X` 숫자는 URL slug의 prefix 숫자와 반드시 일치시킬 것.)
+(배포된 Vercel URL을 사용. 사이트가 GitHub에 호스팅되어 wiki 파일도 GitHub에서 렌더링되므로, 콘텐츠 링크는 배포 사이트로 보내야 작동한다. `Part X` 숫자는 URL slug의 prefix 숫자와 반드시 일치시킬 것.)
 
 ## 연관 entity
 - [{name}](./{name}.md) — 한 줄 관계 설명
@@ -122,4 +122,4 @@ LLM은 **수집·연결·정리** 만 한다. **판단과 삭제** 는 사람이
 ## 참고
 
 - Karpathy의 원본 LLM Wiki gist: https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f
-- 우리 사이트의 강의 챕터: `src/content/vibe-master.html` Ch.09 "LLM Wiki"
+- 우리 사이트의 챕터: `src/content/vibe-master.html` Ch.09 "LLM Wiki"
