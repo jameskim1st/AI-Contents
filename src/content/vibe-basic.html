@@ -719,6 +719,10 @@
 쉽게 말해, 손님(클라이언트)이 주방(서버)에 직접 들어가지 않잖아요? <strong>종업원(API)이 중간에서 주문을 받아 전달하고, 음식을 가져다주는 역할</strong>을 합니다.</div>
 </div>
 
+<div style="padding:.7rem 1rem;background:var(--teal-bg);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;margin-bottom:1rem;font-size:.8rem;color:var(--text-dim);line-height:1.8">
+  🔗 <strong style="color:var(--teal)">Part 1 참고:</strong> API는 <a href="/01-ai-agents" style="color:var(--teal);font-weight:600">Part 1 Ch.05 (Tools)</a>에서도 다룹니다. Part 1은 <strong>"에이전트가 API를 호출하는 방법(Function Calling)"</strong>에 초점을, Part 2 여기서는 <strong>"내가 직접 코드에서 API를 쓰는 방법"</strong>에 초점을 둡니다.
+</div>
+
 <div class="dia reveal">
 <div class="dia-title">🍽️ API를 식당으로 이해하기</div>
 <svg viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg" style="font-family:'Noto Sans KR','Outfit',sans-serif;max-width:100%">
@@ -1626,8 +1630,35 @@ message = client.messages.create(
 </div>
 </div>
 
+<!-- CLAUDE.md 미리보기 -->
+<div class="dia reveal">
+<div class="dia-title">🔮 잠깐 — 도구마다 "AI에게 규칙 알려주는 파일"이 있다</div>
+<p style="font-size:.85rem;color:var(--text-dim);text-align:center;margin-bottom:1.2rem">AI 코딩 도구를 쓸 때 흔히 마주치는 패턴 하나 — <strong style="color:var(--text)">프로젝트 루트에 있는 마크다운 규칙 파일</strong>. 이름은 도구마다 다르지만 역할은 같습니다.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;max-width:750px;margin:0 auto">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+    <div style="font-size:1.5rem;margin-bottom:.3rem">✳️</div>
+    <div style="font-family:var(--mono);font-size:.82rem;font-weight:700;color:var(--white)">Claude Code</div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--accent);margin-top:.2rem">CLAUDE.md</div>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+    <div style="font-size:1.5rem;margin-bottom:.3rem">🔷</div>
+    <div style="font-family:var(--mono);font-size:.82rem;font-weight:700;color:var(--white)">Cursor</div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--accent);margin-top:.2rem">.cursorrules</div>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+    <div style="font-size:1.5rem;margin-bottom:.3rem">🐙</div>
+    <div style="font-family:var(--mono);font-size:.82rem;font-weight:700;color:var(--white)">GitHub Copilot</div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--accent);margin-top:.2rem">copilot-instructions.md</div>
+  </div>
+</div>
+<div style="margin-top:1rem;padding:.8rem 1rem;background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);max-width:750px;margin-left:auto;margin-right:auto;line-height:1.8">
+  💡 <strong style="color:var(--accent)">입문 단계에서 알아둘 것:</strong> AI에게 프로젝트 규칙(코드 스타일, 금지 사항, 네이밍 등)을 알려주는 파일이 있다. 처음엔 몰라도 되지만, 본격적으로 쓰면 곧 만나게 됩니다.<br>
+  <strong style="color:var(--text)">왜 이게 중요한가?</strong> 매번 프롬프트에 "이런 스타일로 해줘"라고 쓰기 번거로움 → 파일에 한 번 적어두면 자동으로 AI가 참조. Part 3에서 <strong style="color:var(--accent)">"하네스 엔지니어링"</strong>의 핵심 개념으로 자세히 다룹니다.
+</div>
+</div>
+
 <div style="margin-top:1.5rem;padding:.8rem 1.2rem;background:var(--surface);border:1px dashed var(--accent-border);border-radius:10px;font-size:.82rem;color:var(--text-dim);text-align:center">
-  🚀 Claude Code를 활용한 심화 도구 사용법은 <a href="/03-vibe-master" style="color:var(--accent);font-weight:600">Part 3 — 바이브코딩 심화</a>에서 다룹니다.
+  🚀 Claude Code를 활용한 심화 도구 사용법과 CLAUDE.md 설계 원칙은 <a href="/03-vibe-master" style="color:var(--accent);font-weight:600">Part 3 — 바이브코딩 심화</a>에서 다룹니다.
 </div>
 
 </section>
@@ -2785,10 +2816,33 @@ Cursor는 자체 AI가 내장되어 있어서 별도 키 없이도 사용 가능
 </div>
 </section>
 
-<!-- 다음 탭 버튼 -->
-<div style="text-align:center;padding:3rem 0 2rem;">
-  <button onclick="switchMainTab(3)" style="display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 2rem;border:1.5px solid var(--blue);background:var(--blue-bg);color:var(--blue);border-radius:12px;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .3s;font-family:var(--sans);" onmouseover="this.style.background='var(--blue)';this.style.color='#fff'" onmouseout="this.style.background='var(--blue-bg)';this.style.color='var(--blue)'">
-    Power Platform 시작하기 <span style="font-size:1.2rem">→</span>
-  </button>
+<!-- Next Part bridge -->
+<div class="dia reveal" style="margin-top:2.5rem;border:2px solid var(--accent-border);background:var(--accent-bg)">
+  <div style="text-align:center;padding:1.5rem">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:.5rem">What's Next</div>
+    <div style="font-family:var(--display);font-size:1.3rem;font-weight:800;color:var(--white);margin-bottom:.8rem">
+      Part 2 완료 — 다음은 두 갈래 길
+    </div>
+    <div style="font-size:.88rem;color:var(--text);line-height:1.85;max-width:650px;margin:0 auto">
+      바이브코딩 입문을 마쳤으니, 여기서부터는 <strong>목적에 따라 두 갈래</strong>로 나뉩니다.
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:650px;margin:1.5rem auto 0">
+      <a href="/03-vibe-master" style="padding:1.2rem;background:var(--card);border:2px solid var(--accent);border-radius:12px;text-decoration:none;color:inherit;display:block;transition:all .3s" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="font-size:1.5rem;margin-bottom:.4rem">🚀</div>
+        <div style="font-family:var(--mono);font-size:.68rem;color:var(--accent);letter-spacing:1px">PART 3</div>
+        <div style="font-size:.95rem;font-weight:700;color:var(--white);margin:.3rem 0">바이브코딩 심화</div>
+        <div style="font-size:.75rem;color:var(--text-dim);line-height:1.6">하네스 엔지니어링 · CLAUDE.md · 멀티 에이전트 — 프로덕션 수준 코딩</div>
+      </a>
+      <a href="/04-power-platform" style="padding:1.2rem;background:var(--card);border:2px solid var(--blue-border);border-radius:12px;text-decoration:none;color:inherit;display:block;transition:all .3s" onmouseover="this.style.borderColor='var(--blue)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--blue-border)';this.style.transform='translateY(0)'">
+        <div style="font-size:1.5rem;margin-bottom:.4rem">⚡</div>
+        <div style="font-family:var(--mono);font-size:.68rem;color:var(--blue);letter-spacing:1px">PART 4</div>
+        <div style="font-size:.95rem;font-weight:700;color:var(--white);margin:.3rem 0">Power Platform</div>
+        <div style="font-size:.75rem;color:var(--text-dim);line-height:1.6">코딩 없이 업무 자동화와 AI 에이전트 — 기업 노코드 경로</div>
+      </a>
+    </div>
+    <div style="margin-top:1rem;font-size:.78rem;color:var(--text-dim);line-height:1.7">
+      💡 둘 다 봐도 좋고, 필요한 한쪽만 골라도 됩니다
+    </div>
+  </div>
 </div>
 
