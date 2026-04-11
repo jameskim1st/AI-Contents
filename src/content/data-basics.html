@@ -1,9 +1,2706 @@
-<Layout title="Data 기초">
+<Layout title="Data 기초 — AI를 떠받치는 데이터의 모든 것">
+<!-- PART 1: DATA 기초 -->
 <div class="part-header" id="part1">
   <div class="part-header-inner">
     <span class="part-header-num" style="color:var(--amber)">Part 1</span>
     <h2 class="part-header-title">Data 기초 — AI를 떠받치는 데이터의 모든 것</h2>
-    <p class="part-header-desc">(콘텐츠 작성 중)</p>
+    <p class="part-header-desc">DB부터 Lakehouse까지, 임베딩부터 데이터 품질까지 — 데이터 제국 완전 가이드</p>
+    <p style="font-size:.85rem;color:var(--amber);margin-bottom:1rem;">📊 AI의 시작은 LLM이 아니라 <strong>데이터</strong>입니다. LLM을 만든 것도, 에이전트가 쓰는 것도, 엔터프라이즈 병목도 모두 데이터. Part 0에서 배운 LLM이 데이터로 만들어지고, Part 2의 AI Agents가 데이터를 사용합니다.</p>
+    <nav class="ch-nav">
+      <a href="#p1-ch1"><span class="cn">01</span>데이터란 무엇인가</a>
+      <a href="#p1-ch2"><span class="cn">02</span>정형·반정형·비정형</a>
+      <a href="#p1-ch3"><span class="cn">03</span>DB·DW·Lake·Lakehouse</a>
+      <a href="#p1-ch4"><span class="cn">04</span>인터페이스 투어</a>
+      <a href="#p1-ch5"><span class="cn">05</span>LLM Pre-training</a>
+      <a href="#p1-ch6"><span class="cn">06</span>Fine-tuning</a>
+      <a href="#p1-ch7"><span class="cn">07</span>임베딩</a>
+      <a href="#p1-ch8"><span class="cn">08</span>벡터 DB</a>
+      <a href="#p1-ch9"><span class="cn">09</span>데이터 품질</a>
+      <a href="#p1-ch10"><span class="cn">10</span>데이터 편향</a>
+      <a href="#p1-ch11"><span class="cn">11</span>Data-Centric AI</a>
+      <a href="#p1-ch12"><span class="cn">12</span>파이프라인</a>
+    </nav>
   </div>
 </div>
+
+<!-- ── Part 1 로드맵 ── -->
+<div class="dia reveal" style="margin-bottom:2rem">
+<div class="dia-title">🗺️ Part 1 로드맵 — 데이터가 AI를 떠받치는 구조</div>
+<div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:1.2rem">"LLM이 먼저냐 데이터가 먼저냐" — 답은 명백합니다. 데이터가 먼저고, 데이터가 끝까지 갑니다.</div>
+
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem;max-width:900px;margin:0 auto">
+
+  <div style="text-align:center">
+    <div style="background:var(--amber-bg);border:2px solid var(--amber-border);border-radius:14px;padding:.9rem .5rem">
+      <div style="font-size:1.3rem;margin-bottom:.3rem">🧱</div>
+      <div style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--amber)">Foundation</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">DIKW · 3유형</div>
+    </div>
+    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.01-02</div>
+  </div>
+
+  <div style="text-align:center">
+    <div style="background:var(--amber-bg);border:2px solid var(--amber-border);border-radius:14px;padding:.9rem .5rem">
+      <div style="font-size:1.3rem;margin-bottom:.3rem">🏛️</div>
+      <div style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--amber)">Storage</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">DB · DW · Lake</div>
+    </div>
+    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.03-04</div>
+  </div>
+
+  <div style="text-align:center">
+    <div style="background:var(--amber-bg);border:2px solid var(--amber-border);border-radius:14px;padding:.9rem .5rem">
+      <div style="font-size:1.3rem;margin-bottom:.3rem">🧠</div>
+      <div style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--amber)">LLM Data</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">Pre-train · Fine-tune</div>
+    </div>
+    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.05-06</div>
+  </div>
+
+  <div style="text-align:center">
+    <div style="background:var(--amber-bg);border:2px solid var(--amber-border);border-radius:14px;padding:.9rem .5rem">
+      <div style="font-size:1.3rem;margin-bottom:.3rem">🔢</div>
+      <div style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--amber)">Vectors</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">임베딩 · Vector DB</div>
+    </div>
+    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.07-08</div>
+  </div>
+
+  <div style="text-align:center">
+    <div style="background:var(--amber-bg);border:2px solid var(--amber-border);border-radius:14px;padding:.9rem .5rem">
+      <div style="font-size:1.3rem;margin-bottom:.3rem">✨</div>
+      <div style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--amber)">Quality</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">품질 · 편향 · 파이프라인</div>
+    </div>
+    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.09-12</div>
+  </div>
+
+</div>
+
+<div style="margin-top:1.5rem;padding:1rem 1.2rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;max-width:900px;margin-left:auto;margin-right:auto;font-size:.85rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--amber)">3가지 핵심 메시지</strong>를 안고 갑니다:
+  ① "80%가 비정형 — LLM이 드디어 이 영역을 열었다" &nbsp;②&nbsp; "Lakehouse가 사실상 표준" &nbsp;③&nbsp; "Garbage in, garbage out — Data-Centric AI가 돌아왔다"
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 1: 데이터란 무엇인가 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="p1-ch1">
+<div class="ch-head"><div class="ch-num" style="color:var(--amber)">01</div><h2 class="ch-title">데이터란 무엇인가 — DIKW 피라미드와 AI 시대</h2></div>
+
+<p class="section-desc">"데이터"는 AI 시대에 가장 자주 쓰이지만 가장 오해받는 단어입니다. 1989년 Russell Ackoff가 제안한 <strong style="color:var(--amber)">DIKW 피라미드</strong>는 37년이 지난 지금도 여전히 유효합니다 — 아니, LLM 시대에 오히려 더 중요해졌습니다.</p>
+
+<!-- DIKW 피라미드 -->
+<div class="dia reveal">
+<div class="dia-title">DIKW 피라미드 — 데이터가 지혜가 되기까지</div>
+<div style="max-width:720px;margin:0 auto">
+  <div style="display:grid;grid-template-columns:1fr;gap:.5rem;justify-items:center">
+
+    <div style="width:32%;padding:.9rem 1rem;background:var(--amber-bg);border:2px solid var(--amber);border-radius:10px;text-align:center">
+      <div style="font-family:var(--display);font-size:1rem;font-weight:800;color:var(--amber)">Wisdom</div>
+      <div style="font-size:.7rem;color:var(--text-dim);margin-top:.2rem">"왜 그래야 하나"</div>
+    </div>
+
+    <div style="width:50%;padding:.9rem 1rem;background:var(--amber-bg);border:2px solid var(--amber-border);border-radius:10px;text-align:center">
+      <div style="font-family:var(--display);font-size:1rem;font-weight:800;color:var(--amber)">Knowledge</div>
+      <div style="font-size:.7rem;color:var(--text-dim);margin-top:.2rem">"어떻게 쓰이나"</div>
+    </div>
+
+    <div style="width:70%;padding:.9rem 1rem;background:var(--amber-bg);border:2px solid var(--amber-border);border-radius:10px;text-align:center">
+      <div style="font-family:var(--display);font-size:1rem;font-weight:800;color:var(--amber)">Information</div>
+      <div style="font-size:.7rem;color:var(--text-dim);margin-top:.2rem">"무엇이 무엇인가"</div>
+    </div>
+
+    <div style="width:90%;padding:.9rem 1rem;background:var(--surface);border:1px solid var(--amber-border);border-radius:10px;text-align:center">
+      <div style="font-family:var(--display);font-size:1rem;font-weight:800;color:var(--amber)">Data</div>
+      <div style="font-size:.7rem;color:var(--text-dim);margin-top:.2rem">"원자재 — 맥락 없는 사실"</div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:1.2rem;padding:1rem 1.2rem;background:var(--surface);border-radius:10px;font-size:.78rem;color:var(--text);line-height:1.85">
+    <strong style="color:var(--amber)">🍜 예시 (편의점 매출):</strong><br>
+    <strong>Data</strong> → "2026-04-11 14:32, 상품#A103, ₩1,800"<br>
+    <strong>Information</strong> → "오늘 14시 대에 A103(컵라면) 한 개가 ₩1,800에 팔렸다"<br>
+    <strong>Knowledge</strong> → "점심 직후 컵라면 수요가 매일 30% ↑"<br>
+    <strong>Wisdom</strong> → "12시~15시에 컵라면 진열을 2배로 늘리자 (ROI 검증 후)"
+  </div>
+</div>
+</div>
+
+<!-- AI 시대에 DIKW가 여전히 유효한 이유 -->
+<div class="dia reveal">
+<div class="dia-title">AI 시대에 DIKW가 여전히 유효한 이유</div>
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:820px;margin:0 auto">
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.3rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber);margin-bottom:.5rem">① LLM은 Information 층에 산다</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.85">LLM이 생성하는 것은 대부분 <strong>정보</strong>(조합·요약·변환)입니다. Wisdom(의사결정)은 여전히 사람의 몫 — 적어도 2026년까지는.</div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.3rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber);margin-bottom:.5rem">② Data 층이 모든 것을 결정한다</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.85">피라미드의 바닥이 흔들리면 위의 Knowledge/Wisdom은 모두 환각입니다. <strong>Garbage in, garbage out</strong>은 1957년부터 지금까지 불변.</div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.3rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber);margin-bottom:.5rem">③ AI는 각 층의 속도를 바꾼다</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.85">Data → Information은 과거 수일·수주가 걸렸지만, LLM으로 <strong>수초</strong>가 되었습니다. 하지만 층 자체는 사라지지 않았습니다.</div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.3rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber);margin-bottom:.5rem">④ 품질은 층마다 전파된다</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.85">데이터 1%의 오류가 Knowledge 층에서는 10%, Wisdom 층에서는 100% 잘못된 의사결정이 됩니다. <strong>하위 층일수록 품질 투자 레버리지 ↑</strong>.</div>
+  </div>
+
+</div>
+</div>
+
+<!-- Garbage in, garbage out -->
+<div class="dia reveal">
+<div class="dia-title">"Garbage in, garbage out" — AI 시대의 진짜 의미</div>
+<div style="max-width:780px;margin:0 auto">
+  <div style="padding:1.3rem 1.5rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;margin-bottom:1.2rem">
+    <div style="font-size:.95rem;color:var(--text);font-style:italic;line-height:1.85">"LLM은 마법이 아닙니다. 훈련 데이터의 평균 품질을 따라갑니다. 훈련 데이터가 엉망이면 모델은 엉망이고, 프롬프트 데이터가 엉망이면 답이 엉망입니다."</div>
+    <div style="font-size:.78rem;color:var(--amber);margin-top:.6rem">— Andrew Ng, Data-Centric AI 캠페인 (2021~)</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:.5rem;align-items:center;text-align:center">
+    <div style="padding:.9rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+      <div style="font-size:1.2rem;margin-bottom:.3rem">🗑️</div>
+      <div style="font-size:.75rem;font-weight:700;color:var(--accent)">Bad Data</div>
+    </div>
+    <div style="font-size:1.1rem;color:var(--text-dim)">→</div>
+    <div style="padding:.9rem;background:var(--card);border:1px solid var(--amber-border);border-radius:10px">
+      <div style="font-size:1.2rem;margin-bottom:.3rem">🤖</div>
+      <div style="font-size:.75rem;font-weight:700;color:var(--amber)">좋은 모델</div>
+    </div>
+    <div style="font-size:1.1rem;color:var(--text-dim)">→</div>
+    <div style="padding:.9rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+      <div style="font-size:1.2rem;margin-bottom:.3rem">💩</div>
+      <div style="font-size:.75rem;font-weight:700;color:var(--accent)">Bad Output</div>
+    </div>
+  </div>
+  <div style="margin-top:1rem;text-align:center;font-size:.82rem;color:var(--text-dim);line-height:1.7">
+    아무리 좋은 GPT-5/Claude 5가 있어도, 입력 데이터가 나쁘면 답도 나쁩니다. <strong style="color:var(--amber)">→ 이것이 Part 1 전체의 메시지</strong>
+  </div>
+</div>
+</div>
+
+<!-- Tip: Ackoff 인용 -->
+<div class="tip reveal">
+<div style="font-size:.85rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--amber)">역사 한 조각:</strong> DIKW는 1989년 Russell Ackoff(시스템 사상가)가 "From Data to Wisdom" 논문에서 체계화. 하지만 시 한 구절에서 아이디어를 얻었다고 알려져 있습니다 — T.S. Eliot, "Where is the wisdom we have lost in knowledge? Where is the knowledge we have lost in information?" (1934). <a href="../../wiki/entities/dikw-pyramid.md" style="color:var(--amber);text-decoration:underline">📖 wiki: dikw-pyramid</a>
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 2: 데이터 3유형 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="p1-ch2">
+<div class="ch-head"><div class="ch-num" style="color:var(--amber)">02</div><h2 class="ch-title">데이터 3유형 — 정형·반정형·비정형</h2></div>
+
+<p class="section-desc">AI에서 가장 중요한 분류입니다. 왜냐하면 <strong style="color:var(--amber)">엔터프라이즈 지식의 80%가 비정형</strong>인데(IDC), 이 영역을 다룰 수 있게 된 것이 바로 LLM의 혁명이기 때문입니다.</p>
+
+<!-- 80% 쇼크 통계 -->
+<div class="dia reveal">
+<div class="dia-title">🔥 80% 쇼크 — 엔터프라이즈 데이터의 실상</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:820px;margin:0 auto">
+
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.3rem;text-align:center">
+    <div style="font-family:var(--display);font-size:2rem;font-weight:800;color:var(--text-dim)">~20%</div>
+    <div style="font-size:.82rem;color:var(--text);font-weight:600;margin-top:.4rem">정형</div>
+    <div style="font-size:.72rem;color:var(--text-dim);margin-top:.3rem;line-height:1.6">DB 테이블, CSV<br>"BI와 DW의 세계"</div>
+  </div>
+
+  <div style="background:var(--card);border:2px solid var(--amber);border-radius:14px;padding:1.3rem;text-align:center">
+    <div style="font-family:var(--display);font-size:2rem;font-weight:800;color:var(--amber)">~80%</div>
+    <div style="font-size:.82rem;color:var(--text);font-weight:600;margin-top:.4rem">비정형 + 반정형</div>
+    <div style="font-size:.72rem;color:var(--text-dim);margin-top:.3rem;line-height:1.6">문서, 이메일, 이미지,<br>회의록, PDF, 로그</div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.3rem;text-align:center">
+    <div style="font-family:var(--display);font-size:2rem;font-weight:800;color:var(--amber)">LLM</div>
+    <div style="font-size:.82rem;color:var(--text);font-weight:600;margin-top:.4rem">드디어 ← 이 80%</div>
+    <div style="font-size:.72rem;color:var(--text-dim);margin-top:.3rem;line-height:1.6">를 의미 있게<br>다룰 수 있게 됨</div>
+  </div>
+
+</div>
+<div style="margin-top:1.2rem;padding:.9rem 1.2rem;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:10px;max-width:820px;margin-left:auto;margin-right:auto;font-size:.85rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--amber)">AI 혁명의 본질:</strong> 지난 50년 IT는 "정형 데이터 20%"만 잘 다뤘습니다. LLM이 바꾼 것은 "알고리즘의 영리함"이 아니라 <strong>80%를 비로소 건드릴 수 있게 된 것</strong>입니다. — IDC Enterprise Data Report (2023)
+</div>
+</div>
+
+<!-- 3유형 카드 -->
+<div class="dia reveal">
+<div class="dia-title">정형 · 반정형 · 비정형 — 3유형 상세</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:900px;margin:0 auto">
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.3rem">
+    <div style="font-size:1.5rem;margin-bottom:.5rem">📊</div>
+    <div style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--amber);margin-bottom:.5rem">정형 (Structured)</div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.85;margin-bottom:.6rem">
+      스키마가 미리 고정된 데이터. 행(row)과 열(column)로 표현.
+    </div>
+    <div style="font-size:.7rem;color:var(--text-dim);line-height:1.7">
+      <strong style="color:var(--text)">예시:</strong><br>
+      RDBMS 테이블, CSV, Parquet,<br>ERP/CRM 데이터
+    </div>
+    <div style="margin-top:.8rem;padding:.5rem .7rem;background:var(--surface);border-radius:8px;font-family:var(--mono);font-size:.68rem;color:var(--text-dim);line-height:1.7">
+      id | name | price<br>
+      1 &nbsp;| 커피 | 4500<br>
+      2 &nbsp;| 토스트| 3500
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.3rem">
+    <div style="font-size:1.5rem;margin-bottom:.5rem">🧩</div>
+    <div style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--amber);margin-bottom:.5rem">반정형 (Semi-structured)</div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.85;margin-bottom:.6rem">
+      스키마가 느슨하고 유연. 계층·태그·키-값 구조.
+    </div>
+    <div style="font-size:.7rem;color:var(--text-dim);line-height:1.7">
+      <strong style="color:var(--text)">예시:</strong><br>
+      JSON, XML, YAML, Avro,<br>MongoDB 문서, API 응답
+    </div>
+    <div style="margin-top:.8rem;padding:.5rem .7rem;background:var(--surface);border-radius:8px;font-family:var(--mono);font-size:.68rem;color:var(--text-dim);line-height:1.7">
+      &#123;<br>
+      &nbsp;&nbsp;"user": "홍길동",<br>
+      &nbsp;&nbsp;"tags": ["vip"]<br>
+      &#125;
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:2px solid var(--amber);border-radius:14px;padding:1.3rem">
+    <div style="font-size:1.5rem;margin-bottom:.5rem">📄</div>
+    <div style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--amber);margin-bottom:.5rem">비정형 (Unstructured)</div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.85;margin-bottom:.6rem">
+      스키마가 없음. 자연어, 미디어, 바이너리.
+    </div>
+    <div style="font-size:.7rem;color:var(--text-dim);line-height:1.7">
+      <strong style="color:var(--text)">예시:</strong><br>
+      텍스트, 이메일, PDF, 이미지,<br>오디오, 비디오, 회의록
+    </div>
+    <div style="margin-top:.8rem;padding:.5rem .7rem;background:var(--surface);border-radius:8px;font-family:var(--mono);font-size:.68rem;color:var(--text-dim);line-height:1.7">
+      "4분기 매출 보고서<br>첨부: Q4_report.pdf<br>&lt;이미지&gt; 🖼️"
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- 비교표 -->
+<div class="dia reveal">
+<div class="dia-title">관점별 비교</div>
+<div style="max-width:820px;margin:0 auto;overflow-x:auto">
+<table style="width:100%;border-collapse:collapse;font-size:.82rem;min-width:620px">
+  <thead>
+    <tr>
+      <th style="padding:.6rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">관점</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">정형</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">반정형</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">비정형</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600">스키마</td><td style="padding:.5rem;color:var(--text-dim)">고정 (사전 정의)</td><td style="padding:.5rem;color:var(--text-dim)">유연 (Schema-on-Read)</td><td style="padding:.5rem;color:var(--text-dim)">없음</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600">저장소</td><td style="padding:.5rem;color:var(--text-dim)">RDBMS, DW</td><td style="padding:.5rem;color:var(--text-dim)">NoSQL, Data Lake</td><td style="padding:.5rem;color:var(--text-dim)">Data Lake, S3</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600">쿼리 언어</td><td style="padding:.5rem;color:var(--text-dim)">SQL</td><td style="padding:.5rem;color:var(--text-dim)">JSONPath, MongoDB Query</td><td style="padding:.5rem;color:var(--text-dim)">Full-text search, Vector search</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600">AI 접근</td><td style="padding:.5rem;color:var(--text-dim)">전통 ML, SQL agents</td><td style="padding:.5rem;color:var(--text-dim)">함수 호출 parsing</td><td style="padding:.5rem;color:var(--text-dim)"><strong style="color:var(--amber)">LLM + 임베딩</strong></td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600">엔터프라이즈 비중</td><td style="padding:.5rem;color:var(--text-dim)">~20%</td><td style="padding:.5rem;color:var(--text-dim)">~10%</td><td style="padding:.5rem;color:var(--amber);font-weight:700">~70%</td></tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+<!-- AI가 비정형을 연다 -->
+<div class="dia reveal">
+<div class="dia-title">AI가 "80%를 연다"는 것이 왜 혁명인가</div>
+<div style="max-width:780px;margin:0 auto">
+  <div style="font-size:.85rem;color:var(--text);line-height:1.85;margin-bottom:1rem">
+    <strong style="color:var(--amber)">1970~2020:</strong> 정형 데이터만 다룰 수 있었습니다. SQL, BI, DW — 모두 정형 전용 도구. 비정형 문서는 "검색 가능"하지만 "이해할 수는 없는" 자산이었습니다.
+  </div>
+  <div style="font-size:.85rem;color:var(--text);line-height:1.85;margin-bottom:1rem">
+    <strong style="color:var(--amber)">2020~:</strong> LLM이 등장하면서 텍스트/이미지/오디오의 <strong>의미</strong>를 다룰 수 있게 됩니다. 이메일에서 액션 아이템 추출, PDF에서 QA, 영상에서 요약 — 2020년 전까지는 전담 연구팀의 일이었지만, 2026년에는 API 한 줄입니다.
+  </div>
+  <div style="padding:1rem 1.2rem;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:10px;font-size:.82rem;color:var(--text);line-height:1.85">
+    <strong style="color:var(--amber)">🎯 핵심 통찰:</strong> "우리 회사에 AI가 왜 필요한가?"라는 질문의 답은 대부분 <strong>"문서·이메일·채팅에 있는 80% 지식을 꺼내기 위해서"</strong>입니다. 이것이 RAG(Part 2 Ch.08)가 엔터프라이즈에서 가장 먼저 채택되는 패턴인 이유입니다.
+  </div>
+</div>
+</div>
+
+<!-- Tip: wiki links -->
+<div class="tip reveal">
+<div style="font-size:.85rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--amber)">깊이 파고들기:</strong> 관련 wiki 엔티티 — <a href="../../wiki/entities/structured-data.md" style="color:var(--amber);text-decoration:underline">structured-data</a>, <a href="../../wiki/entities/semi-structured-data.md" style="color:var(--amber);text-decoration:underline">semi-structured-data</a>, <a href="../../wiki/entities/unstructured-data.md" style="color:var(--amber);text-decoration:underline">unstructured-data</a>. 각 유형별 저장소·쿼리·AI 접근법을 상세히 다룹니다.
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 3: 데이터가 사는 곳 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="p1-ch3">
+<div class="ch-head"><div class="ch-num" style="color:var(--amber)">03</div><h2 class="ch-title">데이터가 사는 곳 — DB · DW · Data Mart · Lake · Lakehouse</h2></div>
+
+<p class="section-desc">데이터는 어딘가에 저장되어야 합니다. 지난 40년 동안 5번의 진화가 있었고, 2026년 현재 <strong style="color:var(--amber)">Lakehouse</strong>가 사실상 표준이 되었습니다. 이 챕터는 Part 1에서 <strong>가장 중요한</strong> 챕터입니다 — AI 엔지니어는 "어디에 데이터가 살고 어떻게 꺼내는가"를 반드시 알아야 합니다.</p>
+
+<!-- 40년 히스토리 타임라인 -->
+<div class="dia reveal">
+<div class="dia-title">40년 히스토리 — 데이터 저장소의 5번 진화</div>
+<div style="max-width:900px;margin:0 auto">
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem">
+
+    <div style="text-align:center">
+      <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1rem .6rem">
+        <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);font-weight:700">1970s</div>
+        <div style="font-size:1.5rem;margin:.3rem 0">🗄️</div>
+        <div style="font-family:var(--mono);font-size:.7rem;font-weight:700;color:var(--text)">RDBMS</div>
+        <div style="font-size:.62rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">Oracle, IBM DB2<br>"OLTP의 왕"</div>
+      </div>
+    </div>
+
+    <div style="text-align:center">
+      <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1rem .6rem">
+        <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);font-weight:700">1990s</div>
+        <div style="font-size:1.5rem;margin:.3rem 0">🏛️</div>
+        <div style="font-family:var(--mono);font-size:.7rem;font-weight:700;color:var(--text)">Data Warehouse</div>
+        <div style="font-size:.62rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">Teradata, Inmon/Kimball<br>"OLAP 전용"</div>
+      </div>
+    </div>
+
+    <div style="text-align:center">
+      <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1rem .6rem">
+        <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);font-weight:700">2000s</div>
+        <div style="font-size:1.5rem;margin:.3rem 0">🌐</div>
+        <div style="font-family:var(--mono);font-size:.7rem;font-weight:700;color:var(--text)">NoSQL / Hadoop</div>
+        <div style="font-size:.62rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">MongoDB, HDFS<br>"Scale-out"</div>
+      </div>
+    </div>
+
+    <div style="text-align:center">
+      <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1rem .6rem">
+        <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);font-weight:700">2010s</div>
+        <div style="font-size:1.5rem;margin:.3rem 0">🌊</div>
+        <div style="font-family:var(--mono);font-size:.7rem;font-weight:700;color:var(--text)">Data Lake</div>
+        <div style="font-size:.62rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">S3, ADLS<br>"Schema-on-Read"</div>
+      </div>
+    </div>
+
+    <div style="text-align:center">
+      <div style="background:var(--amber-bg);border:2px solid var(--amber);border-radius:12px;padding:1rem .6rem">
+        <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);font-weight:700">2020s</div>
+        <div style="font-size:1.5rem;margin:.3rem 0">🏔️</div>
+        <div style="font-family:var(--mono);font-size:.7rem;font-weight:700;color:var(--amber)">Lakehouse</div>
+        <div style="font-size:.62rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">Databricks, Iceberg<br>"Lake + DW"</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:1.2rem;padding:.9rem 1.2rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.85">
+    <strong style="color:var(--amber)">📌 진화의 동력:</strong> 매 10년마다 "더 많은 데이터, 더 다양한 유형, 더 싼 저장"을 요구받아 왔습니다. 2020년대는 여기에 <strong>"AI/ML 워크로드까지"</strong>가 추가되었습니다. Lakehouse가 등장한 이유입니다.
+  </div>
+</div>
+</div>
+
+<!-- 5대 저장 계층 비교표 -->
+<div class="dia reveal">
+<div class="dia-title">5대 저장 계층 상세 비교</div>
+<div style="max-width:920px;margin:0 auto;overflow-x:auto">
+<table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:780px">
+  <thead>
+    <tr>
+      <th style="padding:.6rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">카테고리</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">대표 제품</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">데이터 유형</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">강점</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">약점</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">사용 사례</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding:.5rem;color:var(--text);font-weight:600">RDBMS<br><span style="color:var(--text-dim);font-weight:400;font-size:.7rem">OLTP</span></td>
+      <td style="padding:.5rem;color:var(--text-dim)">PostgreSQL, MySQL, Oracle, SQL Server</td>
+      <td style="padding:.5rem;color:var(--text-dim)">정형</td>
+      <td style="padding:.5rem;color:var(--text-dim)">ACID, 트랜잭션, 일관성</td>
+      <td style="padding:.5rem;color:var(--text-dim)">스케일 한계, 분석 느림</td>
+      <td style="padding:.5rem;color:var(--text-dim)">업무 시스템, 주문/결제</td>
+    </tr>
+    <tr>
+      <td style="padding:.5rem;color:var(--text);font-weight:600">Data Warehouse<br><span style="color:var(--text-dim);font-weight:400;font-size:.7rem">OLAP</span></td>
+      <td style="padding:.5rem;color:var(--text-dim)">Snowflake, BigQuery, Redshift, Synapse</td>
+      <td style="padding:.5rem;color:var(--text-dim)">정형 (주로)</td>
+      <td style="padding:.5rem;color:var(--text-dim)">대규모 집계, BI 친화적</td>
+      <td style="padding:.5rem;color:var(--text-dim)">반정형·비정형 취약, 고비용</td>
+      <td style="padding:.5rem;color:var(--text-dim)">BI 대시보드, 전사 분석</td>
+    </tr>
+    <tr>
+      <td style="padding:.5rem;color:var(--text);font-weight:600">Data Mart</td>
+      <td style="padding:.5rem;color:var(--text-dim)">(DW의 부분집합)</td>
+      <td style="padding:.5rem;color:var(--text-dim)">정형</td>
+      <td style="padding:.5rem;color:var(--text-dim)">부서별 빠른 조회, 단순함</td>
+      <td style="padding:.5rem;color:var(--text-dim)">중복, 사일로 위험</td>
+      <td style="padding:.5rem;color:var(--text-dim)">재무/HR/영업 부서 분석</td>
+    </tr>
+    <tr>
+      <td style="padding:.5rem;color:var(--text);font-weight:600">Data Lake</td>
+      <td style="padding:.5rem;color:var(--text-dim)">S3, ADLS, GCS, HDFS</td>
+      <td style="padding:.5rem;color:var(--text-dim)">정형 + 반정형 + 비정형</td>
+      <td style="padding:.5rem;color:var(--text-dim)">저렴, 유연, 규모 무제한</td>
+      <td style="padding:.5rem;color:var(--text-dim)">거버넌스 어려움, "Data Swamp" 위험</td>
+      <td style="padding:.5rem;color:var(--text-dim)">ML 학습, 로그 수집</td>
+    </tr>
+    <tr style="background:var(--amber-bg)">
+      <td style="padding:.5rem;color:var(--amber);font-weight:700">Lakehouse ⭐</td>
+      <td style="padding:.5rem;color:var(--text)">Databricks, Snowflake, Apache Iceberg + Trino</td>
+      <td style="padding:.5rem;color:var(--text)">All</td>
+      <td style="padding:.5rem;color:var(--text)"><strong>Lake의 유연성 + DW의 ACID·성능</strong></td>
+      <td style="padding:.5rem;color:var(--text)">생태계 복잡, lock-in 우려</td>
+      <td style="padding:.5rem;color:var(--text)"><strong>BI + ML + AI 통합 플랫폼</strong></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+<!-- UI 목업 #1: pgAdmin -->
+<div class="dia reveal">
+<div class="dia-title">UI 투어 ① — pgAdmin (PostgreSQL 관리자)</div>
+<div style="max-width:820px;margin:0 auto">
+  <div style="font-size:.82rem;color:var(--text-dim);margin-bottom:.8rem">RDBMS의 클래식 3분할 레이아웃: 왼쪽 object tree, 오른쪽 상단 SQL 에디터, 오른쪽 하단 결과 그리드.</div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.72rem">
+    <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim)">🐘 pgAdmin 4 — localhost:5432 / mydb</div>
+    <div style="display:grid;grid-template-columns:180px 1fr;min-height:240px">
+      <div style="background:var(--card);border-right:1px solid var(--border);padding:.7rem;color:var(--text);line-height:1.9">
+        ▼ Servers<br>
+        &nbsp;&nbsp;▼ 🐘 localhost<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;▼ Databases<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼ mydb<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼ Schemas<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼ public<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📋 customers<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📋 orders<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📋 products
+      </div>
+      <div>
+        <div style="padding:.7rem;border-bottom:1px solid var(--border);color:var(--text);line-height:1.8">
+          <span style="color:var(--amber)">SELECT</span> c.name, <span style="color:var(--amber)">COUNT</span>(o.id) <span style="color:var(--amber)">AS</span> orders<br>
+          <span style="color:var(--amber)">FROM</span> customers c<br>
+          <span style="color:var(--amber)">JOIN</span> orders o <span style="color:var(--amber)">ON</span> c.id = o.customer_id<br>
+          <span style="color:var(--amber)">GROUP BY</span> c.name <span style="color:var(--amber)">ORDER BY</span> orders <span style="color:var(--amber)">DESC</span>;
+        </div>
+        <div style="padding:.5rem .7rem;color:var(--text-dim);border-bottom:1px solid var(--border);font-size:.65rem">Data Output (32 rows, 45ms)</div>
+        <div style="padding:.5rem .7rem;color:var(--text);line-height:1.7">
+          name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| orders<br>
+          김영희 &nbsp;&nbsp;&nbsp;&nbsp;| 47<br>
+          이철수 &nbsp;&nbsp;&nbsp;&nbsp;| 32<br>
+          박민준 &nbsp;&nbsp;&nbsp;&nbsp;| 28
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- UI 목업 #2: Snowflake -->
+<div class="dia reveal">
+<div class="dia-title">UI 투어 ② — Snowflake Snowsight (Data Warehouse)</div>
+<div style="max-width:820px;margin:0 auto">
+  <div style="font-size:.82rem;color:var(--text-dim);margin-bottom:.8rem">"Worksheet" 개념. DW는 <strong>Warehouse(컴퓨팅 풀) 드롭다운</strong>으로 자원을 선택합니다 — 과금이 컴퓨팅 단위이기 때문.</div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.72rem">
+    <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim);display:flex;justify-content:space-between">
+      <span>❄️ Snowsight — Worksheet: Q4_Sales_Analysis</span>
+      <span style="color:var(--amber)">Warehouse: COMPUTE_WH (Medium) ▾</span>
+    </div>
+    <div style="padding:.7rem;color:var(--text);line-height:1.85;border-bottom:1px solid var(--border)">
+      <span style="color:var(--text-dim)">-- 2026 Q4 매출 상위 카테고리</span><br>
+      <span style="color:var(--amber)">SELECT</span> category, <span style="color:var(--amber)">SUM</span>(revenue) <span style="color:var(--amber)">AS</span> total<br>
+      <span style="color:var(--amber)">FROM</span> SALES_DB.PUBLIC.ORDERS<br>
+      <span style="color:var(--amber)">WHERE</span> order_date <span style="color:var(--amber)">&gt;=</span> '2026-10-01'<br>
+      <span style="color:var(--amber)">GROUP BY</span> category<br>
+      <span style="color:var(--amber)">ORDER BY</span> total <span style="color:var(--amber)">DESC</span> <span style="color:var(--amber)">LIMIT</span> 5;
+    </div>
+    <div style="padding:.5rem .7rem;color:var(--text-dim);border-bottom:1px solid var(--border);font-size:.65rem">
+      ✓ Query completed | 1.2 B rows scanned | 2.3s | Credits: 0.0019
+    </div>
+    <div style="padding:.5rem .7rem;color:var(--text);line-height:1.7">
+      category &nbsp;| total<br>
+      전자제품 | ₩18.4B<br>
+      의류 &nbsp;&nbsp;&nbsp;&nbsp;| ₩12.1B<br>
+      식품 &nbsp;&nbsp;&nbsp;&nbsp;| ₩9.8B
+    </div>
+  </div>
+  <div style="margin-top:.8rem;font-size:.75rem;color:var(--text-dim);line-height:1.7">
+    💡 <strong style="color:var(--amber)">핵심 차이점:</strong> pgAdmin은 "서버 관리", Snowflake는 "쿼리 + 비용". DW는 저장과 컴퓨팅이 분리되어 있고, 쿼리마다 크레딧(=돈)이 소모됩니다.
+  </div>
+</div>
+</div>
+
+<!-- UI 목업 #3: S3 -->
+<div class="dia reveal">
+<div class="dia-title">UI 투어 ③ — AWS S3 Console (Data Lake의 원시 형태)</div>
+<div style="max-width:820px;margin:0 auto">
+  <div style="font-size:.82rem;color:var(--text-dim);margin-bottom:.8rem">Data Lake는 사실 "버킷 → 폴더(prefix) → 파일"입니다. Parquet, JSON, CSV가 혼재합니다.</div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.72rem">
+    <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim)">
+      🪣 S3 &gt; acme-datalake &gt; raw/events/year=2026/month=04/day=11/
+    </div>
+    <div style="padding:.7rem;color:var(--text);line-height:2">
+      <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:.5rem;padding:.3rem 0;border-bottom:1px dashed var(--border);color:var(--text-dim);font-size:.68rem">
+        <span>Name</span><span>Type</span><span>Size</span><span>Last modified</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:.5rem;padding:.25rem 0">
+        <span>📦 hour=09/</span><span>folder</span><span>—</span><span>09:59</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:.5rem;padding:.25rem 0">
+        <span>📦 hour=10/</span><span>folder</span><span>—</span><span>10:59</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:.5rem;padding:.25rem 0;color:var(--amber)">
+        <span>📄 part-00000.parquet</span><span>parquet</span><span>47 MB</span><span>11:00</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:.5rem;padding:.25rem 0;color:var(--amber)">
+        <span>📄 part-00001.parquet</span><span>parquet</span><span>51 MB</span><span>11:00</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:.5rem;padding:.25rem 0">
+        <span>📄 _SUCCESS</span><span>json</span><span>128 B</span><span>11:00</span>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:.8rem;font-size:.75rem;color:var(--text-dim);line-height:1.7">
+    💡 <strong>Hive-style partitioning</strong> (<code style="color:var(--amber)">year=2026/month=04/day=11</code>)은 Data Lake에서 표준 컨벤션. 쿼리 엔진(Trino, Spark)이 partition pruning으로 빠르게 탐색합니다.
+  </div>
+</div>
+</div>
+
+<!-- UI 목업 #4: Databricks -->
+<div class="dia reveal">
+<div class="dia-title">UI 투어 ④ — Databricks Unity Catalog (Lakehouse)</div>
+<div style="max-width:820px;margin:0 auto">
+  <div style="font-size:.82rem;color:var(--text-dim);margin-bottom:.8rem">Lakehouse의 본질: S3 위에 DW의 거버넌스(Catalog · Schema · Table · Lineage)를 얹은 것.</div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.72rem">
+    <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim)">
+      🔥 Databricks — Unity Catalog &gt; Catalog Explorer
+    </div>
+    <div style="display:grid;grid-template-columns:220px 1fr;min-height:260px">
+      <div style="background:var(--card);border-right:1px solid var(--border);padding:.7rem;color:var(--text);line-height:1.9">
+        ▼ 📚 main (catalog)<br>
+        &nbsp;&nbsp;▼ 📁 prod<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;▼ 🥉 bronze<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📊 raw_events<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;▼ 🥈 silver<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📊 clean_events<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;▼ 🥇 gold<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📊 daily_revenue<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📊 customer_360
+      </div>
+      <div style="padding:.7rem;color:var(--text);line-height:1.85">
+        <span style="color:var(--amber)">Table:</span> main.prod.gold.daily_revenue<br>
+        <span style="color:var(--text-dim)">Format: Delta · 1.2B rows · 47 GB</span><br><br>
+        <span style="color:var(--amber)">Columns:</span><br>
+        - date (DATE)<br>
+        - region (STRING)<br>
+        - revenue (DECIMAL)<br>
+        - order_count (BIGINT)<br><br>
+        <span style="color:var(--amber)">🔗 Lineage:</span><br>
+        bronze.raw_events → silver.clean_events → <strong>gold.daily_revenue</strong><br><br>
+        <span style="color:var(--amber)">🔐 Permissions:</span> analytics_team (SELECT)
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:.8rem;padding:.7rem .9rem;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:10px;font-size:.78rem;color:var(--text);line-height:1.7">
+    🏔️ <strong style="color:var(--amber)">Medallion 아키텍처</strong>: Bronze(원시) → Silver(정제) → Gold(비즈니스) 3단계가 Lakehouse 표준 패턴. <a href="../../wiki/entities/medallion-architecture.md" style="color:var(--amber);text-decoration:underline">wiki: medallion-architecture</a>
+  </div>
+</div>
+</div>
+
+<!-- 특수 저장소 -->
+<div class="dia reveal">
+<div class="dia-title">특수 저장소 — NoSQL · Graph · Vector · Time-series</div>
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:820px;margin:0 auto">
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem">
+      <div style="font-size:1.3rem">📦</div>
+      <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber)">NoSQL (Document)</div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+      <strong>MongoDB, DynamoDB, Couchbase.</strong> JSON 중심. 유연한 스키마, 수평 확장. 소셜·카탈로그·프로필 저장에 강함.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem">
+      <div style="font-size:1.3rem">🕸️</div>
+      <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber)">Graph DB</div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+      <strong>Neo4j, Amazon Neptune.</strong> 노드·관계 중심. 소셜 그래프, 사기 탐지, 지식 그래프. Cypher/Gremlin 쿼리.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:2px solid var(--amber);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem">
+      <div style="font-size:1.3rem">🔢</div>
+      <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber)">Vector DB ⭐</div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+      <strong>Pinecone, Weaviate, pgvector, Qdrant.</strong> 임베딩 벡터 저장·검색. RAG의 핵심. → <strong>Ch.08</strong>에서 상세.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem">
+      <div style="font-size:1.3rem">⏱️</div>
+      <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber)">Time-series DB</div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+      <strong>InfluxDB, TimescaleDB, Prometheus.</strong> 시계열 데이터에 최적화. IoT, 모니터링, 금융 틱 데이터.
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- 결정 트리 -->
+<div class="dia reveal">
+<div class="dia-title">🎯 결정 트리 — 언제 뭘 쓰나</div>
+<div style="max-width:780px;margin:0 auto;background:var(--surface);border-radius:10px;padding:1.3rem;font-family:var(--mono);font-size:.78rem;line-height:1.95;color:var(--text)">
+  <span style="color:var(--amber)">Q1:</span> 트랜잭션(주문/결제/인벤토리)인가?<br>
+  &nbsp;&nbsp;└ YES → <strong style="color:var(--amber)">RDBMS</strong> (PostgreSQL, MySQL)<br>
+  &nbsp;&nbsp;└ NO ↓<br>
+  <span style="color:var(--amber)">Q2:</span> 정형 데이터 대규모 BI/분석인가?<br>
+  &nbsp;&nbsp;└ YES → <strong style="color:var(--amber)">DW</strong> (Snowflake, BigQuery)<br>
+  &nbsp;&nbsp;└ NO ↓<br>
+  <span style="color:var(--amber)">Q3:</span> 비정형 + AI/ML 워크로드가 섞여 있나?<br>
+  &nbsp;&nbsp;└ YES → <strong style="color:var(--amber)">Lakehouse</strong> (Databricks, Iceberg+Trino) ⭐<br>
+  &nbsp;&nbsp;└ NO ↓<br>
+  <span style="color:var(--amber)">Q4:</span> 특수 워크로드인가?<br>
+  &nbsp;&nbsp;├ 그래프 관계 → <strong style="color:var(--amber)">Graph DB</strong> (Neo4j)<br>
+  &nbsp;&nbsp;├ 유사도 검색/RAG → <strong style="color:var(--amber)">Vector DB</strong> (Pinecone)<br>
+  &nbsp;&nbsp;├ 시계열/IoT → <strong style="color:var(--amber)">Time-series</strong> (Influx)<br>
+  &nbsp;&nbsp;└ 유연한 JSON 스키마 → <strong style="color:var(--amber)">Document NoSQL</strong> (Mongo)
+</div>
+</div>
+
+<!-- 왜 Lakehouse가 표준 -->
+<div class="dia reveal">
+<div class="dia-title">2026년, 왜 Lakehouse가 표준인가</div>
+<div style="max-width:820px;margin:0 auto">
+  <div style="padding:1.3rem 1.5rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;margin-bottom:1.2rem">
+    <div style="font-size:.95rem;color:var(--text);font-style:italic;line-height:1.85">"DW와 Lake의 이분법이 끝났다. 하나의 플랫폼에서 SQL, BI, ML, AI를 모두 돌리는 것이 기본이 됐다."</div>
+    <div style="font-size:.78rem;color:var(--amber);margin-top:.6rem">— Databricks State of Data + AI 2026</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem">
+    <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1.1rem">
+      <div style="font-size:.82rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">① 하나의 저장소</div>
+      <div style="font-size:.78rem;color:var(--text-dim);line-height:1.8">정형·반정형·비정형을 한 곳에. ETL 복사 ×2 비용이 사라짐.</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1.1rem">
+      <div style="font-size:.82rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">② Delta/Iceberg = ACID</div>
+      <div style="font-size:.78rem;color:var(--text-dim);line-height:1.8">Lake 위에 테이블 포맷으로 트랜잭션·시간여행·스키마 진화 지원.</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1.1rem">
+      <div style="font-size:.82rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">③ BI + ML + AI 통합</div>
+      <div style="font-size:.78rem;color:var(--text-dim);line-height:1.8">Dashboards, Spark ML, LLM 파이프라인을 한 카탈로그에서.</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1.1rem">
+      <div style="font-size:.82rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">④ 오픈 포맷 = 포터블</div>
+      <div style="font-size:.78rem;color:var(--text-dim);line-height:1.8">Parquet + Delta/Iceberg는 표준. 엔진 교체 가능 → vendor lock-in ↓.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Tip -->
+<div class="tip reveal">
+<div style="font-size:.85rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--amber)">더 깊이:</strong> 관련 wiki — <a href="../../wiki/entities/rdbms.md" style="color:var(--amber);text-decoration:underline">rdbms</a>, <a href="../../wiki/entities/data-warehouse.md" style="color:var(--amber);text-decoration:underline">data-warehouse</a>, <a href="../../wiki/entities/data-mart.md" style="color:var(--amber);text-decoration:underline">data-mart</a>, <a href="../../wiki/entities/data-lake.md" style="color:var(--amber);text-decoration:underline">data-lake</a>, <a href="../../wiki/entities/data-lakehouse.md" style="color:var(--amber);text-decoration:underline">data-lakehouse</a>, <a href="../../wiki/entities/delta-lake.md" style="color:var(--amber);text-decoration:underline">delta-lake</a>, <a href="../../wiki/entities/apache-iceberg.md" style="color:var(--amber);text-decoration:underline">apache-iceberg</a>, <a href="../../wiki/entities/medallion-architecture.md" style="color:var(--amber);text-decoration:underline">medallion-architecture</a>, <a href="../../wiki/entities/nosql.md" style="color:var(--amber);text-decoration:underline">nosql</a>, <a href="../../wiki/entities/graph-db.md" style="color:var(--amber);text-decoration:underline">graph-db</a>.
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 4: 데이터 인터페이스 투어 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="p1-ch4">
+<div class="ch-head"><div class="ch-num" style="color:var(--amber)">04</div><h2 class="ch-title">데이터 인터페이스 투어 — SQL부터 노트북까지</h2></div>
+
+<p class="section-desc">데이터는 "저장" 다음에 "꺼내기"가 필요합니다. 2026년 현재 데이터를 만지는 도구는 5가지 계층으로 나뉩니다 — SQL, NoSQL 쿼리, Vector 쿼리, 노트북, BI. 각각이 무슨 역할인지, 누가 쓰는지를 빠르게 투어합니다.</p>
+
+<!-- SQL 만국 공용어 -->
+<div class="dia reveal">
+<div class="dia-title">① SQL — 50년째 만국 공용어</div>
+<div style="max-width:780px;margin:0 auto">
+  <div style="font-size:.85rem;color:var(--text);line-height:1.85;margin-bottom:1rem">
+    1974년 IBM에서 탄생한 SQL은 여전히 데이터 세계의 lingua franca입니다. <strong style="color:var(--amber)">2026년에도 데이터 엔지니어·분석가의 80%가 가장 많이 쓰는 언어</strong> — Stack Overflow Developer Survey 기준. LLM조차 결국 SQL을 생성합니다.
+  </div>
+  <div style="background:var(--surface);border-radius:10px;padding:1.2rem;font-family:var(--mono);font-size:.78rem;line-height:1.85;color:var(--text)">
+    <span style="color:var(--text-dim)">-- "4월 가장 많이 팔린 상품 TOP 5"</span><br>
+    <span style="color:var(--amber)">SELECT</span> product_name, <span style="color:var(--amber)">SUM</span>(quantity) <span style="color:var(--amber)">AS</span> sold<br>
+    <span style="color:var(--amber)">FROM</span> orders o<br>
+    <span style="color:var(--amber)">JOIN</span> products p <span style="color:var(--amber)">ON</span> o.product_id = p.id<br>
+    <span style="color:var(--amber)">WHERE</span> o.order_date <span style="color:var(--amber)">BETWEEN</span> '2026-04-01' <span style="color:var(--amber)">AND</span> '2026-04-30'<br>
+    <span style="color:var(--amber)">GROUP BY</span> product_name<br>
+    <span style="color:var(--amber)">ORDER BY</span> sold <span style="color:var(--amber)">DESC</span><br>
+    <span style="color:var(--amber)">LIMIT</span> 5;
+  </div>
+  <div style="margin-top:1rem;font-size:.78rem;color:var(--text-dim);line-height:1.7">
+    💡 <strong>Modern SQL IDE:</strong> DataGrip, DBeaver, VS Code + SQLTools, dbt (SQL로 ETL 작성). 2026년에는 모두 LLM 통합 (자연어 → SQL 자동 변환).
+  </div>
+</div>
+</div>
+
+<!-- NoSQL 쿼리 -->
+<div class="dia reveal">
+<div class="dia-title">② NoSQL / Graph 쿼리</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:820px;margin:0 auto">
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1.1rem">
+    <div style="font-size:.82rem;font-weight:700;color:var(--amber);margin-bottom:.5rem">MongoDB (Document)</div>
+    <div style="background:var(--surface);border-radius:8px;padding:.8rem;font-family:var(--mono);font-size:.72rem;line-height:1.85;color:var(--text)">
+      db.orders.find(&#123;<br>
+      &nbsp;&nbsp;"status": "paid",<br>
+      &nbsp;&nbsp;"total": &#123; $gt: 10000 &#125;<br>
+      &#125;).sort(&#123; date: -1 &#125;)
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1.1rem">
+    <div style="font-size:.82rem;font-weight:700;color:var(--amber);margin-bottom:.5rem">Neo4j (Graph / Cypher)</div>
+    <div style="background:var(--surface);border-radius:8px;padding:.8rem;font-family:var(--mono);font-size:.72rem;line-height:1.85;color:var(--text)">
+      MATCH (u:User)-[:BOUGHT]-&gt;(p:Product)<br>
+      WHERE p.category = "Book"<br>
+      RETURN u.name, count(p)<br>
+      ORDER BY count(p) DESC
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- Vector 쿼리 -->
+<div class="dia reveal">
+<div class="dia-title">③ Vector 쿼리 — 유사도 검색</div>
+<div style="max-width:780px;margin:0 auto">
+  <div style="font-size:.85rem;color:var(--text);line-height:1.85;margin-bottom:1rem">
+    Vector DB는 "정확히 일치"가 아닌 <strong style="color:var(--amber)">"의미적으로 가까운"</strong> 결과를 찾습니다. RAG의 핵심 — Ch.08에서 상세.
+  </div>
+  <div style="background:var(--surface);border-radius:10px;padding:1.2rem;font-family:var(--mono);font-size:.78rem;line-height:1.85;color:var(--text)">
+    <span style="color:var(--text-dim)"># pgvector 예시</span><br>
+    <span style="color:var(--amber)">SELECT</span> chunk_text, 1 - (embedding &lt;=&gt; query_vector) <span style="color:var(--amber)">AS</span> similarity<br>
+    <span style="color:var(--amber)">FROM</span> docs<br>
+    <span style="color:var(--amber)">ORDER BY</span> embedding &lt;=&gt; query_vector<br>
+    <span style="color:var(--amber)">LIMIT</span> 5;<br><br>
+    <span style="color:var(--text-dim)"># 결과: "연차 규정" 질문에 "휴가 신청 절차" 문서가 반환됨</span><br>
+    <span style="color:var(--text-dim)"># — 단어는 겹치지 않지만 의미는 가까움</span>
+  </div>
+</div>
+</div>
+
+<!-- 노트북 UI 목업 -->
+<div class="dia reveal">
+<div class="dia-title">④ 노트북 — 데이터 사이언티스트의 작업 공간</div>
+<div style="max-width:820px;margin:0 auto">
+  <div style="font-size:.82rem;color:var(--text-dim);margin-bottom:.8rem">Jupyter · Databricks Notebook · Google Colab. "코드 + 결과 + 문서"를 셀 단위로 섞는 인터랙티브 환경.</div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.72rem">
+    <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim)">
+      📓 analysis.ipynb — Python 3.11 · Kernel ready
+    </div>
+
+    <div style="padding:.6rem .8rem;border-bottom:1px dashed var(--border)">
+      <div style="color:var(--text-dim);font-size:.65rem;margin-bottom:.3rem">In [1]:</div>
+      <div style="color:var(--text);line-height:1.7">
+        <span style="color:var(--amber)">import</span> pandas <span style="color:var(--amber)">as</span> pd<br>
+        df = pd.read_parquet("s3://acme/sales/2026-q1.parquet")<br>
+        df.head()
+      </div>
+    </div>
+
+    <div style="padding:.6rem .8rem;border-bottom:1px dashed var(--border);background:var(--card)">
+      <div style="color:var(--text-dim);font-size:.65rem;margin-bottom:.3rem">Out [1]:</div>
+      <div style="color:var(--text);line-height:1.7">
+        &nbsp;&nbsp;&nbsp;date &nbsp;&nbsp;&nbsp;| region | revenue<br>
+        0 &nbsp;2026-01 | 서울 &nbsp;&nbsp;| 4.2M<br>
+        1 &nbsp;2026-01 | 부산 &nbsp;&nbsp;| 1.8M
+      </div>
+    </div>
+
+    <div style="padding:.6rem .8rem">
+      <div style="color:var(--text-dim);font-size:.65rem;margin-bottom:.3rem">In [2]:</div>
+      <div style="color:var(--text);line-height:1.7">
+        df.groupby(<span style="color:var(--amber)">"region"</span>)[<span style="color:var(--amber)">"revenue"</span>].sum().plot.bar()
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:.8rem;font-size:.75rem;color:var(--text-dim);line-height:1.7">
+    💡 <strong>2026 트렌드:</strong> Databricks Assistant, Google Colab Gemini, JupyterLab AI — 노트북이 LLM과 네이티브 결합. "자연어로 질문하면 셀이 자동 생성"이 기본.
+  </div>
+</div>
+</div>
+
+<!-- BI 대시보드 목업 -->
+<div class="dia reveal">
+<div class="dia-title">⑤ BI 도구 — 비즈니스 사용자의 입구</div>
+<div style="max-width:820px;margin:0 auto">
+  <div style="font-size:.82rem;color:var(--text-dim);margin-bottom:.8rem">Tableau · Power BI · Looker · Metabase. 드래그&드롭으로 대시보드를 만드는 도구. SQL을 모르는 임원·영업도 데이터에 접근 가능.</div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden">
+    <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim);font-family:var(--mono);font-size:.72rem">
+      📊 Power BI — Sales Dashboard Q1 2026
+    </div>
+    <div style="padding:1rem;display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem">
+      <div style="padding:1rem;background:var(--card);border:1px solid var(--amber-border);border-radius:8px;text-align:center">
+        <div style="font-size:.7rem;color:var(--text-dim)">TOTAL REVENUE</div>
+        <div style="font-family:var(--display);font-size:1.4rem;font-weight:800;color:var(--amber);margin-top:.3rem">₩42.8B</div>
+        <div style="font-size:.65rem;color:var(--teal);margin-top:.2rem">▲ +18% YoY</div>
+      </div>
+      <div style="padding:1rem;background:var(--card);border:1px solid var(--amber-border);border-radius:8px;text-align:center">
+        <div style="font-size:.7rem;color:var(--text-dim)">ORDERS</div>
+        <div style="font-family:var(--display);font-size:1.4rem;font-weight:800;color:var(--amber);margin-top:.3rem">128,341</div>
+        <div style="font-size:.65rem;color:var(--teal);margin-top:.2rem">▲ +9%</div>
+      </div>
+      <div style="padding:1rem;background:var(--card);border:1px solid var(--amber-border);border-radius:8px;text-align:center">
+        <div style="font-size:.7rem;color:var(--text-dim)">AOV</div>
+        <div style="font-family:var(--display);font-size:1.4rem;font-weight:800;color:var(--amber);margin-top:.3rem">₩33,400</div>
+        <div style="font-size:.65rem;color:var(--teal);margin-top:.2rem">▲ +8%</div>
+      </div>
+    </div>
+    <div style="padding:0 1rem 1rem">
+      <div style="padding:1rem;background:var(--card);border:1px solid var(--border);border-radius:8px">
+        <div style="font-size:.7rem;color:var(--text-dim);margin-bottom:.6rem">Revenue by Region</div>
+        <div style="display:flex;align-items:flex-end;gap:.4rem;height:60px">
+          <div style="flex:1;background:var(--amber);height:90%;border-radius:4px 4px 0 0"></div>
+          <div style="flex:1;background:var(--amber);height:62%;border-radius:4px 4px 0 0;opacity:.8"></div>
+          <div style="flex:1;background:var(--amber);height:45%;border-radius:4px 4px 0 0;opacity:.7"></div>
+          <div style="flex:1;background:var(--amber);height:38%;border-radius:4px 4px 0 0;opacity:.6"></div>
+          <div style="flex:1;background:var(--amber);height:25%;border-radius:4px 4px 0 0;opacity:.5"></div>
+        </div>
+        <div style="display:flex;gap:.4rem;margin-top:.3rem;font-family:var(--mono);font-size:.62rem;color:var(--text-dim)">
+          <div style="flex:1;text-align:center">서울</div>
+          <div style="flex:1;text-align:center">경기</div>
+          <div style="flex:1;text-align:center">부산</div>
+          <div style="flex:1;text-align:center">인천</div>
+          <div style="flex:1;text-align:center">기타</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 역할별 도구 매트릭스 -->
+<div class="dia reveal">
+<div class="dia-title">역할별 주요 도구 매트릭스</div>
+<div style="max-width:820px;margin:0 auto;overflow-x:auto">
+<table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:680px">
+  <thead>
+    <tr>
+      <th style="padding:.6rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">역할</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">주로 쓰는 인터페이스</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">대표 도구</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600">Data Engineer</td><td style="padding:.5rem;color:var(--text-dim)">SQL, Python, Shell</td><td style="padding:.5rem;color:var(--text-dim)">dbt, Airflow, Spark, DBeaver</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600">Data Analyst</td><td style="padding:.5rem;color:var(--text-dim)">SQL + BI</td><td style="padding:.5rem;color:var(--text-dim)">Tableau, Power BI, Metabase, SQL IDE</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600">Data Scientist</td><td style="padding:.5rem;color:var(--text-dim)">노트북 + Python</td><td style="padding:.5rem;color:var(--text-dim)">Jupyter, Databricks, Colab, pandas</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600">ML / AI Engineer</td><td style="padding:.5rem;color:var(--text-dim)">노트북 + Framework</td><td style="padding:.5rem;color:var(--text-dim)">PyTorch, Hugging Face, LangChain, Vector DB</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600">Business User</td><td style="padding:.5rem;color:var(--text-dim)">BI + 자연어</td><td style="padding:.5rem;color:var(--text-dim)">Power BI, Tableau, Chat-with-data LLM</td></tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 5: LLM Pre-training과 데이터 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="p1-ch5">
+<div class="ch-head"><div class="ch-num" style="color:var(--amber)">05</div><h2 class="ch-title">LLM Pre-training과 데이터 — LLM은 데이터로 만들어진다</h2></div>
+
+<p class="section-desc">"LLM이 어떻게 만들어지느냐"의 답은 놀랍도록 단순합니다 — <strong style="color:var(--amber)">엄청난 양의 텍스트로 다음 단어를 맞추는 학습</strong>. 알고리즘보다 중요한 것은 데이터입니다. 2026년에도 "누가 더 좋은 데이터를 가지고 있느냐"가 LLM 경쟁력의 핵심입니다.</p>
+
+<!-- 주요 학습 데이터 출처 -->
+<div class="dia reveal">
+<div class="dia-title">주요 Pre-training 데이터 출처</div>
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:820px;margin:0 auto">
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+      <div style="font-size:1.3rem">🕷️</div>
+      <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber)">Common Crawl</div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+      전 세계 웹 페이지를 자동 수집한 공개 아카이브. <strong>~250B 웹페이지, ~수 PB.</strong> 거의 모든 LLM의 기본 훈련 데이터. 노이즈가 많아 필터링이 관건.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+      <div style="font-size:1.3rem">📚</div>
+      <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber)">Wikipedia</div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+      약 60M 문서. 고품질·백과사전식 문체. 거의 모든 LLM이 "gold data"로 과잉 가중치(up-sampling)를 줍니다.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+      <div style="font-size:1.3rem">📖</div>
+      <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber)">Books (Books3 등)</div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+      약 200k~수백만 권의 책. <strong>긴 맥락과 서사 구조</strong>의 원천. 저작권 소송의 중심(Ch.05 하단).
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+      <div style="font-size:1.3rem">💻</div>
+      <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber)">Code (GitHub)</div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+      수십 TB의 공개 코드. 흥미로운 발견: <strong>코드를 많이 학습시키면 일반 추론도 향상</strong>. 구조적 사고의 효과.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+      <div style="font-size:1.3rem">📄</div>
+      <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber)">arXiv / PubMed</div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+      학술 논문. 수학·과학·의학의 전문 지식. LaTeX 수식까지 포함되어 모델의 전문성을 올림.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:2px solid var(--amber);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+      <div style="font-size:1.3rem">🤖</div>
+      <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber)">Synthetic Data ⭐</div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+      LLM이 LLM을 위해 생성한 데이터. <strong>2025~2026년 폭증</strong>. Phi-3, Llama 3의 핵심. "고품질 → 적은 양으로 충분".
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- 규모 비교 -->
+<div class="dia reveal">
+<div class="dia-title">학습 데이터 규모의 진화</div>
+<div style="max-width:780px;margin:0 auto;overflow-x:auto">
+<table style="width:100%;border-collapse:collapse;font-size:.82rem;min-width:540px">
+  <thead>
+    <tr>
+      <th style="padding:.6rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">모델</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">발표</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">학습 토큰</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">비고</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600">GPT-2</td><td style="padding:.5rem;color:var(--text-dim)">2019</td><td style="padding:.5rem;color:var(--text-dim)">~10B</td><td style="padding:.5rem;color:var(--text-dim)">WebText (Reddit 링크)</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600">GPT-3</td><td style="padding:.5rem;color:var(--text-dim)">2020</td><td style="padding:.5rem;color:var(--text-dim)">~500B</td><td style="padding:.5rem;color:var(--text-dim)">CC + Books + Wiki</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600">Chinchilla</td><td style="padding:.5rem;color:var(--text-dim)">2022</td><td style="padding:.5rem;color:var(--text-dim)">~1.4T</td><td style="padding:.5rem;color:var(--text-dim)">"데이터 부족이 진짜 병목" 논문</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600">GPT-4 (추정)</td><td style="padding:.5rem;color:var(--text-dim)">2023</td><td style="padding:.5rem;color:var(--text-dim)">~13T</td><td style="padding:.5rem;color:var(--text-dim)">멀티모달 포함</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600">Llama 3</td><td style="padding:.5rem;color:var(--text-dim)">2024</td><td style="padding:.5rem;color:var(--text-dim)">15T</td><td style="padding:.5rem;color:var(--text-dim)">오픈 최대 규모</td></tr>
+    <tr style="background:var(--amber-bg)"><td style="padding:.5rem;color:var(--amber);font-weight:700">2026 frontier</td><td style="padding:.5rem;color:var(--text)">2026</td><td style="padding:.5rem;color:var(--text)">20T+ (추정)</td><td style="padding:.5rem;color:var(--text)">synthetic 비중 ↑</td></tr>
+  </tbody>
+</table>
+</div>
+<div style="margin-top:1rem;padding:.9rem 1.2rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--amber)">"데이터 고갈"의 역설:</strong> 2022년 Chinchilla 논문 후 업계는 데이터를 더 많이 모으려 경쟁했지만, 2024년부터 "고품질 공개 텍스트가 거의 다 소진됐다"는 문제가 제기됩니다. 2026년의 답은 <strong>synthetic data</strong> — LLM이 LLM 학습 데이터를 만드는 시대입니다.
+</div>
+</div>
+
+<!-- 토큰화 -->
+<div class="dia reveal">
+<div class="dia-title">Tokenization — 텍스트를 숫자로 쪼개기</div>
+<div style="max-width:780px;margin:0 auto">
+  <div style="font-size:.85rem;color:var(--text);line-height:1.85;margin-bottom:1rem">
+    LLM은 문자가 아니라 <strong>토큰</strong>(단어 조각)으로 텍스트를 다룹니다. 대표 알고리즘: <strong style="color:var(--amber)">BPE (Byte-Pair Encoding)</strong>, WordPiece, SentencePiece. GPT는 <code style="color:var(--amber)">cl100k_base</code>/<code style="color:var(--amber)">o200k_base</code>.
+  </div>
+  <div style="background:var(--surface);border-radius:10px;padding:1.2rem;font-family:var(--mono);font-size:.78rem;line-height:1.95;color:var(--text)">
+    <span style="color:var(--text-dim)"># 영어</span><br>
+    "The cat sat on the mat" → [<span style="color:var(--amber)">"The"</span>, <span style="color:var(--amber)">" cat"</span>, <span style="color:var(--amber)">" sat"</span>, <span style="color:var(--amber)">" on"</span>, <span style="color:var(--amber)">" the"</span>, <span style="color:var(--amber)">" mat"</span>]<br>
+    <span style="color:var(--text-dim)">→ 6 tokens (단어 = 토큰 거의 1:1)</span><br><br>
+
+    <span style="color:var(--text-dim)"># 한국어</span><br>
+    "고양이가 매트에 앉았다" → [<span style="color:var(--accent)">"고"</span>, <span style="color:var(--accent)">"양"</span>, <span style="color:var(--accent)">"이"</span>, <span style="color:var(--accent)">"가"</span>, ...]<br>
+    <span style="color:var(--text-dim)">→ 16 tokens (음절/바이트 단위로 쪼개짐)</span>
+  </div>
+  <div style="margin-top:1rem;padding:.9rem 1.2rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:10px;font-size:.82rem;color:var(--text);line-height:1.85">
+    <strong style="color:var(--accent)">⚠️ 한국어 토큰 비효율:</strong> 영어 대비 2~3배의 토큰이 필요합니다. 같은 API 호출에 <strong>2~3배의 비용</strong>이 드는 셈. 2024년 GPT-4o의 <code style="color:var(--amber)">o200k_base</code>가 한국어 토큰을 크게 개선 (1.6x → 1.2x).
+  </div>
+</div>
+</div>
+
+<!-- 데이터 오염 & 저작권 -->
+<div class="dia reveal">
+<div class="dia-title">데이터 오염과 저작권 — 2025~2026 뜨거운 이슈</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:820px;margin:0 auto">
+
+  <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:14px;padding:1.3rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--accent);margin-bottom:.5rem">🦠 Data Contamination</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      훈련 데이터에 <strong>벤치마크 답이 섞여 있는</strong> 문제. "MMLU 90점"이 진짜 실력인지 답을 외운 건지 알 수 없음. 2026년에는 <strong>contamination-free eval</strong>이 필수.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:14px;padding:1.3rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--accent);margin-bottom:.5rem">⚖️ 저작권 소송</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      <strong>NYT vs OpenAI</strong>(2023~), Authors Guild vs OpenAI, Getty Images vs Stability AI 등. 2026년에도 결판이 나지 않았고, 업계는 <strong>"licensed data"</strong>로 이동 중 (Reddit, FT, AP 딜).
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- Tip: wiki -->
+<div class="tip reveal">
+<div style="font-size:.85rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--amber)">더 깊이:</strong> <a href="../../wiki/entities/pre-training-data.md" style="color:var(--amber);text-decoration:underline">pre-training-data</a>, <a href="../../wiki/entities/tokenization.md" style="color:var(--amber);text-decoration:underline">tokenization</a> wiki 엔티티에서 RedPajama, SlimPajama, FineWeb 등 오픈 데이터셋과 BPE 내부 동작을 자세히 다룹니다.
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 6: Fine-tuning 데이터 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="p1-ch6">
+<div class="ch-head"><div class="ch-num" style="color:var(--amber)">06</div><h2 class="ch-title">Fine-tuning 데이터 — 모델을 내 문제에 맞추기</h2></div>
+
+<p class="section-desc">Pre-training이 "일반 지능"을 만든다면, Fine-tuning은 <strong style="color:var(--amber)">"내 도메인·내 말투·내 안전성"</strong>에 맞춥니다. 2026년 현재 3가지 방법이 표준이며, 놀랍게도 <strong>양보다 품질</strong>이 결정적입니다.</p>
+
+<!-- 3가지 방법 -->
+<div class="dia reveal">
+<div class="dia-title">Fine-tuning 3가지 방법 — SFT · RLHF · DPO</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:900px;margin:0 auto">
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.3rem">
+    <div style="font-size:1.5rem;margin-bottom:.5rem">📝</div>
+    <div style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--amber);margin-bottom:.5rem">SFT</div>
+    <div style="font-size:.72rem;color:var(--text-dim);margin-bottom:.5rem;font-style:italic">Supervised Fine-Tuning</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      "instruction → response" 쌍을 라벨 데이터로 삼아 학습. 가장 단순·기본적. 대부분의 fine-tune이 여기서 시작.
+    </div>
+    <div style="margin-top:.8rem;padding:.5rem .7rem;background:var(--surface);border-radius:8px;font-family:var(--mono);font-size:.65rem;color:var(--text-dim);line-height:1.7">
+      &#123;<br>
+      &nbsp;"instruction": "이메일 요약",<br>
+      &nbsp;"input": "...",<br>
+      &nbsp;"output": "3줄 요약"<br>
+      &#125;
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.3rem">
+    <div style="font-size:1.5rem;margin-bottom:.5rem">👥</div>
+    <div style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--amber);margin-bottom:.5rem">RLHF</div>
+    <div style="font-size:.72rem;color:var(--text-dim);margin-bottom:.5rem;font-style:italic">RL from Human Feedback</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      "A vs B 중 어느 답이 더 나은가"를 사람이 비교 라벨링. Reward 모델을 훈련하고 RL로 정책 개선. ChatGPT를 만든 바로 그 방법.
+    </div>
+    <div style="margin-top:.8rem;padding:.5rem .7rem;background:var(--surface);border-radius:8px;font-family:var(--mono);font-size:.65rem;color:var(--text-dim);line-height:1.7">
+      prompt: "A 설명해줘"<br>
+      A: ... (정중)<br>
+      B: ... (장황)<br>
+      → human: A &gt; B
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:2px solid var(--amber);border-radius:14px;padding:1.3rem">
+    <div style="font-size:1.5rem;margin-bottom:.5rem">⚡</div>
+    <div style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--amber);margin-bottom:.5rem">DPO ⭐</div>
+    <div style="font-size:.72rem;color:var(--text-dim);margin-bottom:.5rem;font-style:italic">Direct Preference Optimization</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      <strong>Reward 모델 없이</strong> preference pair로 직접 최적화. RLHF보다 훨씬 간단·안정. 2024~2026 오픈소스에서 사실상 표준.
+    </div>
+    <div style="margin-top:.8rem;padding:.5rem .7rem;background:var(--surface);border-radius:8px;font-family:var(--mono);font-size:.65rem;color:var(--text-dim);line-height:1.7">
+      &#123;<br>
+      &nbsp;"prompt": "...",<br>
+      &nbsp;"chosen": "좋은 답",<br>
+      &nbsp;"rejected": "나쁜 답"<br>
+      &#125;
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- SFT 흐름 -->
+<div class="dia reveal">
+<div class="dia-title">① SFT — 가장 기본 파이프라인</div>
+<div style="max-width:780px;margin:0 auto">
+  <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:.5rem;align-items:center;text-align:center;margin-bottom:1rem">
+    <div style="padding:.9rem;background:var(--card);border:1px solid var(--border);border-radius:10px">
+      <div style="font-size:1.2rem;margin-bottom:.3rem">🧠</div>
+      <div style="font-size:.75rem;font-weight:700;color:var(--text)">Base Model</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem">Llama, Mistral</div>
+    </div>
+    <div style="font-size:1.1rem;color:var(--text-dim)">+</div>
+    <div style="padding:.9rem;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:10px">
+      <div style="font-size:1.2rem;margin-bottom:.3rem">📝</div>
+      <div style="font-size:.75rem;font-weight:700;color:var(--amber)">Instruction Pairs</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem">1k~100k개</div>
+    </div>
+    <div style="font-size:1.1rem;color:var(--text-dim)">→</div>
+    <div style="padding:.9rem;background:var(--card);border:1px solid var(--amber-border);border-radius:10px">
+      <div style="font-size:1.2rem;margin-bottom:.3rem">🎯</div>
+      <div style="font-size:.75rem;font-weight:700;color:var(--amber)">Instruct Model</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem">Alpaca, Dolly</div>
+    </div>
+  </div>
+  <div style="padding:.9rem 1.2rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.85">
+    💡 "ChatGPT 스타일"을 만드는 가장 단순한 길. Stanford Alpaca(2023)가 52k 데이터로 InstructGPT 수준에 근접한 것을 보인 후 폭발적으로 확산.
+  </div>
+</div>
+</div>
+
+<!-- LIMA 논문 -->
+<div class="dia reveal">
+<div class="dia-title">🔥 LIMA 논문 — "1000개면 충분하다"</div>
+<div style="max-width:780px;margin:0 auto">
+  <div style="padding:1.3rem 1.5rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;margin-bottom:1.2rem">
+    <div style="font-size:.95rem;color:var(--text);font-style:italic;line-height:1.85">"Less Is More for Alignment. 65B LLaMA를 단 <strong style="color:var(--amber)">1,000개의 엄선된 instruction pair</strong>로 SFT했을 때, 학습 없이 RLHF한 모델과 경쟁 가능한 성능."</div>
+    <div style="font-size:.78rem;color:var(--amber);margin-top:.6rem">— Zhou et al., Meta AI, NeurIPS 2023</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+    <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:12px;padding:1.1rem">
+      <div style="font-size:.82rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">❌ 과거의 믿음</div>
+      <div style="font-size:.78rem;color:var(--text-dim);line-height:1.8">"수만~수십만 개의 instruction 데이터가 필요하다. 더 많을수록 더 좋다."</div>
+    </div>
+    <div style="background:var(--card);border:2px solid var(--amber);border-radius:12px;padding:1.1rem">
+      <div style="font-size:.82rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">✓ LIMA 이후</div>
+      <div style="font-size:.78rem;color:var(--text);line-height:1.8">"엄선된 1,000개면 충분하다. <strong>양 &lt;&lt; 품질.</strong> Base model이 이미 지식을 갖고 있고, SFT는 포맷/스타일만 가르친다."</div>
+    </div>
+  </div>
+  <div style="margin-top:1rem;padding:.9rem 1.2rem;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:10px;font-size:.82rem;color:var(--text);line-height:1.85">
+    💡 <strong style="color:var(--amber)">Superficial Alignment Hypothesis:</strong> 모델의 지식은 pre-training에서 거의 다 학습됨. fine-tuning은 "출력 형식"을 가르치는 것에 가까움. 이것이 적은 데이터로 충분한 이유.
+  </div>
+</div>
+</div>
+
+<!-- 실전 데이터셋 -->
+<div class="dia reveal">
+<div class="dia-title">실전 Fine-tuning 데이터셋 카탈로그</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:900px;margin:0 auto">
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">Alpaca (52k)</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.75">Stanford, 2023. GPT-3.5로 생성한 self-instruct 데이터. "synthetic fine-tune"의 원조.</div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">Dolly (15k)</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.75">Databricks 직원 5,000명이 손으로 작성한 instruction. 완전 오픈·상업 가능.</div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">OpenAssistant</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.75">13k 이상 자원봉사자 집단 라벨링. 멀티턴 대화 + preference 포함. "open ChatGPT"를 노린 프로젝트.</div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">UltraFeedback</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.75">64k DPO 데이터. GPT-4가 비교 라벨링. Zephyr, Starling 등 2024 오픈 모델의 핵심.</div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">Tulu 3 Mix</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.75">Allen AI, 2024. SFT + DPO 혼합 최대 오픈 레시피. Llama 3 기반 Tulu 3를 재현 가능하게 공개.</div>
+  </div>
+
+  <div style="background:var(--card);border:2px solid var(--amber);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">내부 도메인 데이터</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.75"><strong style="color:var(--text)">2026년 엔터프라이즈의 실제 선택.</strong> 사내 QA 로그, 문서, 업무 대화를 1~5k개 정제 → 전용 모델.</div>
+  </div>
+
+</div>
+</div>
+
+<!-- 품질 > 양 원칙 -->
+<div class="dia reveal">
+<div class="dia-title">품질 > 양 — 2026 Fine-tuning 원칙 5가지</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:820px;margin:0 auto">
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1rem 1.2rem">
+    <div style="font-size:.82rem;font-weight:700;color:var(--amber);margin-bottom:.3rem">① 다양성 &gt; 중복</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.75">같은 형태 10,000개보다 다양한 형태 1,000개가 낫다.</div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1rem 1.2rem">
+    <div style="font-size:.82rem;font-weight:700;color:var(--amber);margin-bottom:.3rem">② 포맷 일관성</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.75">응답 스타일·길이·톤이 일관되어야 모델이 흉내낼 수 있다.</div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1rem 1.2rem">
+    <div style="font-size:.82rem;font-weight:700;color:var(--amber);margin-bottom:.3rem">③ Edge case 포함</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.75">쉬운 사례만 있으면 어려운 케이스를 배우지 못한다.</div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1rem 1.2rem">
+    <div style="font-size:.82rem;font-weight:700;color:var(--amber);margin-bottom:.3rem">④ 사람 검수 필수</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.75">synthetic 데이터도 최종은 사람이 샘플링 검수를 거쳐야 한다.</div>
+  </div>
+
+  <div style="background:var(--card);border:2px solid var(--amber);border-radius:12px;padding:1rem 1.2rem;grid-column:span 2">
+    <div style="font-size:.82rem;font-weight:700;color:var(--amber);margin-bottom:.3rem">⑤ "언제 fine-tune이 필요한가?" 자문</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.75">Prompt engineering, few-shot, RAG로 안 되는 이유가 명확할 때만. <strong style="color:var(--text)">2026년 90% 케이스는 fine-tune 없이 해결 가능합니다.</strong></div>
+  </div>
+
+</div>
+</div>
+
+<!-- Tip -->
+<div class="tip reveal">
+<div style="font-size:.85rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--amber)">더 깊이:</strong> <a href="../../wiki/entities/fine-tuning-data.md" style="color:var(--amber);text-decoration:underline">fine-tuning-data</a> wiki 엔티티에서 LoRA, QLoRA 같은 PEFT 기법과 데이터 라벨링 실전 노하우를 다룹니다. Part 0 Ch.06 (LLM 훈련)과 함께 읽으면 전체 그림이 완성됩니다.
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 7: 임베딩 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="p1-ch7">
+<div class="ch-head"><div class="ch-num" style="color:var(--amber)">07</div><h2 class="ch-title">임베딩 — 의미를 수학으로 바꾸는 기술</h2></div>
+
+<p class="section-desc">컴퓨터는 "사과"와 "배"가 비슷한 과일이라는 걸 어떻게 알까요? 답은 <strong style="color:var(--amber)">임베딩(Embedding)</strong>입니다. 단어·문장·문서를 수백~수천 차원의 벡터로 바꿔서, <strong>의미를 좌표로 표현</strong>하는 기술. 2026년 RAG, 검색, 추천, 분류 — 대부분의 AI 시스템이 이것 위에 돌아갑니다.</p>
+
+<!-- 임베딩 핵심 아이디어 -->
+<div class="dia reveal">
+<div class="dia-title">핵심 아이디어 — 텍스트를 숫자 목록으로</div>
+<div style="max-width:820px;margin:0 auto">
+  <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:1.2rem;align-items:center">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem">
+      <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-bottom:.5rem">INPUT</div>
+      <div style="font-size:.95rem;color:var(--text);line-height:1.8">"사과는 빨갛다"<br>"왕은 남자다"<br>"파리는 프랑스"</div>
+    </div>
+    <div style="text-align:center">
+      <div style="font-family:var(--mono);font-size:.65rem;color:var(--amber)">Embedding<br>Model</div>
+      <div style="font-size:1.6rem;color:var(--amber);margin:.3rem 0">→</div>
+      <div style="font-family:var(--mono);font-size:.6rem;color:var(--text-dim)">(1536-d)</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1.2rem;font-family:var(--mono);font-size:.72rem;line-height:1.8;color:var(--text)">
+      <div style="color:var(--text-dim)">OUTPUT (vector)</div>
+      [0.21, -0.47, 0.83, ...<br>
+      &nbsp;0.05, 0.61, -0.12, ...<br>
+      &nbsp;... 1536 numbers]
+    </div>
+  </div>
+  <div style="margin-top:1.2rem;padding:1rem 1.2rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.85">
+    🎯 <strong style="color:var(--amber)">왜 벡터인가?</strong> 벡터는 <strong>더하고, 빼고, 거리를 잴 수 있기 때문</strong>입니다. 의미가 숫자가 되는 순간, 의미도 "연산 가능"해집니다. 이것이 AI가 언어를 이해하는 수학적 트릭의 전부입니다.
+  </div>
+</div>
+</div>
+
+<!-- 2D 벡터 공간 시각화 -->
+<div class="dia reveal">
+<div class="dia-title">2D 벡터 공간 — 의미가 가까우면 좌표도 가깝다</div>
+<div style="max-width:720px;margin:0 auto">
+  <div style="position:relative;height:340px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem">
+
+    <div style="position:absolute;left:10px;top:10px;right:10px;bottom:10px;border-left:1px solid var(--border);border-bottom:1px solid var(--border)"></div>
+    <div style="position:absolute;left:6px;bottom:12px;font-family:var(--mono);font-size:.6rem;color:var(--text-dim)">0</div>
+    <div style="position:absolute;right:12px;bottom:-2px;font-family:var(--mono);font-size:.6rem;color:var(--text-dim)">dim-1</div>
+    <div style="position:absolute;left:-8px;top:14px;font-family:var(--mono);font-size:.6rem;color:var(--text-dim);transform:rotate(-90deg);transform-origin:left top">dim-2</div>
+
+    <!-- Animals cluster -->
+    <div style="position:absolute;left:22%;top:22%;background:var(--amber-bg);border:1.5px solid var(--amber);border-radius:20px;padding:.3rem .7rem;font-size:.72rem;color:var(--amber);font-weight:700">🐱 cat</div>
+    <div style="position:absolute;left:30%;top:30%;background:var(--amber-bg);border:1.5px solid var(--amber);border-radius:20px;padding:.3rem .7rem;font-size:.72rem;color:var(--amber);font-weight:700">🐶 dog</div>
+    <div style="position:absolute;left:18%;top:36%;background:var(--amber-bg);border:1.5px solid var(--amber);border-radius:20px;padding:.3rem .7rem;font-size:.72rem;color:var(--amber);font-weight:700">🐰 rabbit</div>
+    <div style="position:absolute;left:34%;top:18%;font-family:var(--mono);font-size:.6rem;color:var(--text-dim)">↖ animals cluster</div>
+
+    <!-- Royalty cluster -->
+    <div style="position:absolute;left:60%;top:20%;background:var(--card);border:1.5px solid var(--amber-border);border-radius:20px;padding:.3rem .7rem;font-size:.72rem;color:var(--text);font-weight:700">👑 king</div>
+    <div style="position:absolute;left:72%;top:22%;background:var(--card);border:1.5px solid var(--amber-border);border-radius:20px;padding:.3rem .7rem;font-size:.72rem;color:var(--text);font-weight:700">👸 queen</div>
+    <div style="position:absolute;left:60%;top:34%;background:var(--card);border:1.5px solid var(--amber-border);border-radius:20px;padding:.3rem .7rem;font-size:.72rem;color:var(--text);font-weight:700">🤴 prince</div>
+    <div style="position:absolute;left:62%;top:10%;font-family:var(--mono);font-size:.6rem;color:var(--text-dim)">↘ royalty cluster</div>
+
+    <!-- Food cluster -->
+    <div style="position:absolute;left:30%;top:66%;background:var(--card);border:1.5px solid var(--amber-border);border-radius:20px;padding:.3rem .7rem;font-size:.72rem;color:var(--text);font-weight:700">🍎 apple</div>
+    <div style="position:absolute;left:44%;top:72%;background:var(--card);border:1.5px solid var(--amber-border);border-radius:20px;padding:.3rem .7rem;font-size:.72rem;color:var(--text);font-weight:700">🍌 banana</div>
+    <div style="position:absolute;left:24%;top:78%;background:var(--card);border:1.5px solid var(--amber-border);border-radius:20px;padding:.3rem .7rem;font-size:.72rem;color:var(--text);font-weight:700">🍞 bread</div>
+    <div style="position:absolute;left:44%;top:86%;font-family:var(--mono);font-size:.6rem;color:var(--text-dim)">↖ food cluster</div>
+
+  </div>
+  <div style="margin-top:.8rem;font-size:.78rem;color:var(--text-dim);line-height:1.75;text-align:center">
+    실제로는 1536차원(OpenAI)이지만, 개념은 동일합니다. <strong style="color:var(--amber)">의미가 가까운 단어는 공간에서도 가깝게 모입니다.</strong>
+  </div>
+</div>
+</div>
+
+<!-- Cosine similarity -->
+<div class="dia reveal">
+<div class="dia-title">Cosine Similarity — 두 벡터가 얼마나 비슷한가</div>
+<div style="max-width:820px;margin:0 auto">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem">
+
+    <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1.2rem">
+      <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);margin-bottom:.5rem">수식</div>
+      <div style="font-family:var(--mono);font-size:.78rem;line-height:1.85;color:var(--text)">
+        cos(θ) = (A · B) / (‖A‖ × ‖B‖)
+      </div>
+      <div style="font-size:.75rem;color:var(--text-dim);line-height:1.8;margin-top:.6rem">
+        두 벡터 사이의 각도 θ의 코사인. <strong style="color:var(--text)">방향만 보고 길이는 무시</strong>하기 때문에 "긴 문서"와 "짧은 문서"도 공정하게 비교됩니다.
+      </div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1.2rem">
+      <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);margin-bottom:.5rem">해석</div>
+      <div style="font-size:.78rem;color:var(--text);line-height:1.9">
+        <strong style="color:var(--amber)">+1.0</strong> — 완벽히 동일 방향 (같은 의미)<br>
+        <strong style="color:var(--amber)">+0.7~0.9</strong> — 매우 유사<br>
+        <strong style="color:var(--text-dim)">0.0</strong> — 직교 (무관)<br>
+        <strong style="color:var(--text-dim)">-1.0</strong> — 정반대
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:1rem;padding:1rem;background:var(--surface);border-radius:10px;font-family:var(--mono);font-size:.72rem;line-height:1.85;color:var(--text)">
+    <span style="color:var(--text-dim)"># 실제 계산 예시 (OpenAI text-embedding-3-small)</span><br>
+    cos("연차 규정", "휴가 신청 방법") &nbsp;&nbsp;= <span style="color:var(--amber)">0.87</span> ← 매우 가까움 ✅<br>
+    cos("연차 규정", "회의실 예약") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= <span style="color:var(--amber)">0.31</span> ← 무관<br>
+    cos("연차 규정", "피자 주문")  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= <span style="color:var(--amber)">0.09</span> ← 완전 무관
+  </div>
+</div>
+</div>
+
+<!-- 고전 예시: king - man + woman -->
+<div class="dia reveal">
+<div class="dia-title">고전 예시 — king − man + woman ≈ queen</div>
+<div style="max-width:820px;margin:0 auto">
+  <div style="font-size:.82rem;color:var(--text-dim);margin-bottom:1rem">2013년 Word2Vec 논문에서 세상을 놀라게 한 발견. <strong>의미가 벡터 덧뺄셈으로 표현된다</strong>는 증거였습니다.</div>
+
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.4rem">
+    <div style="display:flex;align-items:center;justify-content:center;gap:.7rem;flex-wrap:wrap;font-family:var(--mono);font-size:.95rem">
+      <div style="background:var(--amber-bg);border:1.5px solid var(--amber);padding:.6rem 1rem;border-radius:10px;color:var(--amber);font-weight:700">vec(king)</div>
+      <div style="font-size:1.3rem;color:var(--text)">−</div>
+      <div style="background:var(--card);border:1.5px solid var(--amber-border);padding:.6rem 1rem;border-radius:10px;color:var(--text);font-weight:700">vec(man)</div>
+      <div style="font-size:1.3rem;color:var(--text)">+</div>
+      <div style="background:var(--card);border:1.5px solid var(--amber-border);padding:.6rem 1rem;border-radius:10px;color:var(--text);font-weight:700">vec(woman)</div>
+      <div style="font-size:1.3rem;color:var(--amber)">≈</div>
+      <div style="background:var(--amber-bg);border:2px solid var(--amber);padding:.6rem 1rem;border-radius:10px;color:var(--amber);font-weight:800">vec(queen)</div>
+    </div>
+    <div style="margin-top:1rem;text-align:center;font-size:.78rem;color:var(--text-dim);line-height:1.75">
+      "왕"에서 "남성성"을 빼고 "여성성"을 더하니 정말로 "여왕"이 나왔습니다.<br>
+      모델은 "왕족(royalty) − 성별(gender)"이라는 차원을 <strong style="color:var(--text)">스스로 학습</strong>했다는 뜻.
+    </div>
+  </div>
+
+  <div style="margin-top:1rem;display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem">
+    <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:10px;padding:.8rem;text-align:center;font-family:var(--mono);font-size:.72rem;color:var(--text);line-height:1.7">
+      Paris − France<br>+ Japan ≈<br><strong style="color:var(--amber)">Tokyo</strong>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:10px;padding:.8rem;text-align:center;font-family:var(--mono);font-size:.72rem;color:var(--text);line-height:1.7">
+      walking − walk<br>+ swim ≈<br><strong style="color:var(--amber)">swimming</strong>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:10px;padding:.8rem;text-align:center;font-family:var(--mono);font-size:.72rem;color:var(--text);line-height:1.7">
+      bigger − big<br>+ small ≈<br><strong style="color:var(--amber)">smaller</strong>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 2026 임베딩 모델 카탈로그 -->
+<div class="dia reveal">
+<div class="dia-title">2026 주요 임베딩 모델 카탈로그</div>
+<div style="max-width:920px;margin:0 auto;overflow-x:auto">
+<table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:760px">
+  <thead>
+    <tr>
+      <th style="padding:.6rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">모델</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">제공</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">차원</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">Max Token</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">특징</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background:var(--amber-bg)">
+      <td style="padding:.5rem;color:var(--amber);font-weight:700">text-embedding-3-large ⭐</td>
+      <td style="padding:.5rem;color:var(--text)">OpenAI</td>
+      <td style="padding:.5rem;color:var(--text)">3072 (~256 가변)</td>
+      <td style="padding:.5rem;color:var(--text)">8,191</td>
+      <td style="padding:.5rem;color:var(--text)">Matryoshka 지원 (차원 동적 축소)</td>
+    </tr>
+    <tr>
+      <td style="padding:.5rem;color:var(--text);font-weight:600">text-embedding-3-small</td>
+      <td style="padding:.5rem;color:var(--text-dim)">OpenAI</td>
+      <td style="padding:.5rem;color:var(--text-dim)">1536</td>
+      <td style="padding:.5rem;color:var(--text-dim)">8,191</td>
+      <td style="padding:.5rem;color:var(--text-dim)">경제적, RAG 기본 선택</td>
+    </tr>
+    <tr>
+      <td style="padding:.5rem;color:var(--text);font-weight:600">voyage-3-large</td>
+      <td style="padding:.5rem;color:var(--text-dim)">Voyage AI (Anthropic)</td>
+      <td style="padding:.5rem;color:var(--text-dim)">1024</td>
+      <td style="padding:.5rem;color:var(--text-dim)">32,000</td>
+      <td style="padding:.5rem;color:var(--text-dim)">Claude 생태계, 긴 문서 강함</td>
+    </tr>
+    <tr>
+      <td style="padding:.5rem;color:var(--text);font-weight:600">nomic-embed-text-v2</td>
+      <td style="padding:.5rem;color:var(--text-dim)">Nomic (오픈)</td>
+      <td style="padding:.5rem;color:var(--text-dim)">768</td>
+      <td style="padding:.5rem;color:var(--text-dim)">8,192</td>
+      <td style="padding:.5rem;color:var(--text-dim)">완전 오픈, 상업 사용 가능</td>
+    </tr>
+    <tr>
+      <td style="padding:.5rem;color:var(--text);font-weight:600">bge-m3</td>
+      <td style="padding:.5rem;color:var(--text-dim)">BAAI (오픈)</td>
+      <td style="padding:.5rem;color:var(--text-dim)">1024</td>
+      <td style="padding:.5rem;color:var(--text-dim)">8,192</td>
+      <td style="padding:.5rem;color:var(--text-dim)">100+ 언어, 멀티링구얼 최강</td>
+    </tr>
+    <tr>
+      <td style="padding:.5rem;color:var(--text);font-weight:600">cohere-embed-v4</td>
+      <td style="padding:.5rem;color:var(--text-dim)">Cohere</td>
+      <td style="padding:.5rem;color:var(--text-dim)">1024 / 256</td>
+      <td style="padding:.5rem;color:var(--text-dim)">128,000</td>
+      <td style="padding:.5rem;color:var(--text-dim)">멀티모달 (이미지+텍스트)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div style="margin-top:1rem;padding:.9rem 1.2rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.8rem;color:var(--text);line-height:1.8">
+  🎯 <strong style="color:var(--amber)">차원 선택의 트레이드오프:</strong> 차원↑ = 표현력↑ but 저장·계산 비용↑. <strong>2026년 추세는 Matryoshka Embedding</strong> — 3072차원으로 학습하되 512/1024/1536으로 "잘라서" 써도 성능 유지. 비용 최적화의 혁신.
+</div>
+</div>
+
+<!-- 임베딩 활용 패턴 -->
+<div class="dia reveal">
+<div class="dia-title">임베딩이 풀어내는 4대 문제</div>
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:820px;margin:0 auto">
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+      <div style="font-size:1.3rem">🔍</div>
+      <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber)">Semantic Search</div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+      "키워드 일치"가 아닌 <strong>의미 일치</strong>. "자동차 연비" 검색에 "내연기관 효율" 문서가 매칭. <strong style="color:var(--text)">RAG의 핵심 재료.</strong>
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+      <div style="font-size:1.3rem">🗂️</div>
+      <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber)">Classification</div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+      "긍정/부정/중립", "스팸/일반", "카테고리 분류"를 벡터 거리 기반으로 처리. 학습 데이터 10건만 있어도 동작.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+      <div style="font-size:1.3rem">🎯</div>
+      <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber)">Recommendation</div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+      "이 상품을 본 사람이 본 상품"을 임베딩 코사인으로. Netflix·Spotify·Amazon의 추천이 이 원리로 동작.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+      <div style="font-size:1.3rem">🧩</div>
+      <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber)">Clustering / Dedup</div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+      "비슷한 문의" 모으기, "중복 문서" 찾기, "토픽 모델링". 고객 피드백 10만 건을 30개 주제로 자동 그룹화.
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- Tip -->
+<div class="tip reveal">
+<div style="font-size:.85rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--amber)">더 깊이:</strong> <a href="../../wiki/entities/embedding-model.md" style="color:var(--amber);text-decoration:underline">embedding-model</a> wiki 엔티티에서 Matryoshka, Contrastive Learning, Sentence-BERT 아키텍처 비교와 벤치마크(MTEB 리더보드)를 다룹니다. 임베딩은 Ch.08 벡터 DB와 한 쌍 — 같이 읽으세요.
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 8: 벡터 DB -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="p1-ch8">
+<div class="ch-head"><div class="ch-num" style="color:var(--amber)">08</div><h2 class="ch-title">벡터 DB — AI 시대의 저장소</h2></div>
+
+<p class="section-desc">임베딩을 만들었다면 <strong>어디에 저장해서 어떻게 검색</strong>할까요? PostgreSQL로도 할 수 있지만, 10억 벡터를 millisecond에 검색하려면 전용 엔진이 필요합니다. <strong style="color:var(--amber)">벡터 DB</strong>는 "유사도 검색"을 1급 연산으로 지원하는 새로운 종의 데이터베이스입니다.</p>
+
+<!-- 전통 DB vs Vector DB -->
+<div class="dia reveal">
+<div class="dia-title">왜 전통 DB로는 부족한가 — Exact Match vs Similarity</div>
+<div style="max-width:820px;margin:0 auto">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-bottom:.5rem">전통 RDBMS</div>
+    <div style="font-family:var(--display);font-size:1rem;font-weight:800;color:var(--text);margin-bottom:.6rem">Exact Match</div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--text);line-height:1.8;background:var(--surface);padding:.7rem;border-radius:8px">
+      <span style="color:var(--amber)">SELECT</span> * <span style="color:var(--amber)">FROM</span> docs<br>
+      <span style="color:var(--amber)">WHERE</span> title = <span style="color:var(--text-dim)">'연차 규정'</span>;
+    </div>
+    <div style="margin-top:.7rem;font-size:.75rem;color:var(--text-dim);line-height:1.75">
+      정확히 "연차 규정"이 있어야 매칭. "휴가 신청"은 안 됨. ❌
+    </div>
+  </div>
+
+  <div style="background:var(--amber-bg);border:2px solid var(--amber);border-radius:12px;padding:1.2rem">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);margin-bottom:.5rem">Vector DB</div>
+    <div style="font-family:var(--display);font-size:1rem;font-weight:800;color:var(--amber);margin-bottom:.6rem">Similarity Search (k-NN)</div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--text);line-height:1.8;background:var(--surface);padding:.7rem;border-radius:8px">
+      query_vec = embed(<span style="color:var(--text-dim)">"연차 규정"</span>)<br>
+      db.<span style="color:var(--amber)">search</span>(query_vec, top_k=<span style="color:var(--amber)">5</span>)
+    </div>
+    <div style="margin-top:.7rem;font-size:.75rem;color:var(--text);line-height:1.75">
+      "휴가 신청", "PTO policy", "연차 사용법" 모두 매칭. ✅
+    </div>
+  </div>
+
+</div>
+<div style="margin-top:1rem;padding:.9rem 1.2rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.8rem;color:var(--text);line-height:1.8">
+  💡 <strong style="color:var(--amber)">핵심 차이:</strong> 전통 DB는 "B-Tree + WHERE절"로 <strong>정확한 조건</strong>을 찾습니다. 벡터 DB는 "고차원 공간에서 가장 가까운 이웃"을 찾습니다 — <strong>완전히 다른 알고리즘</strong>이 필요합니다.
+</div>
+</div>
+</div>
+
+<!-- ANN 알고리즘 시각화 -->
+<div class="dia reveal">
+<div class="dia-title">ANN 알고리즘 — 왜 "Approximate"인가</div>
+<div style="max-width:820px;margin:0 auto">
+  <div style="font-size:.82rem;color:var(--text-dim);margin-bottom:1rem">
+    10억 벡터 전수조사 (brute force)는 초당 1건도 못 합니다. 그래서 <strong style="color:var(--text)">Approximate Nearest Neighbor(ANN)</strong> — "거의 정확한" 대신 "수 ms 안에" 답을 반환하는 자료구조를 씁니다.
+  </div>
+
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem">
+
+  <div style="background:var(--card);border:2px solid var(--amber);border-radius:12px;padding:1.1rem">
+    <div style="font-family:var(--display);font-size:.9rem;font-weight:800;color:var(--amber);margin-bottom:.4rem">HNSW ⭐</div>
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-dim);margin-bottom:.5rem">Hierarchical Navigable Small World</div>
+    <div style="font-size:.72rem;color:var(--text);line-height:1.8">
+      다층 그래프. 상층부터 "스킵 리스트"처럼 내려가며 찾음. <strong>2026년 사실상 표준.</strong> Pinecone, Weaviate, Qdrant 기본.
+    </div>
+    <div style="margin-top:.6rem;font-size:.65rem;color:var(--text-dim)">
+      Recall: ~99% | Speed: ⚡⚡⚡⚡⚡
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1.1rem">
+    <div style="font-family:var(--display);font-size:.9rem;font-weight:800;color:var(--amber);margin-bottom:.4rem">IVF</div>
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-dim);margin-bottom:.5rem">Inverted File Index</div>
+    <div style="font-size:.72rem;color:var(--text);line-height:1.8">
+      k-means로 공간을 <strong>여러 클러스터로 나눔</strong>. 쿼리가 들어오면 가까운 몇 개 클러스터만 검색. Facebook FAISS.
+    </div>
+    <div style="margin-top:.6rem;font-size:.65rem;color:var(--text-dim)">
+      Recall: ~95% | Speed: ⚡⚡⚡
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1.1rem">
+    <div style="font-family:var(--display);font-size:.9rem;font-weight:800;color:var(--amber);margin-bottom:.4rem">PQ</div>
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-dim);margin-bottom:.5rem">Product Quantization</div>
+    <div style="font-size:.72rem;color:var(--text);line-height:1.8">
+      벡터를 <strong>압축해서 메모리 절약</strong>. 1536차원 float32 → 수십 바이트. IVF-PQ 조합이 대규모에 필수.
+    </div>
+    <div style="margin-top:.6rem;font-size:.65rem;color:var(--text-dim)">
+      Memory: ↓↓↓ | Accuracy: trade-off
+    </div>
+  </div>
+
+</div>
+
+<!-- HNSW 시각화 -->
+<div style="margin-top:1rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.2rem">
+  <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);margin-bottom:.6rem">HNSW 작동 원리 — 다층 그래프 탐색</div>
+  <div style="display:grid;grid-template-columns:80px 1fr;gap:.5rem;align-items:center">
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-dim);text-align:right">Layer 2</div>
+    <div style="display:flex;gap:1.5rem;padding:.4rem 0">
+      <div style="width:10px;height:10px;background:var(--amber);border-radius:50%"></div>
+      <div style="width:10px;height:10px;background:var(--text-dim);border-radius:50%"></div>
+      <div style="width:10px;height:10px;background:var(--text-dim);border-radius:50%"></div>
+    </div>
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-dim);text-align:right">Layer 1</div>
+    <div style="display:flex;gap:.8rem;padding:.4rem 0">
+      <div style="width:10px;height:10px;background:var(--amber);border-radius:50%"></div>
+      <div style="width:10px;height:10px;background:var(--text-dim);border-radius:50%"></div>
+      <div style="width:10px;height:10px;background:var(--amber);border-radius:50%"></div>
+      <div style="width:10px;height:10px;background:var(--text-dim);border-radius:50%"></div>
+      <div style="width:10px;height:10px;background:var(--text-dim);border-radius:50%"></div>
+      <div style="width:10px;height:10px;background:var(--text-dim);border-radius:50%"></div>
+    </div>
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-dim);text-align:right">Layer 0</div>
+    <div style="display:flex;gap:.35rem;padding:.4rem 0">
+      <div style="width:8px;height:8px;background:var(--text-dim);border-radius:50%"></div>
+      <div style="width:8px;height:8px;background:var(--amber);border-radius:50%"></div>
+      <div style="width:8px;height:8px;background:var(--text-dim);border-radius:50%"></div>
+      <div style="width:8px;height:8px;background:var(--amber);border-radius:50%"></div>
+      <div style="width:8px;height:8px;background:var(--text-dim);border-radius:50%"></div>
+      <div style="width:8px;height:8px;background:var(--text-dim);border-radius:50%"></div>
+      <div style="width:8px;height:8px;background:var(--amber);border-radius:50%"></div>
+      <div style="width:8px;height:8px;background:var(--text-dim);border-radius:50%"></div>
+      <div style="width:8px;height:8px;background:var(--text-dim);border-radius:50%"></div>
+      <div style="width:8px;height:8px;background:var(--text-dim);border-radius:50%"></div>
+      <div style="width:8px;height:8px;background:var(--amber);border-radius:50%"></div>
+      <div style="width:8px;height:8px;background:var(--text-dim);border-radius:50%"></div>
+    </div>
+  </div>
+  <div style="margin-top:.8rem;font-size:.72rem;color:var(--text-dim);line-height:1.75">
+    상층(Layer 2)은 "고속도로", 하층(Layer 0)은 "골목". 상층에서 시작해 단계적으로 내려가며 <strong style="color:var(--text)">log(N) 시간</strong>에 최근접을 찾음.
+  </div>
+</div>
+
+</div>
+</div>
+
+<!-- 2026 Vector DB 카탈로그 -->
+<div class="dia reveal">
+<div class="dia-title">2026 Vector DB 카탈로그 — 8개 선택지 비교</div>
+<div style="max-width:960px;margin:0 auto;overflow-x:auto">
+<table style="width:100%;border-collapse:collapse;font-size:.76rem;min-width:820px">
+  <thead>
+    <tr>
+      <th style="padding:.6rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">제품</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">타입</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">강점</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">약점</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">주 사용 사례</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background:var(--amber-bg)">
+      <td style="padding:.5rem;color:var(--amber);font-weight:700">Pinecone</td>
+      <td style="padding:.5rem;color:var(--text)">완전 관리형 SaaS</td>
+      <td style="padding:.5rem;color:var(--text)">무운영, 기업급, serverless 지원</td>
+      <td style="padding:.5rem;color:var(--text)">비쌈, 벤더 lock-in</td>
+      <td style="padding:.5rem;color:var(--text)">엔터프라이즈 RAG</td>
+    </tr>
+    <tr>
+      <td style="padding:.5rem;color:var(--text);font-weight:600">Weaviate</td>
+      <td style="padding:.5rem;color:var(--text-dim)">OSS + Cloud</td>
+      <td style="padding:.5rem;color:var(--text-dim)"><strong style="color:var(--text)">Hybrid search 네이티브</strong>, GraphQL</td>
+      <td style="padding:.5rem;color:var(--text-dim)">운영 복잡성</td>
+      <td style="padding:.5rem;color:var(--text-dim)">E-commerce, 의미+키워드</td>
+    </tr>
+    <tr>
+      <td style="padding:.5rem;color:var(--text);font-weight:600">Qdrant</td>
+      <td style="padding:.5rem;color:var(--text-dim)">OSS (Rust)</td>
+      <td style="padding:.5rem;color:var(--text-dim)">빠름, 필터링 성능 최고</td>
+      <td style="padding:.5rem;color:var(--text-dim)">생태계 아직 작음</td>
+      <td style="padding:.5rem;color:var(--text-dim)">고성능 요구 on-prem</td>
+    </tr>
+    <tr>
+      <td style="padding:.5rem;color:var(--text);font-weight:600">Milvus</td>
+      <td style="padding:.5rem;color:var(--text-dim)">OSS (Zilliz)</td>
+      <td style="padding:.5rem;color:var(--text-dim)"><strong style="color:var(--text)">10B+ 벡터 스케일</strong>, 분산</td>
+      <td style="padding:.5rem;color:var(--text-dim)">설정 복잡</td>
+      <td style="padding:.5rem;color:var(--text-dim)">초대규모 이미지/영상 검색</td>
+    </tr>
+    <tr>
+      <td style="padding:.5rem;color:var(--text);font-weight:600">Chroma</td>
+      <td style="padding:.5rem;color:var(--text-dim)">OSS (Python)</td>
+      <td style="padding:.5rem;color:var(--text-dim)">가장 쉬움, 로컬 개발 친화</td>
+      <td style="padding:.5rem;color:var(--text-dim)">프로덕션 스케일 제한</td>
+      <td style="padding:.5rem;color:var(--text-dim)">프로토타입, 로컬 RAG</td>
+    </tr>
+    <tr style="background:var(--amber-bg)">
+      <td style="padding:.5rem;color:var(--amber);font-weight:700">pgvector ⭐</td>
+      <td style="padding:.5rem;color:var(--text)">PostgreSQL extension</td>
+      <td style="padding:.5rem;color:var(--text)"><strong>"기존 DB 그대로"</strong>, JOIN·트랜잭션</td>
+      <td style="padding:.5rem;color:var(--text)">~수천만 벡터에서 한계</td>
+      <td style="padding:.5rem;color:var(--text)"><strong>2026년 급부상 — 중소규모 표준</strong></td>
+    </tr>
+    <tr>
+      <td style="padding:.5rem;color:var(--text);font-weight:600">Supabase Vector</td>
+      <td style="padding:.5rem;color:var(--text-dim)">pgvector 기반 SaaS</td>
+      <td style="padding:.5rem;color:var(--text-dim)">풀스택 DX, Edge Functions</td>
+      <td style="padding:.5rem;color:var(--text-dim)">초대규모 부적합</td>
+      <td style="padding:.5rem;color:var(--text-dim)">스타트업 MVP</td>
+    </tr>
+    <tr>
+      <td style="padding:.5rem;color:var(--text);font-weight:600">Elasticsearch / Mongo Atlas Vector</td>
+      <td style="padding:.5rem;color:var(--text-dim)">기존 DB + 벡터</td>
+      <td style="padding:.5rem;color:var(--text-dim)">기존 인프라 확장</td>
+      <td style="padding:.5rem;color:var(--text-dim)">순수 벡터 DB 대비 느림</td>
+      <td style="padding:.5rem;color:var(--text-dim)">레거시 통합</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+<!-- UI 목업: Pinecone 콘솔 -->
+<div class="dia reveal">
+<div class="dia-title">UI 목업 ① — Pinecone 콘솔 (SaaS 경험)</div>
+<div style="max-width:820px;margin:0 auto">
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.72rem">
+  <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim);display:flex;justify-content:space-between">
+    <span>🌲 Pinecone — Index: acme-rag-prod</span>
+    <span style="color:var(--amber)">Region: us-east-1 ▾ · Environment: serverless</span>
+  </div>
+  <div style="display:grid;grid-template-columns:160px 1fr">
+    <div style="background:var(--card);border-right:1px solid var(--border);padding:.7rem;color:var(--text);line-height:2">
+      📊 Dashboard<br>
+      📁 Indexes<br>
+      &nbsp;&nbsp;▸ acme-rag-prod<br>
+      &nbsp;&nbsp;▸ docs-staging<br>
+      🔑 API Keys<br>
+      💳 Billing<br>
+      📈 Metrics
+    </div>
+    <div>
+      <div style="padding:.7rem;border-bottom:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem">
+        <div style="background:var(--card);padding:.5rem;border-radius:6px;text-align:center">
+          <div style="color:var(--text-dim);font-size:.62rem">VECTORS</div>
+          <div style="color:var(--amber);font-size:.95rem;font-weight:800">2,481,392</div>
+        </div>
+        <div style="background:var(--card);padding:.5rem;border-radius:6px;text-align:center">
+          <div style="color:var(--text-dim);font-size:.62rem">DIMENSION</div>
+          <div style="color:var(--amber);font-size:.95rem;font-weight:800">1536</div>
+        </div>
+        <div style="background:var(--card);padding:.5rem;border-radius:6px;text-align:center">
+          <div style="color:var(--text-dim);font-size:.62rem">METRIC</div>
+          <div style="color:var(--amber);font-size:.95rem;font-weight:800">cosine</div>
+        </div>
+        <div style="background:var(--card);padding:.5rem;border-radius:6px;text-align:center">
+          <div style="color:var(--text-dim);font-size:.62rem">P99 LATENCY</div>
+          <div style="color:var(--amber);font-size:.95rem;font-weight:800">28ms</div>
+        </div>
+      </div>
+      <div style="padding:.7rem;color:var(--text);line-height:1.8">
+        <span style="color:var(--text-dim)"># Query Playground</span><br>
+        index.query(vector=[0.21, -0.47, ...], top_k=<span style="color:var(--amber)">5</span>,<br>
+        &nbsp;&nbsp;filter={<span style="color:var(--text-dim)">"dept"</span>: <span style="color:var(--text-dim)">"HR"</span>}, include_metadata=<span style="color:var(--amber)">True</span>)
+      </div>
+      <div style="padding:.5rem .7rem;color:var(--text-dim);border-top:1px solid var(--border);font-size:.62rem">
+        ✓ 5 matches in 24ms · scores: 0.91, 0.88, 0.84, 0.81, 0.79
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- UI 목업: Weaviate 쿼리 -->
+<div class="dia reveal">
+<div class="dia-title">UI 목업 ② — Weaviate GraphQL (Hybrid Search)</div>
+<div style="max-width:820px;margin:0 auto">
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.72rem">
+  <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim)">🔷 Weaviate Console — cluster: acme-prod.weaviate.cloud</div>
+  <div style="padding:.8rem;color:var(--text);line-height:1.85">
+    <span style="color:var(--amber)">{</span><br>
+    &nbsp;&nbsp;Get <span style="color:var(--amber)">{</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Document(<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hybrid: <span style="color:var(--amber)">{</span> query: <span style="color:var(--text-dim)">"연차 규정"</span>, alpha: <span style="color:var(--amber)">0.75</span> <span style="color:var(--amber)">}</span>,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where: <span style="color:var(--amber)">{</span> path: [<span style="color:var(--text-dim)">"dept"</span>], operator: Equal, valueString: <span style="color:var(--text-dim)">"HR"</span> <span style="color:var(--amber)">}</span>,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;limit: <span style="color:var(--amber)">5</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;) <span style="color:var(--amber)">{</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title content _additional <span style="color:var(--amber)">{</span> score distance <span style="color:var(--amber)">}</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--amber)">}</span><br>
+    &nbsp;&nbsp;<span style="color:var(--amber)">}</span><br>
+    <span style="color:var(--amber)">}</span>
+  </div>
+  <div style="padding:.5rem .7rem;color:var(--text-dim);border-top:1px solid var(--border);font-size:.62rem">
+    ✓ Hybrid: 0.75 vector + 0.25 BM25 keyword · 5 results in 41ms
+  </div>
+</div>
+<div style="margin-top:.8rem;font-size:.75rem;color:var(--text-dim);line-height:1.75">
+  💡 <strong style="color:var(--amber)">Hybrid Search의 혁신:</strong> 의미 검색(벡터) + 키워드 검색(BM25)을 <strong>alpha 파라미터로 가중합</strong>. 제품명·인명처럼 정확 매칭이 중요한 경우에 벡터만으론 부족 — Weaviate가 이걸 1급 시민으로 만든 이유.
+</div>
+</div>
+</div>
+
+<!-- 언제 어떤 선택 -->
+<div class="dia reveal">
+<div class="dia-title">결정 가이드 — "어떤 벡터 DB를 고를까?"</div>
+<div style="max-width:820px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+
+  <div style="background:var(--card);border:2px solid var(--amber);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:1rem;font-weight:800;color:var(--amber);margin-bottom:.5rem">🐘 pgvector를 써야 할 때</div>
+    <ul style="font-size:.78rem;color:var(--text);line-height:1.9;margin:0;padding-left:1.1rem">
+      <li>이미 PostgreSQL을 쓰고 있다</li>
+      <li>벡터 수 &lt; 수천만</li>
+      <li>관계형 데이터와 <strong>JOIN이 필요</strong>하다</li>
+      <li>트랜잭션·백업·권한이 중요</li>
+      <li>운영 부담을 늘리기 싫다</li>
+    </ul>
+  </div>
+
+  <div style="background:var(--card);border:2px solid var(--amber);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:1rem;font-weight:800;color:var(--amber);margin-bottom:.5rem">🌲 전용 벡터 DB를 써야 할 때</div>
+    <ul style="font-size:.78rem;color:var(--text);line-height:1.9;margin:0;padding:0 0 0 1.1rem">
+      <li>벡터 수 &gt; 수천만~수십억</li>
+      <li>p99 latency &lt; 50ms 필수</li>
+      <li>Hybrid search·reranker 네이티브</li>
+      <li>Multi-tenancy, 네임스페이스 관리</li>
+      <li>진정한 분산·샤딩 필요</li>
+    </ul>
+  </div>
+
+</div>
+<div style="margin-top:1rem;padding:.9rem 1.2rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.8rem;color:var(--text);line-height:1.8">
+  📌 <strong style="color:var(--amber)">2026년의 현실:</strong> 90%의 RAG 프로젝트는 pgvector로 충분합니다. "일단 Pinecone부터"의 시대는 끝났고, <strong>필요해지기 전엔 단순한 걸로 시작</strong>하는 게 새 정석입니다.
+</div>
+</div>
+
+<!-- Tip -->
+<div class="tip reveal">
+<div style="font-size:.85rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--amber)">더 깊이:</strong> <a href="../../wiki/entities/vector-db.md" style="color:var(--amber);text-decoration:underline">vector-db</a>와 <a href="../../wiki/entities/embedding-model.md" style="color:var(--amber);text-decoration:underline">embedding-model</a>을 묶어서 읽으세요. RAG 파이프라인(Part 2 Ch.06)과 Agentic RAG(Part 2 Ch.12)의 기반이 바로 여기입니다.
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 9: 데이터 품질 5대 차원 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="p1-ch9">
+<div class="ch-head"><div class="ch-num" style="color:var(--amber)">09</div><h2 class="ch-title">데이터 품질 5대 차원 — Garbage In, Garbage Out</h2></div>
+
+<p class="section-desc">AI 프로덕션 실패의 <strong style="color:var(--amber)">32%가 "데이터 품질"</strong> 때문입니다 (2025 MIT State of AI Report). 모델을 바꾼다고 해결되지 않습니다. 품질은 정성적 단어가 아니라 <strong>5개의 측정 가능한 차원</strong>으로 정의됩니다. 데이터 거버넌스의 ABC.</p>
+
+<!-- 32% 강조 -->
+<div class="dia reveal" style="background:var(--amber-bg);border:2px solid var(--amber)">
+<div style="text-align:center;padding:1.2rem">
+  <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:2px">THE PRODUCTION KILLER</div>
+  <div style="font-family:var(--display);font-size:2.8rem;font-weight:900;color:var(--amber);margin:.3rem 0;line-height:1">32%</div>
+  <div style="font-size:.88rem;color:var(--text);line-height:1.75;max-width:600px;margin:0 auto">
+    엔터프라이즈 AI 프로젝트가 프로덕션으로 가지 못하는 가장 큰 원인 — <strong>데이터 품질</strong>. 모델 튜닝보다 데이터 정제가 항상 더 큰 ROI를 냅니다.
+  </div>
+  <div style="margin-top:.7rem;font-size:.7rem;color:var(--text-dim)">
+    → <strong>Part 3에서 "프로덕션 갭"</strong>을 다룰 때 다시 이 숫자를 만납니다.
+  </div>
+</div>
+</div>
+
+<!-- 5대 차원 카드 -->
+<div class="dia reveal">
+<div class="dia-title">데이터 품질의 5대 차원</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:820px;margin:0 auto">
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);font-weight:700">01</div>
+      <div style="font-family:var(--display);font-size:.98rem;font-weight:700;color:var(--amber)">Completeness 완전성</div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+      "빠진 필드가 있는가?" NULL 비율, 누락된 레코드.<br>
+      <span style="color:var(--text-dim)">📏 측정: non_null_count / total_count</span><br>
+      <span style="color:var(--text-dim)">❌ 나쁨: customer.email이 30% NULL</span>
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);font-weight:700">02</div>
+      <div style="font-family:var(--display);font-size:.98rem;font-weight:700;color:var(--amber)">Accuracy 정확성</div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+      "값이 진짜 현실과 맞는가?" 오타, 잘못된 매핑.<br>
+      <span style="color:var(--text-dim)">📏 측정: sampling + ground truth 비교</span><br>
+      <span style="color:var(--text-dim)">❌ 나쁨: "서울"이 "Seoul"/"SEOUL"로 혼재</span>
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);font-weight:700">03</div>
+      <div style="font-family:var(--display);font-size:.98rem;font-weight:700;color:var(--amber)">Consistency 일관성</div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+      "시스템 간에 같은 값인가?" CRM과 ERP의 고객 ID 일치?<br>
+      <span style="color:var(--text-dim)">📏 측정: cross-system reconciliation</span><br>
+      <span style="color:var(--text-dim)">❌ 나쁨: 같은 주문이 DB마다 금액이 다름</span>
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);font-weight:700">04</div>
+      <div style="font-family:var(--display);font-size:.98rem;font-weight:700;color:var(--amber)">Timeliness 적시성</div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+      "얼마나 최신인가?" 데이터 신선도, 지연(lag).<br>
+      <span style="color:var(--text-dim)">📏 측정: max(updated_at) - now()</span><br>
+      <span style="color:var(--text-dim)">❌ 나쁨: 재고 테이블이 24시간 지연</span>
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:2px solid var(--amber);border-radius:14px;padding:1.2rem;grid-column:span 2">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);font-weight:700">05</div>
+      <div style="font-family:var(--display);font-size:.98rem;font-weight:700;color:var(--amber)">Validity 유효성</div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+      "포맷과 규칙을 지키는가?" 이메일 형식, 범위 제약, 외래키 참조.<br>
+      <span style="color:var(--text-dim)">📏 측정: schema validation, regex, constraint checks</span><br>
+      <span style="color:var(--text-dim)">❌ 나쁨: 나이 = -7, 이메일 = "abc", 존재하지 않는 국가 코드</span>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- 품질 측정 대시보드 목업 -->
+<div class="dia reveal">
+<div class="dia-title">품질 대시보드 목업 — 실제 운영 모습</div>
+<div style="max-width:820px;margin:0 auto">
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.72rem">
+  <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim)">📊 Data Quality — acme.customers table</div>
+  <div style="padding:1rem;display:grid;grid-template-columns:repeat(5,1fr);gap:.7rem">
+    <div style="background:var(--card);padding:.6rem;border-radius:8px;text-align:center;border:1px solid var(--amber-border)">
+      <div style="color:var(--text-dim);font-size:.6rem">COMPLETE</div>
+      <div style="color:var(--amber);font-size:1.1rem;font-weight:800">97.8%</div>
+      <div style="color:var(--teal);font-size:.55rem">▲ PASS</div>
+    </div>
+    <div style="background:var(--card);padding:.6rem;border-radius:8px;text-align:center;border:1px solid var(--amber-border)">
+      <div style="color:var(--text-dim);font-size:.6rem">ACCURATE</div>
+      <div style="color:var(--amber);font-size:1.1rem;font-weight:800">95.2%</div>
+      <div style="color:var(--teal);font-size:.55rem">▲ PASS</div>
+    </div>
+    <div style="background:var(--card);padding:.6rem;border-radius:8px;text-align:center;border:2px solid #e74c3c">
+      <div style="color:#e74c3c;font-size:.6rem">CONSISTENT</div>
+      <div style="color:#e74c3c;font-size:1.1rem;font-weight:800">82.1%</div>
+      <div style="color:#e74c3c;font-size:.55rem">▼ FAIL</div>
+    </div>
+    <div style="background:var(--card);padding:.6rem;border-radius:8px;text-align:center;border:1px solid var(--amber-border)">
+      <div style="color:var(--text-dim);font-size:.6rem">TIMELY</div>
+      <div style="color:var(--amber);font-size:1.1rem;font-weight:800">99.4%</div>
+      <div style="color:var(--teal);font-size:.55rem">▲ PASS</div>
+    </div>
+    <div style="background:var(--card);padding:.6rem;border-radius:8px;text-align:center;border:1px solid var(--amber-border)">
+      <div style="color:var(--text-dim);font-size:.6rem">VALID</div>
+      <div style="color:var(--amber);font-size:1.1rem;font-weight:800">96.7%</div>
+      <div style="color:var(--teal);font-size:.55rem">▲ PASS</div>
+    </div>
+  </div>
+  <div style="padding:.7rem;border-top:1px solid var(--border);color:var(--text);line-height:1.75">
+    <span style="color:#e74c3c">⚠️ Alert:</span> CRM vs ERP 고객 ID 불일치 178건 검출 (2026-04-10 14:32)<br>
+    <span style="color:var(--text-dim)"># pager triggered: #data-quality · on-call: @alice</span>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- 도구 카탈로그 -->
+<div class="dia reveal">
+<div class="dia-title">2026 데이터 품질 도구</div>
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:820px;margin:0 auto">
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">Great Expectations</div>
+    <div style="font-size:.76rem;color:var(--text);line-height:1.8">
+      "Expectations" 선언 → 테이블에 자동 검증. 파이썬 기반 OSS. <strong>품질 검증의 pytest</strong>.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">Monte Carlo</div>
+    <div style="font-size:.76rem;color:var(--text);line-height:1.8">
+      "Data Observability의 Datadog". ML 기반 이상 탐지. <strong>Data Downtime</strong>이란 용어를 만든 SaaS.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">Soda</div>
+    <div style="font-size:.76rem;color:var(--text);line-height:1.8">
+      YAML로 규칙 선언 → CI에서 체크. "SodaCL" DSL로 품질 as code. OSS + Cloud.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">dbt tests</div>
+    <div style="font-size:.76rem;color:var(--text);line-height:1.8">
+      dbt 변환 파이프라인 내장. <strong>unique, not_null, accepted_values, relationships</strong>. 가장 가볍고 표준적.
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- Tip -->
+<div class="tip reveal">
+<div style="font-size:.85rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--amber)">Part 3 연결:</strong> 품질은 <strong>프로덕션 갭의 첫 번째 킬러</strong>입니다. <a href="../../wiki/entities/data-quality.md" style="color:var(--amber);text-decoration:underline">data-quality</a>와 <a href="../../wiki/entities/production-gap.md" style="color:var(--amber);text-decoration:underline">production-gap</a> wiki 엔티티에서 "왜 모델 교체보다 데이터 정제가 항상 이기는가"를 실증 데이터로 다룹니다.
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 10: 데이터 편향 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="p1-ch10">
+<div class="ch-head"><div class="ch-num" style="color:var(--amber)">10</div><h2 class="ch-title">데이터 편향 — AI가 왜 편향되는가</h2></div>
+
+<p class="section-desc">AI는 중립이 아닙니다. <strong style="color:var(--amber)">데이터가 편향되면 모델도 편향됩니다</strong>. 그것도 은밀하게, 통계적 패턴으로 포장된 채. 2026년 EU AI Act가 "고위험 AI"에 특별 규제를 걸어둔 이유도 여기에 있습니다. 편향은 기술 문제가 아니라 <strong>사회적·법적 문제</strong>입니다.</p>
+
+<!-- 3유형 편향 -->
+<div class="dia reveal">
+<div class="dia-title">편향의 3가지 핵심 유형</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;max-width:900px;margin:0 auto">
+
+  <div style="background:var(--card);border:2px solid var(--amber);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--amber);letter-spacing:1px">TYPE 1</div>
+    <div style="font-family:var(--display);font-size:1rem;font-weight:800;color:var(--amber);margin:.3rem 0">Selection Bias</div>
+    <div style="font-size:.76rem;color:var(--text);line-height:1.8">
+      <strong>누구를 데이터에 포함시켰는가?</strong><br>
+      "지원자만" 보면 "탈락자"를 모름.<br>
+      <span style="color:var(--text-dim)">표본이 모집단을 대표하지 못함.</span>
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:2px solid var(--amber);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--amber);letter-spacing:1px">TYPE 2</div>
+    <div style="font-family:var(--display);font-size:1rem;font-weight:800;color:var(--amber);margin:.3rem 0">Historical Bias</div>
+    <div style="font-size:.76rem;color:var(--text);line-height:1.8">
+      <strong>과거 사회의 불공정이 데이터에 박힘.</strong><br>
+      "과거 승진자 = 남자"였다면<br>
+      <span style="color:var(--text-dim)">모델이 남자를 선호하도록 학습.</span>
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:2px solid var(--amber);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--amber);letter-spacing:1px">TYPE 3</div>
+    <div style="font-family:var(--display);font-size:1rem;font-weight:800;color:var(--amber);margin:.3rem 0">Measurement Bias</div>
+    <div style="font-size:.76rem;color:var(--text);line-height:1.8">
+      <strong>측정 자체가 왜곡됨.</strong><br>
+      얼굴 인식 훈련에<br>
+      <span style="color:var(--text-dim)">밝은 피부 사진이 90%라면?</span>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- 실제 사례 #1: Amazon -->
+<div class="dia reveal">
+<div class="dia-title">실제 사례 ① — Amazon 채용 AI (2018)</div>
+<div style="max-width:820px;margin:0 auto">
+  <div style="background:var(--surface);border-left:3px solid #e74c3c;border-radius:0 10px 10px 0;padding:1rem 1.2rem">
+    <div style="font-family:var(--mono);font-size:.68rem;color:#e74c3c;letter-spacing:1px;margin-bottom:.4rem">HISTORICAL BIAS</div>
+    <div style="font-size:.88rem;color:var(--text);line-height:1.85">
+      Amazon은 이력서 자동 점수 매기기 AI를 10년간 개발했습니다. <strong>훈련 데이터는 "지난 10년간 합격한 엔지니어 이력서"</strong>. 문제는 — 2008~2018년 테크 업계 지원자·합격자는 압도적으로 남성이었습니다.
+    </div>
+    <div style="margin-top:.6rem;padding:.7rem;background:var(--card);border-radius:8px;font-family:var(--mono);font-size:.72rem;color:var(--text);line-height:1.8">
+      <span style="color:#e74c3c"># 모델이 학습한 패턴</span><br>
+      "여자 체스 동아리 회장" → 감점<br>
+      "여자 대학교 출신" → 감점<br>
+      "women's coding camp" → 감점
+    </div>
+    <div style="margin-top:.6rem;font-size:.78rem;color:var(--text);line-height:1.8">
+      <strong style="color:#e74c3c">결과:</strong> 2018년 Amazon은 프로젝트를 전면 폐기. <strong>"편향을 제거해도 안심할 수 없다"</strong>는 뼈저린 교훈.
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 실제 사례 #2: COMPAS -->
+<div class="dia reveal">
+<div class="dia-title">실제 사례 ② — COMPAS 재범 예측 (2016)</div>
+<div style="max-width:820px;margin:0 auto">
+  <div style="background:var(--surface);border-left:3px solid #e74c3c;border-radius:0 10px 10px 0;padding:1rem 1.2rem">
+    <div style="font-family:var(--mono);font-size:.68rem;color:#e74c3c;letter-spacing:1px;margin-bottom:.4rem">HISTORICAL + MEASUREMENT BIAS</div>
+    <div style="font-size:.88rem;color:var(--text);line-height:1.85">
+      미국 법원은 <strong>COMPAS</strong>라는 AI로 피고인의 재범 가능성을 점수화하여 보석 결정에 사용했습니다. 2016년 <strong>ProPublica</strong>의 탐사 보도로 폭발적 문제가 드러났습니다.
+    </div>
+    <div style="margin-top:.6rem;display:grid;grid-template-columns:1fr 1fr;gap:.6rem">
+      <div style="padding:.7rem;background:var(--card);border:1px solid var(--border);border-radius:8px">
+        <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-dim);margin-bottom:.3rem">False Positive (무고한데 위험 판정)</div>
+        <div style="font-size:.78rem;color:var(--text)">흑인: <strong style="color:#e74c3c">45%</strong> &nbsp;↔&nbsp; 백인: 23%</div>
+      </div>
+      <div style="padding:.7rem;background:var(--card);border:1px solid var(--border);border-radius:8px">
+        <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-dim);margin-bottom:.3rem">False Negative (위험한데 안전 판정)</div>
+        <div style="font-size:.78rem;color:var(--text)">백인: <strong style="color:#e74c3c">48%</strong> &nbsp;↔&nbsp; 흑인: 28%</div>
+      </div>
+    </div>
+    <div style="margin-top:.6rem;font-size:.78rem;color:var(--text);line-height:1.8">
+      <strong style="color:#e74c3c">결과:</strong> 모델은 race를 직접 안 봤지만, <strong>우편번호·이전 체포 횟수 같은 "proxy 변수"</strong>가 race와 상관있었습니다. 편향 제거는 "민감 속성 빼기"만으로 안 됩니다.
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 실제 사례 #3: Gender Shades -->
+<div class="dia reveal">
+<div class="dia-title">실제 사례 ③ — MIT Gender Shades (2018)</div>
+<div style="max-width:820px;margin:0 auto">
+  <div style="background:var(--surface);border-left:3px solid #e74c3c;border-radius:0 10px 10px 0;padding:1rem 1.2rem">
+    <div style="font-family:var(--mono);font-size:.68rem;color:#e74c3c;letter-spacing:1px;margin-bottom:.4rem">MEASUREMENT BIAS</div>
+    <div style="font-size:.88rem;color:var(--text);line-height:1.85">
+      MIT의 <strong>Joy Buolamwini</strong>가 주도한 연구. IBM, Microsoft, Face++의 얼굴 인식 시스템을 벤치마크했습니다.
+    </div>
+    <div style="margin-top:.8rem">
+      <div style="font-family:var(--mono);font-size:.68rem;color:var(--amber);margin-bottom:.4rem">성별 분류 정확도</div>
+      <div style="display:grid;grid-template-columns:160px 1fr 60px;gap:.4rem;align-items:center;font-size:.74rem;color:var(--text);line-height:1.6">
+        <div>Light-skinned men</div>
+        <div style="background:var(--card);border-radius:4px;height:14px;overflow:hidden"><div style="background:var(--teal);width:99.3%;height:100%"></div></div>
+        <div style="color:var(--teal);font-family:var(--mono)">99.3%</div>
+
+        <div>Light-skinned women</div>
+        <div style="background:var(--card);border-radius:4px;height:14px;overflow:hidden"><div style="background:var(--amber);width:92.9%;height:100%"></div></div>
+        <div style="color:var(--amber);font-family:var(--mono)">92.9%</div>
+
+        <div>Dark-skinned men</div>
+        <div style="background:var(--card);border-radius:4px;height:14px;overflow:hidden"><div style="background:var(--amber);width:88.0%;height:100%"></div></div>
+        <div style="color:var(--amber);font-family:var(--mono)">88.0%</div>
+
+        <div>Dark-skinned women</div>
+        <div style="background:var(--card);border-radius:4px;height:14px;overflow:hidden"><div style="background:#e74c3c;width:65.3%;height:100%"></div></div>
+        <div style="color:#e74c3c;font-family:var(--mono)">65.3%</div>
+      </div>
+    </div>
+    <div style="margin-top:.7rem;font-size:.78rem;color:var(--text);line-height:1.8">
+      <strong style="color:#e74c3c">34% 포인트 차이.</strong> 원인은 명확 — 훈련 데이터가 <strong>백인 남성 위주</strong>였습니다. 이 논문은 "Algorithmic Justice League"를 만들었고, 2019년 IBM이 얼굴 인식 사업을 철수하는 데 직접적 영향을 줬습니다.
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 완화 방법 -->
+<div class="dia reveal">
+<div class="dia-title">편향 완화 방법론</div>
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:820px;margin:0 auto">
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">① 다양한 데이터 확보</div>
+    <div style="font-size:.76rem;color:var(--text);line-height:1.8">
+      underrepresented 그룹 데이터를 적극 수집. 샘플링 전략 재설계. "없는 걸 만들지 말고, 없는 걸 찾아라."
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">② Debiasing 기법</div>
+    <div style="font-size:.76rem;color:var(--text);line-height:1.8">
+      Reweighting, Adversarial debiasing, Fairness constraints. 수학적 공정성 지표(Equalized Odds, Demographic Parity)로 검증.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">③ Counterfactual Fairness</div>
+    <div style="font-size:.76rem;color:var(--text);line-height:1.8">
+      "이 사람의 성별만 바뀌어도 예측이 같아야 한다"는 반사실 추론 테스트. Pearl의 인과 추론 프레임워크.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">④ Model Cards + Audits</div>
+    <div style="font-size:.76rem;color:var(--text);line-height:1.8">
+      Google "Model Cards", IBM "FactSheets". 모델의 편향 성능을 <strong>문서화·공개</strong>. 2026년 규제 준수의 기본.
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- EU AI Act 연결 -->
+<div class="dia reveal" style="background:var(--amber-bg);border:2px solid var(--amber)">
+<div class="dia-title">🇪🇺 EU AI Act 연결 — 편향이 법적 리스크가 된 시대</div>
+<div style="max-width:820px;margin:0 auto;font-size:.82rem;color:var(--text);line-height:1.85">
+  2024년 발효된 <strong>EU AI Act</strong>는 고용·교육·신용·법 집행 등을 <strong style="color:var(--amber)">"고위험 AI"</strong>로 분류하고, 이들에 대해 다음을 요구합니다:
+  <ul style="margin:.7rem 0 0 1.2rem;line-height:1.9">
+    <li><strong>훈련 데이터의 품질·대표성 증명</strong></li>
+    <li><strong>편향 평가 및 완화 조치 문서화</strong></li>
+    <li>지속적인 모니터링과 결과 로깅</li>
+    <li>인간 감독(human oversight) 메커니즘</li>
+    <li>위반 시 <strong style="color:var(--amber)">전 세계 매출의 최대 7%</strong> 과징금 (GDPR보다 높음)</li>
+  </ul>
+  <div style="margin-top:.8rem;padding:.8rem;background:var(--surface);border-radius:8px">
+    💡 2026년 현재 "편향 감사"는 compliance 필수 체크리스트. 개발 단계부터 품질+공정성을 측정해야 합니다. "나중에 고치지"가 안 통합니다.
+  </div>
+</div>
+</div>
+
+<!-- Tip -->
+<div class="tip reveal">
+<div style="font-size:.85rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--amber)">더 깊이:</strong> <a href="../../wiki/entities/data-bias.md" style="color:var(--amber);text-decoration:underline">data-bias</a>와 <a href="../../wiki/entities/eu-ai-act.md" style="color:var(--amber);text-decoration:underline">eu-ai-act</a> wiki 엔티티를 함께 보세요. Part 5(AI 거버넌스)에서 Fairness Metrics, Audit Framework를 본격적으로 다룹니다.
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 11: Data-Centric AI -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="p1-ch11">
+<div class="ch-head"><div class="ch-num" style="color:var(--amber)">11</div><h2 class="ch-title">Data-Centric AI — Andrew Ng의 혁명</h2></div>
+
+<p class="section-desc">2021년 3월, 딥러닝의 대부 <strong style="color:var(--amber)">Andrew Ng</strong>가 폭탄 선언을 했습니다 — <strong>"모델은 그만 만들어라. 데이터를 고쳐라."</strong> 수년간 모델 경쟁에 지쳐있던 업계가 충격에 빠졌고, 이 철학은 지금 AI 실무의 사실상 표준이 되었습니다. Part 1의 마지막 핵심 메시지.</p>
+
+<!-- Model-centric vs Data-centric -->
+<div class="dia reveal">
+<div class="dia-title">Model-Centric vs Data-Centric</div>
+<div style="max-width:820px;margin:0 auto">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem">
+    <div style="font-family:var(--mono);font-size:.68rem;color:var(--text-dim);letter-spacing:1px">2012-2020</div>
+    <div style="font-family:var(--display);font-size:1.1rem;font-weight:800;color:var(--text);margin:.3rem 0">Model-Centric</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      "데이터는 고정, 모델을 개선"<br><br>
+      • ResNet → DenseNet → Transformer<br>
+      • 논문마다 새 아키텍처<br>
+      • Leaderboard 경쟁<br>
+      • "데이터는 학술적 재미 없음"
+    </div>
+    <div style="margin-top:.7rem;padding:.5rem .7rem;background:var(--surface);border-radius:6px;font-family:var(--mono);font-size:.7rem;color:var(--text-dim)">
+      ML 업무 분배 → 모델 튜닝 80%
+    </div>
+  </div>
+
+  <div style="background:var(--amber-bg);border:2px solid var(--amber);border-radius:12px;padding:1.2rem">
+    <div style="font-family:var(--mono);font-size:.68rem;color:var(--amber);letter-spacing:1px">2021~</div>
+    <div style="font-family:var(--display);font-size:1.1rem;font-weight:800;color:var(--amber);margin:.3rem 0">Data-Centric ⭐</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      <strong>"모델은 고정, 데이터를 개선"</strong><br><br>
+      • Error analysis → 나쁜 라벨 찾기<br>
+      • Data augmentation, cleaning<br>
+      • 라벨러 교육·가이드라인<br>
+      • <strong>"데이터가 실험 대상"</strong>
+    </div>
+    <div style="margin-top:.7rem;padding:.5rem .7rem;background:var(--surface);border-radius:6px;font-family:var(--mono);font-size:.7rem;color:var(--amber)">
+      실제 업무 분배 → <strong>데이터 작업 80%</strong>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<!-- 80% 통계 강조 -->
+<div class="dia reveal" style="background:var(--amber-bg);border:2px solid var(--amber)">
+<div style="text-align:center;padding:1.5rem">
+  <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:2px">THE HIDDEN TRUTH</div>
+  <div style="font-family:var(--display);font-size:2.8rem;font-weight:900;color:var(--amber);margin:.3rem 0;line-height:1">80%</div>
+  <div style="font-size:.92rem;color:var(--text);line-height:1.75;max-width:600px;margin:0 auto">
+    ML 엔지니어의 업무 시간 중 <strong>데이터 수집·정제·라벨링에 쓰는 비중</strong>. 모델 코드는 20%에 불과하지만, 업계는 20%에만 스포트라이트를 비췄습니다. Andrew Ng의 질문: "<em>그럼 반대로 해보면 어떨까?</em>"
+  </div>
+  <div style="margin-top:.7rem;font-size:.7rem;color:var(--text-dim)">
+    Source: Andrew Ng · DeepLearning.AI · 2021
+  </div>
+</div>
+</div>
+
+<!-- 루프 다이어그램 -->
+<div class="dia reveal">
+<div class="dia-title">Data-Centric Loop — Error Analysis 기반 개선</div>
+<div style="max-width:820px;margin:0 auto">
+<div style="display:grid;grid-template-columns:repeat(4,1fr) auto;gap:.5rem;align-items:center">
+
+  <div style="background:var(--card);border:2px solid var(--amber);border-radius:12px;padding:.8rem;text-align:center">
+    <div style="font-size:1.3rem">🎯</div>
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);font-weight:700;margin-top:.3rem">Train</div>
+    <div style="font-size:.64rem;color:var(--text-dim);margin-top:.2rem">baseline 모델</div>
+  </div>
+
+  <div style="text-align:center;color:var(--amber);font-size:1.3rem">→</div>
+
+  <div style="background:var(--card);border:2px solid var(--amber);border-radius:12px;padding:.8rem;text-align:center">
+    <div style="font-size:1.3rem">🔍</div>
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);font-weight:700;margin-top:.3rem">Error Analysis</div>
+    <div style="font-size:.64rem;color:var(--text-dim);margin-top:.2rem">어떤 케이스 실패?</div>
+  </div>
+
+  <div style="text-align:center;color:var(--amber);font-size:1.3rem">→</div>
+
+  <div style="background:var(--card);border:2px solid var(--amber);border-radius:12px;padding:.8rem;text-align:center">
+    <div style="font-size:1.3rem">🛠️</div>
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);font-weight:700;margin-top:.3rem">Improve Data</div>
+    <div style="font-size:.64rem;color:var(--text-dim);margin-top:.2rem">더 모으고·라벨 수정</div>
+  </div>
+
+</div>
+<div style="margin-top:.8rem;text-align:center;font-family:var(--mono);font-size:.72rem;color:var(--amber)">↻ Repeat until production quality</div>
+<div style="margin-top:1rem;padding:.9rem 1.2rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--amber)">모델을 바꾸면 1% 오르고, 데이터를 고치면 10% 오른다</strong>는 게 Ng 팀의 실증 관찰. 무작위 에러 분석보다 <strong>"잘못된 라벨만 수정"</strong>이 더 큰 효과를 내는 경우가 흔합니다.
+</div>
+</div>
+</div>
+
+<!-- Small data vs Big data -->
+<div class="dia reveal">
+<div class="dia-title">Small Clean vs Big Noisy — 어느 쪽이 이기는가</div>
+<div style="max-width:820px;margin:0 auto">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:1rem;font-weight:800;color:var(--text);margin-bottom:.5rem">Big Noisy Data</div>
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--text-dim);margin-bottom:.5rem">500,000 images, 30% mislabeled</div>
+    <div style="background:var(--surface);border-radius:6px;padding:.7rem;font-family:var(--mono);font-size:.72rem;color:var(--text);line-height:1.8">
+      Training accuracy: 99.2%<br>
+      <span style="color:#e74c3c">Production accuracy: 62%</span><br>
+      <span style="color:var(--text-dim)">→ "잘 외웠지만, 현실에선 실패"</span>
+    </div>
+  </div>
+
+  <div style="background:var(--amber-bg);border:2px solid var(--amber);border-radius:12px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:1rem;font-weight:800;color:var(--amber);margin-bottom:.5rem">Small Clean Data ⭐</div>
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--text-dim);margin-bottom:.5rem">10,000 images, 99% labeled correctly</div>
+    <div style="background:var(--surface);border-radius:6px;padding:.7rem;font-family:var(--mono);font-size:.72rem;color:var(--text);line-height:1.8">
+      Training accuracy: 96.5%<br>
+      <span style="color:var(--teal)">Production accuracy: 91%</span><br>
+      <span style="color:var(--amber)">→ "덜 외웠지만, 일관되게 잘 함"</span>
+    </div>
+  </div>
+
+</div>
+<div style="margin-top:1rem;padding:.9rem 1.2rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.85">
+  📌 <strong style="color:var(--amber)">LLM 시대 예외 아님:</strong> Anthropic Claude, DeepSeek R1 모두 "고품질 소규모 SFT/RLHF 데이터"의 효과를 강조합니다. Pre-training은 대량이지만, 모델 성격을 결정하는 post-training 데이터는 <strong>quality first</strong>.
+</div>
+</div>
+</div>
+
+<!-- Landing AI + 사례 -->
+<div class="dia reveal">
+<div class="dia-title">실전 사례 — Landing AI의 제조·의료 현장</div>
+<div style="max-width:820px;margin:0 auto">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+      <div style="font-size:1.3rem">🏭</div>
+      <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber)">제조 — 결함 검출</div>
+    </div>
+    <div style="font-size:.76rem;color:var(--text);line-height:1.8">
+      <strong>문제:</strong> 불량품 사진이 <strong>50장</strong>밖에 없음 (희귀).<br>
+      <strong>전통 ML:</strong> "데이터 10만 장 모아야 합니다".<br>
+      <strong>Landing AI:</strong> 50장을 매우 정확히 라벨링 + 라벨러 가이드 표준화 → <strong>95%+ 정확도 달성</strong>.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+      <div style="font-size:1.3rem">🏥</div>
+      <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--amber)">의료 — 영상 판독</div>
+    </div>
+    <div style="font-size:.76rem;color:var(--text);line-height:1.8">
+      <strong>문제:</strong> 방사선과 의사 5명이 같은 영상에 <strong>다른 라벨</strong>.<br>
+      <strong>Data-Centric 접근:</strong> "라벨 일관성"을 수치화 → 가이드라인 재작성 → 재라벨링 → 15%p 성능 개선. <strong>모델 변경 없이.</strong>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<!-- Data-Centric AI Competition -->
+<div class="dia reveal">
+<div class="dia-title">Data-Centric AI Competition (NeurIPS 2021)</div>
+<div style="max-width:820px;margin:0 auto">
+  <div style="font-size:.82rem;color:var(--text-dim);margin-bottom:.8rem">Andrew Ng팀이 주최한 역사적 대회. "모델은 고정, 데이터만 개선해서 정확도를 올려라."</div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.2rem">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+      <div>
+        <div style="font-family:var(--mono);font-size:.68rem;color:var(--amber);margin-bottom:.4rem">고정된 부분</div>
+        <ul style="font-size:.78rem;color:var(--text);line-height:1.9;margin:0;padding-left:1.1rem">
+          <li>ResNet50 아키텍처 (고정)</li>
+          <li>하이퍼파라미터 (고정)</li>
+          <li>Training loop (고정)</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:.68rem;color:var(--amber);margin-bottom:.4rem">참가자가 바꿀 수 있는 것</div>
+        <ul style="font-size:.78rem;color:var(--text);line-height:1.9;margin:0;padding-left:1.1rem">
+          <li>데이터 추가·제거</li>
+          <li>라벨 수정</li>
+          <li>Augmentation 선택</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:.9rem;padding:.7rem;background:var(--card);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.8">
+      📊 <strong style="color:var(--amber)">결과:</strong> baseline 64.4% → 우승팀 86.0% (<strong>+21.6%p</strong>). 모델을 건드리지 않고. 이것이 데이터의 힘입니다.
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Tip -->
+<div class="tip reveal">
+<div style="font-size:.85rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--amber)">더 깊이:</strong> <a href="../../wiki/entities/data-centric-ai.md" style="color:var(--amber);text-decoration:underline">data-centric-ai</a> wiki 엔티티에서 라벨러 교육 실전, label consistency measurement, MLOps 통합 패턴까지 다룹니다. Part 3 "프로덕션 갭"의 이론적 기반이기도 합니다.
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 12: 데이터 파이프라인 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="p1-ch12">
+<div class="ch-head"><div class="ch-num" style="color:var(--amber)">12</div><h2 class="ch-title">데이터 파이프라인 — ETL, ELT, Streaming</h2></div>
+
+<p class="section-desc">데이터는 저장소에 <strong>자동으로 나타나지 않습니다</strong>. 수집하고, 변환하고, 적재하는 파이프라인이 24/7 돌아가야 합니다. 파이프라인은 지난 30년간 <strong style="color:var(--amber)">ETL → ELT → Streaming</strong>으로 진화했고, 2026년 Modern Data Stack이 그 결과입니다.</p>
+
+<!-- ETL vs ELT 비교 -->
+<div class="dia reveal">
+<div class="dia-title">ETL vs ELT — 순서가 바뀌면 세상이 바뀐다</div>
+<div style="max-width:820px;margin:0 auto">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem">
+    <div style="font-family:var(--mono);font-size:.68rem;color:var(--text-dim);letter-spacing:1px">1990~2015</div>
+    <div style="font-family:var(--display);font-size:1.2rem;font-weight:800;color:var(--text);margin:.3rem 0">ETL (전통)</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      <strong>E</strong>xtract → <strong>T</strong>ransform → <strong>L</strong>oad<br>
+      "저장하기 전에 변환한다"
+    </div>
+    <div style="margin-top:.7rem;padding:.6rem;background:var(--surface);border-radius:6px;font-family:var(--mono);font-size:.7rem;color:var(--text-dim);line-height:1.8">
+      소스 → ETL 서버(Informatica) → DW<br>
+      변환이 <strong style="color:var(--text)">전용 서버</strong>에서
+    </div>
+    <div style="margin-top:.5rem;font-size:.72rem;color:var(--text-dim);line-height:1.7">
+      🏢 Informatica, SSIS, Talend, DataStage<br>
+      💰 라이선스 비용 ↑, 유연성 ↓
+    </div>
+  </div>
+
+  <div style="background:var(--amber-bg);border:2px solid var(--amber);border-radius:12px;padding:1.2rem">
+    <div style="font-family:var(--mono);font-size:.68rem;color:var(--amber);letter-spacing:1px">2015~ 현재</div>
+    <div style="font-family:var(--display);font-size:1.2rem;font-weight:800;color:var(--amber);margin:.3rem 0">ELT ⭐ (현대)</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      <strong>E</strong>xtract → <strong>L</strong>oad → <strong>T</strong>ransform<br>
+      "원본 먼저 저장, 나중에 변환"
+    </div>
+    <div style="margin-top:.7rem;padding:.6rem;background:var(--surface);border-radius:6px;font-family:var(--mono);font-size:.7rem;color:var(--text-dim);line-height:1.8">
+      소스 → Fivetran → <strong style="color:var(--amber)">Snowflake/BQ</strong> → dbt<br>
+      변환이 <strong style="color:var(--text)">DW 안</strong>에서 SQL로
+    </div>
+    <div style="margin-top:.5rem;font-size:.72rem;color:var(--text-dim);line-height:1.7">
+      🚀 Fivetran, Airbyte, dbt, Snowflake, BigQuery<br>
+      ☁️ Cloud-first, Git-friendly, 저렴
+    </div>
+  </div>
+
+</div>
+<div style="margin-top:1rem;padding:.9rem 1.2rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.85">
+  🎯 <strong style="color:var(--amber)">왜 바뀌었나?</strong> Cloud DW(Snowflake, BigQuery)가 저장·컴퓨팅을 분리하면서 <strong>"DW 안에서 SQL로 변환"이 더 빠르고 싸졌습니다</strong>. 굳이 별도 ETL 서버를 둘 이유가 사라진 것. 이것이 Modern Data Stack의 출발점입니다.
+</div>
+</div>
+</div>
+
+<!-- Batch vs Streaming -->
+<div class="dia reveal">
+<div class="dia-title">Batch vs Streaming — 시간의 축</div>
+<div style="max-width:820px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+      <div style="font-size:1.3rem">📦</div>
+      <div style="font-family:var(--display);font-size:.98rem;font-weight:700;color:var(--amber)">Batch</div>
+    </div>
+    <div style="font-size:.76rem;color:var(--text);line-height:1.85">
+      "하루에 한 번, 전날치 데이터 일괄 처리".<br><br>
+      <strong>장점:</strong> 단순, 싸다, 디버깅 쉬움<br>
+      <strong>단점:</strong> 최신성 떨어짐<br>
+      <strong>도구:</strong> Airflow, Dagster, Prefect<br>
+      <strong>사용 사례:</strong> 야간 ETL, 월간 리포트
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:2px solid var(--amber);border-radius:12px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+      <div style="font-size:1.3rem">🌊</div>
+      <div style="font-family:var(--display);font-size:.98rem;font-weight:700;color:var(--amber)">Streaming ⭐</div>
+    </div>
+    <div style="font-size:.76rem;color:var(--text);line-height:1.85">
+      "이벤트가 발생하면 millisecond에 처리".<br><br>
+      <strong>장점:</strong> 실시간, 운영 대응<br>
+      <strong>단점:</strong> 복잡, 비쌈, state 관리 어려움<br>
+      <strong>도구:</strong> <strong>Kafka, Flink, Pulsar</strong><br>
+      <strong>사용 사례:</strong> 사기 탐지, IoT, 실시간 추천
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- CDC 설명 -->
+<div class="dia reveal">
+<div class="dia-title">CDC — Change Data Capture, 실시간의 다리</div>
+<div style="max-width:820px;margin:0 auto">
+  <div style="font-size:.82rem;color:var(--text-dim);margin-bottom:.8rem">트랜잭션 DB의 WAL(Write-Ahead Log)을 읽어, <strong>변경된 row만</strong> 다운스트림에 흘려보내는 기법. 2026년 실시간 파이프라인의 사실상 표준.</div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.2rem;font-family:var(--mono);font-size:.72rem;line-height:1.9;color:var(--text)">
+    <span style="color:var(--text-dim)"># PostgreSQL WAL</span><br>
+    INSERT orders (id=4812, amount=$250) &nbsp;→&nbsp; <span style="color:var(--amber)">Debezium</span> &nbsp;→&nbsp; Kafka topic: orders-cdc<br>
+    UPDATE orders SET status='paid' &nbsp;→&nbsp; <span style="color:var(--amber)">Debezium</span> &nbsp;→&nbsp; Kafka topic: orders-cdc<br>
+    DELETE orders WHERE id=4812 &nbsp;→&nbsp; <span style="color:var(--amber)">Debezium</span> &nbsp;→&nbsp; Kafka topic: orders-cdc<br>
+    <br>
+    <span style="color:var(--text-dim)"># 소비자들</span><br>
+    → Snowflake (분석용)<br>
+    → Elasticsearch (검색용)<br>
+    → Redis (캐시)<br>
+    → Vector DB (임베딩 재계산)
+  </div>
+  <div style="margin-top:.7rem;font-size:.75rem;color:var(--text-dim);line-height:1.7">
+    💡 <strong style="color:var(--amber)">핵심 도구:</strong> Debezium, Airbyte CDC, Fivetran HVR. 하나의 소스 변경을 <strong>여러 다운스트림에 "팬아웃"</strong>하는 것이 강점.
+  </div>
+</div>
+</div>
+
+<!-- Modern Data Stack 아키텍처 -->
+<div class="dia reveal">
+<div class="dia-title">Modern Data Stack — 2026 표준 아키텍처 (Part 4 Preview)</div>
+<div style="max-width:920px;margin:0 auto">
+
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;align-items:stretch">
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:10px;padding:.8rem;text-align:center">
+    <div style="font-family:var(--mono);font-size:.6rem;color:var(--text-dim);letter-spacing:1px">① SOURCES</div>
+    <div style="font-size:1.3rem;margin:.3rem 0">🏭</div>
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--text);line-height:1.6">Postgres<br>Salesforce<br>Stripe<br>HubSpot</div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:10px;padding:.8rem;text-align:center">
+    <div style="font-family:var(--mono);font-size:.6rem;color:var(--text-dim);letter-spacing:1px">② INGEST</div>
+    <div style="font-size:1.3rem;margin:.3rem 0">🚚</div>
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--text);line-height:1.6">Fivetran<br>Airbyte<br>Kafka+<br>Debezium</div>
+  </div>
+
+  <div style="background:var(--amber-bg);border:2px solid var(--amber);border-radius:10px;padding:.8rem;text-align:center">
+    <div style="font-family:var(--mono);font-size:.6rem;color:var(--amber);letter-spacing:1px">③ STORAGE</div>
+    <div style="font-size:1.3rem;margin:.3rem 0">🏔️</div>
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--text);line-height:1.6"><strong>Snowflake</strong><br>BigQuery<br>Databricks<br>Iceberg</div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:10px;padding:.8rem;text-align:center">
+    <div style="font-family:var(--mono);font-size:.6rem;color:var(--text-dim);letter-spacing:1px">④ TRANSFORM</div>
+    <div style="font-size:1.3rem;margin:.3rem 0">⚙️</div>
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--text);line-height:1.6"><strong>dbt</strong><br>SQLMesh<br>Dagster<br>Airflow</div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:10px;padding:.8rem;text-align:center">
+    <div style="font-family:var(--mono);font-size:.6rem;color:var(--text-dim);letter-spacing:1px">⑤ CONSUME</div>
+    <div style="font-size:1.3rem;margin:.3rem 0">📊</div>
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--text);line-height:1.6">Power BI<br>Looker<br>Hex<br>AI/ML</div>
+  </div>
+
+</div>
+
+<!-- 가로 레이어: 품질·거버넌스·카탈로그 -->
+<div style="margin-top:.8rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem">
+  <div style="background:var(--surface);border:1px dashed var(--amber-border);border-radius:8px;padding:.6rem;text-align:center;font-family:var(--mono);font-size:.65rem;color:var(--text-dim)">
+    🛡️ Quality<br><span style="color:var(--text)">Monte Carlo · Soda · GE</span>
+  </div>
+  <div style="background:var(--surface);border:1px dashed var(--amber-border);border-radius:8px;padding:.6rem;text-align:center;font-family:var(--mono);font-size:.65rem;color:var(--text-dim)">
+    📚 Catalog<br><span style="color:var(--text)">Atlan · Collibra · DataHub</span>
+  </div>
+  <div style="background:var(--surface);border:1px dashed var(--amber-border);border-radius:8px;padding:.6rem;text-align:center;font-family:var(--mono);font-size:.65rem;color:var(--text-dim)">
+    🔐 Governance<br><span style="color:var(--text)">Immuta · Unity Catalog</span>
+  </div>
+</div>
+
+<div style="margin-top:1rem;padding:.9rem 1.2rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--amber)">Part 4 예고:</strong> 위 블록 하나하나를 Part 4(Data Engineering 심화)에서 파헤칩니다. dbt의 내부 원리, Airflow vs Dagster 비교, Iceberg 포맷, Semantic Layer — 모두 2026년 Modern Data Stack의 살아있는 표준들입니다.
+</div>
+</div>
+</div>
+
+<!-- dbt 목업 -->
+<div class="dia reveal">
+<div class="dia-title">UI 목업 — dbt Cloud (변환 레이어의 왕)</div>
+<div style="max-width:820px;margin:0 auto">
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.72rem">
+  <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim)">🧱 dbt Cloud — project: acme_analytics</div>
+  <div style="display:grid;grid-template-columns:180px 1fr">
+    <div style="background:var(--card);border-right:1px solid var(--border);padding:.7rem;color:var(--text);line-height:1.85">
+      ▼ models/<br>
+      &nbsp;&nbsp;▼ staging/<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;📄 stg_orders.sql<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;📄 stg_customers.sql<br>
+      &nbsp;&nbsp;▼ marts/<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;📄 fct_revenue.sql<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;📄 dim_customer.sql<br>
+      ▼ tests/<br>
+      &nbsp;&nbsp;📄 schema.yml
+    </div>
+    <div style="padding:.7rem;color:var(--text);line-height:1.8">
+      <span style="color:var(--text-dim)">-- models/marts/fct_revenue.sql</span><br>
+      <span style="color:var(--amber)">{{ config(materialized='incremental') }}</span><br><br>
+      <span style="color:var(--amber)">SELECT</span><br>
+      &nbsp;&nbsp;o.order_date,<br>
+      &nbsp;&nbsp;c.country,<br>
+      &nbsp;&nbsp;<span style="color:var(--amber)">SUM</span>(o.amount) <span style="color:var(--amber)">AS</span> revenue<br>
+      <span style="color:var(--amber)">FROM</span> {{ ref(<span style="color:var(--text-dim)">'stg_orders'</span>) }} o<br>
+      <span style="color:var(--amber)">JOIN</span> {{ ref(<span style="color:var(--text-dim)">'stg_customers'</span>) }} c <span style="color:var(--amber)">USING</span>(customer_id)<br>
+      <span style="color:var(--amber)">GROUP BY</span> <span style="color:var(--amber)">1</span>, <span style="color:var(--amber)">2</span>
+    </div>
+  </div>
+  <div style="padding:.5rem .7rem;color:var(--text-dim);border-top:1px solid var(--border);font-size:.62rem">
+    ✓ dbt run · 24 models built · 18s · tests: 52 passed, 0 failed
+  </div>
+</div>
+<div style="margin-top:.8rem;font-size:.75rem;color:var(--text-dim);line-height:1.75">
+  💡 <strong style="color:var(--amber)">왜 dbt가 지배했나:</strong> SQL + Git + Jinja 템플릿만으로 <strong>"데이터 변환을 소프트웨어처럼"</strong> 다루게 했습니다. Version control, code review, CI/CD, 단위 테스트 — 엔지니어링 문화 전체를 데이터 팀에 가져왔습니다.
+</div>
+</div>
+</div>
+
+<!-- Tip -->
+<div class="tip reveal">
+<div style="font-size:.85rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--amber)">더 깊이:</strong> <a href="../../wiki/entities/etl.md" style="color:var(--amber);text-decoration:underline">etl</a>, <a href="../../wiki/entities/elt.md" style="color:var(--amber);text-decoration:underline">elt</a>, <a href="../../wiki/entities/dbt.md" style="color:var(--amber);text-decoration:underline">dbt</a>, <a href="../../wiki/entities/modern-data-stack.md" style="color:var(--amber);text-decoration:underline">modern-data-stack</a>, <a href="../../wiki/entities/cdc.md" style="color:var(--amber);text-decoration:underline">cdc</a>, <a href="../../wiki/entities/streaming-data.md" style="color:var(--amber);text-decoration:underline">streaming-data</a> — 6개 wiki 엔티티가 Part 4의 뼈대입니다.
+</div>
+</div>
+
+</section>
+
+<!-- Part 2 bridge -->
+<div class="dia reveal" style="border:2px solid var(--teal-border);background:var(--teal-bg);margin-top:2rem">
+<div style="text-align:center;padding:1.5rem">
+  <div style="font-family:var(--mono);font-size:.72rem;color:var(--teal);letter-spacing:2px;text-transform:uppercase;margin-bottom:.5rem">What's Next</div>
+  <div style="font-family:var(--display);font-size:1.3rem;font-weight:800;color:var(--white);margin-bottom:.8rem">
+    Part 2 — AI Agents 완전 가이드
+  </div>
+  <div style="font-size:.88rem;color:var(--text);line-height:1.85;max-width:650px;margin:0 auto">
+    Part 0에서 LLM을, Part 1에서 데이터의 구조를 배웠습니다. 이제 <strong style="color:var(--teal)">그 둘을 결합한 AI 에이전트</strong>를 배울 차례입니다. Memory, Tools, Planning, Multi-Agent — 에이전트의 4가지 구성요소를 도식으로 파헤칩니다.
+  </div>
+  <a href="/02-ai-agents" style="display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;padding:.7rem 1.5rem;border:1.5px solid var(--teal);background:var(--teal-bg);color:var(--teal);border-radius:10px;font-size:.88rem;font-weight:600;text-decoration:none;transition:all .3s" onmouseover="this.style.background='var(--teal)';this.style.color='#fff'" onmouseout="this.style.background='var(--teal-bg)';this.style.color='var(--teal)'">
+    Part 2 — AI Agents 가이드 보기 <span style="font-size:1.1rem">→</span>
+  </a>
+</div>
+</div>
+
 </Layout>
