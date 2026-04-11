@@ -43,10 +43,10 @@
 - **Plan-Critic-Build-Test** — 마지막에 테스트 단계 추가
 - **Multi-Critic** — 여러 관점의 비판자 (보안, 성능, 가독성)
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 4 — Ch.05 조합하는 패턴 — Plan-Critic-Build, Ralph Loop](../../src/content/vibe-master.html)
-- [Part 2 — Ch.02 디자인 패턴 5선](../../src/content/ai-agents-advanced.html) (간접 언급)
+- [Part 6 — Ch.05 조합하는 패턴 — Plan-Critic-Build, Ralph Loop](https://ai-contents-wine.vercel.app/06-vibe-master/)
+- [Part 3 — Ch.02 디자인 패턴 5선](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/) (간접 언급)
 
 ## 연관 entity
 

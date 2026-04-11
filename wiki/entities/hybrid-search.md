@@ -75,10 +75,10 @@ score(d) = α * bm25_norm(d) + (1 - α) * vector_norm(d)
 - Elasticsearch의 `_score`를 그대로 α-weighted에 넣으면 스케일이 맞지 않아 한쪽이 늘 이긴다 → 정규화 필수.
 - 같은 문서가 두 검색에서 모두 top에 들어오면 RRF가 강력하게 밀어올리지만, 그게 항상 정답은 아님 → [Reranking](./reranking.md) 필수.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 4 — Ch.06 엔터프라이즈 RAG 설계](../../src/content/data-enterprise.html)
-- [Part 1 — Ch.04 데이터의 두 세계](../../src/content/data-basics.html)
+- [Part 4 — Ch.06 엔터프라이즈 RAG 설계](https://ai-contents-wine.vercel.app/04-data-enterprise/)
+- [Part 1 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/01-data-basics/)
 
 ## 연관 entity
 

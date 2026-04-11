@@ -50,10 +50,10 @@
 - "더 큰 차원 = 더 좋음"이 아님. 실서비스에서는 512~1024가 sweet spot.
 - 임베딩 모델을 바꾸면 **전체 벡터 DB를 재인덱싱**해야 함.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.04 데이터의 두 세계](../../src/content/data-basics.html)
-- [Part 4 — Ch.06 엔터프라이즈 RAG 설계](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.06 엔터프라이즈 RAG 설계](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

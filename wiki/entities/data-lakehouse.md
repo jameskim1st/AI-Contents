@@ -87,10 +87,10 @@ SELECT * FROM sales TIMESTAMP AS OF '2026-04-09 00:00:00';
 RESTORE TABLE sales TO VERSION AS OF 127;
 ```
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.05 Lakehouse 등장](../../src/content/data-basics.html)
-- [Part 4 — Ch.06 Databricks vs Fabric](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.05 Lakehouse 등장](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.06 Databricks vs Fabric](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

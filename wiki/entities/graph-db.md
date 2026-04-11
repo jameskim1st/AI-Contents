@@ -126,10 +126,10 @@ SELECT ?friend WHERE {
 - 수평 확장이 어렵다(그래프 파티셔닝 자체가 NP-hard).
 - 인재 풀이 RDBMS보다 작다.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.10 Graph DB 입문](../../src/content/data-basics.html)
-- [Part 4 — Ch.11 GraphRAG와 지식 그래프](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.10 Graph DB 입문](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.11 GraphRAG와 지식 그래프](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

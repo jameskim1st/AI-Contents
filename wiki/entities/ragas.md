@@ -56,10 +56,10 @@
 - Ground-truth 없이 돌리면 절대 수치가 아닌 **상대 비교**로만 써야 함.
 - 한국어·일본어는 claim 분해 품질이 영어보다 떨어진다 → 판사 모델로 Claude Opus/GPT-4o 권장.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 4 — Ch.07 RAG 평가와 운영](../../src/content/data-enterprise.html)
-- [Part 2 — Ch.08 Evaluation](../../src/content/ai-agents-advanced.html)
+- [Part 4 — Ch.07 RAG 평가와 운영](https://ai-contents-wine.vercel.app/04-data-enterprise/)
+- [Part 3 — Ch.08 Evaluation](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/)
 
 ## 연관 entity
 

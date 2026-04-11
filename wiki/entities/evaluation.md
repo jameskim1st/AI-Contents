@@ -77,9 +77,9 @@
 3. 3개월: Continuous eval 파이프라인
 4. 6개월: 사용자 피드백 → eval 시나리오로 환원
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 2 — Ch.08 Evaluation — 비결정 시스템 평가](../../src/content/ai-agents-advanced.html) ⭐
+- [Part 3 — Ch.08 Evaluation — 비결정 시스템 평가](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/) ⭐
 
 ## 연관 entity
 

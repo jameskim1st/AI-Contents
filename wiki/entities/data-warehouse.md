@@ -62,10 +62,10 @@ Bill Inmon과 Ralph Kimball이 1990년대에 정립한, **분석 전용**으로 
 
 이 구조 때문에 "비효율 쿼리 한 방이 수천만 원"이 되는 사건이 잦아, **FinOps**가 별도 직군으로 자리 잡았다.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.02 데이터 웨어하우스와 OLAP](../../src/content/data-basics.html)
-- [Part 4 — Ch.03 클라우드 DW 비교](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.02 데이터 웨어하우스와 OLAP](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.03 클라우드 DW 비교](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

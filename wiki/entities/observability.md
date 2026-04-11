@@ -67,9 +67,9 @@
 - "환경 차이로 같은 trace 재현 불가" 문제
 - 멀티 에이전트에서는 트레이스가 복잡해서 사람이 못 따라감
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 2 — Ch.07 Observability — 비결정 시스템 디버깅](../../src/content/ai-agents-advanced.html) ⭐
+- [Part 3 — Ch.07 Observability — 비결정 시스템 디버깅](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/) ⭐
 
 ## 연관 entity
 

@@ -100,11 +100,11 @@
 - **Databricks**: Lakehouse로 시작 → SQL Warehouse 추가
 - **결론**: 둘 다 같은 방향으로 수렴 중. 2026년 Iceberg가 **테이블 포맷 표준**으로 정착.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.07 Modern Data Stack 한 눈에](../../src/content/data-basics.html)
-- [Part 4 — Ch.07 Modern Data Stack 구축](../../src/content/data-enterprise.html)
-- [Part 4 — Ch.09 Lakehouse vs Warehouse](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.07 Modern Data Stack 한 눈에](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.07 Modern Data Stack 구축](https://ai-contents-wine.vercel.app/04-data-enterprise/)
+- [Part 4 — Ch.09 Lakehouse vs Warehouse](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

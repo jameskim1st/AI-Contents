@@ -96,10 +96,10 @@ User
 - **Overzealous redaction** — LLM이 원문을 이해하지 못해 품질 저하.
 - **Re-identification 공격** — 익명화도 결합 공격에 취약.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.04 데이터의 두 세계](../../src/content/data-basics.html)
-- [Part 4 — Ch.08 보안과 프라이버시](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.08 보안과 프라이버시](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

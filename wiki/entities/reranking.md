@@ -74,10 +74,10 @@ LLM Generate
 - 1차 검색이 관련 문서를 Top-100에 못 넣었으면 reranker가 구해줄 수 없음 → Recall부터 올려야 함.
 - Reranker는 "검색 결과를 고르는" 작업이지 "답하는" 작업이 아님. 생성 품질은 별도 문제.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 4 — Ch.06 엔터프라이즈 RAG 설계](../../src/content/data-enterprise.html)
-- [Part 1 — Ch.04 데이터의 두 세계](../../src/content/data-basics.html)
+- [Part 4 — Ch.06 엔터프라이즈 RAG 설계](https://ai-contents-wine.vercel.app/04-data-enterprise/)
+- [Part 1 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/01-data-basics/)
 
 ## 연관 entity
 

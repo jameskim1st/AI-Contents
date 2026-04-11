@@ -84,11 +84,11 @@ CDC 이벤트는 자연스럽게 **Kafka 토픽**으로 흘러간다 → [Stream
 4. **초기 스냅샷** — 기존 데이터는 별도 initial load 필요.
 5. **운영 복잡성** — Kafka·Debezium·Schema Registry 3개를 다 운영해야 함. → **매니지드 서비스**(Confluent Cloud, Redpanda) 수요 증가.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.08 배치 vs 실시간 데이터](../../src/content/data-basics.html)
-- [Part 4 — Ch.10 실시간 데이터 파이프라인](../../src/content/data-enterprise.html)
-- [Part 4 — Ch.11 이벤트 기반 아키텍처](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.08 배치 vs 실시간 데이터](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.10 실시간 데이터 파이프라인](https://ai-contents-wine.vercel.app/04-data-enterprise/)
+- [Part 4 — Ch.11 이벤트 기반 아키텍처](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

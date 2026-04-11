@@ -65,10 +65,10 @@ PDF·스캔 이미지·표·차트 같은 **비정형(unstructured) 문서**를 
 - 긴 PDF는 **page-level [Chunking](./chunking.md)**과 결합.
 - **2026 현실** — 가장 비싼 최신 VLM 파싱으로도 복잡한 금융 10-K에서는 여전히 표 정확도 90% 미만. 사람 검토가 남는다.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.04 데이터의 두 세계](../../src/content/data-basics.html)
-- [Part 4 — Ch.05 Document AI와 전처리](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.05 Document AI와 전처리](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

@@ -33,12 +33,12 @@ Anthropic이 만든 터미널 기반 AI 코딩 에이전트. [CLAUDE.md](./claud
 - Bash 도구로 lint·검증 자동화 가능
 - 사람의 승인 게이트가 자연스럽게 lint 단계에 들어맞음
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 3 — 전체](../../src/content/vibe-master.html)
-- [Part 3 — Ch.02 왜 Claude Code인가](../../src/content/vibe-master.html)
-- [Part 3 — Ch.04 하네스 엔지니어링](../../src/content/vibe-master.html)
-- [Part 3 — Ch.09 LLM Wiki](../../src/content/vibe-master.html)
+- [Part 6 — 전체](https://ai-contents-wine.vercel.app/06-vibe-master/)
+- [Part 6 — Ch.02 왜 Claude Code인가](https://ai-contents-wine.vercel.app/06-vibe-master/)
+- [Part 6 — Ch.04 하네스 엔지니어링](https://ai-contents-wine.vercel.app/06-vibe-master/)
+- [Part 6 — Ch.09 LLM Wiki](https://ai-contents-wine.vercel.app/06-vibe-master/)
 
 ## 연관 entity
 

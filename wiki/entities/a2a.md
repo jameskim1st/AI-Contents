@@ -71,12 +71,12 @@ A2A는 다음 스택의 중간 계층:
 
 ### 강의에서 강조점
 
-[Part 1 Ch.07 Multi-Agent](../../src/content/ai-agents.html)는 "에이전트가 서로 협업한다"는 개념만. A2A는 그 협업이 **어떻게 표준 방식으로 구현되는가** 를 다룬다. 개념의 운영적 진화.
+[Part 1 Ch.07 Multi-Agent](https://ai-contents-wine.vercel.app/02-ai-agents/)는 "에이전트가 서로 협업한다"는 개념만. A2A는 그 협업이 **어떻게 표준 방식으로 구현되는가** 를 다룬다. 개념의 운영적 진화.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 2 — Ch.05 A2A — 멀티 에이전트 통신 표준](../../src/content/ai-agents-advanced.html) ⭐
-- [Part 1 — Ch.07 Multi-Agent](../../src/content/ai-agents.html) (전제)
+- [Part 3 — Ch.05 A2A — 멀티 에이전트 통신 표준](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/) ⭐
+- [Part 2 — Ch.07 Multi-Agent](https://ai-contents-wine.vercel.app/02-ai-agents/) (전제)
 
 ## 연관 entity
 

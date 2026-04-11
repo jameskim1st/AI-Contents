@@ -69,10 +69,10 @@
 - 해석 가능성은 높아지지만 구축·운영 복잡도↑.
 - 벡터 RAG와 병행하는 "GraphRAG + Vector" 하이브리드가 실전에서 가장 흔함.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 4 — Ch.08 GraphRAG와 Knowledge Graph](../../src/content/data-enterprise.html)
-- [Part 1 — Ch.04 데이터의 두 세계](../../src/content/data-basics.html)
+- [Part 4 — Ch.08 GraphRAG와 Knowledge Graph](https://ai-contents-wine.vercel.app/04-data-enterprise/)
+- [Part 1 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/01-data-basics/)
 
 ## 연관 entity
 

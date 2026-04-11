@@ -72,9 +72,9 @@
 - UI 변경에 약함
 - "사람이라면 하지 않을 실수" 발생
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 2 — Ch.06 Computer Use — 컴퓨터를 직접 쓰는 에이전트](../../src/content/ai-agents-advanced.html) ⭐
+- [Part 3 — Ch.06 Computer Use — 컴퓨터를 직접 쓰는 에이전트](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/) ⭐
 
 ## 연관 entity
 

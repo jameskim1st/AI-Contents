@@ -35,9 +35,9 @@
 - 라우팅 알고리즘 개선이 핵심 연구 주제
 - "Sparse activation"이 표준이 되어가는 중
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 0 — Ch.06 MoE — 2026의 새 아키텍처 트렌드](../../src/content/llm.html)
+- [Part 0 — Ch.06 MoE — 2026의 새 아키텍처 트렌드](https://ai-contents-wine.vercel.app/00-llm/)
 
 ## 연관 entity
 

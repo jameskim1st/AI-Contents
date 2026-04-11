@@ -45,10 +45,10 @@ LLM은 **Knowledge 층에서 놀랍게 잘한다**. 그러나 입력되는 Data/
 - 데이터 레이크/웨어하우스보다 **데이터 품질·거버넌스** 투자가 우선
 - CDO(Chief Data Officer)의 역할이 CAIO(Chief AI Officer)와 통합되는 추세
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.01 데이터란 무엇인가](../../src/content/data-basics.html)
-- [Part 4 — Ch.01 엔터프라이즈 데이터 전략](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.01 데이터란 무엇인가](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.01 엔터프라이즈 데이터 전략](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

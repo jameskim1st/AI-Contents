@@ -56,11 +56,11 @@ LLM이 답변을 생성하기 전에 외부 지식 저장소에서 관련 문서
 - 검색 품질이 전체 품질의 천장 → [Hybrid Search](./hybrid-search.md), [Reranking](./reranking.md) 필수.
 - 평가가 어렵다 → [RAGAS](./ragas.md) 같은 자동 메트릭 필요.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.04 데이터의 두 세계](../../src/content/data-basics.html)
-- [Part 4 — Ch.06 엔터프라이즈 RAG 설계](../../src/content/data-enterprise.html)
-- [Part 3 — Ch.09 LLM Wiki](../../src/content/vibe-master.html) (RAG와의 대비)
+- [Part 1 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.06 엔터프라이즈 RAG 설계](https://ai-contents-wine.vercel.app/04-data-enterprise/)
+- [Part 6 — Ch.09 LLM Wiki](https://ai-contents-wine.vercel.app/06-vibe-master/) (RAG와의 대비)
 
 ## 연관 entity
 

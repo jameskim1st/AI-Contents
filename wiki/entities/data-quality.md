@@ -76,10 +76,10 @@
 
 [EU AI Act](./eu-ai-act.md) **Article 10**은 고위험 AI 시스템의 학습·검증·테스트 데이터에 대해 **"품질 기준 충족"**과 **"대표성·편향 분석 문서화"**를 의무화한다. 데이터 품질은 이제 거버넌스 요구사항이다 — 내부 KPI가 아니라 **감사 대상**.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.04 데이터의 두 세계](../../src/content/data-basics.html)
-- [Part 4 — Ch.03 데이터 품질과 거버넌스](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.03 데이터 품질과 거버넌스](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

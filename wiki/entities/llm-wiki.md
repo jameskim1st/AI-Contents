@@ -45,10 +45,10 @@ RAG는 검색 시점에 모든 작업을 한다. LLM Wiki는 **컴파일 시점*
 - Lint를 안 하면 모순이 누적
 - 대상 자료가 너무 자주 바뀌면 wiki 갱신 비용 > 재검색 비용
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 3 — Ch.09 LLM Wiki — 지식의 컴파일](../../src/content/vibe-master.html)
-- [Part 1 — Ch.05 Memory](../../src/content/ai-agents.html) (cross-reference)
+- [Part 6 — Ch.09 LLM Wiki — 지식의 컴파일](https://ai-contents-wine.vercel.app/06-vibe-master/)
+- [Part 2 — Ch.05 Memory](https://ai-contents-wine.vercel.app/02-ai-agents/) (cross-reference)
 
 ## 연관 entity
 

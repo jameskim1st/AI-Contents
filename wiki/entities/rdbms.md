@@ -45,10 +45,10 @@
 3. **분석 쿼리에 느림** — 수억 행의 집계 쿼리는 columnar 저장소에 밀린다. → [Data Warehouse](./data-warehouse.md)가 분담.
 4. **스키마 변경 비용** — 운영 중 `ALTER TABLE`은 락·다운타임 위험.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.01 데이터 저장소의 종류](../../src/content/data-basics.html)
-- [Part 4 — Ch.02 엔터프라이즈 데이터 아키텍처](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.01 데이터 저장소의 종류](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.02 엔터프라이즈 데이터 아키텍처](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

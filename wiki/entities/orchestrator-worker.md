@@ -49,12 +49,12 @@
 - 워커 간 통신 비용 (이 때문에 [A2A](./a2a.md) 프로토콜 등장)
 - "오케스트레이터가 워커를 잘못 부르면" 디버깅 어려움
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.07 Multi-Agent 협업](../../src/content/ai-agents.html) (기초)
-- [Part 2 — Ch.02 에이전트 디자인 패턴 5선](../../src/content/ai-agents-advanced.html)
-- [Part 2 — Ch.05 A2A 프로토콜](../../src/content/ai-agents-advanced.html)
-- [Part 4 — Ch.07 멀티 에이전트 활용](../../src/content/vibe-master.html)
+- [Part 2 — Ch.07 Multi-Agent 협업](https://ai-contents-wine.vercel.app/02-ai-agents/) (기초)
+- [Part 3 — Ch.02 에이전트 디자인 패턴 5선](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/)
+- [Part 3 — Ch.05 A2A 프로토콜](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/)
+- [Part 6 — Ch.07 멀티 에이전트 활용](https://ai-contents-wine.vercel.app/06-vibe-master/)
 
 ## 연관 entity
 

@@ -86,11 +86,11 @@
 - **Iceberg + Streaming** — Iceberg 테이블 포맷이 배치·스트림 통합의 접착제
 - **AI 통합** — Kafka → Vector DB → LLM 파이프라인
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.08 배치 vs 실시간 데이터](../../src/content/data-basics.html)
-- [Part 4 — Ch.10 실시간 데이터 파이프라인](../../src/content/data-enterprise.html)
-- [Part 4 — Ch.11 이벤트 기반 아키텍처](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.08 배치 vs 실시간 데이터](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.10 실시간 데이터 파이프라인](https://ai-contents-wine.vercel.app/04-data-enterprise/)
+- [Part 4 — Ch.11 이벤트 기반 아키텍처](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

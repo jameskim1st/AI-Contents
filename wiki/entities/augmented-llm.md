@@ -31,10 +31,10 @@
 - Agent: LLM이 **스스로** 도구 호출 시점·순서·횟수 결정
 - 실제로는 스펙트럼이며 명확한 경계 없음
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.02 Augmented LLM](../../src/content/ai-agents.html)
-- [Part 1 — Ch.03 Agent와의 회색 지대](../../src/content/ai-agents.html)
+- [Part 2 — Ch.02 Augmented LLM](https://ai-contents-wine.vercel.app/02-ai-agents/)
+- [Part 2 — Ch.03 Agent와의 회색 지대](https://ai-contents-wine.vercel.app/02-ai-agents/)
 
 ## 연관 entity
 

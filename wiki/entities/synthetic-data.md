@@ -87,10 +87,10 @@ Training set
 
 [EU AI Act](./eu-ai-act.md) Article 10은 **데이터 출처와 대표성**을 문서화할 것을 요구. 합성 데이터 비중, 생성 방법, seed 분포, 편향 검증을 명시적으로 기록해야 함 — 2026년 이후 AI 모델 카드(Model Card)의 필수 섹션이 됨.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.04 데이터의 두 세계](../../src/content/data-basics.html)
-- [Part 4 — Ch.09 AI 거버넌스와 데이터 생애주기](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.09 AI 거버넌스와 데이터 생애주기](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

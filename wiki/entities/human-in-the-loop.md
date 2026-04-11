@@ -50,10 +50,10 @@
 - ✅ 코딩: 문법 수정은 자동, 아키텍처 변경은 사람 승인
 - ✅ 의료 진단: 1차 분류는 AI, 최종 진단은 의사
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 2 — Ch.03 Narrow Scope 원칙](../../src/content/ai-agents-advanced.html)
-- [Part 4 — Ch.04 하네스 엔지니어링 (승인 게이트)](../../src/content/vibe-master.html)
+- [Part 3 — Ch.03 Narrow Scope 원칙](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/)
+- [Part 6 — Ch.04 하네스 엔지니어링 (승인 게이트)](https://ai-contents-wine.vercel.app/06-vibe-master/)
 
 ## 연관 entity
 

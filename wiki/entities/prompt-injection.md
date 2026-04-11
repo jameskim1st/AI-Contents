@@ -65,9 +65,9 @@
 
 해결책은 "공격을 막는" 것보다 "**Blast radius를 좁히는**" 데 있다. [Narrow Scope](./narrow-scope.md), [Human-in-the-Loop](./human-in-the-loop.md), Sandboxing의 조합.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 2 — Ch.09 보안과 비용](../../src/content/ai-agents-advanced.html) ⭐
+- [Part 3 — Ch.09 보안과 비용](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/) ⭐
 
 ## 연관 entity
 

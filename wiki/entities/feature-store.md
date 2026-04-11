@@ -84,10 +84,10 @@ RAG·에이전트가 핫하지만 **전통 ML 워크로드**는 사라지지 않
 - **Streaming feature 어려움** — 실시간 집계는 여전히 Flink·Kafka Streams와 결합해야.
 - **LLM과의 접점 부족** — 대부분의 Feature Store가 고차원 벡터·임베딩에는 약함.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.04 데이터의 두 세계](../../src/content/data-basics.html)
-- [Part 4 — Ch.05 MLOps와 Feature Store](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.05 MLOps와 Feature Store](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

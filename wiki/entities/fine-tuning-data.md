@@ -101,10 +101,10 @@ Human feedback은 **느리고 비싸고 주관적**이다. 2024년부터 **"AI f
 - 한국어·일본어처럼 preference data가 부족한 언어는 여전히 **영어 번역 + 로컬화** 패턴이 흔함.
 - [EU AI Act](./eu-ai-act.md) Article 10은 fine-tuning 데이터도 출처·편향 문서화 대상으로 본다.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.04 데이터의 두 세계](../../src/content/data-basics.html)
-- [Part 4 — Ch.02 LLM 학습 데이터의 정치학](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.02 LLM 학습 데이터의 정치학](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

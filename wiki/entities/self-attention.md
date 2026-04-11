@@ -35,9 +35,9 @@
 - Transformer + Self-Attention: 모든 위치를 동시에 보기 → 거리 무관 → 병렬 GPU 활용 가능
 - 이 덕분에 모델을 거대화할 수 있게 됨 → LLM 시대의 시작
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 0 — Ch.04 Transformer가 혁명적인 이유 (Self-Attention)](../../src/content/llm.html)
+- [Part 0 — Ch.04 Transformer가 혁명적인 이유 (Self-Attention)](https://ai-contents-wine.vercel.app/00-llm/)
 
 ## 연관 entity
 

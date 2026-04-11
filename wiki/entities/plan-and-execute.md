@@ -51,10 +51,10 @@
 - 계획에 없던 상황에 약함 → Replan 필요
 - 단순 작업에는 ReAct보다 무거움
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 2 — Ch.02 에이전트 디자인 패턴 5선](../../src/content/ai-agents-advanced.html)
-- [Part 1 — Ch.06 Planning](../../src/content/ai-agents.html)
+- [Part 3 — Ch.02 에이전트 디자인 패턴 5선](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/)
+- [Part 2 — Ch.06 Planning](https://ai-contents-wine.vercel.app/02-ai-agents/)
 
 ## 연관 entity
 

@@ -34,10 +34,10 @@
 - [Harness Engineering](./harness-engineering.md) — vibe coding이 안정적으로 돌아가는 환경 만들기
 - [LLM Wiki](./llm-wiki.md) — 프로젝트 지식을 사람과 AI가 함께 누적
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 2 — 바이브코딩 (전반)](../../src/content/vibe-basic.html)
-- [Part 3 — 바이브코딩 심화 (전반)](../../src/content/vibe-master.html)
+- [Part 5 — 바이브코딩 (전반)](https://ai-contents-wine.vercel.app/05-vibe-basic/)
+- [Part 6 — 바이브코딩 심화 (전반)](https://ai-contents-wine.vercel.app/06-vibe-master/)
 
 ## 연관 entity
 

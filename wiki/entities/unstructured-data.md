@@ -60,11 +60,11 @@
 2. 어떻게 파싱·청킹·임베딩하나
 3. 어떻게 권한·PII를 거르나
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.02 정형 vs 비정형 vs 반정형](../../src/content/data-basics.html)
-- [Part 1 — Ch.03 왜 비정형 데이터가 AI의 핵심인가](../../src/content/data-basics.html)
-- [Part 4 — Ch.05 엔터프라이즈 문서 AI](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.02 정형 vs 비정형 vs 반정형](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 1 — Ch.03 왜 비정형 데이터가 AI의 핵심인가](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.05 엔터프라이즈 문서 AI](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

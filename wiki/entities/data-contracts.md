@@ -54,10 +54,10 @@ sla:
 
 Data Mesh의 "Data as a Product" 원칙을 **운영화** 하는 메커니즘. 데이터 제품마다 contract가 있어야 마켓플레이스가 작동.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 4 — Ch.10 데이터 거버넌스](../../src/content/data-enterprise.html)
-- [Part 4 — Ch.02 Modern Data Stack](../../src/content/data-enterprise.html)
+- [Part 4 — Ch.10 데이터 거버넌스](https://ai-contents-wine.vercel.app/04-data-enterprise/)
+- [Part 4 — Ch.02 Modern Data Stack](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

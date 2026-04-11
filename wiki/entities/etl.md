@@ -62,10 +62,10 @@ ETL이 완전히 죽은 건 아니다:
 - 규제·컴플라이언스가 엄격한 영역에서는 "적재 전 정제"가 요구됨.
 - **ETL 툴 벤더들도 클라우드 ELT로 전환** 중 (Informatica IDMC, Talend Cloud).
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.05 데이터 파이프라인의 역사](../../src/content/data-basics.html)
-- [Part 4 — Ch.06 레거시 ETL에서 Modern Data Stack으로](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.05 데이터 파이프라인의 역사](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.06 레거시 ETL에서 Modern Data Stack으로](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

@@ -67,9 +67,9 @@ Infrastructure (vector DB, tool servers, observability)
 
 이유: 프레임워크는 갈아끼울 수 있지만, 프로토콜은 생태계가 결정. 프로토콜에 베팅하는 게 장기적으로 안전.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 2 — Ch.10 2026 프레임워크 카탈로그](../../src/content/ai-agents-advanced.html) ⭐
+- [Part 3 — Ch.10 2026 프레임워크 카탈로그](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/) ⭐
 
 ## 연관 entity
 

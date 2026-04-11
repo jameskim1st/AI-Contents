@@ -61,10 +61,10 @@ Data Lake가 통제 없이 운영되면 **Data Swamp(늪)**가 된다.
 
 Data Lake 자체를 "최종 분석 플랫폼"으로 쓰는 곳은 거의 없다. 대신 **Lakehouse의 storage layer**로서 [Delta Lake](./delta-lake.md) / [Apache Iceberg](./apache-iceberg.md) 테이블 포맷이 올라가는 기반이 된다.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.04 Data Lake와 비정형 데이터](../../src/content/data-basics.html)
-- [Part 4 — Ch.05 Lake에서 Lakehouse로](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.04 Data Lake와 비정형 데이터](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.05 Lake에서 Lakehouse로](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

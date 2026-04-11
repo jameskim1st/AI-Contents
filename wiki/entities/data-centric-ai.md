@@ -84,10 +84,10 @@ Ng의 철학: **"모델 1%를 짜내기 위해 아키텍처 2주 튜닝하느니
 - **Scale AI / Surge AI** — 고품질 라벨링 서비스.
 - **Argilla** — 오픈소스 데이터 큐레이션 플랫폼.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.04 데이터의 두 세계](../../src/content/data-basics.html)
-- [Part 4 — Ch.03 데이터 품질과 거버넌스](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.03 데이터 품질과 거버넌스](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

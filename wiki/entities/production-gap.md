@@ -32,9 +32,9 @@
 
 [Narrow Scope](./narrow-scope.md) + [Human-in-the-Loop](./human-in-the-loop.md) + [Observability](./observability.md) + [Evaluation](./evaluation.md) — 이 4가지가 프로덕션 도달 에이전트의 공통점.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 2 — Ch.01 왜 PoC는 잘 되는데 프로덕션은 안 되나](../../src/content/ai-agents-advanced.html) ⭐ 핵심 챕터
+- [Part 3 — Ch.01 왜 PoC는 잘 되는데 프로덕션은 안 되나](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/) ⭐ 핵심 챕터
 
 ## 연관 entity
 

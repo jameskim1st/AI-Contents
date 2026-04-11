@@ -46,10 +46,10 @@ Final Answer: ...
 - [Plan-and-Execute](./plan-and-execute.md) — 먼저 전체 계획, 그다음 실행
 - ReWOO — Reasoning Without Observation (계획 단계에서 도구 호출 분리)
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 2 — Ch.02 에이전트 디자인 패턴 5선](../../src/content/ai-agents-advanced.html)
-- [Part 1 — Ch.06 Planning](../../src/content/ai-agents.html) (간접 언급)
+- [Part 3 — Ch.02 에이전트 디자인 패턴 5선](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/)
+- [Part 2 — Ch.06 Planning](https://ai-contents-wine.vercel.app/02-ai-agents/) (간접 언급)
 
 ## 연관 entity
 

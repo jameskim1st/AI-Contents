@@ -90,10 +90,10 @@ Slack MCP 서버 — 1개. 동일.
 └──────────────────┘
 ```
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 2 — Ch.04 MCP — 도구 통합의 표준](../../src/content/ai-agents-advanced.html) ⭐ 핵심 챕터
-- [Part 1 — Ch.05 Tools](../../src/content/ai-agents.html) (간접 언급, 진화형)
+- [Part 3 — Ch.04 MCP — 도구 통합의 표준](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/) ⭐ 핵심 챕터
+- [Part 2 — Ch.05 Tools](https://ai-contents-wine.vercel.app/02-ai-agents/) (간접 언급, 진화형)
 
 ## 연관 entity
 

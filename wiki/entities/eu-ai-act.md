@@ -91,10 +91,10 @@ EU가 2024년 공식 채택한 세계 최초의 포괄적 AI 규제 법. 위험 
 - Meta·X는 유럽 출시 지연 또는 축소, OpenAI·Anthropic·Google은 내부 거버넌스팀 확대.
 - 한국·일본·영국은 EU Act를 벤치마크로 자체 프레임워크 조율.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 4 — Ch.09 AI 거버넌스와 EU AI Act](../../src/content/data-enterprise.html) ⭐
-- [Part 1 — Ch.04 데이터의 두 세계](../../src/content/data-basics.html)
+- [Part 4 — Ch.09 AI 거버넌스와 EU AI Act](https://ai-contents-wine.vercel.app/04-data-enterprise/) ⭐
+- [Part 1 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/01-data-basics/)
 
 ## 연관 entity
 

@@ -35,10 +35,10 @@ Claude Code가 프로젝트 디렉토리에서 자동으로 읽어 들이는 작
 
 LLM Wiki Schema는 CLAUDE.md를 **지식 관리 영역으로 확장한 형태** 라고 볼 수 있다.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 3 — Ch.05 (Harness Engineering 내)](../../src/content/vibe-master.html)
-- [Part 3 — Ch.09 LLM Wiki](../../src/content/vibe-master.html) (Schema와 비교)
+- [Part 6 — Ch.05 (Harness Engineering 내)](https://ai-contents-wine.vercel.app/06-vibe-master/)
+- [Part 6 — Ch.09 LLM Wiki](https://ai-contents-wine.vercel.app/06-vibe-master/) (Schema와 비교)
 
 ## 연관 entity
 

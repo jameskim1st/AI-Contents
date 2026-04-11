@@ -34,9 +34,9 @@
 - 2022~: 거대화 (수십~수천억 파라미터)
 - 2024~: [MoE](./moe.md) 적용으로 효율화
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 0 — Ch.04 Transformer가 혁명적인 이유](../../src/content/llm.html)
+- [Part 0 — Ch.04 Transformer가 혁명적인 이유](https://ai-contents-wine.vercel.app/00-llm/)
 
 ## 연관 entity
 

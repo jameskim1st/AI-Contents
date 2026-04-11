@@ -103,10 +103,10 @@ NoSQL 초기의 "RDBMS 대체" 담론은 사라졌다. 대신 **polyglot persist
 - 분석: [Data Lakehouse](./data-lakehouse.md)
 - 관계 데이터: [Graph DB](./graph-db.md)
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.09 NoSQL 4대 유형](../../src/content/data-basics.html)
-- [Part 4 — Ch.10 Polyglot Persistence 전략](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.09 NoSQL 4대 유형](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.10 Polyglot Persistence 전략](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

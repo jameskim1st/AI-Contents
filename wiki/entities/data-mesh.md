@@ -110,10 +110,10 @@ sla:
 - [Vector DB](./vector-db.md) 기반 "**Knowledge product**" 개념 등장 — 내부 문서를 벡터화해 노출.
 - [EU AI Act](./eu-ai-act.md) Article 10 준수를 위해 **도메인별 데이터 거버넌스**가 법적으로도 유리.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.04 데이터의 두 세계](../../src/content/data-basics.html)
-- [Part 4 — Ch.07 엔터프라이즈 데이터 조직론](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.07 엔터프라이즈 데이터 조직론](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

@@ -94,10 +94,10 @@ def gold_daily_revenue():
 - "3층이면 충분"한 것은 아니다. 큰 조직은 Silver를 여러 단계로 쪼개거나, Platinum 층을 추가하기도 한다.
 - Medallion은 **논리적 레이어링**이지 물리적 DB가 3개라는 뜻이 아니다. 같은 Lakehouse 안의 schema로 구현된다.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.08 Medallion Architecture](../../src/content/data-basics.html)
-- [Part 4 — Ch.09 Lakehouse 파이프라인 설계](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.08 Medallion Architecture](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.09 Lakehouse 파이프라인 설계](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

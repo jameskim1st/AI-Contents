@@ -55,10 +55,10 @@
 - PDF OCR 결과를 그대로 split → `ﬁ` 같은 ligature·줄바꿈 오염.
 - 언어 무시 (한·중·일은 공백 기반 splitter가 실패).
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.04 데이터의 두 세계](../../src/content/data-basics.html)
-- [Part 4 — Ch.06 엔터프라이즈 RAG 설계](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.06 엔터프라이즈 RAG 설계](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

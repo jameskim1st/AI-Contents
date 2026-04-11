@@ -53,10 +53,10 @@ LLM 시대에도 **정형 데이터는 여전히 핵심**이다. 단, 역할이 
 - 현재: **Text-to-SQL**로 LLM이 쿼리 생성 (ChatGPT Advanced Analytics, Claude Code SQL 도구)
 - Snowflake Cortex, Databricks Genie가 대표. 정형 데이터 위에 **semantic layer**를 얹어 자연어 질의를 가능케 한다.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.02 정형 vs 비정형 vs 반정형](../../src/content/data-basics.html)
-- [Part 4 — Ch.03 엔터프라이즈 데이터 아키텍처](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.02 정형 vs 비정형 vs 반정형](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.03 엔터프라이즈 데이터 아키텍처](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

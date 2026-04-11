@@ -37,10 +37,10 @@
 - 자기 비판의 무한 루프 가능
 - "자신감 있게 틀린 답"은 못 잡음 (LLM이 자기 오류 패턴을 모름)
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 2 — Ch.02 에이전트 디자인 패턴 5선](../../src/content/ai-agents-advanced.html)
-- [Part 4 — Ch.05 조합하는 패턴 — Plan-Critic-Build](../../src/content/vibe-master.html) (vibe-master Ch.05)
+- [Part 3 — Ch.02 에이전트 디자인 패턴 5선](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/)
+- [Part 6 — Ch.05 조합하는 패턴 — Plan-Critic-Build](https://ai-contents-wine.vercel.app/06-vibe-master/) (vibe-master Ch.05)
 
 ## 연관 entity
 

@@ -70,10 +70,10 @@ Fivetran이 2026년 기준 **10,000+ 커넥터**, dbt는 **100만+ 주간 활성
 | 실시간성 | 배치 | 배치+스트림 |
 | 2026 주류 | 레거시 | ✅ |
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.05 데이터 파이프라인의 역사](../../src/content/data-basics.html)
-- [Part 4 — Ch.07 Modern Data Stack 구축](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.05 데이터 파이프라인의 역사](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.07 Modern Data Stack 구축](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

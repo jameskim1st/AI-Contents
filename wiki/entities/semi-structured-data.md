@@ -71,10 +71,10 @@ LLM의 **구조화된 출력(Structured Output)**이 사실상 JSON으로 통일
 
 **에이전트의 도구 호출(tool_use), MCP 프로토콜의 메시지**도 전부 JSON. 즉 반정형은 **AI-시스템 간 통신의 공용어**가 됐다.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.02 정형 vs 비정형 vs 반정형](../../src/content/data-basics.html)
-- [Part 4 — Ch.04 API와 데이터 교환](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.02 정형 vs 비정형 vs 반정형](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.04 API와 데이터 교환](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

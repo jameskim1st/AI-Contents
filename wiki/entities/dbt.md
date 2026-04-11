@@ -81,11 +81,11 @@ Snowflake, BigQuery, Databricks, Redshift, Postgres, Trino, DuckDB, Microsoft Fa
 2. **실시간 아님** — 배치 지향. 스트리밍은 Materialize·RisingWave가 별도로 필요.
 3. **학습곡선** — Jinja·매크로가 초심자에게 어려움.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.06 SQL을 엔지니어링처럼](../../src/content/data-basics.html)
-- [Part 4 — Ch.07 Modern Data Stack 구축](../../src/content/data-enterprise.html)
-- [Part 4 — Ch.08 Analytics Engineering 실전](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.06 SQL을 엔지니어링처럼](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.07 Modern Data Stack 구축](https://ai-contents-wine.vercel.app/04-data-enterprise/)
+- [Part 4 — Ch.08 Analytics Engineering 실전](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

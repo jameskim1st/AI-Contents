@@ -102,10 +102,10 @@ print(len(tokens))  # 비용 ≈ token 수 × $0.xx
 - **Vision-language 모델**은 이미지 패치도 "토큰"으로 통합 (ViT-style).
 - 한국 연구자들은 **한국어 토큰 효율 벤치마크** (KoEffi) 발표, 모델 선택의 지표로 자리잡음.
 
-## 강의 어디에 나오나
+## Reference
 
-- [Part 1 — Ch.03 LLM의 기본 단위](../../src/content/data-basics.html)
-- [Part 4 — Ch.04 한국어 LLM 비용 구조](../../src/content/data-enterprise.html)
+- [Part 1 — Ch.03 LLM의 기본 단위](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 4 — Ch.04 한국어 LLM 비용 구조](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 
 ## 연관 entity
 

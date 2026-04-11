@@ -35,8 +35,10 @@ Karpathy의 LLM Wiki gist를 우리 프로젝트(AI 교육 콘텐츠)에 맞게 
 본문. 필요한 만큼 길게 써도 되지만, 다른 entity와 겹치는 내용은
 링크로 위임한다 (`[Transformer](./transformer.md)` 형식).
 
-## 강의 어디에 나오나
-- [Part X — Ch.YY 챕터제목](../../src/content/{file}.html#anchor)
+## Reference
+- [Part X — Ch.YY 챕터제목](https://ai-contents-wine.vercel.app/0X-{slug}/#anchor)
+
+(배포된 Vercel URL을 사용. 사이트가 GitHub에 호스팅되어 wiki 파일도 GitHub에서 렌더링되므로, 강의 링크는 배포 사이트로 보내야 작동한다. `Part X` 숫자는 URL slug의 prefix 숫자와 반드시 일치시킬 것.)
 
 ## 연관 entity
 - [{name}](./{name}.md) — 한 줄 관계 설명
