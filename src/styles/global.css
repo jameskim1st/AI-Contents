@@ -86,7 +86,7 @@
 .ch-nav{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center}
 .ch-nav a{font-family:var(--mono);font-size:.7rem;color:var(--text-dim);text-decoration:none;padding:.4rem .8rem;border:1px solid var(--border);border-radius:6px;transition:all .3s}
 .ch-nav a:hover{border-color:var(--accent);color:var(--accent)}
-.ch-nav a .cn{color:var(--teal);margin-right:.3rem}
+.ch-nav a .cn{color:var(--teal);margin-right:.45rem;font-weight:700}
 
 /* ===== FILE 1 CSS (AI Agents) ===== */
 
