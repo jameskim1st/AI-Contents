@@ -2,10 +2,10 @@
 <!-- PART 1: AI AGENTS -->
 <div class="part-header" id="part1">
   <div class="part-header-inner">
-    <span class="part-header-num" style="color:var(--teal)">Part 1</span>
+    <span class="part-header-num" style="color:var(--teal)">Part 2</span>
     <h2 class="part-header-title">AI Agents 완전 가이드</h2>
     <p class="part-header-desc">AI 에이전트의 핵심 구성요소부터 실제 동작 원리까지</p>
-    <p style="font-size:.85rem;color:var(--teal);margin-bottom:1rem;">📖 먼저 AI가 어떻게 작동하는지 <strong>이론적 기초</strong>를 다집니다. 이 개념이 Part 3의 바이브코딩, Part 5의 Power Platform으로 이어집니다.</p>
+    <p style="font-size:.85rem;color:var(--teal);margin-bottom:1rem;">📖 먼저 AI가 어떻게 작동하는지 <strong>이론적 기초</strong>를 다집니다. 이 개념이 Part 5의 바이브코딩, Part 7의 Power Platform으로 이어집니다.</p>
     <nav class="ch-nav">
       <a href="#p1-ch1"><span class="cn">01</span>LLM이란?</a>
       <a href="#p1-ch2"><span class="cn">02</span>Augmented LLM</a>
@@ -18,9 +18,9 @@
   </div>
 </div>
 
-<!-- ── Part 1 전체 로드맵 ── -->
+<!-- ── Part 2 전체 로드맵 ── -->
 <div class="dia reveal" style="margin-bottom:2rem">
-<div class="dia-title">🗺️ Part 1 로드맵 — LLM에서 AI 에이전트까지의 진화</div>
+<div class="dia-title">🗺️ Part 2 로드맵 — LLM에서 AI 에이전트까지의 진화</div>
 <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:1rem">AI가 "똑똑한 앵무새"에서 "자율적인 직원"으로 발전하는 과정을 따라갑니다</div>
 
 <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:0;align-items:start;max-width:800px;margin:0 auto">
@@ -96,7 +96,7 @@
   <div class="diagram" style="border-left:3px solid var(--teal);background:var(--teal-dim)">
     <div class="diagram-title" style="color:var(--teal)">💡 이 챕터의 초점 — LLM의 한계를 정확히 이해하자</div>
     <div style="font-size:.88rem;color:var(--text);line-height:1.85">
-      Part 0가 <strong>"LLM이 어떻게 작동하는가"</strong>였다면, Part 1의 출발점은 <strong>"LLM 혼자서는 무엇을 못하는가"</strong>입니다. 이 한계들이 바로 <strong style="color:var(--teal)">Memory · Tools · Planning</strong> — 즉 에이전트 구성 요소의 등장 배경입니다.
+      Part 0가 <strong>"LLM이 어떻게 작동하는가"</strong>였다면, Part 2의 출발점은 <strong>"LLM 혼자서는 무엇을 못하는가"</strong>입니다. 이 한계들이 바로 <strong style="color:var(--teal)">Memory · Tools · Planning</strong> — 즉 에이전트 구성 요소의 등장 배경입니다.
     </div>
   </div>
 
@@ -948,7 +948,7 @@
   </div>
 
   <div style="margin:1.2rem 0;padding:.9rem 1.2rem;border-left:3px solid var(--violet);background:var(--violet-dim);border-radius:0 10px 10px 0;font-size:.85rem;color:var(--text);line-height:1.85">
-    💡 <strong style="color:var(--violet);">더 야심찬 장기 메모리 패턴</strong> — 2026년 4월 Andrej Karpathy가 제안한 <a href="/04-vibe-master#vm-ch9" style="color:var(--accent);text-decoration:underline">LLM Wiki 패턴(Part 4 Ch.09)</a>은 "벡터 DB로 검색"하는 대신 "LLM이 markdown 위키를 점진적으로 빌드·유지"하는 방식입니다. 장기 메모리의 진화형으로 보면 됩니다.
+    💡 <strong style="color:var(--violet);">더 야심찬 장기 메모리 패턴</strong> — 2026년 4월 Andrej Karpathy가 제안한 <a href="/06-vibe-master#vm-ch9" style="color:var(--accent);text-decoration:underline">LLM Wiki 패턴(Part 6 Ch.09)</a>은 "벡터 DB로 검색"하는 대신 "LLM이 markdown 위키를 점진적으로 빌드·유지"하는 방식입니다. 장기 메모리의 진화형으로 보면 됩니다.
   </div>
 
   <h3>Short-term Memory: Context Window 활용</h3>
@@ -1712,9 +1712,9 @@
   </p>
   <div style="padding:.8rem 1.2rem;background:var(--amber-dim);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;margin-bottom:1.5rem;font-size:.82rem;color:var(--text);line-height:1.8">
     ⚠️ <strong style="color:var(--amber)">용어 주의:</strong> "도구(Tools)"는 파트마다 의미가 살짝 다릅니다.<br>
-    • <strong style="color:var(--teal)">Part 1 (여기)</strong>: 에이전트가 호출하는 <strong>외부 기능</strong> (API, 함수, 계산기 등)<br>
-    • <strong style="color:var(--accent)">Part 3</strong>: 바이브코딩에 쓰는 <strong>소프트웨어 플랫폼</strong> (Bolt.new, Cursor 등)<br>
-    • <strong style="color:var(--accent)">Part 4</strong>: 하네스를 구성하는 <strong>설계 패턴</strong> (CLAUDE.md, Skills, Hooks)
+    • <strong style="color:var(--teal)">Part 2 (여기)</strong>: 에이전트가 호출하는 <strong>외부 기능</strong> (API, 함수, 계산기 등)<br>
+    • <strong style="color:var(--accent)">Part 5</strong>: 바이브코딩에 쓰는 <strong>소프트웨어 플랫폼</strong> (Bolt.new, Cursor 등)<br>
+    • <strong style="color:var(--accent)">Part 6</strong>: 하네스를 구성하는 <strong>설계 패턴</strong> (CLAUDE.md, Skills, Hooks)
   </div>
 
   <!-- Tool categories -->
@@ -2528,9 +2528,9 @@
   </p>
   <div style="padding:.8rem 1.2rem;background:var(--teal-dim);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;margin-bottom:1.2rem;font-size:.82rem;color:var(--text);line-height:1.8">
     🔗 <strong style="color:var(--teal)">용어 연결:</strong> ReAct 패턴은 파트마다 다른 이름으로 등장합니다.<br>
-    • <a href="/03-vibe-basic" style="color:var(--accent);font-weight:600">Part 3</a>의 "<strong>3단계 작업 흐름</strong>" (지시 → 결과 확인 → 재지시)<br>
-    • <a href="/04-vibe-master" style="color:var(--accent);font-weight:600">Part 4 Ch.02</a>의 "<strong>에이전트 루프</strong>" (센서 → 판단 → 행동)<br>
-    • <a href="/04-vibe-master" style="color:var(--accent);font-weight:600">Part 4 Ch.05</a>의 "<strong>Plan-Critic-Build</strong>" (계획 → 비평 → 구현)<br>
+    • <a href="/05-vibe-basic" style="color:var(--accent);font-weight:600">Part 5</a>의 "<strong>3단계 작업 흐름</strong>" (지시 → 결과 확인 → 재지시)<br>
+    • <a href="/06-vibe-master" style="color:var(--accent);font-weight:600">Part 6 Ch.02</a>의 "<strong>에이전트 루프</strong>" (센서 → 판단 → 행동)<br>
+    • <a href="/06-vibe-master" style="color:var(--accent);font-weight:600">Part 6 Ch.05</a>의 "<strong>Plan-Critic-Build</strong>" (계획 → 비평 → 구현)<br>
     모두 같은 "ReAct" 사이클의 변형입니다. 이름만 다를 뿐, 핵심 원리는 동일.
   </div>
 
@@ -3227,13 +3227,13 @@
   <div style="text-align:center;padding:1.5rem">
     <div style="font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:.5rem">What's Next</div>
     <div style="font-family:var(--display);font-size:1.3rem;font-weight:800;color:var(--white);margin-bottom:.8rem">
-      Part 1 완료 — 이제 직접 만들어봅시다
+      Part 2 완료 — 이제 직접 만들어봅시다
     </div>
     <div style="font-size:.88rem;color:var(--text);line-height:1.85;max-width:650px;margin:0 auto">
-      AI 에이전트의 <strong style="color:var(--teal)">원리</strong>(Memory · Tools · Planning · Multi-Agent)를 이해했으니, 이제 <strong style="color:var(--accent)">실전 에이전트 구축의 세계</strong>로 넘어갈 차례입니다. Part 2 AI Agents 실전에서는 이 기초 개념들을 실제 프로덕션 에이전트로 발전시키는 방법을 배웁니다.
+      AI 에이전트의 <strong style="color:var(--teal)">원리</strong>(Memory · Tools · Planning · Multi-Agent)를 이해했으니, 이제 <strong style="color:var(--accent)">실전 에이전트 구축의 세계</strong>로 넘어갈 차례입니다. Part 3 AI Agents 실전에서는 이 기초 개념들을 실제 프로덕션 에이전트로 발전시키는 방법을 배웁니다.
     </div>
-    <a href="/02-ai-agents-advanced" style="display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;padding:.7rem 1.5rem;border:1.5px solid var(--accent);background:var(--accent-bg);color:var(--accent);border-radius:10px;font-size:.88rem;font-weight:600;text-decoration:none;transition:all .3s" onmouseover="this.style.background='var(--accent)';this.style.color='#fff'" onmouseout="this.style.background='var(--accent-bg)';this.style.color='var(--accent)'">
-      Part 2 — AI Agents 실전 <span style="font-size:1.1rem">→</span>
+    <a href="/03-ai-agents-advanced" style="display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;padding:.7rem 1.5rem;border:1.5px solid var(--accent);background:var(--accent-bg);color:var(--accent);border-radius:10px;font-size:.88rem;font-weight:600;text-decoration:none;transition:all .3s" onmouseover="this.style.background='var(--accent)';this.style.color='#fff'" onmouseout="this.style.background='var(--accent-bg)';this.style.color='var(--accent)'">
+      Part 3 — AI Agents 실전 <span style="font-size:1.1rem">→</span>
     </a>
   </div>
 </div>
