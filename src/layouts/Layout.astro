@@ -134,11 +134,37 @@ const nextPage = next || (currentIdx < pages.length - 1 ? { href: pages[currentI
     if (topBtn) topBtn.classList.toggle('visible', s > 500);
   });
 
-  // Reveal on scroll
+  // Reveal on scroll — IntersectionObserver with fail-safe
+  // Note: threshold 0 + positive rootMargin ensures large blocks also trigger reliably.
+  // Large reveal blocks that fully fill the viewport could previously stay hidden if
+  // threshold/rootMargin combined kept isIntersecting=false at initial paint.
+  const revealEls = document.querySelectorAll('.reveal, .diagram, .compare-card, .callout, .quote-block');
   const obs = new IntersectionObserver((entries) => {
-    entries.forEach((x) => { if (x.isIntersecting) x.target.classList.add('visible'); });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal, .diagram, .compare-card, .callout, .quote-block').forEach((el) => obs.observe(el));
+    entries.forEach((x) => {
+      if (x.isIntersecting) {
+        x.target.classList.add('visible');
+        obs.unobserve(x.target);
+      }
+    });
+  }, { threshold: 0, rootMargin: '0px 0px 200px 0px' });
+  revealEls.forEach((el) => obs.observe(el));
+
+  // Fail-safe 1: make any reveal element already within the initial viewport visible immediately,
+  // so slow/missed observer callbacks never leave content blank.
+  const vh = window.innerHeight || document.documentElement.clientHeight;
+  revealEls.forEach((el) => {
+    const r = el.getBoundingClientRect();
+    if (r.top < vh + 200) el.classList.add('visible');
+  });
+
+  // Fail-safe 2: after 1.5s, force everything still-hidden above the fold to visible.
+  // This handles edge cases where IntersectionObserver never fires (e.g., devtools, zoom glitches).
+  setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.visible), .diagram:not(.visible), .compare-card:not(.visible), .callout:not(.visible), .quote-block:not(.visible)').forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.top < (window.innerHeight || 0) + 400) el.classList.add('visible');
+    });
+  }, 1500);
 
   // Active tab highlighting is handled server-side in Astro frontmatter
 </script>

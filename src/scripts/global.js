@@ -85,9 +85,10 @@ window.addEventListener('scroll', function() {
 });
 
 // IntersectionObserver for reveal animations
+// Note: threshold 0 + positive rootMargin ensures reliable trigger for large blocks.
 var obs = new IntersectionObserver(function(e) {
-  e.forEach(function(x) { if (x.isIntersecting) x.target.classList.add('visible'); });
-}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  e.forEach(function(x) { if (x.isIntersecting) { x.target.classList.add('visible'); obs.unobserve(x.target); } });
+}, { threshold: 0, rootMargin: '0px 0px 200px 0px' });
 document.querySelectorAll('.reveal, .diagram, .compare-card, .callout, .quote-block').forEach(function(el) { obs.observe(el); });
 // Make overview panel elements visible immediately
 document.querySelectorAll('#panel-0 .reveal').forEach(function(el) { el.classList.add('visible'); });
