@@ -125,6 +125,8 @@
 
 - entity 페이지: **69개** (28 → 69, +41)
 - 카테고리: 13개 (9 → 13, 신설: 저장 계층 · Open Table Formats · 데이터 파이프라인 · 데이터 품질·윤리)
-- Last ingest: 2026-04-12 (Data 파트 — 40개 신규 entity)
-- 완료 사이클: Part 2 (AI Agents 실전) — Sources → Ingest → Lint → Query → Ingest-back
-- 현재 사이클: Part 1/4 (Data) — **Ingest 완료, Lint 완료, Query 대기**
+- Last ingest: 2026-04-12 (Data 파트 — 41개 신규 entity)
+- Last query: 2026-04-12 (Part 1 + Part 4 동시 합성, 45 entity 활용, 5495줄)
+- **완료 사이클 #1**: Part 3 AI Agents 실전 — Sources → Ingest → Lint → Query → Ingest-back
+- **완료 사이클 #2**: Part 1/4 Data 동시 합성 — 완전한 5단계 사이클
+- Wiki compound effect 확인: 같은 위키를 2개 파트가 동시 사용
