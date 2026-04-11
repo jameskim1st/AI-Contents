@@ -168,6 +168,15 @@
     </div>
   </div>
 
+  <div class="tip reveal" style="margin-top:1.2rem">
+  <div class="tip-title">🤔 왜 다음 토큰 예측이 계산 오류로 이어지나</div>
+  <p style="margin:0;font-size:.85rem;line-height:1.85">
+    <strong style="color:var(--text)">"245 × 37 ÷ 12.5"는 학습 데이터에 거의 없는 패턴</strong>입니다. 모델이 본 수학 예제 대부분은 다른 숫자 조합이고, "= 724.8"이 따라오는 경우는 거의 없습니다.<br><br>
+    따라서 모델은 <strong>실제 계산을 하지 않고</strong>, 학습 데이터의 통계적 가중치를 기반으로 "722 정도면 비슷하지 않을까?"라고 <strong style="color:var(--coral)">확률적으로 추측</strong>합니다. 이게 바로 LLM의 계산 오류입니다.<br><br>
+    <strong style="color:var(--accent)">CoT(Chain of Thought)가 효과적인 이유:</strong> "먼저 245×37=9,065를 계산하고, 다음에 9,065÷12.5=724.8" 같은 단계별 표현은 학습 데이터(교과서, 튜토리얼, Stack Overflow)에 매우 흔한 패턴입니다. 한 번에 푸는 것보다 단계별로 분해하면 각 단계의 확률이 높아져 정답 도달률이 극적으로 상승합니다. (다음 챕터에서 자세히)
+  </p>
+  </div>
+
   <!-- LLM 한계 정리 → 다음 단계 전환 -->
   <div style="margin-top:2rem;padding:1.2rem 1.5rem;background:linear-gradient(135deg,rgba(255,107,107,0.06),rgba(124,108,240,0.06));border:1px solid var(--coral-border);border-radius:12px;">
     <div style="font-size:.9rem;font-weight:700;color:var(--coral);margin-bottom:.6rem">정리: LLM 혼자서는 부족합니다</div>
@@ -248,6 +257,17 @@
       진짜 에이전트는 여기서 한 발 더 나아갑니다 — <strong style="color:var(--pink)">스스로 판단하고, 계획을 세우고, 필요한 도구를 골라서 실행</strong>합니다.<br>
       다음 챕터에서 이 차이를 정확히 짚어보겠습니다.
     </div>
+  </div>
+
+  <div class="tip reveal" style="margin-top:1.2rem;border-color:var(--amber-border);background:var(--amber-bg)">
+  <div class="tip-title" style="color:var(--amber)">⚠️ 사실 이 경계는 더 회색지대입니다</div>
+  <p style="margin:0;font-size:.85rem;line-height:1.85">
+    교과서적 구분은 "Augmented LLM = 사람이 시키는 것만, Agent = 스스로 판단"이지만, 실무에서는 더 미묘합니다.<br><br>
+    더 정확한 구분은:<br>
+    • <strong style="color:var(--text)">Augmented LLM = "수동 도구 선택"</strong> — 사람이 "calculator를 써"라고 명시<br>
+    • <strong style="color:var(--text)">Agent = "자동 도구 선택"</strong> — LLM이 "이건 계산이니까 calculator를 써야겠네"라고 스스로 판단<br><br>
+    하지만 <strong style="color:var(--amber)">양쪽 모두 사람의 최상위 목표(프롬프트) 없이는 작동하지 않습니다.</strong> Agent는 "더 나은 자율성"을 갖춘 것이지, 완전 자립적이 아닙니다. "시작 버튼"은 여전히 사람이 누릅니다.
+  </p>
   </div>
 </section>
 
@@ -535,6 +555,16 @@
       <strong>모델이 충분히 커지면서</strong> "출현(emergence)"한 능력입니다. 작은 LLM에서는 "단계별로 생각해봐"라고 해도 효과가 없었는데, 모델 크기가 임계점을 넘자 <strong style="color:var(--teal)">갑자기 추론 능력이 나타났습니다.</strong><br><br>
       최근에는 여기서 더 나아가, 답하기 전에 <strong style="color:var(--accent-light)">"생각하는 시간"을 더 주는 모델</strong>(OpenAI o1, Claude의 extended thinking 등)이 등장했습니다. CoT를 모델 내부에서 자동으로 수행하는 거죠. 이런 모델을 <strong>Reasoning Model</strong>이라 부릅니다.
     </div>
+  </div>
+
+  <div class="tip reveal" style="margin-top:1.2rem">
+  <div class="tip-title">🧠 왜 CoT가 효과적인가 — 메커니즘</div>
+  <p style="margin:0;font-size:.85rem;line-height:1.85">
+    CoT 효과의 원리를 한 줄로: <strong style="color:var(--accent)">"어려운 문제를 학습 데이터에 자주 등장하는 쉬운 부분 문제들로 쪼개기"</strong>입니다.<br><br>
+    모델은 <strong>다음 단어 예측만 훈련</strong>되었기 때문에, 복잡한 추론을 한 번에 하려면 각 단계의 확률이 빠르게 떨어집니다. P(정답) = P(step1) × P(step2) × ... — 한 단계만 0.3이면 전체가 무너집니다.<br><br>
+    하지만 <strong style="color:var(--accent)">"단계별 설명"</strong>은 학습 데이터(교과서, 위키, Stack Overflow, 튜토리얼)에서 매우 흔한 패턴입니다. 각 단계가 학습된 패턴과 매칭되므로 P(step_i) ≈ 0.9 이상으로 유지됩니다. 즉, CoT는 "확률 곱셈에서 각 항을 최대화하는 트릭"입니다.<br><br>
+    <strong style="color:var(--text)">언제 CoT가 특히 효과적?</strong> ① 다단계 산수 ② 논리 추론 ③ 코드 디버깅 ④ 법률·정책 해석. <strong style="color:var(--text-dim)">언제 효과 없음?</strong> 단순 정의 질문, 사실 검색.
+  </p>
   </div>
 
   <p style="color:var(--text-dim);margin:1.5rem 0;">
@@ -1141,6 +1171,16 @@
     <div style="font-size:.7rem;color:var(--text-muted);margin-top:.8rem;line-height:1.6;text-align:left">
       * 2026년 4월 기준. 1M 토큰(≈ 한글 30~40만 자, A4 약 750~1,000페이지) 티어가 사실상 표준이 되는 추세.
     </div>
+  </div>
+
+  <div class="tip reveal" style="margin-top:1.2rem">
+  <div class="tip-title">💰 왜 1M이 "표준"이 됐나 — 가격이 같아졌기 때문</div>
+  <p style="margin:0;font-size:.85rem;line-height:1.85">
+    2026년 기준, 컨텍스트 윈도우와 가격의 관계가 무너졌습니다.<br><br>
+    <strong style="color:var(--text)">2024년까지:</strong> "큰 컨텍스트 = 비싸다" 등식이 성립했습니다. GPT-4 32K는 비싸고, Claude 100K는 더 비쌌습니다.<br><br>
+    <strong style="color:var(--accent)">2026년 현재:</strong> Claude Opus 4.6의 1M 컨텍스트도 표준 가격($15/M output)과 동일하게 처리됩니다. 200K 초과 요청에 별도 베타 헤더도 필요 없습니다. 가격 체계가 "사용한 토큰 수"만 기준이지, "사용 가능한 최대 윈도우"가 아닙니다.<br><br>
+    <strong style="color:var(--text)">결과:</strong> 추가 비용 없이 1M을 쓸 수 있으니, 새 프로젝트 대부분이 처음부터 1M으로 시작합니다. 다만 "1M을 다 채워서 매번 보내면" 토큰당 비용이 누적되어 비쌉니다. 1M은 <strong>"필요할 때 다 들어갈 수 있는 그릇"</strong>이지, "매번 다 채우는 그릇"이 아닙니다.
+  </p>
   </div>
 
   <p style="color:var(--text-dim);margin:1rem 0;line-height:1.9;">

@@ -162,6 +162,37 @@
     </div>
   </div>
 
+  <div class="dia reveal">
+  <div class="dia-title">📊 산업별 도입 사례 (2025-2026)</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;max-width:780px;margin:0 auto">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center">
+      <div style="font-size:1.5rem;margin-bottom:.4rem">🏦</div>
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--text-dim);margin-bottom:.3rem">금융 — JP Morgan</div>
+      <div style="font-family:var(--display);font-size:1.6rem;font-weight:800;color:var(--violet)">+20%</div>
+      <div style="font-size:.72rem;color:var(--text-dim);margin-top:.3rem">자산 관리 부서 수익 증대 (LLM 기반 분석)</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center">
+      <div style="font-size:1.5rem;margin-bottom:.4rem">🏥</div>
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--text-dim);margin-bottom:.3rem">의료 — Mayo Clinic</div>
+      <div style="font-family:var(--display);font-size:1.6rem;font-weight:800;color:var(--violet)">+15%</div>
+      <div style="font-size:.72rem;color:var(--text-dim);margin-top:.3rem">희귀 질환 진단 정확도 향상</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center">
+      <div style="font-size:1.5rem;margin-bottom:.4rem">📞</div>
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--text-dim);margin-bottom:.3rem">콜센터 — Telstra</div>
+      <div style="font-family:var(--display);font-size:1.6rem;font-weight:800;color:var(--violet)">-40%</div>
+      <div style="font-size:.72rem;color:var(--text-dim);margin-top:.3rem">고객 응대 비용 절감</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center">
+      <div style="font-size:1.5rem;margin-bottom:.4rem">⚖️</div>
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--text-dim);margin-bottom:.3rem">법률 — Allen & Overy</div>
+      <div style="font-family:var(--display);font-size:1.6rem;font-weight:800;color:var(--violet)">-70%</div>
+      <div style="font-size:.72rem;color:var(--text-dim);margin-top:.3rem">계약서 검토 시간 단축</div>
+    </div>
+  </div>
+  <div style="margin-top:1rem;font-size:.72rem;color:var(--text-dim);text-align:center">출처: 각 사 공식 발표 (2025) · 기업별 측정 방법은 다를 수 있음</div>
+  </div>
+
   <!-- Big Numbers -->
   <div class="dia reveal">
     <div class="dia-title">📊 GPT-4 스케일을 숫자로 느껴보기</div>
@@ -185,6 +216,14 @@
     <div style="margin-top:1rem;font-size:.78rem;color:var(--text-dim);text-align:center">
       파라미터(Parameter)란? LLM이 학습한 "기억"의 최소 단위. B = Billion(10억), T = Trillion(1조)
     </div>
+  </div>
+
+  <div class="tip reveal" style="max-width:760px;margin:1rem auto 0">
+  <div class="tip-title">📌 "~1.8T"이 왜 추정인가</div>
+  <p style="margin:0;font-size:.82rem;line-height:1.85">
+    OpenAI는 GPT-4의 정확한 파라미터 수를 <strong>공식 발표한 적이 없습니다.</strong> 이 수치는 2024년 <strong style="color:var(--violet)">Epoch AI</strong>의 역계산(reverse engineering) 분석을 기반으로 합니다 — 공개된 추론 시간, GPU 사용량, 토큰당 비용으로 모델 크기를 역산했습니다. 오차 범위: <strong>±30%</strong>.<br><br>
+    <strong style="color:var(--text)">왜 비공개?</strong> 경쟁사가 모델 크기를 알면 학습 인프라 규모를 추정할 수 있고, 이는 영업 비밀입니다. 비교: <strong>Claude Opus 4.6도 약 1.7T로 추정</strong>(Anthropic 비공개), <strong>LLaMA 4 Maverick은 400B로 공개</strong>(오픈 모델). 클로즈드 모델은 거의 모두 비공개입니다.
+  </p>
   </div>
 
   <div class="analogy">
@@ -346,6 +385,27 @@
       <div class="arrow">→</div>
       <div class="box box-dark" style="white-space:normal">"Je suis etudiant"</div>
     </div>
+  </div>
+
+  <div class="dia reveal">
+  <div class="dia-title">💡 왜 Transformer가 혁명적이었나 — Self-Attention의 마법</div>
+  <div style="max-width:760px;margin:0 auto">
+    <div class="cmp-grid">
+      <div class="cmp-card" style="border-color:var(--pink-border);text-align:left">
+        <h4 style="color:var(--pink);font-size:.9rem">🐌 RNN의 한계</h4>
+        <div style="font-family:var(--mono);font-size:.78rem;color:var(--text);background:var(--surface);padding:.6rem .8rem;border-radius:6px;margin:.5rem 0">"I saw the bank by the river"</div>
+        <p style="font-size:.78rem;color:var(--text-dim);line-height:1.7">단어를 <strong style="color:var(--text)">순차적으로</strong> 읽음. "bank"를 처음 봤을 때 <strong>금융 기관</strong>으로 추정 → 나중에 "river"를 봐도 이미 결정된 의미를 수정하기 어려움. 거리가 멀수록 신호가 약해짐 (long-range dependency 문제).</p>
+      </div>
+      <div class="cmp-card" style="border-color:var(--violet);text-align:left">
+        <h4 style="color:var(--violet);font-size:.9rem">⚡ Transformer의 해결</h4>
+        <div style="font-family:var(--mono);font-size:.78rem;color:var(--text);background:var(--surface);padding:.6rem .8rem;border-radius:6px;margin:.5rem 0">"I saw the bank by the river"</div>
+        <p style="font-size:.78rem;color:var(--text-dim);line-height:1.7">모든 단어가 <strong style="color:var(--violet)">동시에 서로를 본다</strong> (Self-Attention). "bank"가 "river"를 한 번에 참조 → 즉시 <strong>강변(river bank)</strong>으로 해석. 한 패스에 끝.</p>
+      </div>
+    </div>
+    <div style="margin-top:1rem;padding:.8rem 1rem;background:var(--violet-dim);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.85">
+      🔑 <strong style="color:var(--violet)">결과:</strong> RNN에서 "거리가 멀수록 정보가 손실"되던 long-range dependency 문제를 해결. 게다가 모든 단어 처리가 <strong>병렬화 가능</strong> → GPU에서 학습 속도 100배 이상 향상. 이게 바로 거대 모델(GPT, BERT)이 가능해진 진짜 이유.
+    </div>
+  </div>
   </div>
 
   <!-- Three Branches -->
@@ -709,6 +769,13 @@
       <div style="font-size:.72rem;color:var(--text-dim);text-align:center;margin-top:.6rem">Logit은 아직 "확률"이 아닙니다 — 크기 비교만 가능한 원시 점수. 음수도 가능.</div>
     </div>
 
+    <!-- Logit 심화 -->
+    <div style="max-width:700px;margin:.8rem auto;padding:1rem 1.3rem;background:var(--violet-dim);border-left:3px solid var(--violet);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.85">
+      🔬 <strong style="color:var(--violet)">Logit이 정확히 어디서 나오나?</strong><br>
+      Transformer의 마지막 층에는 <strong>(vocab_size,) 크기의 선형 레이어(unembedding)</strong>가 있습니다. 이 레이어가 모델의 내부 표현(hidden state, ~4096차원)을 어휘 크기(GPT는 약 50,000개 토큰)의 점수 벡터로 변환합니다.<br><br>
+      <strong style="color:var(--violet)">수학적 의미:</strong> Logit은 "해당 토큰이 다음에 올 확률의 <strong>로그 오즈(log-odds)</strong>"입니다. 학습 중 모델은 정답 위치의 logit을 높이고(positive gradient), 다른 위치는 낮추도록(negative gradient) 강제됩니다. 이게 바로 "다음 토큰 예측"의 수학적 본질입니다.
+    </div>
+
     <!-- STEP 3: Softmax -->
     <div style="text-align:center;color:var(--text-dim);font-size:.9rem;margin-bottom:.3rem">▼</div>
     <div style="background:var(--surface);border:2px solid var(--teal);border-radius:14px;padding:1.5rem;margin-bottom:1rem">
@@ -914,6 +981,14 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="tip reveal" style="max-width:760px;margin:1rem auto 0">
+  <div class="tip-title">🤔 왜 코딩은 낮은 온도, 창작은 높은 온도?</div>
+  <p style="margin:0;font-size:.85rem;line-height:1.85">
+    <strong style="color:var(--text)">Temperature가 낮을수록</strong> 모델이 "가장 확률 높은 단어만" 고릅니다. 코딩은 문법 오류 한 글자가 동작 불가를 의미하므로, <strong>가장 안전한 다음 토큰</strong>을 골라야 합니다. <code style="font-family:var(--mono);font-size:.82em;background:var(--surface);color:var(--teal);padding:.1rem .3rem;border-radius:3px">function getName()</code>에서 다음에 올 수 있는 "안전한" 토큰은 <code style="font-family:var(--mono);font-size:.82em;background:var(--surface);color:var(--teal);padding:.1rem .3rem;border-radius:3px">{</code> 거의 하나뿐입니다.<br><br>
+    <strong style="color:var(--text)">반대로 창작</strong>(시, 광고 카피, 소설)은 <strong>diversity</strong>가 핵심입니다. T=1.5로 높이면 평범한 단어 대신 의외의 조합이 나옵니다. "꿈은 □□다"에서 T=0.1이면 거의 항상 "이루어진다"가 나오지만, T=1.5면 "녹슨다", "춤춘다", "꿈꾸는 자의 그림자다" 같은 시적 표현이 나옵니다.
+  </p>
   </div>
 
   <!-- Top-P -->
