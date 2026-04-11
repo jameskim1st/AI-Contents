@@ -1569,9 +1569,215 @@
 </div>
 </div>
 
+<!-- ═══════════════════════════════════════ -->
+<!-- 통합 플로우 다이어그램 — 아키텍처 × 운영 × 참여자 -->
+<!-- ═══════════════════════════════════════ -->
+<div class="dia reveal">
+<div class="dia-title">🎯 LLM Wiki — 전체 플로우 한 장</div>
+<div style="max-width:900px;margin:0 auto">
+  <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:1.5rem">
+    Raw Sources · The Wiki · Schema (아키텍처 3계층) 사이에서, Ingest · Query · Lint (3가지 운영)가 Human과 LLM Agent에 의해 돌아갑니다. 화살표를 따라가면 데이터가 어떻게 흐르는지 보입니다.
+  </div>
+
+  <!-- SVG Flow Diagram -->
+  <div style="background:var(--surface);border:1px solid var(--violet-border);border-radius:14px;padding:1.5rem 1rem;overflow-x:auto">
+  <svg viewBox="0 0 900 620" style="width:100%;min-width:720px;height:auto;font-family:var(--sans)" xmlns="http://www.w3.org/2000/svg">
+    <!-- Definitions: arrowheads -->
+    <defs>
+      <marker id="arrow-v" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L8,5 L0,10 z" fill="#7c6cf0"/>
+      </marker>
+      <marker id="arrow-t" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L8,5 L0,10 z" fill="#2dd4bf"/>
+      </marker>
+      <marker id="arrow-a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L8,5 L0,10 z" fill="#d04a02"/>
+      </marker>
+      <marker id="arrow-dim" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L8,5 L0,10 z" fill="#7d8298"/>
+      </marker>
+    </defs>
+
+    <!-- Top label -->
+    <text x="450" y="26" text-anchor="middle" font-family="var(--mono)" font-size="11" fill="#7d8298" letter-spacing="2">KARPATHY'S KNOWLEDGE COMPILATION PATTERN</text>
+
+    <!-- Layer label: ARCHITECTURE -->
+    <text x="25" y="72" font-family="var(--mono)" font-size="9" fill="#7d8298" letter-spacing="2">ARCHITECTURE</text>
+
+    <!-- ─────── Row 1: Architecture ─────── -->
+    <!-- Raw Sources -->
+    <rect x="40" y="80" width="220" height="70" rx="10" ry="10" fill="#131620" stroke="#252a3a" stroke-width="1.5"/>
+    <text x="150" y="106" text-anchor="middle" font-family="var(--display)" font-size="15" font-weight="700" fill="#cdd1e0">📚 Raw Sources</text>
+    <text x="150" y="124" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="#7d8298">immutable · read-only</text>
+    <text x="150" y="140" text-anchor="middle" font-size="9.5" fill="#7d8298">PDF · 논문 · 블로그 · 회의록</text>
+
+    <!-- The Wiki (center, highlighted) -->
+    <rect x="340" y="72" width="220" height="86" rx="10" ry="10" fill="rgba(124,108,240,0.08)" stroke="#7c6cf0" stroke-width="2"/>
+    <text x="450" y="98" text-anchor="middle" font-family="var(--display)" font-size="16" font-weight="800" fill="#7c6cf0">🧠 The Wiki</text>
+    <text x="450" y="116" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="#7c6cf0">LLM-owned markdown</text>
+    <text x="450" y="132" text-anchor="middle" font-size="9.5" fill="#cdd1e0">index · log · entities/ · schema</text>
+    <text x="450" y="148" text-anchor="middle" font-size="9" fill="#7d8298">← 지식이 누적되는 중심</text>
+
+    <!-- Schema -->
+    <rect x="640" y="80" width="220" height="70" rx="10" ry="10" fill="#131620" stroke="#252a3a" stroke-width="1.5"/>
+    <text x="750" y="106" text-anchor="middle" font-family="var(--display)" font-size="15" font-weight="700" fill="#cdd1e0">📘 Schema</text>
+    <text x="750" y="124" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="#7d8298">human-curated</text>
+    <text x="750" y="140" text-anchor="middle" font-size="9.5" fill="#7d8298">CLAUDE.md · schema.md</text>
+
+    <!-- Arrows from Raw Sources to Wiki -->
+    <line x1="260" y1="112" x2="340" y2="112" stroke="#7c6cf0" stroke-width="1.8" marker-end="url(#arrow-v)"/>
+    <text x="300" y="104" text-anchor="middle" font-size="9" fill="#7c6cf0" font-family="var(--mono)">feeds</text>
+
+    <!-- Arrow from Schema to Wiki -->
+    <line x1="640" y1="115" x2="560" y2="115" stroke="#7c6cf0" stroke-width="1.8" stroke-dasharray="4,3" marker-end="url(#arrow-v)"/>
+    <text x="600" y="107" text-anchor="middle" font-size="9" fill="#7c6cf0" font-family="var(--mono)">guides</text>
+
+    <!-- Layer label: OPERATIONS -->
+    <text x="25" y="222" font-family="var(--mono)" font-size="9" fill="#7d8298" letter-spacing="2">OPERATIONS</text>
+
+    <!-- ─────── Row 2: Operations ─────── -->
+    <!-- Ingest -->
+    <rect x="40" y="232" width="240" height="120" rx="10" ry="10" fill="#131620" stroke="#d04a02" stroke-width="1.5"/>
+    <rect x="40" y="232" width="240" height="24" rx="10" ry="10" fill="rgba(208,74,2,0.12)"/>
+    <text x="160" y="250" text-anchor="middle" font-family="var(--mono)" font-size="10" font-weight="700" fill="#e8631e" letter-spacing="1">OPERATION 1 · INGEST</text>
+    <text x="160" y="274" text-anchor="middle" font-family="var(--display)" font-size="13" font-weight="700" fill="#cdd1e0">📥 새 자료를 위키에</text>
+    <text x="160" y="292" text-anchor="middle" font-size="9.5" fill="#7d8298">source → wiki updates</text>
+    <line x1="60" y1="302" x2="260" y2="302" stroke="#252a3a" stroke-width="1"/>
+    <text x="70" y="317" font-size="9" fill="#cdd1e0">① read src</text>
+    <text x="170" y="317" font-size="9" fill="#cdd1e0">② extract entities</text>
+    <text x="70" y="332" font-size="9" fill="#cdd1e0">③ write summary</text>
+    <text x="170" y="332" font-size="9" fill="#cdd1e0">④ cross-link</text>
+    <text x="70" y="347" font-size="9" fill="#cdd1e0">⑤ update index</text>
+    <text x="170" y="347" font-size="9" fill="#cdd1e0">⑥ append log</text>
+
+    <!-- Query -->
+    <rect x="330" y="232" width="240" height="120" rx="10" ry="10" fill="#131620" stroke="#2dd4bf" stroke-width="1.5"/>
+    <rect x="330" y="232" width="240" height="24" rx="10" ry="10" fill="rgba(45,212,191,0.12)"/>
+    <text x="450" y="250" text-anchor="middle" font-family="var(--mono)" font-size="10" font-weight="700" fill="#2dd4bf" letter-spacing="1">OPERATION 2 · QUERY</text>
+    <text x="450" y="274" text-anchor="middle" font-family="var(--display)" font-size="13" font-weight="700" fill="#cdd1e0">🔍 질문을 답변으로</text>
+    <text x="450" y="292" text-anchor="middle" font-size="9.5" fill="#7d8298">question → synthesized answer</text>
+    <line x1="350" y1="302" x2="550" y2="302" stroke="#252a3a" stroke-width="1"/>
+    <text x="360" y="317" font-size="9" fill="#cdd1e0">① search index</text>
+    <text x="460" y="317" font-size="9" fill="#cdd1e0">② read entities</text>
+    <text x="360" y="332" font-size="9" fill="#cdd1e0">③ synthesize answer</text>
+    <text x="460" y="332" font-size="9" fill="#cdd1e0">④ file back</text>
+    <text x="360" y="347" font-size="9" fill="#cdd1e0">⑤ cite entities</text>
+    <text x="460" y="347" font-size="9" fill="#cdd1e0">⑥ next Q faster</text>
+
+    <!-- Lint -->
+    <rect x="620" y="232" width="240" height="120" rx="10" ry="10" fill="#131620" stroke="#7c6cf0" stroke-width="1.5"/>
+    <rect x="620" y="232" width="240" height="24" rx="10" ry="10" fill="rgba(124,108,240,0.12)"/>
+    <text x="740" y="250" text-anchor="middle" font-family="var(--mono)" font-size="10" font-weight="700" fill="#7c6cf0" letter-spacing="1">OPERATION 3 · LINT</text>
+    <text x="740" y="274" text-anchor="middle" font-family="var(--display)" font-size="13" font-weight="700" fill="#cdd1e0">🧹 위키 건강 검진</text>
+    <text x="740" y="292" text-anchor="middle" font-size="9.5" fill="#7d8298">health-check · consistency</text>
+    <line x1="640" y1="302" x2="840" y2="302" stroke="#252a3a" stroke-width="1"/>
+    <text x="650" y="317" font-size="9" fill="#cdd1e0">① find contradictions</text>
+    <text x="760" y="317" font-size="9" fill="#cdd1e0">② orphan pages</text>
+    <text x="650" y="332" font-size="9" fill="#cdd1e0">③ dead links</text>
+    <text x="760" y="332" font-size="9" fill="#cdd1e0">④ stale entities</text>
+    <text x="650" y="347" font-size="9" fill="#cdd1e0">⑤ request review</text>
+    <text x="760" y="347" font-size="9" fill="#cdd1e0">⑥ suggest fixes</text>
+
+    <!-- Arrows from Wiki down to operations -->
+    <!-- Ingest ← Wiki (write path) -->
+    <line x1="360" y1="158" x2="160" y2="232" stroke="#d04a02" stroke-width="1.8" marker-end="url(#arrow-a)"/>
+    <text x="225" y="200" font-size="9" fill="#d04a02" font-family="var(--mono)">writes</text>
+
+    <!-- Query ↔ Wiki (read/write) -->
+    <line x1="450" y1="158" x2="450" y2="232" stroke="#2dd4bf" stroke-width="1.8" marker-end="url(#arrow-t)"/>
+    <text x="462" y="197" font-size="9" fill="#2dd4bf" font-family="var(--mono)">reads</text>
+
+    <!-- Lint ← Wiki -->
+    <line x1="540" y1="158" x2="740" y2="232" stroke="#7c6cf0" stroke-width="1.8" marker-end="url(#arrow-v)"/>
+    <text x="660" y="200" font-size="9" fill="#7c6cf0" font-family="var(--mono)">scans</text>
+
+    <!-- Layer label: ACTORS -->
+    <text x="25" y="432" font-family="var(--mono)" font-size="9" fill="#7d8298" letter-spacing="2">ACTORS</text>
+
+    <!-- ─────── Row 3: Actors ─────── -->
+    <!-- Human -->
+    <rect x="120" y="444" width="260" height="110" rx="10" ry="10" fill="#131620" stroke="#252a3a" stroke-width="1.5"/>
+    <text x="250" y="472" text-anchor="middle" font-family="var(--display)" font-size="16" font-weight="700" fill="#cdd1e0">👤 Human</text>
+    <text x="250" y="490" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="#7d8298">curates · asks · reviews</text>
+    <line x1="140" y1="500" x2="360" y2="500" stroke="#252a3a" stroke-width="1"/>
+    <text x="250" y="518" text-anchor="middle" font-size="9.5" fill="#cdd1e0">• Raw source 큐레이션</text>
+    <text x="250" y="533" text-anchor="middle" font-size="9.5" fill="#cdd1e0">• Schema 작성 · 수정</text>
+    <text x="250" y="548" text-anchor="middle" font-size="9.5" fill="#cdd1e0">• Query 던지기 · Lint 승인</text>
+
+    <!-- LLM Agent -->
+    <rect x="520" y="444" width="260" height="110" rx="10" ry="10" fill="rgba(124,108,240,0.08)" stroke="#7c6cf0" stroke-width="2"/>
+    <text x="650" y="472" text-anchor="middle" font-family="var(--display)" font-size="16" font-weight="800" fill="#7c6cf0">🤖 LLM Agent</text>
+    <text x="650" y="490" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="#7c6cf0">executes all 3 ops</text>
+    <line x1="540" y1="500" x2="760" y2="500" stroke="#252a3a" stroke-width="1"/>
+    <text x="650" y="518" text-anchor="middle" font-size="9.5" fill="#cdd1e0">• Ingest · Query · Lint 실행</text>
+    <text x="650" y="533" text-anchor="middle" font-size="9.5" fill="#cdd1e0">• entity 생성 · 상호참조</text>
+    <text x="650" y="548" text-anchor="middle" font-size="9.5" fill="#cdd1e0">• 요약 · 검증 · 제안</text>
+
+    <!-- Actor → Operation arrows -->
+    <!-- Human → Ingest (provides source) -->
+    <path d="M160,444 Q130,400 160,352" stroke="#7d8298" stroke-width="1.5" fill="none" stroke-dasharray="3,3" marker-end="url(#arrow-dim)"/>
+    <text x="68" y="398" font-size="9" fill="#7d8298" font-family="var(--mono)">provides src</text>
+
+    <!-- Human → Query (asks question) -->
+    <line x1="340" y1="444" x2="430" y2="352" stroke="#7d8298" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-dim)"/>
+    <text x="340" y="402" font-size="9" fill="#7d8298" font-family="var(--mono)">asks</text>
+
+    <!-- LLM Agent → Ingest/Query/Lint (executes all) -->
+    <path d="M520,480 Q400,400 250,352" stroke="#7c6cf0" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#arrow-v)"/>
+    <path d="M600,444 Q550,410 500,352" stroke="#7c6cf0" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#arrow-v)"/>
+    <path d="M720,444 Q740,400 780,352" stroke="#7c6cf0" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#arrow-v)"/>
+    <text x="440" y="430" font-size="9" fill="#7c6cf0" font-family="var(--mono)" text-anchor="middle">runs</text>
+
+    <!-- Lint → Human (review request) -->
+    <path d="M740,352 Q760,400 400,444" stroke="#7d8298" stroke-width="1.3" fill="none" stroke-dasharray="2,3" marker-end="url(#arrow-dim)"/>
+    <text x="550" y="420" font-size="8.5" fill="#7d8298" font-family="var(--mono)">review?</text>
+
+    <!-- Bottom caption -->
+    <text x="450" y="594" text-anchor="middle" font-size="10" fill="#7d8298">사람은 <tspan fill="#cdd1e0">시작점(자료·질문)</tspan>과 <tspan fill="#cdd1e0">종점(최종 승인)</tspan>을 담당. LLM Agent는 그 사이 <tspan fill="#7c6cf0">모든 자동화</tspan>를 맡음.</text>
+  </svg>
+  </div>
+
+  <!-- Legend -->
+  <div style="margin-top:1rem;display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;font-size:.72rem">
+    <div style="display:flex;align-items:center;gap:.4rem"><span style="display:inline-block;width:14px;height:2px;background:#7c6cf0"></span> <span style="color:var(--text-dim)">아키텍처·Lint 흐름</span></div>
+    <div style="display:flex;align-items:center;gap:.4rem"><span style="display:inline-block;width:14px;height:2px;background:#d04a02"></span> <span style="color:var(--text-dim)">Ingest 쓰기 흐름</span></div>
+    <div style="display:flex;align-items:center;gap:.4rem"><span style="display:inline-block;width:14px;height:2px;background:#2dd4bf"></span> <span style="color:var(--text-dim)">Query 읽기/쓰기</span></div>
+    <div style="display:flex;align-items:center;gap:.4rem"><span style="display:inline-block;width:14px;height:2px;background:#7d8298;border-top:1px dashed #7d8298"></span> <span style="color:var(--text-dim)">사람↔운영 연결</span></div>
+  </div>
+
+  <!-- Flow 설명 -->
+  <div style="margin-top:1.5rem;display:grid;grid-template-columns:1fr;gap:.7rem">
+    <div style="padding:.9rem 1.1rem;background:var(--card);border-left:3px solid var(--violet);border-radius:0 10px 10px 0">
+      <div style="font-size:.85rem;font-weight:700;color:var(--violet);margin-bottom:.3rem">① 아키텍처 3계층</div>
+      <div style="font-size:.8rem;color:var(--text);line-height:1.75">상단의 <strong>Raw Sources</strong>는 외부에서 들어오는 원본(PDF·논문 등, 읽기 전용). <strong>The Wiki</strong>는 중앙의 LLM 전용 markdown 저장소. <strong>Schema</strong>(CLAUDE.md, schema.md)는 사람이 만든 운영 규칙으로 모든 작업을 "이렇게 해라"고 가이드합니다. 화살표: Raw → Wiki (자료 유입), Schema → Wiki (규칙 주입, 점선).</div>
+    </div>
+    <div style="padding:.9rem 1.1rem;background:var(--card);border-left:3px solid var(--accent);border-radius:0 10px 10px 0">
+      <div style="font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.3rem">② Ingest — 쓰기 루프 (주황)</div>
+      <div style="font-size:.8rem;color:var(--text);line-height:1.75">Human이 새 자료를 던지면 LLM Agent가 ① 읽고 → ② entity 추출 → ③ 요약 작성 → ④ 상호참조 → ⑤ index 갱신 → ⑥ log 기록. 이 과정에서 wiki의 markdown 파일들이 <strong>실제로 써지고</strong>, 지식이 누적됩니다.</div>
+    </div>
+    <div style="padding:.9rem 1.1rem;background:var(--card);border-left:3px solid var(--teal);border-radius:0 10px 10px 0">
+      <div style="font-size:.85rem;font-weight:700;color:var(--teal);margin-bottom:.3rem">③ Query — 읽기 + 피드백 루프 (청록)</div>
+      <div style="font-size:.8rem;color:var(--text);line-height:1.75">Human이 질문 → LLM이 ① index 검색 → ② 관련 entity 읽기 → ③ 답변 합성. <strong style="color:var(--teal)">핵심은 ④ "file back"</strong>: 답변 과정에서 얻은 새 통찰을 다시 wiki에 써넣어, <strong>다음 질문이 더 빨라지고 풍부해집니다</strong>. RAG와 달리 매번 제로에서 시작하지 않습니다.</div>
+    </div>
+    <div style="padding:.9rem 1.1rem;background:var(--card);border-left:3px solid var(--violet);border-radius:0 10px 10px 0">
+      <div style="font-size:.85rem;font-weight:700;color:var(--violet);margin-bottom:.3rem">④ Lint — 건강 검진 (보라)</div>
+      <div style="font-size:.8rem;color:var(--text);line-height:1.75">LLM Agent가 주기적으로 wiki 전체를 스캔 — 모순(같은 사실의 다른 설명) · 고아 페이지 · 죽은 링크 · stale entity를 찾습니다. 자동 수정 가능한 건 바로 fix & patch, 나머지는 <strong>"review?" 화살표</strong>로 Human에게 승인 요청.</div>
+    </div>
+    <div style="padding:.9rem 1.1rem;background:var(--violet-bg);border:1px solid var(--violet-border);border-radius:10px">
+      <div style="font-size:.85rem;font-weight:700;color:var(--violet);margin-bottom:.3rem">⑤ 참여자 분담 — 누가 뭘 하나</div>
+      <div style="font-size:.8rem;color:var(--text);line-height:1.75">
+        <strong>Human</strong>은 <em>시작점과 종점</em>만 맡습니다 — 원본 자료 큐레이팅, Schema 작성, 질문 던지기, 최종 승인.
+        <strong style="color:var(--violet)">LLM Agent</strong>는 그 사이 <em>모든 반복 작업</em>을 자동화합니다 — Ingest · Query · Lint 실행, entity 생성, 상호참조, 요약, 제안.
+        <strong>이것이 Karpathy가 말한 "지식의 컴파일"</strong>입니다 — 사람은 의도만, LLM은 집행.
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
 <!-- 3가지 운영 -->
 <div class="dia reveal">
-<div class="dia-title">3가지 핵심 운영 — Ingest · Query · Lint</div>
+<div class="dia-title">3가지 핵심 운영 — Ingest · Query · Lint 상세</div>
 <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:850px;margin:0 auto">
 
   <div style="background:var(--card);border:1px solid var(--violet-border);border-radius:14px;padding:1.3rem">
