@@ -110,7 +110,27 @@
 - [Self-Attention](./entities/self-attention.md)
 - [Augmented LLM](./entities/augmented-llm.md)
 - [Memory (Agent)](./entities/memory.md)
-- [Ontology](./entities/ontology.md) — Graph DB의 의미론적 사촌, LLM 시대 부활 ⭐ NEW
+- [Ontology](./entities/ontology.md) — Graph DB의 의미론적 사촌, LLM 시대 부활
+
+## AI/ML 기초 (Part 0) ⭐ NEW 카테고리
+
+- [Machine Learning](./entities/machine-learning.md) — AI ⊃ ML ⊃ DL ⊃ GenAI 피라미드
+- [Deep Learning](./entities/deep-learning.md) — ANN 기반 ML
+- [Neural Network](./entities/neural-network.md) — 뉴런·은닉층·가중치
+- [Activation Function](./entities/activation-function.md) — ReLU, GELU, Sigmoid
+- [Supervised Learning](./entities/supervised-learning.md) — 지도학습
+- [Unsupervised Learning](./entities/unsupervised-learning.md) — 비지도학습
+- [Reinforcement Learning](./entities/reinforcement-learning.md) — 강화학습, RLHF의 기반
+- [Self-Supervised Learning](./entities/self-supervised-learning.md) — LLM Pre-training의 핵심
+- [Loss Function](./entities/loss-function.md) — MSE, Cross-Entropy
+- [Gradient Descent](./entities/gradient-descent.md) — 경사하강법, Adam
+- [Backpropagation](./entities/backpropagation.md) — 역전파 (1986)
+- [Overfitting](./entities/overfitting.md) — Train/Val/Test 분할
+- [Linear Regression](./entities/linear-regression.md) — y=wx+b
+- [KNN](./entities/knn.md) — K-Nearest Neighbors
+- [K-Means Clustering](./entities/k-means-clustering.md) — Elbow method
+- [AGI Levels](./entities/agi-levels.md) — OpenAI 5단계 분류
+- [AI Chip Evolution](./entities/ai-chip-evolution.md) — CPU→GPU→ASIC→뉴로모픽
 
 ## 인물
 
@@ -124,7 +144,7 @@
 
 ## 통계
 
-- entity 페이지: **70개** (28 → 70, +42)
+- entity 페이지: **87개** (28 → 87, +59)
 - 카테고리: 13개 (9 → 13, 신설: 저장 계층 · Open Table Formats · 데이터 파이프라인 · 데이터 품질·윤리)
 - Last ingest: 2026-04-12 (Data 파트 — 41개 신규 entity)
 - Last query: 2026-04-12 (Part 1 + Part 4 동시 합성, 45 entity 활용, 5495줄)
