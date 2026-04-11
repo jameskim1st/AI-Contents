@@ -412,214 +412,664 @@
 </div>
 </div>
 
-<!-- 5대 저장 계층 비교표 -->
+<!-- ============================== -->
+<!-- 5대 저장 계층 — 한눈 미리보기   -->
+<!-- ============================== -->
 <div class="dia reveal">
-<div class="dia-title">5대 저장 계층 상세 비교</div>
+<div class="dia-title">5대 저장 계층 — 한눈에 보기</div>
+<div style="max-width:920px;margin:0 auto">
+  <div style="font-size:.85rem;color:var(--text);line-height:1.85;margin-bottom:1.2rem;text-align:center">
+    "그냥 DB 하나면 되지 않나?"라는 질문에서 출발해 <strong style="color:var(--amber)">40년간 진화</strong>한 5가지 저장 계층. 각 계층은 <strong>이전 계층이 풀지 못한 문제</strong>를 해결하려고 등장했습니다. 아래에서 차례로, <strong style="color:var(--amber)">각 계층마다 개념 → 미니 다이어그램 → 실제 화면</strong>을 함께 봅니다.
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;text-align:center;font-size:.7rem">
+    <a href="#sl-rdbms" style="text-decoration:none;color:inherit">
+      <div style="padding:.7rem .3rem;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:all .3s" onmouseover="this.style.borderColor='var(--amber)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:1.5rem">🐘</div>
+        <div style="font-weight:700;color:var(--amber);margin-top:.3rem">RDBMS</div>
+        <div style="color:var(--text-dim);font-size:.62rem;margin-top:.2rem">"정확하게 거래"</div>
+      </div>
+    </a>
+    <a href="#sl-dw" style="text-decoration:none;color:inherit">
+      <div style="padding:.7rem .3rem;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:all .3s" onmouseover="this.style.borderColor='var(--amber)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:1.5rem">🏭</div>
+        <div style="font-weight:700;color:var(--amber);margin-top:.3rem">Data Warehouse</div>
+        <div style="color:var(--text-dim);font-size:.62rem;margin-top:.2rem">"빠르게 분석"</div>
+      </div>
+    </a>
+    <a href="#sl-mart" style="text-decoration:none;color:inherit">
+      <div style="padding:.7rem .3rem;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:all .3s" onmouseover="this.style.borderColor='var(--amber)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:1.5rem">🛒</div>
+        <div style="font-weight:700;color:var(--amber);margin-top:.3rem">Data Mart</div>
+        <div style="color:var(--text-dim);font-size:.62rem;margin-top:.2rem">"부서가 쇼핑"</div>
+      </div>
+    </a>
+    <a href="#sl-lake" style="text-decoration:none;color:inherit">
+      <div style="padding:.7rem .3rem;background:var(--card);border:1px solid var(--border);border-radius:10px;transition:all .3s" onmouseover="this.style.borderColor='var(--amber)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:1.5rem">🏞️</div>
+        <div style="font-weight:700;color:var(--amber);margin-top:.3rem">Data Lake</div>
+        <div style="color:var(--text-dim);font-size:.62rem;margin-top:.2rem">"전부 던져넣기"</div>
+      </div>
+    </a>
+    <a href="#sl-lakehouse" style="text-decoration:none;color:inherit">
+      <div style="padding:.7rem .3rem;background:var(--amber-bg);border:2px solid var(--amber);border-radius:10px;transition:all .3s" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+        <div style="font-size:1.5rem">🏔️</div>
+        <div style="font-weight:700;color:var(--amber);margin-top:.3rem">Lakehouse</div>
+        <div style="color:var(--text-dim);font-size:.62rem;margin-top:.2rem">"둘 다 갖기"</div>
+      </div>
+    </a>
+  </div>
+</div>
+</div>
+
+<!-- ============================== -->
+<!-- ① RDBMS                         -->
+<!-- ============================== -->
+<div class="dia reveal" id="sl-rdbms">
+<div class="dia-title">① RDBMS — 정확함의 원조 (1970~)</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <!-- Concept + mini diagram -->
+  <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:1rem;margin-bottom:1.2rem">
+    <div style="font-size:.85rem;color:var(--text);line-height:1.95">
+      <strong style="color:var(--amber)">"트랜잭션 한 건도 절대 잃지 않겠다."</strong><br>
+      1970년 IBM의 Edgar Codd가 제안한 관계형 모델은 50년이 지난 지금도 모든 업무 시스템의 심장입니다. 데이터를 <strong>행(row) 단위</strong>로 저장·수정·삭제하며, 중복을 줄이기 위해 <strong>여러 테이블로 쪼개고 외래키(FK)로 연결</strong>합니다.
+      <br><br>
+      핵심은 <strong style="color:var(--amber)">ACID</strong>라는 4대 보장 — "송금 도중 정전이 나도 돈이 사라지지 않게" 만들어 주는 약속입니다.
+    </div>
+    <div>
+      <div style="background:var(--surface);border-radius:8px;padding:.9rem;font-family:var(--mono);font-size:.68rem;color:var(--text);line-height:1.7">
+        <div style="color:var(--text-dim);text-align:center;margin-bottom:.5rem;font-size:.65rem">정규화된 테이블 (3NF)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem">
+          <div style="border:1px solid var(--amber-border);border-radius:6px;padding:.5rem;background:var(--card)">
+            <div style="color:var(--amber);font-weight:700;border-bottom:1px solid var(--border);padding-bottom:.2rem;margin-bottom:.2rem">customers</div>
+            <div>id 🔑<br>name<br>email</div>
+          </div>
+          <div style="border:1px solid var(--amber-border);border-radius:6px;padding:.5rem;background:var(--card)">
+            <div style="color:var(--amber);font-weight:700;border-bottom:1px solid var(--border);padding-bottom:.2rem;margin-bottom:.2rem">orders</div>
+            <div>id 🔑<br>cust_id 🔗<br>amount<br>created</div>
+          </div>
+        </div>
+        <div style="text-align:center;color:var(--amber);font-size:.65rem;margin-top:.5rem">↑ FK로 연결 (1:N)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACID 4 cards -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-bottom:1.2rem">
+    <div style="padding:.7rem .5rem;background:var(--surface);border-radius:8px;text-align:center">
+      <div style="font-family:var(--display);font-weight:800;color:var(--amber);font-size:1.1rem">A</div>
+      <div style="font-size:.72rem;font-weight:600;color:var(--text);margin-top:.2rem">Atomicity</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">전부 또는 전무</div>
+    </div>
+    <div style="padding:.7rem .5rem;background:var(--surface);border-radius:8px;text-align:center">
+      <div style="font-family:var(--display);font-weight:800;color:var(--amber);font-size:1.1rem">C</div>
+      <div style="font-size:.72rem;font-weight:600;color:var(--text);margin-top:.2rem">Consistency</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">규칙·제약 준수</div>
+    </div>
+    <div style="padding:.7rem .5rem;background:var(--surface);border-radius:8px;text-align:center">
+      <div style="font-family:var(--display);font-weight:800;color:var(--amber);font-size:1.1rem">I</div>
+      <div style="font-size:.72rem;font-weight:600;color:var(--text);margin-top:.2rem">Isolation</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">동시성 안전</div>
+    </div>
+    <div style="padding:.7rem .5rem;background:var(--surface);border-radius:8px;text-align:center">
+      <div style="font-family:var(--display);font-weight:800;color:var(--amber);font-size:1.1rem">D</div>
+      <div style="font-size:.72rem;font-weight:600;color:var(--text);margin-top:.2rem">Durability</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">한 번 쓰면 영구</div>
+    </div>
+  </div>
+
+  <!-- When -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.2rem">
+    <div style="padding:.7rem .9rem;background:var(--amber-bg);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.75">
+      ✓ <strong>적합:</strong> 주문·결제·재고 / 회원 / 송금·예약 / 일관성이 생명인 모든 OLTP
+    </div>
+    <div style="padding:.7rem .9rem;background:var(--surface);border-left:3px solid var(--text-dim);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text-dim);line-height:1.75">
+      ✗ <strong>한계:</strong> 100억 행 분석 느림 / 비정형 못 다룸 / 수평 확장 어려움 → DW·Lake 등장
+    </div>
+  </div>
+
+  <!-- 대표 제품 -->
+  <div style="text-align:center;font-size:.75rem;color:var(--text-dim);margin-bottom:1.2rem">
+    🐘 PostgreSQL · 🐬 MySQL · 🅾 Oracle · 🟦 SQL Server · ☁️ Aurora · ⚡ CockroachDB
+  </div>
+
+  <!-- ─── UI 투어 ─── -->
+  <div style="border-top:1px dashed var(--border);padding-top:1.2rem">
+    <div style="font-size:.72rem;color:var(--amber);letter-spacing:1px;font-family:var(--mono);margin-bottom:.6rem">🖥️ UI 투어 — pgAdmin 4</div>
+    <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.7rem">RDBMS의 클래식 3분할 레이아웃: 왼쪽 object tree, 오른쪽 상단 SQL 에디터, 오른쪽 하단 결과 그리드. "서버 관리" 도구의 전형.</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.7rem">
+      <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim);display:flex;justify-content:space-between">
+        <span>🐘 pgAdmin 4 — localhost:5432 / mydb</span>
+        <span style="color:var(--amber)">▶ Execute</span>
+      </div>
+      <div style="display:grid;grid-template-columns:180px 1fr;min-height:240px">
+        <div style="background:var(--card);border-right:1px solid var(--border);padding:.7rem;color:var(--text);line-height:1.9">
+          ▼ Servers<br>
+          &nbsp;&nbsp;▼ 🐘 localhost<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;▼ Databases<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼ mydb<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼ Schemas<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼ public<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📋 customers<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📋 orders<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📋 products
+        </div>
+        <div>
+          <div style="padding:.7rem;border-bottom:1px solid var(--border);color:var(--text);line-height:1.8">
+            <span style="color:var(--amber)">SELECT</span> c.name, <span style="color:var(--amber)">COUNT</span>(o.id) <span style="color:var(--amber)">AS</span> orders<br>
+            <span style="color:var(--amber)">FROM</span> customers c<br>
+            <span style="color:var(--amber)">JOIN</span> orders o <span style="color:var(--amber)">ON</span> c.id = o.customer_id<br>
+            <span style="color:var(--amber)">GROUP BY</span> c.name <span style="color:var(--amber)">ORDER BY</span> orders <span style="color:var(--amber)">DESC</span>;
+          </div>
+          <div style="padding:.5rem .7rem;color:var(--text-dim);border-bottom:1px solid var(--border);font-size:.65rem">Data Output (32 rows · 45ms)</div>
+          <div style="padding:.5rem .7rem;color:var(--text);line-height:1.7">
+            name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| orders<br>
+            김영희 &nbsp;&nbsp;&nbsp;&nbsp;| 47<br>
+            이철수 &nbsp;&nbsp;&nbsp;&nbsp;| 32<br>
+            박민준 &nbsp;&nbsp;&nbsp;&nbsp;| 28
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================== -->
+<!-- ② Data Warehouse                -->
+<!-- ============================== -->
+<div class="dia reveal" id="sl-dw">
+<div class="dia-title">② Data Warehouse — 분석을 위한 별도 창고 (1990~)</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <!-- Concept + star schema diagram -->
+  <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:1rem;margin-bottom:1.2rem">
+    <div style="font-size:.85rem;color:var(--text);line-height:1.95">
+      <strong style="color:var(--amber)">"트랜잭션 DB는 분석에 너무 느려."</strong><br>
+      RDBMS는 한 행 한 행의 정확함에는 최적이지만, "지난 5년 매출을 카테고리·지역별로" 같은 <strong>대규모 집계 쿼리</strong>에는 매우 느립니다. 1991년 Bill Inmon이 제안한 Data Warehouse는 <strong>분석 전용 별도 저장소</strong>입니다.
+      <br><br>
+      두 가지 핵심:<br>
+      ① <strong style="color:var(--amber)">컬럼 저장</strong> (column-oriented) — 한 컬럼만 빠르게 읽음<br>
+      ② <strong style="color:var(--amber)">스타 스키마</strong> — 거래(fact)를 중심에 두고 차원(dim)을 별처럼 배치
+    </div>
+    <div>
+      <div style="background:var(--surface);border-radius:8px;padding:.9rem;font-family:var(--mono);font-size:.65rem;color:var(--text);line-height:1.7">
+        <div style="color:var(--text-dim);text-align:center;margin-bottom:.5rem">⭐ Star Schema</div>
+        <div style="position:relative;text-align:center">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.3rem;align-items:center">
+            <div style="border:1px solid var(--amber-border);border-radius:4px;padding:.3rem;background:var(--card)">dim_<br>customer</div>
+            <div style="border:2px solid var(--amber);border-radius:6px;padding:.4rem;background:var(--amber-bg);color:var(--amber);font-weight:700">fact_<br>sales</div>
+            <div style="border:1px solid var(--amber-border);border-radius:4px;padding:.3rem;background:var(--card)">dim_<br>product</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.3rem;margin-top:.4rem">
+            <div style="border:1px solid var(--amber-border);border-radius:4px;padding:.3rem;background:var(--card)">dim_date</div>
+            <div style="border:1px solid var(--amber-border);border-radius:4px;padding:.3rem;background:var(--card)">dim_store</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row vs Column -->
+  <div style="background:var(--surface);border-radius:8px;padding:.9rem;margin-bottom:1.2rem;font-family:var(--mono);font-size:.7rem">
+    <div style="color:var(--text-dim);text-align:center;margin-bottom:.5rem;font-size:.7rem">📊 Row store (RDBMS) vs Column store (DW) — 같은 데이터, 다른 저장 방식</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+      <div style="padding:.5rem;background:var(--card);border:1px solid var(--border);border-radius:6px">
+        <div style="color:var(--text-dim);font-size:.62rem;margin-bottom:.3rem">Row store</div>
+        <div style="color:var(--text);line-height:1.6">[1, 김, 2024, 100]<br>[2, 박, 2024, 200]<br>[3, 이, 2025, 300]</div>
+        <div style="color:var(--text-dim);font-size:.6rem;margin-top:.4rem">→ SELECT * 빠름<br>→ SUM(amount) 느림</div>
+      </div>
+      <div style="padding:.5rem;background:var(--card);border:1px solid var(--amber);border-radius:6px">
+        <div style="color:var(--amber);font-size:.62rem;margin-bottom:.3rem">Column store</div>
+        <div style="color:var(--text);line-height:1.6">id: [1, 2, 3]<br>name: [김, 박, 이]<br>year: [24, 24, 25]<br>amount: [100, 200, 300]</div>
+        <div style="color:var(--amber);font-size:.6rem;margin-top:.4rem">→ SUM(amount) 빠름<br>→ 컬럼 압축률 ↑</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- When -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.2rem">
+    <div style="padding:.7rem .9rem;background:var(--amber-bg);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.75">
+      ✓ <strong>적합:</strong> BI 대시보드 / 재무 리포팅 / 전사 분석 / 컬럼 합계·평균·count 위주
+    </div>
+    <div style="padding:.7rem .9rem;background:var(--surface);border-left:3px solid var(--text-dim);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text-dim);line-height:1.75">
+      ✗ <strong>한계:</strong> 비정형(이미지·텍스트) 못 다룸 / 비쌈 / 빈번한 UPDATE 부적합
+    </div>
+  </div>
+
+  <!-- 대표 제품 -->
+  <div style="text-align:center;font-size:.75rem;color:var(--text-dim);margin-bottom:1.2rem">
+    ❄️ Snowflake · 🔍 BigQuery · 🟧 Redshift · 🔷 Synapse · 🐘 Greenplum · 🚀 ClickHouse
+  </div>
+
+  <!-- ─── UI 투어 ─── -->
+  <div style="border-top:1px dashed var(--border);padding-top:1.2rem">
+    <div style="font-size:.72rem;color:var(--amber);letter-spacing:1px;font-family:var(--mono);margin-bottom:.6rem">🖥️ UI 투어 — Snowflake Snowsight</div>
+    <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.7rem">"Worksheet" 개념. DW는 <strong style="color:var(--text)">Warehouse(컴퓨팅 풀) 드롭다운</strong>으로 자원을 선택합니다 — 과금이 컴퓨팅 단위이기 때문.</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.7rem">
+      <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim);display:flex;justify-content:space-between">
+        <span>❄️ Snowsight — Worksheet: Q4_Sales_Analysis</span>
+        <span style="color:var(--amber)">Warehouse: COMPUTE_WH (Medium) ▾</span>
+      </div>
+      <div style="padding:.7rem;color:var(--text);line-height:1.85;border-bottom:1px solid var(--border)">
+        <span style="color:var(--text-dim)">-- 2026 Q4 매출 상위 카테고리</span><br>
+        <span style="color:var(--amber)">SELECT</span> category, <span style="color:var(--amber)">SUM</span>(revenue) <span style="color:var(--amber)">AS</span> total<br>
+        <span style="color:var(--amber)">FROM</span> SALES_DB.PUBLIC.ORDERS<br>
+        <span style="color:var(--amber)">WHERE</span> order_date <span style="color:var(--amber)">&gt;=</span> '2026-10-01'<br>
+        <span style="color:var(--amber)">GROUP BY</span> category<br>
+        <span style="color:var(--amber)">ORDER BY</span> total <span style="color:var(--amber)">DESC</span> <span style="color:var(--amber)">LIMIT</span> 5;
+      </div>
+      <div style="padding:.5rem .7rem;color:var(--text-dim);border-bottom:1px solid var(--border);font-size:.65rem">
+        ✓ Query completed | 1.2 B rows scanned | 2.3s | Credits: 0.0019
+      </div>
+      <div style="padding:.5rem .7rem;color:var(--text);line-height:1.7">
+        category &nbsp;| total<br>
+        전자제품 | ₩18.4B<br>
+        의류 &nbsp;&nbsp;&nbsp;&nbsp;| ₩12.1B<br>
+        식품 &nbsp;&nbsp;&nbsp;&nbsp;| ₩9.8B
+      </div>
+    </div>
+    <div style="margin-top:.7rem;padding:.7rem .9rem;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:8px;font-size:.75rem;color:var(--text);line-height:1.7">
+      💡 <strong style="color:var(--amber)">pgAdmin과의 결정적 차이:</strong> pgAdmin은 "서버를 관리"하지만 Snowflake는 <strong>"쿼리를 실행하고 비용을 본다"</strong>. DW는 저장과 컴퓨팅이 분리되어 있고, 쿼리마다 크레딧(=돈)이 소모됩니다 — 1.2B 행 스캔에 약 0.002 크레딧.
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================== -->
+<!-- ③ Data Mart                     -->
+<!-- ============================== -->
+<div class="dia reveal" id="sl-mart">
+<div class="dia-title">③ Data Mart — 부서가 쇼핑하는 작은 창고 (1990s 후반~)</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <!-- Concept + diagram -->
+  <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:1rem;margin-bottom:1.2rem">
+    <div style="font-size:.85rem;color:var(--text);line-height:1.95">
+      <strong style="color:var(--amber)">"전사 DW는 너무 크고 복잡해. 우리 부서만 빨리 보고 싶어."</strong><br>
+      Data Mart는 <strong>특정 부서·도메인용으로 잘라낸 DW의 부분집합</strong>입니다. 재무팀이 100만 줄 매출만 본다면 굳이 전사 DW에 매번 쿼리할 필요 없이 "재무 Mart"를 따로 만듭니다.
+      <br><br>
+      두 종류:<br>
+      • <strong>Dependent Mart</strong> — DW에서 추출한 부분집합 (권장)<br>
+      • <strong>Independent Mart</strong> — 원본에서 직접 (사일로 위험)
+    </div>
+    <div>
+      <div style="background:var(--surface);border-radius:8px;padding:.9rem;font-family:var(--mono);font-size:.65rem;color:var(--text);line-height:1.7">
+        <div style="color:var(--text-dim);text-align:center;margin-bottom:.5rem">DW → Marts (Dependent)</div>
+        <div style="text-align:center">
+          <div style="border:2px solid var(--amber);border-radius:6px;padding:.5rem;background:var(--amber-bg);color:var(--amber);font-weight:700;margin-bottom:.4rem">🏭 Enterprise DW</div>
+          <div style="color:var(--text-dim);font-size:.7rem">↓ ↓ ↓</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.3rem;margin-top:.4rem">
+            <div style="border:1px solid var(--amber-border);border-radius:4px;padding:.3rem;background:var(--card)">🛒<br>Sales</div>
+            <div style="border:1px solid var(--amber-border);border-radius:4px;padding:.3rem;background:var(--card)">💰<br>Finance</div>
+            <div style="border:1px solid var(--amber-border);border-radius:4px;padding:.3rem;background:var(--card)">👥<br>HR</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pros/cons -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.2rem">
+    <div style="padding:.9rem 1rem;background:var(--card);border:1px solid var(--amber-border);border-radius:10px">
+      <div style="font-size:.82rem;font-weight:700;color:var(--amber);margin-bottom:.4rem">✓ 장점</div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.85">
+        · 부서 도메인에 최적화된 스키마<br>
+        · 권한 관리 단순 (해당 부서만)<br>
+        · 쿼리 빠름 (작은 데이터셋)<br>
+        · BI 도구와 직결 (Tableau, Power BI)
+      </div>
+    </div>
+    <div style="padding:.9rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:10px">
+      <div style="font-size:.82rem;font-weight:700;color:var(--text-dim);margin-bottom:.4rem">⚠️ 주의</div>
+      <div style="font-size:.75rem;color:var(--text-dim);line-height:1.85">
+        · 데이터 중복 (DW와 Mart에 같은 데이터)<br>
+        · 사일로 위험 — Mart끼리 숫자가 다름<br>
+        · ETL 파이프라인 늘어남<br>
+        · "한 명이 보면 좋은데 회사 전체로는 혼란"
+      </div>
+    </div>
+  </div>
+
+  <!-- When -->
+  <div style="padding:.7rem .9rem;background:var(--amber-bg);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.75;margin-bottom:1.2rem">
+    💡 <strong style="color:var(--amber)">2026 트렌드:</strong> Lakehouse + dbt 시대에 Mart는 "별도 DB"가 아니라 <strong>DW/Lakehouse 안의 "Gold 레이어 schema"</strong>로 표현됩니다. 물리적 분리가 아닌 논리적 분리.
+  </div>
+
+  <!-- ─── UI 투어 (NEW) ─── -->
+  <div style="border-top:1px dashed var(--border);padding-top:1.2rem">
+    <div style="font-size:.72rem;color:var(--amber);letter-spacing:1px;font-family:var(--mono);margin-bottom:.6rem">🖥️ UI 투어 — Power BI Report (재무 Mart)</div>
+    <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.7rem">Mart의 실제 모습은 SQL 콘솔이 아니라 <strong style="color:var(--text)">BI 대시보드</strong>입니다. 부서원이 직접 클릭·드래그로 분석합니다 — 그게 Mart가 존재하는 이유.</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:var(--sans);font-size:.72rem">
+      <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim);display:flex;justify-content:space-between">
+        <span>📊 Power BI — Finance_Mart_Q4</span>
+        <span style="color:var(--amber)">Refreshed: 2026-04-12 09:00</span>
+      </div>
+      <div style="padding:.9rem;color:var(--text)">
+        <!-- KPI cards row -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-bottom:.8rem">
+          <div style="padding:.6rem;background:var(--card);border:1px solid var(--border);border-radius:6px;text-align:center">
+            <div style="font-size:.6rem;color:var(--text-dim)">Q4 매출</div>
+            <div style="font-family:var(--display);font-size:1rem;font-weight:800;color:var(--amber);margin-top:.2rem">₩42.3B</div>
+            <div style="font-size:.55rem;color:#4ade80">▲ 12.3%</div>
+          </div>
+          <div style="padding:.6rem;background:var(--card);border:1px solid var(--border);border-radius:6px;text-align:center">
+            <div style="font-size:.6rem;color:var(--text-dim)">영업이익</div>
+            <div style="font-family:var(--display);font-size:1rem;font-weight:800;color:var(--amber);margin-top:.2rem">₩8.1B</div>
+            <div style="font-size:.55rem;color:#4ade80">▲ 5.4%</div>
+          </div>
+          <div style="padding:.6rem;background:var(--card);border:1px solid var(--border);border-radius:6px;text-align:center">
+            <div style="font-size:.6rem;color:var(--text-dim)">마진율</div>
+            <div style="font-family:var(--display);font-size:1rem;font-weight:800;color:var(--amber);margin-top:.2rem">19.1%</div>
+            <div style="font-size:.55rem;color:#f87171">▼ 0.8%p</div>
+          </div>
+          <div style="padding:.6rem;background:var(--card);border:1px solid var(--border);border-radius:6px;text-align:center">
+            <div style="font-size:.6rem;color:var(--text-dim)">미수금</div>
+            <div style="font-family:var(--display);font-size:1rem;font-weight:800;color:var(--amber);margin-top:.2rem">₩3.4B</div>
+            <div style="font-size:.55rem;color:#4ade80">▼ 8.2%</div>
+          </div>
+        </div>
+        <!-- Bar chart mock -->
+        <div style="padding:.7rem;background:var(--card);border:1px solid var(--border);border-radius:6px">
+          <div style="font-size:.65rem;color:var(--text-dim);margin-bottom:.5rem">월별 매출 추이</div>
+          <div style="display:flex;gap:.4rem;align-items:flex-end;height:60px">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.2rem">
+              <div style="width:100%;height:42%;background:var(--amber-bg);border-top:2px solid var(--amber)"></div>
+              <div style="font-size:.55rem;color:var(--text-dim)">10월</div>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.2rem">
+              <div style="width:100%;height:68%;background:var(--amber-bg);border-top:2px solid var(--amber)"></div>
+              <div style="font-size:.55rem;color:var(--text-dim)">11월</div>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.2rem">
+              <div style="width:100%;height:88%;background:var(--amber-bg);border-top:2px solid var(--amber)"></div>
+              <div style="font-size:.55rem;color:var(--text-dim)">12월</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================== -->
+<!-- ④ Data Lake                     -->
+<!-- ============================== -->
+<div class="dia reveal" id="sl-lake">
+<div class="dia-title">④ Data Lake — 정해진 모양 없이 전부 던져넣기 (2010~)</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <!-- Concept + Schema diff -->
+  <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:1rem;margin-bottom:1.2rem">
+    <div style="font-size:.85rem;color:var(--text);line-height:1.95">
+      <strong style="color:var(--amber)">"DW는 정형만, 미리 스키마 정해야 해. 우린 사진·영상·로그도 다 모아야 해."</strong><br>
+      2010년경 등장한 Data Lake는 <strong>S3 같은 객체 저장소에 원본 데이터를 그대로 던져두는</strong> 패턴입니다. RDBMS·DW의 "<strong style="color:var(--amber)">Schema-on-Write</strong>"(저장 전 스키마 결정)와 정반대인 "<strong style="color:var(--amber)">Schema-on-Read</strong>"(읽을 때 결정).
+      <br><br>
+      장점은 분명합니다 — <strong>저렴하고 유연하며 무제한 확장</strong>. 단점도 분명합니다 — <strong>관리 안 하면 "Data Swamp(늪)"</strong>로 변합니다.
+    </div>
+    <div>
+      <div style="background:var(--surface);border-radius:8px;padding:.9rem;font-family:var(--mono);font-size:.65rem;color:var(--text);line-height:1.7">
+        <div style="color:var(--text-dim);text-align:center;margin-bottom:.5rem">Schema-on-Write vs Read</div>
+        <div style="border-bottom:1px solid var(--border);padding-bottom:.4rem;margin-bottom:.4rem">
+          <div style="color:var(--amber);font-weight:700;margin-bottom:.2rem">Write (DW)</div>
+          <div style="color:var(--text-dim);font-size:.6rem">앱 → 검증 → 변환 → 저장<br>(엄격, 느림, 안전)</div>
+        </div>
+        <div>
+          <div style="color:var(--amber);font-weight:700;margin-bottom:.2rem">Read (Lake)</div>
+          <div style="color:var(--text-dim);font-size:.6rem">앱 → 그대로 저장<br>읽을 때 → 해석<br>(유연, 빠름, 위험)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- File format cards -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-bottom:1.2rem">
+    <div style="padding:.6rem;background:var(--surface);border-radius:6px;text-align:center">
+      <div style="font-family:var(--display);font-weight:700;color:var(--amber);font-size:.78rem">Parquet</div>
+      <div style="font-size:.6rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">컬럼 압축<br>분석 표준</div>
+    </div>
+    <div style="padding:.6rem;background:var(--surface);border-radius:6px;text-align:center">
+      <div style="font-family:var(--display);font-weight:700;color:var(--amber);font-size:.78rem">ORC</div>
+      <div style="font-size:.6rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">Hive 진영<br>Hadoop 생태계</div>
+    </div>
+    <div style="padding:.6rem;background:var(--surface);border-radius:6px;text-align:center">
+      <div style="font-family:var(--display);font-weight:700;color:var(--amber);font-size:.78rem">Avro</div>
+      <div style="font-size:.6rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">행 기반<br>스트리밍</div>
+    </div>
+    <div style="padding:.6rem;background:var(--surface);border-radius:6px;text-align:center">
+      <div style="font-family:var(--display);font-weight:700;color:var(--amber);font-size:.78rem">JSON/CSV</div>
+      <div style="font-size:.6rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">단순<br>비효율</div>
+    </div>
+  </div>
+
+  <!-- When -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.2rem">
+    <div style="padding:.7rem .9rem;background:var(--amber-bg);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.75">
+      ✓ <strong>적합:</strong> 로그 수집 / ML 학습 데이터 / 이미지·음성 / "일단 모으고 나중에 분석"
+    </div>
+    <div style="padding:.7rem .9rem;background:var(--surface);border-left:3px solid var(--text-dim);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text-dim);line-height:1.75">
+      ✗ <strong>한계:</strong> ACID 없음 / 중복 파일 / 거버넌스 어려움 / "Data Swamp" 위험 → Lakehouse가 해결
+    </div>
+  </div>
+
+  <!-- 대표 제품 -->
+  <div style="text-align:center;font-size:.75rem;color:var(--text-dim);margin-bottom:1.2rem">
+    🟧 AWS S3 · 🔷 Azure ADLS · 🟦 GCP GCS · 🐘 HDFS · 🪣 MinIO (self-hosted)
+  </div>
+
+  <!-- ─── UI 투어 ─── -->
+  <div style="border-top:1px dashed var(--border);padding-top:1.2rem">
+    <div style="font-size:.72rem;color:var(--amber);letter-spacing:1px;font-family:var(--mono);margin-bottom:.6rem">🖥️ UI 투어 — AWS S3 Console</div>
+    <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.7rem">Lake에는 "테이블" 같은 추상화가 없습니다. 그냥 <strong style="color:var(--text)">버킷 → 폴더(prefix) → 파일</strong>입니다. Parquet, JSON, CSV가 혼재합니다.</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.7rem">
+      <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim)">
+        🪣 S3 &gt; acme-datalake &gt; raw/events/year=2026/month=04/day=11/
+      </div>
+      <div style="padding:.7rem;color:var(--text);line-height:2">
+        <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:.5rem;padding:.3rem 0;border-bottom:1px dashed var(--border);color:var(--text-dim);font-size:.65rem">
+          <span>Name</span><span>Type</span><span>Size</span><span>Last modified</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:.5rem;padding:.25rem 0">
+          <span>📦 hour=09/</span><span>folder</span><span>—</span><span>09:59</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:.5rem;padding:.25rem 0">
+          <span>📦 hour=10/</span><span>folder</span><span>—</span><span>10:59</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:.5rem;padding:.25rem 0;color:var(--amber)">
+          <span>📄 part-00000.parquet</span><span>parquet</span><span>47 MB</span><span>11:00</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:.5rem;padding:.25rem 0;color:var(--amber)">
+          <span>📄 part-00001.parquet</span><span>parquet</span><span>51 MB</span><span>11:00</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:.5rem;padding:.25rem 0">
+          <span>📄 _SUCCESS</span><span>json</span><span>128 B</span><span>11:00</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:.7rem;padding:.7rem .9rem;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:8px;font-size:.75rem;color:var(--text);line-height:1.7">
+      💡 <strong style="color:var(--amber)">Hive-style partitioning</strong> (<code style="color:var(--amber)">year=2026/month=04/day=11</code>)은 Data Lake의 표준 컨벤션. 쿼리 엔진(Trino, Spark)이 이 폴더 이름만 보고 <strong>partition pruning</strong>으로 빠르게 탐색합니다 — 5년치 중 하루만 읽으면 1/1825 비용.
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================== -->
+<!-- ⑤ Data Lakehouse                -->
+<!-- ============================== -->
+<div class="dia reveal" id="sl-lakehouse">
+<div class="dia-title">⑤ Data Lakehouse — 둘 다 갖기 (2020~) ⭐</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <!-- Concept + diagram -->
+  <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:1rem;margin-bottom:1.2rem">
+    <div style="font-size:.85rem;color:var(--text);line-height:1.95">
+      <strong style="color:var(--amber)">"Lake는 싸고 유연한데 신뢰가 없고, DW는 신뢰는 있는데 비싸고 비정형이 안 돼. 둘 다 운영하니 데이터가 두 군데 있고 동기화가 지옥이야."</strong>
+      <br><br>
+      Databricks가 2020년 제안한 Lakehouse는 <strong>S3 위에 transaction log를 얹어</strong> Lake의 가격·유연성에 DW의 ACID·신뢰성을 결합합니다. 핵심 마법은 <strong style="color:var(--amber)">Open Table Format</strong>이라 불리는 메타데이터 레이어 — Delta Lake, Apache Iceberg, Apache Hudi.
+      <br><br>
+      2026년 사실상 표준이 되었습니다.
+    </div>
+    <div>
+      <div style="background:var(--surface);border-radius:8px;padding:.9rem;font-family:var(--mono);font-size:.65rem;color:var(--text);line-height:1.7">
+        <div style="color:var(--text-dim);text-align:center;margin-bottom:.5rem">Lakehouse = Lake + 메타</div>
+        <div style="border:2px solid var(--amber);border-radius:6px;padding:.5rem;background:var(--amber-bg);text-align:center;color:var(--amber);font-weight:700;margin-bottom:.4rem">
+          📋 Transaction Log<br>
+          <span style="font-size:.6rem;color:var(--text-dim);font-weight:400">(ACID, time travel, schema)</span>
+        </div>
+        <div style="text-align:center;color:var(--text-dim);font-size:.7rem;margin-bottom:.4rem">↓ 가리킴</div>
+        <div style="border:1px solid var(--amber-border);border-radius:6px;padding:.5rem;background:var(--card);text-align:center">
+          🪣 Parquet files on S3<br>
+          <span style="font-size:.6rem;color:var(--text-dim)">(저렴, 무제한)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- What you gain -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:1.2rem">
+    <div style="padding:.7rem .5rem;background:var(--surface);border-radius:8px;text-align:center">
+      <div style="font-size:1.1rem">⚡</div>
+      <div style="font-size:.72rem;font-weight:700;color:var(--amber);margin-top:.2rem">ACID</div>
+      <div style="font-size:.62rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">Lake 위에서<br>트랜잭션</div>
+    </div>
+    <div style="padding:.7rem .5rem;background:var(--surface);border-radius:8px;text-align:center">
+      <div style="font-size:1.1rem">⏰</div>
+      <div style="font-size:.72rem;font-weight:700;color:var(--amber);margin-top:.2rem">Time Travel</div>
+      <div style="font-size:.62rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">과거 시점<br>쿼리</div>
+    </div>
+    <div style="padding:.7rem .5rem;background:var(--surface);border-radius:8px;text-align:center">
+      <div style="font-size:1.1rem">🔄</div>
+      <div style="font-size:.72rem;font-weight:700;color:var(--amber);margin-top:.2rem">Schema Evol</div>
+      <div style="font-size:.62rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">컬럼 추가<br>안전</div>
+    </div>
+    <div style="padding:.7rem .5rem;background:var(--surface);border-radius:8px;text-align:center">
+      <div style="font-size:1.1rem">🔀</div>
+      <div style="font-size:.72rem;font-weight:700;color:var(--amber);margin-top:.2rem">UPSERT</div>
+      <div style="font-size:.62rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">MERGE INTO<br>지원</div>
+    </div>
+    <div style="padding:.7rem .5rem;background:var(--surface);border-radius:8px;text-align:center">
+      <div style="font-size:1.1rem">🤝</div>
+      <div style="font-size:.72rem;font-weight:700;color:var(--amber);margin-top:.2rem">Multi-Engine</div>
+      <div style="font-size:.62rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">Spark/Trino/<br>BigQuery 공유</div>
+    </div>
+    <div style="padding:.7rem .5rem;background:var(--surface);border-radius:8px;text-align:center">
+      <div style="font-size:1.1rem">💰</div>
+      <div style="font-size:.72rem;font-weight:700;color:var(--amber);margin-top:.2rem">Lake 가격</div>
+      <div style="font-size:.62rem;color:var(--text-dim);margin-top:.2rem;line-height:1.5">DW 1/5~1/10<br>비용</div>
+    </div>
+  </div>
+
+  <!-- When -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.2rem">
+    <div style="padding:.7rem .9rem;background:var(--amber-bg);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.75">
+      ✓ <strong>적합:</strong> BI + ML + AI 통합 / 비정형 + 정형 / 멀티엔진 / <strong>2026 새 프로젝트의 기본 선택</strong>
+    </div>
+    <div style="padding:.7rem .9rem;background:var(--surface);border-left:3px solid var(--text-dim);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text-dim);line-height:1.75">
+      ✗ <strong>한계:</strong> 생태계 복잡 / vendor lock-in 우려 / OLTP는 여전히 RDBMS
+    </div>
+  </div>
+
+  <!-- 대표 제품 -->
+  <div style="text-align:center;font-size:.75rem;color:var(--text-dim);margin-bottom:1.2rem">
+    🔥 Databricks · ❄️ Snowflake (Iceberg) · 🪟 Microsoft Fabric · 🌀 Apache Iceberg + Trino · 🌊 Delta Lake (OSS)
+  </div>
+
+  <!-- ─── UI 투어 ─── -->
+  <div style="border-top:1px dashed var(--border);padding-top:1.2rem">
+    <div style="font-size:.72rem;color:var(--amber);letter-spacing:1px;font-family:var(--mono);margin-bottom:.6rem">🖥️ UI 투어 — Databricks Unity Catalog</div>
+    <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.7rem">Lakehouse의 본질: <strong style="color:var(--text)">S3 위에 DW의 거버넌스(Catalog · Schema · Table · Lineage)를 얹은 것</strong>. S3 콘솔과 비교해보세요 — 같은 S3 파일이지만 보이는 방식이 완전히 다릅니다.</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.7rem">
+      <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim)">
+        🔥 Databricks — Unity Catalog &gt; Catalog Explorer
+      </div>
+      <div style="display:grid;grid-template-columns:220px 1fr;min-height:260px">
+        <div style="background:var(--card);border-right:1px solid var(--border);padding:.7rem;color:var(--text);line-height:1.9">
+          ▼ 📚 main (catalog)<br>
+          &nbsp;&nbsp;▼ 📁 prod<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;▼ 🥉 bronze<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📊 raw_events<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;▼ 🥈 silver<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📊 clean_events<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;▼ 🥇 gold<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📊 daily_revenue<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📊 customer_360
+        </div>
+        <div style="padding:.7rem;color:var(--text);line-height:1.85">
+          <span style="color:var(--amber)">Table:</span> main.prod.gold.daily_revenue<br>
+          <span style="color:var(--text-dim)">Format: Delta · 1.2B rows · 47 GB</span><br><br>
+          <span style="color:var(--amber)">Columns:</span><br>
+          - date (DATE)<br>
+          - region (STRING)<br>
+          - revenue (DECIMAL)<br>
+          - order_count (BIGINT)<br><br>
+          <span style="color:var(--amber)">🔗 Lineage:</span><br>
+          bronze.raw_events → silver.clean_events → <strong>gold.daily_revenue</strong><br><br>
+          <span style="color:var(--amber)">🔐 Permissions:</span> analytics_team (SELECT)
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:.7rem;padding:.7rem .9rem;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:10px;font-size:.78rem;color:var(--text);line-height:1.7">
+      🏔️ <strong style="color:var(--amber)">Medallion 아키텍처</strong>: Bronze(원시) → Silver(정제) → Gold(비즈니스) 3단계가 Lakehouse 표준 패턴. <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/medallion-architecture.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">wiki: medallion-architecture</a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============================== -->
+<!-- 한 페이지 비교표 (요약)         -->
+<!-- ============================== -->
+<div class="dia reveal">
+<div class="dia-title">📋 한 페이지 요약 — 5대 저장 계층</div>
 <div style="max-width:920px;margin:0 auto;overflow-x:auto">
-<table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:780px">
+<table style="width:100%;border-collapse:collapse;font-size:.76rem;min-width:780px">
   <thead>
     <tr>
-      <th style="padding:.6rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">카테고리</th>
+      <th style="padding:.6rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">계층</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">한마디로</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">데이터</th>
+      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">주 사용</th>
       <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">대표 제품</th>
-      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">데이터 유형</th>
-      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">강점</th>
-      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">약점</th>
-      <th style="padding:.6rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">사용 사례</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td style="padding:.5rem;color:var(--text);font-weight:600">RDBMS<br><span style="color:var(--text-dim);font-weight:400;font-size:.7rem">OLTP</span></td>
-      <td style="padding:.5rem;color:var(--text-dim)">PostgreSQL, MySQL, Oracle, SQL Server</td>
+      <td style="padding:.5rem;color:var(--text);font-weight:600">🐘 RDBMS</td>
+      <td style="padding:.5rem;color:var(--text-dim)">정확한 거래</td>
       <td style="padding:.5rem;color:var(--text-dim)">정형</td>
-      <td style="padding:.5rem;color:var(--text-dim)">ACID, 트랜잭션, 일관성</td>
-      <td style="padding:.5rem;color:var(--text-dim)">스케일 한계, 분석 느림</td>
-      <td style="padding:.5rem;color:var(--text-dim)">업무 시스템, 주문/결제</td>
+      <td style="padding:.5rem;color:var(--text-dim)">OLTP, 업무</td>
+      <td style="padding:.5rem;color:var(--text-dim)">PostgreSQL · Oracle</td>
     </tr>
     <tr>
-      <td style="padding:.5rem;color:var(--text);font-weight:600">Data Warehouse<br><span style="color:var(--text-dim);font-weight:400;font-size:.7rem">OLAP</span></td>
-      <td style="padding:.5rem;color:var(--text-dim)">Snowflake, BigQuery, Redshift, Synapse</td>
+      <td style="padding:.5rem;color:var(--text);font-weight:600">🏭 Data Warehouse</td>
+      <td style="padding:.5rem;color:var(--text-dim)">빠른 분석</td>
       <td style="padding:.5rem;color:var(--text-dim)">정형 (주로)</td>
-      <td style="padding:.5rem;color:var(--text-dim)">대규모 집계, BI 친화적</td>
-      <td style="padding:.5rem;color:var(--text-dim)">반정형·비정형 취약, 고비용</td>
-      <td style="padding:.5rem;color:var(--text-dim)">BI 대시보드, 전사 분석</td>
+      <td style="padding:.5rem;color:var(--text-dim)">OLAP, BI</td>
+      <td style="padding:.5rem;color:var(--text-dim)">Snowflake · BigQuery</td>
     </tr>
     <tr>
-      <td style="padding:.5rem;color:var(--text);font-weight:600">Data Mart</td>
-      <td style="padding:.5rem;color:var(--text-dim)">(DW의 부분집합)</td>
+      <td style="padding:.5rem;color:var(--text);font-weight:600">🛒 Data Mart</td>
+      <td style="padding:.5rem;color:var(--text-dim)">부서 전용</td>
       <td style="padding:.5rem;color:var(--text-dim)">정형</td>
-      <td style="padding:.5rem;color:var(--text-dim)">부서별 빠른 조회, 단순함</td>
-      <td style="padding:.5rem;color:var(--text-dim)">중복, 사일로 위험</td>
-      <td style="padding:.5rem;color:var(--text-dim)">재무/HR/영업 부서 분석</td>
+      <td style="padding:.5rem;color:var(--text-dim)">부서 BI</td>
+      <td style="padding:.5rem;color:var(--text-dim)">DW의 부분집합</td>
     </tr>
     <tr>
-      <td style="padding:.5rem;color:var(--text);font-weight:600">Data Lake</td>
-      <td style="padding:.5rem;color:var(--text-dim)">S3, ADLS, GCS, HDFS</td>
-      <td style="padding:.5rem;color:var(--text-dim)">정형 + 반정형 + 비정형</td>
-      <td style="padding:.5rem;color:var(--text-dim)">저렴, 유연, 규모 무제한</td>
-      <td style="padding:.5rem;color:var(--text-dim)">거버넌스 어려움, "Data Swamp" 위험</td>
-      <td style="padding:.5rem;color:var(--text-dim)">ML 학습, 로그 수집</td>
+      <td style="padding:.5rem;color:var(--text);font-weight:600">🏞️ Data Lake</td>
+      <td style="padding:.5rem;color:var(--text-dim)">전부 던지기</td>
+      <td style="padding:.5rem;color:var(--text-dim)">정형+반+비정형</td>
+      <td style="padding:.5rem;color:var(--text-dim)">로그, ML</td>
+      <td style="padding:.5rem;color:var(--text-dim)">S3 · ADLS</td>
     </tr>
     <tr style="background:var(--amber-bg)">
-      <td style="padding:.5rem;color:var(--amber);font-weight:700">Lakehouse ⭐</td>
-      <td style="padding:.5rem;color:var(--text)">Databricks, Snowflake, Apache Iceberg + Trino</td>
+      <td style="padding:.5rem;color:var(--amber);font-weight:700">🏔️ Lakehouse ⭐</td>
+      <td style="padding:.5rem;color:var(--text)"><strong>Lake + DW 결합</strong></td>
       <td style="padding:.5rem;color:var(--text)">All</td>
-      <td style="padding:.5rem;color:var(--text)"><strong>Lake의 유연성 + DW의 ACID·성능</strong></td>
-      <td style="padding:.5rem;color:var(--text)">생태계 복잡, lock-in 우려</td>
-      <td style="padding:.5rem;color:var(--text)"><strong>BI + ML + AI 통합 플랫폼</strong></td>
+      <td style="padding:.5rem;color:var(--text)"><strong>BI + ML + AI</strong></td>
+      <td style="padding:.5rem;color:var(--text)">Databricks · Iceberg</td>
     </tr>
   </tbody>
 </table>
-</div>
-</div>
-
-<!-- UI 목업 #1: pgAdmin -->
-<div class="dia reveal">
-<div class="dia-title">UI 투어 ① — pgAdmin (PostgreSQL 관리자)</div>
-<div style="max-width:820px;margin:0 auto">
-  <div style="font-size:.82rem;color:var(--text-dim);margin-bottom:.8rem">RDBMS의 클래식 3분할 레이아웃: 왼쪽 object tree, 오른쪽 상단 SQL 에디터, 오른쪽 하단 결과 그리드.</div>
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.72rem">
-    <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim)">🐘 pgAdmin 4 — localhost:5432 / mydb</div>
-    <div style="display:grid;grid-template-columns:180px 1fr;min-height:240px">
-      <div style="background:var(--card);border-right:1px solid var(--border);padding:.7rem;color:var(--text);line-height:1.9">
-        ▼ Servers<br>
-        &nbsp;&nbsp;▼ 🐘 localhost<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;▼ Databases<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼ mydb<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼ Schemas<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼ public<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📋 customers<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📋 orders<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📋 products
-      </div>
-      <div>
-        <div style="padding:.7rem;border-bottom:1px solid var(--border);color:var(--text);line-height:1.8">
-          <span style="color:var(--amber)">SELECT</span> c.name, <span style="color:var(--amber)">COUNT</span>(o.id) <span style="color:var(--amber)">AS</span> orders<br>
-          <span style="color:var(--amber)">FROM</span> customers c<br>
-          <span style="color:var(--amber)">JOIN</span> orders o <span style="color:var(--amber)">ON</span> c.id = o.customer_id<br>
-          <span style="color:var(--amber)">GROUP BY</span> c.name <span style="color:var(--amber)">ORDER BY</span> orders <span style="color:var(--amber)">DESC</span>;
-        </div>
-        <div style="padding:.5rem .7rem;color:var(--text-dim);border-bottom:1px solid var(--border);font-size:.65rem">Data Output (32 rows, 45ms)</div>
-        <div style="padding:.5rem .7rem;color:var(--text);line-height:1.7">
-          name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| orders<br>
-          김영희 &nbsp;&nbsp;&nbsp;&nbsp;| 47<br>
-          이철수 &nbsp;&nbsp;&nbsp;&nbsp;| 32<br>
-          박민준 &nbsp;&nbsp;&nbsp;&nbsp;| 28
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- UI 목업 #2: Snowflake -->
-<div class="dia reveal">
-<div class="dia-title">UI 투어 ② — Snowflake Snowsight (Data Warehouse)</div>
-<div style="max-width:820px;margin:0 auto">
-  <div style="font-size:.82rem;color:var(--text-dim);margin-bottom:.8rem">"Worksheet" 개념. DW는 <strong>Warehouse(컴퓨팅 풀) 드롭다운</strong>으로 자원을 선택합니다 — 과금이 컴퓨팅 단위이기 때문.</div>
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.72rem">
-    <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim);display:flex;justify-content:space-between">
-      <span>❄️ Snowsight — Worksheet: Q4_Sales_Analysis</span>
-      <span style="color:var(--amber)">Warehouse: COMPUTE_WH (Medium) ▾</span>
-    </div>
-    <div style="padding:.7rem;color:var(--text);line-height:1.85;border-bottom:1px solid var(--border)">
-      <span style="color:var(--text-dim)">-- 2026 Q4 매출 상위 카테고리</span><br>
-      <span style="color:var(--amber)">SELECT</span> category, <span style="color:var(--amber)">SUM</span>(revenue) <span style="color:var(--amber)">AS</span> total<br>
-      <span style="color:var(--amber)">FROM</span> SALES_DB.PUBLIC.ORDERS<br>
-      <span style="color:var(--amber)">WHERE</span> order_date <span style="color:var(--amber)">&gt;=</span> '2026-10-01'<br>
-      <span style="color:var(--amber)">GROUP BY</span> category<br>
-      <span style="color:var(--amber)">ORDER BY</span> total <span style="color:var(--amber)">DESC</span> <span style="color:var(--amber)">LIMIT</span> 5;
-    </div>
-    <div style="padding:.5rem .7rem;color:var(--text-dim);border-bottom:1px solid var(--border);font-size:.65rem">
-      ✓ Query completed | 1.2 B rows scanned | 2.3s | Credits: 0.0019
-    </div>
-    <div style="padding:.5rem .7rem;color:var(--text);line-height:1.7">
-      category &nbsp;| total<br>
-      전자제품 | ₩18.4B<br>
-      의류 &nbsp;&nbsp;&nbsp;&nbsp;| ₩12.1B<br>
-      식품 &nbsp;&nbsp;&nbsp;&nbsp;| ₩9.8B
-    </div>
-  </div>
-  <div style="margin-top:.8rem;font-size:.75rem;color:var(--text-dim);line-height:1.7">
-    💡 <strong style="color:var(--amber)">핵심 차이점:</strong> pgAdmin은 "서버 관리", Snowflake는 "쿼리 + 비용". DW는 저장과 컴퓨팅이 분리되어 있고, 쿼리마다 크레딧(=돈)이 소모됩니다.
-  </div>
-</div>
-</div>
-
-<!-- UI 목업 #3: S3 -->
-<div class="dia reveal">
-<div class="dia-title">UI 투어 ③ — AWS S3 Console (Data Lake의 원시 형태)</div>
-<div style="max-width:820px;margin:0 auto">
-  <div style="font-size:.82rem;color:var(--text-dim);margin-bottom:.8rem">Data Lake는 사실 "버킷 → 폴더(prefix) → 파일"입니다. Parquet, JSON, CSV가 혼재합니다.</div>
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.72rem">
-    <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim)">
-      🪣 S3 &gt; acme-datalake &gt; raw/events/year=2026/month=04/day=11/
-    </div>
-    <div style="padding:.7rem;color:var(--text);line-height:2">
-      <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:.5rem;padding:.3rem 0;border-bottom:1px dashed var(--border);color:var(--text-dim);font-size:.68rem">
-        <span>Name</span><span>Type</span><span>Size</span><span>Last modified</span>
-      </div>
-      <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:.5rem;padding:.25rem 0">
-        <span>📦 hour=09/</span><span>folder</span><span>—</span><span>09:59</span>
-      </div>
-      <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:.5rem;padding:.25rem 0">
-        <span>📦 hour=10/</span><span>folder</span><span>—</span><span>10:59</span>
-      </div>
-      <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:.5rem;padding:.25rem 0;color:var(--amber)">
-        <span>📄 part-00000.parquet</span><span>parquet</span><span>47 MB</span><span>11:00</span>
-      </div>
-      <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:.5rem;padding:.25rem 0;color:var(--amber)">
-        <span>📄 part-00001.parquet</span><span>parquet</span><span>51 MB</span><span>11:00</span>
-      </div>
-      <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:.5rem;padding:.25rem 0">
-        <span>📄 _SUCCESS</span><span>json</span><span>128 B</span><span>11:00</span>
-      </div>
-    </div>
-  </div>
-  <div style="margin-top:.8rem;font-size:.75rem;color:var(--text-dim);line-height:1.7">
-    💡 <strong>Hive-style partitioning</strong> (<code style="color:var(--amber)">year=2026/month=04/day=11</code>)은 Data Lake에서 표준 컨벤션. 쿼리 엔진(Trino, Spark)이 partition pruning으로 빠르게 탐색합니다.
-  </div>
-</div>
-</div>
-
-<!-- UI 목업 #4: Databricks -->
-<div class="dia reveal">
-<div class="dia-title">UI 투어 ④ — Databricks Unity Catalog (Lakehouse)</div>
-<div style="max-width:820px;margin:0 auto">
-  <div style="font-size:.82rem;color:var(--text-dim);margin-bottom:.8rem">Lakehouse의 본질: S3 위에 DW의 거버넌스(Catalog · Schema · Table · Lineage)를 얹은 것.</div>
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-family:var(--mono);font-size:.72rem">
-    <div style="background:var(--card);padding:.5rem .8rem;border-bottom:1px solid var(--border);color:var(--text-dim)">
-      🔥 Databricks — Unity Catalog &gt; Catalog Explorer
-    </div>
-    <div style="display:grid;grid-template-columns:220px 1fr;min-height:260px">
-      <div style="background:var(--card);border-right:1px solid var(--border);padding:.7rem;color:var(--text);line-height:1.9">
-        ▼ 📚 main (catalog)<br>
-        &nbsp;&nbsp;▼ 📁 prod<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;▼ 🥉 bronze<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📊 raw_events<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;▼ 🥈 silver<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📊 clean_events<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;▼ 🥇 gold<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📊 daily_revenue<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📊 customer_360
-      </div>
-      <div style="padding:.7rem;color:var(--text);line-height:1.85">
-        <span style="color:var(--amber)">Table:</span> main.prod.gold.daily_revenue<br>
-        <span style="color:var(--text-dim)">Format: Delta · 1.2B rows · 47 GB</span><br><br>
-        <span style="color:var(--amber)">Columns:</span><br>
-        - date (DATE)<br>
-        - region (STRING)<br>
-        - revenue (DECIMAL)<br>
-        - order_count (BIGINT)<br><br>
-        <span style="color:var(--amber)">🔗 Lineage:</span><br>
-        bronze.raw_events → silver.clean_events → <strong>gold.daily_revenue</strong><br><br>
-        <span style="color:var(--amber)">🔐 Permissions:</span> analytics_team (SELECT)
-      </div>
-    </div>
-  </div>
-  <div style="margin-top:.8rem;padding:.7rem .9rem;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:10px;font-size:.78rem;color:var(--text);line-height:1.7">
-    🏔️ <strong style="color:var(--amber)">Medallion 아키텍처</strong>: Bronze(원시) → Silver(정제) → Gold(비즈니스) 3단계가 Lakehouse 표준 패턴. <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/medallion-architecture.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">wiki: medallion-architecture</a>
-  </div>
 </div>
 </div>
 
