@@ -12,7 +12,7 @@
   --green:#4ade80;--green-bg:rgba(74,222,128,0.08);--green-border:rgba(74,222,128,0.25);
   --blue:#60a5fa;--blue-bg:rgba(96,165,250,0.08);--blue-border:rgba(96,165,250,0.25);
   --orange:#fb923c;--orange-bg:rgba(251,146,60,0.08);--orange-border:rgba(251,146,60,0.25);
-  --violet:#7c6cf0;--violet-dim:rgba(124,108,240,0.12);
+  --violet:#7c6cf0;--violet-dim:rgba(124,108,240,0.12);--violet-bg:rgba(124,108,240,0.08);--violet-border:rgba(124,108,240,0.25);
   --mono:'JetBrains Mono',monospace;--sans:'Noto Sans KR','Outfit',sans-serif;--display:'Outfit','Noto Sans KR',sans-serif;
   /* File 1 compatibility aliases */
   --bg-deep:var(--bg);--bg-card:var(--card);--bg-card-hover:var(--card-hover);
@@ -34,7 +34,7 @@
   --green:#059669;--green-bg:rgba(5,150,105,0.06);--green-border:rgba(5,150,105,0.2);
   --blue:#2563eb;--blue-bg:rgba(37,99,235,0.06);--blue-border:rgba(37,99,235,0.2);
   --orange:#ea580c;--orange-bg:rgba(234,88,12,0.06);--orange-border:rgba(234,88,12,0.2);
-  --violet:#6d28d9;--violet-dim:rgba(109,40,217,0.08);
+  --violet:#6d28d9;--violet-dim:rgba(109,40,217,0.08);--violet-bg:rgba(109,40,217,0.06);--violet-border:rgba(109,40,217,0.2);
   --bg-deep:#f8f7f5;--bg-card:#ffffff;--bg-card-hover:#faf9f7;
   --text-muted:#8b8580;
   --teal-dim:rgba(13,148,136,0.08);

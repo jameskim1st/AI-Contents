@@ -947,6 +947,10 @@
     </div>
   </div>
 
+  <div style="margin:1.2rem 0;padding:.9rem 1.2rem;border-left:3px solid var(--violet);background:var(--violet-dim);border-radius:0 10px 10px 0;font-size:.85rem;color:var(--text);line-height:1.85">
+    💡 <strong style="color:var(--violet);">더 야심찬 장기 메모리 패턴</strong> — 2026년 4월 Andrej Karpathy가 제안한 <a href="/03-vibe-master#vm-ch9" style="color:var(--accent);text-decoration:underline">LLM Wiki 패턴(Part 3 Ch.09)</a>은 "벡터 DB로 검색"하는 대신 "LLM이 markdown 위키를 점진적으로 빌드·유지"하는 방식입니다. 장기 메모리의 진화형으로 보면 됩니다.
+  </div>
+
   <h3>Short-term Memory: Context Window 활용</h3>
   <div style="padding:.6rem 1rem;border-left:3px solid var(--violet);background:var(--violet-dim);border-radius:0 8px 8px 0;margin-bottom:1.2rem;font-size:.85rem;color:var(--text-dim);">
     💡 <strong style="color:var(--text-bright);">Context Window란?</strong> LLM이 <strong>1번의 요청에서 읽고 쓸 수 있는 최대 텍스트 크기</strong>(입력+출력 합산)입니다. LLM 자체는 "대화"라는 개념이 없어요 — 여러분이 ChatGPT에서 엔터를 누를 때마다, <strong>앱(ChatGPT, Claude 등)이</strong> 지금까지의 대화 전체를 하나의 텍스트로 묶어서 LLM에게 매번 새로 보냅니다. 이 묶는 작업은 LLM이 아니라 <strong>앱 쪽에서</strong> 처리합니다. 대화가 길어지면 이 텍스트가 Context Window 한계를 넘기게 되고, 그때 앞부분을 잘라내야 해서 "잊어버리는" 것처럼 보이는 거예요.
