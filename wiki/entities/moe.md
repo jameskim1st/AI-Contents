@@ -42,6 +42,7 @@
 ## 연관 entity
 
 - [Transformer](./transformer.md) — MoE는 Transformer의 효율화 변형
+- [Self-Attention](./self-attention.md) — MoE는 Self-Attention 레이어 사이에 들어가는 FFN 부분을 sparse하게 만든 형태
 
 ## 출처
 
@@ -52,3 +53,4 @@
 ## 업데이트 이력
 
 - 2026-04-11 — 신규 생성. llm.html ingest에서 등록.
+- 2026-04-12 — Self-Attention cross-ref 추가 (lint에서 고립 entity로 검출됨).

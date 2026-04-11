@@ -40,6 +40,8 @@
 
 - [Memory (Agent)](./memory.md)
 - [LLM Wiki](./llm-wiki.md) — 메모리/검색의 진화형
+- [MCP](./mcp.md) — 도구 통합의 표준화 (이 entity의 진화형)
+- [ReAct](./react.md) — Augmented LLM이 사용하는 가장 기본 패턴
 
 ## 출처
 
@@ -48,3 +50,4 @@
 ## 업데이트 이력
 
 - 2026-04-11 — 신규 생성. ai-agents.html ingest에서 등록.
+- 2026-04-12 — MCP·ReAct cross-ref 추가. Tools 챕터의 진화형으로 MCP 등장.

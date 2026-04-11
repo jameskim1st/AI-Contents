@@ -46,6 +46,9 @@ Anthropic이 만든 터미널 기반 AI 코딩 에이전트. [CLAUDE.md](./claud
 - [Harness Engineering](./harness-engineering.md)
 - [LLM Wiki](./llm-wiki.md)
 - [Vibe Coding](./vibe-coding.md)
+- [MCP](./mcp.md) — Claude Code는 MCP 클라이언트의 모범 사례
+- [Computer Use](./computer-use.md) — Anthropic 에이전트 family
+- [Agent Frameworks](./agent-frameworks.md) — Anthropic Agent SDK 카탈로그
 
 ## 출처
 
@@ -55,3 +58,4 @@ Anthropic이 만든 터미널 기반 AI 코딩 에이전트. [CLAUDE.md](./claud
 ## 업데이트 이력
 
 - 2026-04-11 — 신규 생성. vibe-master.html ingest에서 등록.
+- 2026-04-12 — MCP, Computer Use, Agent Frameworks cross-ref 추가.
