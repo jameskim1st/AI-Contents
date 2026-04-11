@@ -1,86 +1,130 @@
 # Index
 
-`wiki/entities/` 카탈로그. 카테고리별로 분류.
+`wiki/entities/` 카탈로그. 카테고리별 분류.
 **Last updated:** 2026-04-12
 
 ---
 
 ## 모델 (Models)
 
-- [Transformer](./entities/transformer.md) — Attention 기반 LLM의 기본 아키텍처
+- [Transformer](./entities/transformer.md)
 
 ## 아키텍처 / 패턴
 
 - [LLM Wiki](./entities/llm-wiki.md) — Karpathy의 지식 누적 패턴 ⭐
-- [MoE (Mixture of Experts)](./entities/moe.md) — 2026 LLM 효율화 핵심
-- [Harness Engineering](./entities/harness-engineering.md) — AI 에이전트 컨텍스트 관리
-- [ReAct](./entities/react.md) — Thought·Action·Observation 사이클 ⭐ NEW
-- [Reflection / Reflexion](./entities/reflection.md) — 자기 검증 패턴 ⭐ NEW
-- [Plan-and-Execute](./entities/plan-and-execute.md) — 계획·실행 분리 패턴 ⭐ NEW
-- [Plan-Critic-Build](./entities/plan-critic-build.md) — 코딩 특화 Reflection ⭐ NEW
-- [Orchestrator-Worker](./entities/orchestrator-worker.md) — 멀티 에이전트 표준형 ⭐ NEW
-- [Multi-Agent](./entities/multi-agent.md) — 협업 패턴 카테고리 ⭐ NEW
-- [Narrow Scope](./entities/narrow-scope.md) — "만능 ❌, 단일 ⭕" 원칙 ⭐ NEW
-- [Human-in-the-Loop](./entities/human-in-the-loop.md) — 사람 fallback 패턴 ⭐ NEW
+- [MoE (Mixture of Experts)](./entities/moe.md)
+- [Harness Engineering](./entities/harness-engineering.md)
+- [ReAct](./entities/react.md)
+- [Reflection / Reflexion](./entities/reflection.md)
+- [Plan-and-Execute](./entities/plan-and-execute.md)
+- [Plan-Critic-Build](./entities/plan-critic-build.md)
+- [Orchestrator-Worker](./entities/orchestrator-worker.md)
+- [Multi-Agent](./entities/multi-agent.md)
+- [Narrow Scope](./entities/narrow-scope.md)
+- [Human-in-the-Loop](./entities/human-in-the-loop.md)
+- [RAG](./entities/rag.md) ⭐ NEW
+- [GraphRAG](./entities/graphrag.md) ⭐ NEW
 
-## 프로토콜 / 표준 ⭐ NEW 카테고리
+## 프로토콜 / 표준
 
-- [MCP (Model Context Protocol)](./entities/mcp.md) — 에이전트↔시스템 표준 ⭐ NEW
-- [A2A (Agent-to-Agent)](./entities/a2a.md) — 에이전트↔에이전트 표준 ⭐ NEW
+- [MCP (Model Context Protocol)](./entities/mcp.md)
+- [A2A (Agent-to-Agent)](./entities/a2a.md)
+- [Data Contracts](./entities/data-contracts.md) ⭐ NEW
+- [Medallion Architecture](./entities/medallion-architecture.md) ⭐ NEW
+
+## 저장 계층 (Storage Layers) ⭐ NEW 카테고리
+
+- [RDBMS](./entities/rdbms.md) — 관계형 DB (PostgreSQL, MySQL, Oracle)
+- [Data Warehouse](./entities/data-warehouse.md) — OLAP (Snowflake, BigQuery, Redshift)
+- [Data Mart](./entities/data-mart.md) — 도메인 특화 DW 부분집합
+- [Data Lake](./entities/data-lake.md) — 원본 데이터 (S3, ADLS)
+- [Data Lakehouse](./entities/data-lakehouse.md) — Lake + DW, 2026 표준 ⭐
+- [NoSQL](./entities/nosql.md) — 비관계형 DB 카테고리
+- [Graph DB](./entities/graph-db.md) — Neo4j, Neptune
+- [Vector DB](./entities/vector-db.md) — Pinecone, Weaviate, Qdrant, pgvector
+- [Feature Store](./entities/feature-store.md) — Feast, Tecton
+
+## Open Table Formats ⭐ NEW 서브카테고리
+
+- [Delta Lake](./entities/delta-lake.md) — Databricks 주도
+- [Apache Iceberg](./entities/apache-iceberg.md) — Netflix 주도, 멀티 엔진
+
+## 데이터 유형 (Data Types)
+
+- [Structured Data](./entities/structured-data.md) — 정형
+- [Semi-Structured Data](./entities/semi-structured-data.md) — 반정형 (JSON, XML)
+- [Unstructured Data](./entities/unstructured-data.md) — 비정형, 엔터프라이즈 80%
+- [DIKW Pyramid](./entities/dikw-pyramid.md) — Data/Info/Knowledge/Wisdom
+
+## 데이터 파이프라인 / 처리
+
+- [ETL](./entities/etl.md) — 전통 Extract-Transform-Load
+- [ELT](./entities/elt.md) — 현대 cloud-first
+- [dbt](./entities/dbt.md) — Modern stack의 transformation 표준
+- [Modern Data Stack](./entities/modern-data-stack.md) — 2026 스택 구조
+- [CDC (Change Data Capture)](./entities/cdc.md) — Debezium
+- [Streaming Data](./entities/streaming-data.md) — Kafka, Flink, Pulsar
+
+## RAG 관련 (세부)
+
+- [Chunking](./entities/chunking.md) — "RAG 실패의 80%가 여기서"
+- [Embedding Model](./entities/embedding-model.md) — Voyage voyage-3-large 리더
+- [Hybrid Search](./entities/hybrid-search.md) — BM25 + vector
+- [Reranking](./entities/reranking.md) — Cross-encoder
+- [RAGAS](./entities/ragas.md) — RAG 평가 프레임워크
+- [Document AI](./entities/document-ai.md) — 비정형 추출
+
+## LLM 학습 데이터
+
+- [Tokenization](./entities/tokenization.md) — BPE, cl100k_base
+- [Pre-training Data](./entities/pre-training-data.md) — Common Crawl, Wikipedia
+- [Fine-tuning Data](./entities/fine-tuning-data.md) — SFT, RLHF, DPO
+- [Synthetic Data](./entities/synthetic-data.md) — LLM이 생성하는 훈련 데이터
+
+## 데이터 품질 · 윤리
+
+- [Data Quality](./entities/data-quality.md) — 5대 차원
+- [Data Bias](./entities/data-bias.md) — Selection/Historical/Measurement
+- [Data-Centric AI](./entities/data-centric-ai.md) — Andrew Ng 운동
+- [Data Mesh](./entities/data-mesh.md) — 분산 데이터 아키텍처
+
+## 거버넌스 · 보안 · 규제
+
+- [EU AI Act](./entities/eu-ai-act.md) — 2026.08.02 Article 10 발효 ⚠️
+- [PII](./entities/pii.md) — 개인정보
+- [Prompt Injection](./entities/prompt-injection.md)
+- [Production Gap](./entities/production-gap.md)
+- [Observability](./entities/observability.md)
+- [Evaluation](./entities/evaluation.md)
 
 ## 도구 / 프레임워크
 
-- [Claude Code](./entities/claude-code.md) — Anthropic의 CLI 코딩 에이전트
-- [CLAUDE.md](./entities/claude-md.md) — 프로젝트 작업 규칙 파일
-- [Computer Use](./entities/computer-use.md) — 컴퓨터 직접 조작 에이전트 ⭐ NEW
-- [Agent Frameworks (2026 카탈로그)](./entities/agent-frameworks.md) — OpenAI/Google/MS/HF 비교 ⭐ NEW
-- [LangGraph](./entities/langgraph.md) — 그래프 기반 에이전트 프레임워크 ⭐ NEW
-
-## 운영 / 신뢰성 ⭐ NEW 카테고리
-
-- [Production Gap](./entities/production-gap.md) — PoC와 프로덕션 사이의 격차 ⭐ NEW
-- [Observability](./entities/observability.md) — 비결정 시스템 디버깅 ⭐ NEW
-- [Evaluation](./entities/evaluation.md) — 비결정 시스템 평가 ⭐ NEW
-- [Prompt Injection](./entities/prompt-injection.md) — 에이전트 시대의 SQL injection ⭐ NEW
+- [Claude Code](./entities/claude-code.md)
+- [CLAUDE.md](./entities/claude-md.md)
+- [Computer Use](./entities/computer-use.md)
+- [Agent Frameworks (2026)](./entities/agent-frameworks.md)
+- [LangGraph](./entities/langgraph.md)
 
 ## 개념 / 메커니즘
 
-- [Self-Attention](./entities/self-attention.md) — Transformer의 핵심 메커니즘
-- [Augmented LLM](./entities/augmented-llm.md) — 도구·메모리·검색이 붙은 LLM
-- [Memory (Agent)](./entities/memory.md) — 에이전트의 단기/장기 기억
+- [Self-Attention](./entities/self-attention.md)
+- [Augmented LLM](./entities/augmented-llm.md)
+- [Memory (Agent)](./entities/memory.md)
 
 ## 인물
 
-- [Andrej Karpathy](./entities/karpathy.md) — LLM Wiki 패턴 제안자
+- [Andrej Karpathy](./entities/karpathy.md)
 
 ## 방법론
 
-- [Vibe Coding](./entities/vibe-coding.md) — 자연어로 지시하고 AI가 구현하는 코딩 방식
-
----
-
-## 미수집 (Backlog)
-
-다음 ingest 우선순위:
-
-- GPT-4 / GPT-5 / Claude 4.6 / Gemini 2.5 (모델 카탈로그)
-- RAG (Retrieval-Augmented Generation) — LLM Wiki와 대조 필요
-- Tools entity (현재 ai-agents.html Ch.05 미수집)
-- Planning entity (현재 ai-agents.html Ch.06 미수집)
-- WebMCP (3계층 스택의 최상층)
-- AutoGen 0.4 (개별 framework entity)
-- Smolagents
-- CrewAI
-- LLM-as-judge (Evaluation 하위 패턴)
-- Sandboxing (보안 패턴)
-- Tool budget / Identity propagation (MCP의 빠진 primitive들)
+- [Vibe Coding](./entities/vibe-coding.md)
 
 ---
 
 ## 통계
 
-- entity 페이지: 28개 (11 → 28, +17)
-- 카테고리: 9개 (7 → 9, "프로토콜/표준"·"운영/신뢰성" 신설)
-- Last ingest: 2026-04-12 (AI Agents 실전 리서치)
-- Last query: 2026-04-12 (Part 2 챕터 10개 합성, 21개 entity 활용)
-- 완료 사이클: Sources → Ingest → Lint → Query → Ingest-back (5단계 1회)
+- entity 페이지: **69개** (28 → 69, +41)
+- 카테고리: 13개 (9 → 13, 신설: 저장 계층 · Open Table Formats · 데이터 파이프라인 · 데이터 품질·윤리)
+- Last ingest: 2026-04-12 (Data 파트 — 40개 신규 entity)
+- 완료 사이클: Part 2 (AI Agents 실전) — Sources → Ingest → Lint → Query → Ingest-back
+- 현재 사이클: Part 1/4 (Data) — **Ingest 완료, Lint 완료, Query 대기**
