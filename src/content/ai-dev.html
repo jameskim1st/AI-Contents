@@ -16,6 +16,8 @@
       <a href="#ad-ch8"><span class="cn">08</span>AI 거버넌스</a>
       <a href="#ad-ch9"><span class="cn">09</span>실패 vs 성공 패턴</a>
       <a href="#ad-ch10"><span class="cn">10</span>체크리스트 총정리</a>
+      <a href="#ad-ch11"><span class="cn">11</span>LLM API 마스터</a>
+      <a href="#ad-ch12"><span class="cn">12</span>시스템 통합 API</a>
     </nav>
   </div>
 </div>
@@ -1542,6 +1544,1286 @@
 
 </div>
 </div>
+
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- CH.11 — LLM API 마스터                           -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="ch reveal" id="ad-ch11">
+<div class="ch-head"><div class="ch-num" style="color:var(--accent)">11</div><h2 class="ch-title">LLM API 마스터 — 호출부터 Function Calling까지</h2></div>
+<p class="section-desc">
+  AI 개발의 시작은 API 호출입니다. LLM은 블랙박스가 아니라, <strong>잘 설계된 API로 접근하는 서비스</strong>입니다. 이 챕터에서는 Chat Completions부터 Function Calling, Structured Output, 프로덕션 에러 처리까지 — 실제 코드와 함께 전부 다룹니다.
+</p>
+
+<!-- ── 11-1. LLM API의 구조 ── -->
+<h3>🔌 11-1. LLM API의 구조 — 3대 구성요소</h3>
+<p style="color:var(--text-dim);margin-bottom:1rem;line-height:1.8">
+  모든 LLM API의 핵심은 <strong>메시지 배열</strong>입니다. 역할(role)별로 나뉜 메시지를 보내면, 모델이 다음 메시지를 생성합니다. 이 구조를 이해하면 어떤 LLM API든 사용할 수 있습니다.
+</p>
+
+<!-- 3대 구성요소 카드 -->
+<div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-bottom:1.5rem">
+
+  <div style="padding:1.2rem;background:var(--accent-bg);border:2px solid var(--accent);border-radius:14px;text-align:center">
+    <div style="font-size:1.6rem;margin-bottom:.4rem">🧠</div>
+    <div style="font-weight:800;color:var(--accent);font-size:.95rem;margin-bottom:.5rem">system</div>
+    <div style="font-size:.82rem;color:var(--text-dim);line-height:1.7">
+      모델의 <strong>페르소나와 규칙</strong>을 설정.<br>
+      "당신은 친절한 AI 비서입니다"<br>
+      "JSON으로만 응답하세요"
+    </div>
+  </div>
+
+  <div style="padding:1.2rem;background:var(--accent-bg);border:2px solid var(--accent-border);border-radius:14px;text-align:center">
+    <div style="font-size:1.6rem;margin-bottom:.4rem">👤</div>
+    <div style="font-weight:800;color:var(--accent);font-size:.95rem;margin-bottom:.5rem">user</div>
+    <div style="font-size:.82rem;color:var(--text-dim);line-height:1.7">
+      사용자의 <strong>질문 · 요청 · 입력</strong>.<br>
+      "서울 날씨 알려줘"<br>
+      "이 코드를 리팩토링해줘"
+    </div>
+  </div>
+
+  <div style="padding:1.2rem;background:var(--accent-bg);border:2px solid var(--accent-border);border-radius:14px;text-align:center">
+    <div style="font-size:1.6rem;margin-bottom:.4rem">🤖</div>
+    <div style="font-weight:800;color:var(--accent);font-size:.95rem;margin-bottom:.5rem">assistant</div>
+    <div style="font-size:.82rem;color:var(--text-dim);line-height:1.7">
+      모델의 <strong>이전 응답</strong> (멀티턴).<br>
+      대화 히스토리를 유지할 때<br>
+      이전 응답을 함께 전송
+    </div>
+  </div>
+
+</div>
+
+<!-- Anthropic API 호출 코드 예시 -->
+<div class="reveal" style="margin-bottom:1.5rem">
+  <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+    <span style="font-family:var(--mono);font-size:.72rem;color:var(--accent);background:var(--accent-bg);padding:.2rem .6rem;border-radius:6px">Python</span>
+    <span style="font-size:.75rem;color:var(--text-dim)">Anthropic Claude API — 기본 호출</span>
+  </div>
+  <pre style="background:var(--surface);padding:1.2rem;border-radius:10px;font-size:.82rem;line-height:1.8;overflow-x:auto;border:1px solid var(--accent-border)"><code style="color:var(--text)"><span style="color:var(--accent)">import</span> anthropic
+
+<span style="color:var(--text-dim)"># API 키는 환경변수에서 불러오기 (하드코딩 금지!)</span>
+client = anthropic.Anthropic()  <span style="color:var(--text-dim)"># ANTHROPIC_API_KEY 환경변수 자동 인식</span>
+
+response = client.messages.create(
+    model=<span style="color:#a5d6a7">"claude-sonnet-4-6"</span>,
+    max_tokens=<span style="color:var(--amber)">1024</span>,
+    system=<span style="color:#a5d6a7">"당신은 친절한 AI 비서입니다."</span>,
+    messages=[
+        {<span style="color:#a5d6a7">"role"</span>: <span style="color:#a5d6a7">"user"</span>, <span style="color:#a5d6a7">"content"</span>: <span style="color:#a5d6a7">"서울 날씨 알려줘"</span>}
+    ]
+)
+
+<span style="color:var(--accent)">print</span>(response.content[<span style="color:var(--amber)">0</span>].text)
+<span style="color:var(--text-dim)"># → "현재 서울의 날씨를 직접 조회할 수는 없지만..."</span></code></pre>
+</div>
+
+<!-- 3사 API 비교표 -->
+<h4 style="color:var(--accent);margin-bottom:.8rem">📊 OpenAI vs Anthropic vs Google — API 비교</h4>
+<div class="reveal" style="overflow-x:auto;margin-bottom:1.5rem">
+<table style="width:100%;border-collapse:collapse;font-size:.82rem">
+<thead>
+<tr style="background:var(--accent-bg)">
+  <th style="padding:.7rem;text-align:left;border-bottom:2px solid var(--accent);color:var(--accent);min-width:110px">항목</th>
+  <th style="padding:.7rem;text-align:center;border-bottom:2px solid var(--accent);min-width:140px">OpenAI</th>
+  <th style="padding:.7rem;text-align:center;border-bottom:2px solid var(--accent);min-width:140px">Anthropic</th>
+  <th style="padding:.7rem;text-align:center;border-bottom:2px solid var(--accent);min-width:140px">Google</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.6rem;font-weight:700;color:var(--accent)">엔드포인트</td>
+  <td style="padding:.6rem;text-align:center;font-family:var(--mono);font-size:.75rem">/chat/completions</td>
+  <td style="padding:.6rem;text-align:center;font-family:var(--mono);font-size:.75rem">/messages</td>
+  <td style="padding:.6rem;text-align:center;font-family:var(--mono);font-size:.75rem">/generateContent</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.6rem;font-weight:700;color:var(--accent)">SDK</td>
+  <td style="padding:.6rem;text-align:center;font-family:var(--mono);font-size:.75rem">openai</td>
+  <td style="padding:.6rem;text-align:center;font-family:var(--mono);font-size:.75rem">anthropic</td>
+  <td style="padding:.6rem;text-align:center;font-family:var(--mono);font-size:.75rem">google-genai</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.6rem;font-weight:700;color:var(--accent)">메시지 형식</td>
+  <td style="padding:.6rem;text-align:center">messages[]</td>
+  <td style="padding:.6rem;text-align:center">messages[]</td>
+  <td style="padding:.6rem;text-align:center">contents[]</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.6rem;font-weight:700;color:var(--accent)">System 메시지</td>
+  <td style="padding:.6rem;text-align:center">messages[] 안에 포함</td>
+  <td style="padding:.6rem;text-align:center">별도 system 파라미터</td>
+  <td style="padding:.6rem;text-align:center">systemInstruction</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.6rem;font-weight:700;color:var(--accent)">스트리밍</td>
+  <td style="padding:.6rem;text-align:center">stream=True</td>
+  <td style="padding:.6rem;text-align:center">stream / .stream()</td>
+  <td style="padding:.6rem;text-align:center">stream=True</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.6rem;font-weight:700;color:var(--accent)">Function Calling</td>
+  <td style="padding:.6rem;text-align:center">tools[]</td>
+  <td style="padding:.6rem;text-align:center">tools[]</td>
+  <td style="padding:.6rem;text-align:center">functionDeclarations[]</td>
+</tr>
+<tr>
+  <td style="padding:.6rem;font-weight:700;color:var(--accent)">대표 모델 (2025)</td>
+  <td style="padding:.6rem;text-align:center">GPT-4o, o3</td>
+  <td style="padding:.6rem;text-align:center">Claude Opus 4, Sonnet 4</td>
+  <td style="padding:.6rem;text-align:center">Gemini 2.5 Pro/Flash</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="tip reveal">
+<div class="tip-title">💡 핵심 인사이트: 메시지 형식은 거의 동일하다</div>
+<p style="margin:0;font-size:.85rem;line-height:1.85">
+  3사 모두 <strong>메시지 배열 기반</strong>이라는 점은 동일합니다. SDK 이름과 파라미터명만 다를 뿐, 개념 구조는 같습니다. 하나를 익히면 나머지는 문서만 보고 바로 전환 가능합니다. <strong>LiteLLM</strong> 같은 통합 라이브러리를 쓰면 코드 변경 없이 모델을 교체할 수도 있습니다.
+</p>
+</div>
+
+
+<!-- ── 11-2. Streaming ── -->
+<h3>⚡ 11-2. Streaming — 실시간 토큰 스트리밍</h3>
+<p style="color:var(--text-dim);margin-bottom:1rem;line-height:1.8">
+  일반 API 호출은 <strong>전체 응답이 완성될 때까지 기다려야</strong> 합니다 (3~10초). 스트리밍은 생성되는 <strong>토큰 하나하나를 실시간으로</strong> 전달합니다. ChatGPT나 Claude의 "타이핑" 효과가 바로 이것입니다.
+</p>
+
+<!-- 타이밍 비교 시각화 -->
+<div class="diagram reveal" style="border-left:3px solid var(--accent)">
+<div class="diagram-title" style="color:var(--accent)">⏱️ 일반 요청 vs 스트리밍 — 사용자 체감 비교</div>
+<div style="max-width:650px;margin:1rem auto">
+
+  <!-- 일반 요청 -->
+  <div style="margin-bottom:1.2rem">
+    <div style="font-size:.78rem;font-weight:700;color:var(--text);margin-bottom:.4rem">❌ 일반 요청 (Non-streaming)</div>
+    <div style="display:flex;align-items:center;gap:0;height:32px;border-radius:8px;overflow:hidden;border:1px solid var(--border)">
+      <div style="flex:0 0 10%;background:var(--accent);height:100%;display:flex;align-items:center;justify-content:center">
+        <span style="font-size:.6rem;color:white;font-weight:700">요청</span>
+      </div>
+      <div style="flex:0 0 70%;background:rgba(255,107,107,0.15);height:100%;display:flex;align-items:center;justify-content:center">
+        <span style="font-size:.6rem;color:var(--coral);font-weight:700">⏳ 대기... 3~10초... 아무것도 안 보임</span>
+      </div>
+      <div style="flex:0 0 20%;background:var(--teal);height:100%;display:flex;align-items:center;justify-content:center">
+        <span style="font-size:.6rem;color:white;font-weight:700">전체 표시</span>
+      </div>
+    </div>
+    <div style="font-size:.68rem;color:var(--text-muted);margin-top:.2rem">TTFT (Time to First Token): 3~10초</div>
+  </div>
+
+  <!-- 스트리밍 -->
+  <div>
+    <div style="font-size:.78rem;font-weight:700;color:var(--text);margin-bottom:.4rem">✅ 스트리밍 (Streaming)</div>
+    <div style="display:flex;align-items:center;gap:0;height:32px;border-radius:8px;overflow:hidden;border:1px solid var(--border)">
+      <div style="flex:0 0 10%;background:var(--accent);height:100%;display:flex;align-items:center;justify-content:center">
+        <span style="font-size:.6rem;color:white;font-weight:700">요청</span>
+      </div>
+      <div style="flex:0 0 90%;background:linear-gradient(90deg,var(--teal) 0%,var(--teal) 15%,rgba(0,188,155,0.6) 40%,rgba(0,188,155,0.3) 70%,rgba(0,188,155,0.1) 100%);height:100%;display:flex;align-items:center;justify-content:center">
+        <span style="font-size:.6rem;color:white;font-weight:700">▸ 토큰이... 하나씩... 바로바로... 표시됩니다 ▸</span>
+      </div>
+    </div>
+    <div style="font-size:.68rem;color:var(--teal);font-weight:600;margin-top:.2rem">TTFT: &lt; 500ms — 사용자 체감 속도 5~20배 향상</div>
+  </div>
+
+</div>
+</div>
+
+<!-- 스트리밍 코드 예시 -->
+<div class="reveal" style="margin-bottom:1.5rem">
+  <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+    <span style="font-family:var(--mono);font-size:.72rem;color:var(--accent);background:var(--accent-bg);padding:.2rem .6rem;border-radius:6px">Python</span>
+    <span style="font-size:.75rem;color:var(--text-dim)">Anthropic Streaming — 실시간 토큰 출력</span>
+  </div>
+  <pre style="background:var(--surface);padding:1.2rem;border-radius:10px;font-size:.82rem;line-height:1.8;overflow-x:auto;border:1px solid var(--accent-border)"><code style="color:var(--text)"><span style="color:var(--accent)">with</span> client.messages.stream(
+    model=<span style="color:#a5d6a7">"claude-sonnet-4-6"</span>,
+    max_tokens=<span style="color:var(--amber)">1024</span>,
+    messages=[{<span style="color:#a5d6a7">"role"</span>: <span style="color:#a5d6a7">"user"</span>, <span style="color:#a5d6a7">"content"</span>: <span style="color:#a5d6a7">"AI의 미래를 설명해줘"</span>}]
+) <span style="color:var(--accent)">as</span> stream:
+    <span style="color:var(--accent)">for</span> text <span style="color:var(--accent)">in</span> stream.text_stream:
+        <span style="color:var(--accent)">print</span>(text, end=<span style="color:#a5d6a7">""</span>, flush=<span style="color:var(--amber)">True</span>)
+        <span style="color:var(--text-dim)"># → "AI" "의" " 미래" "는" " 매우" ... (한 토큰씩 실시간 출력)</span>
+
+<span style="color:var(--text-dim)"># 최종 메시지 객체도 접근 가능</span>
+final = stream.get_final_message()
+<span style="color:var(--accent)">print</span>(f<span style="color:#a5d6a7">"\n\n사용 토큰: {final.usage.input_tokens} + {final.usage.output_tokens}"</span>)</code></pre>
+</div>
+
+<div class="reveal" style="padding:1rem 1.2rem;background:var(--surface);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;margin-bottom:1.5rem">
+  <div style="font-weight:700;color:var(--accent);font-size:.88rem;margin-bottom:.4rem">🎯 언제 스트리밍을 쓰나?</div>
+  <div style="font-size:.82rem;color:var(--text);line-height:1.8">
+    <strong style="color:var(--teal)">✅ 쓰세요:</strong> 챗봇 UI, 실시간 대화, 긴 응답 생성, 사용자 대면 서비스<br>
+    <strong style="color:var(--coral)">❌ 안 써도 됩니다:</strong> 백엔드 배치 처리, Function Calling 후 결과 파싱, 짧은 JSON 응답
+  </div>
+</div>
+
+
+<!-- ── 11-3. Function Calling (Tool Use) ── -->
+<h3>🔧 11-3. Function Calling (Tool Use) — LLM에 도구를 쥐어주다</h3>
+<p style="color:var(--text-dim);margin-bottom:1rem;line-height:1.8">
+  LLM은 텍스트만 생성합니다. 날씨를 조회하거나, DB를 검색하거나, 이메일을 보내는 것은 못합니다. <strong>Function Calling</strong>은 LLM이 "이 함수를 이 인자로 호출해줘"라고 <strong>구조화된 JSON으로 요청</strong>하는 메커니즘입니다. 실제 실행은 개발자 코드가 담당합니다.
+</p>
+
+<!-- 비유 박스 -->
+<div class="reveal" style="padding:1.2rem;background:linear-gradient(135deg,var(--accent-bg),rgba(255,165,0,0.04));border:1px solid var(--accent-border);border-radius:12px;margin-bottom:1.5rem">
+  <div style="font-size:.9rem;font-weight:700;color:var(--accent);margin-bottom:.5rem">🍽️ 비유: 레스토랑 주문 시스템</div>
+  <div style="font-size:.85rem;color:var(--text);line-height:1.8">
+    손님(사용자)이 "서울 날씨 알려줘"라고 말하면 →<br>
+    종업원(<strong style="color:var(--accent)">LLM</strong>)이 메뉴판(<strong>도구 정의</strong>)을 보고 →<br>
+    주방(<strong>함수</strong>)에 주문서(<strong style="color:var(--accent)">JSON</strong>)를 보내는 것 →<br>
+    요리(API 결과)가 나오면 종업원이 손님에게 예쁘게 서빙(최종 응답)
+  </div>
+</div>
+
+<!-- 3단계 흐름 SVG -->
+<div class="dia reveal">
+<div class="dia-title">Function Calling 3단계 흐름</div>
+<div style="max-width:820px;margin:0 auto;text-align:center;padding:1rem 0">
+  <svg viewBox="0 0 780 260" style="max-width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+    <!-- 마커 정의 -->
+    <defs>
+      <marker id="arrow-ac" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="#e8590c"/>
+      </marker>
+      <marker id="arrow-tl" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="#0ea5e9"/>
+      </marker>
+      <marker id="arrow-gn" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="#22c55e"/>
+      </marker>
+    </defs>
+
+    <!-- STEP 1: 사용자 → LLM -->
+    <rect x="10" y="15" width="230" height="70" rx="12" fill="#e8590c" fill-opacity=".1" stroke="#e8590c" stroke-width="2"/>
+    <text x="125" y="38" text-anchor="middle" fill="#e8590c" font-size="10" font-weight="700" font-family="monospace">STEP 1</text>
+    <text x="125" y="55" text-anchor="middle" fill="#e8590c" font-size="11" font-weight="600">사용자 → LLM (+ 도구 정의)</text>
+    <text x="125" y="73" text-anchor="middle" fill="#8b8b8b" font-size="9">"서울 날씨 어때?" + tools[]</text>
+
+    <!-- Arrow 1→2 -->
+    <line x1="245" y1="50" x2="275" y2="50" stroke="#e8590c" stroke-width="2" marker-end="url(#arrow-ac)"/>
+
+    <!-- STEP 2: LLM → tool_call JSON -->
+    <rect x="280" y="15" width="230" height="70" rx="12" fill="#0ea5e9" fill-opacity=".1" stroke="#0ea5e9" stroke-width="2"/>
+    <text x="395" y="38" text-anchor="middle" fill="#0ea5e9" font-size="10" font-weight="700" font-family="monospace">STEP 2</text>
+    <text x="395" y="55" text-anchor="middle" fill="#0ea5e9" font-size="11" font-weight="600">LLM → tool_call JSON 응답</text>
+    <text x="395" y="73" text-anchor="middle" fill="#8b8b8b" font-size="9">get_weather(city="서울")</text>
+
+    <!-- Arrow 2→3 -->
+    <line x1="515" y1="50" x2="545" y2="50" stroke="#0ea5e9" stroke-width="2" marker-end="url(#arrow-tl)"/>
+
+    <!-- STEP 3: 개발자 코드 실행 -->
+    <rect x="550" y="15" width="220" height="70" rx="12" fill="#22c55e" fill-opacity=".1" stroke="#22c55e" stroke-width="2"/>
+    <text x="660" y="38" text-anchor="middle" fill="#22c55e" font-size="10" font-weight="700" font-family="monospace">STEP 3</text>
+    <text x="660" y="55" text-anchor="middle" fill="#22c55e" font-size="11" font-weight="600">개발자 코드 → 실제 실행</text>
+    <text x="660" y="73" text-anchor="middle" fill="#8b8b8b" font-size="9">Weather API 호출 → 결과 획득</text>
+
+    <!-- 결과 되돌림 화살표 (아래로 돌아감) -->
+    <path d="M660,90 L660,140 L395,140 L395,160" fill="none" stroke="#22c55e" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arrow-gn)"/>
+    <text x="530" y="135" text-anchor="middle" fill="#22c55e" font-size="9" font-weight="600">실행 결과를 다시 LLM에 전달</text>
+
+    <!-- STEP 4: 최종 응답 -->
+    <rect x="280" y="165" width="230" height="70" rx="12" fill="#e8590c" fill-opacity=".12" stroke="#e8590c" stroke-width="2.5"/>
+    <text x="395" y="188" text-anchor="middle" fill="#e8590c" font-size="10" font-weight="700" font-family="monospace">STEP 4</text>
+    <text x="395" y="205" text-anchor="middle" fill="#e8590c" font-size="11" font-weight="700">LLM → 최종 자연어 응답</text>
+    <text x="395" y="223" text-anchor="middle" fill="#8b8b8b" font-size="9">"서울은 현재 22°C, 맑은 날씨입니다"</text>
+
+    <!-- 최종 → 사용자 -->
+    <line x1="278" y1="200" x2="125" y2="200" stroke="#e8590c" stroke-width="2" marker-end="url(#arrow-ac)"/>
+    <rect x="30" y="180" width="90" height="40" rx="10" fill="#e8590c" fill-opacity=".1" stroke="#e8590c" stroke-width="1.5"/>
+    <text x="75" y="204" text-anchor="middle" fill="#e8590c" font-size="10" font-weight="600">👤 사용자</text>
+  </svg>
+</div>
+</div>
+
+<!-- Function Calling 코드 예시 -->
+<div class="reveal" style="margin-bottom:1.5rem">
+  <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+    <span style="font-family:var(--mono);font-size:.72rem;color:var(--accent);background:var(--accent-bg);padding:.2rem .6rem;border-radius:6px">Python</span>
+    <span style="font-size:.75rem;color:var(--text-dim)">Anthropic Tool Use — 도구 정의 + 호출 + 결과 전달</span>
+  </div>
+  <pre style="background:var(--surface);padding:1.2rem;border-radius:10px;font-size:.78rem;line-height:1.8;overflow-x:auto;border:1px solid var(--accent-border)"><code style="color:var(--text)"><span style="color:var(--text-dim)"># ① 도구(Tool) 정의 — LLM에게 "이런 함수를 쓸 수 있어"를 알려줌</span>
+tools = [{
+    <span style="color:#a5d6a7">"name"</span>: <span style="color:#a5d6a7">"get_weather"</span>,
+    <span style="color:#a5d6a7">"description"</span>: <span style="color:#a5d6a7">"특정 도시의 현재 날씨를 조회합니다"</span>,
+    <span style="color:#a5d6a7">"input_schema"</span>: {
+        <span style="color:#a5d6a7">"type"</span>: <span style="color:#a5d6a7">"object"</span>,
+        <span style="color:#a5d6a7">"properties"</span>: {
+            <span style="color:#a5d6a7">"city"</span>: {<span style="color:#a5d6a7">"type"</span>: <span style="color:#a5d6a7">"string"</span>, <span style="color:#a5d6a7">"description"</span>: <span style="color:#a5d6a7">"도시명"</span>},
+            <span style="color:#a5d6a7">"unit"</span>: {<span style="color:#a5d6a7">"type"</span>: <span style="color:#a5d6a7">"string"</span>, <span style="color:#a5d6a7">"enum"</span>: [<span style="color:#a5d6a7">"celsius"</span>, <span style="color:#a5d6a7">"fahrenheit"</span>]}
+        },
+        <span style="color:#a5d6a7">"required"</span>: [<span style="color:#a5d6a7">"city"</span>]
+    }
+}]
+
+<span style="color:var(--text-dim)"># ② LLM에게 질문 (도구와 함께)</span>
+response = client.messages.create(
+    model=<span style="color:#a5d6a7">"claude-sonnet-4-6"</span>,
+    max_tokens=<span style="color:var(--amber)">1024</span>,
+    tools=tools,
+    messages=[{<span style="color:#a5d6a7">"role"</span>: <span style="color:#a5d6a7">"user"</span>, <span style="color:#a5d6a7">"content"</span>: <span style="color:#a5d6a7">"서울 날씨 어때?"</span>}]
+)
+
+<span style="color:var(--text-dim)"># ③ LLM이 함수 호출을 요청 (직접 실행하지 않음!)</span>
+tool_block = response.content[<span style="color:var(--amber)">0</span>]
+<span style="color:var(--accent)">print</span>(tool_block.type)   <span style="color:var(--text-dim)"># → "tool_use"</span>
+<span style="color:var(--accent)">print</span>(tool_block.name)   <span style="color:var(--text-dim)"># → "get_weather"</span>
+<span style="color:var(--accent)">print</span>(tool_block.input)  <span style="color:var(--text-dim)"># → {"city": "서울", "unit": "celsius"}</span>
+
+<span style="color:var(--text-dim)"># ④ 개발자가 실제 함수 실행</span>
+weather_result = call_weather_api(tool_block.input[<span style="color:#a5d6a7">"city"</span>])
+
+<span style="color:var(--text-dim)"># ⑤ 결과를 LLM에 전달 → 자연어 최종 응답</span>
+final = client.messages.create(
+    model=<span style="color:#a5d6a7">"claude-sonnet-4-6"</span>,
+    max_tokens=<span style="color:var(--amber)">1024</span>,
+    tools=tools,
+    messages=[
+        {<span style="color:#a5d6a7">"role"</span>: <span style="color:#a5d6a7">"user"</span>, <span style="color:#a5d6a7">"content"</span>: <span style="color:#a5d6a7">"서울 날씨 어때?"</span>},
+        {<span style="color:#a5d6a7">"role"</span>: <span style="color:#a5d6a7">"assistant"</span>, <span style="color:#a5d6a7">"content"</span>: response.content},
+        {<span style="color:#a5d6a7">"role"</span>: <span style="color:#a5d6a7">"user"</span>, <span style="color:#a5d6a7">"content"</span>: [{
+            <span style="color:#a5d6a7">"type"</span>: <span style="color:#a5d6a7">"tool_result"</span>,
+            <span style="color:#a5d6a7">"tool_use_id"</span>: tool_block.id,
+            <span style="color:#a5d6a7">"content"</span>: <span style="color:#a5d6a7">'{"temp": 22, "condition": "맑음", "humidity": 45}'</span>
+        }]}
+    ]
+)
+<span style="color:var(--accent)">print</span>(final.content[<span style="color:var(--amber)">0</span>].text)
+<span style="color:var(--text-dim)"># → "서울은 현재 22°C로 맑은 날씨입니다. 습도는 45%로 쾌적합니다."</span></code></pre>
+</div>
+
+<div class="tip reveal">
+<div class="tip-title">💡 Function Calling은 왜 중요한가?</div>
+<p style="margin:0;font-size:.85rem;line-height:1.85">
+  Function Calling은 <strong>AI 에이전트의 핵심 메커니즘</strong>입니다. <a href="/02-ai-agents/" target="_blank" rel="noopener" style="color:var(--teal)">Part 3: AI Agents 기초</a>에서 배운 "도구 사용(Tool Use)" 패턴이 바로 이것의 응용입니다. 에이전트가 검색, DB 조회, 코드 실행 등을 수행하는 모든 과정이 Function Calling 위에 구축됩니다.
+</p>
+</div>
+
+
+<!-- ── 11-4. Structured Output ── -->
+<h3>📐 11-4. Structured Output — 원하는 형식 강제</h3>
+<p style="color:var(--text-dim);margin-bottom:1rem;line-height:1.8">
+  LLM 출력은 기본적으로 자유 텍스트입니다. 하지만 에이전트 파이프라인에서는 <strong>코드가 출력을 파싱</strong>해야 합니다. "가끔 JSON, 가끔 마크다운"이면 시스템이 깨집니다. <strong>Structured Output</strong>은 LLM 출력의 형식을 보장하는 기술입니다.
+</p>
+
+<!-- 3가지 방식 비교 -->
+<div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin-bottom:1.5rem">
+
+  <div style="padding:1.2rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;border-top:3px solid var(--amber)">
+    <div style="font-weight:800;color:var(--amber);font-size:.88rem;margin-bottom:.5rem">1. JSON Mode</div>
+    <div style="font-size:.82rem;color:var(--text-dim);line-height:1.7;margin-bottom:.6rem">
+      "JSON으로 응답해줘"라고 지시.<br>
+      형식은 보장되지만 <strong>스키마는 보장 안 됨</strong>.
+    </div>
+    <div style="display:flex;gap:.3rem;flex-wrap:wrap">
+      <span style="font-size:.65rem;padding:.15rem .5rem;background:var(--amber-bg);border-radius:4px;color:var(--amber)">간편</span>
+      <span style="font-size:.65rem;padding:.15rem .5rem;background:rgba(255,107,107,0.1);border-radius:4px;color:var(--coral)">스키마 미보장</span>
+    </div>
+  </div>
+
+  <div style="padding:1.2rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;border-top:3px solid var(--accent)">
+    <div style="font-weight:800;color:var(--accent);font-size:.88rem;margin-bottom:.5rem">2. Tool Use (권장)</div>
+    <div style="font-size:.82rem;color:var(--text-dim);line-height:1.7;margin-bottom:.6rem">
+      도구의 input_schema로 <strong>스키마 강제</strong>.<br>
+      응답이 반드시 정의된 타입을 따름.
+    </div>
+    <div style="display:flex;gap:.3rem;flex-wrap:wrap">
+      <span style="font-size:.65rem;padding:.15rem .5rem;background:var(--accent-bg);border-radius:4px;color:var(--accent)">스키마 보장</span>
+      <span style="font-size:.65rem;padding:.15rem .5rem;background:var(--teal-bg);border-radius:4px;color:var(--teal)">가장 범용</span>
+    </div>
+  </div>
+
+  <div style="padding:1.2rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;border-top:3px solid var(--violet)">
+    <div style="font-weight:800;color:var(--violet);font-size:.88rem;margin-bottom:.5rem">3. Pydantic + SDK</div>
+    <div style="font-size:.82rem;color:var(--text-dim);line-height:1.7;margin-bottom:.6rem">
+      Python 타입 클래스에서 스키마 자동 생성.<br>
+      <strong>타입 안전 + 자동 검증</strong>.
+    </div>
+    <div style="display:flex;gap:.3rem;flex-wrap:wrap">
+      <span style="font-size:.65rem;padding:.15rem .5rem;background:var(--violet-bg);border-radius:4px;color:var(--violet)">타입 안전</span>
+      <span style="font-size:.65rem;padding:.15rem .5rem;background:var(--violet-bg);border-radius:4px;color:var(--violet)">자동 검증</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- Pydantic 예시 -->
+<div class="reveal" style="margin-bottom:1.5rem">
+  <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+    <span style="font-family:var(--mono);font-size:.72rem;color:var(--accent);background:var(--accent-bg);padding:.2rem .6rem;border-radius:6px">Python</span>
+    <span style="font-size:.75rem;color:var(--text-dim)">Pydantic으로 타입 안전한 출력 — Tool Use 활용</span>
+  </div>
+  <pre style="background:var(--surface);padding:1.2rem;border-radius:10px;font-size:.78rem;line-height:1.8;overflow-x:auto;border:1px solid var(--accent-border)"><code style="color:var(--text)"><span style="color:var(--accent)">from</span> pydantic <span style="color:var(--accent)">import</span> BaseModel, Field
+
+<span style="color:var(--text-dim)"># 원하는 출력 스키마를 Python 클래스로 정의</span>
+<span style="color:var(--accent)">class</span> <span style="color:white">MovieReview</span>(BaseModel):
+    title: str = Field(description=<span style="color:#a5d6a7">"영화 제목"</span>)
+    rating: <span style="color:var(--amber)">int</span> = Field(ge=<span style="color:var(--amber)">1</span>, le=<span style="color:var(--amber)">10</span>, description=<span style="color:#a5d6a7">"1~10점 평점"</span>)
+    summary: str = Field(description=<span style="color:#a5d6a7">"한 줄 요약"</span>)
+    pros: list[str] = Field(description=<span style="color:#a5d6a7">"장점 목록"</span>)
+    cons: list[str] = Field(description=<span style="color:#a5d6a7">"단점 목록"</span>)
+
+<span style="color:var(--text-dim)"># Pydantic 모델 → Tool input_schema로 변환</span>
+tool = {
+    <span style="color:#a5d6a7">"name"</span>: <span style="color:#a5d6a7">"submit_review"</span>,
+    <span style="color:#a5d6a7">"description"</span>: <span style="color:#a5d6a7">"영화 리뷰를 구조화된 형태로 제출"</span>,
+    <span style="color:#a5d6a7">"input_schema"</span>: MovieReview.model_json_schema()
+}
+
+<span style="color:var(--text-dim)"># LLM 호출 → 반드시 MovieReview 스키마를 따르는 JSON 반환</span>
+response = client.messages.create(
+    model=<span style="color:#a5d6a7">"claude-sonnet-4-6"</span>, max_tokens=<span style="color:var(--amber)">1024</span>,
+    tools=[tool], tool_choice={<span style="color:#a5d6a7">"type"</span>: <span style="color:#a5d6a7">"tool"</span>, <span style="color:#a5d6a7">"name"</span>: <span style="color:#a5d6a7">"submit_review"</span>},
+    messages=[{<span style="color:#a5d6a7">"role"</span>: <span style="color:#a5d6a7">"user"</span>, <span style="color:#a5d6a7">"content"</span>: <span style="color:#a5d6a7">"인셉션 리뷰 써줘"</span>}]
+)
+
+<span style="color:var(--text-dim)"># 타입 안전하게 파싱</span>
+review = MovieReview(**response.content[<span style="color:var(--amber)">0</span>].input)
+<span style="color:var(--accent)">print</span>(review.title)   <span style="color:var(--text-dim)"># → "인셉션"</span>
+<span style="color:var(--accent)">print</span>(review.rating)  <span style="color:var(--text-dim)"># → 9 (int, 1~10 보장)</span></code></pre>
+</div>
+
+
+<!-- ── 11-5. 에러 처리와 프로덕션 패턴 ── -->
+<h3>🛡️ 11-5. 에러 처리와 프로덕션 패턴</h3>
+<p style="color:var(--text-dim);margin-bottom:1rem;line-height:1.8">
+  데모에서는 API가 항상 작동합니다. 프로덕션에서는 <strong>반드시 실패합니다</strong>. Rate limit, 서버 다운, 타임아웃 — 이 모든 것을 우아하게 처리해야 실제 서비스가 됩니다.
+</p>
+
+<!-- 주요 에러 코드 -->
+<div class="reveal" style="overflow-x:auto;margin-bottom:1.5rem">
+<table style="width:100%;border-collapse:collapse;font-size:.82rem">
+<thead>
+<tr style="background:var(--accent-bg)">
+  <th style="padding:.7rem;text-align:center;border-bottom:2px solid var(--accent);color:var(--accent);width:80px">상태 코드</th>
+  <th style="padding:.7rem;text-align:left;border-bottom:2px solid var(--accent)">의미</th>
+  <th style="padding:.7rem;text-align:left;border-bottom:2px solid var(--accent)">대응 전략</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.6rem;text-align:center;font-weight:900;color:var(--coral)">429</td>
+  <td style="padding:.6rem"><strong>Rate Limit</strong> — 요청 한도 초과</td>
+  <td style="padding:.6rem">Exponential Backoff로 재시도</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.6rem;text-align:center;font-weight:900;color:var(--coral)">500</td>
+  <td style="padding:.6rem"><strong>Server Error</strong> — API 제공자 서버 문제</td>
+  <td style="padding:.6rem">재시도 + Fallback 모델 전환</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.6rem;text-align:center;font-weight:900;color:var(--coral)">401</td>
+  <td style="padding:.6rem"><strong>Unauthorized</strong> — API 키 무효/만료</td>
+  <td style="padding:.6rem">키 갱신, 시크릿 매니저 점검</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.6rem;text-align:center;font-weight:900;color:var(--coral)">408</td>
+  <td style="padding:.6rem"><strong>Timeout</strong> — 응답 시간 초과</td>
+  <td style="padding:.6rem">max_tokens 줄이기, 더 빠른 모델 시도</td>
+</tr>
+<tr>
+  <td style="padding:.6rem;text-align:center;font-weight:900;color:var(--amber)">529</td>
+  <td style="padding:.6rem"><strong>Overloaded</strong> — API 과부하 (Anthropic 전용)</td>
+  <td style="padding:.6rem">더 긴 대기 후 재시도</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- Retry 패턴 시각화 -->
+<div class="diagram reveal" style="border-left:3px solid var(--accent)">
+<div class="diagram-title" style="color:var(--accent)">🔄 Exponential Backoff — 재시도 패턴</div>
+<div style="max-width:650px;margin:1rem auto">
+  <div style="display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;padding:.5rem 0">
+
+    <div style="padding:.4rem .7rem;background:var(--coral);color:white;border-radius:8px;font-size:.72rem;font-weight:700">1차 시도</div>
+    <span style="color:var(--coral);font-weight:700">→ ❌</span>
+    <div style="padding:.3rem .5rem;background:var(--surface);border:1px solid var(--border);border-radius:6px;font-size:.68rem;color:var(--text-dim)">⏳ 1초</div>
+    <span style="color:var(--text-dim)">→</span>
+
+    <div style="padding:.4rem .7rem;background:var(--coral);color:white;border-radius:8px;font-size:.72rem;font-weight:700">2차 시도</div>
+    <span style="color:var(--coral);font-weight:700">→ ❌</span>
+    <div style="padding:.3rem .5rem;background:var(--surface);border:1px solid var(--border);border-radius:6px;font-size:.68rem;color:var(--text-dim)">⏳ 2초</div>
+    <span style="color:var(--text-dim)">→</span>
+
+    <div style="padding:.4rem .7rem;background:var(--coral);color:white;border-radius:8px;font-size:.72rem;font-weight:700">3차 시도</div>
+    <span style="color:var(--coral);font-weight:700">→ ❌</span>
+    <div style="padding:.3rem .5rem;background:var(--surface);border:1px solid var(--border);border-radius:6px;font-size:.68rem;color:var(--text-dim)">⏳ 4초</div>
+    <span style="color:var(--text-dim)">→</span>
+
+    <div style="padding:.4rem .7rem;background:var(--teal);color:white;border-radius:8px;font-size:.72rem;font-weight:700">4차 시도 ✅</div>
+
+  </div>
+  <div style="font-size:.72rem;color:var(--text-dim);margin-top:.4rem;line-height:1.6">
+    <strong>핵심:</strong> 대기 시간을 <strong>1초 → 2초 → 4초 → 8초</strong>로 지수적으로 늘림 + <strong>jitter(랜덤 오프셋)</strong>를 추가해 동시 재시도 폭주(thundering herd)를 방지
+  </div>
+</div>
+</div>
+
+<!-- Multi-provider Fallback 시각화 -->
+<div class="diagram reveal" style="border-left:3px solid var(--accent)">
+<div class="diagram-title" style="color:var(--accent)">🔀 Multi-Provider Fallback — 모델 장애 대비</div>
+<div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;padding:.5rem 0;max-width:650px;margin:0 auto">
+
+  <div style="padding:.5rem .8rem;background:var(--accent-bg);border:2px solid var(--accent);border-radius:10px;text-align:center">
+    <div style="font-size:.72rem;font-weight:800;color:var(--accent)">1순위</div>
+    <div style="font-size:.78rem;font-weight:600;color:var(--text)">Claude Sonnet</div>
+  </div>
+  <span style="font-size:.82rem;color:var(--coral);font-weight:700">실패 →</span>
+
+  <div style="padding:.5rem .8rem;background:var(--teal-bg);border:2px solid var(--teal);border-radius:10px;text-align:center">
+    <div style="font-size:.72rem;font-weight:800;color:var(--teal)">2순위</div>
+    <div style="font-size:.78rem;font-weight:600;color:var(--text)">GPT-4o</div>
+  </div>
+  <span style="font-size:.82rem;color:var(--coral);font-weight:700">실패 →</span>
+
+  <div style="padding:.5rem .8rem;background:var(--violet-bg);border:2px solid var(--violet);border-radius:10px;text-align:center">
+    <div style="font-size:.72rem;font-weight:800;color:var(--violet)">3순위</div>
+    <div style="font-size:.78rem;font-weight:600;color:var(--text)">Gemini Flash</div>
+  </div>
+  <span style="font-size:.82rem;color:var(--coral);font-weight:700">실패 →</span>
+
+  <div style="padding:.5rem .8rem;background:rgba(255,107,107,0.08);border:2px solid var(--coral);border-radius:10px;text-align:center">
+    <div style="font-size:.72rem;font-weight:800;color:var(--coral)">최후 수단</div>
+    <div style="font-size:.78rem;font-weight:600;color:var(--text)">캐시/기본응답</div>
+  </div>
+
+</div>
+<div style="font-size:.72rem;color:var(--text-dim);margin-top:.6rem;line-height:1.6;max-width:650px;margin-left:auto;margin-right:auto">
+  <strong>Circuit Breaker 패턴:</strong> 특정 제공자에서 연속 5회 실패 시, 해당 제공자를 <strong>30초간 자동 차단</strong>하고 다음 순위로 즉시 전환. 장애 복구 후 자동 재활성화.
+</div>
+</div>
+
+<!-- Retry 코드 예시 -->
+<div class="reveal" style="margin-bottom:1.5rem">
+  <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+    <span style="font-family:var(--mono);font-size:.72rem;color:var(--accent);background:var(--accent-bg);padding:.2rem .6rem;border-radius:6px">Python</span>
+    <span style="font-size:.75rem;color:var(--text-dim)">프로덕션 retry + fallback 패턴</span>
+  </div>
+  <pre style="background:var(--surface);padding:1.2rem;border-radius:10px;font-size:.78rem;line-height:1.8;overflow-x:auto;border:1px solid var(--accent-border)"><code style="color:var(--text)"><span style="color:var(--accent)">import</span> time, random
+<span style="color:var(--accent)">from</span> anthropic <span style="color:var(--accent)">import</span> RateLimitError, APIStatusError
+
+<span style="color:var(--accent)">def</span> <span style="color:white">call_with_retry</span>(messages, max_retries=<span style="color:var(--amber)">4</span>):
+    <span style="color:#a5d6a7">"""Exponential backoff + jitter로 LLM API 호출"""</span>
+    <span style="color:var(--accent)">for</span> attempt <span style="color:var(--accent)">in</span> <span style="color:var(--accent)">range</span>(max_retries):
+        <span style="color:var(--accent)">try</span>:
+            <span style="color:var(--accent)">return</span> client.messages.create(
+                model=<span style="color:#a5d6a7">"claude-sonnet-4-6"</span>,
+                max_tokens=<span style="color:var(--amber)">1024</span>,
+                messages=messages
+            )
+        <span style="color:var(--accent)">except</span> RateLimitError:
+            wait = (<span style="color:var(--amber)">2</span> ** attempt) + random.uniform(<span style="color:var(--amber)">0</span>, <span style="color:var(--amber)">1</span>)  <span style="color:var(--text-dim)"># 1, 2, 4, 8초 + jitter</span>
+            <span style="color:var(--accent)">print</span>(f<span style="color:#a5d6a7">"Rate limited. {wait:.1f}초 대기 후 재시도..."</span>)
+            time.sleep(wait)
+        <span style="color:var(--accent)">except</span> APIStatusError <span style="color:var(--accent)">as</span> e:
+            <span style="color:var(--accent)">if</span> e.status_code >= <span style="color:var(--amber)">500</span>:  <span style="color:var(--text-dim)"># 서버 에러 → 재시도</span>
+                time.sleep(<span style="color:var(--amber)">2</span> ** attempt)
+            <span style="color:var(--accent)">else</span>:
+                <span style="color:var(--accent)">raise</span>  <span style="color:var(--text-dim)"># 4xx 에러는 재시도 무의미</span>
+    <span style="color:var(--accent)">raise</span> Exception(<span style="color:#a5d6a7">"Max retries exceeded"</span>)</code></pre>
+</div>
+
+<!-- 챕터 마무리 -->
+<div style="margin-top:2rem;padding:1.2rem 1.5rem;background:linear-gradient(135deg,var(--accent-bg),rgba(255,165,0,0.04));border:1px solid var(--accent-border);border-radius:12px">
+<div style="font-size:.9rem;font-weight:700;color:var(--accent);margin-bottom:.5rem">📌 Ch.11 핵심 요약</div>
+<div style="font-size:.85rem;color:var(--text);line-height:1.9">
+  <strong>1)</strong> LLM API는 <strong>system / user / assistant</strong> 3가지 역할의 메시지 배열로 동작<br>
+  <strong>2)</strong> <strong>Streaming</strong>으로 TTFT를 3~10초 → &lt;500ms로 단축<br>
+  <strong>3)</strong> <strong>Function Calling</strong>으로 LLM에 도구를 쥐어줌 — 에이전트의 핵심 메커니즘<br>
+  <strong>4)</strong> <strong>Structured Output</strong>으로 파이프라인에서 안전한 형식 보장<br>
+  <strong>5)</strong> 프로덕션은 <strong>Retry + Fallback + Circuit Breaker</strong>의 3중 방어
+</div>
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- CH.12 — 시스템 통합                               -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="ch reveal" id="ad-ch12">
+<div class="ch-head"><div class="ch-num" style="color:var(--accent)">12</div><h2 class="ch-title">시스템 통합 — API로 세상과 연결하기</h2></div>
+<p class="section-desc">
+  LLM API만으로는 제품이 안 됩니다. 실제 가치는 <strong>기존 시스템과 데이터를 연결할 때</strong> 나옵니다. 이 챕터에서는 REST API, Webhook, 인증, 통합 패턴, Rate Limiting까지 — AI 앱을 세상과 연결하는 모든 방법을 다룹니다.
+</p>
+
+
+<!-- ── 12-1. AI 앱의 통합 지도 ── -->
+<h3>🗺️ 12-1. AI 앱의 통합 지도 (Integration Map)</h3>
+<p style="color:var(--text-dim);margin-bottom:1rem;line-height:1.8">
+  AI 앱은 혼자 작동하지 않습니다. 사용자 인터페이스, LLM, 외부 서비스, 데이터 소스가 <strong>오케스트레이터</strong>를 중심으로 연결됩니다. 아래 지도는 전형적인 AI 앱의 통합 구조입니다.
+</p>
+
+<!-- 통합 아키텍처 SVG -->
+<div class="dia reveal">
+<div class="dia-title">AI 앱 통합 아키텍처</div>
+<div style="max-width:820px;margin:0 auto;text-align:center;padding:1rem 0">
+  <svg viewBox="0 0 780 420" style="max-width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="arrow-o" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="#e8590c"/>
+      </marker>
+      <marker id="arrow-b" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="#666"/>
+      </marker>
+    </defs>
+
+    <!-- 상단: 사용자 인터페이스 -->
+    <rect x="240" y="10" width="300" height="60" rx="14" fill="#0ea5e9" fill-opacity=".1" stroke="#0ea5e9" stroke-width="2"/>
+    <text x="390" y="35" text-anchor="middle" fill="#0ea5e9" font-size="11" font-weight="700">👤 사용자 인터페이스</text>
+    <text x="390" y="55" text-anchor="middle" fill="#8b8b8b" font-size="9">웹 · 앱 · Slack · Teams · 챗봇</text>
+
+    <!-- 화살표: UI → 오케스트레이터 -->
+    <line x1="390" y1="73" x2="390" y2="135" stroke="#666" stroke-width="1.5" marker-end="url(#arrow-b)"/>
+    <text x="415" y="108" fill="#8b8b8b" font-size="8">REST / WebSocket</text>
+
+    <!-- 중앙: AI 오케스트레이터 -->
+    <rect x="260" y="140" width="260" height="70" rx="16" fill="#e8590c" fill-opacity=".15" stroke="#e8590c" stroke-width="2.5"/>
+    <text x="390" y="168" text-anchor="middle" fill="#e8590c" font-size="13" font-weight="800">🧠 AI 오케스트레이터</text>
+    <text x="390" y="195" text-anchor="middle" fill="#8b8b8b" font-size="9">LangChain · LangGraph · 자체 코드</text>
+
+    <!-- 왼쪽: LLM API -->
+    <rect x="20" y="150" width="190" height="55" rx="12" fill="#6d28d9" fill-opacity=".1" stroke="#6d28d9" stroke-width="1.5"/>
+    <text x="115" y="173" text-anchor="middle" fill="#6d28d9" font-size="10" font-weight="700">🤖 LLM API</text>
+    <text x="115" y="191" text-anchor="middle" fill="#8b8b8b" font-size="8">OpenAI · Anthropic · Google</text>
+    <line x1="213" y1="175" x2="257" y2="175" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#arrow-b)"/>
+    <text x="235" y="168" fill="#6d28d9" font-size="7">REST</text>
+
+    <!-- 오른쪽: 외부 서비스 API -->
+    <rect x="570" y="150" width="195" height="55" rx="12" fill="#22c55e" fill-opacity=".1" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="668" y="173" text-anchor="middle" fill="#22c55e" font-size="10" font-weight="700">🔗 외부 서비스 API</text>
+    <text x="668" y="191" text-anchor="middle" fill="#8b8b8b" font-size="8">CRM · Email · 결제 · Calendar</text>
+    <line x1="523" y1="175" x2="567" y2="175" stroke="#22c55e" stroke-width="1.5" marker-end="url(#arrow-b)"/>
+    <text x="545" y="168" fill="#22c55e" font-size="7">REST / MCP</text>
+
+    <!-- 하단: 데이터 소스 -->
+    <rect x="180" y="280" width="420" height="55" rx="12" fill="#f59e0b" fill-opacity=".1" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="390" y="303" text-anchor="middle" fill="#f59e0b" font-size="10" font-weight="700">💾 데이터 소스</text>
+    <text x="390" y="321" text-anchor="middle" fill="#8b8b8b" font-size="8">PostgreSQL · Vector DB · Data Lake · S3 · 문서 저장소</text>
+    <line x1="390" y1="213" x2="390" y2="277" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow-b)"/>
+    <text x="415" y="250" fill="#f59e0b" font-size="7">SQL / REST</text>
+
+    <!-- 하단 보조: 모니터링 -->
+    <rect x="240" y="360" width="300" height="45" rx="10" fill="#ec4899" fill-opacity=".08" stroke="#ec4899" stroke-width="1"/>
+    <text x="390" y="380" text-anchor="middle" fill="#ec4899" font-size="9" font-weight="600">📡 모니터링 · 로깅 · 비용 추적</text>
+    <text x="390" y="396" text-anchor="middle" fill="#8b8b8b" font-size="8">LangSmith · Datadog · 자체 대시보드</text>
+
+    <!-- 점선 연결: 오케스트레이터 → 모니터링 -->
+    <line x1="390" y1="335" x2="390" y2="357" stroke="#ec4899" stroke-width="1" stroke-dasharray="4,3"/>
+  </svg>
+</div>
+</div>
+
+
+<!-- ── 12-2. REST API 통합 실전 ── -->
+<h3>🔌 12-2. REST API 통합 실전</h3>
+<p style="color:var(--text-dim);margin-bottom:1rem;line-height:1.8">
+  AI 앱에서 외부 서비스와 통신하는 가장 기본적인 방법은 <strong>REST API</strong>입니다. <a href="/09-it-basics/" target="_blank" rel="noopener" style="color:var(--green)">Part 9: IT 기초</a>에서 HTTP 기초를 다뤘으니, 여기서는 <strong>인증과 실전 코드</strong>에 집중합니다.
+</p>
+
+<!-- 인증 방식 3가지 비교 -->
+<h4 style="color:var(--accent);margin-bottom:.8rem">🔐 API 인증 방식 3가지</h4>
+<div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin-bottom:1.5rem">
+
+  <div style="padding:1.2rem;background:var(--accent-bg);border:2px solid var(--accent);border-radius:14px">
+    <div style="font-size:1.3rem;margin-bottom:.3rem">🔑</div>
+    <div style="font-weight:800;color:var(--accent);font-size:.9rem;margin-bottom:.5rem">1. API Key</div>
+    <div style="font-size:.82rem;color:var(--text-dim);line-height:1.7;margin-bottom:.6rem">
+      <strong>가장 간단.</strong> 헤더에 키를 넣어서 전송.<br>
+      대부분의 AI API, SaaS 서비스가 사용.
+    </div>
+    <pre style="background:var(--surface);padding:.5rem;border-radius:6px;font-size:.68rem;line-height:1.6;overflow-x:auto;border:1px solid var(--border);margin:0"><code>Authorization: Bearer sk-ant-...
+X-API-Key: your-key-here</code></pre>
+    <div style="display:flex;gap:.3rem;margin-top:.5rem;flex-wrap:wrap">
+      <span style="font-size:.62rem;padding:.15rem .4rem;background:var(--teal-bg);border-radius:4px;color:var(--teal)">간편</span>
+      <span style="font-size:.62rem;padding:.15rem .4rem;background:rgba(255,107,107,0.1);border-radius:4px;color:var(--coral)">키 유출 위험</span>
+    </div>
+  </div>
+
+  <div style="padding:1.2rem;background:var(--accent-bg);border:2px solid var(--accent-border);border-radius:14px">
+    <div style="font-size:1.3rem;margin-bottom:.3rem">🔄</div>
+    <div style="font-weight:800;color:var(--accent);font-size:.9rem;margin-bottom:.5rem">2. OAuth 2.0</div>
+    <div style="font-size:.82rem;color:var(--text-dim);line-height:1.7;margin-bottom:.6rem">
+      <strong>사용자 대신 행동</strong>할 때 사용.<br>
+      Google, Slack, GitHub 연동의 표준.
+    </div>
+    <pre style="background:var(--surface);padding:.5rem;border-radius:6px;font-size:.68rem;line-height:1.6;overflow-x:auto;border:1px solid var(--border);margin:0"><code>1. 사용자 → 동의 화면 (구글 로그인)
+2. 구글 → auth code 반환
+3. 서버 → code로 access_token 교환
+4. access_token으로 API 호출</code></pre>
+    <div style="display:flex;gap:.3rem;margin-top:.5rem;flex-wrap:wrap">
+      <span style="font-size:.62rem;padding:.15rem .4rem;background:var(--teal-bg);border-radius:4px;color:var(--teal)">안전</span>
+      <span style="font-size:.62rem;padding:.15rem .4rem;background:rgba(255,107,107,0.1);border-radius:4px;color:var(--coral)">구현 복잡</span>
+    </div>
+  </div>
+
+  <div style="padding:1.2rem;background:var(--accent-bg);border:2px solid var(--accent-border);border-radius:14px">
+    <div style="font-size:1.3rem;margin-bottom:.3rem">🎫</div>
+    <div style="font-weight:800;color:var(--accent);font-size:.9rem;margin-bottom:.5rem">3. JWT (Bearer Token)</div>
+    <div style="font-size:.82rem;color:var(--text-dim);line-height:1.7;margin-bottom:.6rem">
+      <strong>서버 간 인증</strong>에 최적.<br>
+      토큰에 만료 시간 · 권한 정보 내장.
+    </div>
+    <pre style="background:var(--surface);padding:.5rem;border-radius:6px;font-size:.68rem;line-height:1.6;overflow-x:auto;border:1px solid var(--border);margin:0"><code>eyJhbGciOiJIUzI1NiJ9.
+eyJzdWIiOiJ1c2VyMTIzIiwiZXhwIjox...
+(header.payload.signature)</code></pre>
+    <div style="display:flex;gap:.3rem;margin-top:.5rem;flex-wrap:wrap">
+      <span style="font-size:.62rem;padding:.15rem .4rem;background:var(--teal-bg);border-radius:4px;color:var(--teal)">자체 검증 가능</span>
+      <span style="font-size:.62rem;padding:.15rem .4rem;background:rgba(255,107,107,0.1);border-radius:4px;color:var(--coral)">만료 관리 필요</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- Slack Webhook 실전 예시 -->
+<div class="reveal" style="margin-bottom:1.5rem">
+  <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+    <span style="font-family:var(--mono);font-size:.72rem;color:var(--accent);background:var(--accent-bg);padding:.2rem .6rem;border-radius:6px">Python</span>
+    <span style="font-size:.75rem;color:var(--text-dim)">실전: Slack에 AI 분석 결과 알림 보내기</span>
+  </div>
+  <pre style="background:var(--surface);padding:1.2rem;border-radius:10px;font-size:.78rem;line-height:1.8;overflow-x:auto;border:1px solid var(--accent-border)"><code style="color:var(--text)"><span style="color:var(--accent)">import</span> requests
+
+<span style="color:var(--text-dim)"># Slack Incoming Webhook URL (환경변수에서 로드)</span>
+SLACK_WEBHOOK = os.getenv(<span style="color:#a5d6a7">"SLACK_WEBHOOK_URL"</span>)
+
+<span style="color:var(--accent)">def</span> <span style="color:white">send_slack_alert</span>(analysis_result: str):
+    <span style="color:#a5d6a7">"""AI 분석 결과를 Slack 채널에 전송"""</span>
+    payload = {
+        <span style="color:#a5d6a7">"blocks"</span>: [{
+            <span style="color:#a5d6a7">"type"</span>: <span style="color:#a5d6a7">"section"</span>,
+            <span style="color:#a5d6a7">"text"</span>: {
+                <span style="color:#a5d6a7">"type"</span>: <span style="color:#a5d6a7">"mrkdwn"</span>,
+                <span style="color:#a5d6a7">"text"</span>: f<span style="color:#a5d6a7">"🤖 *AI 분석 완료*\n{analysis_result}"</span>
+            }
+        }]
+    }
+    response = requests.post(SLACK_WEBHOOK, json=payload)
+    response.raise_for_status()  <span style="color:var(--text-dim)"># 실패 시 예외 발생</span></code></pre>
+</div>
+
+<!-- Notion API 예시 -->
+<div class="reveal" style="margin-bottom:1.5rem">
+  <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+    <span style="font-family:var(--mono);font-size:.72rem;color:var(--accent);background:var(--accent-bg);padding:.2rem .6rem;border-radius:6px">Python</span>
+    <span style="font-size:.75rem;color:var(--text-dim)">실전: Notion 페이지에서 지식 베이스 읽기</span>
+  </div>
+  <pre style="background:var(--surface);padding:1.2rem;border-radius:10px;font-size:.78rem;line-height:1.8;overflow-x:auto;border:1px solid var(--accent-border)"><code style="color:var(--text)">NOTION_TOKEN = os.getenv(<span style="color:#a5d6a7">"NOTION_API_KEY"</span>)
+PAGE_ID = <span style="color:#a5d6a7">"abc123..."</span>
+
+<span style="color:var(--text-dim)"># Notion API로 페이지 내용 가져오기</span>
+headers = {
+    <span style="color:#a5d6a7">"Authorization"</span>: f<span style="color:#a5d6a7">"Bearer {NOTION_TOKEN}"</span>,
+    <span style="color:#a5d6a7">"Notion-Version"</span>: <span style="color:#a5d6a7">"2022-06-28"</span>
+}
+response = requests.get(
+    f<span style="color:#a5d6a7">"https://api.notion.com/v1/blocks/{PAGE_ID}/children"</span>,
+    headers=headers
+)
+blocks = response.json()[<span style="color:#a5d6a7">"results"</span>]
+
+<span style="color:var(--text-dim)"># 텍스트 추출 → LLM 컨텍스트로 활용</span>
+knowledge = <span style="color:#a5d6a7">"\n"</span>.join(extract_text(b) <span style="color:var(--accent)">for</span> b <span style="color:var(--accent)">in</span> blocks)</code></pre>
+</div>
+
+
+<!-- ── 12-3. Webhook — 이벤트 기반 연동 ── -->
+<h3>📡 12-3. Webhook — 이벤트 기반 연동</h3>
+<p style="color:var(--text-dim);margin-bottom:1rem;line-height:1.8">
+  API는 내가 요청해야 응답합니다. 하지만 "새 주문이 들어왔을 때" 같은 <strong>이벤트</strong>에 반응하려면? <strong>Webhook</strong>은 이벤트 발생 시 서버가 내 서버로 HTTP 요청을 보내는 메커니즘입니다.
+</p>
+
+<!-- API vs Webhook 비교 -->
+<div class="diagram reveal" style="border-left:3px solid var(--accent)">
+<div class="diagram-title" style="color:var(--accent)">🔄 Polling(API) vs Webhook(Push) — 근본적 차이</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:700px;margin:1rem auto">
+
+  <!-- Polling -->
+  <div style="padding:1rem;background:rgba(255,107,107,0.06);border:1px solid var(--coral-border);border-radius:12px">
+    <div style="font-weight:800;color:var(--coral);font-size:.85rem;margin-bottom:.6rem;text-align:center">❌ Polling (API Pull)</div>
+    <div style="font-size:.75rem;color:var(--text);line-height:2;font-family:var(--mono)">
+      내 서버 → "새 주문 있어?" → 없음<br>
+      내 서버 → "새 주문 있어?" → 없음<br>
+      내 서버 → "새 주문 있어?" → 없음<br>
+      내 서버 → "새 주문 있어?" → <strong style="color:var(--teal)">있음!</strong><br>
+    </div>
+    <div style="font-size:.7rem;color:var(--coral);margin-top:.4rem;text-align:center">100번 물어봐서 1번 답을 얻음</div>
+  </div>
+
+  <!-- Webhook -->
+  <div style="padding:1rem;background:rgba(0,188,155,0.06);border:1px solid var(--teal-border);border-radius:12px">
+    <div style="font-weight:800;color:var(--teal);font-size:.85rem;margin-bottom:.6rem;text-align:center">✅ Webhook (Push)</div>
+    <div style="font-size:.75rem;color:var(--text);line-height:2;font-family:var(--mono)">
+      (대기 중...)<br>
+      (대기 중...)<br>
+      (대기 중...)<br>
+      외부 서버 → <strong style="color:var(--teal)">"새 주문이야!"</strong> → 처리!<br>
+    </div>
+    <div style="font-size:.7rem;color:var(--teal);margin-top:.4rem;text-align:center">이벤트 발생 시 1번만 알려줌</div>
+  </div>
+
+</div>
+</div>
+
+<!-- Webhook 실전 시나리오 -->
+<h4 style="color:var(--accent);margin-bottom:.8rem">🎯 Webhook + AI — 실전 시나리오 3가지</h4>
+<div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin-bottom:1.5rem">
+
+  <div style="padding:1.2rem;background:var(--surface);border-left:4px solid var(--accent);border-radius:0 12px 12px 0">
+    <div style="font-size:1.1rem;margin-bottom:.3rem">🔀</div>
+    <div style="font-weight:700;color:var(--text);font-size:.88rem;margin-bottom:.4rem">GitHub PR → AI 코드 리뷰</div>
+    <div style="font-size:.78rem;color:var(--text-dim);line-height:1.7">
+      PR 생성 이벤트 → Webhook → AI가 diff 분석 → 리뷰 코멘트 자동 작성
+    </div>
+    <div style="font-size:.68rem;color:var(--accent);margin-top:.4rem;font-family:var(--mono)">trigger: pull_request.opened</div>
+  </div>
+
+  <div style="padding:1.2rem;background:var(--surface);border-left:4px solid var(--teal);border-radius:0 12px 12px 0">
+    <div style="font-size:1.1rem;margin-bottom:.3rem">💳</div>
+    <div style="font-weight:700;color:var(--text);font-size:.88rem;margin-bottom:.4rem">Stripe 결제 → AI 감사 메일</div>
+    <div style="font-size:.78rem;color:var(--text-dim);line-height:1.7">
+      결제 완료 이벤트 → Webhook → AI가 고객 맞춤 감사 이메일 작성 → 자동 발송
+    </div>
+    <div style="font-size:.68rem;color:var(--teal);margin-top:.4rem;font-family:var(--mono)">trigger: checkout.session.completed</div>
+  </div>
+
+  <div style="padding:1.2rem;background:var(--surface);border-left:4px solid var(--violet);border-radius:0 12px 12px 0">
+    <div style="font-size:1.1rem;margin-bottom:.3rem">💬</div>
+    <div style="font-weight:700;color:var(--text);font-size:.88rem;margin-bottom:.4rem">Slack 메시지 → AI 에이전트</div>
+    <div style="font-size:.78rem;color:var(--text-dim);line-height:1.7">
+      @mention 이벤트 → Webhook → AI 에이전트가 컨텍스트 파악 → 슬랙에 응답
+    </div>
+    <div style="font-size:.68rem;color:var(--violet);margin-top:.4rem;font-family:var(--mono)">trigger: app_mention</div>
+  </div>
+
+</div>
+
+
+<!-- ── 12-4. 5대 통합 패턴 ── -->
+<h3>🧩 12-4. 5대 통합 패턴</h3>
+<p style="color:var(--text-dim);margin-bottom:1rem;line-height:1.8">
+  AI 앱에서 외부 서비스를 연결하는 방식은 크게 5가지로 분류됩니다. 상황에 따라 최적 패턴이 다릅니다.
+  — <strong>Karthik Kalyanaraman</strong> (Composio 창업자, AI 에이전트 통합 플랫폼의 선구자)의 분류를 기반으로 확장했습니다.
+</p>
+
+<div class="reveal" style="overflow-x:auto;margin-bottom:1.5rem">
+<table style="width:100%;border-collapse:collapse;font-size:.82rem">
+<thead>
+<tr style="background:var(--accent-bg)">
+  <th style="padding:.7rem;text-align:left;border-bottom:2px solid var(--accent);color:var(--accent);min-width:140px">패턴</th>
+  <th style="padding:.7rem;text-align:left;border-bottom:2px solid var(--accent)">작동 방식</th>
+  <th style="padding:.7rem;text-align:left;border-bottom:2px solid var(--accent)">적합 상황</th>
+  <th style="padding:.7rem;text-align:center;border-bottom:2px solid var(--accent);min-width:80px">실시간성</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.6rem;font-weight:700;color:var(--accent)">1. Direct API Call</td>
+  <td style="padding:.6rem">요청 → 즉시 응답. 가장 단순.</td>
+  <td style="padding:.6rem">단발 조회 (날씨, 환율, 검색)</td>
+  <td style="padding:.6rem;text-align:center">⚡ 즉시</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.6rem;font-weight:700;color:var(--accent)">2. Webhook + AI</td>
+  <td style="padding:.6rem">이벤트 발생 → 서버 호출 → AI 처리</td>
+  <td style="padding:.6rem">실시간 반응 (결제, PR, 메시지)</td>
+  <td style="padding:.6rem;text-align:center">⚡ 즉시</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.6rem;font-weight:700;color:var(--accent)">3. Polling + Batch</td>
+  <td style="padding:.6rem">주기적 수집 → 일괄 AI 처리</td>
+  <td style="padding:.6rem">보고서, 주간 분석, 로그 요약</td>
+  <td style="padding:.6rem;text-align:center">⏱️ 지연</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.6rem;font-weight:700;color:var(--accent)">4. MCP</td>
+  <td style="padding:.6rem">표준 프로토콜로 에이전트 ↔ 도구 연결</td>
+  <td style="padding:.6rem">에이전트 생태계 (Claude, Cursor)</td>
+  <td style="padding:.6rem;text-align:center">⚡ 즉시</td>
+</tr>
+<tr>
+  <td style="padding:.6rem;font-weight:700;color:var(--accent)">5. Unified API</td>
+  <td style="padding:.6rem">하나의 인터페이스로 100+ 서비스 연결</td>
+  <td style="padding:.6rem">다수 SaaS 통합 (CRM, 이메일, 캘린더)</td>
+  <td style="padding:.6rem;text-align:center">⚡ 즉시</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- MCP + Unified API 추가 설명 -->
+<div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem">
+
+  <div style="padding:1.2rem;background:var(--accent-bg);border:2px solid var(--accent);border-radius:14px">
+    <div style="font-weight:800;color:var(--accent);font-size:.88rem;margin-bottom:.5rem">🔌 패턴 4: MCP (Model Context Protocol)</div>
+    <div style="font-size:.82rem;color:var(--text-dim);line-height:1.7">
+      <strong>Anthropic이 2024년 발표한 개방형 표준.</strong> AI 에이전트가 도구 · 데이터 소스에 접근하는 방법을 표준화합니다. <a href="/02-ai-agents/" target="_blank" rel="noopener" style="color:var(--teal)">Part 3</a>에서 자세히 다뤘습니다.
+    </div>
+    <div style="font-size:.72rem;color:var(--accent);margin-top:.5rem;font-family:var(--mono)">
+      USB-C가 충전기를 통일했듯,<br>MCP가 AI 도구 연결을 통일
+    </div>
+  </div>
+
+  <div style="padding:1.2rem;background:var(--accent-bg);border:2px solid var(--accent-border);border-radius:14px">
+    <div style="font-weight:800;color:var(--accent);font-size:.88rem;margin-bottom:.5rem">🌐 패턴 5: Unified API</div>
+    <div style="font-size:.82rem;color:var(--text-dim);line-height:1.7">
+      <strong>Composio, Truto</strong> 같은 플랫폼이 100+ SaaS의 API를 하나의 인터페이스로 통합. 각 서비스의 인증 · 스키마 차이를 추상화합니다.
+    </div>
+    <div style="font-size:.72rem;color:var(--accent);margin-top:.5rem;font-family:var(--mono)">
+      "Google Calendar 연동? Outlook 연동?"<br>
+      → 하나의 calendar.create()로 해결
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ── 12-5. Rate Limiting & Throttling 전략 ── -->
+<h3>⏱️ 12-5. Rate Limiting & Throttling 전략</h3>
+<p style="color:var(--text-dim);margin-bottom:1rem;line-height:1.8">
+  모든 API에는 <strong>호출 제한(Rate Limit)</strong>이 있습니다. "1분에 60회", "1일 10,000회" 같은 제한을 무시하면 <strong>429 에러</strong>로 서비스가 멈춥니다.
+</p>
+
+<!-- Rate Limit 비교 -->
+<div class="reveal" style="overflow-x:auto;margin-bottom:1.5rem">
+<table style="width:100%;border-collapse:collapse;font-size:.82rem">
+<thead>
+<tr style="background:var(--accent-bg)">
+  <th style="padding:.7rem;text-align:left;border-bottom:2px solid var(--accent);color:var(--accent)">API 제공자</th>
+  <th style="padding:.7rem;text-align:center;border-bottom:2px solid var(--accent)">RPM (분당 요청)</th>
+  <th style="padding:.7rem;text-align:center;border-bottom:2px solid var(--accent)">TPM (분당 토큰)</th>
+  <th style="padding:.7rem;text-align:center;border-bottom:2px solid var(--accent)">Tier</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.6rem;font-weight:700">Anthropic (Claude Sonnet)</td>
+  <td style="padding:.6rem;text-align:center">1,000 RPM</td>
+  <td style="padding:.6rem;text-align:center">80,000 TPM</td>
+  <td style="padding:.6rem;text-align:center;font-size:.72rem;color:var(--text-dim)">Tier 1 기준</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.6rem;font-weight:700">OpenAI (GPT-4o)</td>
+  <td style="padding:.6rem;text-align:center">500 RPM</td>
+  <td style="padding:.6rem;text-align:center">30,000 TPM</td>
+  <td style="padding:.6rem;text-align:center;font-size:.72rem;color:var(--text-dim)">Tier 1 기준</td>
+</tr>
+<tr>
+  <td style="padding:.6rem;font-weight:700">Slack API</td>
+  <td style="padding:.6rem;text-align:center">~1 req/sec</td>
+  <td style="padding:.6rem;text-align:center">—</td>
+  <td style="padding:.6rem;text-align:center;font-size:.72rem;color:var(--text-dim)">메서드별 상이</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- Rate Limit Window 시각화 -->
+<div class="diagram reveal" style="border-left:3px solid var(--accent)">
+<div class="diagram-title" style="color:var(--accent)">🪟 Rate Limit 윈도우 방식</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:700px;margin:1rem auto">
+
+  <div style="padding:1rem;background:var(--surface);border:1px solid var(--border);border-radius:12px">
+    <div style="font-weight:800;color:var(--accent);font-size:.82rem;margin-bottom:.5rem">Fixed Window</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.7;margin-bottom:.4rem">
+      정해진 시간 구간 (0:00~1:00) 안에서 카운팅.<br>
+      경계 시점에 <strong>버스트 가능</strong> (0:59에 60회 + 1:00에 60회 = 1초 만에 120회).
+    </div>
+    <div style="display:flex;gap:2px;height:24px;align-items:flex-end">
+      <div style="width:8%;height:40%;background:var(--accent);border-radius:2px"></div>
+      <div style="width:8%;height:60%;background:var(--accent);border-radius:2px"></div>
+      <div style="width:8%;height:30%;background:var(--accent);border-radius:2px"></div>
+      <div style="width:8%;height:80%;background:var(--accent);border-radius:2px"></div>
+      <div style="width:8%;height:100%;background:var(--coral);border-radius:2px"></div>
+      <div style="width:2px;height:100%;background:var(--text-dim)"></div>
+      <div style="width:8%;height:90%;background:var(--accent);border-radius:2px"></div>
+      <div style="width:8%;height:50%;background:var(--accent);border-radius:2px"></div>
+      <div style="width:8%;height:70%;background:var(--accent);border-radius:2px"></div>
+    </div>
+    <div style="font-size:.62rem;color:var(--text-muted);margin-top:.2rem">|← 윈도우 1 →|← 윈도우 2 →|</div>
+  </div>
+
+  <div style="padding:1rem;background:var(--surface);border:1px solid var(--border);border-radius:12px">
+    <div style="font-weight:800;color:var(--teal);font-size:.82rem;margin-bottom:.5rem">Sliding Window</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.7;margin-bottom:.4rem">
+      현재 시점 기준 "직전 1분" 동안 카운팅.<br>
+      <strong>버스트 방지</strong>에 효과적. 구현이 더 복잡.
+    </div>
+    <div style="display:flex;gap:2px;height:24px;align-items:flex-end">
+      <div style="width:8%;height:40%;background:var(--teal);border-radius:2px"></div>
+      <div style="width:8%;height:55%;background:var(--teal);border-radius:2px"></div>
+      <div style="width:8%;height:45%;background:var(--teal);border-radius:2px"></div>
+      <div style="width:8%;height:60%;background:var(--teal);border-radius:2px"></div>
+      <div style="width:8%;height:50%;background:var(--teal);border-radius:2px"></div>
+      <div style="width:8%;height:65%;background:var(--teal);border-radius:2px"></div>
+      <div style="width:8%;height:55%;background:var(--teal);border-radius:2px"></div>
+      <div style="width:8%;height:45%;background:var(--teal);border-radius:2px"></div>
+      <div style="width:8%;height:50%;background:var(--teal);border-radius:2px"></div>
+    </div>
+    <div style="font-size:.62rem;color:var(--text-muted);margin-top:.2rem">|← 슬라이딩 윈도우 (현재-60초) →|</div>
+  </div>
+
+</div>
+</div>
+
+<!-- 대응 전략 3가지 -->
+<div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-bottom:1.5rem">
+
+  <div style="padding:1rem;background:var(--surface);border-left:4px solid var(--accent);border-radius:0 12px 12px 0">
+    <div style="font-weight:700;color:var(--accent);font-size:.85rem;margin-bottom:.4rem">1. 클라이언트 Throttling</div>
+    <div style="font-size:.78rem;color:var(--text-dim);line-height:1.7">
+      요청 간 <strong>최소 간격</strong>을 강제.<br>
+      가장 간단하고 효과적인 첫 번째 방어선.
+    </div>
+  </div>
+
+  <div style="padding:1rem;background:var(--surface);border-left:4px solid var(--teal);border-radius:0 12px 12px 0">
+    <div style="font-weight:700;color:var(--teal);font-size:.85rem;margin-bottom:.4rem">2. 큐 시스템</div>
+    <div style="font-size:.78rem;color:var(--text-dim);line-height:1.7">
+      요청을 <strong>Redis Queue / SQS</strong>에 넣고 순차 처리.<br>
+      트래픽 급증에도 안정적.
+    </div>
+  </div>
+
+  <div style="padding:1rem;background:var(--surface);border-left:4px solid var(--violet);border-radius:0 12px 12px 0">
+    <div style="font-weight:700;color:var(--violet);font-size:.85rem;margin-bottom:.4rem">3. API Gateway</div>
+    <div style="font-size:.78rem;color:var(--text-dim);line-height:1.7">
+      <strong>Kong, AWS API Gateway</strong>로 중앙 집중 관리.<br>
+      인증 + Rate Limit + 로깅을 한 곳에서.
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ── 12-6. 실전 통합 시나리오 ── -->
+<h3>🏗️ 12-6. 실전 시나리오: AI 고객 지원 시스템</h3>
+<p style="color:var(--text-dim);margin-bottom:1rem;line-height:1.8">
+  지금까지 배운 모든 것을 합치면 어떤 시스템이 만들어지는지 — 실제 AI 고객 지원 시스템의 <strong>end-to-end 아키텍처</strong>를 봅니다.
+</p>
+
+<!-- End-to-End 아키텍처 -->
+<div class="dia reveal">
+<div class="dia-title">AI 고객 지원 시스템 — End-to-End 흐름</div>
+<div style="max-width:820px;margin:0 auto;text-align:center;padding:1rem 0">
+  <svg viewBox="0 0 780 500" style="max-width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="arrow-f" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="#e8590c"/>
+      </marker>
+      <marker id="arrow-g" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="#888"/>
+      </marker>
+    </defs>
+
+    <!-- Step 1: 사용자 메시지 -->
+    <rect x="280" y="10" width="220" height="45" rx="10" fill="#0ea5e9" fill-opacity=".12" stroke="#0ea5e9" stroke-width="2"/>
+    <text x="390" y="28" text-anchor="middle" fill="#0ea5e9" font-size="10" font-weight="700">👤 사용자 메시지</text>
+    <text x="390" y="44" text-anchor="middle" fill="#8b8b8b" font-size="8">Slack / Web Chat / Teams</text>
+
+    <!-- Arrow -->
+    <line x1="390" y1="58" x2="390" y2="82" stroke="#888" stroke-width="1.5" marker-end="url(#arrow-g)"/>
+    <text x="430" y="73" fill="#0ea5e9" font-size="7" font-weight="600">Webhook</text>
+
+    <!-- Step 2: AI 오케스트레이터 -->
+    <rect x="260" y="85" width="260" height="50" rx="12" fill="#e8590c" fill-opacity=".15" stroke="#e8590c" stroke-width="2.5"/>
+    <text x="390" y="108" text-anchor="middle" fill="#e8590c" font-size="12" font-weight="800">🧠 AI 오케스트레이터</text>
+    <text x="390" y="126" text-anchor="middle" fill="#8b8b8b" font-size="8">의도 분석 → 도구 선택 → 응답 조합</text>
+
+    <!-- Arrow down to Function Calling -->
+    <line x1="390" y1="138" x2="390" y2="165" stroke="#e8590c" stroke-width="1.5" marker-end="url(#arrow-f)"/>
+    <text x="435" y="155" fill="#e8590c" font-size="7" font-weight="600">Function Calling</text>
+
+    <!-- Step 3: LLM API -->
+    <rect x="300" y="168" width="180" height="40" rx="10" fill="#6d28d9" fill-opacity=".1" stroke="#6d28d9" stroke-width="1.5"/>
+    <text x="390" y="186" text-anchor="middle" fill="#6d28d9" font-size="10" font-weight="700">🤖 LLM API (Claude)</text>
+    <text x="390" y="200" text-anchor="middle" fill="#8b8b8b" font-size="7">의도 파악 + 응답 생성</text>
+
+    <!-- 도구 호출 영역 -->
+    <rect x="50" y="230" width="680" height="100" rx="14" fill="none" stroke="#e8590c" stroke-width="1" stroke-dasharray="6,3"/>
+    <text x="390" y="248" text-anchor="middle" fill="#e8590c" font-size="9" font-weight="700">← Function Calling으로 연결되는 도구들 →</text>
+
+    <!-- 도구 1: CRM -->
+    <rect x="70" y="260" width="140" height="55" rx="8" fill="#22c55e" fill-opacity=".1" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="140" y="280" text-anchor="middle" fill="#22c55e" font-size="9" font-weight="700">📋 CRM (HubSpot)</text>
+    <text x="140" y="305" text-anchor="middle" fill="#8b8b8b" font-size="7">고객 정보 조회</text>
+
+    <!-- 도구 2: KB -->
+    <rect x="230" y="260" width="140" height="55" rx="8" fill="#f59e0b" fill-opacity=".1" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="300" y="280" text-anchor="middle" fill="#f59e0b" font-size="9" font-weight="700">📚 KB (Notion)</text>
+    <text x="300" y="305" text-anchor="middle" fill="#8b8b8b" font-size="7">내부 지식 검색</text>
+
+    <!-- 도구 3: Vector DB -->
+    <rect x="390" y="260" width="140" height="55" rx="8" fill="#6d28d9" fill-opacity=".1" stroke="#6d28d9" stroke-width="1.5"/>
+    <text x="460" y="280" text-anchor="middle" fill="#6d28d9" font-size="9" font-weight="700">🔍 Vector DB</text>
+    <text x="460" y="305" text-anchor="middle" fill="#8b8b8b" font-size="7">유사 사례 검색</text>
+
+    <!-- 도구 4: Slack -->
+    <rect x="550" y="260" width="160" height="55" rx="8" fill="#0ea5e9" fill-opacity=".1" stroke="#0ea5e9" stroke-width="1.5"/>
+    <text x="630" y="280" text-anchor="middle" fill="#0ea5e9" font-size="9" font-weight="700">💬 Slack API</text>
+    <text x="630" y="305" text-anchor="middle" fill="#8b8b8b" font-size="7">응답 전송</text>
+
+    <!-- 화살표: 오케스트레이터 → 도구들 -->
+    <line x1="320" y1="210" x2="140" y2="257" stroke="#888" stroke-width="1" stroke-dasharray="4,2"/>
+    <line x1="360" y1="210" x2="300" y2="257" stroke="#888" stroke-width="1" stroke-dasharray="4,2"/>
+    <line x1="420" y1="210" x2="460" y2="257" stroke="#888" stroke-width="1" stroke-dasharray="4,2"/>
+    <line x1="460" y1="210" x2="630" y2="257" stroke="#888" stroke-width="1" stroke-dasharray="4,2"/>
+
+    <!-- Step 5: 최종 응답 + 저장 -->
+    <rect x="180" y="355" width="200" height="45" rx="10" fill="#0ea5e9" fill-opacity=".12" stroke="#0ea5e9" stroke-width="2"/>
+    <text x="280" y="375" text-anchor="middle" fill="#0ea5e9" font-size="10" font-weight="700">💬 사용자에게 응답</text>
+    <text x="280" y="393" text-anchor="middle" fill="#8b8b8b" font-size="8">Slack / Web으로 전송</text>
+
+    <rect x="420" y="355" width="200" height="45" rx="10" fill="#f59e0b" fill-opacity=".1" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="520" y="375" text-anchor="middle" fill="#f59e0b" font-size="10" font-weight="700">💾 대화 기록 저장</text>
+    <text x="520" y="393" text-anchor="middle" fill="#8b8b8b" font-size="8">DB + 벡터 인덱싱</text>
+
+    <!-- 화살표: 도구 → 최종 -->
+    <line x1="300" y1="335" x2="280" y2="352" stroke="#888" stroke-width="1.5" marker-end="url(#arrow-g)"/>
+    <line x1="460" y1="335" x2="520" y2="352" stroke="#888" stroke-width="1.5" marker-end="url(#arrow-g)"/>
+
+    <!-- 모니터링 -->
+    <rect x="240" y="420" width="300" height="38" rx="8" fill="#ec4899" fill-opacity=".08" stroke="#ec4899" stroke-width="1"/>
+    <text x="390" y="438" text-anchor="middle" fill="#ec4899" font-size="9" font-weight="600">📡 모니터링: 응답 품질 · 지연시간 · 비용 · 사용자 만족도</text>
+    <text x="390" y="452" text-anchor="middle" fill="#8b8b8b" font-size="7">LangSmith · Datadog · 자체 대시보드</text>
+
+    <!-- 카운터 -->
+    <text x="390" y="485" text-anchor="middle" fill="#e8590c" font-size="10" font-weight="800">사용된 API: 6개 (LLM + CRM + KB + VectorDB + Slack + DB)</text>
+  </svg>
+</div>
+</div>
+
+<div class="reveal" style="padding:1.2rem;background:linear-gradient(135deg,var(--accent-bg),rgba(255,165,0,0.04));border:1px solid var(--accent);border-radius:12px;margin-bottom:1.5rem">
+  <div style="font-size:.9rem;font-weight:700;color:var(--accent);margin-bottom:.5rem">💡 "AI 앱의 가치 80%는 통합에서 나온다"</div>
+  <div style="font-size:.85rem;color:var(--text);line-height:1.8">
+    LLM 자체는 "똑똑한 텍스트 생성기"일 뿐입니다. <strong>고객 데이터를 조회하고, 지식 베이스를 검색하고, 실제 채널에 응답을 보내는 것</strong> — 이 연결이 없으면 ChatGPT 위에 스킨을 입힌 것에 불과합니다. 위 시나리오에서 LLM API는 6개 중 1개일 뿐입니다.
+  </div>
+</div>
+
+
+<!-- ── 12-7. 보안 체크리스트 ── -->
+<h3>🔒 12-7. API 보안 체크리스트</h3>
+<p style="color:var(--text-dim);margin-bottom:1rem;line-height:1.8">
+  API 통합은 곧 <strong>공격 표면 확대</strong>를 의미합니다. 외부와 연결하는 모든 지점이 잠재적 취약점입니다. 아래 5가지는 프로덕션 전 반드시 점검해야 할 항목입니다.
+</p>
+
+<div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-bottom:1.5rem">
+
+  <div style="padding:1rem 1.2rem;background:var(--surface);border:1px solid var(--accent-border);border-radius:12px">
+    <div style="font-weight:700;color:var(--accent);font-size:.88rem;margin-bottom:.6rem">🔑 1. API 키 관리</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.8">
+      <span style="display:inline-block;width:1.3rem;text-align:center;color:var(--coral)">✗</span> 코드에 하드코딩 <code style="background:var(--surface);padding:.1em .3em;border-radius:3px;font-size:.82em;color:var(--coral)">api_key="sk-..."</code><br>
+      <span style="display:inline-block;width:1.3rem;text-align:center;color:var(--teal)">✓</span> 환경변수 <code style="background:var(--surface);padding:.1em .3em;border-radius:3px;font-size:.82em">os.getenv("API_KEY")</code><br>
+      <span style="display:inline-block;width:1.3rem;text-align:center;color:var(--teal)">✓</span> 시크릿 매니저 (AWS SSM, Vault, Doppler)
+    </div>
+  </div>
+
+  <div style="padding:1rem 1.2rem;background:var(--surface);border:1px solid var(--accent-border);border-radius:12px">
+    <div style="font-weight:700;color:var(--accent);font-size:.88rem;margin-bottom:.6rem">📁 2. .env와 .gitignore</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.8">
+      <span style="display:inline-block;width:1.3rem;text-align:center;color:var(--teal)">✓</span> <code style="background:var(--surface);padding:.1em .3em;border-radius:3px;font-size:.82em">.env</code>에 키 저장<br>
+      <span style="display:inline-block;width:1.3rem;text-align:center;color:var(--teal)">✓</span> <code style="background:var(--surface);padding:.1em .3em;border-radius:3px;font-size:.82em">.gitignore</code>에 .env 반드시 포함<br>
+      <span style="display:inline-block;width:1.3rem;text-align:center;color:var(--coral)">✗</span> 커밋 후 삭제 (이미 히스토리에 남음!)
+    </div>
+  </div>
+
+  <div style="padding:1rem 1.2rem;background:var(--surface);border:1px solid var(--accent-border);border-radius:12px">
+    <div style="font-weight:700;color:var(--accent);font-size:.88rem;margin-bottom:.6rem">🛡️ 3. Rate Limit 방어</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.8">
+      <span style="display:inline-block;width:1.3rem;text-align:center;color:var(--teal)">✓</span> 내 API에도 Rate Limit 설정 (DDoS 방지)<br>
+      <span style="display:inline-block;width:1.3rem;text-align:center;color:var(--teal)">✓</span> IP별 · 유저별 · 키별 제한 분리<br>
+      <span style="display:inline-block;width:1.3rem;text-align:center;color:var(--teal)">✓</span> 비용 상한선(Cost Cap) 설정
+    </div>
+  </div>
+
+  <div style="padding:1rem 1.2rem;background:var(--surface);border:1px solid var(--accent-border);border-radius:12px">
+    <div style="font-weight:700;color:var(--accent);font-size:.88rem;margin-bottom:.6rem">🧹 4. 입력 검증</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.8">
+      <span style="display:inline-block;width:1.3rem;text-align:center;color:var(--teal)">✓</span> Prompt Injection 방어 (입력 필터링)<br>
+      <span style="display:inline-block;width:1.3rem;text-align:center;color:var(--teal)">✓</span> 입력 길이 제한 (토큰 폭발 방지)<br>
+      <span style="display:inline-block;width:1.3rem;text-align:center;color:var(--teal)">✓</span> SQL Injection, XSS 기본 방어
+    </div>
+  </div>
+
+  <div style="padding:1rem 1.2rem;background:var(--surface);border:1px solid var(--accent-border);border-radius:12px">
+    <div style="font-weight:700;color:var(--accent);font-size:.88rem;margin-bottom:.6rem">📝 5. 로깅 & 감사</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.8">
+      <span style="display:inline-block;width:1.3rem;text-align:center;color:var(--teal)">✓</span> API 키·PII는 로그에서 마스킹<br>
+      <span style="display:inline-block;width:1.3rem;text-align:center;color:var(--teal)">✓</span> 요청/응답 쌍으로 추적(trace ID)<br>
+      <span style="display:inline-block;width:1.3rem;text-align:center;color:var(--teal)">✓</span> 비정상 패턴 자동 알림 설정
+    </div>
+  </div>
+
+</div>
+
+<!-- .env 코드 예시 -->
+<div class="reveal" style="margin-bottom:1.5rem">
+  <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+    <span style="font-family:var(--mono);font-size:.72rem;color:var(--accent);background:var(--accent-bg);padding:.2rem .6rem;border-radius:6px">.env</span>
+    <span style="font-size:.75rem;color:var(--text-dim)">프로덕션 환경변수 파일 예시 (절대 커밋하지 않음)</span>
+  </div>
+  <pre style="background:var(--surface);padding:1.2rem;border-radius:10px;font-size:.78rem;line-height:1.8;overflow-x:auto;border:1px solid var(--accent-border)"><code style="color:var(--text)"><span style="color:var(--text-dim)"># LLM API Keys</span>
+<span style="color:var(--accent)">ANTHROPIC_API_KEY</span>=sk-ant-api03-xxxxxxxxxxxx
+<span style="color:var(--accent)">OPENAI_API_KEY</span>=sk-xxxxxxxxxxxx
+
+<span style="color:var(--text-dim)"># External Services</span>
+<span style="color:var(--accent)">SLACK_WEBHOOK_URL</span>=https://hooks.slack.com/services/T00/B00/xxxx
+<span style="color:var(--accent)">NOTION_API_KEY</span>=ntn_xxxxxxxxxxxx
+<span style="color:var(--accent)">HUBSPOT_API_KEY</span>=pat-xxxxxxxxxxxx
+
+<span style="color:var(--text-dim)"># Database</span>
+<span style="color:var(--accent)">DATABASE_URL</span>=postgresql://user:pass@host:5432/db
+<span style="color:var(--accent)">PINECONE_API_KEY</span>=xxxxxxxxxxxx</code></pre>
+</div>
+
+<div class="reveal" style="margin-bottom:1.5rem">
+  <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
+    <span style="font-family:var(--mono);font-size:.72rem;color:var(--accent);background:var(--accent-bg);padding:.2rem .6rem;border-radius:6px">.gitignore</span>
+    <span style="font-size:.75rem;color:var(--text-dim)">반드시 포함해야 할 항목들</span>
+  </div>
+  <pre style="background:var(--surface);padding:1.2rem;border-radius:10px;font-size:.78rem;line-height:1.8;overflow-x:auto;border:1px solid var(--accent-border)"><code style="color:var(--text)"><span style="color:var(--text-dim)"># 환경변수 파일 — 절대 커밋 금지</span>
+.env
+.env.local
+.env.production
+
+<span style="color:var(--text-dim)"># API 키 · 인증서</span>
+*.key
+*.pem
+credentials.json
+service-account.json</code></pre>
+</div>
+
+<div class="tip reveal">
+<div class="tip-title">💡 키가 이미 커밋됐다면?</div>
+<p style="margin:0;font-size:.85rem;line-height:1.85">
+  <code style="background:var(--surface);padding:.1em .3em;border-radius:3px;font-size:.85em">git rm --cached .env</code>로 삭제해도 <strong>git 히스토리에 남아있습니다.</strong> 유출된 키는 반드시 <strong>즉시 무효화(revoke)</strong>하고 새 키를 발급받으세요. <code style="background:var(--surface);padding:.1em .3em;border-radius:3px;font-size:.85em">git-filter-branch</code>나 <strong>BFG Repo-Cleaner</strong>로 히스토리에서 완전 삭제할 수 있지만, 이미 push된 경우 유출된 것으로 간주해야 합니다.
+</p>
+</div>
+
+
+<!-- 챕터 마무리 -->
+<div style="margin-top:2rem;padding:1.5rem;background:linear-gradient(135deg,var(--accent-bg),rgba(255,165,0,0.04));border:2px solid var(--accent);border-radius:16px">
+<div style="font-size:1.1rem;font-weight:900;color:var(--accent);margin-bottom:.8rem;text-align:center">📌 Ch.12 핵심 요약</div>
+<div style="font-size:.85rem;color:var(--text);line-height:1.9;margin-bottom:1rem">
+  <strong>1)</strong> AI 앱은 <strong>오케스트레이터</strong>를 중심으로 LLM · 외부 서비스 · 데이터 소스를 연결하는 <strong>통합 시스템</strong><br>
+  <strong>2)</strong> REST API 인증 3가지: <strong>API Key (간편)</strong> · OAuth 2.0 (사용자 대행) · JWT (서버 간)<br>
+  <strong>3)</strong> <strong>Webhook</strong>으로 이벤트 기반 실시간 반응 — Polling의 100배 효율<br>
+  <strong>4)</strong> 5대 통합 패턴: Direct Call · Webhook · Polling · <strong>MCP</strong> · Unified API<br>
+  <strong>5)</strong> <strong>Rate Limiting</strong>은 피할 수 없다 — Throttling, 큐, Gateway로 대응<br>
+  <strong>6)</strong> 보안의 시작은 <strong>.env + .gitignore</strong> — 키 하드코딩은 절대 금지
+</div>
+
+<div style="font-size:.92rem;color:var(--text);line-height:1.9;text-align:center;padding-top:.8rem;border-top:1px solid var(--accent-border)">
+  <strong style="color:var(--accent)">Ch.11에서 LLM API를 마스터하고, Ch.12에서 세상과 연결했습니다.</strong><br>
+  이 두 챕터의 지식을 합치면, <strong>아이디어를 실제 동작하는 AI 앱으로 만들 수 있습니다.</strong><br>
+  <span style="font-size:.82rem;color:var(--text-dim)">코드를 복사해서 바로 시작하세요. 가장 좋은 학습은 직접 만들어 보는 것입니다.</span>
+</div>
+</div>
+</section>
+
 
 <!-- 마무리 -->
 <div style="margin-top:2rem;padding:1.5rem;background:linear-gradient(135deg,var(--accent-bg),rgba(124,108,240,0.04));border:2px solid var(--accent);border-radius:16px">
