@@ -289,8 +289,38 @@ const nextPage = next || (currentIdx < pages.length - 1 ? { href: pages[currentI
       const link = items[searchSelectedIdx];
       if (link) {
         closeSearch();
-        window.location.href = link.href;
+        navigateToResult(link.href);
       }
+    }
+  });
+
+  // Navigate to search result — handles same-page anchor scrolling
+  function navigateToResult(url: string) {
+    const parsed = new URL(url, window.location.origin);
+    const currentPath = window.location.pathname.replace(/\/$/, '');
+    const targetPath = parsed.pathname.replace(/\/$/, '');
+    const hash = parsed.hash;
+
+    if (currentPath === targetPath && hash) {
+      // Same page — just scroll to anchor
+      const el = document.getElementById(hash.substring(1));
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.history.pushState(null, '', hash);
+      }
+    } else {
+      // Different page — navigate
+      window.location.href = url;
+    }
+  }
+
+  // Also handle click on search results (not just Enter)
+  document.getElementById('searchResults')?.addEventListener('click', (e: MouseEvent) => {
+    const target = (e.target as HTMLElement).closest<HTMLAnchorElement>('.search-result-item');
+    if (target) {
+      e.preventDefault();
+      closeSearch();
+      navigateToResult(target.href);
     }
   });
 
