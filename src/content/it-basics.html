@@ -1,0 +1,1452 @@
+<Layout title="개발 배경지식 — IT 기초">
+<!-- PART 6: 개발 배경지식 -->
+<div class="part-header" id="part6">
+  <div class="part-header-inner">
+    <span class="part-header-num" style="color:var(--green)">Part 6</span>
+    <h2 class="part-header-title">개발 배경지식 — IT 기초</h2>
+    <p class="part-header-desc">코딩을 몰라도 이해할 수 있는 IT의 핵심 개념들</p>
+    <p style="font-size:.85rem;color:var(--green);margin-bottom:1rem;">💻 바이브코딩이든 AI 에이전트든, <strong>IT의 기본 구조</strong>를 알면 대화가 통합니다.</p>
+    <nav class="ch-nav">
+      <a href="#it-ch1"><span class="cn">01</span>운영체제·하드웨어</a>
+      <a href="#it-ch2"><span class="cn">02</span>프로그램의 세계</a>
+      <a href="#it-ch3"><span class="cn">03</span>네트워크</a>
+      <a href="#it-ch4"><span class="cn">04</span>프론트엔드·백엔드</a>
+      <a href="#it-ch5"><span class="cn">05</span>라이브러리·프레임워크</a>
+      <a href="#it-ch6"><span class="cn">06</span>API</a>
+      <a href="#it-ch7"><span class="cn">07</span>Git & GitHub</a>
+      <a href="#it-ch8"><span class="cn">08</span>개발 생태계 총정리</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ── 로드맵 다이어그램 ── -->
+<div class="dia reveal" style="margin-bottom:1.5rem">
+<div class="dia-title">🗺️ IT 기초 로드맵 — 8개 챕터를 한눈에</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;max-width:760px;margin:0 auto">
+  <a href="#it-ch1" style="text-decoration:none;background:var(--green-bg);border:1px solid var(--green-border);border-radius:14px;padding:1rem .8rem;text-align:center;transition:transform .2s">
+    <div style="font-size:1.6rem;margin-bottom:.3rem">🖥️</div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--green);font-weight:700">CH.01</div>
+    <div style="font-size:.82rem;font-weight:600;color:var(--text);margin-top:.2rem">운영체제·하드웨어</div>
+    <div style="font-size:.68rem;color:var(--text-dim);margin-top:.3rem">OS, CPU, 메모리, 디스크</div>
+  </a>
+  <a href="#it-ch2" style="text-decoration:none;background:var(--green-bg);border:1px solid var(--green-border);border-radius:14px;padding:1rem .8rem;text-align:center;transition:transform .2s">
+    <div style="font-size:1.6rem;margin-bottom:.3rem">⚙️</div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--green);font-weight:700">CH.02</div>
+    <div style="font-size:.82rem;font-weight:600;color:var(--text);margin-top:.2rem">프로그램의 세계</div>
+    <div style="font-size:.68rem;color:var(--text-dim);margin-top:.3rem">코드, 컴파일, 프로세스</div>
+  </a>
+  <a href="#it-ch3" style="text-decoration:none;background:var(--green-bg);border:1px solid var(--green-border);border-radius:14px;padding:1rem .8rem;text-align:center;transition:transform .2s">
+    <div style="font-size:1.6rem;margin-bottom:.3rem">🌐</div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--green);font-weight:700">CH.03</div>
+    <div style="font-size:.82rem;font-weight:600;color:var(--text);margin-top:.2rem">네트워크</div>
+    <div style="font-size:.68rem;color:var(--text-dim);margin-top:.3rem">프로토콜, IP, PORT, DNS</div>
+  </a>
+  <a href="#it-ch4" style="text-decoration:none;background:var(--green-bg);border:1px solid var(--green-border);border-radius:14px;padding:1rem .8rem;text-align:center;transition:transform .2s">
+    <div style="font-size:1.6rem;margin-bottom:.3rem">🍽️</div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--green);font-weight:700">CH.04</div>
+    <div style="font-size:.82rem;font-weight:600;color:var(--text);margin-top:.2rem">프론트·백엔드</div>
+    <div style="font-size:.68rem;color:var(--text-dim);margin-top:.3rem">클라이언트, 서버, 풀스택</div>
+  </a>
+  <a href="#it-ch5" style="text-decoration:none;background:var(--green-bg);border:1px solid var(--green-border);border-radius:14px;padding:1rem .8rem;text-align:center;transition:transform .2s">
+    <div style="font-size:1.6rem;margin-bottom:.3rem">📦</div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--green);font-weight:700">CH.05</div>
+    <div style="font-size:.82rem;font-weight:600;color:var(--text);margin-top:.2rem">라이브러리·프레임워크</div>
+    <div style="font-size:.68rem;color:var(--text-dim);margin-top:.3rem">React, Django, npm</div>
+  </a>
+  <a href="#it-ch6" style="text-decoration:none;background:var(--green-bg);border:1px solid var(--green-border);border-radius:14px;padding:1rem .8rem;text-align:center;transition:transform .2s">
+    <div style="font-size:1.6rem;margin-bottom:.3rem">🔌</div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--green);font-weight:700">CH.06</div>
+    <div style="font-size:.82rem;font-weight:600;color:var(--text);margin-top:.2rem">API</div>
+    <div style="font-size:.68rem;color:var(--text-dim);margin-top:.3rem">REST, 요청/응답, API 키</div>
+  </a>
+  <a href="#it-ch7" style="text-decoration:none;background:var(--green-bg);border:1px solid var(--green-border);border-radius:14px;padding:1rem .8rem;text-align:center;transition:transform .2s">
+    <div style="font-size:1.6rem;margin-bottom:.3rem">🔀</div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--green);font-weight:700">CH.07</div>
+    <div style="font-size:.82rem;font-weight:600;color:var(--text);margin-top:.2rem">Git & GitHub</div>
+    <div style="font-size:.68rem;color:var(--text-dim);margin-top:.3rem">커밋, 브랜치, PR</div>
+  </a>
+  <a href="#it-ch8" style="text-decoration:none;background:var(--green-bg);border:1px solid var(--green-border);border-radius:14px;padding:1rem .8rem;text-align:center;transition:transform .2s">
+    <div style="font-size:1.6rem;margin-bottom:.3rem">🚀</div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--green);font-weight:700">CH.08</div>
+    <div style="font-size:.82rem;font-weight:600;color:var(--text);margin-top:.2rem">개발 생태계 총정리</div>
+    <div style="font-size:.68rem;color:var(--text-dim);margin-top:.3rem">전체 흐름 + 핵심 용어</div>
+  </a>
+</div>
+<div style="text-align:center;margin-top:1rem;font-size:.78rem;color:var(--text-dim)">
+  각 카드를 클릭하면 해당 챕터로 이동합니다. 순서대로 읽어도, 관심 있는 주제부터 골라도 좋습니다.
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  CH.01 — 운영체제와 하드웨어                       -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="ch" id="it-ch1">
+<div class="ch-head reveal"><div class="ch-num" style="color:var(--green)">01</div><h2 class="ch-title">운영체제와 하드웨어</h2></div>
+<p class="section-desc reveal">컴퓨터를 켜면 가장 먼저 실행되는 프로그램, 그리고 그 안에서 일하는 핵심 부품들을 이해합니다.</p>
+
+<!-- 비유 박스 -->
+<div class="analogy reveal">
+  <strong style="color:var(--green)">🏢 비유로 먼저 잡기</strong><br>
+  컴퓨터를 <strong>공장</strong>이라고 생각해 보세요.<br>
+  <strong style="color:var(--green)">OS(운영체제)</strong> = 공장 <strong>관제탑</strong> — 누가 언제 무슨 작업을 할지 총괄 지휘<br>
+  <strong style="color:var(--green)">CPU</strong> = <strong>작업자</strong> — 실제 계산을 수행하는 핵심 인력<br>
+  <strong style="color:var(--green)">메모리(RAM)</strong> = <strong>작업대</strong> — 지금 작업 중인 재료를 펼쳐 놓는 공간<br>
+  <strong style="color:var(--green)">디스크(SSD/HDD)</strong> = <strong>창고</strong> — 재료를 영구 보관하는 곳
+</div>
+
+<p class="reveal">이 네 가지만 이해하면, "컴퓨터가 왜 느려지는지", "메모리를 왜 늘려야 하는지" 같은 질문에 명쾌하게 답할 수 있습니다.</p>
+
+<!-- OS 설명 -->
+<h3 class="reveal" style="color:var(--green)">운영체제(OS) — 프로그램 실행의 메인 프로그램</h3>
+<p class="reveal"><strong>운영체제(Operating System)</strong>는 하드웨어 자원을 관리하고 응용 프로그램(카톡, 브라우저, Excel 등)을 실행하는 <strong>메인 프로그램</strong>입니다. 우리가 컴퓨터를 사용하는 데 필요한 거의 모든 것 — 프로그램 실행, 네트워크 통신, 키보드·마우스 입력 — 을 OS가 총괄합니다.</p>
+
+<div class="dia reveal">
+<div class="dia-title">OS의 3대 역할</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem">
+  <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:12px;padding:1.2rem;text-align:center">
+    <div style="font-size:1.8rem;margin-bottom:.4rem">🎮</div>
+    <div style="font-size:.88rem;font-weight:700;color:var(--green);margin-bottom:.3rem">프로그램 실행 관리</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.7">앱을 메모리에 올리고<br>CPU 시간을 배분</div>
+  </div>
+  <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:12px;padding:1.2rem;text-align:center">
+    <div style="font-size:1.8rem;margin-bottom:.4rem">🔧</div>
+    <div style="font-size:.88rem;font-weight:700;color:var(--green);margin-bottom:.3rem">하드웨어 자원 관리</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.7">CPU, 메모리, 디스크를<br>프로그램에 할당·회수</div>
+  </div>
+  <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:12px;padding:1.2rem;text-align:center">
+    <div style="font-size:1.8rem;margin-bottom:.4rem">🌐</div>
+    <div style="font-size:.88rem;font-weight:700;color:var(--green);margin-bottom:.3rem">네트워크·입출력 관리</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.7">네트워크 통신, 키보드<br>마우스·모니터 제어</div>
+  </div>
+</div>
+</div>
+
+<div class="tip reveal">
+<div class="tip-title">💡 커널(Kernel) — OS의 핵심</div>
+커널은 OS의 <strong>핵심 구성요소</strong>로, 프로그램들이 하드웨어 자원을 사용할 때 이를 중재합니다. OS를 만들 때 커널을 기본으로 하고, 그 위에 셸(Shell), 파일 시스템, 드라이버 등을 올립니다. CPU·메모리 할당 조율, 인터럽트 처리, 프로세스 스케줄링 모두 커널의 일입니다.
+</div>
+
+<!-- 하드웨어 4요소 카드 그리드 -->
+<h3 class="reveal" style="color:var(--green)">하드웨어 핵심 4요소</h3>
+
+<div class="cmp-grid reveal" style="grid-template-columns:repeat(2,1fr)">
+  <div class="cmp-card">
+    <div class="cmp-tag" style="background:var(--green);color:var(--bg)">CPU</div>
+    <div style="font-size:1.6rem;text-align:center;margin:.5rem 0">🧠</div>
+    <div style="font-size:.85rem;font-weight:700;color:var(--text);text-align:center;margin-bottom:.5rem">Central Processing Unit</div>
+    <div style="font-size:.8rem;color:var(--text);line-height:1.7">
+      컴퓨터의 <strong>모든 계산을 수행</strong>하는 핵심 칩. 프로그램이 실행된다 = CPU가 명령어를 하나씩 읽어 계산하고 있다는 뜻입니다.<br><br>
+      <strong style="color:var(--green)">클럭 속도:</strong> 1초에 처리하는 박자 수 (3.5GHz = 초당 35억 박자)<br>
+      <strong style="color:var(--green)">코어:</strong> 독립된 처리 장치 수 (8코어 = 동시에 8가지 작업)<br><br>
+      <span style="font-size:.75rem;color:var(--text-dim)">예: Intel Core i7, AMD Ryzen 9, Apple M4</span>
+    </div>
+  </div>
+  <div class="cmp-card">
+    <div class="cmp-tag" style="background:var(--green);color:var(--bg)">메모리(RAM)</div>
+    <div style="font-size:1.6rem;text-align:center;margin:.5rem 0">📋</div>
+    <div style="font-size:.85rem;font-weight:700;color:var(--text);text-align:center;margin-bottom:.5rem">Random Access Memory</div>
+    <div style="font-size:.8rem;color:var(--text);line-height:1.7">
+      전기적 신호를 <strong>임시로 저장</strong>하는 휘발성 공간. 프로그램이 실행되면 메모리 위에 올라가고, 종료되면 사라집니다.<br><br>
+      <strong style="color:var(--green)">8GB</strong> — 웹 브라우징, 문서 작업<br>
+      <strong style="color:var(--green)">16GB</strong> — 프로그래밍 최소 권장<br>
+      <strong style="color:var(--green)">32GB+</strong> — 데이터 분석, 로컬 LLM<br><br>
+      <span style="font-size:.75rem;color:var(--text-dim)">전원 끄면 데이터 소멸 (휘발성)</span>
+    </div>
+  </div>
+  <div class="cmp-card">
+    <div class="cmp-tag" style="background:var(--green);color:var(--bg)">디스크(SSD/HDD)</div>
+    <div style="font-size:1.6rem;text-align:center;margin:.5rem 0">💾</div>
+    <div style="font-size:.85rem;font-weight:700;color:var(--text);text-align:center;margin-bottom:.5rem">영구 저장소</div>
+    <div style="font-size:.8rem;color:var(--text);line-height:1.7">
+      정보를 <strong>영구적으로 저장</strong>합니다. 메모리가 프로그램 <strong>실행 과정</strong>을 책임진다면, 디스크는 프로그램을 컴퓨터에 <strong>저장하는 과정</strong>을 책임집니다.<br><br>
+      <span style="font-size:.75rem;color:var(--text-dim)">전원 꺼도 데이터 유지 (비휘발성)</span>
+    </div>
+  </div>
+  <div class="cmp-card">
+    <div class="cmp-tag" style="background:var(--green);color:var(--bg)">GPU</div>
+    <div style="font-size:1.6rem;text-align:center;margin:.5rem 0">🎨</div>
+    <div style="font-size:.85rem;font-weight:700;color:var(--text);text-align:center;margin-bottom:.5rem">Graphics Processing Unit</div>
+    <div style="font-size:.8rem;color:var(--text);line-height:1.7">
+      <strong>대량 병렬 연산</strong>에 특화된 칩. 원래는 그래픽용이었지만, AI 시대에는 <strong>딥러닝 학습·추론</strong>의 핵심이 되었습니다.<br><br>
+      <strong style="color:var(--green)">CPU:</strong> 수학 교수 1명이 어려운 문제 풀기<br>
+      <strong style="color:var(--green)">GPU:</strong> 초등학생 1만 명이 구구단 동시에 풀기<br><br>
+      <span style="font-size:.75rem;color:var(--text-dim)">예: NVIDIA H100, RTX 4090</span>
+    </div>
+  </div>
+</div>
+
+<!-- 메모리 vs 디스크 비교표 -->
+<div class="dia reveal">
+<div class="dia-title">메모리(RAM) vs 디스크(SSD) 핵심 비교</div>
+<table style="width:100%;border-collapse:collapse;font-size:.82rem">
+<thead>
+<tr style="border-bottom:2px solid var(--green-border)">
+  <th style="text-align:left;padding:.6rem;color:var(--green)">항목</th>
+  <th style="text-align:center;padding:.6rem;color:var(--green)">메모리 (RAM)</th>
+  <th style="text-align:center;padding:.6rem;color:var(--green)">디스크 (SSD/HDD)</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.5rem">저장 기간</td>
+  <td style="text-align:center;padding:.5rem">임시 (전원 끄면 소멸)</td>
+  <td style="text-align:center;padding:.5rem">영구 (전원 꺼도 유지)</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.5rem">속도</td>
+  <td style="text-align:center;padding:.5rem">매우 빠름 (나노초)</td>
+  <td style="text-align:center;padding:.5rem">상대적으로 느림</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.5rem">비유</td>
+  <td style="text-align:center;padding:.5rem">📋 작업 <strong>책상</strong></td>
+  <td style="text-align:center;padding:.5rem">🗄️ <strong>서랍장</strong></td>
+</tr>
+<tr>
+  <td style="padding:.5rem">OS 관점</td>
+  <td style="text-align:center;padding:.5rem">프로세스를 올리는 공간</td>
+  <td style="text-align:center;padding:.5rem">프로그램을 설치·저장하는 공간</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- Linux 서버 표준 -->
+<div class="card reveal">
+<div class="card-name">🐧 Linux가 서버 표준인 이유</div>
+<div class="card-sub">전 세계 서버의 90% 이상이 Linux 기반</div>
+<div class="card-desc">
+  <strong>오픈소스</strong> — 무료이고 자유롭게 커스터마이징 가능<br>
+  <strong>안정성·보안</strong> — 24/7 서버 운용에 최적화<br>
+  <strong>경량</strong> — GUI 없이 CLI(명령줄)만으로 운영 가능, 리소스 절약<br>
+  <strong>파생 OS</strong> — Android, Ubuntu, CentOS, Amazon Linux 모두 Linux 커널 기반<br><br>
+  바이브코딩 도구(Bolt.new, Replit 등)가 만들어주는 웹 앱을 배포하면, 그 서버는 거의 100% <strong>Linux 위에서</strong> 돌아갑니다. Vercel, AWS, GCP 등 모든 클라우드 서비스의 기반이 Linux이기 때문입니다.
+</div>
+</div>
+
+<!-- 주요 OS 비교 -->
+<div class="dia reveal">
+<div class="dia-title">주요 OS 비교</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+    <div style="font-size:1.4rem;margin-bottom:.3rem">🐧</div>
+    <div style="font-size:.9rem;font-weight:700;color:var(--green)">Linux</div>
+    <div style="font-size:.75rem;color:var(--text-dim);margin-top:.3rem">오픈소스, 서버 표준</div>
+    <div style="font-size:.72rem;color:var(--text);margin-top:.3rem">서버, 클라우드, Android</div>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+    <div style="font-size:1.4rem;margin-bottom:.3rem">🪟</div>
+    <div style="font-size:.9rem;font-weight:700;color:var(--green)">Windows</div>
+    <div style="font-size:.75rem;color:var(--text-dim);margin-top:.3rem">데스크톱 점유율 1위, GUI 중심</div>
+    <div style="font-size:.72rem;color:var(--text);margin-top:.3rem">개인 PC, 기업 업무</div>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+    <div style="font-size:1.4rem;margin-bottom:.3rem">🍎</div>
+    <div style="font-size:.9rem;font-weight:700;color:var(--green)">macOS</div>
+    <div style="font-size:.75rem;color:var(--text-dim);margin-top:.3rem">Apple 전용, Unix 기반</div>
+    <div style="font-size:.72rem;color:var(--text);margin-top:.3rem">개발자·디자이너</div>
+  </div>
+</div>
+</div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  CH.02 — 프로그램의 세계                          -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="ch" id="it-ch2">
+<div class="ch-head reveal"><div class="ch-num" style="color:var(--green)">02</div><h2 class="ch-title">프로그램의 세계</h2></div>
+<p class="section-desc reveal">개발자가 짠 코드가 어떻게 실행 가능한 프로그램이 되고, 메모리 위의 프로세스가 되는지 — 소프트웨어의 생명주기를 따라갑니다.</p>
+
+<!-- 흐름도: 코드 → 프로그램 → 프로세스 -->
+<div class="dia reveal">
+<div class="dia-title">코드 → 프로그램 → 프로세스 — 소프트웨어의 생명주기</div>
+<svg viewBox="0 0 740 160" xmlns="http://www.w3.org/2000/svg" style="font-family:'Noto Sans KR','Outfit',sans-serif;max-width:100%">
+  <!-- 소스 코드 -->
+  <rect x="20" y="35" width="145" height="90" rx="14" fill="var(--green-bg)" stroke="var(--green-border)" stroke-width="1.5"/>
+  <text x="92" y="65" text-anchor="middle" font-size="22">📝</text>
+  <text x="92" y="88" text-anchor="middle" fill="var(--green)" font-size="11" font-weight="700">소스 코드</text>
+  <text x="92" y="105" text-anchor="middle" fill="var(--text-dim)" font-size="9">Python, Java, JS</text>
+
+  <!-- 화살표 1 -->
+  <defs><marker id="aG1" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="var(--green)"/></marker></defs>
+  <line x1="170" y1="80" x2="210" y2="80" stroke="var(--green)" stroke-width="2" marker-end="url(#aG1)"/>
+  <text x="190" y="72" text-anchor="middle" fill="var(--green)" font-size="8" font-weight="600">컴파일</text>
+
+  <!-- 프로그램 -->
+  <rect x="215" y="35" width="145" height="90" rx="14" fill="var(--green-bg)" stroke="var(--green-border)" stroke-width="1.5"/>
+  <text x="287" y="65" text-anchor="middle" font-size="22">📦</text>
+  <text x="287" y="88" text-anchor="middle" fill="var(--green)" font-size="11" font-weight="700">프로그램</text>
+  <text x="287" y="105" text-anchor="middle" fill="var(--text-dim)" font-size="9">실행 가능한 파일</text>
+
+  <!-- 화살표 2 -->
+  <line x1="365" y1="80" x2="405" y2="80" stroke="var(--green)" stroke-width="2" marker-end="url(#aG1)"/>
+  <text x="385" y="72" text-anchor="middle" fill="var(--green)" font-size="8" font-weight="600">실행</text>
+
+  <!-- 프로세스 -->
+  <rect x="410" y="35" width="145" height="90" rx="14" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2"/>
+  <text x="482" y="65" text-anchor="middle" font-size="22">⚡</text>
+  <text x="482" y="88" text-anchor="middle" fill="var(--green)" font-size="11" font-weight="700">프로세스</text>
+  <text x="482" y="105" text-anchor="middle" fill="var(--text-dim)" font-size="9">메모리 위에서 동작 중</text>
+
+  <!-- 화살표 3 -->
+  <line x1="560" y1="80" x2="600" y2="80" stroke="var(--green)" stroke-width="2" marker-end="url(#aG1)"/>
+  <text x="580" y="72" text-anchor="middle" fill="var(--green)" font-size="8" font-weight="600">종료</text>
+
+  <!-- 메모리 해제 -->
+  <rect x="605" y="35" width="120" height="90" rx="14" fill="var(--surface)" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="665" y="65" text-anchor="middle" font-size="22">🗑️</text>
+  <text x="665" y="88" text-anchor="middle" fill="var(--text-dim)" font-size="10" font-weight="600">메모리에서 제거</text>
+</svg>
+</div>
+
+<p class="reveal"><strong>프로그램</strong>은 코드(명령어)의 집합이 컴퓨터가 이해할 수 있는 형태로 컴파일된 것이고, <strong>프로세스</strong>는 그 프로그램이 메모리 위에서 실제로 실행 중인 상태입니다. 카톡, 브라우저, Excel을 동시에 켜면, 각각이 하나의 프로세스가 됩니다. 작업관리자(Task Manager)에서 프로세스 목록을 확인하고 강제 종료할 수 있습니다.</p>
+
+<!-- 프로그래밍 언어: 고급 vs 저급 -->
+<h3 class="reveal" style="color:var(--green)">프로그래밍 언어 — 고급 vs 저급</h3>
+<div class="cmp-grid reveal" style="grid-template-columns:1fr 1fr">
+  <div class="cmp-card">
+    <div class="cmp-tag" style="background:var(--green);color:var(--bg)">고급 언어</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.7;padding:.5rem">
+      <strong>사람이 읽기 쉬운 언어</strong><br>
+      Python, Java, JavaScript, C++ 등<br><br>
+      <code style="font-size:.75rem;background:var(--code-bg);padding:.2rem .4rem;border-radius:4px">print("Hello World")</code><br>
+      <span style="font-size:.72rem;color:var(--text-dim)">영어와 비슷한 문법</span>
+    </div>
+  </div>
+  <div class="cmp-card">
+    <div class="cmp-tag" style="background:var(--green);color:var(--bg)">저급 언어</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.7;padding:.5rem">
+      <strong>CPU가 직접 이해하는 언어</strong><br>
+      기계어(0과 1), 어셈블리어<br><br>
+      <code style="font-size:.75rem;background:var(--code-bg);padding:.2rem .4rem;border-radius:4px">01001000 01100101</code><br>
+      <span style="font-size:.72rem;color:var(--text-dim)">사람이 읽기 어려움</span>
+    </div>
+  </div>
+</div>
+<p class="reveal" style="font-size:.85rem;color:var(--text);line-height:1.8">CPU는 0과 1(기계어)만 읽을 수 있으므로, 고급언어를 저급언어로 변환하는 과정이 반드시 필요합니다. 이 변환을 담당하는 시스템 프로그램이 <strong style="color:var(--green)">컴파일러(Compiler)</strong>입니다.</p>
+
+<!-- 컴파일러와 바이트코드 -->
+<div class="dia reveal">
+<div class="dia-title">컴파일러와 바이트코드 — 변환 방식의 차이</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+  <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:12px;padding:1.2rem">
+    <div style="font-size:.88rem;font-weight:700;color:var(--green);margin-bottom:.5rem">🔨 전통적 컴파일</div>
+    <div style="font-size:.8rem;color:var(--text);line-height:1.8">
+      고급 언어 → <strong>기계어</strong><br>
+      CPU가 직접 해석·실행<br><br>
+      <span style="color:var(--text-dim)">예: C, C++, Rust</span>
+    </div>
+  </div>
+  <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:12px;padding:1.2rem">
+    <div style="font-size:.88rem;font-weight:700;color:var(--green);margin-bottom:.5rem">☕ 바이트코드 방식</div>
+    <div style="font-size:.8rem;color:var(--text);line-height:1.8">
+      고급 언어 → <strong>바이트코드</strong> → 가상 머신이 해석<br>
+      "한 번 컴파일하면 어디서든 실행"<br><br>
+      <span style="color:var(--text-dim)">예: Java(JVM), Python(CPython)</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 빌드와 IDE -->
+<div class="cmp-grid reveal" style="grid-template-columns:1fr 1fr">
+  <div class="cmp-card">
+    <div class="cmp-tag" style="background:var(--green);color:var(--bg)">빌드 (Build)</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.7;padding:.5rem">
+      소스코드를 <strong>실행 가능한 산출물로 만드는 전체 과정</strong>입니다. 컴파일은 빌드 과정의 일부입니다. 우리가 다운받아 클릭으로 바로 실행하는 프로그램은 모두 빌드를 거친 결과물입니다.<br><br>
+      바이브코딩에서 <code style="font-size:.75rem;background:var(--code-bg);padding:.2rem .4rem;border-radius:4px">npm run build</code> 명령어가 바로 이 빌드 과정입니다.
+    </div>
+  </div>
+  <div class="cmp-card">
+    <div class="cmp-tag" style="background:var(--green);color:var(--bg)">IDE</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.7;padding:.5rem">
+      <strong>Integrated Development Environment</strong> — 코딩, 디버깅, 컴파일, 실행을 <strong>하나의 프로그램</strong> 안에서 할 수 있게 해주는 통합 개발 환경입니다.<br><br>
+      <strong style="color:var(--green)">VS Code</strong> — 가장 보편적, 확장 기능 풍부<br>
+      <strong style="color:var(--green)">Cursor</strong> — VS Code 기반 + AI 코딩 내장<br>
+      <strong style="color:var(--green)">IntelliJ</strong> — Java/Kotlin 전문 (JetBrains)
+    </div>
+  </div>
+</div>
+
+<!-- 심화 박스: Stack, Heap, 인터럽트 -->
+<div class="warn reveal">
+<div class="warn-title">🔬 심화 — 프로세스의 메모리 구조와 인터럽트</div>
+<div style="font-size:.82rem;color:var(--text);line-height:1.8">
+프로세스가 생성되면 메모리 안에 네 가지 영역이 할당됩니다:<br>
+<strong>Stack</strong> — 함수 호출 정보, 지역 변수 저장 &nbsp;|&nbsp; <strong>Heap</strong> — 동적으로 할당되는 데이터<br>
+<strong>Code</strong> — 프로그램의 명령어 자체 &nbsp;|&nbsp; <strong>Data</strong> — 전역 변수, 상수<br><br>
+<strong style="color:var(--green)">인터럽트(Interrupt):</strong> 여러 프로그램이 동시에 실행 중일 때 키보드 입력이나 마우스 클릭 같은 갑작스러운 신호가 발생하면, OS가 현재 CPU 작업을 잠시 멈추고 해당 신호를 먼저 처리합니다. 처리 속도가 매우 빨라서 프로그램이 멈추는 느낌을 받지 않습니다.
+</div>
+</div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  CH.03 — 네트워크                                -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="ch" id="it-ch3">
+<div class="ch-head reveal"><div class="ch-num" style="color:var(--green)">03</div><h2 class="ch-title">네트워크</h2></div>
+<p class="section-desc reveal">카카오톡 메시지가 친구에게 도착하는 이유, 브라우저에 주소를 치면 페이지가 뜨는 이유 — 모두 <strong>네트워크</strong> 덕분입니다.</p>
+
+<div class="analogy reveal">
+  <strong style="color:var(--green)">📮 한 문장 정의</strong><br>
+  <strong>네트워크 = 컴퓨터와 컴퓨터 간의 연결.</strong> 우리가 사용하는 거의 모든 IT 서비스(카톡, 네이버, 넷플릭스)는 네트워크를 통해 동작합니다.
+</div>
+
+<!-- 네트워크 3대 요소 -->
+<h3 class="reveal" style="color:var(--green)">네트워크 통신의 3대 요소</h3>
+<p class="reveal">"<strong style="color:var(--green)">어떤 방식(프로토콜)</strong>으로, <strong style="color:var(--green)">어디 컴퓨터(IP)</strong>에, <strong style="color:var(--green)">어떤 프로그램(PORT)</strong>을 연결할 것인가?" — 이 세 가지가 네트워크 통신의 핵심입니다.</p>
+
+<div class="dia reveal">
+<div class="dia-title">프로토콜 + IP + PORT = 네트워크 통신</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem">
+  <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:14px;padding:1.2rem;text-align:center">
+    <div style="font-size:1.6rem;margin-bottom:.3rem">📜</div>
+    <div style="font-size:.9rem;font-weight:700;color:var(--green)">프로토콜</div>
+    <div style="font-size:.72rem;color:var(--text-dim);margin:.3rem 0">Protocol</div>
+    <div style="font-size:.8rem;color:var(--text);line-height:1.7"><strong>"어떤 방식으로?"</strong><br>HTTP, HTTPS, SSH, SMTP</div>
+  </div>
+  <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:14px;padding:1.2rem;text-align:center">
+    <div style="font-size:1.6rem;margin-bottom:.3rem">📍</div>
+    <div style="font-size:.9rem;font-weight:700;color:var(--green)">IP 주소</div>
+    <div style="font-size:.72rem;color:var(--text-dim);margin:.3rem 0">Internet Protocol Address</div>
+    <div style="font-size:.8rem;color:var(--text);line-height:1.7"><strong>"어느 컴퓨터에?"</strong><br>192.168.0.1</div>
+  </div>
+  <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:14px;padding:1.2rem;text-align:center">
+    <div style="font-size:1.6rem;margin-bottom:.3rem">🚪</div>
+    <div style="font-size:.9rem;font-weight:700;color:var(--green)">PORT</div>
+    <div style="font-size:.72rem;color:var(--text-dim);margin:.3rem 0">프로세스 주소</div>
+    <div style="font-size:.8rem;color:var(--text);line-height:1.7"><strong>"어떤 프로그램에?"</strong><br>80, 443, 3000</div>
+  </div>
+</div>
+</div>
+
+<!-- 프로토콜 종류 표 -->
+<h3 class="reveal" style="color:var(--green)">주요 프로토콜</h3>
+<p class="reveal">프로토콜(Protocol)은 컴퓨터 간 네트워크 통신을 위한 <strong>공통 규격(규칙)</strong>입니다. 전 세계적으로 네트워크 통신이 가능한 이유가 바로 이 공통 규격 덕분입니다.</p>
+
+<div class="dia reveal">
+<div class="dia-title">프로토콜 종류와 기본 PORT</div>
+<table style="width:100%;border-collapse:collapse;font-size:.82rem">
+<thead>
+<tr style="border-bottom:2px solid var(--green-border)">
+  <th style="text-align:left;padding:.6rem;color:var(--green)">프로토콜</th>
+  <th style="text-align:center;padding:.6rem;color:var(--green)">용도</th>
+  <th style="text-align:center;padding:.6rem;color:var(--green)">기본 PORT</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.5rem;font-weight:600">HTTP</td>
+  <td style="text-align:center;padding:.5rem">웹 정보 송수신</td>
+  <td style="text-align:center;padding:.5rem;font-family:var(--mono)">80</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.5rem;font-weight:600">HTTPS</td>
+  <td style="text-align:center;padding:.5rem">보안 웹 통신 (암호화)</td>
+  <td style="text-align:center;padding:.5rem;font-family:var(--mono)">443</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.5rem;font-weight:600">SSH</td>
+  <td style="text-align:center;padding:.5rem">원격 컴퓨터 접속</td>
+  <td style="text-align:center;padding:.5rem;font-family:var(--mono)">22</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.5rem;font-weight:600">SMTP</td>
+  <td style="text-align:center;padding:.5rem">이메일 전송</td>
+  <td style="text-align:center;padding:.5rem;font-family:var(--mono)">25 / 587</td>
+</tr>
+<tr>
+  <td style="padding:.5rem;font-weight:600">FTP</td>
+  <td style="text-align:center;padding:.5rem">파일 전송</td>
+  <td style="text-align:center;padding:.5rem;font-family:var(--mono)">21</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="tip reveal">
+<div class="tip-title">💡 HTTP vs HTTPS</div>
+HTTP는 웹에서 가장 많이 쓰이는 프로토콜이지만, 보안에 취약합니다. <strong>HTTPS</strong>는 HTTP에 보안(S = Secure)을 더한 프로토콜로, 통신 데이터를 암호화합니다. 브라우저에서 <code>google.com</code>을 입력하면 자동으로 <code>https://google.com</code>이 적용됩니다. 대부분의 웹사이트가 HTTPS를 표준으로 사용합니다.
+</div>
+
+<!-- IP 주소 -->
+<h3 class="reveal" style="color:var(--green)">IP 주소 — 컴퓨터의 네트워크 주소</h3>
+<p class="reveal">IP는 컴퓨터의 <strong>고유 주소가 아니라</strong>, 연결된 네트워크(와이파이, 랜선 등)를 기준으로 부여받는 <strong>네트워크 주소</strong>입니다.</p>
+
+<div class="cmp-grid reveal" style="grid-template-columns:1fr 1fr">
+  <div class="cmp-card">
+    <div class="cmp-tag" style="background:var(--green);color:var(--bg)">IPv4</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.7;padding:.5rem">
+      전통적인 IP 형식<br>
+      <code style="font-size:.8rem;background:var(--code-bg);padding:.2rem .4rem;border-radius:4px">192.168.0.1</code><br>
+      주소 개수: 약 <strong>43억 개</strong> (255^4)<br>
+      <span style="color:var(--text-dim);font-size:.75rem">현재 거의 포화 상태</span>
+    </div>
+  </div>
+  <div class="cmp-card">
+    <div class="cmp-tag" style="background:var(--green);color:var(--bg)">IPv6</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.7;padding:.5rem">
+      주소 부족 문제 해결<br>
+      <code style="font-size:.72rem;background:var(--code-bg);padding:.2rem .4rem;border-radius:4px">2001:0db8:85a3::8a2e</code><br>
+      주소 개수: 사실상 <strong>무한</strong><br>
+      <span style="color:var(--text-dim);font-size:.75rem">스마트폰 유심 IP가 대표적</span>
+    </div>
+  </div>
+</div>
+
+<!-- PORT -->
+<h3 class="reveal" style="color:var(--green)">PORT — 컴퓨터 안의 프로세스 주소</h3>
+<p class="reveal">IP가 <strong>"어떤 컴퓨터인지"</strong>를 가리킨다면, PORT는 <strong>"그 컴퓨터 안의 어떤 프로그램인지"</strong>를 가리킵니다. 하나의 컴퓨터에 여러 서버가 돌아갈 수 있는 이유가 바로 각 서버가 서로 다른 PORT를 사용하기 때문입니다.</p>
+
+<!-- 도메인 -->
+<h3 class="reveal" style="color:var(--green)">도메인과 DNS — 사람이 읽는 주소</h3>
+<div class="dia reveal">
+<div class="dia-title">도메인 → DNS → IP 변환 과정</div>
+<svg viewBox="0 0 700 130" xmlns="http://www.w3.org/2000/svg" style="font-family:'Noto Sans KR','Outfit',sans-serif;max-width:100%">
+  <defs><marker id="aG2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="var(--green)"/></marker></defs>
+
+  <rect x="20" y="25" width="170" height="80" rx="14" fill="var(--green-bg)" stroke="var(--green-border)" stroke-width="1.5"/>
+  <text x="105" y="55" text-anchor="middle" font-size="18">🧑‍💻</text>
+  <text x="105" y="75" text-anchor="middle" fill="var(--green)" font-size="10" font-weight="700">사용자 입력</text>
+  <text x="105" y="92" text-anchor="middle" fill="var(--text)" font-size="9" font-weight="600">naver.com</text>
+
+  <line x1="195" y1="65" x2="245" y2="65" stroke="var(--green)" stroke-width="2" marker-end="url(#aG2)"/>
+
+  <rect x="250" y="25" width="180" height="80" rx="14" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2"/>
+  <text x="340" y="55" text-anchor="middle" font-size="18">🗂️</text>
+  <text x="340" y="75" text-anchor="middle" fill="var(--green)" font-size="10" font-weight="700">DNS (네임 서버)</text>
+  <text x="340" y="92" text-anchor="middle" fill="var(--text-dim)" font-size="9">도메인 → IP 변환</text>
+
+  <line x1="435" y1="65" x2="485" y2="65" stroke="var(--green)" stroke-width="2" marker-end="url(#aG2)"/>
+
+  <rect x="490" y="25" width="190" height="80" rx="14" fill="var(--green-bg)" stroke="var(--green-border)" stroke-width="1.5"/>
+  <text x="585" y="55" text-anchor="middle" font-size="18">🖥️</text>
+  <text x="585" y="75" text-anchor="middle" fill="var(--green)" font-size="10" font-weight="700">실제 통신</text>
+  <text x="585" y="92" text-anchor="middle" fill="var(--text)" font-size="9" font-weight="600">223.130.195.200</text>
+</svg>
+</div>
+
+<p class="reveal" style="font-size:.85rem;color:var(--text);line-height:1.8"><strong>도메인 네임(Domain Name)</strong>은 IP 주소를 사람이 읽기 쉽게 바꾼 영문 주소입니다. <code>naver.com</code>을 입력하면 <strong>DNS(Domain Name System)</strong>가 이를 IP 주소(<code>223.130.195.200</code>)로 변환해 줍니다. 서버에 도메인을 붙이려면 호스팅 서비스(가비아, Cloudflare 등)에서 도메인을 구매하고 DNS에 등록해야 합니다.</p>
+
+<!-- 방화벽 -->
+<div class="card reveal">
+<div class="card-name">🛡️ 방화벽 (Firewall)</div>
+<div class="card-sub">IP + PORT 기반 네트워크 보안</div>
+<div class="card-desc">네트워크 보안을 위해 컴퓨터 간 연결을 제한하는 시스템입니다. <strong>IP 주소</strong>와 <strong>PORT 번호</strong>를 기반으로 허용/차단 규칙을 설정합니다. 서버 운영 시 필요한 PORT만 열어두는 것이 기본 보안 원칙입니다.</div>
+</div>
+
+<!-- "네이버 접속" 과정 시각화 -->
+<div class="dia reveal">
+<div class="dia-title">🔍 "네이버에 접속한다" — 실제로 무슨 일이 일어나는가?</div>
+<div style="display:flex;flex-direction:column;gap:0;max-width:600px;margin:0 auto">
+  <div style="display:grid;grid-template-columns:32px 1fr;gap:.8rem;align-items:start;padding:.6rem 0">
+    <div style="width:28px;height:28px;border-radius:50%;background:var(--green);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700">1</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.7">브라우저 주소창에 <code>naver.com</code> 입력</div>
+  </div>
+  <div style="display:grid;grid-template-columns:32px 1fr;gap:.8rem;align-items:start;padding:.6rem 0">
+    <div style="width:28px;height:28px;border-radius:50%;background:var(--green);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700">2</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.7">브라우저가 자동으로 <strong>HTTPS</strong> 프로토콜 적용 → <code>https://naver.com</code></div>
+  </div>
+  <div style="display:grid;grid-template-columns:32px 1fr;gap:.8rem;align-items:start;padding:.6rem 0">
+    <div style="width:28px;height:28px;border-radius:50%;background:var(--green);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700">3</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.7"><strong>DNS</strong> 서버에 <code>naver.com</code>의 IP 주소 조회 → <code>223.130.195.200</code> 반환</div>
+  </div>
+  <div style="display:grid;grid-template-columns:32px 1fr;gap:.8rem;align-items:start;padding:.6rem 0">
+    <div style="width:28px;height:28px;border-radius:50%;background:var(--green);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700">4</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.7">해당 IP의 <strong>PORT 443</strong>(HTTPS 기본 포트)에 연결 요청</div>
+  </div>
+  <div style="display:grid;grid-template-columns:32px 1fr;gap:.8rem;align-items:start;padding:.6rem 0">
+    <div style="width:28px;height:28px;border-radius:50%;background:var(--green);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700">5</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.7">네이버 <strong>웹 서버</strong>가 요청을 받아 HTML/CSS/JS 파일을 응답</div>
+  </div>
+  <div style="display:grid;grid-template-columns:32px 1fr;gap:.8rem;align-items:start;padding:.6rem 0">
+    <div style="width:28px;height:28px;border-radius:50%;background:var(--green);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700">6</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.7">브라우저가 받은 파일을 <strong>렌더링</strong>하여 화면에 표시 → 네이버 메인 페이지 등장!</div>
+  </div>
+</div>
+</div>
+
+<!-- 심화: OSI 7계층 -->
+<div class="warn reveal">
+<div class="warn-title">🔬 심화 — OSI 7계층</div>
+<div style="font-size:.82rem;color:var(--text);line-height:1.8">
+컴퓨터 OS가 네트워크 신호를 특정 프로그램으로 전달하는 과정은 <strong>7개의 계층(Layer)</strong>으로 나뉩니다. 이를 <strong>OSI 7계층</strong>이라 하며, 각 계층마다 역할이 정해져 있습니다. 네트워크 전공 도서에서 필수적으로 다루는 개념이지만, 비전공자는 "네트워크 통신에도 여러 단계가 있구나" 정도로 이해하면 충분합니다.
+</div>
+</div>
+
+<!-- 물리적 수단 -->
+<div class="tip reveal">
+<div class="tip-title">📡 네트워크의 물리적 수단</div>
+<strong>광케이블</strong> — 0과 1의 전기 신호를 빛의 물리적 신호로 변환하여 전송 (랜선)<br>
+<strong>와이파이</strong> — 전자기파를 이용한 무선 통신<br>
+<strong>랜카드(NIC)</strong> — 컴퓨터가 네트워크 장치를 이용하기 위한 하드웨어
+</div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  CH.04 — 프론트엔드와 백엔드                      -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="ch" id="it-ch4">
+<div class="ch-head reveal"><div class="ch-num" style="color:var(--green)">04</div><h2 class="ch-title">프론트엔드와 백엔드</h2></div>
+<p class="section-desc reveal">웹 서비스를 만들 때 가장 기본적인 구분 — <strong>"사용자가 보는 화면"</strong>과 <strong>"뒤에서 돌아가는 로직"</strong>을 이해합니다.</p>
+
+<!-- 식당 비유 -->
+<div class="analogy reveal">
+  <strong style="color:var(--green)">🍽️ 식당 비유</strong><br>
+  <strong>프론트엔드 = 홀(다이닝 룸)</strong> — 손님이 보는 메뉴판, 인테리어, 테이블 세팅<br>
+  <strong>백엔드 = 주방</strong> — 손님에게 보이지 않지만, 실제로 요리를 만들고 재료를 관리하는 곳<br>
+  <strong>API = 종업원</strong> — 홀과 주방 사이에서 주문을 전달하고 음식을 서빙
+</div>
+
+<!-- 클라이언트 vs 서버 카드 -->
+<h3 class="reveal" style="color:var(--green)">클라이언트와 서버</h3>
+<p class="reveal"><strong>Server</strong>의 어원은 "Serve하는 자" — 서비스(음식)를 클라이언트(손님)에게 제공하는 역할입니다. 서버는 특별한 슈퍼컴퓨터가 아니라, <strong>요청에 응답하도록 설정된 프로그램이 실행 중인 컴퓨터</strong>일 뿐입니다.</p>
+
+<div class="dia reveal">
+<div class="dia-title">🌐 클라이언트, 서버, 서비스</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem">
+  <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:14px;padding:1.2rem;text-align:center">
+    <div style="font-size:2rem;margin-bottom:.4rem">📱</div>
+    <div style="font-size:.92rem;font-weight:700;color:var(--green);margin-bottom:.2rem">클라이언트</div>
+    <div style="font-size:.68rem;color:var(--text-dim);margin-bottom:.5rem">Client</div>
+    <div style="font-size:.8rem;color:var(--text);line-height:1.7;text-align:left">
+      <strong style="color:var(--green)">"요청하는 쪽"</strong><br>브라우저, 앱 등<br>
+      <span style="font-size:.75rem;color:var(--text-dim)">식당의 <strong>손님</strong></span>
+    </div>
+  </div>
+  <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:14px;padding:1.2rem;text-align:center">
+    <div style="font-size:2rem;margin-bottom:.4rem">🖥️</div>
+    <div style="font-size:.92rem;font-weight:700;color:var(--green);margin-bottom:.2rem">서버</div>
+    <div style="font-size:.68rem;color:var(--text-dim);margin-bottom:.5rem">Server = Serve하는 자</div>
+    <div style="font-size:.8rem;color:var(--text);line-height:1.7;text-align:left">
+      <strong style="color:var(--green)">"서비스를 제공하는 쪽"</strong><br>요청을 받아 처리<br>
+      <span style="font-size:.75rem;color:var(--text-dim)">식당의 <strong>주방</strong></span>
+    </div>
+  </div>
+  <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:14px;padding:1.2rem;text-align:center">
+    <div style="font-size:2rem;margin-bottom:.4rem">🍽️</div>
+    <div style="font-size:.92rem;font-weight:700;color:var(--green);margin-bottom:.2rem">서비스</div>
+    <div style="font-size:.68rem;color:var(--text-dim);margin-bottom:.5rem">Service</div>
+    <div style="font-size:.8rem;color:var(--text);line-height:1.7;text-align:left">
+      <strong style="color:var(--green)">"서버가 제공하는 것"</strong><br>날씨 정보, 웹페이지, AI 답변<br>
+      <span style="font-size:.75rem;color:var(--text-dim)">식당의 <strong>음식</strong></span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 프론트엔드 vs 백엔드 SVG 다이어그램 -->
+<div class="dia reveal">
+<div class="dia-title">프론트엔드 · API · 백엔드의 관계</div>
+<svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" style="font-family:'Noto Sans KR','Outfit',sans-serif;max-width:100%">
+  <defs>
+    <marker id="aGf" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="var(--green)"/></marker>
+    <marker id="aGb" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto-start-reverse"><polygon points="0 0,8 3,0 6" fill="var(--green)"/></marker>
+  </defs>
+
+  <rect x="30" y="15" width="185" height="190" rx="16" fill="var(--green-bg)" stroke="var(--green-border)" stroke-width="1.5"/>
+  <text x="122" y="45" text-anchor="middle" fill="var(--green)" font-size="13" font-weight="700">프론트엔드</text>
+  <text x="122" y="65" text-anchor="middle" fill="var(--text-dim)" font-size="10">사용자가 보는 화면</text>
+  <text x="122" y="100" text-anchor="middle" font-size="26">🖥️</text>
+  <text x="122" y="130" text-anchor="middle" fill="var(--green)" font-size="9" font-weight="600">= 클라이언트 쪽</text>
+  <text x="122" y="148" text-anchor="middle" fill="var(--text-dim)" font-size="9">HTML / CSS / JS</text>
+  <text x="122" y="165" text-anchor="middle" fill="var(--text-dim)" font-size="9">React, Vue, Angular</text>
+
+  <rect x="263" y="70" width="164" height="80" rx="40" fill="var(--green-bg)" stroke="var(--green)" stroke-width="1.5"/>
+  <text x="345" y="105" text-anchor="middle" fill="var(--green)" font-size="12" font-weight="700">🔌 API</text>
+  <text x="345" y="130" text-anchor="middle" fill="var(--text-dim)" font-size="10">요청 ⇄ 응답</text>
+
+  <rect x="475" y="15" width="195" height="190" rx="16" fill="var(--green-bg)" stroke="var(--green-border)" stroke-width="1.5"/>
+  <text x="572" y="45" text-anchor="middle" fill="var(--green)" font-size="13" font-weight="700">백엔드</text>
+  <text x="572" y="65" text-anchor="middle" fill="var(--text-dim)" font-size="10">서버 (눈에 안 보임)</text>
+  <text x="572" y="100" text-anchor="middle" font-size="26">⚙️</text>
+  <text x="572" y="130" text-anchor="middle" fill="var(--green)" font-size="9" font-weight="600">= 서버 쪽</text>
+  <text x="572" y="148" text-anchor="middle" fill="var(--text-dim)" font-size="9">데이터 저장 / 인증 / 계산</text>
+  <text x="572" y="165" text-anchor="middle" fill="var(--text-dim)" font-size="9">Python, Node.js, DB</text>
+
+  <line x1="220" y1="100" x2="258" y2="100" stroke="var(--green)" stroke-width="2" marker-end="url(#aGf)"/>
+  <line x1="432" y1="100" x2="470" y2="100" stroke="var(--green)" stroke-width="2" marker-end="url(#aGf)"/>
+  <line x1="432" y1="120" x2="470" y2="120" stroke="var(--green)" stroke-width="2" marker-start="url(#aGb)"/>
+  <line x1="220" y1="120" x2="258" y2="120" stroke="var(--green)" stroke-width="2" marker-start="url(#aGb)"/>
+</svg>
+</div>
+
+<!-- 프론트/백엔드 비교 -->
+<div class="cmp-grid reveal" style="grid-template-columns:1fr 1fr">
+  <div class="cmp-card">
+    <div class="cmp-tag" style="background:var(--green);color:var(--bg)">프론트엔드 (Frontend)</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.7;padding:.5rem">
+      <strong>위치:</strong> 클라이언트 쪽 (브라우저)<br>
+      <strong>역할:</strong> 사용자가 보는 <strong>화면</strong> 담당<br>
+      <strong>기술:</strong> HTML, CSS, JavaScript<br>
+      <strong>프레임워크:</strong> React, Vue, Angular<br><br>
+      <span style="font-size:.75rem;color:var(--text-dim)">버튼 클릭, 페이지 이동, 입력 폼 등 눈에 보이는 모든 것</span>
+    </div>
+  </div>
+  <div class="cmp-card">
+    <div class="cmp-tag" style="background:var(--green);color:var(--bg)">백엔드 (Backend)</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.7;padding:.5rem">
+      <strong>위치:</strong> 서버 쪽 (눈에 안 보임)<br>
+      <strong>역할:</strong> 데이터 저장, 인증, 비즈니스 로직<br>
+      <strong>기술:</strong> Python, Node.js, Java<br>
+      <strong>프레임워크:</strong> Express, Django, Spring<br><br>
+      <span style="font-size:.75rem;color:var(--text-dim)">로그인 인증, 결제 처리, DB 조회 등 보이지 않는 처리</span>
+    </div>
+  </div>
+</div>
+
+<!-- 서버의 종류 -->
+<h3 class="reveal" style="color:var(--green)">서버의 종류 — 목적에 맞는 프로그램이 실행 중인 컴퓨터</h3>
+<div class="dia reveal">
+<div class="dia-title">서버 유형별 역할</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center">
+    <div style="font-size:1.3rem">🌐</div>
+    <div style="font-size:.82rem;font-weight:700;color:var(--green);margin:.3rem 0">웹 서버</div>
+    <div style="font-size:.72rem;color:var(--text-dim)">HTML/CSS/JS 전달<br>Apache, Nginx</div>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center">
+    <div style="font-size:1.3rem">🔌</div>
+    <div style="font-size:.82rem;font-weight:700;color:var(--green);margin:.3rem 0">API 서버</div>
+    <div style="font-size:.72rem;color:var(--text-dim)">데이터를 JSON으로 응답<br>Express, FastAPI</div>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center">
+    <div style="font-size:1.3rem">🖼️</div>
+    <div style="font-size:.82rem;font-weight:700;color:var(--green);margin:.3rem 0">이미지 서버</div>
+    <div style="font-size:.72rem;color:var(--text-dim)">이미지 저장·전달<br>CDN 활용</div>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center">
+    <div style="font-size:1.3rem">🗄️</div>
+    <div style="font-size:.82rem;font-weight:700;color:var(--green);margin:.3rem 0">DB 서버</div>
+    <div style="font-size:.72rem;color:var(--text-dim)">데이터 영구 저장<br>MySQL, PostgreSQL</div>
+  </div>
+</div>
+</div>
+
+<div class="tip reveal">
+<div class="tip-title">💡 1개 컴퓨터에 여러 서버를 띄울 수 있다</div>
+CPU·메모리 성능이 좋아지면서 하나의 물리 머신에 웹 서버 + API 서버 + DB 서버를 함께 운영하는 것도 흔합니다. 각 서버가 서로 다른 <strong>PORT</strong>를 사용하면 됩니다.
+</div>
+
+<!-- 풀스택 -->
+<div class="card reveal">
+<div class="card-name">🧑‍💻 풀스택 (Full-Stack)</div>
+<div class="card-sub">프론트엔드 + 백엔드 모두 다루는 개발</div>
+<div class="card-desc">프론트엔드와 백엔드를 모두 개발할 수 있는 사람을 <strong>풀스택 개발자</strong>라 합니다. 바이브코딩 시대에는 AI가 프론트와 백을 동시에 생성해주므로, 비개발자도 "풀스택 수준의 결과물"을 만들 수 있게 되었습니다.</div>
+</div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  CH.05 — 라이브러리와 프레임워크                    -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="ch" id="it-ch5">
+<div class="ch-head reveal"><div class="ch-num" style="color:var(--green)">05</div><h2 class="ch-title">라이브러리와 프레임워크</h2></div>
+<p class="section-desc reveal">모든 것을 처음부터 만들 필요는 없습니다. 이미 잘 만들어진 코드를 가져다 쓰는 것이 현대 개발의 핵심입니다.</p>
+
+<!-- 비유 -->
+<div class="analogy reveal">
+  <strong style="color:var(--green)">🍳 요리 비유</strong><br>
+  <strong>라이브러리 = 양념 세트</strong> — 필요할 때 내가 골라서 넣는다. 요리 순서는 내가 정한다.<br>
+  <strong>프레임워크 = 밀키트</strong> — 재료와 조리 순서가 다 정해져 있다. 나는 빈칸만 채운다.
+</div>
+
+<!-- 라이브러리 vs 프레임워크 비교 -->
+<div class="cmp-grid reveal" style="grid-template-columns:1fr 1fr">
+  <div class="cmp-card">
+    <div class="cmp-tag" style="background:var(--green);color:var(--bg)">라이브러리 (Library)</div>
+    <div style="font-size:1.4rem;text-align:center;margin:.5rem 0">🧂</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.7;padding:.5rem">
+      프로그램의 특정 기능을 수행하도록 <strong>미리 짜여진 코드 뭉치</strong><br><br>
+      예: 브라우저 영상 재생 라이브러리를 쓰면 해상도 변경, 배속 변경, HLS 대응 등이 이미 구현되어 있어 훨씬 수월하게 개발 가능<br><br>
+      <strong style="color:var(--green)">핵심:</strong> <strong>내 코드</strong>가 라이브러리를 호출한다<br>
+      <span style="font-size:.72rem;color:var(--text-dim)">(내가 주도)</span>
+    </div>
+  </div>
+  <div class="cmp-card">
+    <div class="cmp-tag" style="background:var(--green);color:var(--bg)">프레임워크 (Framework)</div>
+    <div style="font-size:1.4rem;text-align:center;margin:.5rem 0">📐</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.7;padding:.5rem">
+      코드의 <strong>큰 뼈대(Frame)를 제공</strong>해서 그 안에서 개발할 수 있도록 도와줌<br><br>
+      건축에서 큰 틀(아키텍처)을 먼저 세우고 내부를 채워넣듯, 프레임워크가 틀을 미리 제공<br><br>
+      <strong style="color:var(--green)">핵심:</strong> <strong>프레임워크</strong>가 내 코드를 호출한다<br>
+      <span style="font-size:.72rem;color:var(--text-dim)">(프레임워크가 주도, IoC)</span>
+    </div>
+  </div>
+</div>
+
+<div class="tip reveal">
+<div class="tip-title">💡 경계가 모호할 때</div>
+React는 공식적으로 "라이브러리"이지만, 사실상 프레임워크처럼 쓰입니다. <strong>헷갈리면 넓은 의미로 "라이브러리"라 불러도 괜찮습니다.</strong>
+</div>
+
+<!-- 프론트엔드 프레임워크 -->
+<h3 class="reveal" style="color:var(--green)">프론트엔드 프레임워크</h3>
+<div class="dia reveal">
+<div class="dia-title">사용자 화면(UI)을 구축하는 프레임워크</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+    <div style="font-size:1.3rem;margin-bottom:.3rem">⚛️</div>
+    <div style="font-size:.9rem;font-weight:700;color:var(--green)">React</div>
+    <div style="font-size:.72rem;color:var(--text-dim);margin-top:.2rem">Meta(Facebook) 개발</div>
+    <div style="font-size:.72rem;color:var(--text);margin-top:.2rem">컴포넌트 기반, 가장 큰 생태계</div>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+    <div style="font-size:1.3rem;margin-bottom:.3rem">🟢</div>
+    <div style="font-size:.9rem;font-weight:700;color:var(--green)">Vue</div>
+    <div style="font-size:.72rem;color:var(--text-dim);margin-top:.2rem">Evan You 개발</div>
+    <div style="font-size:.72rem;color:var(--text);margin-top:.2rem">가벼움, 학습 곡선 낮음</div>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+    <div style="font-size:1.3rem;margin-bottom:.3rem">🅰️</div>
+    <div style="font-size:.9rem;font-weight:700;color:var(--green)">Angular</div>
+    <div style="font-size:.72rem;color:var(--text-dim);margin-top:.2rem">Google 개발</div>
+    <div style="font-size:.72rem;color:var(--text);margin-top:.2rem">대규모 엔터프라이즈 앱</div>
+  </div>
+</div>
+</div>
+
+<!-- 백엔드 프레임워크 -->
+<h3 class="reveal" style="color:var(--green)">백엔드 프레임워크</h3>
+<div class="dia reveal">
+<div class="dia-title">서버 쪽 로직을 처리하는 프레임워크</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+    <div style="font-size:1.3rem;margin-bottom:.3rem">🟡</div>
+    <div style="font-size:.9rem;font-weight:700;color:var(--green)">Express</div>
+    <div style="font-size:.72rem;color:var(--text-dim);margin-top:.2rem">Node.js (JavaScript)</div>
+    <div style="font-size:.72rem;color:var(--text);margin-top:.2rem">가볍고 유연, 미니멀리스트</div>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+    <div style="font-size:1.3rem;margin-bottom:.3rem">🐍</div>
+    <div style="font-size:.9rem;font-weight:700;color:var(--green)">Django</div>
+    <div style="font-size:.72rem;color:var(--text-dim);margin-top:.2rem">Python</div>
+    <div style="font-size:.72rem;color:var(--text);margin-top:.2rem">"배터리 포함" 철학</div>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center">
+    <div style="font-size:1.3rem;margin-bottom:.3rem">🧪</div>
+    <div style="font-size:.9rem;font-weight:700;color:var(--green)">Flask</div>
+    <div style="font-size:.72rem;color:var(--text-dim);margin-top:.2rem">Python</div>
+    <div style="font-size:.72rem;color:var(--text);margin-top:.2rem">마이크로, 필요한 것만 추가</div>
+  </div>
+</div>
+</div>
+
+<!-- 패키지 매니저 -->
+<div class="card reveal">
+<div class="card-name">📦 패키지 매니저</div>
+<div class="card-sub">라이브러리와 프레임워크를 설치·관리하는 도구</div>
+<div class="card-desc">
+  <strong style="color:var(--green)">npm</strong> — Node.js / JavaScript 생태계의 표준 패키지 매니저<br>
+  <strong style="color:var(--green)">pip</strong> — Python 생태계의 표준 패키지 매니저<br>
+  <strong style="color:var(--green)">yarn</strong> — npm의 대안으로 등장, 더 빠른 설치 속도<br>
+  <strong style="color:var(--green)">cargo</strong> — Rust, <strong style="color:var(--green)">Maven</strong> — Java 등 언어별로 존재<br><br>
+  바이브코딩에서 <code>npm install</code>을 실행하면, 프로젝트에 필요한 모든 라이브러리가 자동으로 설치됩니다.
+</div>
+</div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  CH.06 — API                                    -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="ch" id="it-ch6">
+<div class="ch-head reveal"><div class="ch-num" style="color:var(--green)">06</div><h2 class="ch-title">API</h2></div>
+<p class="section-desc reveal">프로그램과 프로그램이 대화하는 규칙 — <strong>API(Application Programming Interface)</strong>를 이해하면, AI 시대의 모든 연결이 보입니다.</p>
+
+<!-- 핵심 정의 -->
+<div class="analogy reveal">
+  <strong style="color:var(--green)">🤵 한 문장 정의</strong><br>
+  <strong>API = 프로그램과 프로그램을 연결하는 중개자 (규칙들의 집합)</strong><br>
+  손님(클라이언트)이 주방(서버)에 직접 들어가지 않듯, 프론트엔드도 백엔드 서버에 직접 접근하지 않고 반드시 <strong>API(종업원)</strong>를 통해 데이터를 요청하고 받습니다.
+</div>
+
+<!-- API 식당 비유 SVG -->
+<div class="dia reveal">
+<div class="dia-title">🍽️ API를 식당으로 이해하기</div>
+<svg viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg" style="font-family:'Noto Sans KR','Outfit',sans-serif;max-width:100%">
+  <defs>
+    <marker id="aGapi" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="var(--green)"/></marker>
+    <marker id="aGapiB" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto-start-reverse"><polygon points="0 0,8 3,0 6" fill="var(--green)"/></marker>
+  </defs>
+
+  <rect x="15" y="15" width="200" height="200" rx="20" fill="var(--green-bg)" stroke="var(--green-border)" stroke-width="1" stroke-dasharray="6,4"/>
+  <rect x="260" y="15" width="200" height="200" rx="20" fill="var(--green-bg)" stroke="var(--green)" stroke-width="1.5"/>
+  <rect x="505" y="15" width="200" height="200" rx="20" fill="var(--green-bg)" stroke="var(--green-border)" stroke-width="1" stroke-dasharray="6,4"/>
+
+  <text x="115" y="42" text-anchor="middle" fill="var(--green)" font-size="11" font-weight="700">📱 클라이언트</text>
+  <text x="360" y="42" text-anchor="middle" fill="var(--green)" font-size="11" font-weight="700">🤵 종업원 (API)</text>
+  <text x="605" y="42" text-anchor="middle" fill="var(--green)" font-size="11" font-weight="700">🖥️ 서버 (백엔드)</text>
+
+  <circle cx="115" cy="110" r="32" fill="var(--green-bg)" stroke="var(--green)" stroke-width="1.5"/>
+  <text x="115" y="105" text-anchor="middle" font-size="26">🧑‍💼</text>
+  <text x="115" y="130" text-anchor="middle" fill="var(--green)" font-size="8" font-weight="600">고객 (손님)</text>
+  <text x="115" y="165" text-anchor="middle" fill="var(--text-dim)" font-size="8">"파스타 하나 주세요"</text>
+
+  <circle cx="360" cy="110" r="32" fill="var(--green-bg)" stroke="var(--green)" stroke-width="1.5"/>
+  <text x="360" y="105" text-anchor="middle" font-size="26">🤵</text>
+  <text x="360" y="130" text-anchor="middle" fill="var(--green)" font-size="8" font-weight="600">종업원 = API</text>
+  <text x="360" y="165" text-anchor="middle" fill="var(--text-dim)" font-size="8">주문을 받아서</text>
+  <text x="360" y="178" text-anchor="middle" fill="var(--text-dim)" font-size="8">주방에 전달하고</text>
+  <text x="360" y="191" text-anchor="middle" fill="var(--text-dim)" font-size="8">음식을 가져다줌</text>
+
+  <circle cx="605" cy="110" r="32" fill="var(--green-bg)" stroke="var(--green)" stroke-width="1.5"/>
+  <text x="605" y="105" text-anchor="middle" font-size="26">👨‍🍳</text>
+  <text x="605" y="130" text-anchor="middle" fill="var(--green)" font-size="8" font-weight="600">요리사 (서버)</text>
+  <text x="605" y="165" text-anchor="middle" fill="var(--text-dim)" font-size="8">주문을 받아 요리를 만듦</text>
+
+  <line x1="152" y1="98" x2="323" y2="98" stroke="var(--green)" stroke-width="2" marker-end="url(#aGapi)"/>
+  <line x1="397" y1="98" x2="568" y2="98" stroke="var(--green)" stroke-width="2" marker-end="url(#aGapi)"/>
+  <text x="237" y="92" text-anchor="middle" fill="var(--green)" font-size="8" font-weight="600">1. 주문(요청)</text>
+  <text x="482" y="92" text-anchor="middle" fill="var(--green)" font-size="8" font-weight="600">2. 전달</text>
+
+  <line x1="397" y1="122" x2="568" y2="122" stroke="var(--green)" stroke-width="2" marker-start="url(#aGapiB)"/>
+  <line x1="152" y1="122" x2="323" y2="122" stroke="var(--green)" stroke-width="2" marker-start="url(#aGapiB)"/>
+  <text x="482" y="137" text-anchor="middle" fill="var(--green)" font-size="8" font-weight="600">3. 요리 완성</text>
+  <text x="237" y="137" text-anchor="middle" fill="var(--green)" font-size="8" font-weight="600">4. 서빙(응답)</text>
+
+  <rect x="80" y="230" width="560" height="38" rx="10" fill="var(--green-bg)" stroke="var(--green-border)" stroke-width="1"/>
+  <text x="360" y="253" text-anchor="middle" fill="var(--text)" font-size="9">💡 고객은 주방에 직접 들어가지 않습니다. 프론트엔드도 백엔드에 직접 접근하지 않고 API를 통합니다.</text>
+</svg>
+</div>
+
+<!-- API 문서 -->
+<h3 class="reveal" style="color:var(--green)">API 문서 — 약속의 명세서</h3>
+<p class="reveal">API를 사용하려면 <strong>API 문서</strong>를 읽어야 합니다. 문서에는 세 가지가 약속되어 있습니다:</p>
+
+<div class="dia reveal">
+<div class="dia-title">API 문서의 3대 요소</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem">
+  <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:12px;padding:1rem;text-align:center">
+    <div style="font-size:1.3rem;margin-bottom:.3rem">🔗</div>
+    <div style="font-size:.88rem;font-weight:700;color:var(--green)">URL</div>
+    <div style="font-size:.78rem;color:var(--text);margin-top:.3rem;line-height:1.6"><strong>어디로</strong> 요청할 것인가<br><code style="font-size:.7rem;background:var(--code-bg);padding:.15rem .3rem;border-radius:3px">api.weather.com/v1/current</code></div>
+  </div>
+  <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:12px;padding:1rem;text-align:center">
+    <div style="font-size:1.3rem;margin-bottom:.3rem">📨</div>
+    <div style="font-size:.88rem;font-weight:700;color:var(--green)">Parameter</div>
+    <div style="font-size:.78rem;color:var(--text);margin-top:.3rem;line-height:1.6"><strong>무엇을</strong> 보낼 것인가<br><code style="font-size:.7rem;background:var(--code-bg);padding:.15rem .3rem;border-radius:3px">city=Seoul, api_key=sk-...</code></div>
+  </div>
+  <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:12px;padding:1rem;text-align:center">
+    <div style="font-size:1.3rem;margin-bottom:.3rem">📬</div>
+    <div style="font-size:.88rem;font-weight:700;color:var(--green)">Response</div>
+    <div style="font-size:.78rem;color:var(--text);margin-top:.3rem;line-height:1.6"><strong>무슨 응답</strong>이 오는가<br><code style="font-size:.7rem;background:var(--code-bg);padding:.15rem .3rem;border-radius:3px">{ "온도": 23, "날씨": "맑음" }</code></div>
+  </div>
+</div>
+</div>
+
+<!-- REST API 메서드 표 -->
+<h3 class="reveal" style="color:var(--green)">REST API — 가장 널리 쓰이는 API 설계 스타일</h3>
+<div class="dia reveal">
+<div class="dia-title">HTTP 메서드와 역할 (CRUD)</div>
+<table style="width:100%;border-collapse:collapse;font-size:.82rem">
+<thead>
+<tr style="border-bottom:2px solid var(--green-border)">
+  <th style="text-align:center;padding:.6rem;color:var(--green);width:20%">메서드</th>
+  <th style="text-align:center;padding:.6rem;color:var(--green);width:25%">역할</th>
+  <th style="text-align:center;padding:.6rem;color:var(--green)">식당 비유</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="text-align:center;padding:.5rem;font-weight:700;color:var(--green)">GET</td>
+  <td style="text-align:center;padding:.5rem">데이터 <strong>조회</strong></td>
+  <td style="text-align:center;padding:.5rem">"메뉴 보여주세요"</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="text-align:center;padding:.5rem;font-weight:700;color:var(--green)">POST</td>
+  <td style="text-align:center;padding:.5rem">데이터 <strong>생성</strong></td>
+  <td style="text-align:center;padding:.5rem">"주문할게요"</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="text-align:center;padding:.5rem;font-weight:700;color:var(--green)">PUT</td>
+  <td style="text-align:center;padding:.5rem">데이터 <strong>수정</strong></td>
+  <td style="text-align:center;padding:.5rem">"주문 변경이요"</td>
+</tr>
+<tr>
+  <td style="text-align:center;padding:.5rem;font-weight:700;color:var(--green)">DELETE</td>
+  <td style="text-align:center;padding:.5rem">데이터 <strong>삭제</strong></td>
+  <td style="text-align:center;padding:.5rem">"주문 취소요"</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- 실제 API 요청/응답 예시 -->
+<div class="dia reveal">
+<div class="dia-title">📡 실제 API 요청/응답 예시 — 날씨 앱</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+  <div style="background:var(--surface);border:1px solid var(--green-border);border-radius:12px;padding:1.2rem;overflow-x:auto">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--green);margin-bottom:.6rem;font-weight:600">1. 요청 (Request) — 앱 → API 서버</div>
+    <div style="font-size:.8rem;color:var(--text);margin-bottom:.6rem">날씨 앱이 기상청 API에 "서울 날씨 알려줘"라고 요청</div>
+    <pre style="font-family:var(--mono);font-size:.72rem;line-height:1.8;color:var(--text);margin:0;background:var(--code-bg);border:1px solid var(--border);border-radius:8px;padding:.7rem;white-space:pre;overflow-x:auto"><span style="color:var(--green)">GET</span> https://api.weather.com/v1/current
+
+  city = "Seoul"
+  api_key = "sk-abc123..."</pre>
+    <div style="margin-top:.5rem;font-size:.72rem;color:var(--text-dim)">
+      <span style="color:var(--green)">GET</span> = "데이터를 가져와줘"<br>
+      api_key = 내 신분증 (API 키)
+    </div>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--green-border);border-radius:12px;padding:1.2rem;overflow-x:auto">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--green);margin-bottom:.6rem;font-weight:600">2. 응답 (Response) — API 서버 → 앱</div>
+    <div style="font-size:.8rem;color:var(--text);margin-bottom:.6rem">API 서버가 JSON 형식으로 날씨 데이터를 돌려줌</div>
+    <pre style="font-family:var(--mono);font-size:.72rem;line-height:1.8;color:var(--text);margin:0;background:var(--code-bg);border:1px solid var(--border);border-radius:8px;padding:.7rem;white-space:pre;overflow-x:auto">{
+  "도시": "서울",
+  "온도": 23,
+  "날씨": "맑음",
+  "습도": 45
+}</pre>
+    <div style="margin-top:.5rem;font-size:.72rem;color:var(--text-dim)">
+      앱은 이 JSON 데이터를 받아서<br>
+      화면에 "서울 23° 맑음"으로 표시
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- API 키 -->
+<div class="warn reveal">
+<div class="warn-title">🔑 API 키 — 인증과 보안</div>
+<div style="font-size:.82rem;color:var(--text);line-height:1.8">
+대부분의 API는 사용자를 확인하기 위해 <strong>API 키(Key)</strong>를 요구합니다. API 키는 일종의 <strong>신분증</strong>으로, 누가 얼마나 API를 사용하는지 추적하고 악용을 방지합니다. API 키는 절대 코드에 직접 넣지 않고, <strong>.env 파일</strong>에 안전하게 보관해야 합니다.
+</div>
+</div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  CH.07 — Git과 GitHub                           -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="ch" id="it-ch7">
+<div class="ch-head reveal"><div class="ch-num" style="color:var(--green)">07</div><h2 class="ch-title">Git & GitHub</h2></div>
+<p class="section-desc reveal">코드를 수정하다 "3시간 전으로 돌아가고 싶다" — 그 소원을 들어주는 <strong>코드의 타임머신</strong>을 소개합니다.</p>
+
+<!-- 비유 -->
+<div class="analogy reveal">
+  <strong style="color:var(--green)">🎮 게임 비유</strong><br>
+  PPT에 <strong>Ctrl+Z</strong>가 있다면, 코드에는 <strong>Git</strong>이 있습니다.<br>
+  SharePoint의 "버전 기록"과 비슷하지만, 자동 저장이 아니라 <strong>내가 직접 의미 있는 시점을 골라서 저장(commit)</strong>한다는 차이가 있습니다.
+</div>
+
+<!-- 핵심 명령어 -->
+<h3 class="reveal" style="color:var(--green)">Git 핵심 명령어</h3>
+<div class="dia reveal">
+<div class="dia-title">Git 명령어 한눈에</div>
+<table style="width:100%;border-collapse:collapse;font-size:.82rem">
+<thead>
+<tr style="border-bottom:2px solid var(--green-border)">
+  <th style="text-align:left;padding:.6rem;color:var(--green)">명령어</th>
+  <th style="text-align:center;padding:.6rem;color:var(--green)">역할</th>
+  <th style="text-align:center;padding:.6rem;color:var(--green)">쉬운 비유</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.5rem;font-weight:600;font-family:var(--mono)">commit</td>
+  <td style="text-align:center;padding:.5rem">현재 시점 저장 (메시지 포함)</td>
+  <td style="text-align:center;padding:.5rem">🎮 게임 세이브</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.5rem;font-weight:600;font-family:var(--mono)">push</td>
+  <td style="text-align:center;padding:.5rem">커밋을 원격 저장소에 업로드</td>
+  <td style="text-align:center;padding:.5rem">☁️ 클라우드에 백업</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.5rem;font-weight:600;font-family:var(--mono)">pull</td>
+  <td style="text-align:center;padding:.5rem">원격의 최신 코드 가져오기</td>
+  <td style="text-align:center;padding:.5rem">📥 최신 버전 다운로드</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.5rem;font-weight:600;font-family:var(--mono)">fetch</td>
+  <td style="text-align:center;padding:.5rem">원격 변경사항 확인 (병합 전)</td>
+  <td style="text-align:center;padding:.5rem">🔍 업데이트 확인</td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.5rem;font-weight:600;font-family:var(--mono)">fork</td>
+  <td style="text-align:center;padding:.5rem">남의 프로젝트를 내 버전으로 복사</td>
+  <td style="text-align:center;padding:.5rem">📋 남의 세이브 파일 복사</td>
+</tr>
+<tr>
+  <td style="padding:.5rem;font-weight:600;font-family:var(--mono)">clone</td>
+  <td style="text-align:center;padding:.5rem">원격 저장소를 내 PC에 복제</td>
+  <td style="text-align:center;padding:.5rem">💻 프로젝트 다운로드</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- Git 워크플로우 흐름도 -->
+<div class="dia reveal">
+<div class="dia-title">🔄 Git 워크플로우 — commit → push → fetch/pull</div>
+<svg viewBox="0 0 720 180" xmlns="http://www.w3.org/2000/svg" style="font-family:'Noto Sans KR','Outfit',sans-serif;max-width:100%">
+  <defs><marker id="aGgit" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="var(--green)"/></marker></defs>
+
+  <!-- 내 컴퓨터 -->
+  <rect x="20" y="20" width="200" height="140" rx="14" fill="var(--green-bg)" stroke="var(--green-border)" stroke-width="1.5"/>
+  <text x="120" y="48" text-anchor="middle" fill="var(--green)" font-size="11" font-weight="700">💻 내 컴퓨터 (로컬)</text>
+  <rect x="40" y="60" width="70" height="35" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="1"/>
+  <text x="75" y="82" text-anchor="middle" fill="var(--text)" font-size="8" font-weight="600">코드 수정</text>
+  <line x1="115" y1="78" x2="135" y2="78" stroke="var(--green)" stroke-width="1.5" marker-end="url(#aGgit)"/>
+  <rect x="140" y="60" width="65" height="35" rx="8" fill="var(--green-bg)" stroke="var(--green)" stroke-width="1.5"/>
+  <text x="172" y="82" text-anchor="middle" fill="var(--green)" font-size="8" font-weight="700">commit</text>
+  <text x="120" y="115" text-anchor="middle" fill="var(--text-dim)" font-size="8">커밋을 쌓으며 버전 관리</text>
+  <text x="120" y="145" text-anchor="middle" fill="var(--text-dim)" font-size="7">개발자 A의 작업 공간</text>
+
+  <!-- Push 화살표 -->
+  <line x1="225" y1="70" x2="310" y2="70" stroke="var(--green)" stroke-width="2.5" marker-end="url(#aGgit)"/>
+  <text x="267" y="62" text-anchor="middle" fill="var(--green)" font-size="9" font-weight="700">push</text>
+
+  <!-- GitHub (원격) -->
+  <rect x="315" y="20" width="200" height="140" rx="14" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2"/>
+  <text x="415" y="48" text-anchor="middle" fill="var(--green)" font-size="11" font-weight="700">🐙 GitHub (원격)</text>
+  <text x="415" y="78" text-anchor="middle" font-size="22">☁️</text>
+  <text x="415" y="105" text-anchor="middle" fill="var(--text)" font-size="9" font-weight="600">원격 코드 저장소</text>
+  <text x="415" y="120" text-anchor="middle" fill="var(--text-dim)" font-size="8">모든 커밋 이력 보관</text>
+  <text x="415" y="145" text-anchor="middle" fill="var(--text-dim)" font-size="7">팀 전체가 공유</text>
+
+  <!-- fetch/pull 화살표 -->
+  <line x1="520" y1="90" x2="605" y2="90" stroke="var(--green)" stroke-width="2.5" marker-end="url(#aGgit)"/>
+  <text x="562" y="82" text-anchor="middle" fill="var(--green)" font-size="9" font-weight="700">pull</text>
+
+  <!-- 다른 개발자 -->
+  <rect x="610" y="40" width="100" height="100" rx="14" fill="var(--green-bg)" stroke="var(--green-border)" stroke-width="1.5"/>
+  <text x="660" y="68" text-anchor="middle" fill="var(--green)" font-size="10" font-weight="700">💻</text>
+  <text x="660" y="88" text-anchor="middle" fill="var(--text)" font-size="8" font-weight="600">개발자 B</text>
+  <text x="660" y="105" text-anchor="middle" fill="var(--text-dim)" font-size="7">최신 코드 받아서</text>
+  <text x="660" y="118" text-anchor="middle" fill="var(--text-dim)" font-size="7">이어서 작업</text>
+</svg>
+</div>
+
+<!-- 충돌 -->
+<div class="card reveal">
+<div class="card-name">⚡ 충돌 (Conflict)</div>
+<div class="card-sub">같은 파일, 같은 라인을 동시에 수정하면 발생</div>
+<div class="card-desc">여러 개발자가 <strong>같은 파일의 같은 코드 라인</strong>을 동시에 수정하면 코드 충돌이 발생합니다. Git은 충돌 지점을 명확히 표시해 주며, 개발자가 어떤 코드를 살릴지 선택하여 해결합니다. 바이브코딩에서도 AI가 만든 코드와 내가 직접 수정한 코드가 충돌할 수 있으니 알아두면 유용합니다.</div>
+</div>
+
+<!-- 브랜치 -->
+<h3 class="reveal" style="color:var(--green)">브랜치 (Branch) — 안전한 작업 공간</h3>
+<div class="dia reveal">
+<div class="dia-title">🌿 브랜치 시각화 — 메인에서 분기 → 작업 → 머지</div>
+<svg viewBox="0 0 700 160" xmlns="http://www.w3.org/2000/svg" style="font-family:'Noto Sans KR','Outfit',sans-serif;max-width:100%">
+  <!-- 메인 브랜치 -->
+  <line x1="50" y1="50" x2="650" y2="50" stroke="var(--green)" stroke-width="3"/>
+  <text x="30" y="54" text-anchor="end" fill="var(--green)" font-size="10" font-weight="700">main</text>
+
+  <!-- 메인 커밋들 -->
+  <circle cx="100" cy="50" r="8" fill="var(--green)" stroke="var(--bg)" stroke-width="2"/>
+  <circle cx="200" cy="50" r="8" fill="var(--green)" stroke="var(--bg)" stroke-width="2"/>
+  <circle cx="500" cy="50" r="8" fill="var(--green)" stroke="var(--bg)" stroke-width="2"/>
+  <circle cx="600" cy="50" r="10" fill="var(--green)" stroke="var(--bg)" stroke-width="2"/>
+  <text x="600" y="35" text-anchor="middle" fill="var(--green)" font-size="8" font-weight="600">머지!</text>
+
+  <!-- feature 브랜치 -->
+  <line x1="200" y1="50" x2="270" y2="110" stroke="var(--green)" stroke-width="2" stroke-dasharray="4,3"/>
+  <line x1="270" y1="110" x2="500" y2="110" stroke="var(--green)" stroke-width="2"/>
+  <line x1="500" y1="110" x2="600" y2="50" stroke="var(--green)" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="270" y="140" fill="var(--text-dim)" font-size="9" font-weight="600">feature 브랜치</text>
+
+  <!-- feature 커밋들 -->
+  <circle cx="320" cy="110" r="6" fill="var(--green)" stroke="var(--bg)" stroke-width="2"/>
+  <circle cx="380" cy="110" r="6" fill="var(--green)" stroke="var(--bg)" stroke-width="2"/>
+  <circle cx="440" cy="110" r="6" fill="var(--green)" stroke="var(--bg)" stroke-width="2"/>
+
+  <!-- 라벨 -->
+  <text x="100" y="30" text-anchor="middle" fill="var(--text-dim)" font-size="7">커밋 A</text>
+  <text x="200" y="30" text-anchor="middle" fill="var(--text-dim)" font-size="7">커밋 B</text>
+  <text x="320" y="100" text-anchor="middle" fill="var(--text-dim)" font-size="7">작업 1</text>
+  <text x="380" y="100" text-anchor="middle" fill="var(--text-dim)" font-size="7">작업 2</text>
+  <text x="440" y="100" text-anchor="middle" fill="var(--text-dim)" font-size="7">작업 3</text>
+
+  <!-- 설명 -->
+  <text x="350" y="155" text-anchor="middle" fill="var(--text-dim)" font-size="8">1. 메인에서 분기 → 2. 커밋을 쌓으며 작업 → 3. 완료 후 메인에 머지(병합)</text>
+</svg>
+</div>
+
+<p class="reveal" style="font-size:.85rem;color:var(--text);line-height:1.8">Git에는 항상 <strong>메인(main) 브랜치</strong>가 존재합니다. 개발자들은 메인 브랜치를 복사해서 <strong>새 브랜치</strong>를 만들고, 그 안에서 커밋을 쌓으며 작업한 뒤, 완료되면 메인 브랜치로 <strong>머지(병합)</strong>합니다. IT 회사에서는 <strong>git-flow</strong>, <strong>trunk-based</strong> 등의 브랜치 전략을 사용합니다.</p>
+
+<!-- GitHub 기능 -->
+<h3 class="reveal" style="color:var(--green)">GitHub — 세계 최대 개발자 플랫폼</h3>
+<p class="reveal"><strong>GitHub</strong>는 Git이 적용된 <strong>원격 코드 저장소</strong>이자, 전 세계에서 가장 많은 개발자가 사용하는 서비스입니다. 여러 개발자가 커밋을 공유하려면 원격 저장소가 필요하며, 그 역할을 GitHub가 합니다.</p>
+
+<div class="dia reveal">
+<div class="dia-title">GitHub 주요 기능</div>
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center">
+    <div style="font-size:1.1rem">📁</div>
+    <div style="font-size:.78rem;font-weight:700;color:var(--green);margin:.3rem 0">Repository</div>
+    <div style="font-size:.68rem;color:var(--text-dim)">프로젝트 단위로<br>코드와 이력 보관</div>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center">
+    <div style="font-size:1.1rem">🎫</div>
+    <div style="font-size:.78rem;font-weight:700;color:var(--green);margin:.3rem 0">Issue</div>
+    <div style="font-size:.68rem;color:var(--text-dim)">버그 리포트<br>기능 요청</div>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center">
+    <div style="font-size:1.1rem">🔀</div>
+    <div style="font-size:.78rem;font-weight:700;color:var(--green);margin:.3rem 0">Pull Request</div>
+    <div style="font-size:.68rem;color:var(--text-dim)">코드 리뷰 후<br>메인에 병합</div>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center">
+    <div style="font-size:1.1rem">⚡</div>
+    <div style="font-size:.78rem;font-weight:700;color:var(--green);margin:.3rem 0">Actions</div>
+    <div style="font-size:.68rem;color:var(--text-dim)">자동 빌드<br>테스트·배포</div>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center">
+    <div style="font-size:1.1rem">📄</div>
+    <div style="font-size:.78rem;font-weight:700;color:var(--green);margin:.3rem 0">README</div>
+    <div style="font-size:.68rem;color:var(--text-dim)">프로젝트 소개<br>첫 페이지 표시</div>
+  </div>
+</div>
+</div>
+
+<!-- 오픈소스 -->
+<div class="tip reveal">
+<div class="tip-title">🌍 오픈소스 문화</div>
+GitHub에는 수많은 <strong>오픈소스</strong> 프로젝트가 공개되어 있습니다. React, Vue, TensorFlow 등 유명 라이브러리가 모두 GitHub에서 관리됩니다. 누구나 <strong>fork</strong>해서 자신의 버전으로 수정하거나, <strong>Pull Request</strong>로 원본 프로젝트에 기여할 수 있습니다.
+</div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  CH.08 — 개발 생태계 한눈에                       -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="ch" id="it-ch8">
+<div class="ch-head reveal"><div class="ch-num" style="color:var(--green)">08</div><h2 class="ch-title">개발 생태계 한눈에</h2></div>
+<p class="section-desc reveal">지금까지 배운 모든 개념을 연결합니다. 코드가 세상에 나오기까지 — <strong>개발 라이프사이클 전체 흐름</strong>을 한 장의 그림으로 정리합니다.</p>
+
+<!-- 전체 흐름도 -->
+<div class="dia reveal">
+<div class="dia-title">🚀 개발 라이프사이클 — 코드에서 배포까지</div>
+<svg viewBox="0 0 740 220" xmlns="http://www.w3.org/2000/svg" style="font-family:'Noto Sans KR','Outfit',sans-serif;max-width:100%">
+  <defs><marker id="aGfin" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="var(--green)"/></marker></defs>
+
+  <!-- 1 코드 작성 -->
+  <rect x="10" y="30" width="100" height="85" rx="12" fill="var(--green-bg)" stroke="var(--green-border)" stroke-width="1.5"/>
+  <text x="60" y="55" text-anchor="middle" font-size="20">📝</text>
+  <text x="60" y="75" text-anchor="middle" fill="var(--green)" font-size="9" font-weight="700">코드 작성</text>
+  <text x="60" y="90" text-anchor="middle" fill="var(--text-dim)" font-size="7">IDE (VS Code)</text>
+  <text x="60" y="103" text-anchor="middle" fill="var(--text-dim)" font-size="7">+ AI 도구</text>
+
+  <line x1="115" y1="72" x2="140" y2="72" stroke="var(--green)" stroke-width="2" marker-end="url(#aGfin)"/>
+
+  <!-- 2 빌드 -->
+  <rect x="145" y="30" width="90" height="85" rx="12" fill="var(--green-bg)" stroke="var(--green-border)" stroke-width="1.5"/>
+  <text x="190" y="55" text-anchor="middle" font-size="20">🔨</text>
+  <text x="190" y="75" text-anchor="middle" fill="var(--green)" font-size="9" font-weight="700">빌드</text>
+  <text x="190" y="90" text-anchor="middle" fill="var(--text-dim)" font-size="7">npm run build</text>
+  <text x="190" y="103" text-anchor="middle" fill="var(--text-dim)" font-size="7">컴파일 포함</text>
+
+  <line x1="240" y1="72" x2="265" y2="72" stroke="var(--green)" stroke-width="2" marker-end="url(#aGfin)"/>
+
+  <!-- 3 테스트 -->
+  <rect x="270" y="30" width="90" height="85" rx="12" fill="var(--green-bg)" stroke="var(--green-border)" stroke-width="1.5"/>
+  <text x="315" y="55" text-anchor="middle" font-size="20">🧪</text>
+  <text x="315" y="75" text-anchor="middle" fill="var(--green)" font-size="9" font-weight="700">테스트</text>
+  <text x="315" y="90" text-anchor="middle" fill="var(--text-dim)" font-size="7">동작 확인</text>
+  <text x="315" y="103" text-anchor="middle" fill="var(--text-dim)" font-size="7">버그 점검</text>
+
+  <line x1="365" y1="72" x2="390" y2="72" stroke="var(--green)" stroke-width="2" marker-end="url(#aGfin)"/>
+
+  <!-- 4 Git 커밋 -->
+  <rect x="395" y="30" width="90" height="85" rx="12" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2"/>
+  <text x="440" y="55" text-anchor="middle" font-size="20">💾</text>
+  <text x="440" y="75" text-anchor="middle" fill="var(--green)" font-size="9" font-weight="700">Git 커밋</text>
+  <text x="440" y="90" text-anchor="middle" fill="var(--text-dim)" font-size="7">버전 저장</text>
+  <text x="440" y="103" text-anchor="middle" fill="var(--text-dim)" font-size="7">변경 기록</text>
+
+  <line x1="490" y1="72" x2="515" y2="72" stroke="var(--green)" stroke-width="2" marker-end="url(#aGfin)"/>
+
+  <!-- 5 GitHub Push -->
+  <rect x="520" y="30" width="90" height="85" rx="12" fill="var(--green-bg)" stroke="var(--green-border)" stroke-width="1.5"/>
+  <text x="565" y="55" text-anchor="middle" font-size="20">🐙</text>
+  <text x="565" y="75" text-anchor="middle" fill="var(--green)" font-size="9" font-weight="700">GitHub</text>
+  <text x="565" y="90" text-anchor="middle" fill="var(--text-dim)" font-size="7">push 업로드</text>
+  <text x="565" y="103" text-anchor="middle" fill="var(--text-dim)" font-size="7">코드 리뷰</text>
+
+  <line x1="615" y1="72" x2="640" y2="72" stroke="var(--green)" stroke-width="2" marker-end="url(#aGfin)"/>
+
+  <!-- 6 배포 -->
+  <rect x="645" y="30" width="85" height="85" rx="12" fill="var(--green-bg)" stroke="var(--green)" stroke-width="2"/>
+  <text x="687" y="55" text-anchor="middle" font-size="20">🚀</text>
+  <text x="687" y="75" text-anchor="middle" fill="var(--green)" font-size="9" font-weight="700">배포</text>
+  <text x="687" y="90" text-anchor="middle" fill="var(--text-dim)" font-size="7">Vercel, AWS</text>
+  <text x="687" y="103" text-anchor="middle" fill="var(--text-dim)" font-size="7">세상에 공개!</text>
+
+  <!-- 피드백 루프 -->
+  <path d="M687,120 L687,180 L60,180 L60,120" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#aGfin)"/>
+  <text x="375" y="196" text-anchor="middle" fill="var(--green)" font-size="8" font-weight="600">🔁 피드백 → 코드 수정 → 다시 빌드 → 배포 (반복)</text>
+</svg>
+</div>
+
+<!-- 핵심 용어 총정리 -->
+<h3 class="reveal" style="color:var(--green)">비개발자가 알아야 할 핵심 용어 총정리</h3>
+<div class="dia reveal">
+<div class="dia-title">📖 IT 핵심 용어 사전 — 20선</div>
+<table style="width:100%;border-collapse:collapse;font-size:.8rem">
+<thead>
+<tr style="border-bottom:2px solid var(--green-border)">
+  <th style="text-align:left;padding:.5rem;color:var(--green);width:25%">용어</th>
+  <th style="text-align:left;padding:.5rem;color:var(--green)">한 줄 설명</th>
+  <th style="text-align:center;padding:.5rem;color:var(--green);width:12%">챕터</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.4rem .5rem;font-weight:600">OS (운영체제)</td>
+  <td style="padding:.4rem .5rem">하드웨어를 관리하고 프로그램을 실행하는 메인 프로그램</td>
+  <td style="text-align:center;padding:.4rem .5rem"><a href="#it-ch1" style="color:var(--green)">Ch.01</a></td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.4rem .5rem;font-weight:600">커널 (Kernel)</td>
+  <td style="padding:.4rem .5rem">OS의 핵심, 프로그램과 하드웨어를 중재</td>
+  <td style="text-align:center;padding:.4rem .5rem"><a href="#it-ch1" style="color:var(--green)">Ch.01</a></td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.4rem .5rem;font-weight:600">CPU</td>
+  <td style="padding:.4rem .5rem">모든 계산을 수행하는 핵심 칩 (클럭 속도 + 코어 수)</td>
+  <td style="text-align:center;padding:.4rem .5rem"><a href="#it-ch1" style="color:var(--green)">Ch.01</a></td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.4rem .5rem;font-weight:600">메모리 (RAM)</td>
+  <td style="padding:.4rem .5rem">프로그램 실행 공간, 전원 끄면 소멸 (휘발성)</td>
+  <td style="text-align:center;padding:.4rem .5rem"><a href="#it-ch1" style="color:var(--green)">Ch.01</a></td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.4rem .5rem;font-weight:600">프로세스</td>
+  <td style="padding:.4rem .5rem">실행 중인 프로그램, 메모리 위에서 동작</td>
+  <td style="text-align:center;padding:.4rem .5rem"><a href="#it-ch2" style="color:var(--green)">Ch.02</a></td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.4rem .5rem;font-weight:600">컴파일</td>
+  <td style="padding:.4rem .5rem">고급 언어를 기계어/바이트코드로 변환하는 과정</td>
+  <td style="text-align:center;padding:.4rem .5rem"><a href="#it-ch2" style="color:var(--green)">Ch.02</a></td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.4rem .5rem;font-weight:600">빌드 (Build)</td>
+  <td style="padding:.4rem .5rem">소스코드를 실행 가능한 산출물로 만드는 전체 과정</td>
+  <td style="text-align:center;padding:.4rem .5rem"><a href="#it-ch2" style="color:var(--green)">Ch.02</a></td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.4rem .5rem;font-weight:600">IDE</td>
+  <td style="padding:.4rem .5rem">코딩+디버깅+컴파일을 하나로 — VS Code, Cursor</td>
+  <td style="text-align:center;padding:.4rem .5rem"><a href="#it-ch2" style="color:var(--green)">Ch.02</a></td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.4rem .5rem;font-weight:600">프로토콜</td>
+  <td style="padding:.4rem .5rem">네트워크 통신의 공통 규격 (HTTP, HTTPS, SSH)</td>
+  <td style="text-align:center;padding:.4rem .5rem"><a href="#it-ch3" style="color:var(--green)">Ch.03</a></td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.4rem .5rem;font-weight:600">IP / PORT</td>
+  <td style="padding:.4rem .5rem">컴퓨터 주소 / 그 안의 프로그램 주소</td>
+  <td style="text-align:center;padding:.4rem .5rem"><a href="#it-ch3" style="color:var(--green)">Ch.03</a></td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.4rem .5rem;font-weight:600">도메인 / DNS</td>
+  <td style="padding:.4rem .5rem">사람이 읽는 주소 / 도메인을 IP로 변환하는 시스템</td>
+  <td style="text-align:center;padding:.4rem .5rem"><a href="#it-ch3" style="color:var(--green)">Ch.03</a></td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.4rem .5rem;font-weight:600">프론트엔드</td>
+  <td style="padding:.4rem .5rem">사용자가 보는 화면 (HTML, CSS, JS, React)</td>
+  <td style="text-align:center;padding:.4rem .5rem"><a href="#it-ch4" style="color:var(--green)">Ch.04</a></td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.4rem .5rem;font-weight:600">백엔드</td>
+  <td style="padding:.4rem .5rem">서버 쪽 로직 — 데이터 저장, 인증, 계산</td>
+  <td style="text-align:center;padding:.4rem .5rem"><a href="#it-ch4" style="color:var(--green)">Ch.04</a></td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.4rem .5rem;font-weight:600">라이브러리</td>
+  <td style="padding:.4rem .5rem">특정 기능을 미리 짜놓은 코드 뭉치 (내가 호출)</td>
+  <td style="text-align:center;padding:.4rem .5rem"><a href="#it-ch5" style="color:var(--green)">Ch.05</a></td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.4rem .5rem;font-weight:600">프레임워크</td>
+  <td style="padding:.4rem .5rem">코드의 큰 뼈대 제공 (프레임워크가 내 코드 호출)</td>
+  <td style="text-align:center;padding:.4rem .5rem"><a href="#it-ch5" style="color:var(--green)">Ch.05</a></td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.4rem .5rem;font-weight:600">npm / pip</td>
+  <td style="padding:.4rem .5rem">라이브러리를 설치·관리하는 패키지 매니저</td>
+  <td style="text-align:center;padding:.4rem .5rem"><a href="#it-ch5" style="color:var(--green)">Ch.05</a></td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.4rem .5rem;font-weight:600">API</td>
+  <td style="padding:.4rem .5rem">프로그램 간 중개자 (URL + Parameter + Response)</td>
+  <td style="text-align:center;padding:.4rem .5rem"><a href="#it-ch6" style="color:var(--green)">Ch.06</a></td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.4rem .5rem;font-weight:600">REST API</td>
+  <td style="padding:.4rem .5rem">GET/POST/PUT/DELETE 메서드 기반 API 설계 스타일</td>
+  <td style="text-align:center;padding:.4rem .5rem"><a href="#it-ch6" style="color:var(--green)">Ch.06</a></td>
+</tr>
+<tr style="border-bottom:1px solid var(--border)">
+  <td style="padding:.4rem .5rem;font-weight:600">Git</td>
+  <td style="padding:.4rem .5rem">소스코드 버전 관리 — commit, push, pull</td>
+  <td style="text-align:center;padding:.4rem .5rem"><a href="#it-ch7" style="color:var(--green)">Ch.07</a></td>
+</tr>
+<tr>
+  <td style="padding:.4rem .5rem;font-weight:600">GitHub</td>
+  <td style="padding:.4rem .5rem">Git 기반 원격 저장소 + 협업 플랫폼</td>
+  <td style="text-align:center;padding:.4rem .5rem"><a href="#it-ch7" style="color:var(--green)">Ch.07</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- AI 시대에 IT 기초가 더 중요한 이유 -->
+<h3 class="reveal" style="color:var(--green)">AI 시대에 IT 기초가 더 중요한 이유</h3>
+
+<div class="dia reveal">
+<div class="dia-title">왜 비개발자도 이 개념들을 알아야 할까?</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem">
+  <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:12px;padding:1.2rem;text-align:center">
+    <div style="font-size:1.6rem;margin-bottom:.4rem">🤖</div>
+    <div style="font-size:.85rem;font-weight:700;color:var(--green);margin-bottom:.4rem">AI와 대화가 된다</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.7">"API로 데이터 가져와줘", "백엔드에 인증 로직 추가해줘" — 기초 개념을 알아야 AI에게 <strong>정확한 지시</strong>를 할 수 있습니다.</div>
+  </div>
+  <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:12px;padding:1.2rem;text-align:center">
+    <div style="font-size:1.6rem;margin-bottom:.4rem">🐛</div>
+    <div style="font-size:.85rem;font-weight:700;color:var(--green);margin-bottom:.4rem">에러를 읽을 수 있다</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.7">"PORT 3000 already in use", "404 Not Found" — 에러 메시지가 뭘 말하는지 알아야 AI에게 <strong>맥락을 전달</strong>할 수 있습니다.</div>
+  </div>
+  <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:12px;padding:1.2rem;text-align:center">
+    <div style="font-size:1.6rem;margin-bottom:.4rem">🏗️</div>
+    <div style="font-size:.85rem;font-weight:700;color:var(--green);margin-bottom:.4rem">전체 그림이 보인다</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.7">프론트-API-백엔드-DB-배포의 흐름을 이해하면, AI가 만들어준 코드가 <strong>어디에 속하는지</strong> 파악할 수 있습니다.</div>
+  </div>
+</div>
+</div>
+
+<!-- Part 7 브릿지 -->
+<div class="card reveal" style="border-left:4px solid var(--green)">
+<div class="card-name">🔗 다음 단계 — 바이브코딩 입문 (Part 7)</div>
+<div class="card-sub">IT 기초를 익혔으니, 이제 직접 만들어 봅시다</div>
+<div class="card-desc">
+  이 콘텐츠에서 익힌 개념들이 실제로 어떻게 쓰이는지 — <strong><a href="/07-vibe-basic" style="color:var(--green);font-weight:700">Part 7 바이브코딩 입문</a></strong>에서 AI와 함께 직접 서비스를 만들어봅니다.<br><br>
+  <strong>OS</strong> 위에서 <strong>IDE</strong>를 열고, <strong>프레임워크</strong>로 코드를 짜고, <strong>빌드</strong>하고, <strong>Git</strong>으로 저장하고, <strong>GitHub</strong>에 올려서 <strong>배포</strong>하는 — 바로 이 전체 흐름을 AI가 도와줍니다.
+</div>
+</div>
+
+<!-- 출처 -->
+<div style="margin-top:2rem;padding:1rem 1.2rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;font-size:.75rem;color:var(--text-dim);line-height:1.8" class="reveal">
+  <strong style="color:var(--text)">📚 참고 자료</strong><br>
+  <a href="https://grabyroom.notion.site/8d9e92b19e084c5a8cb173a695aa81af" target="_blank" rel="noopener" style="color:var(--green)">그랩(Grab, IT 크리에이터/YouTube), "개발 배경지식들 빠르게 격파하기"</a> — 이 콘텐츠의 핵심 원본 자료<br>
+  <a href="https://backlog.com/git-tutorial/kr/" target="_blank" rel="noopener" style="color:var(--green)">Backlog, "누구나 쉽게 이해할 수 있는 Git 입문"</a><br>
+  <a href="https://joshua1988.github.io/web-development/http-part1/" target="_blank" rel="noopener" style="color:var(--green)">캡틴판교, "프런트엔드 개발자가 알아야하는 HTTP 프로토콜"</a>
+</div>
+</section>
+</Layout>

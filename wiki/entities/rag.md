@@ -60,7 +60,7 @@ LLM이 답변을 생성하기 전에 외부 지식 저장소에서 관련 문서
 
 - [Part 1 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/01-data-basics/)
 - [Part 4 — Ch.06 엔터프라이즈 RAG 설계](https://ai-contents-wine.vercel.app/04-data-enterprise/)
-- [Part 6 — Ch.09 LLM Wiki](https://ai-contents-wine.vercel.app/06-vibe-master/) (RAG와의 대비)
+- [Part 8 — Ch.09 LLM Wiki](https://ai-contents-wine.vercel.app/08-vibe-master/) (RAG와의 대비)
 
 ## 연관 entity
 

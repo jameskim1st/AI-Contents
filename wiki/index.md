@@ -170,6 +170,19 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
 - [AGI Levels](./entities/agi-levels.md) — OpenAI 5단계 분류
 - [AI Chip Evolution](./entities/ai-chip-evolution.md) — CPU→GPU→ASIC→뉴로모픽
 
+## IT 개발 기초 (Part 6) ⭐ NEW 카테고리
+
+- [운영체제](./entities/operating-system.md) — OS, 커널, Linux 서버 표준
+- [CPU](./entities/cpu.md) — 컴퓨터 시스템 통제, 모든 계산 수행
+- [메모리 (하드웨어)](./entities/memory-hardware.md) — RAM, 프로그램 실행 공간
+- [프로그램과 프로세스](./entities/program-process.md) — 코드→컴파일→빌드→실행, IDE
+- [네트워크 기초](./entities/network-basics.md) — 클라이언트/서버, 3대 요소
+- [프로토콜과 HTTP](./entities/protocol-http.md) — HTTP/HTTPS, SSH, OSI 7계층
+- [IP, PORT, 도메인](./entities/ip-port-domain.md) — IPv4/v6, DNS, 방화벽
+- [라이브러리와 프레임워크](./entities/library-framework.md) — React, Django, npm/pip
+- [API](./entities/api-basics.md) — 프로그램 간 중개자, REST API
+- [Git과 GitHub](./entities/git-github.md) — 버전 관리, 브랜치, PR, Actions
+
 ## 인물
 
 - [Andrej Karpathy](./entities/karpathy.md)
@@ -186,9 +199,9 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
 
 ## 통계
 
-- entity 페이지: **105개** (87 → 105, +18 갭 분석)
-- 카테고리: 16개 (13 → 16, 신설: 추론·추론 확장 · 멀티모달 · 경제·산업)
-- Last ingest: 2026-04-12 (갭 분석 — Reasoning + Multimodal + SLM + IDE + Economy 18개)
+- entity 페이지: **115개** (105 → 115, +10 IT 개발 기초)
+- 카테고리: 17개 (16 → 17, 신설: IT 개발 기초)
+- Last ingest: 2026-04-12 (IT 개발 기초 — OS/네트워크/API/Git 등 10개)
 - Last query: 2026-04-12 (Part 1 + Part 4 동시 합성, 45 entity 활용, 5495줄)
 - **완료 사이클 #1**: Part 4 AI Agents 실전 — Sources → Ingest → Lint → Query → Ingest-back
 - **완료 사이클 #2**: Part 2/5 Data 동시 합성 — 완전한 5단계 사이클

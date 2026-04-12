@@ -47,7 +47,7 @@ RAG는 검색 시점에 모든 작업을 한다. LLM Wiki는 **컴파일 시점*
 
 ## Reference
 
-- [Part 6 — Ch.09 LLM Wiki — 지식의 컴파일](https://ai-contents-wine.vercel.app/06-vibe-master/)
+- [Part 8 — Ch.09 LLM Wiki — 지식의 컴파일](https://ai-contents-wine.vercel.app/08-vibe-master/)
 - [Part 2 — Ch.05 Memory](https://ai-contents-wine.vercel.app/02-ai-agents/) (cross-reference)
 
 ## 연관 entity

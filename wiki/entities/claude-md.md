@@ -37,8 +37,8 @@ LLM Wiki Schema는 CLAUDE.md를 **지식 관리 영역으로 확장한 형태** 
 
 ## Reference
 
-- [Part 6 — Ch.05 (Harness Engineering 내)](https://ai-contents-wine.vercel.app/06-vibe-master/)
-- [Part 6 — Ch.09 LLM Wiki](https://ai-contents-wine.vercel.app/06-vibe-master/) (Schema와 비교)
+- [Part 8 — Ch.05 (Harness Engineering 내)](https://ai-contents-wine.vercel.app/08-vibe-master/)
+- [Part 8 — Ch.09 LLM Wiki](https://ai-contents-wine.vercel.app/08-vibe-master/) (Schema와 비교)
 
 ## 연관 entity
 
