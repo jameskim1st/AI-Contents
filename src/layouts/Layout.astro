@@ -168,6 +168,47 @@ const nextPage = next || (currentIdx < pages.length - 1 ? { href: pages[currentI
   }, 1500);
 
   // Active tab highlighting is handled server-side in Astro frontmatter
+
+  // ─── Tab navigation: horizontal scroll UX ───
+  // Problem: With 10 tabs, the rightmost tabs were clipped on PC and users
+  // couldn't access them (no obvious horizontal scrollbar, no wheel→horizontal mapping).
+  // Solution: (1) auto-scroll active tab into center on load,
+  //           (2) wheel scroll → horizontal,
+  //           (3) edge fade hint when overflow exists.
+  const tabsWrap = document.getElementById('mainTabs');
+  const tabsInner = tabsWrap?.querySelector<HTMLElement>('.main-tabs-inner');
+  if (tabsWrap && tabsInner) {
+    // (1) Center the active tab on initial load
+    const activeTab = tabsInner.querySelector<HTMLElement>('.main-tab.active');
+    if (activeTab) {
+      const containerWidth = tabsInner.clientWidth;
+      const target = activeTab.offsetLeft - (containerWidth / 2) + (activeTab.offsetWidth / 2);
+      tabsInner.scrollLeft = Math.max(0, target);
+    }
+
+    // (2) Map vertical wheel to horizontal scroll
+    tabsInner.addEventListener('wheel', (e: WheelEvent) => {
+      // Only intercept when there's actual horizontal overflow
+      if (tabsInner.scrollWidth > tabsInner.clientWidth) {
+        // Use deltaY if user is scrolling vertically (mouse wheel or trackpad)
+        // deltaX is preserved if already horizontal (mac trackpad)
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+          e.preventDefault();
+          tabsInner.scrollLeft += e.deltaY;
+        }
+      }
+    }, { passive: false });
+
+    // (3) Toggle edge fade hints based on scroll position
+    const updateOverflowHints = () => {
+      const max = tabsInner.scrollWidth - tabsInner.clientWidth;
+      tabsWrap.classList.toggle('has-overflow-left', tabsInner.scrollLeft > 4);
+      tabsWrap.classList.toggle('has-overflow-right', tabsInner.scrollLeft < max - 4);
+    };
+    updateOverflowHints();
+    tabsInner.addEventListener('scroll', updateOverflowHints, { passive: true });
+    window.addEventListener('resize', updateOverflowHints);
+  }
 </script>
 
 <script is:inline>

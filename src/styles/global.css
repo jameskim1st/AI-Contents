@@ -736,11 +736,22 @@ h3 {
 }
 
 /* ── MAIN TABS ── */
-.main-tabs{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);padding:0 1rem;backdrop-filter:blur(20px);background:rgba(8,9,13,.9)}
+.main-tabs{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);padding:0;backdrop-filter:blur(20px);background:rgba(8,9,13,.9)}
 [data-theme="light"] .main-tabs{background:rgba(248,247,245,.92)}
-.main-tabs-inner{max-width:920px;margin:0 auto;display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none}
-.main-tabs-inner::-webkit-scrollbar{display:none}
-.main-tab{font-family:var(--mono);font-size:.78rem;padding:.9rem 1.3rem;color:var(--text-dim);background:none;border:none;border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap;transition:all .3s;position:relative}
+/* Tab nav: edge fade hint that more tabs exist beyond viewport */
+.main-tabs::before,.main-tabs::after{content:"";position:absolute;top:0;bottom:0;width:32px;pointer-events:none;z-index:2;opacity:0;transition:opacity .25s}
+.main-tabs::before{left:0;background:linear-gradient(to right,var(--bg),rgba(8,9,13,0))}
+.main-tabs::after{right:0;background:linear-gradient(to left,var(--bg),rgba(8,9,13,0))}
+.main-tabs.has-overflow-left::before{opacity:1}
+.main-tabs.has-overflow-right::after{opacity:1}
+[data-theme="light"] .main-tabs::before{background:linear-gradient(to right,var(--bg),rgba(248,247,245,0))}
+[data-theme="light"] .main-tabs::after{background:linear-gradient(to left,var(--bg),rgba(248,247,245,0))}
+.main-tabs-inner{max-width:1200px;margin:0 auto;padding:0 1rem;display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
+.main-tabs-inner::-webkit-scrollbar{height:6px}
+.main-tabs-inner::-webkit-scrollbar-track{background:transparent}
+.main-tabs-inner::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.main-tabs-inner::-webkit-scrollbar-thumb:hover{background:var(--accent-border)}
+.main-tab{font-family:var(--mono);font-size:.78rem;padding:.9rem 1.1rem;color:var(--text-dim);background:none;border:none;border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap;transition:all .3s;position:relative;flex-shrink:0;text-decoration:none}
 .main-tab:hover{color:var(--text-bright)}
 .main-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 .main-tab .tab-emoji{margin-right:.4rem}
