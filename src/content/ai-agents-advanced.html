@@ -1611,6 +1611,196 @@ result = app.invoke({<span style="color:#a5d6a7">"messages"</span>: [<span style
 </div>
 </div>
 
+<!-- ── Interactive Graph Builder ── -->
+<div class="dia reveal">
+<div class="dia-title">🎮 패턴별 그래프 구조 — 탭을 눌러보세요</div>
+<div style="max-width:880px;margin:0 auto;background:var(--card);border:2px solid var(--violet-border);border-radius:16px;padding:1.5rem;position:relative">
+
+  <input type="radio" name="lg-tab" id="lg-react" checked style="display:none">
+  <input type="radio" name="lg-tab" id="lg-plan" style="display:none">
+  <input type="radio" name="lg-tab" id="lg-multi" style="display:none">
+
+  <div style="display:flex;gap:.5rem;margin-bottom:1.2rem;flex-wrap:wrap">
+    <label for="lg-react" style="padding:.5rem 1.2rem;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer;border:1.5px solid var(--violet-border);background:var(--surface);color:var(--text-dim);transition:all .2s">🔄 기본 ReAct</label>
+    <label for="lg-plan" style="padding:.5rem 1.2rem;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer;border:1.5px solid var(--violet-border);background:var(--surface);color:var(--text-dim);transition:all .2s">📋 Plan-and-Execute</label>
+    <label for="lg-multi" style="padding:.5rem 1.2rem;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer;border:1.5px solid var(--violet-border);background:var(--surface);color:var(--text-dim);transition:all .2s">👥 Multi-Agent</label>
+  </div>
+
+  <style>
+    #lg-react:checked ~ div > label[for="lg-react"],
+    #lg-plan:checked ~ div > label[for="lg-plan"],
+    #lg-multi:checked ~ div > label[for="lg-multi"] {
+      background: #6d28d9 !important;
+      color: #fff !important;
+      border-color: #6d28d9 !important;
+    }
+    .lg-panel { display: none; }
+    #lg-react:checked ~ .lg-content .lg-panel-react { display: block; }
+    #lg-plan:checked ~ .lg-content .lg-panel-plan { display: block; }
+    #lg-multi:checked ~ .lg-content .lg-panel-multi { display: block; }
+  </style>
+
+  <div class="lg-content">
+
+    <!-- ReAct Panel -->
+    <div class="lg-panel lg-panel-react">
+      <div style="background:var(--surface);border-radius:12px;padding:1.2rem;border:1px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem">
+          <div style="width:10px;height:10px;border-radius:50%;background:#ef4444"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#f59e0b"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#22c55e"></div>
+          <span style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-left:.5rem">react_graph.py</span>
+        </div>
+        <div style="text-align:center;padding:.5rem 0">
+          <svg viewBox="0 0 520 140" style="max-width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+            <!-- START -->
+            <circle cx="40" cy="70" r="20" fill="#6d28d9" fill-opacity=".15" stroke="#6d28d9" stroke-width="2"/>
+            <text x="40" y="74" text-anchor="middle" fill="#6d28d9" font-size="9" font-weight="700" font-family="monospace">START</text>
+            <!-- Arrow -->
+            <line x1="62" y1="70" x2="100" y2="70" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#lg-arr)"/>
+            <!-- call_model -->
+            <rect x="105" y="48" width="100" height="44" rx="10" fill="#6d28d9" fill-opacity=".12" stroke="#6d28d9" stroke-width="2"/>
+            <text x="155" y="68" text-anchor="middle" fill="#6d28d9" font-size="9" font-weight="700" font-family="monospace">call_model</text>
+            <text x="155" y="82" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">LLM 호출</text>
+            <!-- Arrow -->
+            <line x1="207" y1="70" x2="248" y2="70" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#lg-arr)"/>
+            <!-- Diamond -->
+            <polygon points="285,40 320,70 285,100 250,70" fill="#1e1e2e" stroke="#6d28d9" stroke-width="2"/>
+            <text x="285" y="67" text-anchor="middle" fill="#6d28d9" font-size="7" font-weight="600" font-family="monospace">should</text>
+            <text x="285" y="78" text-anchor="middle" fill="#6d28d9" font-size="7" font-weight="600" font-family="monospace">_tool?</text>
+            <!-- Arrow to tool -->
+            <line x1="322" y1="70" x2="360" y2="70" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#lg-arr)"/>
+            <text x="341" y="62" text-anchor="middle" fill="#22c55e" font-size="7" font-weight="700" font-family="monospace">yes</text>
+            <!-- use_tool -->
+            <rect x="365" y="48" width="90" height="44" rx="10" fill="#6d28d9" fill-opacity=".12" stroke="#6d28d9" stroke-width="2"/>
+            <text x="410" y="68" text-anchor="middle" fill="#6d28d9" font-size="9" font-weight="700" font-family="monospace">use_tool</text>
+            <text x="410" y="82" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">도구 실행</text>
+            <!-- Loop back arrow -->
+            <path d="M410,94 C410,120 155,120 155,94" fill="none" stroke="#6d28d9" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#lg-arr)"/>
+            <text x="285" y="130" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">결과 → 다시 모델</text>
+            <!-- Arrow to END -->
+            <line x1="285" y1="40" x2="285" y2="20" stroke="#6d28d9" stroke-width="1.2"/>
+            <line x1="285" y1="20" x2="480" y2="20" stroke="#6d28d9" stroke-width="1.2" marker-end="url(#lg-arr)"/>
+            <text x="380" y="15" text-anchor="middle" fill="#ef4444" font-size="7" font-weight="700" font-family="monospace">no → end</text>
+            <!-- END -->
+            <circle cx="498" cy="20" r="16" fill="#6d28d9" fill-opacity=".25" stroke="#6d28d9" stroke-width="2"/>
+            <text x="498" y="24" text-anchor="middle" fill="#6d28d9" font-size="8" font-weight="700" font-family="monospace">END</text>
+            <defs><marker id="lg-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#6d28d9"/></marker></defs>
+          </svg>
+        </div>
+        <div style="padding:.6rem .8rem;background:var(--violet-bg);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7;margin-top:.5rem">
+          <strong style="color:var(--violet)">ReAct 패턴:</strong> 가장 기본적인 에이전트 루프. LLM이 "도구가 필요한가?"를 매번 판단하며, 필요하면 도구를 실행하고 결과를 다시 모델에 넘기는 순환 구조. <strong>대부분의 에이전트가 이 패턴으로 시작합니다.</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Plan-and-Execute Panel -->
+    <div class="lg-panel lg-panel-plan">
+      <div style="background:var(--surface);border-radius:12px;padding:1.2rem;border:1px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem">
+          <div style="width:10px;height:10px;border-radius:50%;background:#ef4444"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#f59e0b"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#22c55e"></div>
+          <span style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-left:.5rem">plan_execute_graph.py</span>
+        </div>
+        <div style="text-align:center;padding:.5rem 0">
+          <svg viewBox="0 0 580 150" style="max-width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+            <!-- START -->
+            <circle cx="35" cy="75" r="18" fill="#6d28d9" fill-opacity=".15" stroke="#6d28d9" stroke-width="2"/>
+            <text x="35" y="79" text-anchor="middle" fill="#6d28d9" font-size="8" font-weight="700" font-family="monospace">START</text>
+            <line x1="55" y1="75" x2="85" y2="75" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#lg-arr2)"/>
+            <!-- Planner -->
+            <rect x="90" y="50" width="100" height="50" rx="10" fill="#22c55e" fill-opacity=".12" stroke="#22c55e" stroke-width="2"/>
+            <text x="140" y="72" text-anchor="middle" fill="#22c55e" font-size="10" font-weight="700" font-family="monospace">planner</text>
+            <text x="140" y="88" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">전체 계획 수립</text>
+            <line x1="192" y1="75" x2="225" y2="75" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#lg-arr2)"/>
+            <!-- Executor -->
+            <rect x="230" y="50" width="100" height="50" rx="10" fill="#6d28d9" fill-opacity=".12" stroke="#6d28d9" stroke-width="2"/>
+            <text x="280" y="72" text-anchor="middle" fill="#6d28d9" font-size="10" font-weight="700" font-family="monospace">executor</text>
+            <text x="280" y="88" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">단계별 실행</text>
+            <line x1="332" y1="75" x2="365" y2="75" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#lg-arr2)"/>
+            <!-- Replanner Diamond -->
+            <polygon points="405,45 440,75 405,105 370,75" fill="#1e1e2e" stroke="#f59e0b" stroke-width="2"/>
+            <text x="405" y="72" text-anchor="middle" fill="#f59e0b" font-size="7" font-weight="600" font-family="monospace">replan</text>
+            <text x="405" y="83" text-anchor="middle" fill="#f59e0b" font-size="7" font-weight="600" font-family="monospace">needed?</text>
+            <!-- Loop back to planner -->
+            <path d="M405,107 C405,135 140,135 140,102" fill="none" stroke="#f59e0b" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#lg-arr2)"/>
+            <text x="270" y="140" text-anchor="middle" fill="#f59e0b" font-size="7" font-weight="600" font-family="sans-serif">yes → 재계획</text>
+            <!-- Arrow to END -->
+            <line x1="442" y1="75" x2="500" y2="75" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#lg-arr2)"/>
+            <text x="470" y="68" text-anchor="middle" fill="#8b8b8b" font-size="7" font-weight="600" font-family="sans-serif">no</text>
+            <!-- END -->
+            <circle cx="518" cy="75" r="16" fill="#6d28d9" fill-opacity=".25" stroke="#6d28d9" stroke-width="2"/>
+            <text x="518" y="79" text-anchor="middle" fill="#6d28d9" font-size="8" font-weight="700" font-family="monospace">END</text>
+            <defs><marker id="lg-arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#6d28d9"/></marker></defs>
+          </svg>
+        </div>
+        <div style="padding:.6rem .8rem;background:var(--violet-bg);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7;margin-top:.5rem">
+          <strong style="color:var(--violet)">Plan-and-Execute 패턴:</strong> 먼저 전체 계획을 세운 뒤, 각 단계를 순차 실행. 실행 후 필요하면 재계획(replan). <strong>복잡한 다단계 작업</strong>에 적합하며, 계획과 실행이 분리되어 디버깅이 쉽습니다.
+        </div>
+      </div>
+    </div>
+
+    <!-- Multi-Agent Panel -->
+    <div class="lg-panel lg-panel-multi">
+      <div style="background:var(--surface);border-radius:12px;padding:1.2rem;border:1px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem">
+          <div style="width:10px;height:10px;border-radius:50%;background:#ef4444"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#f59e0b"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#22c55e"></div>
+          <span style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-left:.5rem">multi_agent_graph.py</span>
+        </div>
+        <div style="text-align:center;padding:.5rem 0">
+          <svg viewBox="0 0 540 190" style="max-width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+            <!-- START -->
+            <circle cx="40" cy="95" r="18" fill="#6d28d9" fill-opacity=".15" stroke="#6d28d9" stroke-width="2"/>
+            <text x="40" y="99" text-anchor="middle" fill="#6d28d9" font-size="8" font-weight="700" font-family="monospace">START</text>
+            <line x1="60" y1="95" x2="95" y2="95" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#lg-arr3)"/>
+            <!-- Supervisor -->
+            <rect x="100" y="70" width="110" height="50" rx="12" fill="#f59e0b" fill-opacity=".15" stroke="#f59e0b" stroke-width="2.5"/>
+            <text x="155" y="92" text-anchor="middle" fill="#f59e0b" font-size="10" font-weight="700" font-family="monospace">supervisor</text>
+            <text x="155" y="108" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">작업 배분 + 종합</text>
+            <!-- Conditional edges to workers -->
+            <line x1="212" y1="82" x2="280" y2="40" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#lg-arr3)"/>
+            <line x1="212" y1="95" x2="280" y2="95" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#lg-arr3)"/>
+            <line x1="212" y1="108" x2="280" y2="150" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#lg-arr3)"/>
+            <!-- Worker A: Researcher -->
+            <rect x="285" y="18" width="110" height="44" rx="10" fill="#2dd4bf" fill-opacity=".12" stroke="#2dd4bf" stroke-width="1.5"/>
+            <text x="340" y="38" text-anchor="middle" fill="#2dd4bf" font-size="9" font-weight="700" font-family="monospace">researcher</text>
+            <text x="340" y="52" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">검색 + 수집</text>
+            <!-- Worker B: Analyst -->
+            <rect x="285" y="73" width="110" height="44" rx="10" fill="#6d28d9" fill-opacity=".12" stroke="#6d28d9" stroke-width="1.5"/>
+            <text x="340" y="93" text-anchor="middle" fill="#6d28d9" font-size="9" font-weight="700" font-family="monospace">analyst</text>
+            <text x="340" y="107" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">분석 + 인사이트</text>
+            <!-- Worker C: Writer -->
+            <rect x="285" y="128" width="110" height="44" rx="10" fill="#ef4444" fill-opacity=".12" stroke="#ef4444" stroke-width="1.5"/>
+            <text x="340" y="148" text-anchor="middle" fill="#ef4444" font-size="9" font-weight="700" font-family="monospace">writer</text>
+            <text x="340" y="162" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">보고서 작성</text>
+            <!-- Return arrows to supervisor -->
+            <path d="M340,18 C340,5 155,5 155,68" fill="none" stroke="#2dd4bf" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#lg-arr3)"/>
+            <path d="M285,95 L212,95" fill="none" stroke="#6d28d9" stroke-width="1" stroke-dasharray="4,3"/>
+            <path d="M340,174 C340,185 155,185 155,122" fill="none" stroke="#ef4444" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#lg-arr3)"/>
+            <!-- END -->
+            <line x1="155" y1="70" x2="155" y2="40" stroke="#f59e0b" stroke-width="1.2"/>
+            <line x1="155" y1="40" x2="490" y2="40" stroke="#f59e0b" stroke-width="0" stroke-dasharray="0"/>
+            <line x1="440" y1="95" x2="480" y2="95" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#lg-arr3)"/>
+            <circle cx="498" cy="95" r="16" fill="#6d28d9" fill-opacity=".25" stroke="#6d28d9" stroke-width="2"/>
+            <text x="498" y="99" text-anchor="middle" fill="#6d28d9" font-size="8" font-weight="700" font-family="monospace">END</text>
+            <!-- "done" label -->
+            <text x="462" y="88" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">done</text>
+            <defs><marker id="lg-arr3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#6d28d9"/></marker></defs>
+          </svg>
+        </div>
+        <div style="padding:.6rem .8rem;background:var(--violet-bg);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7;margin-top:.5rem">
+          <strong style="color:var(--violet)">Multi-Agent Supervisor 패턴:</strong> Supervisor가 작업을 분석하고 적절한 전문 Worker에게 위임합니다. 각 Worker는 독립적으로 작업을 수행한 뒤 결과를 Supervisor에게 반환. <strong>복잡한 협업 시스템</strong>에 적합합니다.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
 <!-- ── LangSmith 통합 ── -->
 <div class="dia reveal">
 <div class="dia-title">🔍 LangSmith 통합 — 에이전트의 블랙박스 레코더</div>
@@ -2340,6 +2530,206 @@ result = app.invoke({<span style="color:#a5d6a7">"messages"</span>: [<span style
 <div style="padding:.8rem 1.2rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.85">
   <strong style="color:var(--violet)">Orchestrator-Worker 패턴의 비주얼 구현:</strong> 각 Sub-agent는 독립 워크플로로 구현되어 테스트·재사용이 쉽습니다. Manager Agent가 <code style="background:var(--surface);padding:.1rem .3rem;border-radius:4px;font-size:.78rem">Execute Workflow</code> 노드로 적절한 전문가를 호출합니다.
 </div>
+</div>
+</div>
+
+<!-- ── Interactive Workflow Builder ── -->
+<div class="dia reveal">
+<div class="dia-title">🎮 워크플로 시나리오 — 탭을 눌러보세요</div>
+<div style="max-width:880px;margin:0 auto;background:var(--card);border:2px solid var(--violet-border);border-radius:16px;padding:1.5rem;position:relative">
+
+  <input type="radio" name="n8n-tab" id="n8n-cs" checked style="display:none">
+  <input type="radio" name="n8n-tab" id="n8n-dp" style="display:none">
+  <input type="radio" name="n8n-tab" id="n8n-ma" style="display:none">
+
+  <div style="display:flex;gap:.5rem;margin-bottom:1.2rem;flex-wrap:wrap">
+    <label for="n8n-cs" style="padding:.5rem 1.2rem;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer;border:1.5px solid var(--violet-border);background:var(--surface);color:var(--text-dim);transition:all .2s">💬 고객 지원</label>
+    <label for="n8n-dp" style="padding:.5rem 1.2rem;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer;border:1.5px solid var(--violet-border);background:var(--surface);color:var(--text-dim);transition:all .2s">📊 데이터 파이프라인</label>
+    <label for="n8n-ma" style="padding:.5rem 1.2rem;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer;border:1.5px solid var(--violet-border);background:var(--surface);color:var(--text-dim);transition:all .2s">🤖 멀티 에이전트 리서치</label>
+  </div>
+
+  <style>
+    #n8n-cs:checked ~ div > label[for="n8n-cs"],
+    #n8n-dp:checked ~ div > label[for="n8n-dp"],
+    #n8n-ma:checked ~ div > label[for="n8n-ma"] {
+      background: #6d28d9 !important;
+      color: #fff !important;
+      border-color: #6d28d9 !important;
+    }
+    .n8n-panel { display: none; }
+    #n8n-cs:checked ~ .n8n-content .n8n-panel-cs { display: block; }
+    #n8n-dp:checked ~ .n8n-content .n8n-panel-dp { display: block; }
+    #n8n-ma:checked ~ .n8n-content .n8n-panel-ma { display: block; }
+  </style>
+
+  <div class="n8n-content">
+
+    <!-- Customer Support Panel -->
+    <div class="n8n-panel n8n-panel-cs">
+      <div style="background:var(--surface);border-radius:12px;padding:1.2rem;border:1px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem">
+          <div style="width:10px;height:10px;border-radius:50%;background:#ef4444"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#f59e0b"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#22c55e"></div>
+          <span style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-left:.5rem">n8n — Customer Support AI</span>
+        </div>
+        <div style="text-align:center;padding:.5rem 0">
+          <svg viewBox="0 0 600 150" style="max-width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+            <!-- Webhook Trigger -->
+            <rect x="10" y="55" width="80" height="40" rx="10" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="2"/>
+            <text x="50" y="72" text-anchor="middle" fill="#22c55e" font-size="8" font-weight="700" font-family="sans-serif">Webhook</text>
+            <text x="50" y="85" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">고객 문의 수신</text>
+            <line x1="92" y1="75" x2="118" y2="75" stroke="#6c7086" stroke-width="1.5" marker-end="url(#n8n-arr)"/>
+            <!-- AI Agent -->
+            <rect x="122" y="55" width="80" height="40" rx="10" fill="#6d28d9" fill-opacity=".2" stroke="#6d28d9" stroke-width="2"/>
+            <text x="162" y="72" text-anchor="middle" fill="#6d28d9" font-size="8" font-weight="700" font-family="sans-serif">AI Agent</text>
+            <text x="162" y="85" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">의도 분석</text>
+            <line x1="204" y1="75" x2="230" y2="75" stroke="#6c7086" stroke-width="1.5" marker-end="url(#n8n-arr)"/>
+            <!-- Switch -->
+            <polygon points="265,55 290,75 265,95 240,75" fill="#1e1e2e" stroke="#f59e0b" stroke-width="1.5"/>
+            <text x="265" y="78" text-anchor="middle" fill="#f59e0b" font-size="7" font-weight="600" font-family="sans-serif">분류</text>
+            <!-- Branch 1: FAQ -->
+            <line x1="290" y1="65" x2="330" y2="35" stroke="#6c7086" stroke-width="1.2" marker-end="url(#n8n-arr)"/>
+            <rect x="335" y="15" width="85" height="40" rx="10" fill="#2dd4bf" fill-opacity=".12" stroke="#2dd4bf" stroke-width="1.5"/>
+            <text x="377" y="32" text-anchor="middle" fill="#2dd4bf" font-size="8" font-weight="600" font-family="sans-serif">Vector DB</text>
+            <text x="377" y="45" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">FAQ 검색</text>
+            <!-- Branch 2: Ticket -->
+            <line x1="290" y1="75" x2="330" y2="75" stroke="#6c7086" stroke-width="1.2" marker-end="url(#n8n-arr)"/>
+            <rect x="335" y="55" width="85" height="40" rx="10" fill="#ef4444" fill-opacity=".12" stroke="#ef4444" stroke-width="1.5"/>
+            <text x="377" y="72" text-anchor="middle" fill="#ef4444" font-size="8" font-weight="600" font-family="sans-serif">Jira</text>
+            <text x="377" y="85" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">티켓 생성</text>
+            <!-- Branch 3: Escalate -->
+            <line x1="290" y1="85" x2="330" y2="115" stroke="#6c7086" stroke-width="1.2" marker-end="url(#n8n-arr)"/>
+            <rect x="335" y="95" width="85" height="40" rx="10" fill="#f59e0b" fill-opacity=".12" stroke="#f59e0b" stroke-width="1.5"/>
+            <text x="377" y="112" text-anchor="middle" fill="#f59e0b" font-size="8" font-weight="600" font-family="sans-serif">Slack</text>
+            <text x="377" y="125" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">담당자 호출</text>
+            <!-- All converge to response -->
+            <line x1="422" y1="35" x2="470" y2="75" stroke="#6c7086" stroke-width="1" stroke-dasharray="4,3"/>
+            <line x1="422" y1="75" x2="470" y2="75" stroke="#6c7086" stroke-width="1" stroke-dasharray="4,3"/>
+            <line x1="422" y1="115" x2="470" y2="75" stroke="#6c7086" stroke-width="1" stroke-dasharray="4,3"/>
+            <!-- Final Response -->
+            <rect x="475" y="55" width="100" height="40" rx="10" fill="#6d28d9" fill-opacity=".15" stroke="#6d28d9" stroke-width="2"/>
+            <text x="525" y="72" text-anchor="middle" fill="#6d28d9" font-size="8" font-weight="700" font-family="sans-serif">응답 생성</text>
+            <text x="525" y="85" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">+ Slack/Email 발송</text>
+            <defs><marker id="n8n-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#6c7086"/></marker></defs>
+          </svg>
+        </div>
+        <div style="padding:.6rem .8rem;background:var(--violet-bg);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7;margin-top:.5rem">
+          <strong style="color:var(--violet)">고객 지원 자동화:</strong> Webhook으로 문의 수신 → AI Agent가 의도 분석 → FAQ(벡터 DB 검색) / 티켓 생성(Jira) / 긴급 에스컬레이션(Slack 알림) 자동 분기. <strong>90% 이상의 반복 문의를 자동 처리</strong>합니다.
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Pipeline Panel -->
+    <div class="n8n-panel n8n-panel-dp">
+      <div style="background:var(--surface);border-radius:12px;padding:1.2rem;border:1px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem">
+          <div style="width:10px;height:10px;border-radius:50%;background:#ef4444"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#f59e0b"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#22c55e"></div>
+          <span style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-left:.5rem">n8n — Data Pipeline + AI 분석</span>
+        </div>
+        <div style="text-align:center;padding:.5rem 0">
+          <svg viewBox="0 0 600 130" style="max-width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+            <!-- Schedule Trigger -->
+            <rect x="10" y="45" width="75" height="40" rx="10" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="2"/>
+            <text x="47" y="62" text-anchor="middle" fill="#22c55e" font-size="8" font-weight="700" font-family="sans-serif">Schedule</text>
+            <text x="47" y="75" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">매일 9:00</text>
+            <line x1="87" y1="65" x2="110" y2="65" stroke="#6c7086" stroke-width="1.5" marker-end="url(#n8n-arr2)"/>
+            <!-- PostgreSQL -->
+            <rect x="115" y="45" width="80" height="40" rx="10" fill="#3b82f6" fill-opacity=".12" stroke="#3b82f6" stroke-width="1.5"/>
+            <text x="155" y="62" text-anchor="middle" fill="#3b82f6" font-size="8" font-weight="700" font-family="sans-serif">PostgreSQL</text>
+            <text x="155" y="75" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">매출 데이터</text>
+            <line x1="197" y1="65" x2="218" y2="65" stroke="#6c7086" stroke-width="1.5" marker-end="url(#n8n-arr2)"/>
+            <!-- Code (Transform) -->
+            <rect x="222" y="45" width="75" height="40" rx="10" fill="#f59e0b" fill-opacity=".12" stroke="#f59e0b" stroke-width="1.5"/>
+            <text x="259" y="62" text-anchor="middle" fill="#f59e0b" font-size="8" font-weight="700" font-family="sans-serif">Code</text>
+            <text x="259" y="75" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">데이터 정제</text>
+            <line x1="299" y1="65" x2="320" y2="65" stroke="#6c7086" stroke-width="1.5" marker-end="url(#n8n-arr2)"/>
+            <!-- AI Agent (Analysis) -->
+            <rect x="324" y="45" width="80" height="40" rx="10" fill="#6d28d9" fill-opacity=".2" stroke="#6d28d9" stroke-width="2"/>
+            <text x="364" y="62" text-anchor="middle" fill="#6d28d9" font-size="8" font-weight="700" font-family="sans-serif">AI Agent</text>
+            <text x="364" y="75" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">트렌드 분석</text>
+            <line x1="406" y1="65" x2="428" y2="65" stroke="#6c7086" stroke-width="1.5" marker-end="url(#n8n-arr2)"/>
+            <!-- Google Sheets -->
+            <rect x="432" y="45" width="75" height="40" rx="10" fill="#22c55e" fill-opacity=".12" stroke="#22c55e" stroke-width="1.5"/>
+            <text x="469" y="62" text-anchor="middle" fill="#22c55e" font-size="8" font-weight="700" font-family="sans-serif">Sheets</text>
+            <text x="469" y="75" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">리포트 저장</text>
+            <line x1="509" y1="65" x2="525" y2="65" stroke="#6c7086" stroke-width="1.5" marker-end="url(#n8n-arr2)"/>
+            <!-- Slack notification -->
+            <rect x="530" y="45" width="60" height="40" rx="10" fill="#ef4444" fill-opacity=".12" stroke="#ef4444" stroke-width="1.5"/>
+            <text x="560" y="62" text-anchor="middle" fill="#ef4444" font-size="8" font-weight="700" font-family="sans-serif">Slack</text>
+            <text x="560" y="75" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">알림</text>
+            <!-- Flow label -->
+            <text x="300" y="115" text-anchor="middle" fill="#8b8b8b" font-size="8" font-family="sans-serif">매일 자동 실행 → 데이터 추출 → 정제 → AI 분석 → 저장 → 알림</text>
+            <defs><marker id="n8n-arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#6c7086"/></marker></defs>
+          </svg>
+        </div>
+        <div style="padding:.6rem .8rem;background:var(--violet-bg);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7;margin-top:.5rem">
+          <strong style="color:var(--violet)">데이터 파이프라인:</strong> Schedule 트리거로 매일 자동 실행 → DB에서 데이터 추출 → 코드 노드로 정제 → AI Agent가 트렌드 분석 → Google Sheets에 리포트 저장 → Slack 알림. <strong>반복 분석을 완전 자동화</strong>합니다.
+        </div>
+      </div>
+    </div>
+
+    <!-- Multi-Agent Research Panel -->
+    <div class="n8n-panel n8n-panel-ma">
+      <div style="background:var(--surface);border-radius:12px;padding:1.2rem;border:1px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem">
+          <div style="width:10px;height:10px;border-radius:50%;background:#ef4444"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#f59e0b"></div>
+          <div style="width:10px;height:10px;border-radius:50%;background:#22c55e"></div>
+          <span style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-left:.5rem">n8n — Multi-Agent Research System</span>
+        </div>
+        <div style="text-align:center;padding:.5rem 0">
+          <svg viewBox="0 0 600 180" style="max-width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+            <!-- Chat Trigger -->
+            <rect x="10" y="70" width="75" height="40" rx="10" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="2"/>
+            <text x="47" y="87" text-anchor="middle" fill="#22c55e" font-size="8" font-weight="700" font-family="sans-serif">Chat</text>
+            <text x="47" y="100" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">리서치 요청</text>
+            <line x1="87" y1="90" x2="115" y2="90" stroke="#6c7086" stroke-width="1.5" marker-end="url(#n8n-arr3)"/>
+            <!-- Manager Agent -->
+            <rect x="120" y="65" width="95" height="50" rx="12" fill="#f59e0b" fill-opacity=".15" stroke="#f59e0b" stroke-width="2.5"/>
+            <text x="167" y="87" text-anchor="middle" fill="#f59e0b" font-size="9" font-weight="700" font-family="sans-serif">Manager</text>
+            <text x="167" y="102" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">작업 분배</text>
+            <!-- Branches to sub-agents -->
+            <line x1="217" y1="78" x2="265" y2="30" stroke="#6c7086" stroke-width="1.2" marker-end="url(#n8n-arr3)"/>
+            <line x1="217" y1="90" x2="265" y2="90" stroke="#6c7086" stroke-width="1.2" marker-end="url(#n8n-arr3)"/>
+            <line x1="217" y1="102" x2="265" y2="150" stroke="#6c7086" stroke-width="1.2" marker-end="url(#n8n-arr3)"/>
+            <!-- Sub-agent 1: Web Research -->
+            <rect x="270" y="10" width="105" height="40" rx="10" fill="#2dd4bf" fill-opacity=".12" stroke="#2dd4bf" stroke-width="1.5"/>
+            <text x="322" y="27" text-anchor="middle" fill="#2dd4bf" font-size="8" font-weight="700" font-family="sans-serif">Web Research</text>
+            <text x="322" y="41" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">SerpAPI + Scraper</text>
+            <!-- Sub-agent 2: Data Analysis -->
+            <rect x="270" y="70" width="105" height="40" rx="10" fill="#6d28d9" fill-opacity=".12" stroke="#6d28d9" stroke-width="1.5"/>
+            <text x="322" y="87" text-anchor="middle" fill="#6d28d9" font-size="8" font-weight="700" font-family="sans-serif">Data Analyst</text>
+            <text x="322" y="101" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">Code + DB Query</text>
+            <!-- Sub-agent 3: Report -->
+            <rect x="270" y="130" width="105" height="40" rx="10" fill="#ef4444" fill-opacity=".12" stroke="#ef4444" stroke-width="1.5"/>
+            <text x="322" y="147" text-anchor="middle" fill="#ef4444" font-size="8" font-weight="700" font-family="sans-serif">Report Writer</text>
+            <text x="322" y="161" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">Markdown 생성</text>
+            <!-- Converge -->
+            <line x1="377" y1="30" x2="420" y2="80" stroke="#6c7086" stroke-width="1" stroke-dasharray="4,3"/>
+            <line x1="377" y1="90" x2="420" y2="90" stroke="#6c7086" stroke-width="1" stroke-dasharray="4,3"/>
+            <line x1="377" y1="150" x2="420" y2="100" stroke="#6c7086" stroke-width="1" stroke-dasharray="4,3"/>
+            <!-- Synthesizer -->
+            <rect x="425" y="65" width="90" height="50" rx="12" fill="#6d28d9" fill-opacity=".2" stroke="#6d28d9" stroke-width="2"/>
+            <text x="470" y="87" text-anchor="middle" fill="#6d28d9" font-size="8" font-weight="700" font-family="sans-serif">Synthesizer</text>
+            <text x="470" y="102" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">결과 종합</text>
+            <line x1="517" y1="90" x2="540" y2="90" stroke="#6c7086" stroke-width="1.5" marker-end="url(#n8n-arr3)"/>
+            <!-- Output -->
+            <rect x="545" y="70" width="50" height="40" rx="10" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1.5"/>
+            <text x="570" y="87" text-anchor="middle" fill="#22c55e" font-size="8" font-weight="700" font-family="sans-serif">Chat</text>
+            <text x="570" y="100" text-anchor="middle" fill="#8b8b8b" font-size="7" font-family="sans-serif">응답</text>
+            <defs><marker id="n8n-arr3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#6c7086"/></marker></defs>
+          </svg>
+        </div>
+        <div style="padding:.6rem .8rem;background:var(--violet-bg);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7;margin-top:.5rem">
+          <strong style="color:var(--violet)">멀티 에이전트 리서치:</strong> Manager Agent가 리서치 요청을 분석 → Web Research(검색), Data Analyst(데이터 분석), Report Writer(보고서 작성) 3명의 Sub-agent에 분배 → Synthesizer가 결과를 종합 → Chat으로 최종 응답. <strong>n8n의 "Execute Workflow" 노드로 Sub-agent 패턴을 구현</strong>합니다.
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
 </div>
 

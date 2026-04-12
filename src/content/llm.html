@@ -1219,46 +1219,72 @@
   <!-- Token Economy Table -->
   <h3 style="color:var(--violet)">토큰 경제학 — 가격은 토큰 단위</h3>
   <div class="dia reveal">
-    <div class="dia-title">💰 2026년 주요 모델 토큰 가격 비교 (1M tokens 기준)</div>
+    <div class="dia-title">💰 주요 모델 토큰 가격 비교 (1M tokens 기준) <span style="font-size:.7rem;color:var(--text-dim);font-weight:400">2026년 4월 기준</span></div>
     <div style="overflow-x:auto">
-      <table style="width:100%;border-collapse:collapse;font-size:.82rem;max-width:700px;margin:0 auto">
+      <table style="width:100%;border-collapse:collapse;font-size:.82rem;max-width:780px;margin:0 auto">
         <thead>
           <tr style="border-bottom:2px solid var(--border)">
             <th style="padding:.6rem .8rem;text-align:left;color:var(--text-dim);font-size:.72rem">모델</th>
+            <th style="padding:.6rem .8rem;text-align:left;color:var(--text-dim);font-size:.72rem">회사</th>
             <th style="padding:.6rem .8rem;text-align:right;color:var(--text-dim);font-size:.72rem">Input $/1M</th>
             <th style="padding:.6rem .8rem;text-align:right;color:var(--text-dim);font-size:.72rem">Output $/1M</th>
+            <th style="padding:.6rem .8rem;text-align:left;color:var(--text-dim);font-size:.72rem">포지션</th>
           </tr>
         </thead>
         <tbody>
-          <tr style="border-bottom:1px solid var(--border)">
-            <td style="padding:.6rem .8rem;font-weight:600;color:var(--violet)">GPT-4o</td>
-            <td style="padding:.6rem .8rem;text-align:right;color:var(--text)">$2.50</td>
-            <td style="padding:.6rem .8rem;text-align:right;color:var(--text)">$10.00</td>
+          <tr style="border-bottom:1px solid var(--border);background:var(--violet-dim)">
+            <td style="padding:.6rem .8rem;font-weight:600;color:var(--violet)">Claude Opus 4.6</td>
+            <td style="padding:.6rem .8rem;color:var(--text-dim)">Anthropic</td>
+            <td style="padding:.6rem .8rem;text-align:right;color:var(--text)">$5.00</td>
+            <td style="padding:.6rem .8rem;text-align:right;color:var(--text)">$25.00</td>
+            <td style="padding:.6rem .8rem;color:var(--text-dim);font-size:.75rem">최고 성능</td>
           </tr>
           <tr style="border-bottom:1px solid var(--border)">
-            <td style="padding:.6rem .8rem;font-weight:600;color:var(--violet)">Claude Sonnet 4</td>
+            <td style="padding:.6rem .8rem;font-weight:600;color:var(--violet)">Claude Sonnet 4.6</td>
+            <td style="padding:.6rem .8rem;color:var(--text-dim)">Anthropic</td>
             <td style="padding:.6rem .8rem;text-align:right;color:var(--text)">$3.00</td>
             <td style="padding:.6rem .8rem;text-align:right;color:var(--text)">$15.00</td>
+            <td style="padding:.6rem .8rem;color:var(--text-dim);font-size:.75rem">균형 (주력)</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:.6rem .8rem;font-weight:600;color:var(--violet)">GPT-5.4</td>
+            <td style="padding:.6rem .8rem;color:var(--text-dim)">OpenAI</td>
+            <td style="padding:.6rem .8rem;text-align:right;color:var(--text)">$2.50</td>
+            <td style="padding:.6rem .8rem;text-align:right;color:var(--text)">$10.00</td>
+            <td style="padding:.6rem .8rem;color:var(--text-dim);font-size:.75rem">범용 플래그십</td>
           </tr>
           <tr style="border-bottom:1px solid var(--border)">
             <td style="padding:.6rem .8rem;font-weight:600;color:var(--violet)">Gemini 2.5 Pro</td>
+            <td style="padding:.6rem .8rem;color:var(--text-dim)">Google</td>
             <td style="padding:.6rem .8rem;text-align:right;color:var(--text)">$1.25</td>
             <td style="padding:.6rem .8rem;text-align:right;color:var(--text)">$10.00</td>
+            <td style="padding:.6rem .8rem;color:var(--text-dim);font-size:.75rem">가성비 플래그십</td>
           </tr>
           <tr style="border-bottom:1px solid var(--border)">
-            <td style="padding:.6rem .8rem;font-weight:600;color:var(--violet)">GPT-4o-mini</td>
-            <td style="padding:.6rem .8rem;text-align:right;color:var(--text)">$0.15</td>
-            <td style="padding:.6rem .8rem;text-align:right;color:var(--text)">$0.60</td>
+            <td style="padding:.6rem .8rem;font-weight:600;color:var(--violet)">Gemini 2.5 Flash</td>
+            <td style="padding:.6rem .8rem;color:var(--text-dim)">Google</td>
+            <td style="padding:.6rem .8rem;text-align:right;color:var(--text)">$0.30</td>
+            <td style="padding:.6rem .8rem;text-align:right;color:var(--text)">$2.50</td>
+            <td style="padding:.6rem .8rem;color:var(--text-dim);font-size:.75rem">경량 고속</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:.6rem .8rem;font-weight:600;color:var(--violet)">Claude Haiku 4.5</td>
+            <td style="padding:.6rem .8rem;color:var(--text-dim)">Anthropic</td>
+            <td style="padding:.6rem .8rem;text-align:right;color:var(--text)">$0.25</td>
+            <td style="padding:.6rem .8rem;text-align:right;color:var(--text)">$1.25</td>
+            <td style="padding:.6rem .8rem;color:var(--text-dim);font-size:.75rem">경량 저가</td>
           </tr>
           <tr>
-            <td style="padding:.6rem .8rem;font-weight:600;color:var(--violet)">Claude Haiku 3.5</td>
-            <td style="padding:.6rem .8rem;text-align:right;color:var(--text)">$0.80</td>
-            <td style="padding:.6rem .8rem;text-align:right;color:var(--text)">$4.00</td>
+            <td style="padding:.6rem .8rem;font-weight:600;color:var(--violet)">DeepSeek R1</td>
+            <td style="padding:.6rem .8rem;color:var(--text-dim)">DeepSeek</td>
+            <td style="padding:.6rem .8rem;text-align:right;color:var(--text)">$0.14</td>
+            <td style="padding:.6rem .8rem;text-align:right;color:var(--text)">$2.19</td>
+            <td style="padding:.6rem .8rem;color:var(--text-dim);font-size:.75rem">오픈소스 추론</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div style="text-align:center;margin-top:.6rem;font-size:.75rem;color:var(--text-dim)">Output(생성) 토큰이 Input(입력)보다 <strong style="color:var(--violet)">3~5배 비싸다</strong> — 생성이 더 많은 연산을 필요로 하기 때문</div>
+    <div style="text-align:center;margin-top:.6rem;font-size:.75rem;color:var(--text-dim)">Output(생성) 토큰이 Input(입력)보다 <strong style="color:var(--violet)">3~5배 비싸다</strong> — 생성이 더 많은 연산을 필요로 하기 때문. <br>💡 2년 전 플래그십 $10/1M → 지금 $1.25/1M — <strong style="color:var(--violet)">87.5% 하락</strong>.</div>
   </div>
 
   <!-- Embedding Section -->
@@ -2330,7 +2356,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr><td style="padding:.55rem;border-bottom:1px solid rgba(255,255,255,.06)"><strong>GPT-4o</strong> (OpenAI)</td><td style="padding:.55rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)">✅ 생성</td><td style="padding:.55rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)">✅</td><td style="padding:.55rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)">✅ DALL-E</td><td style="padding:.55rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)">✅ 네이티브</td><td style="padding:.55rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)">⬜ Sora별도</td></tr>
+        <tr><td style="padding:.55rem;border-bottom:1px solid rgba(255,255,255,.06)"><strong>GPT-5.4</strong> (OpenAI)</td><td style="padding:.55rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)">✅ 생성</td><td style="padding:.55rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)">✅</td><td style="padding:.55rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)">✅ DALL-E</td><td style="padding:.55rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)">✅ 네이티브</td><td style="padding:.55rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)">⬜ Sora별도</td></tr>
         <tr><td style="padding:.55rem;border-bottom:1px solid rgba(255,255,255,.06)"><strong>Claude 4.6</strong> (Anthropic)</td><td style="padding:.55rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)">✅ 생성</td><td style="padding:.55rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)">✅</td><td style="padding:.55rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)">⬜</td><td style="padding:.55rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)">✅ Voice</td><td style="padding:.55rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)">⬜</td></tr>
         <tr><td style="padding:.55rem;border-bottom:1px solid rgba(255,255,255,.06)"><strong>Gemini 2.5</strong> (Google)</td><td style="padding:.55rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)">✅ 생성</td><td style="padding:.55rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)">✅</td><td style="padding:.55rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)">✅ Imagen</td><td style="padding:.55rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)">✅ 네이티브</td><td style="padding:.55rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)">✅ 분석</td></tr>
         <tr><td style="padding:.55rem"><strong>LLaMA 4</strong> (Meta)</td><td style="padding:.55rem;text-align:center">✅ 생성</td><td style="padding:.55rem;text-align:center">✅</td><td style="padding:.55rem;text-align:center">⬜</td><td style="padding:.55rem;text-align:center">⬜</td><td style="padding:.55rem;text-align:center">⬜</td></tr>

@@ -380,10 +380,12 @@
     </div>
 
     <div style="margin-bottom:.8rem;padding:.55rem .9rem;background:var(--surface);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
-      <strong style="color:var(--amber)">📌 Part 7 복습:</strong> 임베딩과 벡터 DB 개념 →
-      <a href="https://ai-contents-wine.vercel.app/07-data-basics/#p7-ch7" target="_blank" rel="noopener" style="color:var(--amber);text-decoration:underline">Part 7 Ch.07 임베딩</a> ·
-      <a href="https://ai-contents-wine.vercel.app/07-data-basics/#p7-ch8" target="_blank" rel="noopener" style="color:var(--amber);text-decoration:underline">Part 7 Ch.08 벡터 DB</a>
-      | 여기서는 <strong>Feature Store와 Vector DB의 운영 차이</strong>를 다룹니다.
+      <strong style="color:var(--amber)">📌 Part 7 복습:</strong> 임베딩과 벡터 DB 개념이 처음이라면 먼저 복습하세요. 여기서는 <strong>Feature Store와 Vector DB의 운영 차이</strong>를 다룹니다.
+      <div style="margin-top:.5rem">
+        <a href="/07-data-basics/#p7-ch7" style="display:inline-flex;align-items:center;gap:.4rem;padding:.4rem .9rem;border:1.5px solid var(--amber);background:var(--amber-bg);color:var(--amber);border-radius:8px;font-size:.78rem;font-weight:600;text-decoration:none;transition:all .3s" onmouseover="this.style.background='var(--amber)';this.style.color='#fff'" onmouseout="this.style.background='var(--amber-bg)';this.style.color='var(--amber)'">
+          📖 Part 7 Data 기초로 돌아가기 — 임베딩/벡터 DB 복습 →
+        </a>
+      </div>
     </div>
 
     <!-- Feature Store vs Vector DB 비교 카드 -->
@@ -595,8 +597,12 @@
 
     <!-- 2026 변화: Agent Observability -->
     <div style="padding:.7rem .9rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;margin-bottom:1rem;font-size:.78rem;color:var(--text);line-height:1.8">
-      <strong style="color:var(--amber)">🆕 2026 변화:</strong> Agent 전용 Observability가 MLOps의 확장 축으로 자리 잡음. LangSmith(LangChain), Langfuse(오픈소스), Arize AI가 trace, cost, latency를 추적. 자세히:
-      <a href="https://ai-contents-wine.vercel.app/03-ai-agents-advanced/#p3-ch7" target="_blank" rel="noopener" style="color:var(--amber);text-decoration:underline">Part 3 Ch.07 Observability</a>
+      <strong style="color:var(--amber)">🆕 2026 변화:</strong> Agent 전용 Observability가 MLOps의 확장 축으로 자리 잡음. LangSmith(LangChain), Langfuse(오픈소스), Arize AI가 trace, cost, latency를 추적.
+      <div style="margin-top:.6rem">
+        <a href="/03-ai-agents-advanced/#p3-ch7" style="display:inline-flex;align-items:center;gap:.4rem;padding:.4rem .9rem;border:1.5px solid var(--violet);background:var(--violet-bg);color:var(--violet);border-radius:8px;font-size:.78rem;font-weight:600;text-decoration:none;transition:all .3s" onmouseover="this.style.background='var(--violet)';this.style.color='#fff'" onmouseout="this.style.background='var(--violet-bg)';this.style.color='var(--violet)'">
+          📖 Part 3 AI Agents 실전에서 Observability 자세히 보기 →
+        </a>
+      </div>
     </div>
 
     <!-- Agent vs ML 모니터링 차이 -->
@@ -1974,7 +1980,7 @@ chunks = splitter.split_documents(docs)<br>
 </div>
 
 <div style="margin-top:1.2rem;padding:1rem 1.2rem;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:10px;font-size:.8rem;color:var(--text);line-height:1.85">
-  🧠 <strong style="color:var(--amber)">전부 LLM-as-judge:</strong> 이 네 메트릭 모두 <strong>평가자 LLM</strong>(보통 GPT-4o나 Claude Sonnet)이 채점합니다. 비용이 걱정되지만, <strong>사람 평가보다 98% 저렴하고 0.85+ 상관관계</strong>(RAGAS 논문)라 표준화됐습니다. 단 <strong>평가자 LLM을 버전 고정</strong>하지 않으면 벤치가 요동칩니다.
+  🧠 <strong style="color:var(--amber)">전부 LLM-as-judge:</strong> 이 네 메트릭 모두 <strong>평가자 LLM</strong>(보통 GPT-5.4나 Claude Sonnet 4.6)이 채점합니다. 비용이 걱정되지만, <strong>사람 평가보다 98% 저렴하고 0.85+ 상관관계</strong>(RAGAS 논문)라 표준화됐습니다. 단 <strong>평가자 LLM을 버전 고정</strong>하지 않으면 벤치가 요동칩니다.
 </div>
 </div>
 </div>
@@ -2178,7 +2184,7 @@ chunks = splitter.split_documents(docs)<br>
 </div>
 
 <div style="max-width:900px;margin:1.2rem auto 0;padding:1rem 1.2rem;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:10px;font-size:.82rem;color:var(--text);line-height:1.85">
-  🧠 <strong style="color:var(--amber)">대표 모델:</strong> Anthropic Claude Opus 4.6 · OpenAI GPT-4o · Google Gemini 2.5 · Qwen2-VL · ColPali(검색 특화). 모두 <strong>PDF 페이지 이미지를 그대로</strong> 받아 이해합니다. "OCR 후 LLM"이 아니라 <strong>"VLM이 문서를 바로 읽음"</strong>.
+  🧠 <strong style="color:var(--amber)">대표 모델:</strong> Anthropic Claude Opus 4.6 · OpenAI GPT-5.4 · Google Gemini 2.5 · Qwen2-VL · ColPali(검색 특화). 모두 <strong>PDF 페이지 이미지를 그대로</strong> 받아 이해합니다. "OCR 후 LLM"이 아니라 <strong>"VLM이 문서를 바로 읽음"</strong>.
 </div>
 </div>
 
