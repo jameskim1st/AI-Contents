@@ -165,23 +165,32 @@ const nextPage = next || (currentIdx < pages.length - 1 ? { href: pages[currentI
     const target = document.getElementById(hash.substring(1));
     if (!target) return;
 
-    // Force the target AND all its ancestors with .reveal to become visible
+    // Force the target AND all ancestors with .reveal to become visible
     let el: HTMLElement | null = target;
     while (el) {
       if (el.classList.contains('reveal')) el.classList.add('visible');
       el = el.parentElement;
     }
-    // Also reveal siblings/children within the same section
+    // Reveal all .reveal elements inside the target
     target.querySelectorAll('.reveal').forEach(child => child.classList.add('visible'));
+    // Also reveal all .reveal elements in the parent <section>
+    const parentSection = target.closest('section');
+    if (parentSection) {
+      parentSection.querySelectorAll('.reveal').forEach(child => child.classList.add('visible'));
+    }
 
-    // Scroll after a short delay to let layout settle
+    // Scroll after sufficient delay for DOM rendering + layout reflow
     setTimeout(() => {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
+    }, 300);
   }
 
-  // Run on page load
-  scrollToHash();
+  // Wait for DOM to be fully ready before scrolling to hash
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scrollToHash);
+  } else {
+    scrollToHash();
+  }
   // Also handle in-page hash changes (e.g., from search)
   window.addEventListener('hashchange', scrollToHash);
 
@@ -332,15 +341,17 @@ const nextPage = next || (currentIdx < pages.length - 1 ? { href: pages[currentI
       // Same page — reveal + scroll to anchor
       const el = document.getElementById(hash.substring(1));
       if (el) {
-        // Reveal target and ancestors
+        // Reveal target, ancestors, and parent section
         let node: HTMLElement | null = el;
         while (node) {
           if (node.classList.contains('reveal')) node.classList.add('visible');
           node = node.parentElement;
         }
         el.querySelectorAll('.reveal').forEach(child => child.classList.add('visible'));
+        const sect = el.closest('section');
+        if (sect) sect.querySelectorAll('.reveal').forEach(child => child.classList.add('visible'));
         window.history.pushState(null, '', hash);
-        setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+        setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
       }
     } else {
       // Different page — navigate
