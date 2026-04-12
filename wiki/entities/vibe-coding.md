@@ -36,8 +36,8 @@
 
 ## Reference
 
-- [Part 4 — 바이브코딩 (전반)](https://ai-contents-wine.vercel.app/04-vibe-basic/)
-- [Part 5 — 바이브코딩 심화 (전반)](https://ai-contents-wine.vercel.app/05-vibe-master/)
+- [Part 5 — 바이브코딩 (전반)](https://ai-contents-wine.vercel.app/05-vibe-basic/)
+- [Part 6 — 바이브코딩 심화 (전반)](https://ai-contents-wine.vercel.app/06-vibe-master/)
 
 ## 연관 entity
 
@@ -47,7 +47,7 @@
 
 ## 출처
 
-- Part 2, Part 3 학습 콘텐츠
+- Part 3, Part 4 학습 콘텐츠
 
 ## 업데이트 이력
 

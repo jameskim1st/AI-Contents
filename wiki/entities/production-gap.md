@@ -34,7 +34,7 @@
 
 ## Reference
 
-- [Part 3 — Ch.01 왜 PoC는 잘 되는데 프로덕션은 안 되나](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/) ⭐ 핵심 챕터
+- [Part 4 — Ch.01 왜 PoC는 잘 되는데 프로덕션은 안 되나](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/) ⭐ 핵심 챕터
 
 ## 연관 entity
 

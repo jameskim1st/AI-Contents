@@ -83,9 +83,9 @@ Snowflake, BigQuery, Databricks, Redshift, Postgres, Trino, DuckDB, Microsoft Fa
 
 ## Reference
 
-- [Part 1 — Ch.06 SQL을 엔지니어링처럼](https://ai-contents-wine.vercel.app/01-data-basics/)
-- [Part 8 — Ch.07 Modern Data Stack 구축](https://ai-contents-wine.vercel.app/08-data-enterprise/)
-- [Part 8 — Ch.08 Analytics Engineering 실전](https://ai-contents-wine.vercel.app/08-data-enterprise/)
+- [Part 8 — Ch.06 SQL을 엔지니어링처럼](https://ai-contents-wine.vercel.app/08-data-basics/)
+- [Part 9 — Ch.07 Modern Data Stack 구축](https://ai-contents-wine.vercel.app/09-data-enterprise/)
+- [Part 9 — Ch.08 Analytics Engineering 실전](https://ai-contents-wine.vercel.app/09-data-enterprise/)
 
 ## 연관 entity
 

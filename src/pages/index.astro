@@ -44,7 +44,7 @@ import Layout from '../layouts/Layout.astro';
   </div>
 
   <!-- Learning Path -->
-  <div style="font-family:var(--mono);font-size:.75rem;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:.8rem;text-align:center">Learning Path · 11개 파트</div>
+  <div style="font-family:var(--mono);font-size:.75rem;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:.8rem;text-align:center">Learning Path · 12개 파트</div>
 
   <!-- Part Cards -->
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;margin-bottom:3rem">
@@ -62,9 +62,22 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </a>
 
-    <a href="/01-llm" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--violet)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+    <a href="/01-deep-learning" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--pink)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+      <div style="font-size:2rem;margin-bottom:.8rem">🔬</div>
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--pink);letter-spacing:2px;margin-bottom:.3rem">PART 1 · 딥러닝 심화</div>
+      <div style="font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:.6rem">딥러닝 심화 <span style="font-size:.6rem;background:var(--pink-bg);color:var(--pink);border:1px solid var(--pink-border);padding:.1rem .4rem;border-radius:4px;vertical-align:middle;font-family:var(--mono);letter-spacing:.5px">NEW</span></div>
+      <p style="font-size:.85rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem">CNN, RNN, GAN, Diffusion까지 — 딥러닝의 핵심 아키텍처를 시각적으로 이해합니다.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:.3rem">
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--pink-bg);color:var(--pink);border:1px solid var(--pink-border)">CNN</span>
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--pink-bg);color:var(--pink);border:1px solid var(--pink-border)">RNN·LSTM</span>
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--pink-bg);color:var(--pink);border:1px solid var(--pink-border)">GAN</span>
+        <span style="font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--pink-bg);color:var(--pink);border:1px solid var(--pink-border)">Diffusion</span>
+      </div>
+    </a>
+
+    <a href="/02-llm" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--violet)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
       <div style="font-size:2rem;margin-bottom:.8rem">🧠</div>
-      <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:2px;margin-bottom:.3rem">PART 1 · LLM 이해</div>
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:2px;margin-bottom:.3rem">PART 2 · LLM 이해</div>
       <div style="font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:.6rem">LLM 완전 이해</div>
       <p style="font-size:.85rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem">AI의 핵심 엔진, 거대 언어 모델. 트랜스포머부터 토큰, 문장 생성 원리까지 직관적으로.</p>
       <div style="display:flex;flex-wrap:wrap;gap:.3rem">
@@ -75,9 +88,9 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </a>
 
-    <a href="/02-ai-agents" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--teal)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+    <a href="/03-ai-agents" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--teal)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
       <div style="font-size:2rem;margin-bottom:.8rem">🤖</div>
-      <div style="font-family:var(--mono);font-size:.7rem;color:var(--teal);letter-spacing:2px;margin-bottom:.3rem">PART 2 · 이해하기</div>
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--teal);letter-spacing:2px;margin-bottom:.3rem">PART 3 · 이해하기</div>
       <div style="font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:.6rem">AI Agents 완전 가이드</div>
       <p style="font-size:.85rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem">LLM의 원리부터 Memory, Tools, Planning, Multi-Agent까지 — AI 에이전트의 구조를 도식으로 이해합니다.</p>
       <div style="display:flex;flex-wrap:wrap;gap:.3rem">
@@ -89,9 +102,9 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </a>
 
-    <a href="/03-ai-agents-advanced" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--violet)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+    <a href="/04-ai-agents-advanced" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--violet)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
       <div style="font-size:2rem;margin-bottom:.8rem">🎯</div>
-      <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:2px;margin-bottom:.3rem">PART 3 · 실전 운영</div>
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:2px;margin-bottom:.3rem">PART 4 · 실전 운영</div>
       <div style="font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:.6rem">AI Agents 실전</div>
       <p style="font-size:.85rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem">PoC를 넘어 프로덕션으로 — 디자인 패턴, MCP/A2A, Computer Use, Observability, 보안까지 2026년의 현실.</p>
       <div style="display:flex;flex-wrap:wrap;gap:.3rem">
@@ -102,9 +115,9 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </a>
 
-    <a href="/04-vibe-basic" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+    <a href="/05-vibe-basic" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
       <div style="font-size:2rem;margin-bottom:.8rem">💻</div>
-      <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:2px;margin-bottom:.3rem">PART 4 · 만들어보기</div>
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:2px;margin-bottom:.3rem">PART 5 · 만들어보기</div>
       <div style="font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:.6rem">바이브코딩 입문</div>
       <p style="font-size:.85rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem">코딩 경험 없이 AI에게 지시해서 실제 서비스를 만드는 방법. 프롬프트부터 배포까지.</p>
       <div style="display:flex;flex-wrap:wrap;gap:.3rem">
@@ -115,9 +128,9 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </a>
 
-    <a href="/05-vibe-master" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+    <a href="/06-vibe-master" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
       <div style="font-size:2rem;margin-bottom:.8rem">🚀</div>
-      <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:2px;margin-bottom:.3rem">PART 5 · 깊게 파기</div>
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:2px;margin-bottom:.3rem">PART 6 · 깊게 파기</div>
       <div style="font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:.6rem">바이브코딩 심화</div>
       <p style="font-size:.85rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem">하네스 엔지니어링, TDD/SDD, 멀티 에이전트, LLM Wiki까지 — 프로덕션 수준의 AI 코딩.</p>
       <div style="display:flex;flex-wrap:wrap;gap:.3rem">
@@ -127,9 +140,9 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </a>
 
-    <a href="/06-ai-dev" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+    <a href="/07-ai-dev" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--accent)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
       <div style="font-size:2rem;margin-bottom:.8rem">🛠️</div>
-      <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:2px;margin-bottom:.3rem">PART 6 · AI 개발</div>
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:2px;margin-bottom:.3rem">PART 7 · AI 개발</div>
       <div style="font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:.6rem">AI 개발 <span style="font-size:.6rem;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border);padding:.1rem .4rem;border-radius:4px;vertical-align:middle;font-family:var(--mono);letter-spacing:.5px">SOON</span></div>
       <p style="font-size:.85rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem">AI 서비스를 직접 개발하는 개발자를 위한 심화 콘텐츠. SDK, API, 프로덕션 배포까지.</p>
       <div style="display:flex;flex-wrap:wrap;gap:.3rem">
@@ -138,9 +151,9 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </a>
 
-    <a href="/07-data-basics" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--amber)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+    <a href="/08-data-basics" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--amber)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
       <div style="font-size:2rem;margin-bottom:.8rem">📊</div>
-      <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:2px;margin-bottom:.3rem">PART 7 · 데이터 토대</div>
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:2px;margin-bottom:.3rem">PART 8 · 데이터 토대</div>
       <div style="font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:.6rem">Data 기초</div>
       <p style="font-size:.85rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem">AI를 떠받치는 데이터의 모든 것. DB부터 Lakehouse까지 저장소 투어, 임베딩·벡터 DB, 데이터 품질까지.</p>
       <div style="display:flex;flex-wrap:wrap;gap:.3rem">
@@ -151,9 +164,9 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </a>
 
-    <a href="/08-data-enterprise" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--amber)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+    <a href="/09-data-enterprise" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--amber)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
       <div style="font-size:2rem;margin-bottom:.8rem">🏢</div>
-      <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:2px;margin-bottom:.3rem">PART 8 · 엔터프라이즈</div>
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:2px;margin-bottom:.3rem">PART 9 · 엔터프라이즈</div>
       <div style="font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:.6rem">Data 실전</div>
       <p style="font-size:.85rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem">Production RAG · GraphRAG · Document AI · EU AI Act · Privacy — 2026년 엔터프라이즈 데이터 실전.</p>
       <div style="display:flex;flex-wrap:wrap;gap:.3rem">
@@ -164,9 +177,9 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </a>
 
-    <a href="/09-it-basics" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--green)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+    <a href="/10-it-basics" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--green)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
       <div style="font-size:2rem;margin-bottom:.8rem">🖥️</div>
-      <div style="font-family:var(--mono);font-size:.7rem;color:var(--green);letter-spacing:2px;margin-bottom:.3rem">PART 9 · IT 기초</div>
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--green);letter-spacing:2px;margin-bottom:.3rem">PART 10 · IT 기초</div>
       <div style="font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:.6rem">IT 기초</div>
       <p style="font-size:.85rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem">개발 배경지식 — 컴퓨터, 네트워크, 프로그램의 작동 원리를 비개발자 눈높이로.</p>
       <div style="display:flex;flex-wrap:wrap;gap:.3rem">
@@ -176,9 +189,9 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </a>
 
-    <a href="/10-power-platform" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--blue)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
+    <a href="/11-power-platform" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;cursor:pointer;transition:all .3s;text-decoration:none;color:inherit;display:block" onmouseover="this.style.borderColor='var(--blue)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)'">
       <div style="font-size:2rem;margin-bottom:.8rem">⚡</div>
-      <div style="font-family:var(--mono);font-size:.7rem;color:var(--blue);letter-spacing:2px;margin-bottom:.3rem">PART 10 · 업무 적용</div>
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--blue);letter-spacing:2px;margin-bottom:.3rem">PART 11 · 업무 적용</div>
       <div style="font-family:var(--display);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:.6rem">Power Platform</div>
       <p style="font-size:.85rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem">코딩 없이 앱·자동화·AI 에이전트를 만드는 Microsoft 노코드 플랫폼.</p>
       <div style="display:flex;flex-wrap:wrap;gap:.3rem">
@@ -196,6 +209,11 @@ import Layout from '../layouts/Layout.astro';
       <div style="display:flex;flex-direction:column;align-items:center;gap:.3rem;min-width:72px">
         <div style="width:44px;height:44px;border-radius:12px;background:var(--pink-bg);border:1px solid var(--pink-border);display:flex;align-items:center;justify-content:center;font-size:1.2rem">🌱</div>
         <div style="font-size:.7rem;font-weight:700;color:var(--pink);text-align:center">AI/ML<br>기초</div>
+      </div>
+      <div style="color:var(--text-dim);font-size:1rem">→</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:.3rem;min-width:72px">
+        <div style="width:44px;height:44px;border-radius:12px;background:var(--pink-bg);border:1px solid var(--pink-border);display:flex;align-items:center;justify-content:center;font-size:1.2rem">🔬</div>
+        <div style="font-size:.7rem;font-weight:700;color:var(--pink);text-align:center">딥러닝<br>심화</div>
       </div>
       <div style="color:var(--text-dim);font-size:1rem">→</div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:.3rem;min-width:72px">
@@ -232,7 +250,7 @@ import Layout from '../layouts/Layout.astro';
 
   <!-- Start Button -->
   <div style="text-align:center;padding:2rem 0;">
-    <a href="/01-llm" style="display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 2rem;border:1.5px solid var(--violet);background:var(--violet-dim);color:var(--violet);border-radius:12px;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .3s;font-family:var(--sans);text-decoration:none" onmouseover="this.style.background='var(--violet)';this.style.color='#fff'" onmouseout="this.style.background='var(--violet-dim)';this.style.color='var(--violet)'">
+    <a href="/02-llm" style="display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 2rem;border:1.5px solid var(--violet);background:var(--violet-dim);color:var(--violet);border-radius:12px;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .3s;font-family:var(--sans);text-decoration:none" onmouseover="this.style.background='var(--violet)';this.style.color='#fff'" onmouseout="this.style.background='var(--violet-dim)';this.style.color='var(--violet)'">
       LLM 기초부터 시작하기 <span style="font-size:1.2rem">→</span>
     </a>
   </div>

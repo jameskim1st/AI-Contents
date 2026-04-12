@@ -43,7 +43,7 @@
 
 ## Reference
 
-- [Part 4 — Ch.03 웹은 어떻게 작동하는가?](https://ai-contents-wine.vercel.app/04-vibe-basic/#p4-ch3)
+- [Part 5 — Ch.03 웹은 어떻게 작동하는가?](https://ai-contents-wine.vercel.app/05-vibe-basic/#p5-ch3)
 
 ## 연관 entity
 

@@ -70,7 +70,7 @@ Server의 어원은 "Serve하는 자". 식당에 비유하면 이해가 쉽다:
 
 ## Reference
 
-- [Part 9 — Ch.03 네트워크 기초](https://ai-contents-wine.vercel.app/09-it-basics/#it-ch3)
+- [Part 10 — Ch.03 네트워크 기초](https://ai-contents-wine.vercel.app/10-it-basics/#it-ch3)
 
 ## 연관 entity
 

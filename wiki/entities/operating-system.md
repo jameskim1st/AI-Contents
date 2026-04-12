@@ -45,7 +45,7 @@
 
 ## Reference
 
-- [Part 9 — Ch.01 IT 기초 개념](https://ai-contents-wine.vercel.app/09-it-basics/#it-ch1)
+- [Part 10 — Ch.01 IT 기초 개념](https://ai-contents-wine.vercel.app/10-it-basics/#it-ch1)
 
 ## 연관 entity
 

@@ -58,8 +58,8 @@
 
 ## Reference
 
-- [Part 8 — Ch.07 RAG 평가와 운영](https://ai-contents-wine.vercel.app/08-data-enterprise/)
-- [Part 3 — Ch.08 Evaluation](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/)
+- [Part 9 — Ch.07 RAG 평가와 운영](https://ai-contents-wine.vercel.app/09-data-enterprise/)
+- [Part 4 — Ch.08 Evaluation](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/)
 
 ## 연관 entity
 

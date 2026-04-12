@@ -69,7 +69,7 @@ Infrastructure (vector DB, tool servers, observability)
 
 ## Reference
 
-- [Part 3 — Ch.10 2026 프레임워크 카탈로그](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/) ⭐
+- [Part 4 — Ch.10 2026 프레임워크 카탈로그](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/) ⭐
 
 ## 연관 entity
 

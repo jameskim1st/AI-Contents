@@ -74,7 +74,7 @@ DeepSeek R1의 distillation(Qwen-1.5B~32B로 reasoning 능력 증류)과 Gemini 
 
 ## Reference
 
-- [Part 1 — Ch.08 추론 모델 혁명](https://ai-contents-wine.vercel.app/01-llm/#llm-ch8)
+- [Part 2 — Ch.08 추론 모델 혁명](https://ai-contents-wine.vercel.app/02-llm/#llm-ch8)
 
 ## 연관 entity
 

@@ -48,8 +48,8 @@ Final Answer: ...
 
 ## Reference
 
-- [Part 3 — Ch.02 에이전트 디자인 패턴 5선](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/)
-- [Part 2 — Ch.06 Planning](https://ai-contents-wine.vercel.app/02-ai-agents/) (간접 언급)
+- [Part 4 — Ch.02 에이전트 디자인 패턴 5선](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/)
+- [Part 3 — Ch.06 Planning](https://ai-contents-wine.vercel.app/03-ai-agents/) (간접 언급)
 
 ## 연관 entity
 

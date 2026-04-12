@@ -67,8 +67,8 @@
 
 ## Reference
 
-- [Part 1 — Ch.03 데이터가 사는 곳 (Graph DB 섹션 내)](https://ai-contents-wine.vercel.app/01-data-basics/#sl-special)
-- [Part 8 — Ch.09 GraphRAG](https://ai-contents-wine.vercel.app/08-data-enterprise/) (간접 — 온톨로지 기반 GraphRAG)
+- [Part 2 — Ch.03 데이터가 사는 곳 (Graph DB 섹션 내)](https://ai-contents-wine.vercel.app/08-data-basics/#sl-special)
+- [Part 9 — Ch.09 GraphRAG](https://ai-contents-wine.vercel.app/09-data-enterprise/) (간접 — 온톨로지 기반 GraphRAG)
 
 ## 연관 entity
 

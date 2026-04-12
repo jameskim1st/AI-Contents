@@ -5,14 +5,14 @@ date_original: 2017-06-12
 date_ingested: 2026-04-11
 source_type: paper
 url_or_path: https://arxiv.org/abs/1706.03762
-used_for: Part 1 Ch.04 (Self-Attention) · Part 0 Ch.11 (딥러닝 역사)
+used_for: Part 2 Ch.04 (Self-Attention) · Part 0 Ch.11 (딥러닝 역사)
 ---
 
 # Attention Is All You Need (Transformer 논문)
 
 ## Context
 
-현대 LLM의 **모든 기반** 이 되는 단 하나의 논문. 2017년 발표된 이 논문이 없었다면 GPT, BERT, Claude, Gemini 모두 존재하지 않았을 것. Part 1 (LLM 이해)의 Transformer 챕터와 Part 0 (AI/ML 기초)의 딥러닝 역사에서 모두 참조.
+현대 LLM의 **모든 기반** 이 되는 단 하나의 논문. 2017년 발표된 이 논문이 없었다면 GPT, BERT, Claude, Gemini 모두 존재하지 않았을 것. Part 2 (LLM 이해)의 Transformer 챕터와 Part 0 (AI/ML 기초)의 딥러닝 역사에서 모두 참조.
 
 ## Key Points
 
@@ -60,5 +60,5 @@ RNN의 순차 처리를 완전히 버리고 **"Attention만"** 으로 sequence t
 
 ## Chapters created/updated
 
-- Part 1 Ch.04 — Transformer가 혁명적인 이유 (Self-Attention)
+- Part 2 Ch.04 — Transformer가 혁명적인 이유 (Self-Attention)
 - Part 0 Ch.11 — 딥러닝 (역사 타임라인에서 언급)

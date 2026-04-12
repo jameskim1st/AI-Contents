@@ -62,9 +62,9 @@ DeepSeek-R1(671B MoE)의 **reasoning 능력**을 Qwen-2.5(7B/14B/32B), Llama-3.1
 
 ## Reference
 
-- [Part 1 — Ch.05 LLM 학습 파이프라인](https://ai-contents-wine.vercel.app/01-llm/#llm-ch5)
-- [Part 2 — Ch.06 학습과 최적화](https://ai-contents-wine.vercel.app/02-ai-basics/)
-- [Part 3 — Ch.07 LLM의 진화](https://ai-contents-wine.vercel.app/03-llm-landscape/)
+- [Part 2 — Ch.05 LLM 학습 파이프라인](https://ai-contents-wine.vercel.app/02-llm/#llm-ch5)
+- [Part 3 — Ch.06 학습과 최적화](https://ai-contents-wine.vercel.app/02-ai-basics/)
+- [Part 4 — Ch.07 LLM의 진화](https://ai-contents-wine.vercel.app/03-llm-landscape/)
 
 ## 연관 entity
 

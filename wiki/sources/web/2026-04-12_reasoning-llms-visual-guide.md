@@ -5,14 +5,14 @@ date_original: 2025-01
 date_ingested: 2026-04-12
 source_type: web (notion)
 url_or_path: https://tulip-phalange-a1e.notion.site/Reasoning-LLMs-190c32470be2806d834ee0ad98aaa0b6
-used_for: Part 1 Ch.07 Reasoning Models (작성 예정)
+used_for: Part 2 Ch.07 Reasoning Models (작성 예정)
 ---
 
 # Reasoning LLMs에 관한 비주얼 가이드
 
 ## Context
 
-사용자가 직접 제공한 참고 자료. 40개 이상의 시각 자료로 reasoning LLMs, test-time compute, DeepSeek-R1을 설명하는 한국어 번역 글. Part 1 Ch.07 "Reasoning Models" 작성의 핵심 source.
+사용자가 직접 제공한 참고 자료. 40개 이상의 시각 자료로 reasoning LLMs, test-time compute, DeepSeek-R1을 설명하는 한국어 번역 글. Part 2 Ch.07 "Reasoning Models" 작성의 핵심 source.
 
 ## Key Points (구조 순서대로)
 
@@ -90,4 +90,4 @@ used_for: Part 1 Ch.07 Reasoning Models (작성 예정)
 - orm-prm (신규 or reasoning-models 안에)
 
 ## Chapters to create
-- Part 1 Ch.07 — Reasoning Models: 생각하는 LLM의 등장
+- Part 2 Ch.07 — Reasoning Models: 생각하는 LLM의 등장

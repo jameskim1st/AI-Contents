@@ -38,8 +38,8 @@
 
 ## Reference
 
-- [Part 1 — Ch.09 멀티모달 LLM](https://ai-contents-wine.vercel.app/01-llm/#llm-ch9)
-- [Part 9 — Ch.01 이미지 생성 AI](https://ai-contents-wine.vercel.app/09-multimodal/#이미지-생성-ai)
+- [Part 2 — Ch.09 멀티모달 LLM](https://ai-contents-wine.vercel.app/02-llm/#llm-ch9)
+- [Part 10 — Ch.01 이미지 생성 AI](https://ai-contents-wine.vercel.app/09-multimodal/#이미지-생성-ai)
 
 ## 연관 entity
 
@@ -50,7 +50,7 @@
 ## 출처
 
 - 각 모델 공식 발표 및 벤치마크 (2025~2026)
-- Part 9 학습 콘텐츠
+- Part 10 학습 콘텐츠
 
 ## 업데이트 이력
 

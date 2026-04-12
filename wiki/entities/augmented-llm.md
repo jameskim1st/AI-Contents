@@ -33,9 +33,9 @@
 
 ## Reference
 
-- [Part 1 — Ch.12 LLM의 한계와 미래](https://ai-contents-wine.vercel.app/01-llm/#llm-ch12)
-- [Part 2 — Ch.02 Augmented LLM](https://ai-contents-wine.vercel.app/02-ai-agents/)
-- [Part 2 — Ch.03 Agent와의 회색 지대](https://ai-contents-wine.vercel.app/02-ai-agents/)
+- [Part 2 — Ch.12 LLM의 한계와 미래](https://ai-contents-wine.vercel.app/02-llm/#llm-ch12)
+- [Part 3 — Ch.02 Augmented LLM](https://ai-contents-wine.vercel.app/03-ai-agents/)
+- [Part 3 — Ch.03 Agent와의 회색 지대](https://ai-contents-wine.vercel.app/03-ai-agents/)
 
 ## 연관 entity
 
@@ -46,7 +46,7 @@
 
 ## 출처
 
-- Part 1 학습 콘텐츠
+- Part 2 학습 콘텐츠
 
 ## 업데이트 이력
 

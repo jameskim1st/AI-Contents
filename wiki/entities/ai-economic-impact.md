@@ -58,9 +58,9 @@
 
 ## Reference
 
-- [Part 1 — Ch.12 LLM의 한계와 미래](https://ai-contents-wine.vercel.app/01-llm/#llm-ch12)
-- [Part 3 — Ch.01 AI 시장의 구조](https://ai-contents-wine.vercel.app/03-llm-landscape/)
-- [Part 8 — Ch.01 경제적 영향](https://ai-contents-wine.vercel.app/08-ai-economy/)
+- [Part 2 — Ch.12 LLM의 한계와 미래](https://ai-contents-wine.vercel.app/02-llm/#llm-ch12)
+- [Part 4 — Ch.01 AI 시장의 구조](https://ai-contents-wine.vercel.app/03-llm-landscape/)
+- [Part 9 — Ch.01 경제적 영향](https://ai-contents-wine.vercel.app/08-ai-economy/)
 
 ## 연관 entity
 

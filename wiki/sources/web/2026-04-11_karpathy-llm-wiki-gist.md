@@ -5,7 +5,7 @@ date_original: 2026-04-07
 date_ingested: 2026-04-11
 source_type: gist
 url_or_path: https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f
-used_for: Part 5 Ch.09 LLM Wiki · 본 repo의 wiki/ 전체 운영 모델
+used_for: Part 6 Ch.09 LLM Wiki · 본 repo의 wiki/ 전체 운영 모델
 ---
 
 # Karpathy LLM Wiki Gist
@@ -74,7 +74,7 @@ used_for: Part 5 Ch.09 LLM Wiki · 본 repo의 wiki/ 전체 운영 모델
 
 ## Chapters created/updated
 
-- Part 5 Ch.09 — LLM Wiki: 지식의 컴파일
+- Part 6 Ch.09 — LLM Wiki: 지식의 컴파일
 
 ## Meta
 

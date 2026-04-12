@@ -92,8 +92,8 @@ Slack MCP 서버 — 1개. 동일.
 
 ## Reference
 
-- [Part 3 — Ch.04 MCP — 도구 통합의 표준](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/) ⭐ 핵심 챕터
-- [Part 2 — Ch.05 Tools](https://ai-contents-wine.vercel.app/02-ai-agents/) (간접 언급, 진화형)
+- [Part 4 — Ch.04 MCP — 도구 통합의 표준](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/) ⭐ 핵심 챕터
+- [Part 3 — Ch.05 Tools](https://ai-contents-wine.vercel.app/03-ai-agents/) (간접 언급, 진화형)
 
 ## 연관 entity
 

@@ -71,8 +71,8 @@
 
 ## Reference
 
-- [Part 8 — Ch.08 GraphRAG와 Knowledge Graph](https://ai-contents-wine.vercel.app/08-data-enterprise/)
-- [Part 1 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/01-data-basics/)
+- [Part 9 — Ch.08 GraphRAG와 Knowledge Graph](https://ai-contents-wine.vercel.app/09-data-enterprise/)
+- [Part 8 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/08-data-basics/)
 
 ## 연관 entity
 

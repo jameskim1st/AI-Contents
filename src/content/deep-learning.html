@@ -1,0 +1,1945 @@
+<Layout title="딥러닝 심화 — 신경망의 원리를 비주얼로">
+<!-- PART 1: 딥러닝 심화 -->
+<div class="part-header" id="part1">
+  <div class="part-header-inner">
+    <span class="part-header-num" style="color:var(--pink)">Part 1</span>
+    <h2 class="part-header-title">딥러닝 심화 — 신경망의 원리를 비주얼로</h2>
+    <p class="part-header-desc">AI의 심장부, 딥러닝의 모든 것을 그림으로 이해합니다</p>
+    <p style="font-size:.85rem;color:var(--pink);margin-bottom:1rem;">🧠 Part 0에서 AI/ML의 전체 그림을 봤다면, 이제 <strong>딥러닝의 내부 작동 원리</strong>를 하나씩 열어봅니다.</p>
+    <nav class="ch-nav">
+      <a href="#dl-ch1"><span class="cn">01</span>뉴런과 퍼셉트론</a>
+      <a href="#dl-ch2"><span class="cn">02</span>활성화 함수</a>
+      <a href="#dl-ch3"><span class="cn">03</span>Forward Pass</a>
+      <a href="#dl-ch4"><span class="cn">04</span>역전파</a>
+      <a href="#dl-ch5"><span class="cn">05</span>옵티마이저</a>
+      <a href="#dl-ch6"><span class="cn">06</span>CNN</a>
+      <a href="#dl-ch7"><span class="cn">07</span>RNN · LSTM</a>
+      <a href="#dl-ch8"><span class="cn">08</span>Overfitting 대응</a>
+      <a href="#dl-ch9"><span class="cn">09</span>딥러닝의 역사</a>
+      <a href="#dl-ch10"><span class="cn">10</span>Transformer로</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ── Part 1 로드맵 ── -->
+<div class="dia reveal" style="margin-bottom:2rem">
+<div class="dia-title">🗺️ Part 1 로드맵 — 딥러닝의 원리를 10단계로 시각 탐험</div>
+<div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:1.2rem">신경망의 최소 단위인 뉴런부터 시작해, CNN·RNN을 거쳐, Transformer 직전까지 도달합니다</div>
+
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem;max-width:900px;margin:0 auto">
+
+  <div style="text-align:center">
+    <div style="background:var(--pink-bg);border:2px solid var(--pink-border);border-radius:14px;padding:.9rem .5rem">
+      <div style="font-size:1.3rem;margin-bottom:.3rem">🔵</div>
+      <div style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--pink)">Neuron</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">퍼셉트론 · XOR</div>
+    </div>
+    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.01</div>
+  </div>
+
+  <div style="text-align:center">
+    <div style="background:var(--pink-bg);border:2px solid var(--pink-border);border-radius:14px;padding:.9rem .5rem">
+      <div style="font-size:1.3rem;margin-bottom:.3rem">⚡</div>
+      <div style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--pink)">Activation</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">Sigmoid · ReLU</div>
+    </div>
+    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.02</div>
+  </div>
+
+  <div style="text-align:center">
+    <div style="background:var(--pink-bg);border:2px solid var(--pink-border);border-radius:14px;padding:.9rem .5rem">
+      <div style="font-size:1.3rem;margin-bottom:.3rem">➡️</div>
+      <div style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--pink)">Forward</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">입력 → 예측</div>
+    </div>
+    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.03</div>
+  </div>
+
+  <div style="text-align:center">
+    <div style="background:var(--pink-bg);border:2px solid var(--pink);border-radius:14px;padding:.9rem .5rem">
+      <div style="font-size:1.3rem;margin-bottom:.3rem">🔄</div>
+      <div style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--pink)">Backprop</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">역전파 · Chain Rule</div>
+    </div>
+    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.04 ⭐</div>
+  </div>
+
+  <div style="text-align:center">
+    <div style="background:var(--pink-bg);border:2px solid var(--pink-border);border-radius:14px;padding:.9rem .5rem">
+      <div style="font-size:1.3rem;margin-bottom:.3rem">🏔️</div>
+      <div style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--pink)">Optimizer</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">SGD · Adam</div>
+    </div>
+    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.05</div>
+  </div>
+
+</div>
+
+<!-- 두 번째 줄 -->
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem;max-width:900px;margin:.6rem auto 0">
+
+  <div style="text-align:center">
+    <div style="background:var(--pink-bg);border:2px solid var(--pink-border);border-radius:14px;padding:.9rem .5rem">
+      <div style="font-size:1.3rem;margin-bottom:.3rem">🖼️</div>
+      <div style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--pink)">CNN</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">이미지 인식</div>
+    </div>
+    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.06</div>
+  </div>
+
+  <div style="text-align:center">
+    <div style="background:var(--pink-bg);border:2px solid var(--pink-border);border-radius:14px;padding:.9rem .5rem">
+      <div style="font-size:1.3rem;margin-bottom:.3rem">🔁</div>
+      <div style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--pink)">RNN · LSTM</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">시퀀스 학습</div>
+    </div>
+    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.07</div>
+  </div>
+
+  <div style="text-align:center">
+    <div style="background:var(--pink-bg);border:2px solid var(--pink-border);border-radius:14px;padding:.9rem .5rem">
+      <div style="font-size:1.3rem;margin-bottom:.3rem">🛡️</div>
+      <div style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--pink)">Overfitting</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">Dropout · 정규화</div>
+    </div>
+    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.08</div>
+  </div>
+
+  <div style="text-align:center">
+    <div style="background:var(--pink-bg);border:2px solid var(--pink-border);border-radius:14px;padding:.9rem .5rem">
+      <div style="font-size:1.3rem;margin-bottom:.3rem">📜</div>
+      <div style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--pink)">History</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">3번의 겨울</div>
+    </div>
+    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.09</div>
+  </div>
+
+  <div style="text-align:center">
+    <div style="background:var(--pink-bg);border:2px solid var(--pink);border-radius:14px;padding:.9rem .5rem">
+      <div style="font-size:1.3rem;margin-bottom:.3rem">🚀</div>
+      <div style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--pink)">→ Transformer</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">Part 2 브릿지</div>
+    </div>
+    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.10</div>
+  </div>
+
+</div>
+
+<div style="margin-top:1.5rem;padding:1rem 1.2rem;background:var(--surface);border-left:3px solid var(--pink);border-radius:0 10px 10px 0;max-width:900px;margin-left:auto;margin-right:auto;font-size:.85rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--pink)">핵심 메시지:</strong>
+  ① "딥러닝은 <strong>뉴런 → 층 → 네트워크</strong>의 계층 구조다" &nbsp;②&nbsp; "학습의 본질은 <strong>Forward(예측) + Backward(교정)</strong>의 반복이다" &nbsp;③&nbsp; "CNN·RNN을 이해하면 <strong>Transformer가 왜 혁명인지</strong> 보인다"
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 1: 뉴런과 퍼셉트론 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="dl-ch1">
+<div class="ch-head"><div class="ch-num" style="color:var(--pink)">01</div><h2 class="ch-title">뉴런과 퍼셉트론 — 딥러닝의 최소 단위</h2></div>
+
+<p class="section-desc">딥러닝은 결국 <strong style="color:var(--pink)">인공 뉴런</strong>이 수백만 개 모인 것입니다. 모든 것은 1957년의 단 하나의 뉴런, <strong>퍼셉트론</strong>에서 시작했습니다. 생물학적 뉴런의 작동 방식을 기계로 옮기면 무엇이 되는지 보겠습니다.</p>
+
+<!-- 생물학적 뉴런 vs 인공 뉴런 -->
+<div class="dia reveal">
+<div class="dia-title">🔬 생물학적 뉴런 → 인공 뉴런</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:900px;margin:0 auto">
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:14px;padding:1.3rem">
+    <div style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--pink);margin-bottom:.8rem">🧬 생물학적 뉴런</div>
+    <svg viewBox="0 0 400 180" style="width:100%;max-width:380px;margin:0 auto;display:block">
+      <!-- 수상돌기 (입력) -->
+      <line x1="30" y1="50" x2="120" y2="90" stroke="var(--pink)" stroke-width="2.5" opacity=".7"/>
+      <line x1="30" y1="90" x2="120" y2="90" stroke="var(--pink)" stroke-width="2.5" opacity=".7"/>
+      <line x1="30" y1="130" x2="120" y2="90" stroke="var(--pink)" stroke-width="2.5" opacity=".7"/>
+      <text x="10" y="48" font-size="9" fill="var(--text-dim)">자극1</text>
+      <text x="10" y="88" font-size="9" fill="var(--text-dim)">자극2</text>
+      <text x="10" y="128" font-size="9" fill="var(--text-dim)">자극3</text>
+      <!-- 세포체 -->
+      <ellipse cx="160" cy="90" rx="42" ry="38" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2.5"/>
+      <text x="132" y="87" font-size="10" fill="var(--pink)" font-weight="700">세포체</text>
+      <text x="134" y="101" font-size="8" fill="var(--text-dim)">(합산+판단)</text>
+      <!-- 축삭 (출력) -->
+      <line x1="202" y1="90" x2="340" y2="90" stroke="var(--pink)" stroke-width="3"/>
+      <polygon points="340,80 370,90 340,100" fill="var(--pink)"/>
+      <text x="240" y="82" font-size="9" fill="var(--text-dim)">축삭 (출력)</text>
+      <!-- 라벨 -->
+      <text x="50" y="165" font-size="9" fill="var(--pink)" font-weight="600">수상돌기 = 입력</text>
+      <text x="240" y="165" font-size="9" fill="var(--pink)" font-weight="600">축삭 = 출력 신호</text>
+    </svg>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8;margin-top:.6rem">
+      자극(전기 신호)이 <strong>수상돌기</strong>로 들어와 → <strong>세포체</strong>에서 합산 → 임계값을 넘으면 <strong>축삭</strong>으로 발화(fire).
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:2px solid var(--pink);border-radius:14px;padding:1.3rem">
+    <div style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--pink);margin-bottom:.8rem">🤖 인공 뉴런 (Perceptron)</div>
+    <svg viewBox="0 0 400 180" style="width:100%;max-width:380px;margin:0 auto;display:block">
+      <!-- 입력 -->
+      <circle cx="40" cy="40" r="16" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/>
+      <text x="32" y="44" font-size="10" fill="var(--pink)" font-weight="700">x₁</text>
+      <circle cx="40" cy="90" r="16" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/>
+      <text x="32" y="94" font-size="10" fill="var(--pink)" font-weight="700">x₂</text>
+      <circle cx="40" cy="140" r="16" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/>
+      <text x="32" y="144" font-size="10" fill="var(--pink)" font-weight="700">x₃</text>
+      <!-- 가중치 화살표 -->
+      <line x1="58" y1="40" x2="155" y2="85" stroke="var(--text-dim)" stroke-width="1.5"/>
+      <text x="85" y="52" font-size="8" fill="var(--pink)">w₁</text>
+      <line x1="58" y1="90" x2="155" y2="90" stroke="var(--text-dim)" stroke-width="1.5"/>
+      <text x="100" y="82" font-size="8" fill="var(--pink)">w₂</text>
+      <line x1="58" y1="140" x2="155" y2="95" stroke="var(--text-dim)" stroke-width="1.5"/>
+      <text x="85" y="132" font-size="8" fill="var(--pink)">w₃</text>
+      <!-- 뉴런 본체 -->
+      <circle cx="185" cy="90" r="30" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2.5"/>
+      <text x="168" y="86" font-size="8" fill="var(--pink)" font-weight="700">Σ + b</text>
+      <text x="172" y="99" font-size="7" fill="var(--text-dim)">→ σ( )</text>
+      <!-- 출력 -->
+      <line x1="216" y1="90" x2="330" y2="90" stroke="var(--pink)" stroke-width="2.5"/>
+      <polygon points="330,82 355,90 330,98" fill="var(--pink)"/>
+      <circle cx="370" cy="90" r="16" fill="var(--pink)" stroke="none"/>
+      <text x="363" y="94" font-size="10" fill="#fff" font-weight="700">y</text>
+      <!-- 수식 -->
+      <text x="100" y="172" font-size="10" fill="var(--pink)" font-weight="600">y = σ(w₁x₁ + w₂x₂ + w₃x₃ + b)</text>
+    </svg>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8;margin-top:.6rem">
+      입력(x) × <strong>가중치(w)</strong> → <strong>합산(Σ)</strong> + 편향(b) → <strong>활성화 함수(σ)</strong> → 출력(y). 생물학적 뉴런과 1:1 대응!
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- 퍼셉트론 역사 -->
+<div class="dia reveal">
+<div class="dia-title">📜 퍼셉트론의 탄생 — 1957</div>
+<div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:center">
+  <div style="background:var(--pink-bg);border:2px solid var(--pink);border-radius:50%;width:80px;height:80px;display:flex;align-items:center;justify-content:center;font-size:2rem">🧑‍🔬</div>
+  <div style="font-size:.85rem;color:var(--text);line-height:1.85">
+    <strong style="color:var(--pink)">Frank Rosenblatt</strong> (<em>코넬대 심리학자, 신경과학 연구원, 최초의 실용적 인공 뉴런 발명자</em>)가 1957년 퍼셉트론을 발명합니다. 뇌의 뉴런을 수학 모델로 옮긴 최초의 실용적 시도. 뉴욕타임즈는 "기계가 걷고, 말하고, 쓰고, 스스로 복제하고, 자기 존재를 인식하게 될 것"이라고 보도했습니다. 하지만 이 열광은 12년 후 차갑게 식습니다.
+  </div>
+</div>
+</div>
+
+<!-- AND/OR 게이트 퍼셉트론 -->
+<div class="dia reveal">
+<div class="dia-title">🔌 퍼셉트론으로 논리 게이트 만들기</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:900px;margin:0 auto">
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--pink);margin-bottom:.6rem">AND 게이트</div>
+    <svg viewBox="0 0 300 160" style="width:100%;max-width:280px;margin:0 auto;display:block">
+      <!-- 축 -->
+      <line x1="40" y1="130" x2="260" y2="130" stroke="var(--text-dim)" stroke-width="1"/>
+      <line x1="40" y1="130" x2="40" y2="20" stroke="var(--text-dim)" stroke-width="1"/>
+      <text x="140" y="155" font-size="9" fill="var(--text-dim)">x₁</text>
+      <text x="15" y="75" font-size="9" fill="var(--text-dim)">x₂</text>
+      <!-- 점 -->
+      <circle cx="60" cy="120" r="8" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="2"/>
+      <text x="55" y="124" font-size="8" fill="var(--text-dim)">0</text>
+      <circle cx="200" cy="120" r="8" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="2"/>
+      <text x="195" y="124" font-size="8" fill="var(--text-dim)">0</text>
+      <circle cx="60" cy="40" r="8" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="2"/>
+      <text x="55" y="44" font-size="8" fill="var(--text-dim)">0</text>
+      <circle cx="200" cy="40" r="10" fill="var(--pink)" stroke="none"/>
+      <text x="195" y="44" font-size="9" fill="#fff" font-weight="700">1</text>
+      <!-- 분류선 -->
+      <line x1="100" y1="20" x2="240" y2="100" stroke="var(--pink)" stroke-width="2.5" stroke-dasharray="6,3"/>
+      <text x="155" y="50" font-size="9" fill="var(--pink)" font-weight="600">분류선</text>
+    </svg>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.7;margin-top:.4rem;text-align:center">
+      w₁=1, w₂=1, b=-1.5 → 둘 다 1일 때만 출력 1
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--pink);margin-bottom:.6rem">OR 게이트</div>
+    <svg viewBox="0 0 300 160" style="width:100%;max-width:280px;margin:0 auto;display:block">
+      <!-- 축 -->
+      <line x1="40" y1="130" x2="260" y2="130" stroke="var(--text-dim)" stroke-width="1"/>
+      <line x1="40" y1="130" x2="40" y2="20" stroke="var(--text-dim)" stroke-width="1"/>
+      <text x="140" y="155" font-size="9" fill="var(--text-dim)">x₁</text>
+      <text x="15" y="75" font-size="9" fill="var(--text-dim)">x₂</text>
+      <!-- 점 -->
+      <circle cx="60" cy="120" r="8" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="2"/>
+      <text x="55" y="124" font-size="8" fill="var(--text-dim)">0</text>
+      <circle cx="200" cy="120" r="10" fill="var(--pink)" stroke="none"/>
+      <text x="195" y="124" font-size="9" fill="#fff" font-weight="700">1</text>
+      <circle cx="60" cy="40" r="10" fill="var(--pink)" stroke="none"/>
+      <text x="55" y="44" font-size="9" fill="#fff" font-weight="700">1</text>
+      <circle cx="200" cy="40" r="10" fill="var(--pink)" stroke="none"/>
+      <text x="195" y="44" font-size="9" fill="#fff" font-weight="700">1</text>
+      <!-- 분류선 -->
+      <line x1="50" y1="100" x2="170" y2="140" stroke="var(--pink)" stroke-width="2.5" stroke-dasharray="6,3"/>
+      <text x="60" y="140" font-size="9" fill="var(--pink)" font-weight="600">분류선</text>
+    </svg>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.7;margin-top:.4rem;text-align:center">
+      w₁=1, w₂=1, b=-0.5 → 하나만 1이어도 출력 1
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- XOR 문제 -->
+<div class="dia reveal">
+<div class="dia-title">❌ XOR 문제 — 단층 퍼셉트론의 한계</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:900px;margin:0 auto">
+
+  <div style="background:var(--card);border:2px solid #e74c3c;border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:#e74c3c;margin-bottom:.6rem">❌ 단층 퍼셉트론 — 실패</div>
+    <svg viewBox="0 0 300 180" style="width:100%;max-width:280px;margin:0 auto;display:block">
+      <line x1="40" y1="140" x2="260" y2="140" stroke="var(--text-dim)" stroke-width="1"/>
+      <line x1="40" y1="140" x2="40" y2="20" stroke="var(--text-dim)" stroke-width="1"/>
+      <!-- XOR 점 -->
+      <circle cx="70" cy="130" r="8" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="2"/>
+      <text x="65" y="134" font-size="8" fill="var(--text-dim)">0</text>
+      <circle cx="210" cy="130" r="10" fill="var(--pink)" stroke="none"/>
+      <text x="205" y="134" font-size="9" fill="#fff" font-weight="700">1</text>
+      <circle cx="70" cy="40" r="10" fill="var(--pink)" stroke="none"/>
+      <text x="65" y="44" font-size="9" fill="#fff" font-weight="700">1</text>
+      <circle cx="210" cy="40" r="8" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="2"/>
+      <text x="205" y="44" font-size="8" fill="var(--text-dim)">0</text>
+      <!-- 실패 표시 -->
+      <line x1="50" y1="25" x2="240" y2="145" stroke="#e74c3c" stroke-width="2" stroke-dasharray="5,3"/>
+      <text x="120" y="100" font-size="10" fill="#e74c3c" font-weight="700">직선 1개로</text>
+      <text x="115" y="115" font-size="10" fill="#e74c3c" font-weight="700">분리 불가!</text>
+    </svg>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8;margin-top:.5rem">
+      XOR: 둘이 <strong>다르면 1</strong>, 같으면 0. 직선 하나로는 절대 분리할 수 없습니다. 1969년 <strong>Marvin Minsky</strong> (<em>MIT AI 연구소 공동창립자, "인공지능"이란 용어를 대중화한 선구자</em>)가 이를 수학적으로 증명하며 <strong>1차 AI 겨울</strong>이 시작됩니다.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:2px solid var(--pink);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--pink);margin-bottom:.6rem">✅ 다층 퍼셉트론(MLP) — 해결!</div>
+    <svg viewBox="0 0 300 180" style="width:100%;max-width:280px;margin:0 auto;display:block">
+      <line x1="40" y1="140" x2="260" y2="140" stroke="var(--text-dim)" stroke-width="1"/>
+      <line x1="40" y1="140" x2="40" y2="20" stroke="var(--text-dim)" stroke-width="1"/>
+      <!-- XOR 점 -->
+      <circle cx="70" cy="130" r="8" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="2"/>
+      <circle cx="210" cy="130" r="10" fill="var(--pink)" stroke="none"/>
+      <circle cx="70" cy="40" r="10" fill="var(--pink)" stroke="none"/>
+      <circle cx="210" cy="40" r="8" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="2"/>
+      <!-- 두 직선 (비선형 경계) -->
+      <line x1="50" y1="30" x2="200" y2="145" stroke="var(--pink)" stroke-width="2.5"/>
+      <line x1="90" y1="20" x2="250" y2="140" stroke="var(--pink)" stroke-width="2.5"/>
+      <!-- 영역 표시 -->
+      <text x="110" y="90" font-size="10" fill="var(--pink)" font-weight="700">두 직선 사이</text>
+      <text x="120" y="105" font-size="10" fill="var(--pink)" font-weight="700">= 출력 1!</text>
+    </svg>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8;margin-top:.5rem">
+      <strong>은닉층(Hidden Layer)</strong>을 하나 추가하면 직선 2개를 결합할 수 있고, XOR를 해결합니다. 이것이 <strong>다층 퍼셉트론(MLP)</strong> — 딥러닝의 출발점입니다.
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:1.2rem;padding:1rem 1.2rem;background:var(--pink-bg);border:1px solid var(--pink-border);border-radius:10px;max-width:900px;margin-left:auto;margin-right:auto;font-size:.82rem;color:var(--text);line-height:1.85">
+  🎯 <strong style="color:var(--pink)">핵심:</strong> 퍼셉트론 하나는 <strong>직선 하나</strong>를 그을 수 있습니다. 층을 쌓으면(Deep) 곡선, 곡면, 초고차원 경계까지 표현할 수 있습니다. 이것이 "딥(Deep)" 러닝의 의미입니다.
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 2: 활성화 함수 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="dl-ch2">
+<div class="ch-head"><div class="ch-num" style="color:var(--pink)">02</div><h2 class="ch-title">활성화 함수 비주얼 가이드 — 뉴런의 흥분 스위치</h2></div>
+
+<p class="section-desc">뉴런이 받은 신호를 <strong>그대로 전달하면 안 됩니다</strong>. 선형 연산만 쌓으면 아무리 깊어도 결국 <strong>직선 하나</strong>와 같습니다. 활성화 함수는 각 뉴런의 <strong style="color:var(--pink)">"흥분 임계값"</strong> — 자극이 충분하면 발화하고, 아니면 무시합니다.</p>
+
+<!-- 왜 비선형이 필요한가 -->
+<div class="dia reveal">
+<div class="dia-title">🤔 왜 비선형이 필요한가?</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:900px;margin:0 auto">
+
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--text-dim);margin-bottom:.6rem">😐 선형만 쌓으면?</div>
+    <svg viewBox="0 0 280 140" style="width:100%;max-width:260px;margin:0 auto;display:block">
+      <line x1="30" y1="120" x2="250" y2="120" stroke="var(--text-dim)" stroke-width="1"/>
+      <line x1="30" y1="120" x2="30" y2="10" stroke="var(--text-dim)" stroke-width="1"/>
+      <!-- 직선 3개 합쳐도 직선 -->
+      <line x1="40" y1="110" x2="240" y2="20" stroke="var(--text-dim)" stroke-width="2"/>
+      <text x="80" y="50" font-size="9" fill="var(--text-dim)">f(g(h(x)))</text>
+      <text x="80" y="65" font-size="9" fill="var(--text-dim)">= 직선!</text>
+      <text x="60" y="135" font-size="8" fill="var(--text-dim)">100층을 쌓아도 결과는 직선 하나</text>
+    </svg>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.7;margin-top:.4rem">
+      <code style="font-size:.72rem;background:var(--surface);padding:.15rem .4rem;border-radius:4px">f(x) = 2x + 1, g(x) = 3x - 2</code><br>
+      f(g(x)) = 2(3x-2)+1 = <strong>6x - 3</strong> ... 여전히 직선!
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:2px solid var(--pink);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--pink);margin-bottom:.6rem">🎯 비선형을 넣으면!</div>
+    <svg viewBox="0 0 280 140" style="width:100%;max-width:260px;margin:0 auto;display:block">
+      <line x1="30" y1="120" x2="250" y2="120" stroke="var(--text-dim)" stroke-width="1"/>
+      <line x1="30" y1="120" x2="30" y2="10" stroke="var(--text-dim)" stroke-width="1"/>
+      <!-- 복잡한 곡선 -->
+      <path d="M40,100 Q80,20 140,70 T220,30 T250,60" fill="none" stroke="var(--pink)" stroke-width="2.5"/>
+      <text x="80" y="50" font-size="9" fill="var(--pink)" font-weight="600">복잡한 패턴</text>
+      <text x="80" y="65" font-size="9" fill="var(--pink)" font-weight="600">표현 가능!</text>
+      <text x="40" y="135" font-size="8" fill="var(--text-dim)">층마다 비선형 → 무한한 표현력</text>
+    </svg>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.7;margin-top:.4rem">
+      비선형 활성화를 사이에 넣으면 곡선, 곡면, 어떤 복잡한 패턴이든 근사(approximate)할 수 있습니다. 이것이 <strong>Universal Approximation Theorem</strong>.
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- 4대 활성화 함수 -->
+<div class="dia reveal">
+<div class="dia-title">📊 4대 활성화 함수 — 함수 곡선 + 미분 곡선</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:900px;margin:0 auto">
+
+  <!-- Sigmoid -->
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:14px;padding:1.1rem">
+    <div style="font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--pink);margin-bottom:.3rem">① Sigmoid</div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-bottom:.6rem">σ(x) = 1 / (1 + e⁻ˣ) &nbsp;→&nbsp; 출력: 0~1</div>
+    <svg viewBox="0 0 280 120" style="width:100%;max-width:260px;margin:0 auto;display:block">
+      <!-- 축 -->
+      <line x1="20" y1="60" x2="260" y2="60" stroke="var(--text-dim)" stroke-width=".5"/>
+      <line x1="140" y1="10" x2="140" y2="110" stroke="var(--text-dim)" stroke-width=".5"/>
+      <text x="245" y="55" font-size="7" fill="var(--text-dim)">x</text>
+      <text x="145" y="18" font-size="7" fill="var(--text-dim)">1</text>
+      <text x="145" y="108" font-size="7" fill="var(--text-dim)">0</text>
+      <!-- S자 곡선 -->
+      <path d="M20,100 Q60,100 90,95 Q110,85 125,70 Q140,50 155,35 Q170,22 190,17 Q220,12 260,10" fill="none" stroke="var(--pink)" stroke-width="2.5"/>
+      <!-- 미분 곡선 (종 모양) -->
+      <path d="M20,100 Q60,100 100,98 Q120,90 135,70 Q140,55 145,70 Q160,90 180,98 Q220,100 260,100" fill="none" stroke="var(--pink)" stroke-width="1.5" stroke-dasharray="4,3" opacity=".6"/>
+      <text x="185" y="35" font-size="7" fill="var(--pink)">σ(x)</text>
+      <text x="170" y="85" font-size="7" fill="var(--pink)" opacity=".6">σ'(x)</text>
+    </svg>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.5rem">
+      <div style="padding:.4rem .6rem;background:var(--pink-bg);border-radius:6px;font-size:.68rem;color:var(--text)">✅ 확률 해석 가능</div>
+      <div style="padding:.4rem .6rem;background:var(--surface);border-radius:6px;font-size:.68rem;color:var(--text-dim)">❌ 기울기 소실!</div>
+    </div>
+  </div>
+
+  <!-- Tanh -->
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:14px;padding:1.1rem">
+    <div style="font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--pink);margin-bottom:.3rem">② Tanh</div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-bottom:.6rem">tanh(x) = (eˣ - e⁻ˣ)/(eˣ + e⁻ˣ) &nbsp;→&nbsp; 출력: -1~1</div>
+    <svg viewBox="0 0 280 120" style="width:100%;max-width:260px;margin:0 auto;display:block">
+      <line x1="20" y1="60" x2="260" y2="60" stroke="var(--text-dim)" stroke-width=".5"/>
+      <line x1="140" y1="10" x2="140" y2="110" stroke="var(--text-dim)" stroke-width=".5"/>
+      <text x="245" y="55" font-size="7" fill="var(--text-dim)">x</text>
+      <text x="145" y="18" font-size="7" fill="var(--text-dim)">+1</text>
+      <text x="145" y="108" font-size="7" fill="var(--text-dim)">-1</text>
+      <!-- Tanh 곡선 -->
+      <path d="M20,105 Q60,105 90,100 Q115,85 130,70 Q140,55 150,40 Q165,25 190,15 Q220,10 260,8" fill="none" stroke="var(--pink)" stroke-width="2.5"/>
+      <!-- 미분 -->
+      <path d="M20,100 Q60,100 100,95 Q125,75 135,50 Q140,35 145,50 Q155,75 175,95 Q210,100 260,100" fill="none" stroke="var(--pink)" stroke-width="1.5" stroke-dasharray="4,3" opacity=".6"/>
+      <text x="195" y="25" font-size="7" fill="var(--pink)">tanh(x)</text>
+      <text x="160" y="80" font-size="7" fill="var(--pink)" opacity=".6">tanh'(x)</text>
+    </svg>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.5rem">
+      <div style="padding:.4rem .6rem;background:var(--pink-bg);border-radius:6px;font-size:.68rem;color:var(--text)">✅ 영점 대칭</div>
+      <div style="padding:.4rem .6rem;background:var(--surface);border-radius:6px;font-size:.68rem;color:var(--text-dim)">❌ 여전히 기울기 소실</div>
+    </div>
+  </div>
+
+  <!-- ReLU -->
+  <div style="background:var(--card);border:2px solid var(--pink);border-radius:14px;padding:1.1rem">
+    <div style="font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--pink);margin-bottom:.3rem">③ ReLU ⭐ 가장 많이 사용</div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-bottom:.6rem">ReLU(x) = max(0, x) &nbsp;→&nbsp; 초간단!</div>
+    <svg viewBox="0 0 280 120" style="width:100%;max-width:260px;margin:0 auto;display:block">
+      <line x1="20" y1="100" x2="260" y2="100" stroke="var(--text-dim)" stroke-width=".5"/>
+      <line x1="140" y1="10" x2="140" y2="110" stroke="var(--text-dim)" stroke-width=".5"/>
+      <text x="245" y="95" font-size="7" fill="var(--text-dim)">x</text>
+      <!-- ReLU: x<0이면 0, x>0이면 x -->
+      <line x1="20" y1="100" x2="140" y2="100" stroke="var(--pink)" stroke-width="2.5"/>
+      <line x1="140" y1="100" x2="240" y2="20" stroke="var(--pink)" stroke-width="2.5"/>
+      <!-- 미분: 0 또는 1 -->
+      <line x1="20" y1="100" x2="138" y2="100" stroke="var(--pink)" stroke-width="1.5" stroke-dasharray="4,3" opacity=".6"/>
+      <line x1="142" y1="55" x2="260" y2="55" stroke="var(--pink)" stroke-width="1.5" stroke-dasharray="4,3" opacity=".6"/>
+      <text x="200" y="48" font-size="7" fill="var(--pink)" opacity=".7">미분=1 (상수!)</text>
+      <text x="50" y="95" font-size="7" fill="var(--pink)" opacity=".7">미분=0</text>
+    </svg>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.5rem">
+      <div style="padding:.4rem .6rem;background:var(--pink-bg);border-radius:6px;font-size:.68rem;color:var(--text)">✅ 초고속 · 기울기 보존</div>
+      <div style="padding:.4rem .6rem;background:var(--surface);border-radius:6px;font-size:.68rem;color:var(--text-dim)">❌ 죽은 뉴런 (x&lt;0 → 영원히 0)</div>
+    </div>
+  </div>
+
+  <!-- GELU -->
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:14px;padding:1.1rem">
+    <div style="font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--pink);margin-bottom:.3rem">④ GELU — Transformer 표준</div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-bottom:.6rem">GELU(x) = x · Φ(x) &nbsp;→&nbsp; 매끄러운 ReLU</div>
+    <svg viewBox="0 0 280 120" style="width:100%;max-width:260px;margin:0 auto;display:block">
+      <line x1="20" y1="90" x2="260" y2="90" stroke="var(--text-dim)" stroke-width=".5"/>
+      <line x1="140" y1="10" x2="140" y2="110" stroke="var(--text-dim)" stroke-width=".5"/>
+      <text x="245" y="85" font-size="7" fill="var(--text-dim)">x</text>
+      <!-- GELU 곡선: 0 근처에서 부드러운 전환 -->
+      <path d="M20,92 Q60,93 90,93 Q110,92 125,90 Q135,85 140,80 Q148,68 160,52 Q180,30 210,18 Q240,10 260,5" fill="none" stroke="var(--pink)" stroke-width="2.5"/>
+      <!-- ReLU 비교 (회색 점선) -->
+      <line x1="20" y1="90" x2="140" y2="90" stroke="var(--text-dim)" stroke-width="1" stroke-dasharray="3,3" opacity=".4"/>
+      <line x1="140" y1="90" x2="240" y2="18" stroke="var(--text-dim)" stroke-width="1" stroke-dasharray="3,3" opacity=".4"/>
+      <text x="40" y="82" font-size="7" fill="var(--text-dim)" opacity=".5">ReLU (비교)</text>
+      <text x="180" y="50" font-size="7" fill="var(--pink)">GELU</text>
+    </svg>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.5rem">
+      <div style="padding:.4rem .6rem;background:var(--pink-bg);border-radius:6px;font-size:.68rem;color:var(--text)">✅ 매끄러움 · 죽은 뉴런 없음</div>
+      <div style="padding:.4rem .6rem;background:var(--surface);border-radius:6px;font-size:.68rem;color:var(--text-dim)">GPT, BERT, Claude 전부 사용</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- 비유 정리 -->
+<div class="dia reveal">
+<div style="max-width:900px;margin:0 auto;padding:1rem 1.2rem;background:var(--pink-bg);border:1px solid var(--pink-border);border-radius:10px;font-size:.85rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--pink)">비유:</strong> 활성화 함수는 뉴런의 <strong>"흥분 임계값"</strong>입니다. 교실에서 손드는 것과 같아요 — 확신이 일정 수준을 넘으면 손을 들고(발화), 아니면 가만히 있습니다(비활성). Sigmoid는 "소심한 학생"(항상 조심스럽게), ReLU는 "직설적 학생"(0 아니면 전부), GELU는 "섬세한 학생"(작은 자극도 약간은 반영).
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 3: Forward Propagation -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="dl-ch3">
+<div class="ch-head"><div class="ch-num" style="color:var(--pink)">03</div><h2 class="ch-title">Forward Propagation — 입력에서 출력까지</h2></div>
+
+<p class="section-desc">Forward Pass는 <strong style="color:var(--pink)">공장 조립 라인</strong>입니다. 원재료(입력 데이터)가 단계별로 가공되어 완제품(예측값)이 나옵니다. 이 과정을 숫자로 하나하나 따라가 봅시다.</p>
+
+<!-- 공장 비유 -->
+<div class="dia reveal">
+<div class="dia-title">🏭 비유: 공장 조립 라인 = Forward Pass</div>
+<div style="max-width:900px;margin:0 auto">
+<svg viewBox="0 0 700 120" style="width:100%;display:block">
+  <!-- 원재료 -->
+  <rect x="10" y="30" width="90" height="60" rx="12" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/>
+  <text x="22" y="55" font-size="9" fill="var(--pink)" font-weight="700">📦 원재료</text>
+  <text x="25" y="72" font-size="7" fill="var(--text-dim)">입력 데이터</text>
+  <text x="105" y="64" font-size="14" fill="var(--pink)">→</text>
+  <!-- 1차 가공 -->
+  <rect x="125" y="30" width="90" height="60" rx="12" fill="var(--pink-bg)" stroke="var(--pink-border)" stroke-width="1.5"/>
+  <text x="132" y="55" font-size="9" fill="var(--pink)" font-weight="700">⚙️ 1차 가공</text>
+  <text x="135" y="72" font-size="7" fill="var(--text-dim)">w·x + b → σ</text>
+  <text x="220" y="64" font-size="14" fill="var(--pink)">→</text>
+  <!-- 2차 가공 -->
+  <rect x="240" y="30" width="90" height="60" rx="12" fill="var(--pink-bg)" stroke="var(--pink-border)" stroke-width="1.5"/>
+  <text x="247" y="55" font-size="9" fill="var(--pink)" font-weight="700">⚙️ 2차 가공</text>
+  <text x="250" y="72" font-size="7" fill="var(--text-dim)">w·h + b → σ</text>
+  <text x="335" y="64" font-size="14" fill="var(--pink)">→</text>
+  <!-- 완제품 -->
+  <rect x="355" y="30" width="90" height="60" rx="12" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/>
+  <text x="368" y="55" font-size="9" fill="var(--pink)" font-weight="700">📤 완제품</text>
+  <text x="375" y="72" font-size="7" fill="var(--text-dim)">예측값 ŷ</text>
+  <text x="450" y="64" font-size="14" fill="var(--pink)">→</text>
+  <!-- 품질 검사 -->
+  <rect x="470" y="30" width="100" height="60" rx="12" fill="var(--surface)" stroke="#e74c3c" stroke-width="2"/>
+  <text x="478" y="55" font-size="9" fill="#e74c3c" font-weight="700">🔍 품질검사</text>
+  <text x="478" y="72" font-size="7" fill="var(--text-dim)">Loss(ŷ vs y)</text>
+  <!-- 라벨 -->
+  <text x="25" y="110" font-size="8" fill="var(--text-dim)">입력층</text>
+  <text x="140" y="110" font-size="8" fill="var(--text-dim)">은닉층 1</text>
+  <text x="255" y="110" font-size="8" fill="var(--text-dim)">은닉층 2</text>
+  <text x="370" y="110" font-size="8" fill="var(--text-dim)">출력층</text>
+  <text x="490" y="110" font-size="8" fill="#e74c3c">손실 함수</text>
+</svg>
+</div>
+</div>
+
+<!-- 단계별 숫자 예시 -->
+<div class="dia reveal">
+<div class="dia-title">🔢 구체 숫자로 따라가기 — 2층 네트워크 Forward Pass</div>
+<div style="max-width:900px;margin:0 auto">
+
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem;margin-bottom:1rem">
+
+  <!-- Step 1-2 -->
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:12px;padding:1rem">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--pink);font-weight:700;margin-bottom:.5rem">Step 1: 입력</div>
+    <div style="font-size:.8rem;color:var(--text);line-height:1.8">
+      <code style="font-size:.75rem;background:var(--surface);padding:.2rem .5rem;border-radius:4px">x = [1.0, 0.5]</code>
+    </div>
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--pink);font-weight:700;margin-top:.7rem;margin-bottom:.3rem">Step 2: 가중치 곱셈</div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.8;font-family:var(--mono)">
+      w = [0.6, -0.3]<br>
+      b = 0.1<br>
+      z = 0.6×1.0 + (-0.3)×0.5 + 0.1<br>
+      <strong style="color:var(--pink)">z = 0.55</strong>
+    </div>
+  </div>
+
+  <!-- Step 3-4 -->
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:12px;padding:1rem">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--pink);font-weight:700;margin-bottom:.5rem">Step 3: 활성화 (ReLU)</div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.8;font-family:var(--mono)">
+      h = ReLU(0.55)<br>
+      = max(0, 0.55)<br>
+      <strong style="color:var(--pink)">h = 0.55</strong>
+    </div>
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--pink);font-weight:700;margin-top:.7rem;margin-bottom:.3rem">Step 4: 출력층</div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.8;font-family:var(--mono)">
+      w₂ = 0.8, b₂ = -0.1<br>
+      z₂ = 0.8×0.55 + (-0.1)<br>
+      <strong style="color:var(--pink)">z₂ = 0.34</strong>
+    </div>
+  </div>
+
+  <!-- Step 5-6 -->
+  <div style="background:var(--card);border:2px solid var(--pink);border-radius:12px;padding:1rem">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--pink);font-weight:700;margin-bottom:.5rem">Step 5: 최종 출력</div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.8;font-family:var(--mono)">
+      ŷ = σ(0.34)<br>
+      = 1/(1+e⁻⁰·³⁴)<br>
+      <strong style="color:var(--pink)">ŷ = 0.584</strong>
+    </div>
+    <div style="font-family:var(--mono);font-size:.7rem;color:#e74c3c;font-weight:700;margin-top:.7rem;margin-bottom:.3rem">Step 6: 손실 계산</div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.8;font-family:var(--mono)">
+      정답 y = 1.0<br>
+      Loss = (1.0 - 0.584)²<br>
+      <strong style="color:#e74c3c">Loss = 0.173</strong>
+    </div>
+  </div>
+
+</div>
+
+<div style="padding:1rem 1.2rem;background:var(--surface);border-left:3px solid var(--pink);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--pink)">Forward Pass는 "질문을 던지는 것"</strong>입니다. 네트워크가 "이 입력의 답은 0.584일 것이다"라고 예측합니다. 정답은 1.0이므로 틀렸습니다. 이 오차(Loss = 0.173)를 줄이려면? 다음 챕터의 <strong>역전파(Backpropagation)</strong>로 가중치를 교정합니다.
+</div>
+
+</div>
+</div>
+
+<!-- Forward vs Backward 비유 -->
+<div class="dia reveal">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:900px;margin:0 auto">
+  <div style="background:var(--pink-bg);border:1px solid var(--pink-border);border-radius:12px;padding:1rem;text-align:center">
+    <div style="font-size:1.6rem;margin-bottom:.4rem">➡️</div>
+    <div style="font-family:var(--display);font-size:.9rem;font-weight:700;color:var(--pink)">Forward Pass</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.7;margin-top:.4rem">시험지를 풀고 답을 제출하는 것</div>
+  </div>
+  <div style="background:var(--pink-bg);border:1px solid var(--pink-border);border-radius:12px;padding:1rem;text-align:center">
+    <div style="font-size:1.6rem;margin-bottom:.4rem">⬅️</div>
+    <div style="font-family:var(--display);font-size:.9rem;font-weight:700;color:var(--pink)">Backpropagation</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.7;margin-top:.4rem">채점 후 오답노트를 작성하는 것</div>
+  </div>
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 4: 역전파 (Backpropagation) ⭐ -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="dl-ch4">
+<div class="ch-head"><div class="ch-num" style="color:var(--pink)">04</div><h2 class="ch-title">역전파 (Backpropagation) — 딥러닝 학습의 심장 ⭐</h2></div>
+
+<p class="section-desc">딥러닝에서 가장 중요한 알고리즘입니다. Forward Pass로 예측한 결과가 틀렸을 때, <strong style="color:var(--pink)">오차를 출력에서 입력 방향으로 역추적</strong>하며 각 가중치가 오차에 얼마나 기여했는지 계산합니다. 비유하면 <strong>"시험 채점 후 오답노트"</strong> — 어디서, 얼마나 틀렸는지 역추적하는 과정입니다.</p>
+
+<!-- Chain Rule 시각 설명 -->
+<div class="dia reveal">
+<div class="dia-title">🔗 Chain Rule — 역전파의 수학적 핵심</div>
+<div style="max-width:900px;margin:0 auto">
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem">
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--pink);margin-bottom:.6rem">📐 합성함수의 미분</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.85;margin-bottom:.8rem">
+      함수가 체인처럼 연결되어 있으면:<br>
+      <code style="font-size:.8rem;background:var(--surface);padding:.2rem .5rem;border-radius:4px">f(g(x))의 미분 = f'(g(x)) × g'(x)</code>
+    </div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      <strong>예시:</strong> f(x) = x², g(x) = 3x + 1<br>
+      f(g(x)) = (3x+1)²<br>
+      미분 = 2(3x+1) × 3 = <strong>6(3x+1)</strong><br>
+      각 단계의 미분을 <strong>곱해나가면</strong> 됩니다!
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:2px solid var(--pink);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--pink);margin-bottom:.6rem">🎯 비유: 도미노 효과</div>
+    <svg viewBox="0 0 320 100" style="width:100%;max-width:300px;margin:0 auto;display:block">
+      <!-- 도미노들 -->
+      <rect x="20" y="20" width="15" height="55" rx="3" fill="var(--pink)" transform="rotate(-5,27,47)"/>
+      <rect x="70" y="22" width="15" height="50" rx="3" fill="var(--pink)" opacity=".8" transform="rotate(-8,77,47)"/>
+      <rect x="120" y="25" width="15" height="45" rx="3" fill="var(--pink)" opacity=".6" transform="rotate(-10,127,47)"/>
+      <rect x="170" y="28" width="15" height="40" rx="3" fill="var(--pink)" opacity=".4" transform="rotate(-12,177,48)"/>
+      <rect x="220" y="30" width="15" height="38" rx="3" fill="var(--pink)" opacity=".3" transform="rotate(-15,227,49)"/>
+      <!-- 역방향 화살표 -->
+      <line x1="260" y1="80" x2="35" y2="80" stroke="#e74c3c" stroke-width="2"/>
+      <polygon points="35,75 25,80 35,85" fill="#e74c3c"/>
+      <text x="90" y="95" font-size="9" fill="#e74c3c" font-weight="600">역방향으로 영향력 추적!</text>
+    </svg>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85;margin-top:.4rem">
+      각 도미노가 다음 도미노에 미치는 영향을 <strong>역으로 추적</strong>합니다. 마지막 도미노(출력 오차)에서 시작해서 첫 도미노(입력층 가중치)까지.
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<!-- 3층 네트워크 역전파 단계별 SVG -->
+<div class="dia reveal">
+<div class="dia-title">🔄 3층 네트워크 역전파 — 단계별 시각 투어</div>
+<div style="max-width:900px;margin:0 auto">
+
+<svg viewBox="0 0 800 280" style="width:100%;display:block;margin-bottom:1rem">
+  <!-- 네트워크 구조 -->
+  <!-- 입력층 -->
+  <circle cx="80" cy="80" r="22" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/>
+  <text x="71" y="84" font-size="10" fill="var(--pink)" font-weight="700">x₁</text>
+  <circle cx="80" cy="170" r="22" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/>
+  <text x="71" y="174" font-size="10" fill="var(--pink)" font-weight="700">x₂</text>
+  <text x="55" y="225" font-size="9" fill="var(--text-dim)" font-weight="600">입력층</text>
+
+  <!-- 은닉층1 -->
+  <circle cx="250" cy="60" r="22" fill="var(--pink-bg)" stroke="var(--pink-border)" stroke-width="2"/>
+  <text x="241" y="64" font-size="10" fill="var(--pink)" font-weight="700">h₁</text>
+  <circle cx="250" cy="130" r="22" fill="var(--pink-bg)" stroke="var(--pink-border)" stroke-width="2"/>
+  <text x="241" y="134" font-size="10" fill="var(--pink)" font-weight="700">h₂</text>
+  <circle cx="250" cy="200" r="22" fill="var(--pink-bg)" stroke="var(--pink-border)" stroke-width="2"/>
+  <text x="241" y="204" font-size="10" fill="var(--pink)" font-weight="700">h₃</text>
+  <text x="218" y="245" font-size="9" fill="var(--text-dim)" font-weight="600">은닉층 1</text>
+
+  <!-- 은닉층2 -->
+  <circle cx="430" cy="90" r="22" fill="var(--pink-bg)" stroke="var(--pink-border)" stroke-width="2"/>
+  <text x="419" y="94" font-size="10" fill="var(--pink)" font-weight="700">h₄</text>
+  <circle cx="430" cy="170" r="22" fill="var(--pink-bg)" stroke="var(--pink-border)" stroke-width="2"/>
+  <text x="419" y="174" font-size="10" fill="var(--pink)" font-weight="700">h₅</text>
+  <text x="398" y="225" font-size="9" fill="var(--text-dim)" font-weight="600">은닉층 2</text>
+
+  <!-- 출력층 -->
+  <circle cx="600" cy="130" r="25" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2.5"/>
+  <text x="591" y="126" font-size="10" fill="var(--pink)" font-weight="700">ŷ</text>
+  <text x="587" y="140" font-size="8" fill="var(--text-dim)">0.58</text>
+  <text x="575" y="180" font-size="9" fill="var(--text-dim)" font-weight="600">출력층</text>
+
+  <!-- 손실 -->
+  <rect x="680" y="108" width="80" height="44" rx="10" fill="var(--surface)" stroke="#e74c3c" stroke-width="2"/>
+  <text x="695" y="128" font-size="9" fill="#e74c3c" font-weight="700">Loss</text>
+  <text x="695" y="143" font-size="8" fill="var(--text-dim)">= 0.173</text>
+
+  <!-- Forward 연결선 (회색) -->
+  <line x1="102" y1="80" x2="228" y2="60" stroke="var(--text-dim)" stroke-width="1" opacity=".3"/>
+  <line x1="102" y1="80" x2="228" y2="130" stroke="var(--text-dim)" stroke-width="1" opacity=".3"/>
+  <line x1="102" y1="80" x2="228" y2="200" stroke="var(--text-dim)" stroke-width="1" opacity=".3"/>
+  <line x1="102" y1="170" x2="228" y2="60" stroke="var(--text-dim)" stroke-width="1" opacity=".3"/>
+  <line x1="102" y1="170" x2="228" y2="130" stroke="var(--text-dim)" stroke-width="1" opacity=".3"/>
+  <line x1="102" y1="170" x2="228" y2="200" stroke="var(--text-dim)" stroke-width="1" opacity=".3"/>
+  <line x1="272" y1="60" x2="408" y2="90" stroke="var(--text-dim)" stroke-width="1" opacity=".3"/>
+  <line x1="272" y1="130" x2="408" y2="90" stroke="var(--text-dim)" stroke-width="1" opacity=".3"/>
+  <line x1="272" y1="200" x2="408" y2="90" stroke="var(--text-dim)" stroke-width="1" opacity=".3"/>
+  <line x1="272" y1="60" x2="408" y2="170" stroke="var(--text-dim)" stroke-width="1" opacity=".3"/>
+  <line x1="272" y1="130" x2="408" y2="170" stroke="var(--text-dim)" stroke-width="1" opacity=".3"/>
+  <line x1="272" y1="200" x2="408" y2="170" stroke="var(--text-dim)" stroke-width="1" opacity=".3"/>
+  <line x1="452" y1="90" x2="575" y2="130" stroke="var(--text-dim)" stroke-width="1" opacity=".3"/>
+  <line x1="452" y1="170" x2="575" y2="130" stroke="var(--text-dim)" stroke-width="1" opacity=".3"/>
+  <line x1="625" y1="130" x2="680" y2="130" stroke="var(--text-dim)" stroke-width="1" opacity=".3"/>
+
+  <!-- 역전파 화살표 (색 변화: 빨강→주황→노랑) -->
+  <!-- Step 2-3: Loss → 출력 (빨강) -->
+  <line x1="680" y1="125" x2="630" y2="125" stroke="#e74c3c" stroke-width="3"/>
+  <polygon points="630,121 622,125 630,129" fill="#e74c3c"/>
+  <text x="635" y="115" font-size="8" fill="#e74c3c" font-weight="700">∂L/∂ŷ</text>
+
+  <!-- Step 3-4: 출력 → 은닉2 (주황) -->
+  <line x1="578" y1="118" x2="455" y2="95" stroke="#e67e22" stroke-width="2.5"/>
+  <polygon points="455,91 447,95 455,99" fill="#e67e22"/>
+  <line x1="578" y1="142" x2="455" y2="165" stroke="#e67e22" stroke-width="2.5"/>
+  <polygon points="455,161 447,165 455,169" fill="#e67e22"/>
+  <text x="490" y="80" font-size="7" fill="#e67e22" font-weight="600">∂L/∂w₃</text>
+
+  <!-- Step 5-6: 은닉2 → 은닉1 (주황-노랑) -->
+  <line x1="408" y1="85" x2="275" y2="65" stroke="#f39c12" stroke-width="2"/>
+  <polygon points="275,61 267,65 275,69" fill="#f39c12"/>
+  <line x1="408" y1="95" x2="275" y2="130" stroke="#f39c12" stroke-width="2"/>
+  <polygon points="275,126 267,130 275,134" fill="#f39c12"/>
+  <line x1="408" y1="170" x2="275" y2="195" stroke="#f39c12" stroke-width="2"/>
+  <polygon points="275,191 267,195 275,199" fill="#f39c12"/>
+  <text x="320" y="55" font-size="7" fill="#f39c12" font-weight="600">∂L/∂w₂</text>
+
+  <!-- Step 7: 은닉1 → 입력 (노랑, 약해짐) -->
+  <line x1="228" y1="60" x2="105" y2="78" stroke="#f1c40f" stroke-width="1.5" opacity=".7"/>
+  <polygon points="105,74 98,78 105,82" fill="#f1c40f" opacity=".7"/>
+  <line x1="228" y1="130" x2="105" y2="82" stroke="#f1c40f" stroke-width="1.5" opacity=".7"/>
+  <line x1="228" y1="130" x2="105" y2="168" stroke="#f1c40f" stroke-width="1.5" opacity=".7"/>
+  <text x="135" y="50" font-size="7" fill="#f1c40f" font-weight="600">∂L/∂w₁</text>
+
+  <!-- 범례 -->
+  <rect x="30" y="258" width="12" height="8" fill="#e74c3c" rx="2"/>
+  <text x="47" y="266" font-size="7" fill="var(--text-dim)">강한 gradient</text>
+  <rect x="150" y="258" width="12" height="8" fill="#e67e22" rx="2"/>
+  <text x="167" y="266" font-size="7" fill="var(--text-dim)">중간</text>
+  <rect x="230" y="258" width="12" height="8" fill="#f1c40f" rx="2"/>
+  <text x="247" y="266" font-size="7" fill="var(--text-dim)">약해진 gradient</text>
+</svg>
+
+</div>
+</div>
+
+<!-- 7 Steps 카드 -->
+<div class="dia reveal">
+<div class="dia-title">📋 역전파 7단계 — 하나씩 따라가기</div>
+<div style="max-width:900px;margin:0 auto">
+<div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:.7rem">
+
+  <div style="background:var(--card);border-left:4px solid #e74c3c;border-radius:0 10px 10px 0;padding:.9rem">
+    <div style="font-family:var(--mono);font-size:.68rem;color:#e74c3c;font-weight:700">Step 1</div>
+    <div style="font-family:var(--display);font-size:.85rem;font-weight:700;color:var(--text);margin:.3rem 0">손실(L) 계산</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7">Forward Pass 결과 ŷ=0.58, 정답 y=1.0<br>L = (1.0 - 0.58)² = <strong>0.176</strong></div>
+  </div>
+
+  <div style="background:var(--card);border-left:4px solid #e74c3c;border-radius:0 10px 10px 0;padding:.9rem">
+    <div style="font-family:var(--mono);font-size:.68rem;color:#e74c3c;font-weight:700">Step 2</div>
+    <div style="font-family:var(--display);font-size:.85rem;font-weight:700;color:var(--text);margin:.3rem 0">∂L/∂ŷ 계산</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7">출력이 오차에 미친 영향<br>= 2(ŷ - y) = <strong>-0.84</strong></div>
+  </div>
+
+  <div style="background:var(--card);border-left:4px solid #e74c3c;border-radius:0 10px 10px 0;padding:.9rem">
+    <div style="font-family:var(--mono);font-size:.68rem;color:#e74c3c;font-weight:700">Step 3</div>
+    <div style="font-family:var(--display);font-size:.85rem;font-weight:700;color:var(--text);margin:.3rem 0">∂L/∂w₃ 계산</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7">출력층 가중치의 영향<br>= ∂L/∂ŷ × ∂ŷ/∂w₃</div>
+  </div>
+
+  <div style="background:var(--card);border-left:4px solid #e67e22;border-radius:0 10px 10px 0;padding:.9rem">
+    <div style="font-family:var(--mono);font-size:.68rem;color:#e67e22;font-weight:700">Step 4</div>
+    <div style="font-family:var(--display);font-size:.85rem;font-weight:700;color:var(--text);margin:.3rem 0">은닉층2로 전파</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7">∂L/∂h₂ = ∂L/∂ŷ × ∂ŷ/∂h₂<br>Chain Rule로 이어짐!</div>
+  </div>
+
+  <div style="background:var(--card);border-left:4px solid #e67e22;border-radius:0 10px 10px 0;padding:.9rem">
+    <div style="font-family:var(--mono);font-size:.68rem;color:#e67e22;font-weight:700">Step 5</div>
+    <div style="font-family:var(--display);font-size:.85rem;font-weight:700;color:var(--text);margin:.3rem 0">∂L/∂w₂ 계산</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7">은닉층 가중치의 영향<br>gradient가 점점 작아짐</div>
+  </div>
+
+  <div style="background:var(--card);border-left:4px solid #f39c12;border-radius:0 10px 10px 0;padding:.9rem">
+    <div style="font-family:var(--mono);font-size:.68rem;color:#f39c12;font-weight:700">Step 6</div>
+    <div style="font-family:var(--display);font-size:.85rem;font-weight:700;color:var(--text);margin:.3rem 0">은닉층1로 전파</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7">∂L/∂h₁ — 오차가 더 깊이 전달<br>기울기가 급격히 약해질 수 있음</div>
+  </div>
+
+  <div style="background:var(--card);border-left:4px solid #f1c40f;border-radius:0 10px 10px 0;padding:.9rem">
+    <div style="font-family:var(--mono);font-size:.68rem;color:#f1c40f;font-weight:700">Step 7</div>
+    <div style="font-family:var(--display);font-size:.85rem;font-weight:700;color:var(--text);margin:.3rem 0">∂L/∂w₁ 계산</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7">입력층 가중치까지 도달!<br>이 값으로 w₁을 업데이트</div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<!-- Vanishing Gradient 시각화 -->
+<div class="dia reveal">
+<div class="dia-title">😱 기울기 소실 문제 (Vanishing Gradient)</div>
+<div style="max-width:900px;margin:0 auto">
+
+<div style="font-size:.85rem;color:var(--text);line-height:1.85;margin-bottom:1rem">
+  Sigmoid 활성화 함수의 미분 최댓값은 <strong>0.25</strong>입니다. 층을 지날 때마다 gradient에 0.25를 곱하면?
+</div>
+
+<!-- 기울기 크기 막대 그래프 -->
+<svg viewBox="0 0 700 160" style="width:100%;display:block;margin-bottom:.8rem">
+  <!-- 막대들 -->
+  <rect x="60" y="20" width="80" height="120" rx="6" fill="#e74c3c"/>
+  <text x="78" y="155" font-size="9" fill="var(--text)" font-weight="600">출력층</text>
+  <text x="78" y="15" font-size="8" fill="#e74c3c" font-weight="700">1.0</text>
+
+  <rect x="190" y="50" width="80" height="90" rx="6" fill="#e67e22"/>
+  <text x="205" y="155" font-size="9" fill="var(--text)" font-weight="600">은닉3</text>
+  <text x="210" y="45" font-size="8" fill="#e67e22" font-weight="700">0.25</text>
+
+  <rect x="320" y="90" width="80" height="50" rx="6" fill="#f39c12"/>
+  <text x="335" y="155" font-size="9" fill="var(--text)" font-weight="600">은닉2</text>
+  <text x="330" y="85" font-size="8" fill="#f39c12" font-weight="700">0.0625</text>
+
+  <rect x="450" y="120" width="80" height="20" rx="6" fill="#f1c40f"/>
+  <text x="465" y="155" font-size="9" fill="var(--text)" font-weight="600">은닉1</text>
+  <text x="455" y="115" font-size="8" fill="#f1c40f" font-weight="700">0.0156</text>
+
+  <rect x="580" y="135" width="80" height="5" rx="3" fill="#f1c40f" opacity=".5"/>
+  <text x="595" y="155" font-size="9" fill="var(--text)" font-weight="600">입력층</text>
+  <text x="585" y="130" font-size="8" fill="var(--text-dim)" font-weight="700">0.004</text>
+
+  <!-- 화살표 -->
+  <text x="150" y="80" font-size="16" fill="var(--text-dim)">→</text>
+  <text x="280" y="100" font-size="16" fill="var(--text-dim)">→</text>
+  <text x="410" y="120" font-size="16" fill="var(--text-dim)">→</text>
+  <text x="540" y="135" font-size="16" fill="var(--text-dim)">→</text>
+</svg>
+
+<div style="font-size:.82rem;color:var(--text);line-height:1.85;margin-bottom:1rem">
+  <strong style="color:#e74c3c">결과:</strong> 5층만 지나도 gradient가 0.004 — 거의 0! 초기 층의 가중치는 사실상 <strong>학습을 못합니다</strong>. 이것이 1990~2000년대 딥러닝이 불가능했던 핵심 이유입니다.
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem">
+  <div style="background:var(--card);border:2px solid var(--pink);border-radius:12px;padding:.9rem;text-align:center">
+    <div style="font-size:1.2rem;margin-bottom:.3rem">⚡</div>
+    <div style="font-family:var(--display);font-size:.82rem;font-weight:700;color:var(--pink)">해결 1: ReLU</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7;margin-top:.3rem">x&gt;0이면 미분=1<br>기울기가 안 사라짐!</div>
+  </div>
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:12px;padding:.9rem;text-align:center">
+    <div style="font-size:1.2rem;margin-bottom:.3rem">🔗</div>
+    <div style="font-family:var(--display);font-size:.82rem;font-weight:700;color:var(--pink)">해결 2: Residual</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7;margin-top:.3rem">Skip Connection<br>gradient 고속도로</div>
+  </div>
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:12px;padding:.9rem;text-align:center">
+    <div style="font-size:1.2rem;margin-bottom:.3rem">📏</div>
+    <div style="font-family:var(--display);font-size:.82rem;font-weight:700;color:var(--pink)">해결 3: BatchNorm</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7;margin-top:.3rem">각 층 출력을 정규화<br>gradient 안정화</div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<!-- 학습 루프 전체 -->
+<div class="dia reveal">
+<div class="dia-title">🔁 실제 학습 루프 — Forward → Loss → Backward → Update → 반복</div>
+<div style="max-width:900px;margin:0 auto">
+<svg viewBox="0 0 700 130" style="width:100%;display:block">
+  <!-- Forward -->
+  <rect x="20" y="35" width="130" height="50" rx="10" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/>
+  <text x="40" y="58" font-size="10" fill="var(--pink)" font-weight="700">➡️ Forward</text>
+  <text x="40" y="73" font-size="8" fill="var(--text-dim)">입력 → 예측값</text>
+  <text x="155" y="64" font-size="14" fill="var(--pink)">→</text>
+  <!-- Loss -->
+  <rect x="175" y="35" width="110" height="50" rx="10" fill="var(--surface)" stroke="#e74c3c" stroke-width="2"/>
+  <text x="195" y="58" font-size="10" fill="#e74c3c" font-weight="700">🔍 Loss</text>
+  <text x="185" y="73" font-size="8" fill="var(--text-dim)">오차 = 얼마나 틀렸나</text>
+  <text x="290" y="64" font-size="14" fill="#e74c3c">→</text>
+  <!-- Backward -->
+  <rect x="310" y="35" width="130" height="50" rx="10" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/>
+  <text x="325" y="58" font-size="10" fill="var(--pink)" font-weight="700">⬅️ Backward</text>
+  <text x="320" y="73" font-size="8" fill="var(--text-dim)">오차 역추적 · gradient</text>
+  <text x="445" y="64" font-size="14" fill="var(--pink)">→</text>
+  <!-- Update -->
+  <rect x="465" y="35" width="130" height="50" rx="10" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/>
+  <text x="480" y="58" font-size="10" fill="var(--pink)" font-weight="700">🔧 Update</text>
+  <text x="475" y="73" font-size="8" fill="var(--text-dim)">가중치 조정 (w -= lr·g)</text>
+  <!-- 반복 화살표 -->
+  <path d="M595,60 Q650,60 650,15 Q650,-10 350,-10 Q50,-10 50,15 Q50,30 50,35" fill="none" stroke="var(--pink)" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="280" y="120" font-size="10" fill="var(--pink)" font-weight="600">🔄 수천~수만 회 반복 → Loss가 줄어들면 학습 완료!</text>
+</svg>
+</div>
+</div>
+
+<div style="max-width:900px;margin:0 auto;padding:1rem 1.2rem;background:var(--pink-bg);border:1px solid var(--pink-border);border-radius:10px;font-size:.82rem;color:var(--text);line-height:1.85">
+  🎯 <strong style="color:var(--pink)">역전파의 본질:</strong> "내가 틀린 이유를 출력에서 입력까지 역추적하고, 각 가중치에 '너는 오차의 몇 %를 책임진다'고 알려주는 것." 이 알고리즘은 1986년 <strong>David Rumelhart, Geoffrey Hinton, Ronald Williams</strong> (<em>Rumelhart: 심리학자·인지과학자, Hinton: 토론토대 교수·2018 튜링상·"딥러닝의 대부", Williams: 미 노스이스턴대 교수</em>)가 발표한 논문으로 딥러닝의 2차 봄을 열었습니다.
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 5: 옵티마이저 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="dl-ch5">
+<div class="ch-head"><div class="ch-num" style="color:var(--pink)">05</div><h2 class="ch-title">옵티마이저 — 가중치를 어떻게 업데이트하나</h2></div>
+
+<p class="section-desc">역전파로 gradient를 구했습니다. 이제 그 gradient를 사용해 가중치를 <strong style="color:var(--pink)">얼마나, 어떤 방향으로</strong> 바꿀지 결정하는 것이 옵티마이저입니다. 비유하면 <strong>"안개 낀 산에서 가장 낮은 곳 찾기"</strong> — 발밑 기울기만 느끼며 내려갑니다.</p>
+
+<!-- 경사하강법 시각화 -->
+<div class="dia reveal">
+<div class="dia-title">🏔️ 경사하강법 — 안개 낀 산 내려가기</div>
+<div style="max-width:900px;margin:0 auto">
+<svg viewBox="0 0 600 220" style="width:100%;display:block">
+  <!-- 산 곡면 (Loss Landscape) -->
+  <path d="M20,180 Q80,190 120,160 Q160,120 200,140 Q250,180 300,80 Q350,30 400,50 Q450,80 500,140 Q540,170 580,175" fill="none" stroke="var(--text-dim)" stroke-width="2.5"/>
+  <!-- 지역 최솟값 -->
+  <circle cx="200" cy="140" r="5" fill="#e67e22"/>
+  <text x="175" y="160" font-size="8" fill="#e67e22">지역 최솟값</text>
+  <!-- 전역 최솟값 -->
+  <circle cx="350" cy="30" r="6" fill="var(--pink)"/>
+  <text x="330" y="20" font-size="8" fill="var(--pink)" font-weight="700">전역 최솟값 🎯</text>
+  <!-- 공 이동 -->
+  <circle cx="120" cy="160" r="8" fill="var(--pink)" opacity=".8"/>
+  <text x="108" y="150" font-size="7" fill="var(--pink)">현재 위치</text>
+  <path d="M128,158 Q150,145 170,148 Q185,145 195,141" fill="none" stroke="var(--pink)" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <!-- 라벨 -->
+  <text x="20" y="210" font-size="9" fill="var(--text-dim)">x축: 가중치(w) 값</text>
+  <text x="400" y="210" font-size="9" fill="var(--text-dim)">y축: 손실(Loss) 크기</text>
+</svg>
+</div>
+</div>
+
+<!-- Learning Rate 시각화 -->
+<div class="dia reveal">
+<div class="dia-title">📏 Learning Rate — 보폭의 크기가 모든 것을 결정</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem;max-width:900px;margin:0 auto">
+
+  <div style="background:var(--card);border:2px solid #e74c3c;border-radius:12px;padding:1rem;text-align:center">
+    <svg viewBox="0 0 160 100" style="width:100%;max-width:140px;margin:0 auto;display:block">
+      <path d="M10,80 Q40,85 60,60 Q80,35 100,50 Q120,70 150,65" fill="none" stroke="var(--text-dim)" stroke-width="2"/>
+      <!-- 발산하는 점들 -->
+      <circle cx="30" cy="82" r="4" fill="#e74c3c"/>
+      <circle cx="120" cy="68" r="4" fill="#e74c3c"/>
+      <circle cx="50" cy="65" r="4" fill="#e74c3c"/>
+      <circle cx="140" cy="90" r="4" fill="#e74c3c"/>
+      <path d="M30,82 L120,68 L50,65 L140,90" fill="none" stroke="#e74c3c" stroke-width="1" stroke-dasharray="3,2"/>
+    </svg>
+    <div style="font-family:var(--display);font-size:.85rem;font-weight:700;color:#e74c3c;margin-top:.5rem">너무 큰 LR</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7;margin-top:.3rem">산을 뛰어넘어 발산!<br>Loss가 커짐</div>
+  </div>
+
+  <div style="background:var(--card);border:2px solid var(--pink);border-radius:12px;padding:1rem;text-align:center">
+    <svg viewBox="0 0 160 100" style="width:100%;max-width:140px;margin:0 auto;display:block">
+      <path d="M10,80 Q40,85 60,60 Q80,35 100,50 Q120,70 150,65" fill="none" stroke="var(--text-dim)" stroke-width="2"/>
+      <!-- 수렴하는 점들 -->
+      <circle cx="30" cy="82" r="4" fill="var(--pink)"/>
+      <circle cx="50" cy="70" r="4" fill="var(--pink)"/>
+      <circle cx="65" cy="58" r="4" fill="var(--pink)"/>
+      <circle cx="78" cy="40" r="5" fill="var(--pink)"/>
+      <path d="M30,82 L50,70 L65,58 L78,40" fill="none" stroke="var(--pink)" stroke-width="1.5"/>
+    </svg>
+    <div style="font-family:var(--display);font-size:.85rem;font-weight:700;color:var(--pink);margin-top:.5rem">적당한 LR ✅</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7;margin-top:.3rem">안정적으로 수렴!<br>최적점에 도달</div>
+  </div>
+
+  <div style="background:var(--card);border:2px solid #f39c12;border-radius:12px;padding:1rem;text-align:center">
+    <svg viewBox="0 0 160 100" style="width:100%;max-width:140px;margin:0 auto;display:block">
+      <path d="M10,80 Q40,85 60,60 Q80,35 100,50 Q120,70 150,65" fill="none" stroke="var(--text-dim)" stroke-width="2"/>
+      <!-- 너무 느린 수렴 -->
+      <circle cx="25" cy="81" r="3" fill="#f39c12"/>
+      <circle cx="28" cy="82" r="3" fill="#f39c12"/>
+      <circle cx="31" cy="82.5" r="3" fill="#f39c12"/>
+      <circle cx="34" cy="83" r="3" fill="#f39c12"/>
+      <circle cx="37" cy="83.5" r="3" fill="#f39c12"/>
+    </svg>
+    <div style="font-family:var(--display);font-size:.85rem;font-weight:700;color:#f39c12;margin-top:.5rem">너무 작은 LR</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7;margin-top:.3rem">지역 최솟값에 갇힘!<br>학습이 끝나지 않음</div>
+  </div>
+
+</div>
+</div>
+
+<!-- 옵티마이저 비교표 -->
+<div class="dia reveal">
+<div class="dia-title">📊 옵티마이저 진화 비교</div>
+<div style="max-width:900px;margin:0 auto;overflow-x:auto">
+<table style="width:100%;border-collapse:collapse;font-size:.78rem;line-height:1.7">
+<thead>
+  <tr style="background:var(--pink-bg)">
+    <th style="padding:.6rem .8rem;text-align:left;border-bottom:2px solid var(--pink);color:var(--pink)"></th>
+    <th style="padding:.6rem .8rem;text-align:center;border-bottom:2px solid var(--pink);color:var(--pink)">SGD</th>
+    <th style="padding:.6rem .8rem;text-align:center;border-bottom:2px solid var(--pink);color:var(--pink)">Momentum</th>
+    <th style="padding:.6rem .8rem;text-align:center;border-bottom:2px solid var(--pink);color:var(--pink)">Adam ⭐</th>
+  </tr>
+</thead>
+<tbody>
+  <tr><td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);font-weight:600;color:var(--text)">비유</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--text-dim)">순진하게 내려감</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--text-dim)">관성으로 굴러감</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--pink);font-weight:600">적응형 나침반</td></tr>
+  <tr><td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);font-weight:600;color:var(--text)">학습률</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--text-dim)">고정</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--text-dim)">고정 + 관성</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--pink)">파라미터별 적응</td></tr>
+  <tr><td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);font-weight:600;color:var(--text)">수렴 속도</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--text-dim)">느림</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--text-dim)">빠름</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--pink);font-weight:600">가장 빠름</td></tr>
+  <tr><td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);font-weight:600;color:var(--text)">2026 현황</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--text-dim)">거의 안 씀</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--text-dim)">가끔</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--pink);font-weight:600">거의 표준</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- Mini-batch vs Batch vs SGD -->
+<div class="dia reveal">
+<div class="dia-title">📦 배치 크기 비교 — 한 번에 몇 개를 학습하나?</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem;max-width:900px;margin:0 auto">
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:12px;padding:1rem;text-align:center">
+    <div style="font-size:1.4rem;margin-bottom:.4rem">1️⃣</div>
+    <div style="font-family:var(--display);font-size:.85rem;font-weight:700;color:var(--pink)">Stochastic (SGD)</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7;margin-top:.4rem">데이터 1개씩 학습<br>빠르지만 불안정 (지그재그)</div>
+  </div>
+
+  <div style="background:var(--card);border:2px solid var(--pink);border-radius:12px;padding:1rem;text-align:center">
+    <div style="font-size:1.4rem;margin-bottom:.4rem">📦</div>
+    <div style="font-family:var(--display);font-size:.85rem;font-weight:700;color:var(--pink)">Mini-batch ⭐</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7;margin-top:.4rem">32~256개씩 묶어 학습<br>안정성 + 속도의 균형</div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:12px;padding:1rem;text-align:center">
+    <div style="font-size:1.4rem;margin-bottom:.4rem">📚</div>
+    <div style="font-family:var(--display);font-size:.85rem;font-weight:700;color:var(--pink)">Full Batch</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7;margin-top:.4rem">전체 데이터로 1회 업데이트<br>안정적이지만 매우 느림</div>
+  </div>
+
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 6: CNN -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="dl-ch6">
+<div class="ch-head"><div class="ch-num" style="color:var(--pink)">06</div><h2 class="ch-title">CNN — 이미지를 이해하는 신경망</h2></div>
+
+<p class="section-desc"><strong style="color:var(--pink)">Convolutional Neural Network</strong>는 인간의 시각 피질을 모방합니다. "돋보기로 이미지를 훑으며 패턴을 찾는" 방식 — 이것이 딥러닝이 이미지를 이해하는 방법입니다.</p>
+
+<!-- Convolution 연산 -->
+<div class="dia reveal">
+<div class="dia-title">🔍 Convolution 연산 — 필터가 이미지를 훑는다</div>
+<div style="max-width:900px;margin:0 auto">
+<svg viewBox="0 0 700 200" style="width:100%;display:block">
+  <!-- 입력 이미지 (5x5 그리드) -->
+  <text x="30" y="20" font-size="10" fill="var(--pink)" font-weight="700">입력 이미지 (5×5)</text>
+  <g transform="translate(30,30)">
+    <!-- row 1 -->
+    <rect x="0" y="0" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="8" y="19" font-size="9" fill="var(--text-dim)">1</text>
+    <rect x="28" y="0" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="36" y="19" font-size="9" fill="var(--text-dim)">0</text>
+    <rect x="56" y="0" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="64" y="19" font-size="9" fill="var(--text-dim)">1</text>
+    <rect x="84" y="0" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="92" y="19" font-size="9" fill="var(--text-dim)">0</text>
+    <rect x="112" y="0" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="120" y="19" font-size="9" fill="var(--text-dim)">1</text>
+    <!-- row 2 (강조 영역) -->
+    <rect x="0" y="28" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="8" y="47" font-size="9" fill="var(--text-dim)">0</text>
+    <rect x="28" y="28" width="28" height="28" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/><text x="36" y="47" font-size="9" fill="var(--pink)" font-weight="700">1</text>
+    <rect x="56" y="28" width="28" height="28" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/><text x="64" y="47" font-size="9" fill="var(--pink)" font-weight="700">1</text>
+    <rect x="84" y="28" width="28" height="28" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/><text x="92" y="47" font-size="9" fill="var(--pink)" font-weight="700">0</text>
+    <rect x="112" y="28" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="120" y="47" font-size="9" fill="var(--text-dim)">1</text>
+    <!-- row 3 (강조 영역) -->
+    <rect x="0" y="56" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="8" y="75" font-size="9" fill="var(--text-dim)">1</text>
+    <rect x="28" y="56" width="28" height="28" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/><text x="36" y="75" font-size="9" fill="var(--pink)" font-weight="700">0</text>
+    <rect x="56" y="56" width="28" height="28" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/><text x="64" y="75" font-size="9" fill="var(--pink)" font-weight="700">1</text>
+    <rect x="84" y="56" width="28" height="28" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/><text x="92" y="75" font-size="9" fill="var(--pink)" font-weight="700">1</text>
+    <rect x="112" y="56" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="120" y="75" font-size="9" fill="var(--text-dim)">0</text>
+    <!-- row 4 (강조 영역) -->
+    <rect x="0" y="84" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="8" y="103" font-size="9" fill="var(--text-dim)">0</text>
+    <rect x="28" y="84" width="28" height="28" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/><text x="36" y="103" font-size="9" fill="var(--pink)" font-weight="700">1</text>
+    <rect x="56" y="84" width="28" height="28" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/><text x="64" y="103" font-size="9" fill="var(--pink)" font-weight="700">0</text>
+    <rect x="84" y="84" width="28" height="28" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/><text x="92" y="103" font-size="9" fill="var(--pink)" font-weight="700">0</text>
+    <rect x="112" y="84" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="120" y="103" font-size="9" fill="var(--text-dim)">1</text>
+    <!-- row 5 -->
+    <rect x="0" y="112" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="8" y="131" font-size="9" fill="var(--text-dim)">1</text>
+    <rect x="28" y="112" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="36" y="131" font-size="9" fill="var(--text-dim)">0</text>
+    <rect x="56" y="112" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="64" y="131" font-size="9" fill="var(--text-dim)">1</text>
+    <rect x="84" y="112" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="92" y="131" font-size="9" fill="var(--text-dim)">0</text>
+    <rect x="112" y="112" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="120" y="131" font-size="9" fill="var(--text-dim)">1</text>
+  </g>
+
+  <!-- 필터 (3x3) -->
+  <text x="230" y="50" font-size="10" fill="var(--pink)" font-weight="700">필터 (3×3)</text>
+  <g transform="translate(230,58)">
+    <rect x="0" y="0" width="26" height="26" fill="var(--pink)" rx="3"/><text x="7" y="18" font-size="9" fill="#fff" font-weight="700">1</text>
+    <rect x="26" y="0" width="26" height="26" fill="var(--pink)" rx="3"/><text x="33" y="18" font-size="9" fill="#fff" font-weight="700">0</text>
+    <rect x="52" y="0" width="26" height="26" fill="var(--pink)" rx="3"/><text x="59" y="18" font-size="9" fill="#fff" font-weight="700">1</text>
+    <rect x="0" y="26" width="26" height="26" fill="var(--pink)" rx="3"/><text x="7" y="44" font-size="9" fill="#fff" font-weight="700">0</text>
+    <rect x="26" y="26" width="26" height="26" fill="var(--pink)" rx="3"/><text x="33" y="44" font-size="9" fill="#fff" font-weight="700">1</text>
+    <rect x="52" y="26" width="26" height="26" fill="var(--pink)" rx="3"/><text x="59" y="44" font-size="9" fill="#fff" font-weight="700">0</text>
+    <rect x="0" y="52" width="26" height="26" fill="var(--pink)" rx="3"/><text x="7" y="70" font-size="9" fill="#fff" font-weight="700">1</text>
+    <rect x="26" y="52" width="26" height="26" fill="var(--pink)" rx="3"/><text x="33" y="70" font-size="9" fill="#fff" font-weight="700">0</text>
+    <rect x="52" y="52" width="26" height="26" fill="var(--pink)" rx="3"/><text x="59" y="70" font-size="9" fill="#fff" font-weight="700">1</text>
+  </g>
+
+  <!-- 화살표 -->
+  <text x="325" y="100" font-size="18" fill="var(--pink)" font-weight="700">→</text>
+
+  <!-- 계산 과정 -->
+  <text x="360" y="55" font-size="9" fill="var(--text-dim)">원소별 곱 → 합산</text>
+  <text x="360" y="75" font-size="8" fill="var(--text-dim)" font-family="var(--mono)">1×1 + 1×0 + 0×1</text>
+  <text x="360" y="90" font-size="8" fill="var(--text-dim)" font-family="var(--mono)">0×0 + 1×1 + 1×0</text>
+  <text x="360" y="105" font-size="8" fill="var(--text-dim)" font-family="var(--mono)">1×1 + 0×0 + 0×1</text>
+  <text x="360" y="125" font-size="9" fill="var(--pink)" font-weight="700" font-family="var(--mono)">= 0+0+0+0+1+0+1+0+0 = 2</text>
+
+  <!-- Feature Map 결과 -->
+  <text x="360" y="155" font-size="9" fill="var(--pink)" font-weight="700">Feature Map에 기록!</text>
+
+  <!-- 비유 텍스트 -->
+  <text x="30" y="195" font-size="9" fill="var(--text-dim)">🔍 필터가 이미지 위를 슬라이딩하며 패턴을 감지합니다 — 돋보기로 훑는 것과 같습니다</text>
+</svg>
+</div>
+</div>
+
+<!-- Feature Hierarchy -->
+<div class="dia reveal">
+<div class="dia-title">📐 CNN이 보는 것 — 층이 깊어질수록 복잡한 패턴</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;max-width:900px;margin:0 auto">
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:14px;padding:1.1rem;text-align:center">
+    <div style="font-size:2rem;margin-bottom:.3rem">📏</div>
+    <div style="font-family:var(--display);font-size:.88rem;font-weight:700;color:var(--pink)">초기 층 (Conv1-2)</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.7;margin-top:.4rem">선, 가장자리, 색상 변화<br>가장 기본적인 시각 요소</div>
+    <div style="margin-top:.5rem;padding:.4rem;background:var(--surface);border-radius:6px;font-size:.68rem;color:var(--text-dim)">/ | \ — ○</div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:14px;padding:1.1rem;text-align:center">
+    <div style="font-size:2rem;margin-bottom:.3rem">👁️</div>
+    <div style="font-family:var(--display);font-size:.88rem;font-weight:700;color:var(--pink)">중간 층 (Conv3-5)</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.7;margin-top:.4rem">눈, 코, 입, 바퀴<br>부분적인 오브젝트</div>
+    <div style="margin-top:.5rem;padding:.4rem;background:var(--surface);border-radius:6px;font-size:.68rem;color:var(--text-dim)">👃 👁️ 👄</div>
+  </div>
+
+  <div style="background:var(--card);border:2px solid var(--pink);border-radius:14px;padding:1.1rem;text-align:center">
+    <div style="font-size:2rem;margin-bottom:.3rem">🧑</div>
+    <div style="font-family:var(--display);font-size:.88rem;font-weight:700;color:var(--pink)">깊은 층 (Conv6+)</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.7;margin-top:.4rem">얼굴 전체, 자동차, 동물<br>완전한 오브젝트 인식</div>
+    <div style="margin-top:.5rem;padding:.4rem;background:var(--pink-bg);border-radius:6px;font-size:.68rem;color:var(--pink)">🧑 = 97.3%</div>
+  </div>
+
+</div>
+</div>
+
+<!-- Max Pooling -->
+<div class="dia reveal">
+<div class="dia-title">🏊 Max Pooling — 핵심만 남기고 크기를 줄인다</div>
+<div style="max-width:900px;margin:0 auto">
+<svg viewBox="0 0 500 130" style="width:100%;max-width:480px;margin:0 auto;display:block">
+  <!-- 4x4 입력 -->
+  <text x="20" y="15" font-size="9" fill="var(--text-dim)">4×4 Feature Map</text>
+  <g transform="translate(20,20)">
+    <rect x="0" y="0" width="28" height="28" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1.5"/><text x="7" y="19" font-size="9" fill="var(--pink)" font-weight="700">6</text>
+    <rect x="28" y="0" width="28" height="28" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1.5"/><text x="35" y="19" font-size="9" fill="var(--text-dim)">2</text>
+    <rect x="56" y="0" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="63" y="19" font-size="9" fill="var(--text-dim)">3</text>
+    <rect x="84" y="0" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="88" y="19" font-size="9" fill="var(--pink)" font-weight="700">8</text>
+    <rect x="0" y="28" width="28" height="28" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1.5"/><text x="7" y="47" font-size="9" fill="var(--text-dim)">1</text>
+    <rect x="28" y="28" width="28" height="28" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1.5"/><text x="35" y="47" font-size="9" fill="var(--text-dim)">4</text>
+    <rect x="56" y="28" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="63" y="47" font-size="9" fill="var(--text-dim)">5</text>
+    <rect x="84" y="28" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="91" y="47" font-size="9" fill="var(--text-dim)">1</text>
+    <rect x="0" y="56" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="7" y="75" font-size="9" fill="var(--text-dim)">3</text>
+    <rect x="28" y="56" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="35" y="75" font-size="9" fill="var(--text-dim)">2</text>
+    <rect x="56" y="56" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="60" y="75" font-size="9" fill="var(--pink)" font-weight="700">9</text>
+    <rect x="84" y="56" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="91" y="75" font-size="9" fill="var(--text-dim)">0</text>
+    <rect x="0" y="84" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="4" y="103" font-size="9" fill="var(--pink)" font-weight="700">7</text>
+    <rect x="28" y="84" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="35" y="103" font-size="9" fill="var(--text-dim)">1</text>
+    <rect x="56" y="84" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="63" y="103" font-size="9" fill="var(--text-dim)">4</text>
+    <rect x="84" y="84" width="28" height="28" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="91" y="103" font-size="9" fill="var(--text-dim)">3</text>
+  </g>
+
+  <text x="155" y="75" font-size="12" fill="var(--pink)">Max Pool</text>
+  <text x="165" y="90" font-size="10" fill="var(--pink)">2×2 →</text>
+
+  <g transform="translate(240,48)">
+    <rect x="0" y="0" width="35" height="35" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2" rx="4"/><text x="10" y="23" font-size="12" fill="var(--pink)" font-weight="700">6</text>
+    <rect x="35" y="0" width="35" height="35" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2" rx="4"/><text x="45" y="23" font-size="12" fill="var(--pink)" font-weight="700">8</text>
+    <rect x="0" y="35" width="35" height="35" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2" rx="4"/><text x="10" y="58" font-size="12" fill="var(--pink)" font-weight="700">7</text>
+    <rect x="35" y="35" width="35" height="35" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2" rx="4"/><text x="45" y="58" font-size="12" fill="var(--pink)" font-weight="700">9</text>
+  </g>
+
+  <text x="340" y="65" font-size="9" fill="var(--text-dim)">2×2 영역에서</text>
+  <text x="340" y="80" font-size="9" fill="var(--pink)" font-weight="600">최댓값만 추출!</text>
+  <text x="340" y="100" font-size="8" fill="var(--text-dim)">→ 크기 절반, 핵심 보존</text>
+</svg>
+</div>
+</div>
+
+<!-- CNN 전체 아키텍처 -->
+<div class="dia reveal">
+<div class="dia-title">🏗️ CNN 전체 아키텍처 — 이미지에서 분류까지</div>
+<div style="max-width:900px;margin:0 auto">
+<svg viewBox="0 0 750 100" style="width:100%;display:block">
+  <rect x="5" y="15" width="70" height="65" rx="8" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/>
+  <text x="12" y="40" font-size="8" fill="var(--pink)" font-weight="700">🖼️ Input</text>
+  <text x="15" y="55" font-size="7" fill="var(--text-dim)">224×224</text>
+  <text x="15" y="68" font-size="7" fill="var(--text-dim)">×3 (RGB)</text>
+  <text x="79" y="52" font-size="12" fill="var(--pink)">→</text>
+
+  <rect x="95" y="20" width="75" height="55" rx="8" fill="var(--pink-bg)" stroke="var(--pink-border)" stroke-width="1.5"/>
+  <text x="100" y="40" font-size="7" fill="var(--pink)" font-weight="600">Conv+ReLU</text>
+  <text x="100" y="55" font-size="6" fill="var(--text-dim)">필터 32개</text>
+  <text x="100" y="66" font-size="6" fill="var(--text-dim)">특징 추출</text>
+  <text x="174" y="52" font-size="12" fill="var(--pink)">→</text>
+
+  <rect x="190" y="25" width="50" height="45" rx="8" fill="var(--surface)" stroke="var(--pink-border)" stroke-width="1"/>
+  <text x="197" y="45" font-size="7" fill="var(--text-dim)" font-weight="600">Pool</text>
+  <text x="197" y="58" font-size="6" fill="var(--text-dim)">크기 ↓</text>
+  <text x="244" y="52" font-size="12" fill="var(--pink)">→</text>
+
+  <rect x="260" y="20" width="75" height="55" rx="8" fill="var(--pink-bg)" stroke="var(--pink-border)" stroke-width="1.5"/>
+  <text x="265" y="40" font-size="7" fill="var(--pink)" font-weight="600">Conv+ReLU</text>
+  <text x="265" y="55" font-size="6" fill="var(--text-dim)">필터 64개</text>
+  <text x="265" y="66" font-size="6" fill="var(--text-dim)">복잡한 특징</text>
+  <text x="339" y="52" font-size="12" fill="var(--pink)">→</text>
+
+  <rect x="355" y="25" width="50" height="45" rx="8" fill="var(--surface)" stroke="var(--pink-border)" stroke-width="1"/>
+  <text x="362" y="45" font-size="7" fill="var(--text-dim)" font-weight="600">Pool</text>
+  <text x="362" y="58" font-size="6" fill="var(--text-dim)">크기 ↓</text>
+  <text x="409" y="52" font-size="12" fill="var(--pink)">→</text>
+
+  <rect x="425" y="28" width="55" height="40" rx="8" fill="var(--surface)" stroke="var(--pink-border)" stroke-width="1"/>
+  <text x="430" y="45" font-size="7" fill="var(--text-dim)" font-weight="600">Flatten</text>
+  <text x="430" y="58" font-size="6" fill="var(--text-dim)">1차원으로</text>
+  <text x="484" y="52" font-size="12" fill="var(--pink)">→</text>
+
+  <rect x="500" y="20" width="70" height="55" rx="8" fill="var(--pink-bg)" stroke="var(--pink-border)" stroke-width="1.5"/>
+  <text x="510" y="40" font-size="7" fill="var(--pink)" font-weight="600">FC Layer</text>
+  <text x="505" y="55" font-size="6" fill="var(--text-dim)">Fully Connected</text>
+  <text x="505" y="66" font-size="6" fill="var(--text-dim)">종합 판단</text>
+  <text x="574" y="52" font-size="12" fill="var(--pink)">→</text>
+
+  <rect x="590" y="15" width="80" height="65" rx="8" fill="var(--pink)" stroke="none"/>
+  <text x="600" y="40" font-size="8" fill="#fff" font-weight="700">🎯 Output</text>
+  <text x="600" y="55" font-size="7" fill="rgba(255,255,255,.8)">고양이 97%</text>
+  <text x="600" y="68" font-size="7" fill="rgba(255,255,255,.6)">개 2%, 새 1%</text>
+</svg>
+</div>
+</div>
+
+<!-- CNN 모델 타임라인 -->
+<div class="dia reveal">
+<div class="dia-title">📜 CNN 대표 모델 타임라인</div>
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;max-width:900px;margin:0 auto">
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:10px;padding:.8rem;text-align:center">
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-dim)">1998</div>
+    <div style="font-family:var(--display);font-size:.82rem;font-weight:700;color:var(--pink);margin:.3rem 0">LeNet-5</div>
+    <div style="font-size:.65rem;color:var(--text-dim);line-height:1.6">Yann LeCun<br>손글씨 인식<br>5층</div>
+  </div>
+
+  <div style="background:var(--card);border:2px solid var(--pink);border-radius:10px;padding:.8rem;text-align:center">
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--pink);font-weight:700">2012 ⭐</div>
+    <div style="font-family:var(--display);font-size:.82rem;font-weight:700;color:var(--pink);margin:.3rem 0">AlexNet</div>
+    <div style="font-size:.65rem;color:var(--text-dim);line-height:1.6">ImageNet 우승<br>오차 16% (2위 26%)<br><strong>딥러닝 부활</strong></div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:10px;padding:.8rem;text-align:center">
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-dim)">2014</div>
+    <div style="font-family:var(--display);font-size:.82rem;font-weight:700;color:var(--pink);margin:.3rem 0">VGGNet</div>
+    <div style="font-size:.65rem;color:var(--text-dim);line-height:1.6">옥스포드대<br>19층<br>"깊이의 힘" 입증</div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:10px;padding:.8rem;text-align:center">
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-dim)">2015</div>
+    <div style="font-family:var(--display);font-size:.82rem;font-weight:700;color:var(--pink);margin:.3rem 0">ResNet</div>
+    <div style="font-size:.65rem;color:var(--text-dim);line-height:1.6">Microsoft<br>152층!<br>Skip Connection</div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:10px;padding:.8rem;text-align:center">
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-dim)">2019</div>
+    <div style="font-family:var(--display);font-size:.82rem;font-weight:700;color:var(--pink);margin:.3rem 0">EfficientNet</div>
+    <div style="font-size:.65rem;color:var(--text-dim);line-height:1.6">Google<br>효율적 스케일링<br>정확도+속도</div>
+  </div>
+
+</div>
+
+<div style="margin-top:1rem;padding:.9rem 1.2rem;background:var(--pink-bg);border:1px solid var(--pink-border);border-radius:10px;max-width:900px;margin-left:auto;margin-right:auto;font-size:.82rem;color:var(--text);line-height:1.85">
+  🎯 <strong style="color:var(--pink)">AlexNet의 의미:</strong> 2012년, <strong>Alex Krizhevsky</strong> (<em>토론토대 Hinton 연구실 학생, GPU 기반 딥러닝 학습의 개척자</em>)가 ImageNet 대회에서 오차율 16%를 기록합니다. 2위(26%)와 <strong>10%p 차이</strong>. 비밀 무기는 GPU(NVIDIA GTX 580 2장)와 ReLU, Dropout. 이 순간이 딥러닝 부활의 신호탄이 됩니다.
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 7: RNN / LSTM -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="dl-ch7">
+<div class="ch-head"><div class="ch-num" style="color:var(--pink)">07</div><h2 class="ch-title">RNN · LSTM — 시퀀스를 이해하는 신경망</h2></div>
+
+<p class="section-desc">시간 순서가 중요한 데이터 — 텍스트, 음성, 주가, 날씨. CNN이 <strong>공간의 패턴</strong>을 잡는다면, RNN은 <strong style="color:var(--pink)">시간의 패턴</strong>을 잡습니다. 소설을 읽을 때 이전 내용을 기억하며 다음 페이지를 읽는 것처럼.</p>
+
+<!-- RNN 기본 구조 -->
+<div class="dia reveal">
+<div class="dia-title">🔁 RNN 기본 구조 — 기억하는 뉴런</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:900px;margin:0 auto">
+
+  <div style="background:var(--card);border:2px solid var(--pink);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--pink);margin-bottom:.6rem">Folded View (접힌 모습)</div>
+    <svg viewBox="0 0 260 160" style="width:100%;max-width:240px;margin:0 auto;display:block">
+      <!-- 입력 -->
+      <rect x="10" y="100" width="60" height="35" rx="8" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1.5"/>
+      <text x="22" y="122" font-size="9" fill="var(--pink)" font-weight="700">입력 xₜ</text>
+      <line x1="40" y1="100" x2="40" y2="80" stroke="var(--pink)" stroke-width="1.5"/>
+      <polygon points="35,80 40,70 45,80" fill="var(--pink)"/>
+      <!-- RNN 셀 -->
+      <rect x="15" y="35" width="70" height="35" rx="10" fill="var(--pink)" stroke="none"/>
+      <text x="28" y="57" font-size="10" fill="#fff" font-weight="700">RNN</text>
+      <!-- 루프 -->
+      <path d="M85,52 Q115,52 115,30 Q115,8 50,8 Q-5,8 -5,30 Q-5,45 15,50" fill="none" stroke="var(--pink)" stroke-width="2.5"/>
+      <polygon points="15,45 8,52 15,55" fill="var(--pink)"/>
+      <text x="95" y="20" font-size="8" fill="var(--pink)" font-weight="600">hₜ₋₁ → hₜ</text>
+      <!-- 출력 -->
+      <line x1="85" y1="52" x2="130" y2="52" stroke="var(--pink)" stroke-width="1.5"/>
+      <polygon points="130,47 140,52 130,57" fill="var(--pink)"/>
+      <rect x="145" y="37" width="60" height="30" rx="8" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1.5"/>
+      <text x="155" y="57" font-size="9" fill="var(--pink)" font-weight="700">출력 yₜ</text>
+      <text x="30" y="150" font-size="8" fill="var(--text-dim)">은닉 상태(hₜ)가</text>
+      <text x="30" y="160" font-size="8" fill="var(--text-dim)">자기 자신에게 순환!</text>
+    </svg>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--pink);margin-bottom:.6rem">Unrolled View (시간축으로 펼침)</div>
+    <svg viewBox="0 0 320 130" style="width:100%;max-width:300px;margin:0 auto;display:block">
+      <!-- t=1 -->
+      <rect x="10" y="40" width="50" height="30" rx="8" fill="var(--pink)" stroke="none"/>
+      <text x="22" y="60" font-size="8" fill="#fff" font-weight="700">RNN</text>
+      <rect x="15" y="85" width="40" height="22" rx="6" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1"/><text x="24" y="100" font-size="7" fill="var(--pink)">x₁</text>
+      <line x1="35" y1="85" x2="35" y2="72" stroke="var(--pink)" stroke-width="1"/>
+      <text x="20" y="35" font-size="7" fill="var(--text-dim)">h₁</text>
+
+      <!-- t=2 -->
+      <line x1="60" y1="55" x2="85" y2="55" stroke="var(--pink)" stroke-width="1.5"/>
+      <polygon points="85,51 92,55 85,59" fill="var(--pink)"/>
+      <rect x="95" y="40" width="50" height="30" rx="8" fill="var(--pink)" stroke="none"/>
+      <text x="107" y="60" font-size="8" fill="#fff" font-weight="700">RNN</text>
+      <rect x="100" y="85" width="40" height="22" rx="6" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1"/><text x="109" y="100" font-size="7" fill="var(--pink)">x₂</text>
+      <line x1="120" y1="85" x2="120" y2="72" stroke="var(--pink)" stroke-width="1"/>
+      <text x="105" y="35" font-size="7" fill="var(--text-dim)">h₂</text>
+
+      <!-- t=3 -->
+      <line x1="145" y1="55" x2="170" y2="55" stroke="var(--pink)" stroke-width="1.5"/>
+      <polygon points="170,51 177,55 170,59" fill="var(--pink)"/>
+      <rect x="180" y="40" width="50" height="30" rx="8" fill="var(--pink)" stroke="none"/>
+      <text x="192" y="60" font-size="8" fill="#fff" font-weight="700">RNN</text>
+      <rect x="185" y="85" width="40" height="22" rx="6" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1"/><text x="194" y="100" font-size="7" fill="var(--pink)">x₃</text>
+      <line x1="205" y1="85" x2="205" y2="72" stroke="var(--pink)" stroke-width="1"/>
+      <text x="190" y="35" font-size="7" fill="var(--text-dim)">h₃</text>
+
+      <text x="240" y="58" font-size="12" fill="var(--text-dim)">...</text>
+
+      <!-- t=n -->
+      <rect x="260" y="40" width="50" height="30" rx="8" fill="var(--pink)" stroke="none"/>
+      <text x="272" y="60" font-size="8" fill="#fff" font-weight="700">RNN</text>
+      <rect x="265" y="85" width="40" height="22" rx="6" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1"/><text x="273" y="100" font-size="7" fill="var(--pink)">xₙ</text>
+      <line x1="285" y1="85" x2="285" y2="72" stroke="var(--pink)" stroke-width="1"/>
+      <line x1="285" y1="40" x2="285" y2="22" stroke="var(--pink)" stroke-width="1.5"/>
+      <rect x="265" y="5" width="40" height="18" rx="5" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1.5"/><text x="275" y="18" font-size="7" fill="var(--pink)" font-weight="700">yₙ</text>
+
+      <text x="50" y="125" font-size="8" fill="var(--text-dim)">같은 가중치를 시간마다 재사용 (Parameter Sharing)</text>
+    </svg>
+  </div>
+
+</div>
+</div>
+
+<!-- Vanishing Gradient in RNN -->
+<div class="dia reveal">
+<div class="dia-title">📞 RNN의 한계 — 전화 돌리기 비유</div>
+<div style="max-width:900px;margin:0 auto">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem">
+
+  <div style="background:var(--card);border:2px solid #e74c3c;border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.92rem;font-weight:700;color:#e74c3c;margin-bottom:.6rem">❌ RNN의 문제: 긴 기억 실패</div>
+    <svg viewBox="0 0 300 80" style="width:100%;max-width:280px;margin:0 auto;display:block">
+      <circle cx="30" cy="40" r="18" fill="var(--pink)" opacity="1"/><text x="22" y="44" font-size="8" fill="#fff" font-weight="700">t=1</text>
+      <line x1="48" y1="40" x2="62" y2="40" stroke="var(--text-dim)" stroke-width="1"/>
+      <circle cx="80" cy="40" r="18" fill="var(--pink)" opacity=".7"/><text x="72" y="44" font-size="8" fill="#fff">t=2</text>
+      <line x1="98" y1="40" x2="112" y2="40" stroke="var(--text-dim)" stroke-width="1"/>
+      <circle cx="130" cy="40" r="18" fill="var(--pink)" opacity=".4"/><text x="122" y="44" font-size="8" fill="#fff">t=5</text>
+      <line x1="148" y1="40" x2="160" y2="40" stroke="var(--text-dim)" stroke-width="1"/>
+      <text x="165" y="44" font-size="10" fill="var(--text-dim)">...</text>
+      <circle cx="220" cy="40" r="18" fill="var(--pink)" opacity=".1"/><text x="208" y="44" font-size="8" fill="var(--text-dim)">t=20</text>
+      <line x1="238" y1="40" x2="252" y2="40" stroke="var(--text-dim)" stroke-width="1"/>
+      <circle cx="270" cy="40" r="18" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/><text x="260" y="44" font-size="7" fill="var(--text-dim)">t=50</text>
+      <text x="60" y="75" font-size="8" fill="#e74c3c">색이 희미해짐 = 기억이 사라짐!</text>
+    </svg>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.8;margin-top:.5rem">
+      <strong>비유: 전화 돌리기.</strong> 20명을 거치면 원래 메시지가 왜곡됩니다. RNN에서 50 타임스텝 전의 정보는 gradient가 소실되어 사실상 학습 불가.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:2px solid var(--pink);border-radius:14px;padding:1.2rem">
+    <div style="font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--pink);margin-bottom:.6rem">✅ LSTM: 스마트 수첩</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.85;margin-bottom:.5rem">
+      <strong>LSTM</strong> (Long Short-Term Memory)은 <strong>Sepp Hochreiter</strong> (<em>독일 뮌헨공대 출신, 현 요하네스 케플러 대학 교수, 장기 의존성 문제의 핵심 해결자</em>)와 <strong>Jurgen Schmidhuber</strong> (<em>스위스 IDSIA 연구소 공동소장, 재귀 신경망 연구의 선구자</em>)가 1997년 발표. 3개의 <strong>게이트</strong>로 정보를 관리합니다:
+    </div>
+    <div style="display:grid;gap:.4rem">
+      <div style="padding:.4rem .7rem;background:var(--pink-bg);border-radius:6px;font-size:.75rem;color:var(--text);line-height:1.6">
+        🚪 <strong style="color:var(--pink)">Forget Gate:</strong> 이전 기억 중 버릴 것 결정 (DELETE)
+      </div>
+      <div style="padding:.4rem .7rem;background:var(--pink-bg);border-radius:6px;font-size:.75rem;color:var(--text);line-height:1.6">
+        📝 <strong style="color:var(--pink)">Input Gate:</strong> 새로운 정보 중 기억할 것 결정 (WRITE)
+      </div>
+      <div style="padding:.4rem .7rem;background:var(--pink-bg);border-radius:6px;font-size:.75rem;color:var(--text);line-height:1.6">
+        📤 <strong style="color:var(--pink)">Output Gate:</strong> 기억에서 출력할 것 결정 (READ)
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<!-- LSTM 셀 내부 구조 -->
+<div class="dia reveal">
+<div class="dia-title">🧠 LSTM 셀 내부 구조 — 컨베이어 벨트 + 3 게이트</div>
+<div style="max-width:900px;margin:0 auto">
+<svg viewBox="0 0 700 200" style="width:100%;display:block">
+  <!-- 셀 상태 (컨베이어 벨트) -->
+  <line x1="50" y1="30" x2="650" y2="30" stroke="var(--pink)" stroke-width="3"/>
+  <text x="250" y="20" font-size="9" fill="var(--pink)" font-weight="700">셀 상태 Cₜ (컨베이어 벨트 — 정보가 거의 변형 없이 흐름)</text>
+  <polygon points="650,25 665,30 650,35" fill="var(--pink)"/>
+
+  <!-- Forget Gate -->
+  <rect x="100" y="60" width="90" height="55" rx="10" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/>
+  <text x="110" y="80" font-size="8" fill="var(--pink)" font-weight="700">🚪 Forget</text>
+  <text x="118" y="95" font-size="7" fill="var(--text-dim)">σ → 0~1</text>
+  <text x="108" y="108" font-size="7" fill="var(--text-dim)">0 = 전부 잊기</text>
+  <line x1="145" y1="60" x2="145" y2="35" stroke="var(--pink)" stroke-width="1.5"/>
+  <text x="150" y="50" font-size="8" fill="var(--text-dim)">×</text>
+
+  <!-- Input Gate -->
+  <rect x="260" y="60" width="90" height="55" rx="10" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/>
+  <text x="275" y="80" font-size="8" fill="var(--pink)" font-weight="700">📝 Input</text>
+  <text x="278" y="95" font-size="7" fill="var(--text-dim)">σ × tanh</text>
+  <text x="268" y="108" font-size="7" fill="var(--text-dim)">새 정보 추가</text>
+  <line x1="305" y1="60" x2="305" y2="35" stroke="var(--pink)" stroke-width="1.5"/>
+  <text x="310" y="50" font-size="8" fill="var(--text-dim)">+</text>
+
+  <!-- Output Gate -->
+  <rect x="440" y="60" width="90" height="55" rx="10" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="2"/>
+  <text x="452" y="80" font-size="8" fill="var(--pink)" font-weight="700">📤 Output</text>
+  <text x="460" y="95" font-size="7" fill="var(--text-dim)">σ × tanh(C)</text>
+  <text x="450" y="108" font-size="7" fill="var(--text-dim)">출력할 것 선택</text>
+  <line x1="485" y1="115" x2="485" y2="150" stroke="var(--pink)" stroke-width="1.5"/>
+  <polygon points="480,150 485,160 490,150" fill="var(--pink)"/>
+
+  <!-- 은닉 상태 출력 -->
+  <rect x="455" y="160" width="60" height="25" rx="6" fill="var(--pink)" stroke="none"/>
+  <text x="467" y="177" font-size="9" fill="#fff" font-weight="700">hₜ</text>
+
+  <!-- 입력 -->
+  <rect x="100" y="155" width="50" height="25" rx="6" fill="var(--surface)" stroke="var(--pink)" stroke-width="1.5"/>
+  <text x="113" y="172" font-size="9" fill="var(--pink)" font-weight="700">xₜ</text>
+  <line x1="125" y1="155" x2="125" y2="135" stroke="var(--text-dim)" stroke-width="1"/>
+  <line x1="125" y1="135" x2="145" y2="115" stroke="var(--text-dim)" stroke-width="1"/>
+  <line x1="125" y1="135" x2="305" y2="115" stroke="var(--text-dim)" stroke-width="1"/>
+  <line x1="125" y1="135" x2="485" y2="115" stroke="var(--text-dim)" stroke-width="1"/>
+
+  <!-- 이전 은닉 상태 -->
+  <rect x="20" y="155" width="50" height="25" rx="6" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/>
+  <text x="28" y="172" font-size="9" fill="var(--text-dim)" font-weight="700">hₜ₋₁</text>
+  <line x1="45" y1="155" x2="45" y2="135" stroke="var(--text-dim)" stroke-width="1"/>
+</svg>
+</div>
+
+<div style="padding:1rem 1.2rem;background:var(--pink-bg);border:1px solid var(--pink-border);border-radius:10px;max-width:900px;margin:.8rem auto 0;font-size:.82rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--pink)">비유:</strong> LSTM = <strong>스마트 수첩</strong>. 어떤 정보를 기억(Keep)할지, 새로 쓸지(Write), 출력할지(Read)를 매 시점마다 결정합니다. 핵심은 <strong>셀 상태(Cell State)</strong>라는 "컨베이어 벨트" — 정보가 거의 변형 없이 먼 과거에서 미래로 전달됩니다.
+</div>
+</div>
+
+<!-- Transformer 브릿지 -->
+<div class="dia reveal">
+<div style="max-width:900px;margin:0 auto;padding:1rem 1.2rem;background:var(--surface);border-left:3px solid var(--pink);border-radius:0 10px 10px 0;font-size:.85rem;color:var(--text);line-height:1.85">
+  🚀 <strong style="color:var(--pink)">그런데 2017년, 이 모든 걸 뒤집은 논문이 나옵니다.</strong> "Attention Is All You Need" — RNN 없이, 순환 연결 없이, <strong>모든 위치를 동시에 보는</strong> Transformer가 등장합니다. LSTM의 순차 처리 한계를 Self-Attention의 병렬 처리로 완전히 대체. 이 이야기는 Ch.10에서 이어집니다.
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 8: Overfitting 대응 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="dl-ch8">
+<div class="ch-head"><div class="ch-num" style="color:var(--pink)">08</div><h2 class="ch-title">Overfitting 대응 — 학습의 함정을 피하는 법</h2></div>
+
+<p class="section-desc">모델이 학습 데이터를 <strong>너무 잘</strong> 외우면 새로운 데이터에서 실패합니다. 비유하면 <strong style="color:var(--pink)">"시험 답을 통째로 외운 학생"</strong> — 같은 문제는 만점이지만 새 문제는 0점입니다. 이것이 <strong>Overfitting</strong>입니다.</p>
+
+<!-- Overfitting 시각화 -->
+<div class="dia reveal">
+<div class="dia-title">📉 Overfitting을 한 눈에 — Train vs Test 정확도</div>
+<div style="max-width:900px;margin:0 auto">
+<svg viewBox="0 0 500 200" style="width:100%;max-width:480px;margin:0 auto;display:block">
+  <!-- 축 -->
+  <line x1="50" y1="170" x2="460" y2="170" stroke="var(--text-dim)" stroke-width="1"/>
+  <line x1="50" y1="170" x2="50" y2="20" stroke="var(--text-dim)" stroke-width="1"/>
+  <text x="230" y="195" font-size="9" fill="var(--text-dim)">학습 횟수 (Epoch) →</text>
+  <text x="10" y="30" font-size="9" fill="var(--text-dim)">정확도 ↑</text>
+
+  <!-- Train 정확도 (계속 올라감) -->
+  <path d="M60,160 Q120,140 180,100 Q240,60 300,40 Q360,30 440,25" fill="none" stroke="var(--pink)" stroke-width="2.5"/>
+  <text x="380" y="20" font-size="9" fill="var(--pink)" font-weight="700">Train 정확도</text>
+
+  <!-- Test 정확도 (올라가다가 내려감) -->
+  <path d="M60,160 Q120,142 180,110 Q230,85 270,80 Q310,82 350,100 Q400,125 440,140" fill="none" stroke="#e74c3c" stroke-width="2.5"/>
+  <text x="370" y="150" font-size="9" fill="#e74c3c" font-weight="700">Test 정확도</text>
+
+  <!-- Overfitting 구간 -->
+  <line x1="270" y1="20" x2="270" y2="170" stroke="#e74c3c" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="275" y="50" font-size="9" fill="#e74c3c" font-weight="700">← 여기서부터</text>
+  <text x="275" y="65" font-size="9" fill="#e74c3c" font-weight="700">Overfitting!</text>
+
+  <!-- 갭 표시 -->
+  <line x1="430" y1="25" x2="430" y2="140" stroke="var(--pink)" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="435" y="85" font-size="8" fill="var(--pink)">갭 = Overfitting 정도</text>
+</svg>
+</div>
+</div>
+
+<!-- 대응 전략 5가지 -->
+<div class="dia reveal">
+<div class="dia-title">🛡️ Overfitting 대응 5가지 전략</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));gap:.8rem;max-width:900px;margin:0 auto">
+
+  <div style="background:var(--card);border:2px solid var(--pink);border-radius:14px;padding:1.1rem">
+    <div style="font-family:var(--display);font-size:.88rem;font-weight:700;color:var(--pink);margin-bottom:.5rem">① Dropout</div>
+    <svg viewBox="0 0 200 80" style="width:100%;max-width:180px;margin:0 auto;display:block">
+      <circle cx="30" cy="20" r="10" fill="var(--pink)" opacity=".9"/>
+      <circle cx="70" cy="20" r="10" fill="var(--text-dim)" opacity=".3"/><text x="63" y="24" font-size="10" fill="#e74c3c" font-weight="900">X</text>
+      <circle cx="110" cy="20" r="10" fill="var(--pink)" opacity=".9"/>
+      <circle cx="150" cy="20" r="10" fill="var(--text-dim)" opacity=".3"/><text x="143" y="24" font-size="10" fill="#e74c3c" font-weight="900">X</text>
+      <circle cx="30" cy="55" r="10" fill="var(--text-dim)" opacity=".3"/><text x="23" y="59" font-size="10" fill="#e74c3c" font-weight="900">X</text>
+      <circle cx="70" cy="55" r="10" fill="var(--pink)" opacity=".9"/>
+      <circle cx="110" cy="55" r="10" fill="var(--pink)" opacity=".9"/>
+      <circle cx="150" cy="55" r="10" fill="var(--text-dim)" opacity=".3"/><text x="143" y="59" font-size="10" fill="#e74c3c" font-weight="900">X</text>
+    </svg>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.7;margin-top:.4rem">
+      학습 때 <strong>랜덤으로 뉴런을 끄기</strong> (보통 20~50%).<br>
+      <strong>비유:</strong> 팀원이 매번 달라지는 회의 — 특정 사람에 의존하지 않는 조직이 됨.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:14px;padding:1.1rem">
+    <div style="font-family:var(--display);font-size:.88rem;font-weight:700;color:var(--pink);margin-bottom:.5rem">② Batch Normalization</div>
+    <div style="display:flex;align-items:center;gap:.5rem;margin:.5rem 0">
+      <div style="padding:.4rem .6rem;background:var(--surface);border-radius:6px;font-size:.8rem;color:var(--text-dim)">[-5, 12, -3, 8]</div>
+      <span style="font-size:1rem;color:var(--pink)">→</span>
+      <div style="padding:.4rem .6rem;background:var(--pink-bg);border-radius:6px;font-size:.8rem;color:var(--pink);font-weight:600">[-.5, 1.2, -.3, .8]</div>
+    </div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.7;margin-top:.4rem">
+      각 층의 출력을 <strong>평균 0, 분산 1</strong>로 정규화. 학습을 안정화하고 더 높은 Learning Rate 사용 가능.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:14px;padding:1.1rem">
+    <div style="font-family:var(--display);font-size:.88rem;font-weight:700;color:var(--pink);margin-bottom:.5rem">③ Early Stopping</div>
+    <svg viewBox="0 0 200 70" style="width:100%;max-width:180px;margin:0 auto;display:block">
+      <path d="M10,60 Q50,40 80,30 Q100,25 120,28 Q150,38 180,50" fill="none" stroke="#e74c3c" stroke-width="2"/>
+      <line x1="100" y1="10" x2="100" y2="65" stroke="var(--pink)" stroke-width="2" stroke-dasharray="3,2"/>
+      <text x="105" y="18" font-size="8" fill="var(--pink)" font-weight="700">STOP!</text>
+      <circle cx="100" cy="26" r="5" fill="var(--pink)"/>
+    </svg>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.7;margin-top:.4rem">
+      Validation Loss가 올라가기 시작하면 <strong>학습을 즉시 중단</strong>. 가장 간단하고 효과적.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:14px;padding:1.1rem">
+    <div style="font-family:var(--display);font-size:.88rem;font-weight:700;color:var(--pink);margin-bottom:.5rem">④ Data Augmentation</div>
+    <div style="display:flex;gap:.3rem;justify-content:center;margin:.5rem 0;flex-wrap:wrap">
+      <div style="padding:.3rem .5rem;background:var(--surface);border-radius:6px;font-size:.75rem">🖼️ 원본</div>
+      <div style="padding:.3rem .5rem;background:var(--pink-bg);border-radius:6px;font-size:.75rem">🔄 회전</div>
+      <div style="padding:.3rem .5rem;background:var(--pink-bg);border-radius:6px;font-size:.75rem">↔️ 반전</div>
+      <div style="padding:.3rem .5rem;background:var(--pink-bg);border-radius:6px;font-size:.75rem">🔍 확대</div>
+    </div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.7;margin-top:.4rem">
+      이미지를 회전, 뒤집기, 확대, 색상 변환으로 <strong>데이터를 뻥튀기</strong>. 1000장 → 10000장 효과.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:14px;padding:1.1rem">
+    <div style="font-family:var(--display);font-size:.88rem;font-weight:700;color:var(--pink);margin-bottom:.5rem">⑤ Regularization (L1/L2)</div>
+    <div style="font-family:var(--mono);font-size:.75rem;color:var(--text);margin:.5rem 0;padding:.4rem .6rem;background:var(--surface);border-radius:6px">
+      Loss = Loss_원래 + <strong style="color:var(--pink)">λ × Σ|w|²</strong>
+    </div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.7;margin-top:.4rem">
+      가중치가 너무 커지지 않게 <strong>페널티</strong>를 부여. 모델이 단순한 패턴을 선호하게 유도.
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- Train/Validation/Test 분할 -->
+<div class="dia reveal">
+<div class="dia-title">📊 데이터 3분할 — Train / Validation / Test</div>
+<div style="max-width:900px;margin:0 auto">
+<svg viewBox="0 0 600 80" style="width:100%;display:block">
+  <rect x="20" y="15" width="350" height="40" rx="8" fill="var(--pink)" opacity=".8"/>
+  <text x="130" y="40" font-size="11" fill="#fff" font-weight="700">Train (70%)</text>
+  <rect x="370" y="15" width="100" height="40" rx="8" fill="var(--pink)" opacity=".5"/>
+  <text x="385" y="40" font-size="10" fill="#fff" font-weight="700">Val (15%)</text>
+  <rect x="470" y="15" width="100" height="40" rx="8" fill="var(--pink)" opacity=".3"/>
+  <text x="483" y="40" font-size="10" fill="#fff" font-weight="700">Test (15%)</text>
+  <text x="115" y="72" font-size="8" fill="var(--text-dim)">모델이 배우는 데이터</text>
+  <text x="365" y="72" font-size="8" fill="var(--text-dim)">학습 중 검증</text>
+  <text x="470" y="72" font-size="8" fill="var(--text-dim)">최종 성적표</text>
+</svg>
+</div>
+
+<div style="padding:.8rem 1.2rem;background:var(--surface);border-left:3px solid var(--pink);border-radius:0 10px 10px 0;max-width:900px;margin:.8rem auto 0;font-size:.82rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--pink)">핵심 원칙:</strong> Test 데이터는 <strong>마지막 한 번만</strong> 사용합니다. 학습 중에 Test로 확인하면 그것도 Overfitting! Validation 데이터가 학습 중 성능 체크 역할을 맡습니다.
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 9: 딥러닝의 역사 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="dl-ch9">
+<div class="ch-head"><div class="ch-num" style="color:var(--pink)">09</div><h2 class="ch-title">딥러닝의 역사 — 3번의 겨울, 3번의 봄</h2></div>
+
+<p class="section-desc">딥러닝은 하루아침에 탄생하지 않았습니다. <strong style="color:var(--pink)">60년간 3번의 겨울(좌절)과 3번의 봄(부활)</strong>을 거쳤습니다. 그 끈기가 오늘의 AI를 만들었습니다.</p>
+
+<!-- 타임라인 -->
+<div class="dia reveal">
+<div class="dia-title">📜 딥러닝 60년 타임라인</div>
+<div style="max-width:900px;margin:0 auto">
+<svg viewBox="0 0 800 300" style="width:100%;display:block">
+  <!-- 중앙 타임라인 -->
+  <line x1="50" y1="150" x2="750" y2="150" stroke="var(--text-dim)" stroke-width="2"/>
+
+  <!-- 1957 퍼셉트론 (봄) -->
+  <circle cx="80" cy="150" r="8" fill="var(--pink)"/>
+  <line x1="80" y1="142" x2="80" y2="60" stroke="var(--pink)" stroke-width="1.5"/>
+  <rect x="40" y="25" width="80" height="35" rx="8" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1.5"/>
+  <text x="50" y="40" font-size="7" fill="var(--pink)" font-weight="700">1957</text>
+  <text x="50" y="52" font-size="7" fill="var(--text-dim)">Perceptron</text>
+
+  <!-- 1969 XOR 비판 (겨울) -->
+  <circle cx="160" cy="150" r="8" fill="#4a90a4"/>
+  <line x1="160" y1="158" x2="160" y2="230" stroke="#4a90a4" stroke-width="1.5"/>
+  <rect x="120" y="235" width="80" height="45" rx="8" fill="rgba(74,144,164,.15)" stroke="#4a90a4" stroke-width="1.5"/>
+  <text x="130" y="250" font-size="7" fill="#4a90a4" font-weight="700">1969</text>
+  <text x="130" y="262" font-size="7" fill="var(--text-dim)">XOR 비판</text>
+  <text x="130" y="273" font-size="6" fill="#4a90a4">❄️ 1차 겨울</text>
+
+  <!-- 1986 Backprop (봄) -->
+  <circle cx="280" cy="150" r="8" fill="var(--pink)"/>
+  <line x1="280" y1="142" x2="280" y2="60" stroke="var(--pink)" stroke-width="1.5"/>
+  <rect x="240" y="25" width="80" height="35" rx="8" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1.5"/>
+  <text x="250" y="40" font-size="7" fill="var(--pink)" font-weight="700">1986</text>
+  <text x="250" y="52" font-size="7" fill="var(--text-dim)">Backprop</text>
+
+  <!-- 1990s 겨울 -->
+  <circle cx="360" cy="150" r="8" fill="#4a90a4"/>
+  <line x1="360" y1="158" x2="360" y2="230" stroke="#4a90a4" stroke-width="1.5"/>
+  <rect x="315" y="235" width="90" height="45" rx="8" fill="rgba(74,144,164,.15)" stroke="#4a90a4" stroke-width="1.5"/>
+  <text x="325" y="250" font-size="7" fill="#4a90a4" font-weight="700">1990s</text>
+  <text x="325" y="262" font-size="7" fill="var(--text-dim)">데이터·컴퓨팅 부족</text>
+  <text x="325" y="273" font-size="6" fill="#4a90a4">❄️ 2차 겨울</text>
+
+  <!-- 2006 Deep Belief -->
+  <circle cx="440" cy="150" r="6" fill="var(--pink)" opacity=".6"/>
+  <line x1="440" y1="144" x2="440" y2="100" stroke="var(--pink)" stroke-width="1" opacity=".6"/>
+  <text x="415" y="95" font-size="7" fill="var(--text-dim)">2006 DBN</text>
+
+  <!-- 2012 AlexNet (3차 봄!) -->
+  <circle cx="510" cy="150" r="10" fill="var(--pink)" stroke="var(--pink)" stroke-width="3"/>
+  <line x1="510" y1="140" x2="510" y2="45" stroke="var(--pink)" stroke-width="2"/>
+  <rect x="465" y="10" width="90" height="40" rx="8" fill="var(--pink)" stroke="none"/>
+  <text x="478" y="27" font-size="8" fill="#fff" font-weight="700">2012 ⭐</text>
+  <text x="475" y="42" font-size="7" fill="rgba(255,255,255,.9)">AlexNet 부활!</text>
+
+  <!-- 2014 GAN -->
+  <circle cx="570" cy="150" r="6" fill="var(--pink)" opacity=".7"/>
+  <line x1="570" y1="158" x2="570" y2="200" stroke="var(--pink)" stroke-width="1"/>
+  <text x="548" y="215" font-size="7" fill="var(--text-dim)">2014 GAN</text>
+
+  <!-- 2015 ResNet -->
+  <circle cx="620" cy="150" r="6" fill="var(--pink)" opacity=".7"/>
+  <line x1="620" y1="142" x2="620" y2="100" stroke="var(--pink)" stroke-width="1"/>
+  <text x="598" y="95" font-size="7" fill="var(--text-dim)">2015 ResNet</text>
+
+  <!-- 2017 Transformer -->
+  <circle cx="690" cy="150" r="10" fill="var(--pink)" stroke="var(--pink)" stroke-width="3"/>
+  <line x1="690" y1="140" x2="690" y2="45" stroke="var(--pink)" stroke-width="2"/>
+  <rect x="645" y="10" width="90" height="40" rx="8" fill="var(--pink)" stroke="none"/>
+  <text x="656" y="27" font-size="8" fill="#fff" font-weight="700">2017</text>
+  <text x="650" y="42" font-size="7" fill="rgba(255,255,255,.9)">Transformer!</text>
+
+  <!-- 범례 -->
+  <circle cx="100" cy="290" r="5" fill="var(--pink)"/>
+  <text x="110" y="293" font-size="8" fill="var(--text-dim)">봄 (돌파구)</text>
+  <circle cx="230" cy="290" r="5" fill="#4a90a4"/>
+  <text x="240" y="293" font-size="8" fill="var(--text-dim)">겨울 (침체기)</text>
+</svg>
+</div>
+</div>
+
+<!-- 인물 카드 -->
+<div class="dia reveal">
+<div class="dia-title">🏆 딥러닝의 3대 선구자 — 2018 튜링상 공동 수상</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem;max-width:900px;margin:0 auto">
+
+  <div style="background:var(--card);border:2px solid var(--pink);border-radius:14px;padding:1.1rem;text-align:center">
+    <div style="font-size:2.2rem;margin-bottom:.3rem">🧠</div>
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--pink)">Geoffrey Hinton</div>
+    <div style="font-family:var(--mono);font-size:.68rem;color:var(--text-dim);margin:.3rem 0">토론토대 · Google → 퇴사(2023)</div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.7;margin-top:.4rem">
+      "딥러닝의 대부". Backpropagation 공동 발표(1986), Deep Belief Networks(2006). AI 안전 경고로 Google 퇴사, 2024 노벨 물리학상 공동 수상.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:14px;padding:1.1rem;text-align:center">
+    <div style="font-size:2.2rem;margin-bottom:.3rem">👁️</div>
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--pink)">Yann LeCun</div>
+    <div style="font-family:var(--mono);font-size:.68rem;color:var(--text-dim);margin:.3rem 0">NYU · Meta AI Chief Scientist</div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.7;margin-top:.4rem">
+      "CNN의 아버지". LeNet-5(1998)로 손글씨 인식 혁신. 합성곱 신경망이 곧 ImageNet 혁명의 기반. 현재 Meta에서 오픈소스 AI 주도.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:14px;padding:1.1rem;text-align:center">
+    <div style="font-size:2.2rem;margin-bottom:.3rem">📐</div>
+    <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--pink)">Yoshua Bengio</div>
+    <div style="font-family:var(--mono);font-size:.68rem;color:var(--text-dim);margin:.3rem 0">몬트리올대 · MILA 설립자</div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.7;margin-top:.4rem">
+      "표현 학습"의 거장. Neural Language Model(2003) — 단어를 벡터로 표현하는 Word Embedding의 기초. AI 거버넌스·안전 연구의 선두.
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:1rem;padding:.9rem 1.2rem;background:var(--pink-bg);border:1px solid var(--pink-border);border-radius:10px;max-width:900px;margin-left:auto;margin-right:auto;font-size:.82rem;color:var(--text);line-height:1.85">
+  🎯 <strong style="color:var(--pink)">3번의 겨울을 견뎌낸 끈기가 오늘의 AI를 만들었습니다.</strong> 1960~70년대, 1990년대에 "신경망은 끝났다"는 조롱 속에서도 이 세 사람은 연구를 멈추지 않았습니다. 2012년 AlexNet의 승리는 <strong>30년간의 고독한 연구</strong>가 폭발한 순간이었습니다.
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 10: Transformer로 가는 다리 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="dl-ch10">
+<div class="ch-head"><div class="ch-num" style="color:var(--pink)">10</div><h2 class="ch-title">Transformer로 가는 다리 — DNN에서 LLM 시대로</h2></div>
+
+<p class="section-desc">10개 챕터에 걸쳐 딥러닝의 핵심을 배웠습니다. 마지막으로 <strong style="color:var(--pink)">모든 신경망의 공통점</strong>을 정리하고, CNN/RNN/Transformer를 비교하며, Part 2(LLM 이해)로 가는 다리를 놓겠습니다.</p>
+
+<!-- DNN 공통점 -->
+<div class="dia reveal">
+<div class="dia-title">🔗 모든 딥러닝 네트워크의 공통 DNA</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;max-width:900px;margin:0 auto">
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:12px;padding:.9rem;text-align:center">
+    <div style="font-size:1.4rem;margin-bottom:.3rem">🏗️</div>
+    <div style="font-family:var(--display);font-size:.82rem;font-weight:700;color:var(--pink)">층 구조</div>
+    <div style="font-size:.7rem;color:var(--text-dim);line-height:1.6;margin-top:.3rem">입력 → 은닉 → 출력<br>Layer를 쌓는다</div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:12px;padding:.9rem;text-align:center">
+    <div style="font-size:1.4rem;margin-bottom:.3rem">🔄</div>
+    <div style="font-family:var(--display);font-size:.82rem;font-weight:700;color:var(--pink)">Forward + Backprop</div>
+    <div style="font-size:.7rem;color:var(--text-dim);line-height:1.6;margin-top:.3rem">예측 → 오차 → 역추적<br>가중치 업데이트</div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:12px;padding:.9rem;text-align:center">
+    <div style="font-size:1.4rem;margin-bottom:.3rem">⚡</div>
+    <div style="font-family:var(--display);font-size:.82rem;font-weight:700;color:var(--pink)">활성화 함수</div>
+    <div style="font-size:.7rem;color:var(--text-dim);line-height:1.6;margin-top:.3rem">비선형 변환<br>표현력의 원천</div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:12px;padding:.9rem;text-align:center">
+    <div style="font-size:1.4rem;margin-bottom:.3rem">🏔️</div>
+    <div style="font-family:var(--display);font-size:.82rem;font-weight:700;color:var(--pink)">Gradient Descent</div>
+    <div style="font-size:.7rem;color:var(--text-dim);line-height:1.6;margin-top:.3rem">경사하강법<br>최적점을 향해</div>
+  </div>
+
+</div>
+</div>
+
+<!-- CNN vs RNN vs Transformer 비교표 -->
+<div class="dia reveal">
+<div class="dia-title">📊 CNN vs RNN/LSTM vs Transformer — 최종 비교</div>
+<div style="max-width:900px;margin:0 auto;overflow-x:auto">
+<table style="width:100%;border-collapse:collapse;font-size:.78rem;line-height:1.7">
+<thead>
+  <tr style="background:var(--pink-bg)">
+    <th style="padding:.6rem .8rem;text-align:left;border-bottom:2px solid var(--pink);color:var(--pink)"></th>
+    <th style="padding:.6rem .8rem;text-align:center;border-bottom:2px solid var(--pink);color:var(--pink)">CNN</th>
+    <th style="padding:.6rem .8rem;text-align:center;border-bottom:2px solid var(--pink);color:var(--pink)">RNN / LSTM</th>
+    <th style="padding:.6rem .8rem;text-align:center;border-bottom:2px solid var(--pink);color:var(--pink)">Transformer ⭐</th>
+  </tr>
+</thead>
+<tbody>
+  <tr><td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);font-weight:600;color:var(--text)">강점</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--text-dim)">공간 패턴 (이미지)</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--text-dim)">시간 패턴 (시퀀스)</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--pink);font-weight:600">모든 패턴</td></tr>
+  <tr><td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);font-weight:600;color:var(--text)">입력</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--text-dim)">이미지 / 격자</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--text-dim)">시퀀스 (텍스트, 음성)</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--pink);font-weight:600">시퀀스 / 모든 것</td></tr>
+  <tr><td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);font-weight:600;color:var(--text)">핵심 연산</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--text-dim)">Convolution</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--text-dim)">순환 연결</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--pink);font-weight:600">Self-Attention</td></tr>
+  <tr><td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);font-weight:600;color:var(--text)">병렬화</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--text)">✅ 가능</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:#e74c3c">❌ 순차 처리</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--pink);font-weight:600">✅ 완전 병렬</td></tr>
+  <tr><td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);font-weight:600;color:var(--text)">장거리 의존성</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--text-dim)">제한적</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--text-dim)">LSTM도 한계</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--pink);font-weight:600">무제한 (이론상)</td></tr>
+  <tr><td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);font-weight:600;color:var(--text)">2026 현황</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--text-dim)">여전히 Vision</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--text-dim)">거의 대체됨</td>
+      <td style="padding:.5rem .8rem;border-bottom:1px solid var(--border);text-align:center;color:var(--pink);font-weight:600">절대 주류</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- Transformer가 왜 혁명인가 -->
+<div class="dia reveal">
+<div class="dia-title">💡 Transformer가 혁명인 이유 — 3가지 핵심</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem;max-width:900px;margin:0 auto">
+
+  <div style="background:var(--card);border:2px solid var(--pink);border-radius:14px;padding:1.1rem;text-align:center">
+    <div style="font-size:1.6rem;margin-bottom:.3rem">👀</div>
+    <div style="font-family:var(--display);font-size:.88rem;font-weight:700;color:var(--pink)">Self-Attention</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.7;margin-top:.4rem">
+      모든 단어가 다른 모든 단어와의 관계를 <strong>동시에</strong> 계산. "나는 은행에 갔다" — '은행'이 금융인지 강변인지를 주변 단어로 판단.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:14px;padding:1.1rem;text-align:center">
+    <div style="font-size:1.6rem;margin-bottom:.3rem">⚡</div>
+    <div style="font-family:var(--display);font-size:.88rem;font-weight:700;color:var(--pink)">완전 병렬화</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.7;margin-top:.4rem">
+      RNN처럼 순서대로 처리하지 않음. 모든 위치를 <strong>동시에 계산</strong> → GPU 활용 극대화 → 거대 모델 학습 가능.
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:14px;padding:1.1rem;text-align:center">
+    <div style="font-size:1.6rem;margin-bottom:.3rem">🌐</div>
+    <div style="font-family:var(--display);font-size:.88rem;font-weight:700;color:var(--pink)">스케일링 법칙</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.7;margin-top:.4rem">
+      모델·데이터·컴퓨팅을 키우면 성능이 <strong>예측 가능하게 향상</strong>. GPT-3 → GPT-4 → GPT-5의 비밀.
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- Part 1 요약 -->
+<div style="max-width:900px;margin:1.5rem auto 0;padding:1rem 1.2rem;background:var(--pink-bg);border:1px solid var(--pink-border);border-radius:10px;font-size:.85rem;color:var(--text);line-height:1.85">
+  🎯 <strong style="color:var(--pink)">Part 1 요약:</strong> 뉴런 하나(퍼셉트론)에서 시작해, 활성화 함수로 비선형을 넣고, Forward/Backward로 학습하고, CNN/RNN으로 이미지·시퀀스를 이해하는 네트워크를 만들었습니다. 그리고 2017년, "Attention Is All You Need" 논문 하나가 이 모든 역사를 새로 씁니다. <strong>Part 2에서 Self-Attention의 마법을 만나겠습니다.</strong>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- Part 2 bridge -->
+<div class="dia reveal" style="border:2px solid var(--violet-border);background:var(--violet-bg);margin-top:2rem">
+<div style="text-align:center;padding:1.5rem">
+  <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:2px;text-transform:uppercase;margin-bottom:.5rem">What's Next</div>
+  <div style="font-family:var(--display);font-size:1.3rem;font-weight:800;color:var(--white);margin-bottom:.8rem">
+    Part 2 — LLM 완전 이해
+  </div>
+  <div style="font-size:.88rem;color:var(--text);line-height:1.85;max-width:650px;margin:0 auto">
+    Part 1에서 <strong style="color:var(--pink)">딥러닝의 원리</strong>를 시각적으로 이해했습니다. 이제 그 위에 세워진 <strong style="color:var(--violet)">Transformer와 LLM</strong> — 거대 언어 모델의 세계로 들어갑니다. Self-Attention, 토큰화, 학습 파이프라인, 그리고 할루시네이션까지.
+  </div>
+  <a href="/01-llm" style="display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;padding:.7rem 1.5rem;border:1.5px solid var(--violet);background:var(--violet-bg);color:var(--violet);border-radius:10px;font-size:.88rem;font-weight:600;text-decoration:none;transition:all .3s" onmouseover="this.style.background='var(--violet)';this.style.color='#fff'" onmouseout="this.style.background='var(--violet-bg)';this.style.color='var(--violet)'">
+    Part 2 — LLM 이해 보기 <span style="font-size:1.1rem">→</span>
+  </a>
+</div>
+</div>
+
+</Layout>
