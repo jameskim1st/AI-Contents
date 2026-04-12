@@ -33,6 +33,7 @@
 
 ## Reference
 
+- [Part 1 — Ch.12 LLM의 한계와 미래](https://ai-contents-wine.vercel.app/01-llm/#llm-ch12)
 - [Part 2 — Ch.02 Augmented LLM](https://ai-contents-wine.vercel.app/02-ai-agents/)
 - [Part 2 — Ch.03 Agent와의 회색 지대](https://ai-contents-wine.vercel.app/02-ai-agents/)
 

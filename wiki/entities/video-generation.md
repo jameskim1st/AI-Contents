@@ -46,6 +46,7 @@
 
 ## Reference
 
+- [Part 1 — Ch.10 영상·음성·월드 모델](https://ai-contents-wine.vercel.app/01-llm/#llm-ch10)
 - [Part 9 — Ch.02 비디오 생성 AI](https://ai-contents-wine.vercel.app/09-multimodal/#비디오-생성-ai)
 
 ## 연관 entity

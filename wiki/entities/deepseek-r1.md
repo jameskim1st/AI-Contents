@@ -115,7 +115,7 @@ DeepSeek은 R1의 reasoning 능력을 작은 모델로 증류(distillation)했�
 
 ## Reference
 
-- [Part 1 — Ch.07 Reasoning Models](https://ai-contents-wine.vercel.app/01-llm/#anchor)
+- [Part 1 — Ch.08 추론 모델 혁명](https://ai-contents-wine.vercel.app/01-llm/#llm-ch8)
 
 ## 연관 entity
 

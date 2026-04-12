@@ -107,7 +107,7 @@ OpenAI는 다른 접근을 택했다:
 
 ## Reference
 
-- [Part 1 — Ch.07 Reasoning Models](https://ai-contents-wine.vercel.app/01-llm/#anchor)
+- [Part 1 — Ch.07 Context Engineering](https://ai-contents-wine.vercel.app/01-llm/#llm-ch7)
 
 ## 연관 entity
 

@@ -52,6 +52,7 @@
 
 ## Reference
 
+- [Part 1 — Ch.04 토큰과 임베딩](https://ai-contents-wine.vercel.app/01-llm/#llm-ch4)
 - [Part 1 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/01-data-basics/)
 - [Part 4 — Ch.06 엔터프라이즈 RAG 설계](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 

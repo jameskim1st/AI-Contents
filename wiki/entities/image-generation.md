@@ -38,6 +38,7 @@
 
 ## Reference
 
+- [Part 1 — Ch.09 멀티모달 LLM](https://ai-contents-wine.vercel.app/01-llm/#llm-ch9)
 - [Part 9 — Ch.01 이미지 생성 AI](https://ai-contents-wine.vercel.app/09-multimodal/#이미지-생성-ai)
 
 ## 연관 entity

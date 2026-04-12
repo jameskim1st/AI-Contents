@@ -67,6 +67,7 @@ Liu et al. (2023) "Lost in the Middle: How Language Models Use Long Contexts"에
 
 ## Reference
 
+- [Part 1 — Ch.07 Context Engineering](https://ai-contents-wine.vercel.app/01-llm/#llm-ch7)
 - [Part 4 — Ch.06 엔터프라이즈 RAG 설계](https://ai-contents-wine.vercel.app/04-data-enterprise/)
 - [Part 6 — Ch.09 LLM Wiki](https://ai-contents-wine.vercel.app/06-vibe-master/) (long context와 RAG의 관계)
 

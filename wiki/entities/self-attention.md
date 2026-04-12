@@ -38,6 +38,7 @@
 ## Reference
 
 - [Part 0 — Ch.04 Transformer가 혁명적인 이유 (Self-Attention)](https://ai-contents-wine.vercel.app/00-llm/)
+- [Part 1 — Ch.03 Transformer 아키텍처](https://ai-contents-wine.vercel.app/01-llm/#llm-ch3)
 
 ## 연관 entity
 

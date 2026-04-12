@@ -151,7 +151,7 @@ user = client.chat.completions.create(
 
 ## Reference
 
-- [Part 1 — Ch.07 Reasoning Models](https://ai-contents-wine.vercel.app/01-llm/#anchor)
+- [Part 1 — Ch.06 문장 생성 원리](https://ai-contents-wine.vercel.app/01-llm/#llm-ch6)
 
 ## 연관 entity
 

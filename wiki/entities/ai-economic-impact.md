@@ -58,12 +58,15 @@
 
 ## Reference
 
+- [Part 1 — Ch.12 LLM의 한계와 미래](https://ai-contents-wine.vercel.app/01-llm/#llm-ch12)
 - [Part 3 — Ch.01 AI 시장의 구조](https://ai-contents-wine.vercel.app/03-llm-landscape/)
 - [Part 8 — Ch.01 경제적 영향](https://ai-contents-wine.vercel.app/08-ai-economy/)
 
 ## 연관 entity
 
 - [Production Gap](./production-gap.md) — 파일럿→프로덕션 전환 실패가 경제적 영향 지연의 핵심 원인
+- [AGI Levels](./agi-levels.md) — OpenAI 5단계 분류와 경제적 영향의 비선형 확대
+- [AI Chip Evolution](./ai-chip-evolution.md) — $667B capex의 대부분이 GPU/ASIC 인프라 투자
 
 ## 출처
 

@@ -23,6 +23,9 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
 ## 모델 (Models)
 
 - [Transformer](./entities/transformer.md)
+- [DeepSeek R1](./entities/deepseek-r1.md) — RL-only 오픈소스 추론 LLM, o3 대비 1/100 비용
+- [Multimodal LLM](./entities/multimodal-llm.md) — GPT-4o, Claude 4.6, Gemini 2.5
+- [SLM (Small Language Model)](./entities/slm.md) — 1B-7B, 에지 디바이스 온디바이스 추론
 
 ## 아키텍처 / 패턴
 
@@ -37,8 +40,9 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
 - [Multi-Agent](./entities/multi-agent.md)
 - [Narrow Scope](./entities/narrow-scope.md)
 - [Human-in-the-Loop](./entities/human-in-the-loop.md)
-- [RAG](./entities/rag.md) ⭐ NEW
-- [GraphRAG](./entities/graphrag.md) ⭐ NEW
+- [RAG](./entities/rag.md)
+- [GraphRAG](./entities/graphrag.md)
+- [Diffusion Models](./entities/diffusion-models.md) — DDPM → Stable Diffusion → Flux, DiT
 
 ## 프로토콜 / 표준
 
@@ -119,6 +123,25 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
 - [Computer Use](./entities/computer-use.md)
 - [Agent Frameworks (2026)](./entities/agent-frameworks.md)
 - [LangGraph](./entities/langgraph.md)
+- [AI 코딩 IDE](./entities/ai-ide.md) — Cursor, Windsurf, Zed, Copilot Workspace
+- [AI 검색](./entities/ai-search.md) — Perplexity, ChatGPT Search, AI Overviews
+
+## 추론 · 추론 확장 (Reasoning) ⭐ NEW 카테고리
+
+- [Reasoning Models](./entities/reasoning-models.md) — o1→o3, R1, Extended Thinking
+- [Test-time Compute](./entities/test-time-compute.md) — ORM/PRM, Majority Vote, MCTS, STaR
+- [Prompt Caching](./entities/prompt-caching.md) — 90% 비용 절감 (Anthropic/OpenAI)
+- [Structured Output](./entities/structured-output.md) — JSON mode, tool_use, Pydantic/Zod
+- [Context Engineering](./entities/context-engineering.md) — "프롬프트 엔지니어링은 죽었다" (Karpathy)
+- [Long Context](./entities/long-context.md) — 1M+ tokens, RAG 논쟁, Lost in Middle
+- [Distillation](./entities/distillation.md) — Teacher→Student, R1→Qwen/Llama
+
+## 멀티모달 (Multimodal) ⭐ NEW 카테고리
+
+- [Image Generation](./entities/image-generation.md) — Midjourney, DALL-E, Flux, Imagen
+- [Video Generation](./entities/video-generation.md) — Sora 2, Veo 3.1, Kling 3.0
+- [Voice AI](./entities/voice-ai.md) — Realtime API, ElevenLabs, Hume
+- [World Models](./entities/world-models.md) — Sora as simulator, Genie 2
 
 ## 개념 / 메커니즘
 
@@ -151,6 +174,10 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
 
 - [Andrej Karpathy](./entities/karpathy.md)
 
+## 경제 · 산업 ⭐ NEW 카테고리
+
+- [AI 경제적 영향](./entities/ai-economic-impact.md) — Goldman zero GDP, McKinsey 1%, $67B capex
+
 ## 방법론
 
 - [Vibe Coding](./entities/vibe-coding.md)
@@ -159,9 +186,9 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
 
 ## 통계
 
-- entity 페이지: **87개** (28 → 87, +59)
-- 카테고리: 13개 (9 → 13, 신설: 저장 계층 · Open Table Formats · 데이터 파이프라인 · 데이터 품질·윤리)
-- Last ingest: 2026-04-12 (Data 파트 — 41개 신규 entity)
+- entity 페이지: **105개** (87 → 105, +18 갭 분석)
+- 카테고리: 16개 (13 → 16, 신설: 추론·추론 확장 · 멀티모달 · 경제·산업)
+- Last ingest: 2026-04-12 (갭 분석 — Reasoning + Multimodal + SLM + IDE + Economy 18개)
 - Last query: 2026-04-12 (Part 1 + Part 4 동시 합성, 45 entity 활용, 5495줄)
 - **완료 사이클 #1**: Part 4 AI Agents 실전 — Sources → Ingest → Lint → Query → Ingest-back
 - **완료 사이클 #2**: Part 2/5 Data 동시 합성 — 완전한 5단계 사이클

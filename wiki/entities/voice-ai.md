@@ -43,6 +43,7 @@ AI 기반 음성 합성(TTS), 음성 인식(STT), 실시간 음성 대화를 아
 
 ## Reference
 
+- [Part 1 — Ch.10 영상·음성·월드 모델](https://ai-contents-wine.vercel.app/01-llm/#llm-ch10)
 - [Part 9 — Ch.03 음성 AI](https://ai-contents-wine.vercel.app/09-multimodal/#음성-ai)
 
 ## 연관 entity
