@@ -123,6 +123,7 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
 - [Computer Use](./entities/computer-use.md)
 - [Agent Frameworks (2026)](./entities/agent-frameworks.md)
 - [LangGraph](./entities/langgraph.md)
+- [n8n](./entities/n8n.md) — 오픈소스 비주얼 워크플로 자동화 + AI Agent 빌더
 - [AI 코딩 IDE](./entities/ai-ide.md) — Cursor, Windsurf, Zed, Copilot Workspace
 - [AI 검색](./entities/ai-search.md) — Perplexity, ChatGPT Search, AI Overviews
 
@@ -199,8 +200,8 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
 
 ## 통계
 
-- entity 페이지: **115개** (105 → 115, +10 IT 개발 기초)
-- 카테고리: 17개 (16 → 17, 신설: IT 개발 기초)
+- entity 페이지: **116개** (115 → 116, +1 n8n)
+- 카테고리: 17개
 - Last ingest: 2026-04-12 (IT 개발 기초 — OS/네트워크/API/Git 등 10개)
 - Last query: 2026-04-12 (Part 1 + Part 4 동시 합성, 45 entity 활용, 5495줄)
 - **완료 사이클 #1**: Part 4 AI Agents 실전 — Sources → Ingest → Lint → Query → Ingest-back
