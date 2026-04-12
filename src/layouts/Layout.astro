@@ -50,6 +50,26 @@ const nextPage = next || (currentIdx < pages.length - 1 ? { href: pages[currentI
     AI<span style="color:var(--text-dim);font-weight:400;margin-left:2px">novice</span>
   </a>
 
+  <!-- Search Button -->
+  <button class="search-btn" id="searchBtn" title="검색 (Ctrl+K)" style="position:fixed;top:12px;right:60px;z-index:1001;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:6px 14px;font-size:.82rem;color:var(--text-dim);cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .2s" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-dim)'">
+    🔍 <span style="font-family:var(--mono);font-size:.72rem;opacity:.6">Ctrl+K</span>
+  </button>
+
+  <!-- Search Modal -->
+  <div id="searchModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:2000;align-items:flex-start;justify-content:center;padding-top:12vh">
+    <div style="background:var(--bg);border:1px solid var(--border);border-radius:16px;width:90%;max-width:600px;max-height:70vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.5)">
+      <div style="padding:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px">
+        <span style="font-size:1.1rem">🔍</span>
+        <input id="searchInput" type="text" placeholder="챕터, 개념, 키워드 검색..." style="flex:1;background:transparent;border:none;outline:none;font-size:1rem;color:var(--text);font-family:var(--sans)" autocomplete="off">
+        <kbd style="font-family:var(--mono);font-size:.7rem;color:var(--text-dim);background:var(--surface);padding:2px 8px;border-radius:4px;border:1px solid var(--border)">ESC</kbd>
+      </div>
+      <div id="searchResults" style="overflow-y:auto;padding:8px;flex:1;min-height:0"></div>
+      <div style="padding:8px 16px;border-top:1px solid var(--border);font-size:.72rem;color:var(--text-dim);text-align:center">
+        ↑↓ 탐색 · Enter 이동 · ESC 닫기
+      </div>
+    </div>
+  </div>
+
   <!-- Theme Toggle -->
   <button class="theme-toggle" id="themeToggle" title="라이트/다크 모드 전환">🌙</button>
 
@@ -169,6 +189,110 @@ const nextPage = next || (currentIdx < pages.length - 1 ? { href: pages[currentI
       if (r.top < (window.innerHeight || 0) + 400) el.classList.add('visible');
     });
   }, 1500);
+
+  // ─── Search functionality ───
+  let searchIndex: Array<{url:string;part:string;title:string;snippet:string}> = [];
+  let searchSelectedIdx = -1;
+
+  async function loadSearchIndex() {
+    if (searchIndex.length > 0) return;
+    try {
+      const res = await fetch('/search-index.json');
+      searchIndex = await res.json();
+    } catch (e) { console.warn('Search index load failed', e); }
+  }
+
+  function openSearch() {
+    const modal = document.getElementById('searchModal') as HTMLElement | null;
+    const input = document.getElementById('searchInput') as HTMLInputElement | null;
+    if (!modal || !input) return;
+    modal.style.display = 'flex';
+    input.value = '';
+    input.focus();
+    searchSelectedIdx = -1;
+    const results = document.getElementById('searchResults');
+    if (results) results.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--text-dim);font-size:.85rem">검색어를 입력하세요</div>';
+    loadSearchIndex();
+  }
+
+  function closeSearch() {
+    const modal = document.getElementById('searchModal') as HTMLElement | null;
+    if (modal) modal.style.display = 'none';
+  }
+
+  function renderResults(query: string) {
+    const results = document.getElementById('searchResults');
+    if (!results || !query.trim()) {
+      if (results) results.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--text-dim);font-size:.85rem">검색어를 입력하세요</div>';
+      return;
+    }
+
+    const q = query.toLowerCase();
+    const matched = searchIndex.filter(item =>
+      item.title.toLowerCase().includes(q) ||
+      item.part.toLowerCase().includes(q) ||
+      item.snippet.toLowerCase().includes(q)
+    ).slice(0, 20);
+
+    if (matched.length === 0) {
+      results.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--text-dim);font-size:.85rem">결과 없음</div>';
+      return;
+    }
+
+    searchSelectedIdx = 0;
+    results.innerHTML = matched.map((item, i) => {
+      const escaped = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const highlighted = item.title.replace(new RegExp('(' + escaped + ')', 'gi'), '<mark style="background:var(--accent);color:#000;border-radius:2px;padding:0 2px">$1</mark>');
+      return '<a href="' + item.url + '" class="search-result-item" data-idx="' + i + '" style="display:block;padding:10px 14px;border-radius:8px;text-decoration:none;color:var(--text);transition:background .15s;' + (i === 0 ? 'background:var(--surface)' : '') + '">' +
+        '<div style="font-size:.88rem;font-weight:600;line-height:1.5">' + highlighted + '</div>' +
+        '<div style="font-size:.72rem;color:var(--text-dim);margin-top:2px">' + item.part + (item.snippet ? ' · ' + item.snippet.substring(0, 60) + '...' : '') + '</div>' +
+      '</a>';
+    }).join('');
+  }
+
+  document.getElementById('searchBtn')?.addEventListener('click', openSearch);
+  document.getElementById('searchModal')?.addEventListener('click', (e: MouseEvent) => {
+    if (e.target === e.currentTarget) closeSearch();
+  });
+
+  document.getElementById('searchInput')?.addEventListener('input', (e: Event) => {
+    const target = e.target as HTMLInputElement;
+    renderResults(target.value);
+  });
+
+  document.addEventListener('keydown', (e: KeyboardEvent) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      openSearch();
+      return;
+    }
+    if (e.key === 'Escape') { closeSearch(); return; }
+
+    const modal = document.getElementById('searchModal') as HTMLElement | null;
+    if (!modal || modal.style.display !== 'flex') return;
+
+    const items = document.querySelectorAll<HTMLAnchorElement>('.search-result-item');
+    if (!items.length) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      searchSelectedIdx = Math.min(searchSelectedIdx + 1, items.length - 1);
+      items.forEach((el, i) => { el.style.background = i === searchSelectedIdx ? 'var(--surface)' : 'transparent'; });
+      items[searchSelectedIdx]?.scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      searchSelectedIdx = Math.max(searchSelectedIdx - 1, 0);
+      items.forEach((el, i) => { el.style.background = i === searchSelectedIdx ? 'var(--surface)' : 'transparent'; });
+      items[searchSelectedIdx]?.scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'Enter' && searchSelectedIdx >= 0) {
+      e.preventDefault();
+      const link = items[searchSelectedIdx];
+      if (link) {
+        closeSearch();
+        window.location.href = link.href;
+      }
+    }
+  });
 
   // Active tab highlighting is handled server-side in Astro frontmatter
 
