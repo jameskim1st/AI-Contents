@@ -77,7 +77,7 @@ score(d) = α * bm25_norm(d) + (1 - α) * vector_norm(d)
 
 ## Reference
 
-- [Part 4 — Ch.06 엔터프라이즈 RAG 설계](https://ai-contents-wine.vercel.app/04-data-enterprise/)
+- [Part 8 — Ch.06 엔터프라이즈 RAG 설계](https://ai-contents-wine.vercel.app/08-data-enterprise/)
 - [Part 1 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/01-data-basics/)
 
 ## 연관 entity

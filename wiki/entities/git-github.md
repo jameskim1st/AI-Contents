@@ -63,7 +63,7 @@ GitHub에는 수많은 **오픈소스** 프로젝트가 공개되어 있다. Rea
 
 ## Reference
 
-- [Part 7 — Ch.07 "어제까지 되던 게 왜 안 되지?" — Git](https://ai-contents-wine.vercel.app/07-vibe-basic/#p7-ch7)
+- [Part 4 — Ch.07 "어제까지 되던 게 왜 안 되지?" — Git](https://ai-contents-wine.vercel.app/04-vibe-basic/#p4-ch7)
 
 ## 연관 entity
 
@@ -75,7 +75,7 @@ GitHub에는 수많은 **오픈소스** 프로젝트가 공개되어 있다. Rea
 
 - 그랩, "개발 배경지식들 빠르게 격파하기", Notion.
 - Backlog, "누구나 쉽게 이해할 수 있는 Git 입문", backlog.com/git-tutorial/kr.
-- Part 7 Ch.07, Git 워크플로우 다이어그램 (vibe-basic.html).
+- Part 4 Ch.07, Git 워크플로우 다이어그램 (vibe-basic.html).
 
 ## 업데이트 이력
 

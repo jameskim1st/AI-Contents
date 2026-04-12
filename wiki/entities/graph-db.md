@@ -129,7 +129,7 @@ SELECT ?friend WHERE {
 ## Reference
 
 - [Part 1 — Ch.10 Graph DB 입문](https://ai-contents-wine.vercel.app/01-data-basics/)
-- [Part 4 — Ch.11 GraphRAG와 지식 그래프](https://ai-contents-wine.vercel.app/04-data-enterprise/)
+- [Part 8 — Ch.11 GraphRAG와 지식 그래프](https://ai-contents-wine.vercel.app/08-data-enterprise/)
 
 ## 연관 entity
 

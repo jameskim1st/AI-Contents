@@ -48,7 +48,7 @@ LLM은 **Knowledge 층에서 놀랍게 잘한다**. 그러나 입력되는 Data/
 ## Reference
 
 - [Part 1 — Ch.01 데이터란 무엇인가](https://ai-contents-wine.vercel.app/01-data-basics/)
-- [Part 4 — Ch.01 엔터프라이즈 데이터 전략](https://ai-contents-wine.vercel.app/04-data-enterprise/)
+- [Part 8 — Ch.01 엔터프라이즈 데이터 전략](https://ai-contents-wine.vercel.app/08-data-enterprise/)
 
 ## 연관 entity
 

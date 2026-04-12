@@ -106,7 +106,7 @@ NoSQL 초기의 "RDBMS 대체" 담론은 사라졌다. 대신 **polyglot persist
 ## Reference
 
 - [Part 1 — Ch.09 NoSQL 4대 유형](https://ai-contents-wine.vercel.app/01-data-basics/)
-- [Part 4 — Ch.10 Polyglot Persistence 전략](https://ai-contents-wine.vercel.app/04-data-enterprise/)
+- [Part 8 — Ch.10 Polyglot Persistence 전략](https://ai-contents-wine.vercel.app/08-data-enterprise/)
 
 ## 연관 entity
 

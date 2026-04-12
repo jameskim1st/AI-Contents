@@ -53,7 +53,7 @@
 ## Reference
 
 - [Part 3 — Ch.03 Narrow Scope 원칙](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/)
-- [Part 8 — Ch.04 하네스 엔지니어링 (승인 게이트)](https://ai-contents-wine.vercel.app/08-vibe-master/)
+- [Part 5 — Ch.04 하네스 엔지니어링 (승인 게이트)](https://ai-contents-wine.vercel.app/05-vibe-master/)
 
 ## 연관 entity
 

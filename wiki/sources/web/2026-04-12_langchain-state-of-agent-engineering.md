@@ -5,14 +5,14 @@ date_original: 2026-Q1
 date_ingested: 2026-04-12
 source_type: web
 url_or_path: https://www.langchain.com/state-of-agent-engineering
-used_for: Part 4 AI Agents 실전 (Ch.01, Ch.03, Ch.07, Ch.08)
+used_for: Part 3 AI Agents 실전 (Ch.01, Ch.03, Ch.07, Ch.08)
 ---
 
 # LangChain · State of Agent Engineering 2026
 
 ## Context
 
-2026년 AI 에이전트 엔지니어링 현황에 대한 LangChain의 산업 리포트. Part 4 AI Agents 실전의 핵심 통계·인사이트 source. "왜 PoC는 잘 되는데 프로덕션은 안 되나"라는 Part 4 Ch.01의 핵심 프레임을 이 리포트가 제공.
+2026년 AI 에이전트 엔지니어링 현황에 대한 LangChain의 산업 리포트. Part 3 AI Agents 실전의 핵심 통계·인사이트 source. "왜 PoC는 잘 되는데 프로덕션은 안 되나"라는 Part 3 Ch.01의 핵심 프레임을 이 리포트가 제공.
 
 ## Key Points
 
@@ -50,8 +50,8 @@ used_for: Part 4 AI Agents 실전 (Ch.01, Ch.03, Ch.07, Ch.08)
 
 ## Chapters created/updated
 
-- Part 4 Ch.01 — 왜 PoC ≠ 프로덕션
-- Part 4 Ch.03 — Narrow Scope 원칙
-- Part 4 Ch.07 — Observability
-- Part 4 Ch.08 — Evaluation
-- Part 4 Ch.10 — 프레임워크 카탈로그
+- Part 3 Ch.01 — 왜 PoC ≠ 프로덕션
+- Part 3 Ch.03 — Narrow Scope 원칙
+- Part 3 Ch.07 — Observability
+- Part 3 Ch.08 — Evaluation
+- Part 3 Ch.10 — 프레임워크 카탈로그

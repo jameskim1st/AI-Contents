@@ -1,31 +1,31 @@
 <Layout title="Data 기초 — AI를 떠받치는 데이터의 모든 것">
 <!-- PART 2: DATA 기초 -->
-<div class="part-header" id="part2">
+<div class="part-header" id="part7">
   <div class="part-header-inner">
-    <span class="part-header-num" style="color:var(--amber)">Part 2</span>
+    <span class="part-header-num" style="color:var(--amber)">Part 7</span>
     <h2 class="part-header-title">Data 기초 — AI를 떠받치는 데이터의 모든 것</h2>
     <p class="part-header-desc">DB부터 Lakehouse까지, 임베딩부터 데이터 품질까지 — 데이터 제국 완전 가이드</p>
     <p style="font-size:.85rem;color:var(--amber);margin-bottom:1rem;">📊 AI의 시작은 LLM이 아니라 <strong>데이터</strong>입니다. LLM을 만든 것도, 에이전트가 쓰는 것도, 엔터프라이즈 병목도 모두 데이터. Part 0에서 배운 LLM이 데이터로 만들어지고, Part 2의 AI Agents가 데이터를 사용합니다.</p>
     <nav class="ch-nav">
-      <a href="#p2-ch1"><span class="cn">01</span>데이터란 무엇인가</a>
-      <a href="#p2-ch2"><span class="cn">02</span>정형·반정형·비정형</a>
-      <a href="#p2-ch3"><span class="cn">03</span>저장소 투어</a>
-      <a href="#p2-ch4"><span class="cn">04</span>인터페이스 투어</a>
-      <a href="#p2-ch5"><span class="cn">05</span>LLM Pre-training</a>
-      <a href="#p2-ch6"><span class="cn">06</span>Fine-tuning</a>
-      <a href="#p2-ch7"><span class="cn">07</span>임베딩</a>
-      <a href="#p2-ch8"><span class="cn">08</span>벡터 DB</a>
-      <a href="#p2-ch9"><span class="cn">09</span>데이터 품질</a>
-      <a href="#p2-ch10"><span class="cn">10</span>데이터 편향</a>
-      <a href="#p2-ch11"><span class="cn">11</span>Data-Centric AI</a>
-      <a href="#p2-ch12"><span class="cn">12</span>파이프라인</a>
+      <a href="#p7-ch1"><span class="cn">01</span>데이터란 무엇인가</a>
+      <a href="#p7-ch2"><span class="cn">02</span>정형·반정형·비정형</a>
+      <a href="#p7-ch3"><span class="cn">03</span>저장소 투어</a>
+      <a href="#p7-ch4"><span class="cn">04</span>인터페이스 투어</a>
+      <a href="#p7-ch5"><span class="cn">05</span>LLM Pre-training</a>
+      <a href="#p7-ch6"><span class="cn">06</span>Fine-tuning</a>
+      <a href="#p7-ch7"><span class="cn">07</span>임베딩</a>
+      <a href="#p7-ch8"><span class="cn">08</span>벡터 DB</a>
+      <a href="#p7-ch9"><span class="cn">09</span>데이터 품질</a>
+      <a href="#p7-ch10"><span class="cn">10</span>데이터 편향</a>
+      <a href="#p7-ch11"><span class="cn">11</span>Data-Centric AI</a>
+      <a href="#p7-ch12"><span class="cn">12</span>파이프라인</a>
     </nav>
   </div>
 </div>
 
-<!-- ── Part 2 로드맵 ── -->
+<!-- ── Part 7 로드맵 ── -->
 <div class="dia reveal" style="margin-bottom:2rem">
-<div class="dia-title">🗺️ Part 2 로드맵 — 데이터가 AI를 떠받치는 구조</div>
+<div class="dia-title">🗺️ Part 7 로드맵 — 데이터가 AI를 떠받치는 구조</div>
 <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:1.2rem">"LLM이 먼저냐 데이터가 먼저냐" — 답은 명백합니다. 데이터가 먼저고, 데이터가 끝까지 갑니다.</div>
 
 <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem;max-width:900px;margin:0 auto">
@@ -86,7 +86,7 @@
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 1: 데이터란 무엇인가 -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p2-ch1">
+<section class="ch reveal" id="p7-ch1">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">01</div><h2 class="ch-title">데이터란 무엇인가 — DIKW 피라미드와 AI 시대</h2></div>
 
 <p class="section-desc">"데이터"는 AI 시대에 가장 자주 쓰이지만 가장 오해받는 단어입니다. 1989년 Russell Ackoff가 제안한 <strong style="color:var(--amber)">DIKW 피라미드</strong>는 37년이 지난 지금도 여전히 유효합니다 — 아니, LLM 시대에 오히려 더 중요해졌습니다.</p>
@@ -183,7 +183,7 @@
     </div>
   </div>
   <div style="margin-top:1rem;text-align:center;font-size:.82rem;color:var(--text-dim);line-height:1.7">
-    아무리 좋은 GPT-5/Claude 5가 있어도, 입력 데이터가 나쁘면 답도 나쁩니다. <strong style="color:var(--amber)">→ 이것이 Part 2 전체의 메시지</strong>
+    아무리 좋은 GPT-5/Claude 5가 있어도, 입력 데이터가 나쁘면 답도 나쁩니다. <strong style="color:var(--amber)">→ 이것이 Part 7 전체의 메시지</strong>
   </div>
 </div>
 </div>
@@ -202,7 +202,7 @@
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 2: 데이터 3유형 -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p2-ch2">
+<section class="ch reveal" id="p7-ch2">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">02</div><h2 class="ch-title">데이터 3유형 — 정형·반정형·비정형</h2></div>
 
 <p class="section-desc">AI에서 가장 중요한 분류입니다. 왜냐하면 <strong style="color:var(--amber)">엔터프라이즈 지식의 80%가 비정형</strong>인데(IDC), 이 영역을 다룰 수 있게 된 것이 바로 LLM의 혁명이기 때문입니다.</p>
@@ -329,7 +329,7 @@
     <strong style="color:var(--amber)">2020~:</strong> LLM이 등장하면서 텍스트/이미지/오디오의 <strong>의미</strong>를 다룰 수 있게 됩니다. 이메일에서 액션 아이템 추출, PDF에서 QA, 영상에서 요약 — 2020년 전까지는 전담 연구팀의 일이었지만, 2026년에는 API 한 줄입니다.
   </div>
   <div style="padding:1rem 1.2rem;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:10px;font-size:.82rem;color:var(--text);line-height:1.85">
-    <strong style="color:var(--amber)">🎯 핵심 통찰:</strong> "우리 회사에 AI가 왜 필요한가?"라는 질문의 답은 대부분 <strong>"문서·이메일·채팅에 있는 80% 지식을 꺼내기 위해서"</strong>입니다. 이것이 RAG(Part 3 Ch.08)가 엔터프라이즈에서 가장 먼저 채택되는 패턴인 이유입니다.
+    <strong style="color:var(--amber)">🎯 핵심 통찰:</strong> "우리 회사에 AI가 왜 필요한가?"라는 질문의 답은 대부분 <strong>"문서·이메일·채팅에 있는 80% 지식을 꺼내기 위해서"</strong>입니다. 이것이 RAG(Part 2 Ch.08)가 엔터프라이즈에서 가장 먼저 채택되는 패턴인 이유입니다.
   </div>
 </div>
 </div>
@@ -348,7 +348,7 @@
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 3: 데이터가 사는 곳 -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p2-ch3">
+<section class="ch reveal" id="p7-ch3">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">03</div><h2 class="ch-title">데이터가 사는 곳 — DB · DW · Data Mart · Lake · Lakehouse</h2></div>
 
 <p class="section-desc">데이터는 어딘가에 저장되어야 합니다. 지난 40년 동안 5번의 진화가 있었고, 2026년 현재 <strong style="color:var(--amber)">Lakehouse</strong>가 사실상 표준이 되었습니다. 이 챕터는 Part 1에서 <strong>가장 중요한</strong> 챕터입니다 — AI 엔지니어는 "어디에 데이터가 살고 어떻게 꺼내는가"를 반드시 알아야 합니다.</p>
@@ -1344,7 +1344,7 @@
       <strong style="color:var(--amber)">예시:</strong> 온톨로지에 "Mammal ⊂ Animal", "Dog ⊂ Mammal"을 선언하면, "Dog는 Animal이다"를 <strong>자동으로 도출</strong>합니다. 사실 사례: <strong>Schema.org</strong>(웹), <strong>SNOMED CT</strong>(의료), <strong>Wikidata</strong>(1억+ 엔티티), <strong>Google Knowledge Graph</strong>(5천억+ 사실).
     </div>
     <div style="margin-top:.7rem;font-size:.75rem;color:var(--text-dim);line-height:1.7">
-      💡 2010년대엔 시들었지만 <strong style="color:var(--text)">LLM 시대에 부활</strong> 중 — LLM 환각 줄이기, 도메인 지식 주입, GraphRAG의 추론 백본. 자세히는 <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/ontology.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">wiki: ontology</a> · GraphRAG는 Part 5 Ch.09에서.
+      💡 2010년대엔 시들었지만 <strong style="color:var(--text)">LLM 시대에 부활</strong> 중 — LLM 환각 줄이기, 도메인 지식 주입, GraphRAG의 추론 백본. 자세히는 <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/ontology.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">wiki: ontology</a> · GraphRAG는 Part 8 Ch.09에서.
     </div>
   </div>
 
@@ -1430,7 +1430,7 @@
   </div>
 
   <div style="text-align:center;padding:.7rem 1rem;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:8px;font-size:.78rem;color:var(--text)">
-    🔗 본격 학습은 <a href="#p2-ch7" style="color:var(--amber);text-decoration:underline;font-weight:700">Ch.07 임베딩</a> · <a href="#p2-ch8" style="color:var(--amber);text-decoration:underline;font-weight:700">Ch.08 벡터 DB</a>에서.
+    🔗 본격 학습은 <a href="#p7-ch7" style="color:var(--amber);text-decoration:underline;font-weight:700">Ch.07 임베딩</a> · <a href="#p7-ch8" style="color:var(--amber);text-decoration:underline;font-weight:700">Ch.08 벡터 DB</a>에서.
   </div>
 
 </div>
@@ -1613,7 +1613,7 @@
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 4: 데이터 인터페이스 투어 -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p2-ch4">
+<section class="ch reveal" id="p7-ch4">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">04</div><h2 class="ch-title">데이터 인터페이스 투어 — SQL부터 노트북까지</h2></div>
 
 <p class="section-desc">데이터는 "저장" 다음에 "꺼내기"가 필요합니다. 2026년 현재 데이터를 만지는 도구는 5가지 계층으로 나뉩니다 — SQL, NoSQL 쿼리, Vector 쿼리, 노트북, BI. 각각이 무슨 역할인지, 누가 쓰는지를 빠르게 투어합니다.</p>
@@ -1813,7 +1813,7 @@
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 5: LLM Pre-training과 데이터 -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p2-ch5">
+<section class="ch reveal" id="p7-ch5">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">05</div><h2 class="ch-title">LLM Pre-training과 데이터 — LLM은 데이터로 만들어진다</h2></div>
 
 <p class="section-desc">"LLM이 어떻게 만들어지느냐"의 답은 놀랍도록 단순합니다 — <strong style="color:var(--amber)">엄청난 양의 텍스트로 다음 단어를 맞추는 학습</strong>. 알고리즘보다 중요한 것은 데이터입니다. 2026년에도 "누가 더 좋은 데이터를 가지고 있느냐"가 LLM 경쟁력의 핵심입니다.</p>
@@ -1972,7 +1972,7 @@
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 6: Fine-tuning 데이터 -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p2-ch6">
+<section class="ch reveal" id="p7-ch6">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">06</div><h2 class="ch-title">Fine-tuning 데이터 — 모델을 내 문제에 맞추기</h2></div>
 
 <p class="section-desc">Pre-training이 "일반 지능"을 만든다면, Fine-tuning은 <strong style="color:var(--amber)">"내 도메인·내 말투·내 안전성"</strong>에 맞춥니다. 2026년 현재 3가지 방법이 표준이며, 놀랍게도 <strong>양보다 품질</strong>이 결정적입니다.</p>
@@ -2170,7 +2170,7 @@
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 7: 임베딩 -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p2-ch7">
+<section class="ch reveal" id="p7-ch7">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">07</div><h2 class="ch-title">임베딩 — 의미를 수학으로 바꾸는 기술</h2></div>
 
 <p class="section-desc">컴퓨터는 "사과"와 "배"가 비슷한 과일이라는 걸 어떻게 알까요? 답은 <strong style="color:var(--amber)">임베딩(Embedding)</strong>입니다. 단어·문장·문서를 수백~수천 차원의 벡터로 바꿔서, <strong>의미를 좌표로 표현</strong>하는 기술. 2026년 RAG, 검색, 추천, 분류 — 대부분의 AI 시스템이 이것 위에 돌아갑니다.</p>
@@ -2438,7 +2438,7 @@
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 8: 벡터 DB -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p2-ch8">
+<section class="ch reveal" id="p7-ch8">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">08</div><h2 class="ch-title">벡터 DB — AI 시대의 저장소</h2></div>
 
 <p class="section-desc">임베딩을 만들었다면 <strong>어디에 저장해서 어떻게 검색</strong>할까요? PostgreSQL로도 할 수 있지만, 10억 벡터를 millisecond에 검색하려면 전용 엔진이 필요합니다. <strong style="color:var(--amber)">벡터 DB</strong>는 "유사도 검색"을 1급 연산으로 지원하는 새로운 종의 데이터베이스입니다.</p>
@@ -2761,7 +2761,7 @@
 <!-- Tip -->
 <div class="tip reveal">
 <div style="font-size:.85rem;color:var(--text);line-height:1.85">
-  💡 <strong style="color:var(--amber)">더 깊이:</strong> <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/vector-db.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">vector-db</a>와 <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/embedding-model.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">embedding-model</a>을 묶어서 읽으세요. RAG 파이프라인(Part 3 Ch.06)과 Agentic RAG(Part 3 Ch.12)의 기반이 바로 여기입니다.
+  💡 <strong style="color:var(--amber)">더 깊이:</strong> <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/vector-db.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">vector-db</a>와 <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/embedding-model.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">embedding-model</a>을 묶어서 읽으세요. RAG 파이프라인(Part 2 Ch.06)과 Agentic RAG(Part 2 Ch.12)의 기반이 바로 여기입니다.
 </div>
 </div>
 
@@ -2772,7 +2772,7 @@
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 9: 데이터 품질 5대 차원 -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p2-ch9">
+<section class="ch reveal" id="p7-ch9">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">09</div><h2 class="ch-title">데이터 품질 5대 차원 — Garbage In, Garbage Out</h2></div>
 
 <p class="section-desc">AI 프로덕션 실패의 <strong style="color:var(--amber)">32%가 "데이터 품질"</strong> 때문입니다 (2025 MIT State of AI Report). 모델을 바꾼다고 해결되지 않습니다. 품질은 정성적 단어가 아니라 <strong>5개의 측정 가능한 차원</strong>으로 정의됩니다. 데이터 거버넌스의 ABC.</p>
@@ -2939,7 +2939,7 @@
 <!-- Tip -->
 <div class="tip reveal">
 <div style="font-size:.85rem;color:var(--text);line-height:1.85">
-  💡 <strong style="color:var(--amber)">Part 4 연결:</strong> 품질은 <strong>프로덕션 갭의 첫 번째 킬러</strong>입니다. <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/data-quality.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">data-quality</a>와 <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/production-gap.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">production-gap</a> wiki 엔티티에서 "왜 모델 교체보다 데이터 정제가 항상 이기는가"를 실증 데이터로 다룹니다.
+  💡 <strong style="color:var(--amber)">Part 3 연결:</strong> 품질은 <strong>프로덕션 갭의 첫 번째 킬러</strong>입니다. <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/data-quality.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">data-quality</a>와 <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/production-gap.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">production-gap</a> wiki 엔티티에서 "왜 모델 교체보다 데이터 정제가 항상 이기는가"를 실증 데이터로 다룹니다.
 </div>
 </div>
 
@@ -2950,7 +2950,7 @@
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 10: 데이터 편향 -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p2-ch10">
+<section class="ch reveal" id="p7-ch10">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">10</div><h2 class="ch-title">데이터 편향 — AI가 왜 편향되는가</h2></div>
 
 <p class="section-desc">AI는 중립이 아닙니다. <strong style="color:var(--amber)">데이터가 편향되면 모델도 편향됩니다</strong>. 그것도 은밀하게, 통계적 패턴으로 포장된 채. 2026년 EU AI Act가 "고위험 AI"에 특별 규제를 걸어둔 이유도 여기에 있습니다. 편향은 기술 문제가 아니라 <strong>사회적·법적 문제</strong>입니다.</p>
@@ -3134,7 +3134,7 @@
 <!-- Tip -->
 <div class="tip reveal">
 <div style="font-size:.85rem;color:var(--text);line-height:1.85">
-  💡 <strong style="color:var(--amber)">더 깊이:</strong> <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/data-bias.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">data-bias</a>와 <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/eu-ai-act.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">eu-ai-act</a> wiki 엔티티를 함께 보세요. Part 6(AI 거버넌스)에서 Fairness Metrics, Audit Framework를 본격적으로 다룹니다.
+  💡 <strong style="color:var(--amber)">더 깊이:</strong> <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/data-bias.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">data-bias</a>와 <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/eu-ai-act.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">eu-ai-act</a> wiki 엔티티를 함께 보세요. Part 8(AI 거버넌스)에서 Fairness Metrics, Audit Framework를 본격적으로 다룹니다.
 </div>
 </div>
 
@@ -3145,7 +3145,7 @@
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 11: Data-Centric AI -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p2-ch11">
+<section class="ch reveal" id="p7-ch11">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">11</div><h2 class="ch-title">Data-Centric AI — Andrew Ng의 혁명</h2></div>
 
 <p class="section-desc">2021년 3월, 딥러닝의 대부 <strong style="color:var(--amber)">Andrew Ng</strong>가 폭탄 선언을 했습니다 — <strong>"모델은 그만 만들어라. 데이터를 고쳐라."</strong> 수년간 모델 경쟁에 지쳐있던 업계가 충격에 빠졌고, 이 철학은 지금 AI 실무의 사실상 표준이 되었습니다. Part 1의 마지막 핵심 메시지.</p>
@@ -3340,7 +3340,7 @@
 <!-- Tip -->
 <div class="tip reveal">
 <div style="font-size:.85rem;color:var(--text);line-height:1.85">
-  💡 <strong style="color:var(--amber)">더 깊이:</strong> <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/data-centric-ai.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">data-centric-ai</a> wiki 엔티티에서 라벨러 교육 실전, label consistency measurement, MLOps 통합 패턴까지 다룹니다. Part 4 "프로덕션 갭"의 이론적 기반이기도 합니다.
+  💡 <strong style="color:var(--amber)">더 깊이:</strong> <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/data-centric-ai.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">data-centric-ai</a> wiki 엔티티에서 라벨러 교육 실전, label consistency measurement, MLOps 통합 패턴까지 다룹니다. Part 3 "프로덕션 갭"의 이론적 기반이기도 합니다.
 </div>
 </div>
 
@@ -3351,7 +3351,7 @@
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 12: 데이터 파이프라인 -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p2-ch12">
+<section class="ch reveal" id="p7-ch12">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">12</div><h2 class="ch-title">데이터 파이프라인 — ETL, ELT, Streaming</h2></div>
 
 <p class="section-desc">데이터는 저장소에 <strong>자동으로 나타나지 않습니다</strong>. 수집하고, 변환하고, 적재하는 파이프라인이 24/7 돌아가야 합니다. 파이프라인은 지난 30년간 <strong style="color:var(--amber)">ETL → ELT → Streaming</strong>으로 진화했고, 2026년 Modern Data Stack이 그 결과입니다.</p>
@@ -3464,7 +3464,7 @@
 
 <!-- Modern Data Stack 아키텍처 -->
 <div class="dia reveal">
-<div class="dia-title">Modern Data Stack — 2026 표준 아키텍처 (Part 5 Preview)</div>
+<div class="dia-title">Modern Data Stack — 2026 표준 아키텍처 (Part 8 Preview)</div>
 <div style="max-width:920px;margin:0 auto">
 
 <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;align-items:stretch">
@@ -3515,7 +3515,7 @@
 </div>
 
 <div style="margin-top:1rem;padding:.9rem 1.2rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.85">
-  💡 <strong style="color:var(--amber)">Part 5 예고:</strong> 위 블록 하나하나를 Part 5(Data Engineering 심화)에서 파헤칩니다. dbt의 내부 원리, Airflow vs Dagster 비교, Iceberg 포맷, Semantic Layer — 모두 2026년 Modern Data Stack의 살아있는 표준들입니다.
+  💡 <strong style="color:var(--amber)">Part 8 예고:</strong> 위 블록 하나하나를 Part 8(Data Engineering 심화)에서 파헤칩니다. dbt의 내부 원리, Airflow vs Dagster 비교, Iceberg 포맷, Semantic Layer — 모두 2026년 Modern Data Stack의 살아있는 표준들입니다.
 </div>
 </div>
 </div>
@@ -3563,24 +3563,24 @@
 <!-- Tip -->
 <div class="tip reveal">
 <div style="font-size:.85rem;color:var(--text);line-height:1.85">
-  💡 <strong style="color:var(--amber)">더 깊이:</strong> <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/etl.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">etl</a>, <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/elt.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">elt</a>, <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/dbt.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">dbt</a>, <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/modern-data-stack.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">modern-data-stack</a>, <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/cdc.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">cdc</a>, <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/streaming-data.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">streaming-data</a> — 6개 wiki 엔티티가 Part 4의 뼈대입니다.
+  💡 <strong style="color:var(--amber)">더 깊이:</strong> <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/etl.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">etl</a>, <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/elt.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">elt</a>, <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/dbt.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">dbt</a>, <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/modern-data-stack.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">modern-data-stack</a>, <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/cdc.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">cdc</a>, <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/streaming-data.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">streaming-data</a> — 6개 wiki 엔티티가 Part 8의 뼈대입니다.
 </div>
 </div>
 
 </section>
 
-<!-- Part 3 bridge -->
+<!-- Part 2 bridge -->
 <div class="dia reveal" style="border:2px solid var(--teal-border);background:var(--teal-bg);margin-top:2rem">
 <div style="text-align:center;padding:1.5rem">
   <div style="font-family:var(--mono);font-size:.72rem;color:var(--teal);letter-spacing:2px;text-transform:uppercase;margin-bottom:.5rem">What's Next</div>
   <div style="font-family:var(--display);font-size:1.3rem;font-weight:800;color:var(--white);margin-bottom:.8rem">
-    Part 3 — AI Agents 완전 가이드
+    Part 2 — AI Agents 완전 가이드
   </div>
   <div style="font-size:.88rem;color:var(--text);line-height:1.85;max-width:650px;margin:0 auto">
     Part 0에서 LLM을, Part 1에서 데이터의 구조를 배웠습니다. 이제 <strong style="color:var(--teal)">그 둘을 결합한 AI 에이전트</strong>를 배울 차례입니다. Memory, Tools, Planning, Multi-Agent — 에이전트의 4가지 구성요소를 도식으로 파헤칩니다.
   </div>
-  <a href="/03-ai-agents" style="display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;padding:.7rem 1.5rem;border:1.5px solid var(--teal);background:var(--teal-bg);color:var(--teal);border-radius:10px;font-size:.88rem;font-weight:600;text-decoration:none;transition:all .3s" onmouseover="this.style.background='var(--teal)';this.style.color='#fff'" onmouseout="this.style.background='var(--teal-bg)';this.style.color='var(--teal)'">
-    Part 3 — AI Agents 가이드 보기 <span style="font-size:1.1rem">→</span>
+  <a href="/02-ai-agents" style="display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;padding:.7rem 1.5rem;border:1.5px solid var(--teal);background:var(--teal-bg);color:var(--teal);border-radius:10px;font-size:.88rem;font-weight:600;text-decoration:none;transition:all .3s" onmouseover="this.style.background='var(--teal)';this.style.color='#fff'" onmouseout="this.style.background='var(--teal-bg)';this.style.color='var(--teal)'">
+    Part 2 — AI Agents 가이드 보기 <span style="font-size:1.1rem">→</span>
   </a>
 </div>
 </div>

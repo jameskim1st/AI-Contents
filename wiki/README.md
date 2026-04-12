@@ -32,7 +32,7 @@
 
 ## 메타 — 이 사이트 자체가 예시
 
-이 위키는 [AI Contents 사이트](https://ai-contents-wine.vercel.app/) (`/08-vibe-master/` Ch.09 "LLM Wiki")의 **살아있는 데모** 입니다. 본 콘텐츠에서 설명하는 패턴을 사이트가 직접 적용해서 자라고 있습니다.
+이 위키는 [AI Contents 사이트](https://ai-contents-wine.vercel.app/) (`/05-vibe-master/` Ch.09 "LLM Wiki")의 **살아있는 데모** 입니다. 본 콘텐츠에서 설명하는 패턴을 사이트가 직접 적용해서 자라고 있습니다.
 
 > "콘텐츠를 만든다" → "LLM Wiki로 콘텐츠를 키운다"
 

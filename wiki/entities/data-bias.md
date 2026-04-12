@@ -78,7 +78,7 @@ Kleinberg et al. 2016, Chouldechova 2017 논문은 **"calibration + equal false 
 ## Reference
 
 - [Part 1 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/01-data-basics/)
-- [Part 4 — Ch.09 AI 거버넌스와 EU AI Act](https://ai-contents-wine.vercel.app/04-data-enterprise/)
+- [Part 8 — Ch.09 AI 거버넌스와 EU AI Act](https://ai-contents-wine.vercel.app/08-data-enterprise/)
 
 ## 연관 entity
 

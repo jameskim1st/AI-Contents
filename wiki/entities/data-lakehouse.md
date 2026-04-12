@@ -90,7 +90,7 @@ RESTORE TABLE sales TO VERSION AS OF 127;
 ## Reference
 
 - [Part 1 — Ch.05 Lakehouse 등장](https://ai-contents-wine.vercel.app/01-data-basics/)
-- [Part 4 — Ch.06 Databricks vs Fabric](https://ai-contents-wine.vercel.app/04-data-enterprise/)
+- [Part 8 — Ch.06 Databricks vs Fabric](https://ai-contents-wine.vercel.app/08-data-enterprise/)
 
 ## 연관 entity
 

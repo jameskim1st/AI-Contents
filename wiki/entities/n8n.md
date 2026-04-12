@@ -82,7 +82,7 @@ n8n과 [LangGraph](./langgraph.md)는 경쟁이 아니라 **상호보완적**이
 
 ## Reference
 
-- [Part 4 — Ch.12 n8n: 비주얼 AI 에이전트 빌더](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#aa-ch12)
+- [Part 8 — Ch.12 n8n: 비주얼 AI 에이전트 빌더](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/#p3-ch12)
 
 ## 연관 entity
 
@@ -101,4 +101,4 @@ n8n과 [LangGraph](./langgraph.md)는 경쟁이 아니라 **상호보완적**이
 
 ## 업데이트 이력
 
-- 2026-04-12 — 신규 생성. Part 4 AI Agents 실전 확장에서.
+- 2026-04-12 — 신규 생성. Part 3 AI Agents 실전 확장에서.

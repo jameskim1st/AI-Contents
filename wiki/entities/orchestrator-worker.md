@@ -39,7 +39,7 @@
 
 ### 예시
 
-- **OpenAI Codex 팀** — 3명이 5개월간 에이전트만으로 100만 줄 프로덕션 코드 (Part 4 Ch.04에 인용). 사실상 orchestrator-worker 구조였다.
+- **OpenAI Codex 팀** — 3명이 5개월간 에이전트만으로 100만 줄 프로덕션 코드 (Part 3 Ch.04에 인용). 사실상 orchestrator-worker 구조였다.
 - **Deep Research** (OpenAI/Perplexity) — 오케스트레이터가 검색·요약·합성 워커를 지휘
 - **Customer Support** — 라우터 → 분류·답변·escalation 워커들
 
@@ -54,7 +54,7 @@
 - [Part 2 — Ch.07 Multi-Agent 협업](https://ai-contents-wine.vercel.app/02-ai-agents/) (기초)
 - [Part 3 — Ch.02 에이전트 디자인 패턴 5선](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/)
 - [Part 3 — Ch.05 A2A 프로토콜](https://ai-contents-wine.vercel.app/03-ai-agents-advanced/)
-- [Part 8 — Ch.07 멀티 에이전트 활용](https://ai-contents-wine.vercel.app/08-vibe-master/)
+- [Part 5 — Ch.07 멀티 에이전트 활용](https://ai-contents-wine.vercel.app/05-vibe-master/)
 
 ## 연관 entity
 

@@ -1,5 +1,5 @@
 ---
-title: "AI Agents 실전 Research Bundle — Part 4 사이클 리서치 모음"
+title: "AI Agents 실전 Research Bundle — Part 3 사이클 리서치 모음"
 author: (multiple)
 date_original: 2026-early
 date_ingested: 2026-04-11
@@ -62,7 +62,7 @@ Part 4 AI Agents 실전 합성 사이클(LLM Wiki 사이클 #1)에서 사용된 
 
 ## Entities created/updated
 
-Part 4 사이클 17개 신규 entity 중 주요:
+Part 3 사이클 17개 신규 entity 중 주요:
 - [mcp](../../entities/mcp.md) · [a2a](../../entities/a2a.md) · [computer-use](../../entities/computer-use.md)
 - [react](../../entities/react.md) · [reflection](../../entities/reflection.md) · [plan-and-execute](../../entities/plan-and-execute.md)
 - [orchestrator-worker](../../entities/orchestrator-worker.md) · [agent-frameworks](../../entities/agent-frameworks.md)

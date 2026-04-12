@@ -99,7 +99,7 @@ User
 ## Reference
 
 - [Part 1 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/01-data-basics/)
-- [Part 4 — Ch.08 보안과 프라이버시](https://ai-contents-wine.vercel.app/04-data-enterprise/)
+- [Part 8 — Ch.08 보안과 프라이버시](https://ai-contents-wine.vercel.app/08-data-enterprise/)
 
 ## 연관 entity
 

@@ -103,8 +103,8 @@
 ## Reference
 
 - [Part 1 — Ch.07 Modern Data Stack 한 눈에](https://ai-contents-wine.vercel.app/01-data-basics/)
-- [Part 4 — Ch.07 Modern Data Stack 구축](https://ai-contents-wine.vercel.app/04-data-enterprise/)
-- [Part 4 — Ch.09 Lakehouse vs Warehouse](https://ai-contents-wine.vercel.app/04-data-enterprise/)
+- [Part 8 — Ch.07 Modern Data Stack 구축](https://ai-contents-wine.vercel.app/08-data-enterprise/)
+- [Part 8 — Ch.09 Lakehouse vs Warehouse](https://ai-contents-wine.vercel.app/08-data-enterprise/)
 
 ## 연관 entity
 

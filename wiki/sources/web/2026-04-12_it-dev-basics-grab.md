@@ -4,7 +4,7 @@ author: "그랩 (Grab) — IT 크리에이터, YouTube/뉴스레터"
 url: "https://grabyroom.notion.site/8d9e92b19e084c5a8cb173a695aa81af"
 date_accessed: 2026-04-12
 type: web/notion
-used_for: ["Part 6 — IT 개발 배경지식"]
+used_for: ["Part 9 — IT 개발 배경지식"]
 ---
 
 # **개발 배경지식들 빠르게 격파하기**

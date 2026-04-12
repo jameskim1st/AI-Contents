@@ -74,7 +74,7 @@ LLM의 **구조화된 출력(Structured Output)**이 사실상 JSON으로 통일
 ## Reference
 
 - [Part 1 — Ch.02 정형 vs 비정형 vs 반정형](https://ai-contents-wine.vercel.app/01-data-basics/)
-- [Part 4 — Ch.04 API와 데이터 교환](https://ai-contents-wine.vercel.app/04-data-enterprise/)
+- [Part 8 — Ch.04 API와 데이터 교환](https://ai-contents-wine.vercel.app/08-data-enterprise/)
 
 ## 연관 entity
 

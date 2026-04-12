@@ -56,7 +56,7 @@ LLM 시대에도 **정형 데이터는 여전히 핵심**이다. 단, 역할이 
 ## Reference
 
 - [Part 1 — Ch.02 정형 vs 비정형 vs 반정형](https://ai-contents-wine.vercel.app/01-data-basics/)
-- [Part 4 — Ch.03 엔터프라이즈 데이터 아키텍처](https://ai-contents-wine.vercel.app/04-data-enterprise/)
+- [Part 8 — Ch.03 엔터프라이즈 데이터 아키텍처](https://ai-contents-wine.vercel.app/08-data-enterprise/)
 
 ## 연관 entity
 

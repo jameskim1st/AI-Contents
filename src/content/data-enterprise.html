@@ -1,32 +1,32 @@
 <Layout title="Data 실전 — 엔터프라이즈 데이터 for AI">
 <!-- PART 5: DATA 실전 -->
-<div class="part-header" id="part5">
+<div class="part-header" id="part8">
   <div class="part-header-inner">
-    <span class="part-header-num" style="color:var(--amber)">Part 5</span>
+    <span class="part-header-num" style="color:var(--amber)">Part 8</span>
     <div style="display:inline-block;margin-left:.6rem;padding:.2rem .6rem;background:var(--amber-bg);border:1px solid var(--amber);border-radius:20px;font-family:var(--mono);font-size:.65rem;font-weight:700;color:var(--amber);letter-spacing:2px;vertical-align:middle">PRODUCTION · ENTERPRISE</div>
     <h2 class="part-header-title">Data 실전 — 엔터프라이즈 데이터 for AI</h2>
     <p class="part-header-desc">Production RAG · GraphRAG · Document AI · EU AI Act — 2026년 현장의 모든 것</p>
-    <p style="font-size:.85rem;color:var(--amber);margin-bottom:1rem;">🏢 Part 1이 "데이터가 무엇인가"였다면, Part 4는 "엔터프라이즈에서 데이터를 AI로 어떻게 쓰는가"입니다. Part 3의 "AI Agents 실전"이 운영 측면을 다뤘다면, 여기서는 그 아래를 떠받치는 데이터 엔지니어링을 다룹니다.</p>
+    <p style="font-size:.85rem;color:var(--amber);margin-bottom:1rem;">🏢 Part 7이 "데이터가 무엇인가"였다면, Part 8은 "엔터프라이즈에서 데이터를 AI로 어떻게 쓰는가"입니다. Part 3의 "AI Agents 실전"이 운영 측면을 다뤘다면, 여기서는 그 아래를 떠받치는 데이터 엔지니어링을 다룹니다.</p>
     <nav class="ch-nav">
-      <a href="#p5-ch1"><span class="cn">01</span>엔터프라이즈 데이터 스택</a>
-      <a href="#p5-ch2"><span class="cn">02</span>Modern Data Stack 카탈로그</a>
-      <a href="#p5-ch3"><span class="cn">03</span>Production RAG</a>
-      <a href="#p5-ch4"><span class="cn">04</span>Chunking 전략</a>
-      <a href="#p5-ch5"><span class="cn">05</span>임베딩 모델 선택</a>
-      <a href="#p5-ch6"><span class="cn">06</span>Hybrid Search + Reranking</a>
-      <a href="#p5-ch7"><span class="cn">07</span>RAG Evaluation</a>
-      <a href="#p5-ch8"><span class="cn">08</span>Document AI</a>
-      <a href="#p5-ch9"><span class="cn">09</span>GraphRAG</a>
-      <a href="#p5-ch10"><span class="cn">10</span>EU AI Act</a>
-      <a href="#p5-ch11"><span class="cn">11</span>Privacy · PII</a>
-      <a href="#p5-ch12"><span class="cn">12</span>Synthetic Data · 보안</a>
+      <a href="#p8-ch1"><span class="cn">01</span>엔터프라이즈 데이터 스택</a>
+      <a href="#p8-ch2"><span class="cn">02</span>Modern Data Stack 카탈로그</a>
+      <a href="#p8-ch3"><span class="cn">03</span>Production RAG</a>
+      <a href="#p8-ch4"><span class="cn">04</span>Chunking 전략</a>
+      <a href="#p8-ch5"><span class="cn">05</span>임베딩 모델 선택</a>
+      <a href="#p8-ch6"><span class="cn">06</span>Hybrid Search + Reranking</a>
+      <a href="#p8-ch7"><span class="cn">07</span>RAG Evaluation</a>
+      <a href="#p8-ch8"><span class="cn">08</span>Document AI</a>
+      <a href="#p8-ch9"><span class="cn">09</span>GraphRAG</a>
+      <a href="#p8-ch10"><span class="cn">10</span>EU AI Act</a>
+      <a href="#p8-ch11"><span class="cn">11</span>Privacy · PII</a>
+      <a href="#p8-ch12"><span class="cn">12</span>Synthetic Data · 보안</a>
     </nav>
   </div>
 </div>
 
-<!-- ── Part 5 로드맵 ── -->
+<!-- ── Part 8 로드맵 ── -->
 <div class="dia reveal" style="margin-bottom:2rem">
-<div class="dia-title">🗺️ Part 5 로드맵 — 스택에서 거버넌스까지</div>
+<div class="dia-title">🗺️ Part 8 로드맵 — 스택에서 거버넌스까지</div>
 <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:1.2rem">"데이터가 있다"는 끝이 아니라 시작입니다. 엔터프라이즈에서 데이터를 AI로 쓰려면 5개 관문을 통과해야 합니다.</div>
 
 <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem;max-width:900px;margin:0 auto">
@@ -87,10 +87,10 @@
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 1: 엔터프라이즈 데이터 스택 2026 -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p5-ch1">
+<section class="ch reveal" id="p8-ch1">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">01</div><h2 class="ch-title">엔터프라이즈 데이터 스택 2026 — 전체 아키텍처</h2></div>
 
-<p class="section-desc">Part 1에서 "데이터가 어디에 사는가"(DB·DW·Lake·Lakehouse)를 배웠습니다. Part 5 Ch.01은 여기서 한 단계 나아갑니다 — <strong style="color:var(--amber)">"2026년 엔터프라이즈는 그 위에 무엇을 얹었는가"</strong>. 답은 Lakehouse + Vector DB + Feature Store + MLOps의 4층 구조, 그리고 이 전체를 묶는 <strong>Data-as-a-Product</strong> 모델입니다.</p>
+<p class="section-desc">Part 7에서 "데이터가 어디에 사는가"(DB·DW·Lake·Lakehouse)를 배웠습니다. Part 8 Ch.01은 여기서 한 단계 나아갑니다 — <strong style="color:var(--amber)">"2026년 엔터프라이즈는 그 위에 무엇을 얹었는가"</strong>. 답은 Lakehouse + Vector DB + Feature Store + MLOps의 4층 구조, 그리고 이 전체를 묶는 <strong>Data-as-a-Product</strong> 모델입니다.</p>
 
 <!-- 2026 우선순위 전환 -->
 <div class="dia reveal">
@@ -133,7 +133,7 @@
 <div class="dia reveal">
 <div class="dia-title">2026 Enterprise Data Stack — 4층 아키텍처</div>
 <div style="max-width:900px;margin:0 auto;font-size:.85rem;color:var(--text);line-height:1.85;margin-bottom:1.2rem;text-align:center">
-  4개 층이 <strong style="color:var(--amber)">아래에서 위로</strong> 쌓입니다. 각 층의 <em>개념</em>은 Part 2에서 이미 다뤘으니, 여기서는 <strong>엔터프라이즈 운영</strong> — 도구 선택, 결정 기준, 실패 패턴 — 에 집중합니다.
+  4개 층이 <strong style="color:var(--amber)">아래에서 위로</strong> 쌓입니다. 각 층의 <em>개념</em>은 Part 7에서 이미 다뤘으니, 여기서는 <strong>엔터프라이즈 운영</strong> — 도구 선택, 결정 기준, 실패 패턴 — 에 집중합니다.
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════════
@@ -148,8 +148,8 @@
     </div>
 
     <div style="margin-bottom:.8rem;padding:.55rem .9rem;background:var(--amber-bg);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
-      <strong style="color:var(--amber)">📌 Part 2 복습:</strong> ETL/ELT/Streaming의 개념과 역사 →
-      <a href="https://ai-contents-wine.vercel.app/02-data-basics/#p2-ch12" target="_blank" rel="noopener" style="color:var(--amber);text-decoration:underline">Part 2 Ch.12</a>
+      <strong style="color:var(--amber)">📌 Part 7 복습:</strong> ETL/ELT/Streaming의 개념과 역사 →
+      <a href="https://ai-contents-wine.vercel.app/07-data-basics/#p7-ch12" target="_blank" rel="noopener" style="color:var(--amber);text-decoration:underline">Part 7 Ch.12</a>
       | 여기서는 소스 <strong>운영</strong>에 집중합니다.
     </div>
 
@@ -202,7 +202,7 @@
       <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center">
         <div style="font-size:1.3rem;margin-bottom:.3rem">📄</div>
         <div style="font-family:var(--display);font-size:.82rem;font-weight:700;color:var(--text)">Files / Documents</div>
-        <div style="font-size:.72rem;color:var(--text-dim);line-height:1.6;margin-top:.3rem">PDF, 이미지, 계약서, 이메일. Document AI(Part 5 Ch.08)로 구조화.</div>
+        <div style="font-size:.72rem;color:var(--text-dim);line-height:1.6;margin-top:.3rem">PDF, 이미지, 계약서, 이메일. Document AI(Part 8 Ch.08)로 구조화.</div>
       </div>
     </div>
 
@@ -238,8 +238,8 @@
     </div>
 
     <div style="margin-bottom:.8rem;padding:.55rem .9rem;background:var(--surface);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
-      <strong style="color:var(--amber)">📌 Part 2 복습:</strong> Lakehouse = Lake의 유연성 + DW의 ACID →
-      <a href="https://ai-contents-wine.vercel.app/02-data-basics/#p2-ch3" target="_blank" rel="noopener" style="color:var(--amber);text-decoration:underline">Part 2 Ch.03</a>
+      <strong style="color:var(--amber)">📌 Part 7 복습:</strong> Lakehouse = Lake의 유연성 + DW의 ACID →
+      <a href="https://ai-contents-wine.vercel.app/07-data-basics/#p7-ch3" target="_blank" rel="noopener" style="color:var(--amber);text-decoration:underline">Part 7 Ch.03</a>
       | 여기서는 <strong>Medallion Architecture</strong>와 테이블 포맷 선택을 다룹니다.
     </div>
 
@@ -380,9 +380,9 @@
     </div>
 
     <div style="margin-bottom:.8rem;padding:.55rem .9rem;background:var(--surface);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
-      <strong style="color:var(--amber)">📌 Part 2 복습:</strong> 임베딩과 벡터 DB 개념 →
-      <a href="https://ai-contents-wine.vercel.app/02-data-basics/#p2-ch7" target="_blank" rel="noopener" style="color:var(--amber);text-decoration:underline">Part 2 Ch.07 임베딩</a> ·
-      <a href="https://ai-contents-wine.vercel.app/02-data-basics/#p2-ch8" target="_blank" rel="noopener" style="color:var(--amber);text-decoration:underline">Part 2 Ch.08 벡터 DB</a>
+      <strong style="color:var(--amber)">📌 Part 7 복습:</strong> 임베딩과 벡터 DB 개념 →
+      <a href="https://ai-contents-wine.vercel.app/07-data-basics/#p7-ch7" target="_blank" rel="noopener" style="color:var(--amber);text-decoration:underline">Part 7 Ch.07 임베딩</a> ·
+      <a href="https://ai-contents-wine.vercel.app/07-data-basics/#p7-ch8" target="_blank" rel="noopener" style="color:var(--amber);text-decoration:underline">Part 7 Ch.08 벡터 DB</a>
       | 여기서는 <strong>Feature Store와 Vector DB의 운영 차이</strong>를 다룹니다.
     </div>
 
@@ -596,7 +596,7 @@
     <!-- 2026 변화: Agent Observability -->
     <div style="padding:.7rem .9rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;margin-bottom:1rem;font-size:.78rem;color:var(--text);line-height:1.8">
       <strong style="color:var(--amber)">🆕 2026 변화:</strong> Agent 전용 Observability가 MLOps의 확장 축으로 자리 잡음. LangSmith(LangChain), Langfuse(오픈소스), Arize AI가 trace, cost, latency를 추적. 자세히:
-      <a href="https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch7" target="_blank" rel="noopener" style="color:var(--amber);text-decoration:underline">Part 4 Ch.07 Observability</a>
+      <a href="https://ai-contents-wine.vercel.app/03-ai-agents-advanced/#p3-ch7" target="_blank" rel="noopener" style="color:var(--amber);text-decoration:underline">Part 3 Ch.07 Observability</a>
     </div>
 
     <!-- Agent vs ML 모니터링 차이 -->
@@ -796,7 +796,7 @@
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 2: Modern Data Stack 카탈로그 -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p5-ch2">
+<section class="ch reveal" id="p8-ch2">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">02</div><h2 class="ch-title">Modern Data Stack 카탈로그 — 2026 현장 도구들</h2></div>
 
 <p class="section-desc">Ch.01이 "전체 아키텍처"였다면 이 챕터는 <strong style="color:var(--amber)">"각 층의 실제 도구"</strong>입니다. 2026년 엔터프라이즈에서 쓰이는 5계층(Ingest → Store → Transform → Serve → Observe) 도구를 카탈로그 형태로 정리합니다. "뭘 써야 하지?"에 대한 실전 답.</p>
@@ -1078,10 +1078,10 @@
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 3: Production RAG -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p5-ch3">
+<section class="ch reveal" id="p8-ch3">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">03</div><h2 class="ch-title">Production RAG — 기초에서 프로덕션으로</h2></div>
 
-<p class="section-desc">Part 2 Ch.08에서 벡터 DB를 배웠습니다. 하지만 "벡터 DB를 쓴다"와 "RAG를 프로덕션에서 굴린다"는 완전히 다른 세계입니다. 이 챕터는 <strong style="color:var(--amber)">2025~2026년 현장에서 RAG가 실패한 이유와 고치는 법</strong>입니다.</p>
+<p class="section-desc">Part 7 Ch.08에서 벡터 DB를 배웠습니다. 하지만 "벡터 DB를 쓴다"와 "RAG를 프로덕션에서 굴린다"는 완전히 다른 세계입니다. 이 챕터는 <strong style="color:var(--amber)">2025~2026년 현장에서 RAG가 실패한 이유와 고치는 법</strong>입니다.</p>
 
 <!-- 충격적 통계 -->
 <div class="dia reveal">
@@ -1201,10 +1201,10 @@
 
 <!-- Eval 연결 -->
 <div class="dia reveal">
-<div class="dia-title">🔗 Part 4 Ch.08 Evaluation과의 연결</div>
+<div class="dia-title">🔗 Part 3 Ch.08 Evaluation과의 연결</div>
 <div style="max-width:840px;margin:0 auto">
   <div style="padding:1.2rem 1.4rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.85rem;color:var(--text);line-height:1.85">
-    Part 4 Ch.08에서 "에이전트를 평가하는 법"을 배웠습니다. RAG도 <strong>같은 원칙</strong>이지만 축이 다릅니다:
+    Part 3 Ch.08에서 "에이전트를 평가하는 법"을 배웠습니다. RAG도 <strong>같은 원칙</strong>이지만 축이 다릅니다:
     <ul style="margin:.6rem 0 0 1.2rem;padding:0">
       <li><strong style="color:var(--amber)">Retrieval 축</strong>: Context Precision, Context Recall (검색이 맞는 걸 뽑았나?)</li>
       <li><strong style="color:var(--amber)">Generation 축</strong>: Faithfulness, Answer Relevancy (검색된 것으로 충실하게 답했나?)</li>
@@ -1234,7 +1234,7 @@
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 4: Chunking 전략 -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p5-ch4">
+<section class="ch reveal" id="p8-ch4">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">04</div><h2 class="ch-title">Chunking 전략 — 숨은 승부처</h2></div>
 
 <p class="section-desc">"청크를 어떻게 자르느냐"는 <strong style="color:var(--amber)">RAG 성능의 30-40%를 결정</strong>합니다. 그런데 대부분의 튜토리얼은 "1000자씩 자르세요"로 끝납니다. 이 챕터는 2026년 현장에서 검증된 chunking의 <strong>전략별·도메인별 답</strong>입니다.</p>
@@ -1433,10 +1433,10 @@ chunks = splitter.split_documents(docs)<br>
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 5: 임베딩 모델 선택 2026 -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p5-ch5">
+<section class="ch reveal" id="p8-ch5">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">05</div><h2 class="ch-title">임베딩 모델 선택 2026</h2></div>
 
-<p class="section-desc">Part 2 Ch.07에서 "임베딩이 무엇인가"를 배웠습니다. 이제 질문은 <strong style="color:var(--amber)">"어떤 임베딩 모델을 써야 하는가"</strong>입니다. 2026년 시장은 4년 전과 비교할 수 없이 복잡합니다 — OpenAI가 유일한 선택이 아닙니다.</p>
+<p class="section-desc">Part 7 Ch.07에서 "임베딩이 무엇인가"를 배웠습니다. 이제 질문은 <strong style="color:var(--amber)">"어떤 임베딩 모델을 써야 하는가"</strong>입니다. 2026년 시장은 4년 전과 비교할 수 없이 복잡합니다 — OpenAI가 유일한 선택이 아닙니다.</p>
 
 <!-- MTEB 2026 리더 -->
 <div class="dia reveal">
@@ -1620,7 +1620,7 @@ chunks = splitter.split_documents(docs)<br>
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 6: Hybrid Search + Reranking -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p5-ch6">
+<section class="ch reveal" id="p8-ch6">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">06</div><h2 class="ch-title">Hybrid Search + Reranking — Vector-only의 한계 극복</h2></div>
 
 <p class="section-desc">"임베딩 모델만 좋으면 된다"는 2023년의 신화였습니다. 2026년의 합의는 분명합니다 — <strong style="color:var(--amber)">Hybrid Search + Reranker가 기본값</strong>. Vector-only RAG는 이제 "기초 튜토리얼"의 영역이고, 프로덕션은 3단 구성을 씁니다.</p>
@@ -1832,10 +1832,10 @@ chunks = splitter.split_documents(docs)<br>
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 7: RAG Evaluation (RAGAS & friends) -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p5-ch7">
+<section class="ch reveal" id="p8-ch7">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">07</div><h2 class="ch-title">RAG Evaluation — 측정하지 않으면 개선할 수 없다</h2></div>
 
-<p class="section-desc">Part 4 Ch.08에서 "AI 시스템 평가"의 일반론을 배웠습니다. 여기서는 그것의 <strong style="color:var(--amber)">RAG 특화 버전</strong>입니다. RAG는 "검색이 잘 됐나" + "답이 잘 됐나"의 두 축이 얽혀 있어 일반 LLM 평가보다 복잡합니다. 2024-26년 표준 프레임워크로 자리 잡은 <strong style="color:var(--amber)">RAGAS</strong>와 동료들을 봅니다.</p>
+<p class="section-desc">Part 3 Ch.08에서 "AI 시스템 평가"의 일반론을 배웠습니다. 여기서는 그것의 <strong style="color:var(--amber)">RAG 특화 버전</strong>입니다. RAG는 "검색이 잘 됐나" + "답이 잘 됐나"의 두 축이 얽혀 있어 일반 LLM 평가보다 복잡합니다. 2024-26년 표준 프레임워크로 자리 잡은 <strong style="color:var(--amber)">RAGAS</strong>와 동료들을 봅니다.</p>
 
 <!-- 왜 평가해야 하나 -->
 <div class="dia reveal">
@@ -2106,7 +2106,7 @@ chunks = splitter.split_documents(docs)<br>
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 8: Document AI -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p5-ch8">
+<section class="ch reveal" id="p8-ch8">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">08</div><h2 class="ch-title">Document AI — 숨은 80%를 풀어내는 법</h2></div>
 
 <p class="section-desc">엔터프라이즈에서 정말 중요한 지식은 깔끔한 Postgres 테이블이 아니라 <strong style="color:var(--amber)">PDF·PPT·스캔본·다이어그램·손글씨 메모</strong>에 갇혀 있습니다. 이 비구조 데이터를 RAG가 먹을 수 있게 꺼내오는 것이 <strong>Document AI</strong>입니다. 2023년의 OCR은 이제 <strong>VLM + Agentic parsing</strong>으로 진화했습니다.</p>
@@ -2402,7 +2402,7 @@ chunks = splitter.split_documents(docs)<br>
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 9: GraphRAG -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p5-ch9">
+<section class="ch reveal" id="p8-ch9">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">09</div><h2 class="ch-title">GraphRAG — 지식 그래프의 재부상</h2></div>
 
 <p class="section-desc">Vector RAG는 "한 청크에 답이 있는 질문"에 강합니다. 하지만 <strong style="color:var(--amber)">여러 문서·여러 사실을 엮어 추론해야 하는 질문</strong>엔 무력합니다. 2024년 Microsoft Research가 공개한 <strong>GraphRAG</strong>는 이 한계를 지식 그래프로 풀어냈고, 2025-26년 LinkedIn·Neo4j 사례로 실전 검증됐습니다.</p>
@@ -2611,7 +2611,7 @@ chunks = splitter.split_documents(docs)<br>
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 10: EU AI Act -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p5-ch10">
+<section class="ch reveal" id="p8-ch10">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">10</div><h2 class="ch-title">EU AI Act — 데이터 거버넌스가 법이 되는 해</h2></div>
 
 <p class="section-desc">기술을 아는 것만으론 부족합니다. 2026년부터 <strong style="color:var(--amber)">EU AI Act가 단계적으로 강제력을 갖습니다</strong>. 특히 <strong>Article 10 "Data Governance"</strong>는 고위험 AI 시스템의 학습·검증·테스트 데이터에 구체적 의무를 부과합니다. 이 장은 "법 공부"가 아니라 <strong>데이터 팀이 내일 해야 할 일</strong>을 정리합니다.</p>
@@ -2755,7 +2755,7 @@ chunks = splitter.split_documents(docs)<br>
   <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1.1rem">
     <div style="font-family:var(--mono);font-size:.68rem;color:var(--amber);letter-spacing:1px;font-weight:700">① DATA LINEAGE</div>
     <div style="font-size:.76rem;color:var(--text);line-height:1.8;margin-top:.4rem">
-      데이터의 <strong>출처·수집 방법·가공 이력</strong>을 문서화. Part 5 Ch.01의 lineage 시스템이 바로 여기 적용.
+      데이터의 <strong>출처·수집 방법·가공 이력</strong>을 문서화. Part 8 Ch.01의 lineage 시스템이 바로 여기 적용.
     </div>
   </div>
 
@@ -2865,7 +2865,7 @@ chunks = splitter.split_documents(docs)<br>
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 11: Privacy & PII -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p5-ch11">
+<section class="ch reveal" id="p8-ch11">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">11</div><h2 class="ch-title">Privacy & PII — LLM 시대의 실전 방어</h2></div>
 
 <p class="section-desc">GDPR·PIPA·HIPAA가 다루는 핵심은 <strong style="color:var(--amber)">PII (Personally Identifiable Information)</strong>입니다. LLM 시대에 PII 리스크는 새 모양으로 돌아왔습니다 — 모델이 학습 데이터를 기억하고, prompt에 섞인 PII를 그대로 로그에 남기고, tool 사용으로 추가 PII를 긁어옵니다. 2026년 엔터프라이즈는 <strong>PII를 "가림"이 아니라 "아키텍처"로</strong> 다룹니다.</p>
@@ -3088,10 +3088,10 @@ chunks = splitter.split_documents(docs)<br>
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 12: Synthetic Data + Data Security -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p5-ch12">
+<section class="ch reveal" id="p8-ch12">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">12</div><h2 class="ch-title">Synthetic Data + Data Security — 가짜 데이터, 진짜 공격</h2></div>
 
-<p class="section-desc">Part 4의 마지막 챕터는 두 주제를 엮습니다 — <strong style="color:var(--amber)">없으면 만들어내는 합성 데이터</strong>와, <strong>있는 데이터를 지키는 보안</strong>입니다. 둘은 짝입니다. 합성 데이터는 privacy를 해결하는 듯 보이지만, 잘못 쓰면 <strong>Model Autophagy Disorder</strong>로 모델을 망칩니다. 데이터 보안 공격은 2026년 들어 <strong>학습 파이프라인 자체</strong>를 노립니다.</p>
+<p class="section-desc">Part 8의 마지막 챕터는 두 주제를 엮습니다 — <strong style="color:var(--amber)">없으면 만들어내는 합성 데이터</strong>와, <strong>있는 데이터를 지키는 보안</strong>입니다. 둘은 짝입니다. 합성 데이터는 privacy를 해결하는 듯 보이지만, 잘못 쓰면 <strong>Model Autophagy Disorder</strong>로 모델을 망칩니다. 데이터 보안 공격은 2026년 들어 <strong>학습 파이프라인 자체</strong>를 노립니다.</p>
 
 <!-- Synthetic Data 등장 이유 -->
 <div class="dia reveal">
@@ -3256,10 +3256,10 @@ chunks = splitter.split_documents(docs)<br>
 
 <!-- Part 3과 연결 -->
 <div class="dia reveal">
-<div class="dia-title">🔗 Part 4 보안 챕터와의 연결</div>
+<div class="dia-title">🔗 Part 3 보안 챕터와의 연결</div>
 <div style="max-width:900px;margin:0 auto">
 <div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.9">
-  Part 4 Ch.09 "AI 보안"은 <strong>런타임</strong>의 prompt injection·jailbreak·tool abuse를 다뤘습니다. Part 5 Ch.12는 그 <strong>위층</strong> — <strong>학습 시점</strong>의 데이터 자체를 공격하는 표면을 다룹니다.
+  Part 3 Ch.09 "AI 보안"은 <strong>런타임</strong>의 prompt injection·jailbreak·tool abuse를 다뤘습니다. Part 8 Ch.12는 그 <strong>위층</strong> — <strong>학습 시점</strong>의 데이터 자체를 공격하는 표면을 다룹니다.
   <br><br>
   <strong style="color:var(--amber)">두 층은 함께 움직입니다:</strong> poisoning으로 심어둔 backdoor가 inference 시 특정 prompt로 trigger되고, extraction으로 복제된 모델이 경쟁사의 새 공격 벡터가 됩니다. <strong>전체 스택의 보안은 가장 약한 고리의 함수</strong>입니다.
 </div>
@@ -3278,18 +3278,18 @@ chunks = splitter.split_documents(docs)<br>
 
 </section>
 
-<!-- Part 7 bridge -->
+<!-- Part 4 bridge -->
 <div class="dia reveal" style="border:2px solid var(--accent-border);background:var(--accent-bg);margin-top:2rem">
 <div style="text-align:center;padding:1.5rem">
   <div style="font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:.5rem">What's Next</div>
   <div style="font-family:var(--display);font-size:1.3rem;font-weight:800;color:var(--white);margin-bottom:.8rem">
-    Part 7 — 바이브코딩 입문
+    Part 4 — 바이브코딩 입문
   </div>
   <div style="font-size:.88rem;color:var(--text);line-height:1.85;max-width:650px;margin:0 auto">
-    이해(Part 1~2)와 운영(Part 4~4)을 모두 마쳤습니다. 이제 <strong style="color:var(--accent)">실제로 만들 차례</strong>입니다. 코딩 경험 없이 AI에게 지시해서 실제 서비스를 만드는 "바이브 코딩"을 배웁니다.
+    이해와 운영을 모두 마쳤습니다. 이제 <strong style="color:var(--accent)">실제로 만들 차례</strong>입니다. 코딩 경험 없이 AI에게 지시해서 실제 서비스를 만드는 "바이브 코딩"을 배웁니다.
   </div>
-  <a href="/07-vibe-basic" style="display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;padding:.7rem 1.5rem;border:1.5px solid var(--accent);background:var(--accent-bg);color:var(--accent);border-radius:10px;font-size:.88rem;font-weight:600;text-decoration:none;transition:all .3s" onmouseover="this.style.background='var(--accent)';this.style.color='#fff'" onmouseout="this.style.background='var(--accent-bg)';this.style.color='var(--accent)'">
-    Part 7 — 바이브코딩 입문 보기 <span style="font-size:1.1rem">→</span>
+  <a href="/04-vibe-basic" style="display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;padding:.7rem 1.5rem;border:1.5px solid var(--accent);background:var(--accent-bg);color:var(--accent);border-radius:10px;font-size:.88rem;font-weight:600;text-decoration:none;transition:all .3s" onmouseover="this.style.background='var(--accent)';this.style.color='#fff'" onmouseout="this.style.background='var(--accent-bg)';this.style.color='var(--accent)'">
+    Part 4 — 바이브코딩 입문 보기 <span style="font-size:1.1rem">→</span>
   </a>
 </div>
 </div>

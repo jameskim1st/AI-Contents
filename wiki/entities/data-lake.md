@@ -64,7 +64,7 @@ Data Lake 자체를 "최종 분석 플랫폼"으로 쓰는 곳은 거의 없다.
 ## Reference
 
 - [Part 1 — Ch.04 Data Lake와 비정형 데이터](https://ai-contents-wine.vercel.app/01-data-basics/)
-- [Part 4 — Ch.05 Lake에서 Lakehouse로](https://ai-contents-wine.vercel.app/04-data-enterprise/)
+- [Part 8 — Ch.05 Lake에서 Lakehouse로](https://ai-contents-wine.vercel.app/08-data-enterprise/)
 
 ## 연관 entity
 
