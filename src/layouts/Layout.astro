@@ -158,6 +158,33 @@ const nextPage = next || (currentIdx < pages.length - 1 ? { href: pages[currentI
     if (topBtn) topBtn.classList.toggle('visible', s > 500);
   });
 
+  // ─── Hash anchor scroll: reveal target and scroll on page load ───
+  function scrollToHash() {
+    const hash = window.location.hash;
+    if (!hash) return;
+    const target = document.getElementById(hash.substring(1));
+    if (!target) return;
+
+    // Force the target AND all its ancestors with .reveal to become visible
+    let el: HTMLElement | null = target;
+    while (el) {
+      if (el.classList.contains('reveal')) el.classList.add('visible');
+      el = el.parentElement;
+    }
+    // Also reveal siblings/children within the same section
+    target.querySelectorAll('.reveal').forEach(child => child.classList.add('visible'));
+
+    // Scroll after a short delay to let layout settle
+    setTimeout(() => {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
+
+  // Run on page load
+  scrollToHash();
+  // Also handle in-page hash changes (e.g., from search)
+  window.addEventListener('hashchange', scrollToHash);
+
   // Reveal on scroll — IntersectionObserver with fail-safe
   // Note: threshold 0 + positive rootMargin ensures large blocks also trigger reliably.
   // Large reveal blocks that fully fill the viewport could previously stay hidden if
@@ -302,11 +329,18 @@ const nextPage = next || (currentIdx < pages.length - 1 ? { href: pages[currentI
     const hash = parsed.hash;
 
     if (currentPath === targetPath && hash) {
-      // Same page — just scroll to anchor
+      // Same page — reveal + scroll to anchor
       const el = document.getElementById(hash.substring(1));
       if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Reveal target and ancestors
+        let node: HTMLElement | null = el;
+        while (node) {
+          if (node.classList.contains('reveal')) node.classList.add('visible');
+          node = node.parentElement;
+        }
+        el.querySelectorAll('.reveal').forEach(child => child.classList.add('visible'));
         window.history.pushState(null, '', hash);
+        setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
       }
     } else {
       // Different page — navigate
