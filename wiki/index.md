@@ -1,7 +1,22 @@
 # Index
 
-`wiki/entities/` 카탈로그. 카테고리별 분류.
+`wiki/entities/` 카탈로그 + `wiki/sources/` 링크. 카테고리별 분류.
 **Last updated:** 2026-04-12
+
+## Raw Sources (Layer 1)
+
+Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히는 [`sources/README.md`](./sources/README.md).
+
+- **`sources/external/`** — 사내·로컬 자료 (PwC AI 리터러시 Day1/Day2/Day3 등)
+- **`sources/web/`** — WebSearch 결과·블로그·gist
+  - [Karpathy LLM Wiki gist (2026-04-11)](./sources/web/2026-04-11_karpathy-llm-wiki-gist.md) — 본 repo 운영 모델의 출처
+  - [LangChain State of Agent Engineering 2026](./sources/web/2026-04-12_langchain-state-of-agent-engineering.md)
+  - [AI Agents 실전 Research Bundle](./sources/web/2026-04-11_ai-agents-research-bundle.md) — Part 4
+  - [Data Pipeline Research Bundle](./sources/web/2026-04-12_data-pipeline-research-bundle.md) — Part 2/5
+- **`sources/papers/`** — 학술 논문
+  - [Attention Is All You Need (2017)](./sources/papers/2017_attention-is-all-you-need.md)
+
+---
 
 ---
 

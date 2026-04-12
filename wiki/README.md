@@ -7,10 +7,15 @@
 `src/content/*.html` (학습 자료)는 **선형적으로 읽는 콘텐츠** 입니다.
 이 `wiki/`는 **비선형으로 조회·누적되는 지식층** 입니다.
 
-**3계층 구조:**
-1. **Raw sources** — `src/content/*.html`, 외부 PPT/PDF (절대 수정 X)
-2. **Wiki** — 이 디렉토리. LLM이 유지하는 markdown 페이지들
-3. **Schema** — [`schema.md`](./schema.md) — 위키 운영 규칙
+**3계층 구조 (Karpathy LLM Wiki pattern):**
+
+| Layer | 위치 | 설명 |
+|---|---|---|
+| **1. Raw Sources** | [`sources/`](./sources/) | 원본 자료의 메타+요약 (web·papers·external). LLM이 읽지만 절대 수정 안 함 |
+| **2. The Wiki** | [`entities/`](./entities/) | LLM이 생성·유지하는 markdown 페이지 (87+) |
+| **3. Schema** | [`schema.md`](./schema.md) + [`/CLAUDE.md`](../CLAUDE.md) | 위키 운영 규칙 (사람이 큐레이션) |
+
+추가로 [`src/content/*.html`](../src/content/)도 raw source의 일종 — "이미 렌더링된 콘텐츠지만 다음 ingest의 입력이 되는" 이중 역할.
 
 ## 어떻게 쓰나
 

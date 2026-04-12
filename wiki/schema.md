@@ -57,6 +57,7 @@ Karpathy의 LLM Wiki gist를 우리 프로젝트(AI 교육 콘텐츠)에 맞게 
 
 새 자료(`SOURCE`)가 들어왔을 때 LLM이 수행하는 절차:
 
+0. **Record Source** ⭐ — `wiki/sources/{web|papers|external}/{YYYY-MM-DD}_{slug}.md` 파일을 먼저 생성한다. 원본의 URL·발행일·저자·핵심 내용 요약·인용문을 기록. **이게 Raw Sources 계층이다** — 원본이 외부에 있거나 휘발성이라도, 추후 재현성과 lint의 근거가 됨. 자세히는 `wiki/sources/README.md` 참조.
 1. **Read** — `SOURCE` 전체를 읽는다.
 2. **Extract** — 등장하는 entity 후보를 모두 뽑는다 (인물·모델·패턴·도구·개념·논문).
 3. **Match** — `wiki/entities/`를 확인하여 기존 entity와 매칭한다.
@@ -66,6 +67,26 @@ Karpathy의 LLM Wiki gist를 우리 프로젝트(AI 교육 콘텐츠)에 맞게 
 7. **Log** — `log.md`에 ingest 한 줄 기록 (`[YYYY-MM-DD ingest] {SOURCE} → {N}개 페이지 갱신, {M}개 신규`).
 
 **중요:** 1회 ingest로 갱신되는 entity는 **최대 15개** 로 제한. 그 이상이면 자료를 분할해야 한다.
+
+### Sources 파일 형식
+
+`wiki/sources/*/*.md`는 다음 frontmatter를 갖는다:
+
+```markdown
+---
+title: {원본 제목}
+author: {저자/기관}
+date_original: {원본 발행일 YYYY-MM-DD 또는 N/A}
+date_ingested: {ingest 날짜 YYYY-MM-DD}
+source_type: {web / paper / pptx / pdf / docx / gist / other}
+url_or_path: {URL 또는 로컬 경로}
+used_for: {어느 Part/Ch에 활용되었나}
+---
+```
+
+본문에는 **Context · Key Points · Quotes · Entities created/updated · Chapters created/updated** 섹션을 포함한다. 자세한 템플릿은 `wiki/sources/README.md` 참조.
+
+**저작권:** 비공개·사내 자료는 요약만 기록. "Strictly Private and Confidential" 표기 자료는 핵심 개념·구조만 추상화. 원본 바이너리(PPTX/PDF/DOCX)는 repo에 커밋하지 않는다 — 메타데이터만.
 
 ---
 
