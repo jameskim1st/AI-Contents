@@ -719,10 +719,37 @@
   <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem;text-align:center">
     <div style="font-size:1.5rem;margin-bottom:.4rem">🤖→🤖</div>
     <div style="font-family:var(--display);font-size:.95rem;font-weight:800;color:var(--text-dim);margin-bottom:.3rem">Human-out-of-the-Loop</div>
-    <div style="font-family:var(--mono);font-size:.68rem;color:var(--text-dim);margin-bottom:.6rem">완전 자율 · 사람은 감독만</div>
-    <div style="font-size:.8rem;color:var(--text);line-height:1.7;text-align:left;margin-bottom:.6rem">AI가 <strong>자율적으로</strong> 업무를 수행하고, 사람은 예외 상황에서만 개입합니다.</div>
-    <div style="padding:.5rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:.75rem;color:var(--text-dim)">아직 대부분의 업무에서 → <strong>미래 단계</strong></div>
+    <div style="font-family:var(--mono);font-size:.68rem;color:var(--text-dim);margin-bottom:.6rem">AI가 하네스까지 스스로 진화</div>
+    <div style="font-size:.8rem;color:var(--text);line-height:1.7;text-align:left;margin-bottom:.6rem">On the Loop의 진화형. 사람이 초기 하네스를 설정하면, <strong>AI가 기획→개발→테스트 루프를 반복하며 스스로 하네스를 보강</strong>해 나갑니다.</div>
+    <div style="padding:.5rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:.75rem;color:var(--text-dim);margin-bottom:.5rem">핵심: AI가 실패에서 학습 → <strong>하네스 자체를 개선</strong></div>
+    <div>
+      <input type="checkbox" id="ralph-toggle" style="display:none">
+      <label for="ralph-toggle" style="display:inline-flex;align-items:center;gap:.3rem;padding:.35rem .8rem;border:1px solid var(--accent);background:var(--accent-bg);color:var(--accent);border-radius:6px;font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s">
+        🔄 Ralph Loop란? ▾
+      </label>
+      <div style="display:none;margin-top:.6rem;text-align:left;padding:.8rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px;font-size:.78rem;color:var(--text);line-height:1.8">
+        <strong style="color:var(--accent)">Ralph Loop</strong> — Geoffrey Huntley (오픈소스 개발자, .NET 커뮤니티 리더)가 소개한 자기 진화 루프 모델.<br><br>
+        AI에게 목표를 주면, 단일 프로세스 안에서 <strong>실행 → 검증 → 수정</strong>을 반복하며 스스로를 진화시켜 문제를 끝까지 해결합니다.<br><br>
+        <div style="display:flex;align-items:center;gap:.4rem;justify-content:center;margin:.6rem 0">
+          <span style="padding:.3rem .6rem;background:var(--accent-bg);border-radius:6px;font-weight:600;color:var(--accent)">🎯 목표</span>
+          <span style="color:var(--text-dim)">→</span>
+          <span style="padding:.3rem .6rem;background:var(--surface);border-radius:6px">⚡ 실행</span>
+          <span style="color:var(--text-dim)">→</span>
+          <span style="padding:.3rem .6rem;background:var(--surface);border-radius:6px">✅ 검증</span>
+          <span style="color:var(--text-dim)">→</span>
+          <span style="padding:.3rem .6rem;background:var(--surface);border-radius:6px">🔧 수정</span>
+          <span style="color:var(--text-dim)">→</span>
+          <span style="padding:.3rem .6rem;background:var(--accent-bg);border-radius:6px;font-weight:600;color:var(--accent)">🔄 반복</span>
+        </div>
+        <strong style="color:var(--accent)">즉, AI가 하네스를 스스로 보강하며 진화하는 개념.</strong> 사람은 최초 목표와 초기 하네스만 제공합니다.
+      </div>
+    </div>
   </div>
+  <style>
+    #ralph-toggle:checked ~ label { background:var(--accent); color:#fff; }
+    #ralph-toggle:checked ~ label::after { content:''; }
+    #ralph-toggle:checked ~ div { display:block !important; }
+  </style>
 
 </div>
 
