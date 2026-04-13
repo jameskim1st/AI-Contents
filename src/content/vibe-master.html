@@ -406,6 +406,356 @@
 
 <p class="reveal"><strong>Agent = Model + Harness.</strong> 모델이 아닌 것은 전부 하네스입니다. 마구(馬具, horse tack)처럼, 강력하지만 예측 불가능한 말(= LLM)을 올바른 방향으로 이끄는 장비 전체가 하네스입니다.</p>
 
+<!-- ★ Section 1: 진화의 흐름 — 프롬프트 → 컨텍스트 → 하네스 -->
+<div class="dia reveal">
+<div class="dia-title">🧬 진화의 흐름 — 프롬프트 → 컨텍스트 → 하네스</div>
+
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem">
+  <div style="background:var(--surface);border:1px solid var(--accent-border);border-radius:14px;padding:1.2rem;text-align:center">
+    <div style="font-family:var(--display);font-size:1.1rem;font-weight:800;color:var(--accent);margin-bottom:.5rem">Prompt Engineering</div>
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--text-dim);margin-bottom:.6rem">2023</div>
+    <div style="font-size:.82rem;line-height:1.7;color:var(--text)">"프롬프트 한 줄을 잘 쓰면 된다"</div>
+    <div style="margin-top:.6rem;padding:.5rem;background:var(--accent-bg);border-radius:8px;font-size:.75rem;color:var(--accent)">한계: 단발 상호작용만, 복잡한 작업 불가</div>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--accent-border);border-radius:14px;padding:1.2rem;text-align:center">
+    <div style="font-family:var(--display);font-size:1.1rem;font-weight:800;color:var(--accent);margin-bottom:.5rem">Context Engineering</div>
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--text-dim);margin-bottom:.6rem">2025</div>
+    <div style="font-size:.82rem;line-height:1.7;color:var(--text)">"전체 입력(시스템 프롬프트 + 도구 + 메모리 + 문서)을 설계한다"</div>
+    <div style="margin-top:.6rem;padding:.5rem;background:var(--accent-bg);border-radius:8px;font-size:.75rem;color:var(--accent)">한계: 1회 호출 단위, 다단계 작업의 지속성 없음</div>
+  </div>
+  <div style="background:var(--card);border:2px solid var(--accent);border-radius:14px;padding:1.2rem;text-align:center">
+    <div style="font-family:var(--display);font-size:1.1rem;font-weight:800;color:var(--accent);margin-bottom:.5rem">Harness Engineering</div>
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);margin-bottom:.6rem">2026</div>
+    <div style="font-size:.82rem;line-height:1.7;color:var(--text)">"에이전트가 작동하는 <strong>전체 세계</strong>를 설계한다"</div>
+    <div style="margin-top:.6rem;padding:.5rem;background:var(--accent-bg);border-radius:8px;font-size:.75rem;color:var(--accent)">도구 + 지식 + 검증 + 제약 + 피드백 루프 + 상태 관리</div>
+  </div>
+</div>
+
+<!-- 동심원 SVG 다이어그램 -->
+<div style="text-align:center;margin-bottom:1.2rem">
+<svg viewBox="0 0 400 280" style="max-width:420px;width:100%" xmlns="http://www.w3.org/2000/svg">
+  <!-- 외곽: Harness -->
+  <ellipse cx="200" cy="140" rx="185" ry="125" fill="#fff3e0" stroke="#ff9800" stroke-width="2.5" stroke-dasharray="8 4"/>
+  <text x="200" y="32" text-anchor="middle" font-size="13" font-weight="800" fill="#e65100">Harness Engineering</text>
+  <text x="200" y="48" text-anchor="middle" font-size="9" fill="#bf360c">도구 · 지식 · 검증 · 제약 · 피드백 루프 · 상태 관리</text>
+  <!-- 중간: Context -->
+  <ellipse cx="200" cy="150" rx="120" ry="80" fill="#fff8e1" stroke="#ffa726" stroke-width="2"/>
+  <text x="200" y="92" text-anchor="middle" font-size="12" font-weight="700" fill="#e65100">Context Engineering</text>
+  <text x="200" y="106" text-anchor="middle" font-size="9" fill="#bf360c">시스템 프롬프트 · 도구 정의 · 메모리 · 문서</text>
+  <!-- 중심: Prompt -->
+  <ellipse cx="200" cy="158" rx="55" ry="40" fill="#ffe0b2" stroke="#ff9800" stroke-width="2"/>
+  <text x="200" y="154" text-anchor="middle" font-size="12" font-weight="700" fill="#e65100">Prompt</text>
+  <text x="200" y="170" text-anchor="middle" font-size="9" fill="#bf360c">사용자 입력</text>
+  <!-- 범위 표시 화살표 -->
+  <line x1="20" y1="260" x2="380" y2="260" stroke="#ff9800" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
+  <text x="200" y="275" text-anchor="middle" font-size="10" fill="#e65100">설계 범위 →</text>
+  <defs><marker id="arrowOrange" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#ff9800"/></marker></defs>
+</svg>
+</div>
+
+<p style="font-size:.82rem;color:var(--text-dim);text-align:center;line-height:1.7;margin-bottom:0">
+Andrej Karpathy (Tesla AI 전 디렉터, OpenAI 공동창립 멤버)가 Context Engineering을, OpenAI Codex 팀이 Harness Engineering을 제안했습니다.
+</p>
+</div>
+
+<!-- ★ Section 2: 하네스 엔지니어링의 정의 — 3문장 -->
+<div class="dia reveal">
+<div class="dia-title">📐 하네스 엔지니어링의 정의 — 3문장</div>
+
+<div style="display:grid;gap:.8rem;margin-bottom:1.2rem">
+  <div style="display:flex;align-items:flex-start;gap:1rem;padding:1rem 1.2rem;background:var(--surface);border-left:4px solid var(--accent);border-radius:0 12px 12px 0">
+    <div style="font-family:var(--display);font-size:1.6rem;font-weight:900;color:var(--accent);min-width:32px">1</div>
+    <div>
+      <div style="font-weight:700;color:var(--text);margin-bottom:.3rem;font-size:.95rem">"Agent = Model + Harness"</div>
+      <div style="font-size:.84rem;color:var(--text-dim);line-height:1.7">모델이 아닌 것은 전부 하네스입니다. 도구 호출, 메모리, 프롬프트 템플릿, 검증 로직, 상태 관리 — 이 모든 것이 하네스의 구성요소입니다.</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:flex-start;gap:1rem;padding:1rem 1.2rem;background:var(--surface);border-left:4px solid var(--accent);border-radius:0 12px 12px 0">
+    <div style="font-family:var(--display);font-size:1.6rem;font-weight:900;color:var(--accent);min-width:32px">2</div>
+    <div>
+      <div style="font-weight:700;color:var(--text);margin-bottom:.3rem;font-size:.95rem">"하네스는 에이전트가 작동하는 전체 환경"</div>
+      <div style="font-size:.84rem;color:var(--text-dim);line-height:1.7">도구, 지식, 검증, 제약, 피드백 — 에이전트가 세상과 상호작용하는 모든 인터페이스를 포함합니다.</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:flex-start;gap:1rem;padding:1rem 1.2rem;background:var(--surface);border-left:4px solid var(--accent);border-radius:0 12px 12px 0">
+    <div style="font-family:var(--display);font-size:1.6rem;font-weight:900;color:var(--accent);min-width:32px">3</div>
+    <div>
+      <div style="font-weight:700;color:var(--text);margin-bottom:.3rem;font-size:.95rem">"하네스의 목적: 예측 불가능한 LLM을 예측 가능한 시스템으로 만드는 것"</div>
+      <div style="font-size:.84rem;color:var(--text-dim);line-height:1.7">LLM은 확률적입니다. 같은 입력에도 다른 출력이 나옵니다. 하네스는 이 불확실성을 구조로 길들입니다.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 자동차 비유 박스 -->
+<div style="background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:14px;padding:1.2rem 1.5rem;display:flex;align-items:flex-start;gap:1rem">
+  <div style="font-size:1.8rem;min-width:36px;text-align:center">🚗</div>
+  <div>
+    <div style="font-weight:700;color:var(--accent);margin-bottom:.3rem;font-size:.88rem">자동차 비유</div>
+    <div style="font-size:.84rem;color:var(--text);line-height:1.8">LLM은 <strong>엔진</strong>이다. 하네스는 핸들, 브레이크, 도로 표지판, 내비게이션, 안전벨트, 신호등 — <strong style="color:var(--accent)">엔진의 힘을 안전하고 목적지까지 데려다주는 모든 것.</strong></div>
+  </div>
+</div>
+</div>
+
+<!-- ★ Section 3: Martin Fowler 프레임워크 — Guides & Sensors -->
+<div class="dia reveal">
+<div class="dia-title">🎯 Martin Fowler 프레임워크 — Guides &amp; Sensors</div>
+<p style="font-size:.84rem;color:var(--text-dim);line-height:1.7;margin-bottom:1.2rem">
+Martin Fowler (ThoughtWorks 수석 과학자, 소프트웨어 설계 분야의 대표적 사상가, martinfowler.com 저자)는 2026년 4월 글에서 하네스의 제어 메커니즘을 두 축으로 정리했습니다.
+</p>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.5rem">
+  <!-- Guides 카드 -->
+  <div style="background:var(--card);border:2px solid var(--accent-border);border-radius:14px;padding:1.5rem">
+    <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem">
+      <div style="width:40px;height:40px;border-radius:10px;background:var(--accent-bg);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:1.2rem">🛤️</div>
+      <div>
+        <div style="font-family:var(--display);font-size:1rem;font-weight:800;color:var(--accent)">Guides</div>
+        <div style="font-family:var(--mono);font-size:.7rem;color:var(--text-dim)">피드포워드 제어 — "사전 가이드"</div>
+      </div>
+    </div>
+    <div style="font-size:.84rem;color:var(--text);line-height:1.8;margin-bottom:.8rem">에이전트가 행동하기 <strong>전에</strong> 방향을 잡아주는 것.</div>
+    <div style="display:grid;gap:.4rem;margin-bottom:.8rem">
+      <div style="padding:.4rem .7rem;background:var(--surface);border-radius:6px;font-size:.78rem;color:var(--text)">📋 CLAUDE.md, 시스템 프롬프트</div>
+      <div style="padding:.4rem .7rem;background:var(--surface);border-radius:6px;font-size:.78rem;color:var(--text)">🏗️ 아키텍처 제약, 코드 컨벤션</div>
+      <div style="padding:.4rem .7rem;background:var(--surface);border-radius:6px;font-size:.78rem;color:var(--text)">🔧 커스텀 린터, 템플릿</div>
+    </div>
+    <div style="padding:.6rem .8rem;background:var(--accent-bg);border-radius:8px;font-size:.8rem;color:var(--accent);line-height:1.6">
+      <strong>비유:</strong> 도로 위의 차선 — 달리기 전에 이미 방향이 정해짐
+    </div>
+    <div style="margin-top:.6rem;font-size:.78rem;color:var(--text-dim);line-height:1.7">
+      <strong>목적:</strong> 첫 시도에서 좋은 결과가 나올 확률을 높인다.
+    </div>
+  </div>
+
+  <!-- Sensors 카드 -->
+  <div style="background:var(--card);border:2px solid var(--accent-border);border-radius:14px;padding:1.5rem">
+    <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem">
+      <div style="width:40px;height:40px;border-radius:10px;background:var(--accent-bg);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:1.2rem">📡</div>
+      <div>
+        <div style="font-family:var(--display);font-size:1rem;font-weight:800;color:var(--accent)">Sensors</div>
+        <div style="font-family:var(--mono);font-size:.7rem;color:var(--text-dim)">피드백 제어 — "사후 검증"</div>
+      </div>
+    </div>
+    <div style="font-size:.84rem;color:var(--text);line-height:1.8;margin-bottom:.8rem">에이전트가 행동한 <strong>후에</strong> 결과를 검증하고 교정하는 것.</div>
+    <div style="display:grid;gap:.4rem;margin-bottom:.8rem">
+      <div style="padding:.4rem .7rem;background:var(--surface);border-radius:6px;font-size:.78rem;color:var(--text)">✅ 테스트 실행, 타입체크</div>
+      <div style="padding:.4rem .7rem;background:var(--surface);border-radius:6px;font-size:.78rem;color:var(--text)">🔍 린터, 브라우저 테스트</div>
+      <div style="padding:.4rem .7rem;background:var(--surface);border-radius:6px;font-size:.78rem;color:var(--text)">👀 코드 리뷰, 스크린샷 비교</div>
+    </div>
+    <div style="padding:.6rem .8rem;background:var(--accent-bg);border-radius:8px;font-size:.8rem;color:var(--accent);line-height:1.6">
+      <strong>비유:</strong> 시험 후 채점 — 틀린 답을 고치게 시킴
+    </div>
+    <div style="margin-top:.6rem;font-size:.78rem;color:var(--text-dim);line-height:1.7">
+      <strong>핵심:</strong> LLM이 읽을 수 있는 형태의 피드백이 가장 효과적.
+    </div>
+  </div>
+</div>
+
+<!-- Agent Loop SVG 다이어그램 -->
+<div style="text-align:center;margin-bottom:.5rem">
+<svg viewBox="0 0 520 160" style="max-width:540px;width:100%" xmlns="http://www.w3.org/2000/svg">
+  <!-- 배경 -->
+  <rect x="2" y="2" width="516" height="156" rx="16" fill="#fff8e1" stroke="#ffe0b2" stroke-width="1"/>
+  <!-- Input -->
+  <rect x="16" y="55" width="60" height="50" rx="8" fill="#fff3e0" stroke="#ff9800" stroke-width="1.5"/>
+  <text x="46" y="78" text-anchor="middle" font-size="9" font-weight="700" fill="#e65100">Input</text>
+  <text x="46" y="92" text-anchor="middle" font-size="7" fill="#bf360c">요청</text>
+  <!-- Arrow -->
+  <line x1="76" y1="80" x2="104" y2="80" stroke="#ff9800" stroke-width="1.5" marker-end="url(#arrA)"/>
+  <!-- Guide Layer -->
+  <rect x="106" y="40" width="80" height="80" rx="10" fill="#ffe0b2" stroke="#ff9800" stroke-width="2"/>
+  <text x="146" y="68" text-anchor="middle" font-size="9" font-weight="800" fill="#e65100">🛤️ Guide</text>
+  <text x="146" y="82" text-anchor="middle" font-size="7" fill="#bf360c">사전 가이드</text>
+  <text x="146" y="105" text-anchor="middle" font-size="7" fill="#bf360c">CLAUDE.md</text>
+  <!-- Arrow -->
+  <line x1="186" y1="80" x2="214" y2="80" stroke="#ff9800" stroke-width="1.5" marker-end="url(#arrA)"/>
+  <!-- Model -->
+  <rect x="216" y="50" width="70" height="60" rx="10" fill="#fff3e0" stroke="#e65100" stroke-width="2"/>
+  <text x="251" y="76" text-anchor="middle" font-size="10" font-weight="800" fill="#e65100">🧠 Model</text>
+  <text x="251" y="92" text-anchor="middle" font-size="7" fill="#bf360c">LLM</text>
+  <!-- Arrow -->
+  <line x1="286" y1="80" x2="314" y2="80" stroke="#ff9800" stroke-width="1.5" marker-end="url(#arrA)"/>
+  <!-- Sensor Layer -->
+  <rect x="316" y="40" width="80" height="80" rx="10" fill="#ffe0b2" stroke="#ff9800" stroke-width="2"/>
+  <text x="356" y="68" text-anchor="middle" font-size="9" font-weight="800" fill="#e65100">📡 Sensor</text>
+  <text x="356" y="82" text-anchor="middle" font-size="7" fill="#bf360c">사후 검증</text>
+  <text x="356" y="105" text-anchor="middle" font-size="7" fill="#bf360c">테스트·린터</text>
+  <!-- Arrow to Output -->
+  <line x1="396" y1="65" x2="430" y2="65" stroke="#ff9800" stroke-width="1.5" marker-end="url(#arrA)"/>
+  <text x="413" y="58" text-anchor="middle" font-size="7" fill="#2e7d32" font-weight="700">Pass ✅</text>
+  <!-- Output -->
+  <rect x="432" y="45" width="70" height="40" rx="8" fill="#e8f5e9" stroke="#4caf50" stroke-width="1.5"/>
+  <text x="467" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#2e7d32">Output</text>
+  <!-- Fail loop back -->
+  <path d="M356,120 L356,145 L146,145 L146,120" fill="none" stroke="#e65100" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arrA)"/>
+  <text x="251" y="140" text-anchor="middle" font-size="7" fill="#e65100" font-weight="700">Fail ❌ → 재시도</text>
+  <defs><marker id="arrA" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#ff9800"/></marker></defs>
+</svg>
+</div>
+</div>
+
+<!-- ★ Section 4: Inform → Verify → Correct (IVC 프레임워크) -->
+<div class="dia reveal">
+<div class="dia-title">🔄 Inform → Verify → Correct (IVC 프레임워크)</div>
+
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem">
+  <!-- Inform -->
+  <div style="background:var(--card);border:2px solid var(--accent-border);border-radius:14px;padding:1.3rem;text-align:center">
+    <div style="width:50px;height:50px;border-radius:50%;background:var(--accent-bg);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto .8rem">📋</div>
+    <div style="font-family:var(--display);font-size:1.05rem;font-weight:800;color:var(--accent);margin-bottom:.3rem">Inform</div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-bottom:.8rem">알려주기</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.7;text-align:left;margin-bottom:.6rem">에이전트에게 <strong>"무엇을 해야 하는가"</strong>를 전달합니다.</div>
+    <div style="display:grid;gap:.3rem;text-align:left">
+      <div style="padding:.35rem .6rem;background:var(--surface);border-radius:6px;font-size:.75rem;color:var(--text)">CLAUDE.md / AGENTS.md</div>
+      <div style="padding:.35rem .6rem;background:var(--surface);border-radius:6px;font-size:.75rem;color:var(--text)">아키텍처 문서</div>
+      <div style="padding:.35rem .6rem;background:var(--surface);border-radius:6px;font-size:.75rem;color:var(--text)">코드 컨벤션 가이드</div>
+    </div>
+    <div style="margin-top:.8rem;padding:.5rem;background:var(--accent-bg);border-radius:8px;font-size:.76rem;color:var(--accent);line-height:1.6">"매뉴얼이 아니라 <strong>지도</strong>를 줘라" — OpenAI Codex 팀 원칙</div>
+  </div>
+
+  <!-- Verify -->
+  <div style="background:var(--card);border:2px solid var(--accent-border);border-radius:14px;padding:1.3rem;text-align:center">
+    <div style="width:50px;height:50px;border-radius:50%;background:var(--accent-bg);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto .8rem">✅</div>
+    <div style="font-family:var(--display);font-size:1.05rem;font-weight:800;color:var(--accent);margin-bottom:.3rem">Verify</div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-bottom:.8rem">검증하기</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.7;text-align:left;margin-bottom:.6rem">에이전트가 <strong>"제대로 했는가"</strong> 확인합니다.</div>
+    <div style="display:grid;gap:.3rem;text-align:left">
+      <div style="padding:.35rem .6rem;background:var(--surface);border-radius:6px;font-size:.75rem;color:var(--text)">테스트 자동 실행</div>
+      <div style="padding:.35rem .6rem;background:var(--surface);border-radius:6px;font-size:.75rem;color:var(--text)">린터 · 타입체크</div>
+      <div style="padding:.35rem .6rem;background:var(--surface);border-radius:6px;font-size:.75rem;color:var(--text)">구조 검증 (스키마)</div>
+    </div>
+    <div style="margin-top:.8rem;padding:.5rem;background:var(--accent-bg);border-radius:8px;font-size:.76rem;color:var(--accent);line-height:1.6">자동 실행 → <strong>통과해야만</strong> 다음 단계</div>
+  </div>
+
+  <!-- Correct -->
+  <div style="background:var(--card);border:2px solid var(--accent-border);border-radius:14px;padding:1.3rem;text-align:center">
+    <div style="width:50px;height:50px;border-radius:50%;background:var(--accent-bg);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto .8rem">🔄</div>
+    <div style="font-family:var(--display);font-size:1.05rem;font-weight:800;color:var(--accent);margin-bottom:.3rem">Correct</div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-bottom:.8rem">교정하기</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.7;text-align:left;margin-bottom:.6rem">에이전트가 <strong>"틀렸을 때"</strong> 되돌려보냅니다.</div>
+    <div style="display:grid;gap:.3rem;text-align:left">
+      <div style="padding:.35rem .6rem;background:var(--surface);border-radius:6px;font-size:.75rem;color:var(--text)">Hooks (pre-commit)</div>
+      <div style="padding:.35rem .6rem;background:var(--surface);border-radius:6px;font-size:.75rem;color:var(--text)">피드백 루프</div>
+      <div style="padding:.35rem .6rem;background:var(--surface);border-radius:6px;font-size:.75rem;color:var(--text)">에러 메시지 → 재시도</div>
+    </div>
+    <div style="margin-top:.8rem;padding:.5rem;background:var(--accent-bg);border-radius:8px;font-size:.76rem;color:var(--accent);line-height:1.6">같은 실수 2번 이상 → <strong>하네스에 규칙 추가</strong></div>
+  </div>
+</div>
+</div>
+
+<!-- ★ Section 5: 뭘 가능하게 하는가 — Before vs After -->
+<div class="dia reveal">
+<div class="dia-title">⚡ 뭘 가능하게 하는가 — Before vs After</div>
+
+<div style="overflow-x:auto">
+<table style="width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--accent-border);border-radius:12px;overflow:hidden;font-size:.84rem">
+  <thead>
+    <tr>
+      <th style="padding:.8rem 1rem;background:var(--surface);color:var(--text-dim);font-weight:700;text-align:left;border-bottom:2px solid var(--accent-border)">❌ 하네스 없음</th>
+      <th style="padding:.8rem 1rem;background:var(--accent-bg);color:var(--accent);font-weight:700;text-align:left;border-bottom:2px solid var(--accent-border)">✅ 하네스 있음</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding:.6rem 1rem;border-bottom:1px solid var(--border);color:var(--text-dim)">프롬프트 복사·붙여넣기 반복</td>
+      <td style="padding:.6rem 1rem;border-bottom:1px solid var(--border);color:var(--text)"><strong>자동으로 컨텍스트 로드</strong></td>
+    </tr>
+    <tr>
+      <td style="padding:.6rem 1rem;border-bottom:1px solid var(--border);color:var(--text-dim)">"다 됐어"라고 하지만 실제로 작동 안 함</td>
+      <td style="padding:.6rem 1rem;border-bottom:1px solid var(--border);color:var(--text)"><strong>테스트 통과해야만 "완료"</strong></td>
+    </tr>
+    <tr>
+      <td style="padding:.6rem 1rem;border-bottom:1px solid var(--border);color:var(--text-dim)">세션이 바뀌면 처음부터</td>
+      <td style="padding:.6rem 1rem;border-bottom:1px solid var(--border);color:var(--text)"><strong>진행 상태 인수인계</strong></td>
+    </tr>
+    <tr>
+      <td style="padding:.6rem 1rem;border-bottom:1px solid var(--border);color:var(--text-dim)">코드 컨벤션 무시</td>
+      <td style="padding:.6rem 1rem;border-bottom:1px solid var(--border);color:var(--text)"><strong>린터가 자동 교정</strong></td>
+    </tr>
+    <tr>
+      <td style="padding:.6rem 1rem;border-bottom:1px solid var(--border);color:var(--text-dim)">한 번에 전부 시도 → 컨텍스트 바닥</td>
+      <td style="padding:.6rem 1rem;border-bottom:1px solid var(--border);color:var(--text)"><strong>점진적 작업 + 커밋</strong></td>
+    </tr>
+    <tr>
+      <td style="padding:.6rem 1rem;color:var(--text-dim)">같은 실수 반복</td>
+      <td style="padding:.6rem 1rem;color:var(--text)"><strong>실수를 규칙으로 변환</strong></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+<!-- ★ Section 6: 하네스 설계 실전 가이드 — 5단계 -->
+<div class="dia reveal">
+<div class="dia-title">🛠️ 하네스 설계 실전 가이드 — 5단계</div>
+
+<div style="display:grid;gap:.6rem;margin-bottom:1.5rem">
+  <div style="display:flex;align-items:flex-start;gap:1rem;padding:1rem 1.2rem;background:var(--card);border:1px solid var(--accent-border);border-radius:12px">
+    <div style="width:38px;height:38px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:900;font-size:1rem;flex-shrink:0">1</div>
+    <div>
+      <div style="font-weight:700;color:var(--accent);font-size:.92rem;margin-bottom:.2rem">관찰</div>
+      <div style="font-size:.82rem;color:var(--text);line-height:1.7">에이전트가 실패하는 패턴을 모읍니다. "어디서 틀렸나?"를 기록합니다.</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:flex-start;gap:1rem;padding:1rem 1.2rem;background:var(--card);border:1px solid var(--accent-border);border-radius:12px">
+    <div style="width:38px;height:38px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:900;font-size:1rem;flex-shrink:0">2</div>
+    <div>
+      <div style="font-weight:700;color:var(--accent);font-size:.92rem;margin-bottom:.2rem">분류</div>
+      <div style="font-size:.82rem;color:var(--text);line-height:1.7">실패를 <strong>Guide로 해결할 것</strong>(사전에 알려주면 되는 것) vs <strong>Sensor로 해결할 것</strong>(사후에 잡아야 하는 것)으로 분류합니다.</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:flex-start;gap:1rem;padding:1rem 1.2rem;background:var(--card);border:1px solid var(--accent-border);border-radius:12px">
+    <div style="width:38px;height:38px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:900;font-size:1rem;flex-shrink:0">3</div>
+    <div>
+      <div style="font-weight:700;color:var(--accent);font-size:.92rem;margin-bottom:.2rem">Guide 구현</div>
+      <div style="font-size:.82rem;color:var(--text);line-height:1.7">CLAUDE.md에 규칙 추가, 아키텍처 제약 문서화, 프롬프트 템플릿 설계.</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:flex-start;gap:1rem;padding:1rem 1.2rem;background:var(--card);border:1px solid var(--accent-border);border-radius:12px">
+    <div style="width:38px;height:38px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:900;font-size:1rem;flex-shrink:0">4</div>
+    <div>
+      <div style="font-weight:700;color:var(--accent);font-size:.92rem;margin-bottom:.2rem">Sensor 구현</div>
+      <div style="font-size:.82rem;color:var(--text);line-height:1.7">테스트 스위트, 린터 규칙, Git Hooks(pre-commit, post-edit) 설정.</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:flex-start;gap:1rem;padding:1rem 1.2rem;background:var(--card);border:1px solid var(--accent-border);border-radius:12px">
+    <div style="width:38px;height:38px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:900;font-size:1rem;flex-shrink:0">5</div>
+    <div>
+      <div style="font-weight:700;color:var(--accent);font-size:.92rem;margin-bottom:.2rem">반복</div>
+      <div style="font-size:.82rem;color:var(--text);line-height:1.7">새로운 실패 패턴 발생 → 1단계로 돌아감. 하네스는 한 번 만들고 끝이 아닙니다.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 순환 루프 SVG -->
+<div style="text-align:center;margin-bottom:1rem">
+<svg viewBox="0 0 300 200" style="max-width:320px;width:100%" xmlns="http://www.w3.org/2000/svg">
+  <!-- 중앙 원 -->
+  <circle cx="150" cy="100" r="60" fill="none" stroke="#ff9800" stroke-width="2.5" stroke-dasharray="8 4"/>
+  <text x="150" y="95" text-anchor="middle" font-size="11" font-weight="800" fill="#e65100">하네스</text>
+  <text x="150" y="110" text-anchor="middle" font-size="9" fill="#bf360c">개선 루프</text>
+  <!-- 5단계 순환 화살표 -->
+  <path d="M150,38 A62,62 0 0,1 212,100" fill="none" stroke="#ff9800" stroke-width="2" marker-end="url(#arrB)"/>
+  <text x="195" y="60" text-anchor="middle" font-size="8" fill="#e65100" font-weight="700">1.관찰</text>
+  <path d="M212,100 A62,62 0 0,1 180,158" fill="none" stroke="#ff9800" stroke-width="2" marker-end="url(#arrB)"/>
+  <text x="215" y="140" text-anchor="middle" font-size="8" fill="#e65100" font-weight="700">2.분류</text>
+  <path d="M180,158 A62,62 0 0,1 120,158" fill="none" stroke="#ff9800" stroke-width="2" marker-end="url(#arrB)"/>
+  <text x="150" y="178" text-anchor="middle" font-size="8" fill="#e65100" font-weight="700">3.Guide</text>
+  <path d="M120,158 A62,62 0 0,1 88,100" fill="none" stroke="#ff9800" stroke-width="2" marker-end="url(#arrB)"/>
+  <text x="82" y="140" text-anchor="middle" font-size="8" fill="#e65100" font-weight="700">4.Sensor</text>
+  <path d="M88,100 A62,62 0 0,1 150,38" fill="none" stroke="#ff9800" stroke-width="2" marker-end="url(#arrB)"/>
+  <text x="100" y="60" text-anchor="middle" font-size="8" fill="#e65100" font-weight="700">5.반복</text>
+  <defs><marker id="arrB" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#ff9800"/></marker></defs>
+</svg>
+</div>
+
+<!-- 핵심 인사이트 인용 -->
+<div style="background:var(--accent-bg);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;padding:1rem 1.3rem;margin-bottom:.5rem">
+  <div style="font-size:.9rem;color:var(--text);line-height:1.8;font-style:italic">"모든 에이전트 실수는 하네스 개선의 기회다. 실수가 두 번 반복되면, 그건 모델의 문제가 아니라 하네스의 부재다."</div>
+  <div style="font-size:.78rem;color:var(--text-dim);margin-top:.4rem">— Mitchell Hashimoto (HashiCorp 공동창립자, ghostty 터미널 개발자)</div>
+</div>
+</div>
+
 <div class="tip reveal" style="margin-bottom:2rem">
 <div class="tip-title">💡 Part 3와의 연결</div>
 <p style="margin:0;font-size:.88rem;line-height:1.9">Part 3에서 배운 <strong style="color:var(--teal)">Memory · Tools · Planning</strong> — 이것들이 바로 하네스의 구성요소입니다. Part 3가 "에이전트 안에 뭐가 있나"를 배웠다면, 여기서는 <strong style="color:var(--accent)">"그것들을 어떻게 설계하나"</strong>를 배웁니다.</p>
