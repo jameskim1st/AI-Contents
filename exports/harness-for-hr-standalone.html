@@ -1,3 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR/CHRO를 위한 하네스 엔지니어링</title>
+<meta name="description" content="AI 에이전트와 사람의 협업, 그리고 직무의 미래. 개발자 중심 용어를 HR 관점의 협업 시나리오로 번역합니다.">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:#08090d;--bg2:#0e1017;--card:#131620;--card-hover:#181c2a;--surface:#1a1e2c;
+  --border:#252a3a;--border-light:#2f3548;--text:#cdd1e0;--text-dim:#7d8298;--text-bright:#f0f1f7;--white:#fff;
+  --accent:#d04a02;--accent-light:#e8631e;--accent-bg:rgba(208,74,2,0.08);--accent-border:rgba(208,74,2,0.25);
+  --teal:#2dd4bf;--teal-bg:rgba(45,212,191,0.08);--teal-border:rgba(45,212,191,0.25);
+  --pink:#f472b6;--pink-bg:rgba(244,114,182,0.08);--pink-border:rgba(244,114,182,0.25);
+  --amber:#fbbf24;--amber-bg:rgba(251,191,36,0.08);--amber-border:rgba(251,191,36,0.25);
+  --green:#4ade80;--green-bg:rgba(74,222,128,0.08);--green-border:rgba(74,222,128,0.25);
+  --blue:#60a5fa;--blue-bg:rgba(96,165,250,0.08);--blue-border:rgba(96,165,250,0.25);
+  --orange:#fb923c;--orange-bg:rgba(251,146,60,0.08);--orange-border:rgba(251,146,60,0.25);
+  --violet:#7c6cf0;--violet-dim:rgba(124,108,240,0.12);--violet-bg:rgba(124,108,240,0.08);--violet-border:rgba(124,108,240,0.25);
+  --mono:'JetBrains Mono',monospace;
+  --sans:'Noto Sans KR','Outfit',sans-serif;
+  --display:'Outfit','Noto Sans KR',sans-serif;
+}
+[data-theme="light"] {
+  --bg:#f8f7f5;--bg2:#ffffff;--card:#ffffff;--card-hover:#faf9f7;--surface:#f0efec;
+  --border:#e0ddd8;--border-light:#d5d0c9;--text:#2d2d2d;--text-dim:#6b6560;--text-bright:#1a1a1a;--white:#1a1a1a;
+  --accent:#d04a02;--accent-light:#b8420a;--accent-bg:rgba(208,74,2,0.06);--accent-border:rgba(208,74,2,0.2);
+  --teal:#0d9488;--teal-bg:rgba(13,148,136,0.06);--teal-border:rgba(13,148,136,0.2);
+  --pink:#db2777;--pink-bg:rgba(219,39,119,0.06);--pink-border:rgba(219,39,119,0.2);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans); background: var(--bg); color: var(--text);
+  line-height: 1.8; font-size: 16px; overflow-x: hidden;
+  word-break: keep-all; overflow-wrap: break-word;
+}
+code, .mono { font-family: var(--mono); }
+ul, ol { padding-left: 1.4rem; }
+li { margin-bottom: .3rem; }
+a { color: var(--accent); }
+table { border-collapse: collapse; }
+details summary { list-style: none; }
+details summary::-webkit-details-marker { display: none; }
+.reveal {
+  opacity: 0; transform: translateY(25px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.theme-toggle {
+  position: fixed; top: 1rem; right: 1.2rem; z-index: 1000;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 50%; width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 1.1rem; transition: all .3s; color: var(--text);
+}
+.theme-toggle:hover { border-color: var(--accent); transform: scale(1.1); }
+@media print {
+  .theme-toggle { display: none; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  body { background: white; color: black; }
+}
+
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="themeToggle" title="라이트/다크 모드 전환" aria-label="테마 전환">🌙</button>
+
 <!-- HR/CHRO Executive Brief: 하네스 엔지니어링 -->
 <div style="max-width:1000px;margin:0 auto;padding:2rem 1.5rem">
 
@@ -1547,3 +1617,54 @@
 </div>
 
 </div>
+
+
+<script>
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const next = current === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
+  const btn = document.getElementById('themeToggle');
+  if (btn) btn.textContent = next === 'light' ? '☀️' : '🌙';
+  try { localStorage.setItem('theme', next); } catch(e) {}
+}
+try {
+  const saved = localStorage.getItem('theme');
+  if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+} catch(e) {}
+document.addEventListener('DOMContentLoaded', function() {
+  const saved = (function(){ try { return localStorage.getItem('theme'); } catch(e) { return null; } })();
+  const btn = document.getElementById('themeToggle');
+  if (btn) {
+    btn.textContent = saved === 'light' ? '☀️' : '🌙';
+    btn.addEventListener('click', toggleTheme);
+  }
+  const els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(x) {
+        if (x.isIntersecting) { x.target.classList.add('visible'); obs.unobserve(x.target); }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px 200px 0px' });
+    els.forEach(function(el) { obs.observe(el); });
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    els.forEach(function(el) {
+      const r = el.getBoundingClientRect();
+      if (r.top < vh + 200) el.classList.add('visible');
+    });
+    setTimeout(function() {
+      document.querySelectorAll('.reveal:not(.visible)').forEach(function(el) {
+        const r = el.getBoundingClientRect();
+        if (r.top < (window.innerHeight || 0) + 400) el.classList.add('visible');
+      });
+    }, 1500);
+  } else {
+    els.forEach(function(el) { el.classList.add('visible'); });
+  }
+});
+
+</script>
+</body>
+</html>
