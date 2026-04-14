@@ -531,28 +531,139 @@
   <div style="color:var(--text-dim);font-size:.95rem">In / On / Out of the Loop</div>
 </div>
 
-<!-- [비주얼 6] Human In/On/Out of the Loop 3단 진화 -->
+<!-- [비주얼 6] Human In/On/Out of the Loop 조직도형 진화 -->
 <div class="reveal" style="margin:2rem 0">
-  <div style="font-size:.85rem;color:var(--text-dim);text-align:center;margin-bottom:1rem;font-family:var(--mono);letter-spacing:1px">VISUAL 6 · THREE STAGES OF COLLABORATION</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem">
-    <div style="padding:1.5rem;background:var(--surface);border:2px solid var(--border);border-radius:16px">
-      <div style="font-size:2rem;text-align:center">🔹</div>
-      <div style="text-align:center;font-weight:800;color:var(--text);margin:.4rem 0;font-size:.98rem">Human-in-the-Loop</div>
-      <div style="text-align:center;font-size:.75rem;color:var(--text-dim);margin-bottom:.6rem">현재 (2026)</div>
-      <div style="font-size:.82rem;color:var(--text-dim);line-height:1.6;text-align:center">일일이 지시하고 확인</div>
+  <div style="font-size:.85rem;color:var(--text-dim);text-align:center;margin-bottom:1rem;font-family:var(--mono);letter-spacing:1px">VISUAL 6 · ORCHESTRATION EVOLUTION</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem;align-items:stretch">
+
+    <!-- ========== Card 1: Human-in-the-Loop (Current) ========== -->
+    <div style="position:relative;padding:1.3rem 1rem 1.5rem;background:var(--surface);border:1.5px solid var(--border);border-radius:16px;display:flex;flex-direction:column">
+      <div style="position:absolute;top:.9rem;right:.9rem;padding:.2rem .55rem;background:rgba(0,0,0,.06);color:var(--text-dim);font-size:.68rem;font-weight:700;border-radius:4px;letter-spacing:.5px">CURRENT</div>
+      <div style="font-size:1.05rem;font-weight:800;color:var(--text);margin-bottom:.15rem;padding-right:5rem">Human-in-the-loop</div>
+      <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:1.2rem">사람이 모든 과정을 주도</div>
+
+      <!-- Stage -->
+      <div style="flex:1;padding:1.1rem .6rem;background:rgba(0,0,0,.02);border:1px dashed var(--border);border-radius:10px;display:flex;flex-direction:column;align-items:center;gap:.5rem">
+        <!-- Human on top -->
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div style="width:48px;height:48px;border-radius:50%;background:var(--text, #2d2d2d);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.35rem">👤</div>
+          <div style="font-size:.8rem;font-weight:700;color:var(--text);margin-top:.3rem">Human</div>
+          <div style="font-size:.68rem;color:var(--text-dim)">전 과정 관리</div>
+        </div>
+        <!-- Connection: 3 solid lines -->
+        <div style="display:flex;gap:1.6rem">
+          <div style="width:1.5px;height:18px;background:var(--text-dim)"></div>
+          <div style="width:1.5px;height:18px;background:var(--text-dim)"></div>
+          <div style="width:1.5px;height:18px;background:var(--text-dim)"></div>
+        </div>
+        <!-- Junior AI row -->
+        <div style="display:flex;gap:.6rem">
+          <div style="width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.06);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.95rem">🤖</div>
+          <div style="width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.06);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.95rem">🤖</div>
+          <div style="width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.06);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.95rem">🤖</div>
+        </div>
+        <div style="font-size:.7rem;color:var(--text-dim);font-weight:600;margin-top:.2rem">Junior AI (단위 업무)</div>
+      </div>
+
+      <!-- Footer bullets -->
+      <div style="margin-top:1rem;display:flex;flex-direction:column;gap:.4rem">
+        <div style="font-size:.78rem;color:var(--text);line-height:1.5">· 매 단계 사람이 지시·검토</div>
+        <div style="font-size:.78rem;color:var(--text);line-height:1.5">· AI는 단위 작업만 처리</div>
+      </div>
     </div>
-    <div style="padding:1.5rem;background:var(--accent-bg);border:3px solid var(--accent);border-radius:16px;transform:scale(1.02);box-shadow:0 8px 20px rgba(232,131,58,.15)">
-      <div style="font-size:2rem;text-align:center">🔸</div>
-      <div style="text-align:center;font-weight:800;color:var(--accent);margin:.4rem 0;font-size:.98rem">Human-on-the-Loop ⭐</div>
-      <div style="text-align:center;font-size:.75rem;color:var(--accent);margin-bottom:.6rem;font-weight:700">전환 지점</div>
-      <div style="font-size:.82rem;color:var(--text-dim);line-height:1.6;text-align:center">가이드 설계, AI 자율 실행</div>
+
+    <!-- ========== Card 2: Human-on-the-Loop (Target) ========== -->
+    <div style="position:relative;padding:1.3rem 1rem 1.5rem;background:var(--accent-bg);border:2px solid var(--accent);border-radius:16px;display:flex;flex-direction:column;box-shadow:0 8px 24px rgba(232,131,58,.15)">
+      <div style="position:absolute;top:.9rem;right:.9rem;padding:.2rem .55rem;background:var(--accent);color:#fff;font-size:.68rem;font-weight:700;border-radius:4px;letter-spacing:.5px">⭐ TARGET</div>
+      <div style="font-size:1.05rem;font-weight:800;color:var(--accent);margin-bottom:.15rem;padding-right:4.8rem">Human-on-the-loop</div>
+      <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:1.2rem">Senior AI가 실행, 사람은 감독</div>
+
+      <!-- Stage -->
+      <div style="flex:1;padding:1.1rem .6rem;background:rgba(232,131,58,.04);border:1px dashed var(--accent-border);border-radius:10px;display:flex;flex-direction:column;align-items:center;gap:.4rem">
+        <!-- Human on top (smaller) -->
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div style="width:40px;height:40px;border-radius:50%;background:var(--text, #2d2d2d);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.15rem">👤</div>
+          <div style="font-size:.75rem;font-weight:700;color:var(--text);margin-top:.25rem">Human</div>
+          <div style="font-size:.66rem;color:var(--text-dim)">감독만</div>
+        </div>
+        <!-- Dashed connection to Senior AI -->
+        <div style="width:1.5px;height:20px;background:linear-gradient(to bottom, var(--accent) 50%, transparent 50%);background-size:100% 6px;background-repeat:repeat-y"></div>
+        <!-- Senior AI in middle (emphasized) -->
+        <div style="display:flex;flex-direction:column;align-items:center">
+          <div style="width:58px;height:58px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.6rem;box-shadow:0 4px 14px rgba(232,131,58,.35)">🧑‍💼</div>
+          <div style="font-size:.82rem;font-weight:800;color:var(--accent);margin-top:.3rem">Senior AI</div>
+          <div style="font-size:.68rem;color:var(--text-dim)">전체 오케스트레이션</div>
+        </div>
+        <!-- Connection: 3 solid lines -->
+        <div style="display:flex;gap:1.5rem">
+          <div style="width:1.5px;height:14px;background:var(--accent)"></div>
+          <div style="width:1.5px;height:14px;background:var(--accent)"></div>
+          <div style="width:1.5px;height:14px;background:var(--accent)"></div>
+        </div>
+        <!-- Junior AI row -->
+        <div style="display:flex;gap:.55rem">
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(232,131,58,.12);border:1.5px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:.9rem">🤖</div>
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(232,131,58,.12);border:1.5px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:.9rem">🤖</div>
+          <div style="width:32px;height:32px;border-radius:50%;background:rgba(232,131,58,.12);border:1.5px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:.9rem">🤖</div>
+        </div>
+        <div style="font-size:.7rem;color:var(--text-dim);font-weight:600;margin-top:.1rem">Junior AI (전문 실행)</div>
+      </div>
+
+      <!-- Footer bullets -->
+      <div style="margin-top:1rem;display:flex;flex-direction:column;gap:.4rem">
+        <div style="font-size:.78rem;color:var(--text);line-height:1.5"><b style="color:var(--accent)">·</b> 사람은 하네스 설계 + 예외만</div>
+        <div style="font-size:.78rem;color:var(--text);line-height:1.5"><b style="color:var(--accent)">·</b> Senior AI가 Junior AI 지휘</div>
+      </div>
     </div>
-    <div style="padding:1.5rem;background:var(--surface);border:2px solid var(--border);border-radius:16px">
-      <div style="font-size:2rem;text-align:center">🔷</div>
-      <div style="text-align:center;font-weight:800;color:var(--text);margin:.4rem 0;font-size:.98rem">Human-out-of-the-Loop</div>
-      <div style="text-align:center;font-size:.75rem;color:var(--text-dim);margin-bottom:.6rem">미래</div>
-      <div style="font-size:.82rem;color:var(--text-dim);line-height:1.6;text-align:center">AI가 스스로 하네스 진화</div>
+
+    <!-- ========== Card 3: Human-out-of-the-Loop (Future) ========== -->
+    <div style="position:relative;padding:1.3rem 1rem 1.5rem;background:var(--surface);border:1.5px solid var(--border);border-radius:16px;display:flex;flex-direction:column">
+      <div style="position:absolute;top:.9rem;right:.9rem;padding:.2rem .55rem;background:rgba(0,0,0,.06);color:var(--text-dim);font-size:.68rem;font-weight:700;border-radius:4px;letter-spacing:.5px">FUTURE</div>
+      <div style="font-size:1.05rem;font-weight:800;color:var(--text);margin-bottom:.15rem;padding-right:4rem">Human-out-of-the-loop</div>
+      <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:1.2rem">초기 목표만 주고 AI 자율 진화</div>
+
+      <!-- Stage -->
+      <div style="flex:1;padding:1.1rem .6rem;background:rgba(0,0,0,.02);border:1px dashed var(--border);border-radius:10px;display:flex;flex-direction:column;align-items:center;gap:.35rem">
+        <!-- Human outside (small, faded) -->
+        <div style="display:flex;flex-direction:column;align-items:center;opacity:.55">
+          <div style="width:34px;height:34px;border-radius:50%;background:var(--text, #2d2d2d);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1rem">👤</div>
+          <div style="font-size:.7rem;font-weight:700;color:var(--text);margin-top:.2rem">Human</div>
+          <div style="font-size:.64rem;color:var(--text-dim)">초기 목표만</div>
+        </div>
+        <!-- Arrow pointing "out" -->
+        <div style="font-size:.78rem;color:var(--text-dim);line-height:1">⇣ initial target</div>
+        <!-- Self-evolving loop box -->
+        <div style="margin-top:.2rem;padding:.7rem .5rem;border:1.5px solid var(--text-dim);border-radius:10px;display:flex;flex-direction:column;align-items:center;gap:.35rem;background:rgba(0,0,0,.02);position:relative">
+          <div style="position:absolute;top:-.45rem;right:.4rem;font-size:.65rem;font-weight:700;color:var(--text-dim);background:var(--surface);padding:0 .3rem">🔄 Self-evolving</div>
+          <div style="width:50px;height:50px;border-radius:50%;background:var(--text, #2d2d2d);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.35rem">🧑‍💼</div>
+          <div style="font-size:.76rem;font-weight:800;color:var(--text);margin-top:.1rem">Senior AI</div>
+          <div style="font-size:.66rem;color:var(--text-dim)">Ralph Loop로 자기 진화</div>
+          <div style="display:flex;gap:1.3rem;margin-top:.2rem">
+            <div style="width:1px;height:10px;background:var(--text-dim)"></div>
+            <div style="width:1px;height:10px;background:var(--text-dim)"></div>
+            <div style="width:1px;height:10px;background:var(--text-dim)"></div>
+          </div>
+          <div style="display:flex;gap:.45rem">
+            <div style="width:26px;height:26px;border-radius:50%;background:rgba(0,0,0,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.78rem">🤖</div>
+            <div style="width:26px;height:26px;border-radius:50%;background:rgba(0,0,0,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.78rem">🤖</div>
+            <div style="width:26px;height:26px;border-radius:50%;background:rgba(0,0,0,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.78rem">🤖</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer bullets -->
+      <div style="margin-top:1rem;display:flex;flex-direction:column;gap:.4rem">
+        <div style="font-size:.78rem;color:var(--text);line-height:1.5">· 사람은 최초 목표·원칙만 제공</div>
+        <div style="font-size:.78rem;color:var(--text);line-height:1.5">· AI가 하네스까지 자기 개선</div>
+      </div>
     </div>
+
+  </div>
+
+  <!-- 읽기 가이드 -->
+  <div style="margin-top:1rem;padding:.85rem 1.1rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:8px;font-size:.85rem;color:var(--text);line-height:1.7">
+    <b style="color:var(--accent)">조직도로 읽기:</b> 왼쪽에서 오른쪽으로 갈수록 <b>Human의 비중이 작아지고</b>, <b>AI 계층이 깊어집니다</b>. In-the-loop는 사람이 Junior AI를 직접 관리, On-the-loop는 사람이 Senior AI를 감독·Senior AI가 Junior AI를 지휘, Out-of-the-loop는 사람이 루프 바깥에서 최초 목표만 제공.
   </div>
 </div>
 
