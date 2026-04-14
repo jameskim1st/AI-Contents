@@ -58,6 +58,98 @@
   </div>
 </div>
 
+<!-- 왜 Harness라는 이름인가: 마구(馬具) 비유 -->
+<div class="reveal" style="margin:2.5rem 0">
+  <div style="font-size:.85rem;color:var(--text-dim);text-align:center;margin-bottom:.3rem;font-family:var(--mono);letter-spacing:1px">WHY "HARNESS"?</div>
+  <h3 style="text-align:center;font-size:1.3rem;font-weight:800;color:var(--text);margin-bottom:.4rem">왜 "Harness"라는 이름이 붙었을까</h3>
+  <p style="text-align:center;font-size:.92rem;color:var(--text-dim);max-width:720px;margin:0 auto 1.5rem;line-height:1.75">
+    "Harness"는 영어로 <b style="color:var(--text)">마구(馬具)</b>. 말의 힘을 억누르는 것이 아니라, 올바른 방향으로 집중시켜 빠르고 정확하게 달리게 하는 장비입니다. 초원을 자유롭게 뛰어다니던 야생말을 경마장에서 의도대로 달리게 하려면 반드시 필요하죠. AI 모델도 똑같습니다.
+  </p>
+
+  <!-- 2-카드 병렬 비유 -->
+  <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:stretch">
+    <!-- 왼쪽: 전통적 하네스 (마구) -->
+    <div style="padding:1.5rem;background:var(--surface);border:1.5px solid var(--border);border-radius:16px">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:1px solid var(--border)">
+        <div style="width:44px;height:44px;background:var(--accent-bg);border:1.5px solid var(--accent-border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem">🐎</div>
+        <div>
+          <div style="font-size:1.05rem;font-weight:800;color:var(--text)">마부 → 말</div>
+          <div style="font-size:.78rem;color:var(--text-dim);margin-top:.2rem">전통적 하네스 (馬具)</div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:.9rem">
+        <div style="display:flex;gap:.7rem;align-items:flex-start">
+          <div style="width:28px;height:28px;background:var(--accent-bg);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">🦮</div>
+          <div>
+            <div style="font-size:.95rem;font-weight:700;color:var(--text)">고삐 <span style="font-size:.78rem;font-weight:500;color:var(--text-dim);margin-left:.3rem">Reins</span></div>
+            <div style="font-size:.82rem;color:var(--text-dim);margin-top:.15rem">방향을 지시한다</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:.7rem;align-items:flex-start">
+          <div style="width:28px;height:28px;background:var(--accent-bg);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">💺</div>
+          <div>
+            <div style="font-size:.95rem;font-weight:700;color:var(--text)">안장 <span style="font-size:.78rem;font-weight:500;color:var(--text-dim);margin-left:.3rem">Saddle</span></div>
+            <div style="font-size:.82rem;color:var(--text-dim);margin-top:.15rem">힘을 실어준다 (사람이 올라타 의도를 전달)</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:.7rem;align-items:flex-start">
+          <div style="width:28px;height:28px;background:var(--accent-bg);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">🪢</div>
+          <div>
+            <div style="font-size:.95rem;font-weight:700;color:var(--text)">굴레·끈 <span style="font-size:.78rem;font-weight:500;color:var(--text-dim);margin-left:.3rem">Bridle</span></div>
+            <div style="font-size:.82rem;color:var(--text-dim);margin-top:.15rem">통제 범위를 정한다 (트랙을 벗어나지 않도록)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 연결 화살표 -->
+    <div style="display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:var(--accent);font-weight:900">→</div>
+
+    <!-- 오른쪽: AI 하네스 엔지니어링 -->
+    <div style="padding:1.5rem;background:var(--accent-bg);border:2px solid var(--accent);border-radius:16px">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:1px solid var(--accent-border)">
+        <div style="width:44px;height:44px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem">⚡</div>
+        <div>
+          <div style="font-size:1.05rem;font-weight:800;color:var(--accent)">엔지니어 → AI 에이전트</div>
+          <div style="font-size:.78rem;color:var(--text-dim);margin-top:.2rem;font-family:var(--mono)">Harness Engineering</div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:.9rem">
+        <div style="display:flex;gap:.7rem;align-items:flex-start">
+          <div style="width:28px;height:28px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">🎯</div>
+          <div>
+            <div style="font-size:.95rem;font-weight:700;color:var(--text)">프롬프트·지시 <span style="font-size:.78rem;font-weight:500;color:var(--text-dim);margin-left:.3rem">Direction</span></div>
+            <div style="font-size:.82rem;color:var(--text-dim);margin-top:.15rem">작업 방향을 설정한다 (= 고삐)</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:.7rem;align-items:flex-start">
+          <div style="width:28px;height:28px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">🛠️</div>
+          <div>
+            <div style="font-size:.95rem;font-weight:700;color:var(--text)">컨텍스트·도구 <span style="font-size:.78rem;font-weight:500;color:var(--text-dim);margin-left:.3rem">Enablement</span></div>
+            <div style="font-size:.82rem;color:var(--text-dim);margin-top:.15rem">실행 능력을 부여한다 (= 안장)</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:.7rem;align-items:flex-start">
+          <div style="width:28px;height:28px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">🛡️</div>
+          <div>
+            <div style="font-size:.95rem;font-weight:700;color:var(--text)">제약·가드레일 <span style="font-size:.78rem;font-weight:500;color:var(--text-dim);margin-left:.3rem">Constraint</span></div>
+            <div style="font-size:.82rem;color:var(--text-dim);margin-top:.15rem">행동 범위를 제한한다 (= 굴레)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 핵심 메시지 -->
+  <div style="margin-top:1.5rem;padding:1.1rem 1.4rem;background:var(--surface);border-left:4px solid var(--accent);border-radius:8px">
+    <div style="font-size:.95rem;color:var(--text);line-height:1.8">
+      <b style="color:var(--accent)">핵심 통찰:</b> 마구(하네스)는 말을 <b>느리게</b> 하는 장치가 아닙니다. 그 힘을 <b>올바른 방향으로 집중</b>시켜 원하는 결과(경주 우승)에 도달하게 합니다. AI 하네스 엔지니어링도 똑같은 원리입니다. Claude, GPT, Gemini 같은 강력한 모델을 <b>억누르는 것이 아니라</b>, 그 능력이 조직의 목표에 정확히 꽂히도록 <b>구조를 설계</b>하는 일입니다.
+    </div>
+  </div>
+</div>
+
 <!-- 1-2. 어원 타임라인 -->
 <div class="reveal" style="margin:3rem 0 1.5rem">
   <h3 style="font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:.4rem">1-2. 어원과 타임라인</h3>
