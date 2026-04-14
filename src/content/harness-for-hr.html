@@ -283,67 +283,218 @@
   </div>
 </div>
 
-<!-- 1-4. 핵심 용어 사전 -->
+<!-- 1-4. 핵심 용어 사전 (카드 그리드 + 아이콘) -->
 <div class="reveal" style="margin:3rem 0 1.5rem">
   <h3 style="font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:.4rem">1-4. 핵심 용어 사전</h3>
   <div style="color:var(--text-dim);font-size:.9rem">기술 용어의 원래 정의 + HR 협업 시나리오 번역</div>
 </div>
 
-<div class="reveal" style="overflow-x:auto;margin:1.5rem 0">
-  <table style="width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-size:.88rem">
-    <thead>
-      <tr style="background:var(--accent);color:white">
-        <th style="padding:.9rem .8rem;text-align:left;font-weight:700;width:18%">기술 용어</th>
-        <th style="padding:.9rem .8rem;text-align:left;font-weight:700;width:42%">원래 정의</th>
-        <th style="padding:.9rem .8rem;text-align:left;font-weight:700;width:40%">HR 협업 예시</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr style="border-top:1px solid var(--border)">
-        <td style="padding:.9rem .8rem;vertical-align:top;font-weight:700;color:var(--accent);font-family:var(--mono);font-size:.82rem">CLAUDE.md<br>AGENTS.md</td>
-        <td style="padding:.9rem .8rem;vertical-align:top;color:var(--text);line-height:1.6">프로젝트 루트에 두는 마크다운 파일로, AI 에이전트가 새 세션을 시작할 때마다 가장 먼저 읽는 프로젝트별 지침 문서. 아키텍처 규칙, 금지사항, 실행 명령어가 담긴다.</td>
-        <td style="padding:.9rem .8rem;vertical-align:top;color:var(--text-dim);line-height:1.6;background:var(--accent-bg)">HR이 작성한 "AI 채용 에이전트의 기본 지침 문서". 공정성 기준, 금지 질문, 평가 가중치가 여기 명시됨.</td>
-      </tr>
-      <tr style="border-top:1px solid var(--border)">
-        <td style="padding:.9rem .8rem;vertical-align:top;font-weight:700;color:var(--accent);font-family:var(--mono);font-size:.82rem">Hooks</td>
-        <td style="padding:.9rem .8rem;vertical-align:top;color:var(--text);line-height:1.6">에이전트의 작업 생명주기 중 특정 시점에 자동 실행되는 스크립트. 예: 코드 저장 직전 타입체크, 테스트를 자동 실행하고 실패 시 저장 자체를 차단.</td>
-        <td style="padding:.9rem .8rem;vertical-align:top;color:var(--text-dim);line-height:1.6;background:var(--accent-bg)">AI가 "연봉 데이터를 외부로 보내는 순간" 자동으로 차단하고 경고하는 규칙. 사람 결재 없이도 사전 차단.</td>
-      </tr>
-      <tr style="border-top:1px solid var(--border)">
-        <td style="padding:.9rem .8rem;vertical-align:top;font-weight:700;color:var(--accent);font-family:var(--mono);font-size:.82rem">Skills</td>
-        <td style="padding:.9rem .8rem;vertical-align:top;color:var(--text);line-height:1.6">에이전트가 특정 작업을 수행할 때 참조하는, 필요 시 로드되는 가이드 및 절차 문서. 평소엔 비활성, 필요할 때만 불러 씀.</td>
-        <td style="padding:.9rem .8rem;vertical-align:top;color:var(--text-dim);line-height:1.6;background:var(--accent-bg)">AI가 "경조사 휴가 처리" 업무에 들어갈 때만 참조하는 SOP 문서. 평소 컨텍스트를 차지하지 않음.</td>
-      </tr>
-      <tr style="border-top:1px solid var(--border)">
-        <td style="padding:.9rem .8rem;vertical-align:top;font-weight:700;color:var(--accent);font-family:var(--mono);font-size:.82rem">Sub-agents</td>
-        <td style="padding:.9rem .8rem;vertical-align:top;color:var(--text);line-height:1.6">특정 영역에 특화된 하위 에이전트. 전체 작업 중 한 분야를 전담하여 메인 에이전트의 컨텍스트를 격리하고 보호함.</td>
-        <td style="padding:.9rem .8rem;vertical-align:top;color:var(--text-dim);line-height:1.6;background:var(--accent-bg)">"급여 계산 전담 AI", "복리후생 전담 AI". 메인 HR 에이전트가 각 전담 AI에게 위임 후 결과만 받음.</td>
-      </tr>
-      <tr style="border-top:1px solid var(--border)">
-        <td style="padding:.9rem .8rem;vertical-align:top;font-weight:700;color:var(--accent);font-family:var(--mono);font-size:.82rem">Feedback Loop</td>
-        <td style="padding:.9rem .8rem;vertical-align:top;color:var(--text);line-height:1.6">에이전트가 같은 실패를 반복할 때 이를 감지하고 하네스(지침 및 규칙) 자체를 업데이트하는 자기 교정 메커니즘.</td>
-        <td style="padding:.9rem .8rem;vertical-align:top;color:var(--text-dim);line-height:1.6;background:var(--accent-bg)">AI가 같은 유형의 잘못된 승진 추천을 두 번 하면, 승진 가이드라인 문서에 해당 케이스가 자동 추가되어 재발 방지.</td>
-      </tr>
-      <tr style="border-top:2px dashed var(--accent-border);background:rgba(255,200,100,.08)">
-        <td style="padding:.9rem .8rem;vertical-align:top;font-weight:700;color:var(--accent);font-family:var(--mono);font-size:.82rem">Context Rot</td>
-        <td style="padding:.9rem .8rem;vertical-align:top;color:var(--text);line-height:1.6" colspan="2">에이전트의 컨텍스트 창(한 번에 볼 수 있는 정보량)이 채워질수록 이전 정보를 점진적으로 잊거나 판단이 흐려지는 현상. (Act 2에서 상세)</td>
-      </tr>
-      <tr style="border-top:1px solid var(--border);background:rgba(255,200,100,.08)">
-        <td style="padding:.9rem .8rem;vertical-align:top;font-weight:700;color:var(--accent);font-family:var(--mono);font-size:.82rem">Guides &amp; Sensors</td>
-        <td style="padding:.9rem .8rem;vertical-align:top;color:var(--text);line-height:1.6" colspan="2">Martin Fowler 제안. Guides는 에이전트가 행동하기 전에 방향을 잡아주는 사전 통제. Sensors는 행동 후에 결과를 검증하고 교정하는 사후 통제. (Act 2에서 상세)</td>
-      </tr>
-      <tr style="border-top:1px solid var(--border);background:rgba(255,200,100,.08)">
-        <td style="padding:.9rem .8rem;vertical-align:top;font-weight:700;color:var(--accent);font-family:var(--mono);font-size:.82rem">Ralph Loop</td>
-        <td style="padding:.9rem .8rem;vertical-align:top;color:var(--text);line-height:1.6" colspan="2">Geoffrey Huntley (오픈소스 개발자, DevRel 분야 저명 기고자) 제안. 에이전트가 단일 프로세스 안에서 실행 → 검증 → 수정을 반복하며 스스로를 진화시켜 목표에 도달할 때까지 문제를 해결하는 루프 모델. (Act 3에서 상세)</td>
-      </tr>
-    </tbody>
-  </table>
+<!-- 핵심 5개 용어 카드 -->
+<div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;margin:1.5rem 0">
+
+  <!-- CLAUDE.md -->
+  <div style="padding:1.4rem;background:var(--surface);border:1.5px solid var(--border);border-radius:14px;display:flex;flex-direction:column">
+    <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.9rem">
+      <div style="width:46px;height:46px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#fff">📜</div>
+      <div>
+        <div style="font-family:var(--mono);font-size:.92rem;font-weight:800;color:var(--accent)">CLAUDE.md</div>
+        <div style="font-size:.7rem;color:var(--text-dim);font-weight:600">에이전트의 헌법</div>
+      </div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text-dim);font-weight:700;margin-bottom:.3rem;letter-spacing:.5px">🔧 원래 정의</div>
+    <div style="font-size:.85rem;color:var(--text);line-height:1.65;margin-bottom:.9rem">프로젝트 루트에 두는 지침 문서. AI가 <b>새 세션을 시작할 때마다 가장 먼저</b> 읽는 파일. 아키텍처 규칙, 금지사항, 실행 명령어가 담깁니다.</div>
+    <div style="margin-top:auto;padding:.7rem .85rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:8px">
+      <div style="font-size:.72rem;color:var(--accent);font-weight:700;margin-bottom:.3rem">👔 HR 협업 예시</div>
+      <div style="font-size:.8rem;color:var(--text);line-height:1.6">HR이 작성한 "AI 채용 에이전트 기본 지침". <b>공정성 기준, 금지 질문, 평가 가중치</b>가 여기 명시됨.</div>
+    </div>
+  </div>
+
+  <!-- Hooks -->
+  <div style="padding:1.4rem;background:var(--surface);border:1.5px solid var(--border);border-radius:14px;display:flex;flex-direction:column">
+    <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.9rem">
+      <div style="width:46px;height:46px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#fff">🪝</div>
+      <div>
+        <div style="font-family:var(--mono);font-size:.92rem;font-weight:800;color:var(--accent)">Hooks</div>
+        <div style="font-size:.7rem;color:var(--text-dim);font-weight:600">자동 차단 게이트</div>
+      </div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text-dim);font-weight:700;margin-bottom:.3rem;letter-spacing:.5px">🔧 원래 정의</div>
+    <div style="font-size:.85rem;color:var(--text);line-height:1.65;margin-bottom:.9rem">작업 생명주기 중 <b>특정 시점에 자동 실행</b>되는 스크립트. 예: 저장 직전 타입체크·테스트 자동 실행, 실패 시 저장 자체 차단.</div>
+    <div style="margin-top:auto;padding:.7rem .85rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:8px">
+      <div style="font-size:.72rem;color:var(--accent);font-weight:700;margin-bottom:.3rem">👔 HR 협업 예시</div>
+      <div style="font-size:.8rem;color:var(--text);line-height:1.6">AI가 "<b>연봉 데이터를 외부로 보내는 순간</b>" 자동으로 차단·경고. 사람 결재 없이도 사전 차단.</div>
+    </div>
+  </div>
+
+  <!-- Skills -->
+  <div style="padding:1.4rem;background:var(--surface);border:1.5px solid var(--border);border-radius:14px;display:flex;flex-direction:column">
+    <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.9rem">
+      <div style="width:46px;height:46px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#fff">🎒</div>
+      <div>
+        <div style="font-family:var(--mono);font-size:.92rem;font-weight:800;color:var(--accent)">Skills</div>
+        <div style="font-size:.7rem;color:var(--text-dim);font-weight:600">필요할 때만 꺼내 쓰는 SOP</div>
+      </div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text-dim);font-weight:700;margin-bottom:.3rem;letter-spacing:.5px">🔧 원래 정의</div>
+    <div style="font-size:.85rem;color:var(--text);line-height:1.65;margin-bottom:.9rem">특정 작업 시 참조하는 <b>온디맨드 가이드 문서</b>. 평소엔 비활성, 필요할 때만 로드되어 컨텍스트 절약.</div>
+    <div style="margin-top:auto;padding:.7rem .85rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:8px">
+      <div style="font-size:.72rem;color:var(--accent);font-weight:700;margin-bottom:.3rem">👔 HR 협업 예시</div>
+      <div style="font-size:.8rem;color:var(--text);line-height:1.6">AI가 "<b>경조사 휴가 처리</b>" 업무에 들어갈 때만 참조하는 SOP 문서. 평소 컨텍스트를 차지하지 않음.</div>
+    </div>
+  </div>
+
+  <!-- Sub-agents -->
+  <div style="padding:1.4rem;background:var(--surface);border:1.5px solid var(--border);border-radius:14px;display:flex;flex-direction:column">
+    <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.9rem">
+      <div style="width:46px;height:46px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#fff">👥</div>
+      <div>
+        <div style="font-family:var(--mono);font-size:.92rem;font-weight:800;color:var(--accent)">Sub-agents</div>
+        <div style="font-size:.7rem;color:var(--text-dim);font-weight:600">전담 AI 팀원</div>
+      </div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text-dim);font-weight:700;margin-bottom:.3rem;letter-spacing:.5px">🔧 원래 정의</div>
+    <div style="font-size:.85rem;color:var(--text);line-height:1.65;margin-bottom:.9rem">특정 영역에 특화된 <b>하위 에이전트</b>. 한 분야를 전담해 메인 에이전트의 컨텍스트를 격리·보호.</div>
+    <div style="margin-top:auto;padding:.7rem .85rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:8px">
+      <div style="font-size:.72rem;color:var(--accent);font-weight:700;margin-bottom:.3rem">👔 HR 협업 예시</div>
+      <div style="font-size:.8rem;color:var(--text);line-height:1.6">"<b>급여 계산 전담 AI</b>", "<b>복리후생 전담 AI</b>". 메인 HR 에이전트가 각 전담 AI에 위임 후 결과만 받음.</div>
+    </div>
+  </div>
+
+  <!-- Feedback Loop -->
+  <div style="padding:1.4rem;background:var(--surface);border:1.5px solid var(--border);border-radius:14px;display:flex;flex-direction:column">
+    <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.9rem">
+      <div style="width:46px;height:46px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#fff">🔄</div>
+      <div>
+        <div style="font-family:var(--mono);font-size:.92rem;font-weight:800;color:var(--accent)">Feedback Loop</div>
+        <div style="font-size:.7rem;color:var(--text-dim);font-weight:600">자기 교정 메커니즘</div>
+      </div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text-dim);font-weight:700;margin-bottom:.3rem;letter-spacing:.5px">🔧 원래 정의</div>
+    <div style="font-size:.85rem;color:var(--text);line-height:1.65;margin-bottom:.9rem">같은 실패 반복을 감지해 <b>하네스(지침·규칙) 자체를 업데이트</b>하는 루프. 실수가 규칙으로 인코딩됨.</div>
+    <div style="margin-top:auto;padding:.7rem .85rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:8px">
+      <div style="font-size:.72rem;color:var(--accent);font-weight:700;margin-bottom:.3rem">👔 HR 협업 예시</div>
+      <div style="font-size:.8rem;color:var(--text);line-height:1.6">AI가 같은 유형 잘못된 승진 추천을 <b>두 번 하면 승진 가이드에 자동 추가</b>되어 재발 방지.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Act 2/3 예고 용어 3개 (별도 섹션) -->
+<div class="reveal" style="margin:2rem 0">
+  <div style="font-size:.85rem;color:var(--text-dim);margin-bottom:.8rem;font-family:var(--mono);letter-spacing:1px">📘 ACT 2·3에서 상세히 다루는 용어</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.9rem">
+    <div style="padding:1rem 1.2rem;background:var(--surface);border:1px dashed var(--accent-border);border-radius:10px">
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+        <span style="font-size:1.2rem">⏳</span>
+        <span style="font-family:var(--mono);font-weight:800;color:var(--accent);font-size:.88rem">Context Rot</span>
+      </div>
+      <div style="font-size:.8rem;color:var(--text);line-height:1.6">컨텍스트 창이 채워질수록 AI가 앞 내용을 <b>점진적으로 잊거나 판단이 흐려지는 현상</b>.</div>
+    </div>
+    <div style="padding:1rem 1.2rem;background:var(--surface);border:1px dashed var(--accent-border);border-radius:10px">
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+        <span style="font-size:1.2rem">🛤️📡</span>
+        <span style="font-family:var(--mono);font-weight:800;color:var(--accent);font-size:.88rem">Guides &amp; Sensors</span>
+      </div>
+      <div style="font-size:.8rem;color:var(--text);line-height:1.6"><b>Guides</b>=행동 전 방향 잡는 사전 통제. <b>Sensors</b>=행동 후 검증·교정. (Martin Fowler)</div>
+    </div>
+    <div style="padding:1rem 1.2rem;background:var(--surface);border:1px dashed var(--accent-border);border-radius:10px">
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+        <span style="font-size:1.2rem">♾️</span>
+        <span style="font-family:var(--mono);font-weight:800;color:var(--accent);font-size:.88rem">Ralph Loop</span>
+      </div>
+      <div style="font-size:.8rem;color:var(--text);line-height:1.6">에이전트가 <b>실행→검증→수정</b>을 반복하며 스스로를 진화시키는 루프 모델. (Geoffrey Huntley)</div>
+    </div>
+  </div>
 </div>
 
 <!-- 1-5. 코딩을 넘어 업무 전반으로 -->
-<div class="reveal" style="padding:1.8rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin:2rem 0">
-  <h3 style="font-size:1.15rem;font-weight:800;color:var(--accent);margin-bottom:.8rem">1-5. 코딩을 넘어 업무 전반으로</h3>
-  <p style="font-size:.98rem;line-height:1.8;color:var(--text)">하네스는 코딩 에이전트에서 시작된 개념이지만, 본질은 <b style="color:var(--accent)">"업무 에이전트 전반의 운영 구조"</b>입니다. 조직에서 이미 존재하던 업무 분장, 표준 절차(SOP), 결재선, 품질 기준, 회고 루프가 곧 업무 하네스의 구성요소입니다. HR이 수십 년간 쌓아온 조직 설계 역량이 그대로 하네스 엔지니어링의 언어로 번역됩니다.</p>
+<div class="reveal" style="margin:3rem 0 1.5rem">
+  <h3 style="font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:.4rem">1-5. 코딩을 넘어 업무 전반으로</h3>
+  <div style="color:var(--text-dim);font-size:.9rem">개발자 도구로 시작했지만, HR이 이미 갖고 있던 언어로 번역됩니다</div>
+</div>
+
+<!-- 좌(코딩 영역) → 우(업무 영역) 매핑 도식 -->
+<div class="reveal" style="margin:1.5rem 0;display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:stretch">
+
+  <!-- 좌: 코딩 하네스 (출발점) -->
+  <div style="padding:1.4rem;background:var(--surface);border:1.5px solid var(--border);border-radius:14px">
+    <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;padding-bottom:.7rem;border-bottom:1px solid var(--border)">
+      <div style="width:38px;height:38px;border-radius:8px;background:rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-size:1.2rem">💻</div>
+      <div>
+        <div style="font-size:.95rem;font-weight:800;color:var(--text)">코딩 하네스 (출발점)</div>
+        <div style="font-size:.72rem;color:var(--text-dim);margin-top:.1rem">AI 코딩 에이전트용</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:.6rem">
+      <div style="display:flex;gap:.6rem;align-items:center;padding:.55rem .75rem;background:rgba(0,0,0,.03);border-radius:6px">
+        <span style="font-size:1.05rem">📜</span>
+        <div style="font-size:.83rem;color:var(--text)"><b>CLAUDE.md</b> · 프로젝트 규칙</div>
+      </div>
+      <div style="display:flex;gap:.6rem;align-items:center;padding:.55rem .75rem;background:rgba(0,0,0,.03);border-radius:6px">
+        <span style="font-size:1.05rem">🧪</span>
+        <div style="font-size:.83rem;color:var(--text)"><b>Tests</b> · 자동 테스트</div>
+      </div>
+      <div style="display:flex;gap:.6rem;align-items:center;padding:.55rem .75rem;background:rgba(0,0,0,.03);border-radius:6px">
+        <span style="font-size:1.05rem">🪝</span>
+        <div style="font-size:.83rem;color:var(--text)"><b>Pre-commit Hook</b> · 저장 차단</div>
+      </div>
+      <div style="display:flex;gap:.6rem;align-items:center;padding:.55rem .75rem;background:rgba(0,0,0,.03);border-radius:6px">
+        <span style="font-size:1.05rem">🔁</span>
+        <div style="font-size:.83rem;color:var(--text)"><b>CI/CD Pipeline</b> · 단계별 검증</div>
+      </div>
+      <div style="display:flex;gap:.6rem;align-items:center;padding:.55rem .75rem;background:rgba(0,0,0,.03);border-radius:6px">
+        <span style="font-size:1.05rem">📓</span>
+        <div style="font-size:.83rem;color:var(--text)"><b>Postmortem</b> · 사후 회고</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 화살표 (HR 번역) -->
+  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem">
+    <div style="font-size:.7rem;color:var(--text-dim);font-weight:700;letter-spacing:1px;writing-mode:horizontal-tb;text-align:center;line-height:1.3">HR<br>언어로<br>번역</div>
+    <div style="font-size:2rem;color:var(--accent);font-weight:900">→</div>
+  </div>
+
+  <!-- 우: 업무 하네스 (HR이 이미 가진 것) -->
+  <div style="padding:1.4rem;background:var(--accent-bg);border:2px solid var(--accent);border-radius:14px">
+    <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;padding-bottom:.7rem;border-bottom:1px solid var(--accent-border)">
+      <div style="width:38px;height:38px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.2rem">🏢</div>
+      <div>
+        <div style="font-size:.95rem;font-weight:800;color:var(--accent)">업무 하네스 (HR이 이미 가진 것)</div>
+        <div style="font-size:.72rem;color:var(--text-dim);margin-top:.1rem">조직 운영 시스템</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:.6rem">
+      <div style="display:flex;gap:.6rem;align-items:center;padding:.55rem .75rem;background:rgba(255,255,255,.55);border-radius:6px">
+        <span style="font-size:1.05rem">📋</span>
+        <div style="font-size:.83rem;color:var(--text)"><b>업무 분장표</b> · 직무 정의</div>
+      </div>
+      <div style="display:flex;gap:.6rem;align-items:center;padding:.55rem .75rem;background:rgba(255,255,255,.55);border-radius:6px">
+        <span style="font-size:1.05rem">📐</span>
+        <div style="font-size:.83rem;color:var(--text)"><b>표준 절차 (SOP)</b> · 품질 기준</div>
+      </div>
+      <div style="display:flex;gap:.6rem;align-items:center;padding:.55rem .75rem;background:rgba(255,255,255,.55);border-radius:6px">
+        <span style="font-size:1.05rem">🪪</span>
+        <div style="font-size:.83rem;color:var(--text)"><b>결재선·승인 워크플로</b> · 위험 차단</div>
+      </div>
+      <div style="display:flex;gap:.6rem;align-items:center;padding:.55rem .75rem;background:rgba(255,255,255,.55);border-radius:6px">
+        <span style="font-size:1.05rem">🔍</span>
+        <div style="font-size:.83rem;color:var(--text)"><b>감사·내부통제</b> · 단계별 검증</div>
+      </div>
+      <div style="display:flex;gap:.6rem;align-items:center;padding:.55rem .75rem;background:rgba(255,255,255,.55);border-radius:6px">
+        <span style="font-size:1.05rem">📝</span>
+        <div style="font-size:.83rem;color:var(--text)"><b>회고·사후 분석</b> · 재발 방지</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 핵심 메시지 -->
+<div class="reveal" style="padding:1.2rem 1.5rem;background:var(--surface);border-left:4px solid var(--accent);border-radius:8px;margin:1.2rem 0">
+  <div style="font-size:.95rem;color:var(--text);line-height:1.8">
+    <b style="color:var(--accent)">결정적 통찰:</b> HR이 수십 년간 다듬어온 조직 설계 역량이 <b>이미 하네스 엔지니어링의 모든 구성요소</b>를 갖추고 있습니다. 새 학문을 배우는 게 아니라, 기존 자산을 AI 에이전트에도 적용하는 일입니다. 따라서 이 변혁의 주도권은 IT가 아닌 <b>HR에게 있어야 자연스럽습니다</b>.
+  </div>
 </div>
 
 <!-- ============================================================ -->
@@ -388,73 +539,283 @@
   </div>
 </div>
 
-<!-- [비주얼 3] 2대 근본 문제 -->
+<!-- 2-2. 2대 근본 문제와 해결책 (상세 도식화) -->
 <div class="reveal" style="margin:3rem 0 1.5rem">
   <h3 style="font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:.4rem">2-2. 2대 근본 문제와 해결책</h3>
   <div style="color:var(--text-dim);font-size:.9rem">하네스가 존재해야 하는 두 가지 구조적 이유</div>
 </div>
 
-<div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin:1.5rem 0">
-  <div style="padding:1.8rem;background:var(--surface);border:2px solid var(--accent);border-radius:16px">
-    <div style="display:inline-block;padding:.2rem .6rem;background:var(--accent);color:white;border-radius:4px;font-size:.72rem;font-weight:700;margin-bottom:.8rem">문제 ①</div>
-    <h4 style="font-size:1.15rem;font-weight:800;color:var(--accent);margin-bottom:.6rem">Context Rot (컨텍스트 부패)</h4>
-    <div style="font-size:.88rem;color:var(--text-dim);line-height:1.7;margin-bottom:1rem"><b style="color:var(--text)">정의:</b> 컨텍스트 창이 꽉 차면 AI가 앞 내용을 잊거나 판단이 흐려짐.</div>
-    <div style="padding:.8rem;background:var(--accent-bg);border-radius:8px;margin-bottom:.8rem">
-      <div style="font-size:.75rem;color:var(--accent);font-weight:700;margin-bottom:.3rem">해결책</div>
-      <div style="font-size:.88rem;color:var(--text);font-weight:600">CLAUDE.md를 매 세션 첫 읽기</div>
-    </div>
-    <div style="font-size:.85rem;color:var(--text-dim);line-height:1.7;padding:.8rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:4px">
-      <b style="color:var(--text)">🤝 협업 시나리오:</b> 새로 투입된 AI 담당자가 "팀의 헌법이자 최우선 원칙"을 한 장 문서로 매번 확인한 뒤 일을 시작. 이 한 장만 있으면 다른 것이 흐려져도 원칙은 흔들리지 않음.
+<!-- ===== 문제 ①: Context Rot ===== -->
+<div class="reveal" style="margin:2rem 0;padding:1.6rem;background:var(--surface);border:2px solid var(--accent);border-radius:16px">
+  <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1.3rem;padding-bottom:1rem;border-bottom:2px dashed var(--accent-border)">
+    <div style="width:52px;height:52px;border-radius:12px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:#fff">⏳</div>
+    <div>
+      <div style="display:inline-block;padding:.18rem .55rem;background:var(--accent);color:#fff;border-radius:4px;font-size:.68rem;font-weight:700;letter-spacing:.5px;margin-bottom:.3rem">문제 ①</div>
+      <div style="font-size:1.15rem;font-weight:800;color:var(--accent)">Context Rot (컨텍스트 부패)</div>
+      <div style="font-size:.82rem;color:var(--text-dim);margin-top:.1rem">AI의 "단기 기억 창"이 꽉 차면 앞을 잊는 현상</div>
     </div>
   </div>
 
-  <div style="padding:1.8rem;background:var(--surface);border:2px solid var(--accent);border-radius:16px">
-    <div style="display:inline-block;padding:.2rem .6rem;background:var(--accent);color:white;border-radius:4px;font-size:.72rem;font-weight:700;margin-bottom:.8rem">문제 ②</div>
-    <h4 style="font-size:1.15rem;font-weight:800;color:var(--accent);margin-bottom:.6rem">규칙과 울타리 부재</h4>
-    <div style="font-size:.88rem;color:var(--text-dim);line-height:1.7;margin-bottom:1rem"><b style="color:var(--text)">정의:</b> 정보는 있어도 위험한 행동을 막는 구조가 없으면 사고 발생.</div>
-    <div style="padding:.8rem;background:var(--accent-bg);border-radius:8px;margin-bottom:.8rem">
-      <div style="font-size:.75rem;color:var(--accent);font-weight:700;margin-bottom:.3rem">해결책</div>
-      <div style="font-size:.88rem;color:var(--text);font-weight:600">Hooks로 작업 완료 직전 자동 차단</div>
+  <!-- 단계별 도식: 문제 발생 → 결과 → 해결 -->
+  <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:.7rem;align-items:stretch;margin-bottom:1.2rem">
+
+    <!-- Step 1: 시작 (깨끗한 컨텍스트) -->
+    <div style="padding:1rem .9rem;background:rgba(0,0,0,.02);border:1px dashed var(--border);border-radius:10px">
+      <div style="font-family:var(--mono);font-size:.68rem;color:var(--text-dim);font-weight:700;margin-bottom:.5rem">T=0 · 세션 시작</div>
+      <div style="height:80px;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;padding:4px;background:rgba(255,255,255,.5);border:1px solid var(--border);border-radius:6px;margin-bottom:.5rem">
+        <div style="height:18%;background:var(--accent);border-radius:2px"></div>
+      </div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.5">컨텍스트 창 여유.<br>AI가 또렷하게 작업.</div>
     </div>
-    <div style="font-size:.85rem;color:var(--text-dim);line-height:1.7;padding:.8rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:4px">
-      <b style="color:var(--text)">🤝 협업 시나리오:</b> 승인권 없는 직원이 결재 없이 대외송금 못 하도록 시스템이 강제하는 것과 같은 원리. 본인의 의지나 기억에 의존하지 않는 안전장치.
+
+    <div style="display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--text-dim);font-weight:700">→</div>
+
+    <!-- Step 2: 꽉 찬 컨텍스트 -->
+    <div style="padding:1rem .9rem;background:rgba(220,80,130,.06);border:1px solid rgba(220,80,130,.3);border-radius:10px">
+      <div style="font-family:var(--mono);font-size:.68rem;color:rgb(220,80,130);font-weight:700;margin-bottom:.5rem">T=30분 · 대화 누적</div>
+      <div style="height:80px;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;padding:4px;background:rgba(255,255,255,.5);border:1px solid var(--border);border-radius:6px;margin-bottom:.5rem">
+        <div style="height:95%;background:linear-gradient(to top, rgb(220,80,130), var(--accent));border-radius:2px"></div>
+      </div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.5">창이 꽉 참.<br><b style="color:rgb(220,80,130)">앞 원칙이 밀려남.</b></div>
     </div>
+
+    <div style="display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:rgb(220,80,130);font-weight:700">→</div>
+
+    <!-- Step 3: 사고 발생 -->
+    <div style="padding:1rem .9rem;background:rgba(220,80,130,.1);border:2px solid rgb(220,80,130);border-radius:10px">
+      <div style="font-family:var(--mono);font-size:.68rem;color:rgb(220,80,130);font-weight:700;margin-bottom:.5rem">🚨 사고 발생</div>
+      <div style="height:80px;display:flex;align-items:center;justify-content:center;font-size:2rem">💥</div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.5"><b style="color:rgb(220,80,130)">첫날 받은 원칙을 잊고</b> 규정 위반 결정.</div>
+    </div>
+  </div>
+
+  <!-- 해결책 화살표 -->
+  <div style="display:flex;align-items:center;gap:.6rem;justify-content:center;margin:.8rem 0">
+    <div style="height:1px;flex:1;background:var(--accent-border)"></div>
+    <div style="padding:.4rem 1rem;background:var(--accent);color:#fff;border-radius:20px;font-size:.78rem;font-weight:700">💡 해결책</div>
+    <div style="height:1px;flex:1;background:var(--accent-border)"></div>
+  </div>
+
+  <!-- 해결책: CLAUDE.md 매 세션 재읽기 -->
+  <div style="padding:1.1rem 1.3rem;background:var(--accent-bg);border:1.5px solid var(--accent);border-radius:12px;margin-bottom:1rem">
+    <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.6rem">
+      <div style="font-size:1.6rem">📜</div>
+      <div>
+        <div style="font-family:var(--mono);font-size:.82rem;font-weight:800;color:var(--accent)">CLAUDE.md · 매 세션 최우선 재읽기</div>
+        <div style="font-size:.75rem;color:var(--text-dim);margin-top:.1rem">한 장의 "팀 헌법"을 항상 컨텍스트 맨 앞에 고정</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:.5rem;padding:.6rem;background:rgba(255,255,255,.5);border-radius:6px;font-family:var(--mono);font-size:.78rem;color:var(--text)">
+      <span style="padding:.15rem .5rem;background:var(--accent);color:#fff;border-radius:3px;font-weight:700">📜 CLAUDE.md</span>
+      <span style="color:var(--text-dim)">→</span>
+      <span style="color:var(--text-dim)">대화 히스토리</span>
+      <span style="color:var(--text-dim)">→</span>
+      <span style="color:var(--text-dim)">새 질문</span>
+    </div>
+  </div>
+
+  <!-- HR 협업 시나리오 -->
+  <div style="padding:1rem 1.2rem;background:rgba(255,255,255,.5);border-left:4px solid var(--accent);border-radius:8px">
+    <div style="font-size:.78rem;color:var(--accent);font-weight:700;margin-bottom:.4rem">👔 HR 협업 시나리오</div>
+    <div style="font-size:.88rem;color:var(--text);line-height:1.75">AI 상담 에이전트가 8시간 근무 후에도 <b>"불법 근로 시간 권고 금지", "개인정보 외부 전송 금지"</b> 같은 첫 원칙을 놓치지 않도록, 매 응답 직전에 <b>HR 헌법 문서를 최우선 재확인</b>합니다. 다른 대화가 길어져도 원칙은 흔들리지 않음.</div>
   </div>
 </div>
 
-<!-- 2-3. 프롬프트 = 부탁 / 하네스 = 강제 -->
+<!-- ===== 문제 ②: 규칙·울타리 부재 ===== -->
+<div class="reveal" style="margin:2rem 0;padding:1.6rem;background:var(--surface);border:2px solid var(--accent);border-radius:16px">
+  <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1.3rem;padding-bottom:1rem;border-bottom:2px dashed var(--accent-border)">
+    <div style="width:52px;height:52px;border-radius:12px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:#fff">🚧</div>
+    <div>
+      <div style="display:inline-block;padding:.18rem .55rem;background:var(--accent);color:#fff;border-radius:4px;font-size:.68rem;font-weight:700;letter-spacing:.5px;margin-bottom:.3rem">문제 ②</div>
+      <div style="font-size:1.15rem;font-weight:800;color:var(--accent)">규칙과 울타리 부재</div>
+      <div style="font-size:.82rem;color:var(--text-dim);margin-top:.1rem">지식은 있어도 위험 행동을 물리적으로 막는 구조가 없음</div>
+    </div>
+  </div>
+
+  <!-- 좌: 하네스 없음 (위험 행동) vs 우: 하네스 있음 (차단) -->
+  <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:stretch;margin-bottom:1.2rem">
+
+    <!-- 하네스 없음 -->
+    <div style="padding:1rem;background:rgba(220,80,130,.06);border:1.5px solid rgba(220,80,130,.4);border-radius:12px">
+      <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.7rem">
+        <span style="padding:.15rem .5rem;background:rgb(220,80,130);color:#fff;border-radius:4px;font-size:.68rem;font-weight:700">BEFORE</span>
+        <span style="font-size:.8rem;font-weight:700;color:rgb(220,80,130)">하네스 없음</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.4rem">
+        <div style="padding:.55rem .75rem;background:rgba(255,255,255,.6);border-radius:6px;font-size:.8rem;color:var(--text);display:flex;align-items:center;gap:.5rem">
+          <span>🤖</span><span>"직원 연봉 리스트를 외부 파트너사에 공유할게요"</span>
+        </div>
+        <div style="text-align:center;color:rgb(220,80,130);font-size:.9rem">↓</div>
+        <div style="padding:.55rem .75rem;background:rgba(220,80,130,.15);border:1px solid rgba(220,80,130,.5);border-radius:6px;font-size:.8rem;color:rgb(220,80,130);font-weight:700;display:flex;align-items:center;gap:.5rem">
+          <span>💥</span><span>외부 전송 실행됨 (법적 리스크)</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--accent);font-weight:900">→</div>
+
+    <!-- 하네스 있음 -->
+    <div style="padding:1rem;background:var(--accent-bg);border:2px solid var(--accent);border-radius:12px">
+      <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.7rem">
+        <span style="padding:.15rem .5rem;background:var(--accent);color:#fff;border-radius:4px;font-size:.68rem;font-weight:700">AFTER</span>
+        <span style="font-size:.8rem;font-weight:700;color:var(--accent)">Hooks로 강제 차단</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.4rem">
+        <div style="padding:.55rem .75rem;background:rgba(255,255,255,.6);border-radius:6px;font-size:.8rem;color:var(--text);display:flex;align-items:center;gap:.5rem">
+          <span>🤖</span><span>"직원 연봉 리스트를 외부 파트너사에..."</span>
+        </div>
+        <div style="text-align:center;color:var(--accent);font-size:.9rem">↓</div>
+        <div style="padding:.55rem .75rem;background:rgba(255,255,255,.8);border:2px solid var(--accent);border-radius:6px;font-size:.8rem;color:var(--accent);font-weight:700;display:flex;align-items:center;gap:.5rem">
+          <span>🛡️</span><span>Pre-Send Hook 작동 → 자동 차단</span>
+        </div>
+        <div style="text-align:center;color:var(--accent);font-size:.9rem">↓</div>
+        <div style="padding:.55rem .75rem;background:var(--accent);color:#fff;border-radius:6px;font-size:.78rem;font-weight:700;display:flex;align-items:center;gap:.5rem">
+          <span>✅</span><span>실행 중단 + 보안팀 알림</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 해결책 설명 -->
+  <div style="padding:1.1rem 1.3rem;background:var(--accent-bg);border:1.5px solid var(--accent);border-radius:12px;margin-bottom:1rem">
+    <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.5rem">
+      <div style="font-size:1.6rem">🪝</div>
+      <div>
+        <div style="font-family:var(--mono);font-size:.82rem;font-weight:800;color:var(--accent)">Hooks · 작업 완료 직전 자동 검사</div>
+        <div style="font-size:.75rem;color:var(--text-dim);margin-top:.1rem">AI의 의지에 의존하지 않고 시스템이 원천 차단</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HR 협업 시나리오 -->
+  <div style="padding:1rem 1.2rem;background:rgba(255,255,255,.5);border-left:4px solid var(--accent);border-radius:8px">
+    <div style="font-size:.78rem;color:var(--accent);font-weight:700;margin-bottom:.4rem">👔 HR 협업 시나리오</div>
+    <div style="font-size:.88rem;color:var(--text);line-height:1.75">승인권 없는 직원이 결재 없이 대외송금을 <b>시스템적으로 못 하도록</b> 강제하는 것과 같습니다. 직원의 의지·기억에 의존하지 않는 안전장치. "<b>규정 교육</b>"이 아니라 "<b>규정 위반이 불가능한 환경</b>"을 만드는 일.</div>
+  </div>
+</div>
+
+<!-- 2-3. 프롬프트 = 부탁 / 하네스 = 강제 (구체 예시 + 도식화) -->
 <div class="reveal" style="margin:3rem 0 1.5rem">
   <h3 style="font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:.4rem">2-3. 프롬프트는 부탁, 하네스는 강제</h3>
+  <div style="color:var(--text-dim);font-size:.9rem">같은 상황, 다른 결과. 구체적 예시로 보는 근본적 차이</div>
 </div>
 
-<div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin:1.5rem 0">
-  <div style="padding:1.8rem;background:var(--surface);border:2px dashed var(--border);border-radius:16px">
-    <div style="font-size:2rem;text-align:center;margin-bottom:.5rem">🙏</div>
-    <div style="text-align:center;font-weight:800;color:var(--text);font-size:1.1rem;margin-bottom:.8rem">프롬프트 = 부탁</div>
-    <div style="padding:.8rem;background:var(--surface);border:1px dashed var(--border);border-radius:8px;font-family:var(--mono);font-size:.82rem;color:var(--text-dim);margin-bottom:.8rem;text-align:center">"이거 하지 마세요"</div>
-    <div style="font-size:.85rem;color:var(--text-dim);line-height:1.7">AI가 잊거나 오해하거나 또 실수할 수 있음. 반복 발생 가능.</div>
-  </div>
-  <div style="padding:1.8rem;background:var(--accent-bg);border:2px solid var(--accent);border-radius:16px">
-    <div style="font-size:2rem;text-align:center;margin-bottom:.5rem">🛡️</div>
-    <div style="text-align:center;font-weight:800;color:var(--accent);font-size:1.1rem;margin-bottom:.8rem">하네스 = 강제</div>
-    <div style="padding:.8rem;background:var(--surface);border:1px solid var(--accent);border-radius:8px;font-family:var(--mono);font-size:.82rem;color:var(--accent);margin-bottom:.8rem;text-align:center;font-weight:700">실수 자체가 불가능한 구조</div>
-    <div style="font-size:.85rem;color:var(--text-dim);line-height:1.7">시스템이 원천 봉쇄. 재발 불가.</div>
-  </div>
-</div>
+<!-- 메인 대비 카드 -->
+<div class="reveal" style="display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;margin:1.5rem 0;align-items:stretch">
 
-<div class="reveal" style="padding:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin:1.5rem 0">
-  <div style="display:flex;gap:1rem;align-items:flex-start">
-    <div style="font-size:2rem">🏭</div>
-    <div>
-      <div style="font-weight:700;color:var(--text);margin-bottom:.4rem">공장 안전 시스템 비유</div>
-      <div style="font-size:.9rem;color:var(--text-dim);line-height:1.7">안전모를 안 쓰면 출입문 자체가 열리지 않는 공장. 작업자가 "안전모 써주세요"라는 공지를 잊어도 사고는 발생하지 않습니다.</div>
+  <!-- 좌: 프롬프트 = 부탁 -->
+  <div style="padding:1.4rem;background:var(--surface);border:2px dashed var(--border);border-radius:16px;display:flex;flex-direction:column">
+    <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;padding-bottom:.8rem;border-bottom:1px dashed var(--border)">
+      <div style="width:46px;height:46px;border-radius:50%;background:rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-size:1.5rem">🙏</div>
+      <div>
+        <div style="font-size:.68rem;color:var(--text-dim);font-weight:700;letter-spacing:1px">APPROACH A</div>
+        <div style="font-size:1.1rem;font-weight:800;color:var(--text)">프롬프트 = 부탁</div>
+        <div style="font-size:.75rem;color:var(--text-dim)">말로 지시 · 의지에 의존</div>
+      </div>
     </div>
+    <div style="padding:.75rem;background:rgba(0,0,0,.03);border-radius:8px;font-family:var(--mono);font-size:.78rem;color:var(--text-dim);text-align:center;margin-bottom:.8rem">💬 "민감정보 공유하지 마세요"</div>
+    <!-- 플로우: 부탁→AI 판단→때때로 실패 -->
+    <div style="display:flex;flex-direction:column;gap:.35rem;margin-bottom:.8rem">
+      <div style="padding:.45rem .7rem;background:rgba(0,0,0,.04);border-radius:6px;font-size:.78rem;color:var(--text);display:flex;align-items:center;gap:.5rem">
+        <span>1️⃣</span><span>사람이 프롬프트에 주의사항 기재</span>
+      </div>
+      <div style="text-align:center;color:var(--text-dim);font-size:.8rem">↓</div>
+      <div style="padding:.45rem .7rem;background:rgba(0,0,0,.04);border-radius:6px;font-size:.78rem;color:var(--text);display:flex;align-items:center;gap:.5rem">
+        <span>2️⃣</span><span>AI가 매번 <b>스스로 판단</b>해서 지킬지 결정</span>
+      </div>
+      <div style="text-align:center;color:var(--text-dim);font-size:.8rem">↓</div>
+      <div style="padding:.5rem .7rem;background:rgba(220,80,130,.08);border:1px solid rgba(220,80,130,.3);border-radius:6px;font-size:.78rem;color:rgb(220,80,130);font-weight:700;display:flex;align-items:center;gap:.5rem">
+        <span>⚠️</span><span>잊거나 오해 → 실수 반복 가능</span>
+      </div>
+    </div>
+    <div style="margin-top:auto;padding:.6rem .8rem;background:rgba(220,80,130,.06);border-radius:6px;font-size:.78rem;color:rgb(220,80,130);font-weight:600;text-align:center">📊 재발률: 높음</div>
+  </div>
+
+  <!-- 중앙 VS 표시 -->
+  <div style="display:flex;align-items:center;justify-content:center">
+    <div style="padding:.6rem .9rem;background:var(--accent);color:#fff;border-radius:50%;font-weight:900;font-size:.9rem;box-shadow:0 4px 12px rgba(232,131,58,.3)">VS</div>
+  </div>
+
+  <!-- 우: 하네스 = 강제 -->
+  <div style="padding:1.4rem;background:var(--accent-bg);border:2px solid var(--accent);border-radius:16px;display:flex;flex-direction:column">
+    <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;padding-bottom:.8rem;border-bottom:1px solid var(--accent-border)">
+      <div style="width:46px;height:46px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#fff">🛡️</div>
+      <div>
+        <div style="font-size:.68rem;color:var(--accent);font-weight:700;letter-spacing:1px">APPROACH B</div>
+        <div style="font-size:1.1rem;font-weight:800;color:var(--accent)">하네스 = 강제</div>
+        <div style="font-size:.75rem;color:var(--text-dim)">구조로 차단 · 의지와 무관</div>
+      </div>
+    </div>
+    <div style="padding:.75rem;background:rgba(255,255,255,.55);border:1px solid var(--accent-border);border-radius:8px;font-family:var(--mono);font-size:.78rem;color:var(--accent);text-align:center;margin-bottom:.8rem;font-weight:700">🔒 시스템이 민감정보 전송 차단</div>
+    <!-- 플로우: 구조 설계→자동 검증→원천 봉쇄 -->
+    <div style="display:flex;flex-direction:column;gap:.35rem;margin-bottom:.8rem">
+      <div style="padding:.45rem .7rem;background:rgba(255,255,255,.55);border-radius:6px;font-size:.78rem;color:var(--text);display:flex;align-items:center;gap:.5rem">
+        <span>1️⃣</span><span>사람이 <b>Hook 규칙</b>을 한 번 정의</span>
+      </div>
+      <div style="text-align:center;color:var(--accent);font-size:.8rem">↓</div>
+      <div style="padding:.45rem .7rem;background:rgba(255,255,255,.55);border-radius:6px;font-size:.78rem;color:var(--text);display:flex;align-items:center;gap:.5rem">
+        <span>2️⃣</span><span>매 작업마다 <b>시스템이 자동 검증</b></span>
+      </div>
+      <div style="text-align:center;color:var(--accent);font-size:.8rem">↓</div>
+      <div style="padding:.5rem .7rem;background:var(--accent);color:#fff;border-radius:6px;font-size:.78rem;font-weight:700;display:flex;align-items:center;gap:.5rem">
+        <span>✅</span><span>위반 시도 → 실행 자체 차단</span>
+      </div>
+    </div>
+    <div style="margin-top:auto;padding:.6rem .8rem;background:rgba(255,255,255,.55);border-radius:6px;font-size:.78rem;color:var(--accent);font-weight:600;text-align:center">📊 재발률: 0 (원천 불가)</div>
+  </div>
+
+</div>
+
+<!-- 구체적 예시 3종 비교 -->
+<div class="reveal" style="margin:2rem 0">
+  <div style="font-size:.92rem;color:var(--text);font-weight:700;margin-bottom:.8rem;padding-left:.4rem;border-left:3px solid var(--accent)">🎯 3가지 구체적 상황에서의 차이</div>
+  <div style="overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-size:.86rem">
+      <thead>
+        <tr style="background:var(--accent);color:#fff">
+          <th style="padding:.8rem;text-align:left;font-weight:700;width:22%">상황</th>
+          <th style="padding:.8rem;text-align:left;font-weight:700;width:39%">🙏 프롬프트 방식 (부탁)</th>
+          <th style="padding:.8rem;text-align:left;font-weight:700;width:39%">🛡️ 하네스 방식 (강제)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-top:1px solid var(--border)">
+          <td style="padding:.85rem;vertical-align:top;font-weight:700;color:var(--text)">① 채용 공정성</td>
+          <td style="padding:.85rem;vertical-align:top;color:var(--text-dim);line-height:1.6">"성별·나이로 필터링하지 마세요"를 프롬프트에 기재. AI가 잊거나 우회할 수 있음.</td>
+          <td style="padding:.85rem;vertical-align:top;color:var(--text);line-height:1.6;background:var(--accent-bg)"><b>민감 속성 필드 자체를 AI 입력에서 제거</b>. 접근할 수 없으므로 편향 물리적 불가능.</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border)">
+          <td style="padding:.85rem;vertical-align:top;font-weight:700;color:var(--text)">② 연봉 데이터 유출</td>
+          <td style="padding:.85rem;vertical-align:top;color:var(--text-dim);line-height:1.6">"외부 공유 금지"를 CLAUDE.md에 적음. 긴 대화 중 AI가 놓칠 수 있음.</td>
+          <td style="padding:.85rem;vertical-align:top;color:var(--text);line-height:1.6;background:var(--accent-bg)"><b>외부 도메인 전송 시 Pre-Send Hook</b>이 자동 차단·보안팀 알림. AI 판단 불필요.</td>
+        </tr>
+        <tr style="border-top:1px solid var(--border)">
+          <td style="padding:.85rem;vertical-align:top;font-weight:700;color:var(--text)">③ 퇴사 결정 자동 실행</td>
+          <td style="padding:.85rem;vertical-align:top;color:var(--text-dim);line-height:1.6">"퇴사 처리는 사람 확인 후에만"이라 지시. AI가 에이전틱 모드에서 스스로 실행할 위험.</td>
+          <td style="padding:.85rem;vertical-align:top;color:var(--text);line-height:1.6;background:var(--accent-bg)"><b>퇴사 API 호출 권한을 AI에게 부여 안 함</b>. 오직 HR 담당자 승인 후에만 활성화.</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
-<div class="reveal" style="padding:1.5rem;background:var(--accent-bg);border-left:5px solid var(--accent);border-radius:12px;margin:1.5rem 0">
-  <div style="font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:2px;font-weight:700;margin-bottom:.5rem">HR TRANSLATION</div>
-  <div style="font-size:.95rem;color:var(--text);line-height:1.7">사내 규정을 <b>"공지"</b>하는 것과 <b style="color:var(--accent)">"시스템으로 자동 강제"</b>하는 것의 차이. 하네스는 후자입니다. 규정 교육 대신 규정 위반 자체가 불가능한 환경을 설계하는 일.</div>
+<!-- 공장 안전 시스템 비유 + HR 번역 (통합) -->
+<div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0">
+  <div style="padding:1.3rem;background:var(--surface);border:1px solid var(--border);border-radius:12px">
+    <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem">
+      <div style="font-size:1.8rem">🏭</div>
+      <div style="font-weight:700;color:var(--text);font-size:.95rem">공장 안전 시스템</div>
+    </div>
+    <div style="font-size:.85rem;color:var(--text);line-height:1.7">안전모를 안 쓰면 출입문이 <b>열리지 않는</b> 공장. "안전모 써주세요" 공지를 잊어도 사고는 발생하지 않습니다. <b style="color:var(--accent)">안전이 개인의 의지와 분리됨.</b></div>
+  </div>
+  <div style="padding:1.3rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:12px">
+    <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem">
+      <div style="font-size:1.8rem">👔</div>
+      <div style="font-weight:700;color:var(--accent);font-size:.95rem">HR 번역</div>
+    </div>
+    <div style="font-size:.85rem;color:var(--text);line-height:1.7">사내 규정을 <b>"공지"</b>하는 것과 <b style="color:var(--accent)">"시스템으로 자동 강제"</b>하는 것의 차이. 규정 교육 대신 <b>규정 위반 자체가 불가능한 환경</b>을 설계하는 일.</div>
+  </div>
 </div>
 
 <!-- [비주얼 4] 하네스 5대 구성요소 해부도 -->
