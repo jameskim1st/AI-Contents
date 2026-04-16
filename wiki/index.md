@@ -1,7 +1,7 @@
 # Index
 
 `wiki/entities/` 카탈로그 + `wiki/sources/` 링크. 카테고리별 분류.
-**Last updated:** 2026-04-12
+**Last updated:** 2026-04-16
 
 ## Raw Sources (Layer 1)
 
@@ -13,6 +13,9 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
   - [LangChain State of Agent Engineering 2026](./sources/web/2026-04-12_langchain-state-of-agent-engineering.md)
   - [AI Agents 실전 Research Bundle](./sources/web/2026-04-11_ai-agents-research-bundle.md) — Part 4
   - [Data Pipeline Research Bundle](./sources/web/2026-04-12_data-pipeline-research-bundle.md) — Part 8/9
+  - [Ontology × LLM 2024-2025 Research](./sources/web/2026-04-16_ontology-llm-2024-2025-research.md) — GraphRAG·OG-RAG·자동 KG 구축
+  - [Ontology — Palantir & Enterprise KG](./sources/web/2026-04-16_ontology-palantir-enterprise.md) — Palantir AIP·Neo4j·Stardog·Ontotext
+  - [Ontology — Critique & Revival](./sources/web/2026-04-16_ontology-critique-revival.md) — Gruber·Shirky·Singhal 계보
 - **`sources/papers/`** — 학술 논문
   - [Attention Is All You Need (2017)](./sources/papers/2017_attention-is-all-you-need.md)
 
@@ -149,7 +152,7 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
 - [Self-Attention](./entities/self-attention.md)
 - [Augmented LLM](./entities/augmented-llm.md)
 - [Memory (Agent)](./entities/memory.md)
-- [Ontology](./entities/ontology.md) — Graph DB의 의미론적 사촌, LLM 시대 부활
+- [Ontology](./entities/ontology.md) — Graph DB의 의미론적 사촌 · v1 실패와 v2 부활 · Palantir 운영 온톨로지 · OG-RAG 정량 벤치 포함
 
 ## AI/ML 기초 (Part 0) ⭐ NEW 카테고리
 
@@ -202,7 +205,7 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
 
 - entity 페이지: **116개** (115 → 116, +1 n8n)
 - 카테고리: 17개
-- Last ingest: 2026-04-12 (IT 개발 기초 — OS/네트워크/API/Git 등 10개)
+- Last ingest: 2026-04-16 (Ontology 2024-2025 리서치 — GraphRAG/OG-RAG/Palantir/Shirky 계보)
 - Last query: 2026-04-12 (Part 2 + Part 9 동시 합성, 45 entity 활용, 5495줄)
 - **완료 사이클 #1**: Part 4 AI Agents 실전 — Sources → Ingest → Lint → Query → Ingest-back
 - **완료 사이클 #2**: Part 8/9 Data 동시 합성 — 완전한 5단계 사이클

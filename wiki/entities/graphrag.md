@@ -2,7 +2,7 @@
 
 **Category:** 아키텍처 / 패턴
 **Status:** stable
-**Last updated:** 2026-04-12
+**Last updated:** 2026-04-16
 
 ## TL;DR
 
@@ -53,6 +53,10 @@
 - Microsoft 공식 예제 기준 1GB 텍스트 인덱싱에 수백 달러.
 - 2025 이후 `graph-rag-fast` 같은 경량 변형 등장 (Docugami, Kuzu 등).
 
+### OG-RAG — 온톨로지 그라운드 변형
+
+GraphRAG가 "LLM이 문서에서 만든 즉석 그래프"를 쓴다면, OG-RAG(Sharma et al., MS Research, arXiv:2412.15235, 2024-12; EMNLP 2025)는 **사전 정의된 도메인 온톨로지에 검색을 그라운딩**한다. 4개 LLM 벤치에서 **+55% fact recall, +40% correctness, +27% reasoning** 보고. 규제 산업(의료·법률·금융)에서 "왜 이 답이 나왔는가"가 추적 가능하다는 이유로 선호. 자세히는 [Ontology](./ontology.md) 참조.
+
 ### 2026 주요 구현체
 
 | 이름 | 제공 | 특징 |
@@ -90,7 +94,9 @@
 - Microsoft Research Blog, "GraphRAG: New tool for complex data discovery", 2024.
 - LinkedIn Engineering, "Building Customer Support RAG with Knowledge Graphs", 2025.
 - LangChain × Neo4j "GraphRAG Patterns", 2025-2026.
+- Sharma et al., "OG-RAG: Ontology-Grounded Retrieval-Augmented Generation", MS Research, arXiv:2412.15235, 2024-12 (EMNLP 2025).
 
 ## 업데이트 이력
 
 - 2026-04-12 — 신규 생성. Data 파트 ingest.
+- 2026-04-16 — OG-RAG 온톨로지 그라운드 변형 섹션 추가(arXiv:2412.15235, +55%/+40%/+27% 벤치).
