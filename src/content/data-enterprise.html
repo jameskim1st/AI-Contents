@@ -2630,7 +2630,9 @@ chunks = splitter.split_documents(docs)<br>
 <section class="ch reveal" id="p9-ch10">
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">10</div><h2 class="ch-title">온톨로지와 지식 그래프 — 의미 계층의 귀환</h2></div>
 
-<p class="section-desc">Ch.09에서 GraphRAG를 만났습니다. 이 장은 그 한 층 아래 — <strong style="color:var(--amber)">"그래프에 *의미*를 얹는 레이어"</strong>입니다. 2010년대 "딥러닝이 다 해결"이라는 분위기에 시들었던 <strong>온톨로지(Ontology)</strong>가 2024-2025 LLM 시대에 되돌아왔습니다. OG-RAG 논문은 4개 LLM 벤치에서 <strong style="color:var(--amber)">+55% fact recall, +40% correctness, +27% reasoning</strong>을 보고했고, Palantir는 "Ontology"를 상품명으로 내세우며 <strong style="color:var(--amber)">커머셜 매출 +71% YoY (Q1 2025)</strong>를 달성했습니다. 단 같은 단어를 쓰는 두 계보가 있어, 둘을 구분하지 않으면 혼선이 생깁니다.</p>
+<p class="section-desc">Ch.09에서 GraphRAG를 만났습니다. 이 장은 그 한 층 아래 — <strong style="color:var(--amber)">"그래프에 <em>의미</em>를 얹는 레이어"</strong>입니다. 단어는 어렵지만 원리는 직관적입니다. "김아무개는 PwC에 근무한다"처럼 <strong>세상을 작은 문장(트리플) 단위로 적고</strong>, 여기에 "사람은 회사에 근무한다"라는 <strong>규칙</strong>을 얹어 놓으면 컴퓨터가 스스로 새로운 사실을 도출합니다. 2010년대에 시들었다가 2024-2025 LLM 시대에 극적으로 되돌아온 이유와 함께, 기초부터 차근차근 그림으로 풀어봅니다.</p>
+
+<!-- ═══════════ PART 1. 직관 ═══════════ -->
 
 <!-- Pull quote -->
 <div class="dia reveal">
@@ -2641,57 +2643,463 @@ chunks = splitter.split_documents(docs)<br>
 </div>
 </div>
 
-<!-- 4-way 구분 -->
+<!-- 10-1. 가장 기본 — 트리플 -->
 <div class="dia reveal">
-<div class="dia-title">🧭 가장 많이 헷갈리는 4가지 — 한 줄로</div>
+<div class="dia-title">📐 10-1. 가장 기본 — 세상을 "트리플(Triple)"로 적기</div>
+
+<div style="font-size:.88rem;color:var(--text);line-height:1.85;max-width:860px;margin:0 auto 1.4rem">
+  온톨로지 세계의 원자 단위는 <strong style="color:var(--amber)">트리플(triple)</strong>입니다. 모든 지식을 <strong>(주어 · 술어 · 목적어)</strong> 3요소의 문장으로 쪼개 적습니다. 학술 용어로는 <strong>Subject - Predicate - Object</strong>. 이 구조가 단순해서 어떤 지식이든 표현할 수 있고, 컴퓨터가 다루기도 쉽습니다.
+</div>
+
+<!-- Triple diagram -->
+<div style="max-width:840px;margin:0 auto 1.2rem">
+<svg viewBox="0 0 840 200" style="width:100%;height:auto;display:block">
+  <defs>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#fbbf24"/>
+    </marker>
+  </defs>
+  <!-- Subject box -->
+  <rect x="20" y="60" width="220" height="80" rx="14" fill="#fbbf241a" stroke="#fbbf24" stroke-width="2"/>
+  <text x="130" y="90" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#fbbf24" letter-spacing="2">SUBJECT (주어)</text>
+  <text x="130" y="118" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="18" font-weight="700" fill="#cdd1e0">김아무개</text>
+  <!-- Predicate box -->
+  <rect x="290" y="60" width="220" height="80" rx="14" fill="#fbbf2433" stroke="#fbbf24" stroke-width="2"/>
+  <text x="400" y="90" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#fbbf24" letter-spacing="2">PREDICATE (술어)</text>
+  <text x="400" y="118" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="18" font-weight="700" fill="#cdd1e0">근무한다</text>
+  <!-- Object box -->
+  <rect x="560" y="60" width="260" height="80" rx="14" fill="#fbbf241a" stroke="#fbbf24" stroke-width="2"/>
+  <text x="690" y="90" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#fbbf24" letter-spacing="2">OBJECT (목적어)</text>
+  <text x="690" y="118" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="18" font-weight="700" fill="#cdd1e0">PwC</text>
+  <!-- Arrows -->
+  <line x1="245" y1="100" x2="285" y2="100" stroke="#fbbf24" stroke-width="2" marker-end="url(#arr-amber)"/>
+  <line x1="515" y1="100" x2="555" y2="100" stroke="#fbbf24" stroke-width="2" marker-end="url(#arr-amber)"/>
+  <!-- Caption -->
+  <text x="420" y="180" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="13" fill="#7d8298">"김아무개는 PwC에 근무한다" → 하나의 사실 = 하나의 트리플</text>
+</svg>
+</div>
+
+<!-- Triple → Graph -->
+<div style="max-width:860px;margin:0 auto;padding:1.1rem 1.3rem;background:var(--surface);border-radius:12px;border:1px solid var(--border)">
+  <div style="font-size:.82rem;color:var(--text);line-height:1.9">
+    💡 트리플을 <strong>여러 개 쌓으면 자연스럽게 그래프</strong>가 됩니다. "김아무개-근무한다-PwC", "PwC-소재한다-서울", "PwC-자회사다-PwC Global" ... 노드(주어/목적어)가 재사용되면서 네트워크가 만들어집니다. <strong style="color:var(--amber)">이것이 곧 지식 그래프(Knowledge Graph)의 원형</strong>입니다.
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem;max-width:860px;margin:1.2rem auto 0">
+  <div style="padding:.9rem 1rem;background:var(--card);border:1.5px solid var(--border);border-radius:10px">
+    <div style="font-family:var(--mono);font-size:.68rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.4rem">① CLASSES</div>
+    <div style="font-size:.8rem;font-weight:700;color:var(--text);margin-bottom:.3rem">개념(종류)</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7">Person, Company, City … "어떤 종류가 있는가"</div>
+  </div>
+  <div style="padding:.9rem 1rem;background:var(--card);border:1.5px solid var(--border);border-radius:10px">
+    <div style="font-family:var(--mono);font-size:.68rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.4rem">② PROPERTIES</div>
+    <div style="font-size:.8rem;font-weight:700;color:var(--text);margin-bottom:.3rem">관계·속성</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7">worksAt, locatedIn … "어떤 관계가 성립하는가"</div>
+  </div>
+  <div style="padding:.9rem 1rem;background:var(--card);border:1.5px solid var(--border);border-radius:10px">
+    <div style="font-family:var(--mono);font-size:.68rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.4rem">③ AXIOMS</div>
+    <div style="font-size:.8rem;font-weight:700;color:var(--text);margin-bottom:.3rem">공리·규칙</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7">"Person은 Mammal이다" 같은 항상 성립하는 규칙</div>
+  </div>
+</div>
+<div style="margin-top:.9rem;text-align:center;font-size:.78rem;color:var(--text-dim)">온톨로지 = ① + ② + ③ &nbsp;·&nbsp; 지식 그래프 = 여기에 <strong style="color:var(--text)">구체적 인스턴스(트리플)</strong>까지 얹은 것</div>
+</div>
+
+<!-- ═══════════ PART 2. 자동 추론 ═══════════ -->
+
+<!-- 10-2. 핵심 마법: 자동 추론 -->
+<div class="dia reveal">
+<div class="dia-title">✨ 10-2. 핵심 마법 — "자동 추론(Reasoning)"이 대체 뭔가</div>
+
+<div style="font-size:.88rem;color:var(--text);line-height:1.85;max-width:860px;margin:0 auto 1.4rem">
+  온톨로지가 단순 "관계 저장소"와 다른 결정적 차이는 <strong style="color:var(--amber)">자동 추론 엔진(OWL reasoner)</strong>입니다. 몇 가지 <strong>규칙(공리)</strong>만 선언해 두면, reasoner가 알아서 <strong>적어 두지 않은 새로운 사실</strong>을 도출해 줍니다. 작은 예시로 감을 잡아봅시다.
+</div>
+
+<!-- Reasoning Before/After -->
+<div style="display:grid;grid-template-columns:1fr auto 1fr;gap:.8rem;max-width:900px;margin:0 auto;align-items:center">
+
+  <!-- Before: declared facts -->
+  <div style="padding:1.2rem;background:var(--card);border:1.5px solid var(--border);border-radius:14px">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);letter-spacing:1.5px;margin-bottom:.8rem">📝 우리가 적어둔 것 (선언)</div>
+    <div style="font-family:var(--mono);font-size:.8rem;color:var(--text);line-height:1.95;background:var(--surface);padding:.8rem 1rem;border-radius:8px">
+      <div>Mammal <span style="color:var(--amber)">⊂</span> Animal &nbsp;<span style="color:var(--text-dim)">(공리)</span></div>
+      <div>Dog <span style="color:var(--amber)">⊂</span> Mammal &nbsp;<span style="color:var(--text-dim)">(공리)</span></div>
+      <div style="margin-top:.6rem;padding-top:.6rem;border-top:1px dashed var(--border)">Fido <span style="color:var(--amber)">: </span> Dog &nbsp;<span style="color:var(--text-dim)">(인스턴스)</span></div>
+      <div>hasOwner(Fido, 김아무개) &nbsp;<span style="color:var(--text-dim)">(인스턴스)</span></div>
+    </div>
+    <div style="font-size:.72rem;color:var(--text-dim);margin-top:.6rem;line-height:1.7">⊂ 기호는 "하위 집합" — "Mammal은 Animal의 하위"라는 뜻.</div>
+  </div>
+
+  <!-- Arrow -->
+  <div style="text-align:center;padding:0 .5rem">
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.3rem">OWL<br>REASONER</div>
+    <div style="font-size:1.8rem;color:var(--amber)">⟹</div>
+    <div style="font-family:var(--mono);font-size:.62rem;color:var(--text-dim);margin-top:.3rem">(규칙 적용)</div>
+  </div>
+
+  <!-- After: inferred facts -->
+  <div style="padding:1.2rem;background:var(--amber-bg);border:2px solid var(--amber);border-radius:14px">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.8rem">✨ Reasoner가 자동으로 도출</div>
+    <div style="font-family:var(--mono);font-size:.8rem;color:var(--text);line-height:1.95;background:var(--surface);padding:.8rem 1rem;border-radius:8px">
+      <div style="opacity:.55">Mammal ⊂ Animal</div>
+      <div style="opacity:.55">Dog ⊂ Mammal</div>
+      <div style="opacity:.55">Fido : Dog</div>
+      <div style="margin-top:.5rem;padding-top:.5rem;border-top:1px dashed var(--amber-border)">Dog <span style="color:var(--amber)">⊂</span> Animal &nbsp;<span style="color:var(--amber)">← 새 사실!</span></div>
+      <div>Fido <span style="color:var(--amber)">:</span> Mammal &nbsp;<span style="color:var(--amber)">← 새 사실!</span></div>
+      <div>Fido <span style="color:var(--amber)">:</span> Animal &nbsp;<span style="color:var(--amber)">← 새 사실!</span></div>
+    </div>
+    <div style="font-size:.72rem;color:var(--text-dim);margin-top:.6rem;line-height:1.7">아무도 "Fido는 동물이다"라고 입력한 적이 없지만, 규칙으로부터 <strong style="color:var(--amber)">자동 도출</strong>됩니다.</div>
+  </div>
+
+</div>
+
+<div style="margin-top:1.4rem;max-width:900px;margin-left:auto;margin-right:auto;padding:1rem 1.3rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.9">
+  🔑 <strong style="color:var(--amber)">왜 중요한가?</strong> ① <strong>일관성 검증</strong> — "Fido는 Dog이면서 동시에 Plant다"처럼 <em>모순</em>을 reasoner가 자동 발견. ② <strong>설명 가능성</strong> — "Fido가 동물인 이유"를 추론 경로로 제시. ③ <strong>LLM 환각 억제</strong> — LLM의 답변을 온톨로지로 검증하면 근거 없는 주장을 걸러낼 수 있음. <strong>OG-RAG의 +40% correctness</strong>가 이 메커니즘에서 나옵니다.
+</div>
+</div>
+
+<!-- ═══════════ PART 3. 4-way 구분 ═══════════ -->
+
+<!-- 10-3. 4-way 구분 -->
+<div class="dia reveal">
+<div class="dia-title">🧭 10-3. 가장 많이 헷갈리는 4가지 — Taxonomy / Schema / Ontology / KG</div>
 <div style="text-align:center;font-size:1rem;color:var(--amber);font-family:var(--display);font-weight:600;margin-bottom:1.2rem;letter-spacing:.5px">
   "Taxonomy classifies. Schema validates. Ontology means. Knowledge graph remembers."
 </div>
-<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;max-width:920px;margin:0 auto">
+
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;max-width:960px;margin:0 auto">
 
   <div style="padding:1rem;background:var(--card);border:1.5px solid var(--border);border-radius:12px">
-    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.4rem">TAXONOMY</div>
-    <div style="font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.5rem">분류 체계</div>
-    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.7">대상을 카테고리로 <strong style="color:var(--text)">분류</strong>. 서점 장르, 생물 분류학.</div>
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.4rem">① TAXONOMY</div>
+    <div style="font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.5rem">분류 체계</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.75;margin-bottom:.6rem">대상을 카테고리로 <strong style="color:var(--text)">분류</strong>. 계층 구조(tree)가 전형.</div>
+    <div style="font-size:.72rem;color:var(--text);background:var(--surface);padding:.5rem .6rem;border-radius:6px;line-height:1.7">
+      <strong>예:</strong> 서점 장르 분류, 생물 분류학, 듀이 십진 분류법
+    </div>
   </div>
 
   <div style="padding:1rem;background:var(--card);border:1.5px solid var(--border);border-radius:12px">
-    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.4rem">SCHEMA</div>
-    <div style="font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.5rem">스키마</div>
-    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.7">데이터 구조를 <strong style="color:var(--text)">검증</strong>(유효/무효). JSON Schema, SQL DDL, Avro.</div>
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.4rem">② SCHEMA</div>
+    <div style="font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.5rem">스키마</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.75;margin-bottom:.6rem">데이터 구조를 <strong style="color:var(--text)">검증</strong>(유효/무효). "맞는 형식인가"만 판정.</div>
+    <div style="font-size:.72rem;color:var(--text);background:var(--surface);padding:.5rem .6rem;border-radius:6px;line-height:1.7">
+      <strong>예:</strong> JSON Schema, SQL DDL, Avro, Protobuf
+    </div>
   </div>
 
   <div style="padding:1rem;background:var(--amber-bg);border:2px solid var(--amber);border-radius:12px">
-    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.4rem">ONTOLOGY ⭐</div>
-    <div style="font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.5rem">온톨로지</div>
-    <div style="font-size:.75rem;color:var(--text);line-height:1.7">개념·관계의 <strong style="color:var(--amber)">의미</strong>를 명세 + 자동 추론. OWL의 "Mammal ⊂ Animal".</div>
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.4rem">③ ONTOLOGY ⭐</div>
+    <div style="font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.5rem">온톨로지</div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.75;margin-bottom:.6rem">개념·관계의 <strong style="color:var(--amber)">의미</strong>를 명세 + 자동 추론. "왜 그런가"까지.</div>
+    <div style="font-size:.72rem;color:var(--text);background:var(--surface);padding:.5rem .6rem;border-radius:6px;line-height:1.7">
+      <strong>예:</strong> OWL 공리 "Mammal ⊂ Animal", FIBO, SNOMED CT
+    </div>
   </div>
 
   <div style="padding:1rem;background:var(--card);border:1.5px solid var(--border);border-radius:12px">
-    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.4rem">KNOWLEDGE GRAPH</div>
-    <div style="font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.5rem">지식 그래프</div>
-    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.7">사실들의 집합을 <strong style="color:var(--text)">기억</strong>(인스턴스). Wikidata, Google KG.</div>
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.4rem">④ KNOWLEDGE GRAPH</div>
+    <div style="font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.5rem">지식 그래프</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.75;margin-bottom:.6rem">사실들의 집합을 <strong style="color:var(--text)">기억</strong>(인스턴스 트리플). 실제 데이터.</div>
+    <div style="font-size:.72rem;color:var(--text);background:var(--surface);padding:.5rem .6rem;border-radius:6px;line-height:1.7">
+      <strong>예:</strong> Wikidata 1억+ 엔티티, Google KG 5천억+ 사실
+    </div>
   </div>
 
 </div>
-<div style="margin-top:1.2rem;padding:.9rem 1.1rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.8rem;color:var(--text);line-height:1.8;max-width:920px;margin-left:auto;margin-right:auto">
-  💡 <strong style="color:var(--amber)">실무 포인트:</strong> 쓸만한 지식 그래프 = <strong>인스턴스 그래프 + 스키마/온톨로지</strong>. "온톨로지 vs 지식 그래프"는 대립이 아니라 "문법 vs 글"의 관계입니다.
+
+<!-- Layer diagram: KG = instance + ontology -->
+<div style="max-width:900px;margin:1.6rem auto 0">
+<svg viewBox="0 0 900 210" style="width:100%;height:auto;display:block">
+  <!-- Layer 1: Ontology (schema layer) -->
+  <rect x="40" y="20" width="820" height="70" rx="12" fill="#fbbf241a" stroke="#fbbf24" stroke-width="2"/>
+  <text x="70" y="48" font-family="JetBrains Mono, monospace" font-size="12" fill="#fbbf24" letter-spacing="2">ONTOLOGY (스키마 계층)</text>
+  <text x="70" y="74" font-family="Noto Sans KR, sans-serif" font-size="14" fill="#cdd1e0">클래스 · 속성 · 규칙 — "Person은 Company에 worksAt 할 수 있다"</text>
+  <!-- Layer 2: KG instance -->
+  <rect x="40" y="115" width="820" height="70" rx="12" fill="#fbbf2433" stroke="#fbbf24" stroke-width="2"/>
+  <text x="70" y="143" font-family="JetBrains Mono, monospace" font-size="12" fill="#fbbf24" letter-spacing="2">KNOWLEDGE GRAPH (인스턴스 계층)</text>
+  <text x="70" y="169" font-family="Noto Sans KR, sans-serif" font-size="14" fill="#cdd1e0">구체적 사실 — "김아무개 worksAt PwC" · "PwC locatedIn 서울"</text>
+  <!-- Labels -->
+  <text x="870" y="55" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="11" fill="#7d8298">문법</text>
+  <text x="870" y="150" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="11" fill="#7d8298">글</text>
+  <!-- Dotted connector -->
+  <line x1="450" y1="90" x2="450" y2="115" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="4,3"/>
+</svg>
+</div>
+
+<div style="margin-top:1rem;padding:.9rem 1.1rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.8rem;color:var(--text);line-height:1.85;max-width:900px;margin-left:auto;margin-right:auto">
+  💡 <strong style="color:var(--amber)">실무 포인트:</strong> <strong>"온톨로지 vs 지식 그래프"는 대립이 아닙니다</strong>. "문법 vs 글"의 관계 — 쓸만한 KG는 반드시 <strong>인스턴스 그래프 + 스키마/온톨로지</strong>가 함께 있어야 합니다.
 </div>
 </div>
 
-<!-- 두 계보: 학술 vs Palantir -->
+<!-- ═══════════ PART 4. 두 세계 — Property Graph vs Ontology ═══════════ -->
+
+<!-- 10-4. Property Graph vs Ontology 두 세계 -->
 <div class="dia reveal">
-<div class="dia-title">🔀 같은 단어, 두 계보 — 학술 온톨로지 vs Palantir 운영 온톨로지</div>
+<div class="dia-title">🔀 10-4. 두 세계 — Property Graph(Neo4j) vs Ontology(RDF/OWL)</div>
+<div style="font-size:.85rem;color:var(--text);line-height:1.85;max-width:860px;margin:0 auto 1.2rem">
+  "그래프 DB"라고 불리는 두 진영이 있습니다. <strong>실용 그래프</strong> 진영(Neo4j 대표)과 <strong>의미론 그래프</strong> 진영(Stardog·GraphDB·Virtuoso). Ch.09 GraphRAG에서 주로 쓰는 건 전자, 본 챕터의 주인공은 후자.
+</div>
+
+<div style="overflow-x:auto;max-width:920px;margin:0 auto 1.4rem">
+<table style="width:100%;border-collapse:collapse;font-size:.82rem;min-width:680px">
+  <thead>
+    <tr style="background:var(--surface)">
+      <th style="padding:.7rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">관점</th>
+      <th style="padding:.7rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">Property Graph (Neo4j)</th>
+      <th style="padding:.7rem;text-align:left;color:var(--amber);font-weight:700;border-bottom:1px solid var(--amber-border)">Ontology (RDF/OWL)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">기본 단위</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">노드·엣지·속성(k-v)</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Subject-Predicate-Object 트리플</td></tr>
+    <tr><td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">스키마</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">유연·선택적</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">엄격·선언적</td></tr>
+    <tr><td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">자동 추론</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">없음 (앱이 쿼리로 해결)</td><td style="padding:.55rem;color:var(--text);font-weight:700;border-bottom:1px solid var(--border)">있음 (OWL reasoner)</td></tr>
+    <tr><td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">쿼리 언어</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Cypher / Gremlin / GQL(ISO)</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">SPARQL (W3C)</td></tr>
+    <tr><td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">표준화</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">벤더 주도 (GQL로 수렴 중)</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">W3C 공식 표준</td></tr>
+    <tr><td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">대표 사용처</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">소셜·사기 탐지·운영 그래프</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">의료·법률·과학·공공 데이터</td></tr>
+    <tr><td style="padding:.55rem;color:var(--text);font-weight:600">대표 제품</td><td style="padding:.55rem;color:var(--text-dim)">Neo4j, TigerGraph, Memgraph, Neptune</td><td style="padding:.55rem;color:var(--text-dim)">Stardog, GraphDB(Ontotext), Virtuoso, Fuseki</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- Cypher vs SPARQL mini code -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:920px;margin:0 auto">
+
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.5rem">CYPHER · Property Graph</div>
+    <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.6rem">"김아무개가 근무하는 회사의 도시는?"</div>
+    <pre style="font-family:var(--mono);font-size:.72rem;color:var(--text);background:var(--surface);padding:.7rem .9rem;border-radius:8px;line-height:1.75;overflow-x:auto;margin:0"><span style="color:var(--amber)">MATCH</span> (p:Person {name:<span style="color:var(--amber)">'김아무개'</span>})
+      -[:WORKS_AT]-&gt;(c:Company)
+      -[:LOCATED_IN]-&gt;(city:City)
+<span style="color:var(--amber)">RETURN</span> city.name</pre>
+  </div>
+
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.5rem">SPARQL · RDF/OWL</div>
+    <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.6rem">같은 질문 — 트리플 패턴으로</div>
+    <pre style="font-family:var(--mono);font-size:.72rem;color:var(--text);background:var(--surface);padding:.7rem .9rem;border-radius:8px;line-height:1.75;overflow-x:auto;margin:0"><span style="color:var(--amber)">SELECT</span> ?cityName <span style="color:var(--amber)">WHERE</span> {
+  :김아무개 :worksAt ?company .
+  ?company :locatedIn ?city .
+  ?city rdfs:label ?cityName .
+}</pre>
+  </div>
+
+</div>
+<div style="margin-top:1rem;font-size:.78rem;color:var(--text-dim);text-align:center;max-width:860px;margin-left:auto;margin-right:auto">표기가 다를 뿐 개념은 같습니다. SPARQL은 <strong style="color:var(--text)">reasoner와 결합하면</strong> "worksAt의 상위 속성"까지 자동으로 고려 — Cypher는 그 확장이 수동입니다.</div>
+</div>
+
+<!-- ═══════════ PART 5. W3C 4대 표준 ═══════════ -->
+
+<!-- 10-5. W3C 4대 표준 -->
+<div class="dia reveal">
+<div class="dia-title">🏛️ 10-5. W3C 4대 표준 스택 — RDF / RDFS·OWL / SPARQL / SHACL</div>
+<div style="font-size:.85rem;color:var(--text);line-height:1.85;max-width:860px;margin:0 auto 1.2rem">
+  시맨틱 웹 생태계는 W3C가 정의한 4개 표준을 쌓아 올린 구조입니다. 각 계층이 무엇을 하는지 한 장으로 이해하면, 이후 어떤 도구·제품을 만나도 "어디에 속하는가"를 바로 짚을 수 있습니다.
+</div>
+
+<!-- Layered stack -->
+<div style="max-width:880px;margin:0 auto 1.4rem">
+<svg viewBox="0 0 880 290" style="width:100%;height:auto;display:block">
+  <!-- L4: SHACL (top) -->
+  <rect x="40" y="20" width="800" height="55" rx="10" fill="#fbbf2433" stroke="#fbbf24" stroke-width="2"/>
+  <text x="60" y="44" font-family="JetBrains Mono, monospace" font-size="12" fill="#fbbf24" letter-spacing="2">SHACL</text>
+  <text x="60" y="63" font-family="Noto Sans KR, sans-serif" font-size="13" fill="#cdd1e0">데이터 검증 — "이 인스턴스가 스키마 규칙을 지켰는가" (JSON Schema의 RDF 버전)</text>
+  <!-- L3: SPARQL -->
+  <rect x="40" y="85" width="800" height="55" rx="10" fill="#fbbf2433" stroke="#fbbf24" stroke-width="2"/>
+  <text x="60" y="109" font-family="JetBrains Mono, monospace" font-size="12" fill="#fbbf24" letter-spacing="2">SPARQL</text>
+  <text x="60" y="128" font-family="Noto Sans KR, sans-serif" font-size="13" fill="#cdd1e0">쿼리 언어 — "트리플에서 특정 패턴을 찾아라" (SQL의 RDF 버전)</text>
+  <!-- L2: RDFS / OWL -->
+  <rect x="40" y="150" width="800" height="55" rx="10" fill="#fbbf2433" stroke="#fbbf24" stroke-width="2"/>
+  <text x="60" y="174" font-family="JetBrains Mono, monospace" font-size="12" fill="#fbbf24" letter-spacing="2">RDFS &amp; OWL</text>
+  <text x="60" y="193" font-family="Noto Sans KR, sans-serif" font-size="13" fill="#cdd1e0">스키마 + 의미 — 클래스·속성·공리 정의 (OWL이 본격적 온톨로지)</text>
+  <!-- L1: RDF (base) -->
+  <rect x="40" y="215" width="800" height="55" rx="10" fill="#fbbf241a" stroke="#fbbf24" stroke-width="2"/>
+  <text x="60" y="239" font-family="JetBrains Mono, monospace" font-size="12" fill="#fbbf24" letter-spacing="2">RDF (base)</text>
+  <text x="60" y="258" font-family="Noto Sans KR, sans-serif" font-size="13" fill="#cdd1e0">데이터 모델 — Subject-Predicate-Object 트리플, URI로 식별</text>
+  <!-- right labels -->
+  <text x="820" y="55" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="10" fill="#7d8298">✅ 검증</text>
+  <text x="820" y="120" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="10" fill="#7d8298">🔎 질의</text>
+  <text x="820" y="185" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="10" fill="#7d8298">🧠 의미</text>
+  <text x="820" y="250" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="10" fill="#7d8298">🧱 모델</text>
+</svg>
+</div>
+
+<!-- 4 cards with syntax -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:920px;margin:0 auto">
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.4rem">RDF — 데이터 모델</div>
+    <div style="font-size:.77rem;color:var(--text-dim);line-height:1.75;margin-bottom:.5rem">모든 사실을 트리플로. URI로 고유 식별.</div>
+    <pre style="font-family:var(--mono);font-size:.7rem;color:var(--text);background:var(--surface);padding:.5rem .7rem;border-radius:6px;line-height:1.6;overflow-x:auto;margin:0">:김아무개  :worksAt  :PwC .
+:PwC  :locatedIn  :Seoul .</pre>
+  </div>
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.4rem">OWL — 스키마·추론 규칙</div>
+    <div style="font-size:.77rem;color:var(--text-dim);line-height:1.75;margin-bottom:.5rem">클래스 포함 관계·속성 제약을 선언.</div>
+    <pre style="font-family:var(--mono);font-size:.7rem;color:var(--text);background:var(--surface);padding:.5rem .7rem;border-radius:6px;line-height:1.6;overflow-x:auto;margin:0">:Dog  rdfs:subClassOf  :Mammal .
+:worksAt  rdfs:domain  :Person .</pre>
+  </div>
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.4rem">SPARQL — 질의</div>
+    <div style="font-size:.77rem;color:var(--text-dim);line-height:1.75;margin-bottom:.5rem">트리플 패턴 매칭. SQL의 RDF판.</div>
+    <pre style="font-family:var(--mono);font-size:.7rem;color:var(--text);background:var(--surface);padding:.5rem .7rem;border-radius:6px;line-height:1.6;overflow-x:auto;margin:0">SELECT ?p WHERE {
+  ?p :worksAt :PwC .
+}</pre>
+  </div>
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.4rem">SHACL — 검증 제약</div>
+    <div style="font-size:.77rem;color:var(--text-dim);line-height:1.75;margin-bottom:.5rem">"Person은 반드시 이름이 있어야" 같은 규칙.</div>
+    <pre style="font-family:var(--mono);font-size:.7rem;color:var(--text);background:var(--surface);padding:.5rem .7rem;border-radius:6px;line-height:1.6;overflow-x:auto;margin:0">:PersonShape a sh:NodeShape ;
+  sh:targetClass :Person ;
+  sh:property [ sh:path :name ;
+                sh:minCount 1 ] .</pre>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ PART 6. 실제 온톨로지 둘러보기 ═══════════ -->
+
+<!-- 10-6. 대표 온톨로지 -->
+<div class="dia reveal">
+<div class="dia-title">🌍 10-6. 세상에 이미 있는 대표 온톨로지 6가지</div>
+<div style="font-size:.85rem;color:var(--text);line-height:1.85;max-width:860px;margin:0 auto 1.2rem">
+  "온톨로지 구축"을 맨땅에서 시작할 필요는 없습니다. 도메인마다 <strong>수십 년 다듬어진 공개 온톨로지</strong>가 있고, 2024-2025 LLM×KG 시대엔 이것들이 <strong>환각 억제용 "사실 근거 계층"</strong>으로 재조명받고 있습니다.
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;max-width:960px;margin:0 auto">
+
+  <div style="padding:1rem 1.1rem;background:var(--card);border:1.5px solid var(--border);border-radius:12px">
+    <div style="font-size:1.3rem;margin-bottom:.3rem">🌐</div>
+    <div style="font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.2rem">Schema.org</div>
+    <div style="font-family:var(--mono);font-size:.68rem;color:var(--amber);margin-bottom:.5rem">웹 · 2011-~ · Google·MS·Yahoo·Yandex 공동</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.75">구글이 웹페이지를 이해하는 표준. 상품·리뷰·이벤트·인물 등 800+ 타입. SEO의 숨은 뼈대.</div>
+  </div>
+
+  <div style="padding:1rem 1.1rem;background:var(--card);border:1.5px solid var(--border);border-radius:12px">
+    <div style="font-size:1.3rem;margin-bottom:.3rem">🏥</div>
+    <div style="font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.2rem">SNOMED CT</div>
+    <div style="font-family:var(--mono);font-size:.68rem;color:var(--amber);margin-bottom:.5rem">의료 · 1999-~ · SNOMED Intl.</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.75"><strong>35만+ 의학 개념</strong>. 80+ 국가 임상 표준. 의료 LLM의 그라운딩 표준(OG-RAG 논문의 주요 도메인).</div>
+  </div>
+
+  <div style="padding:1rem 1.1rem;background:var(--card);border:1.5px solid var(--border);border-radius:12px">
+    <div style="font-size:1.3rem;margin-bottom:.3rem">🧬</div>
+    <div style="font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.2rem">Gene Ontology (GO)</div>
+    <div style="font-family:var(--mono);font-size:.68rem;color:var(--amber);margin-bottom:.5rem">생명과학 · 1998-~ · Gene Ontology Consortium</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.75">유전자 기능·생물학적 프로세스 표준. 4.5만+ 용어. AlphaFold 등 AI 바이오 도구의 레퍼런스.</div>
+  </div>
+
+  <div style="padding:1rem 1.1rem;background:var(--card);border:1.5px solid var(--border);border-radius:12px">
+    <div style="font-size:1.3rem;margin-bottom:.3rem">📚</div>
+    <div style="font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.2rem">Wikidata</div>
+    <div style="font-family:var(--mono);font-size:.68rem;color:var(--amber);margin-bottom:.5rem">공공·오픈 · 2012-~ · Wikimedia Foundation</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.75"><strong>1억+ 엔티티 · 15억+ 트리플</strong>. 공동창업자 <strong>Denny Vrandečić</strong>가 LLM×KG 부활 논의의 중심 인물.</div>
+  </div>
+
+  <div style="padding:1rem 1.1rem;background:var(--card);border:1.5px solid var(--border);border-radius:12px">
+    <div style="font-size:1.3rem;margin-bottom:.3rem">🔎</div>
+    <div style="font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.2rem">Google Knowledge Graph</div>
+    <div style="font-family:var(--mono);font-size:.68rem;color:var(--amber);margin-bottom:.5rem">검색 · 2012-~ · Google</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.75"><strong>5천억+ 사실</strong>. "things, not strings"(Amit Singhal, SVP Search, 2012-05-16) — KG라는 용어의 산업적 대중화 시점.</div>
+  </div>
+
+  <div style="padding:1rem 1.1rem;background:var(--card);border:1.5px solid var(--border);border-radius:12px">
+    <div style="font-size:1.3rem;margin-bottom:.3rem">💰</div>
+    <div style="font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.2rem">FIBO</div>
+    <div style="font-family:var(--mono);font-size:.68rem;color:var(--amber);margin-bottom:.5rem">금융 · 2013-~ · EDM Council</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.75">Financial Industry Business Ontology. 금융 상품·법인·파생 정의. 은행·감독당국 표준.</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════ PART 7. KG 구축 파이프라인 ═══════════ -->
+
+<!-- 10-7. KG 구축 파이프라인 -->
+<div class="dia reveal">
+<div class="dia-title">🏗️ 10-7. 문서가 지식 그래프가 되는 4단계 — 구축 파이프라인</div>
+<div style="font-size:.85rem;color:var(--text);line-height:1.85;max-width:860px;margin:0 auto 1.2rem">
+  PDF 더미·이메일·위키 글·계약서를 어떻게 "쿼리 가능한 그래프"로 바꿀까요? 2024-2025 표준 파이프라인은 <strong>LLM을 각 단계의 주요 엔진</strong>으로 씁니다. 2000년대엔 사람이 수작업으로 하던 부분을 자동화했다는 것이 v2 부활의 핵심.
+</div>
+
+<!-- 4-step pipeline SVG -->
+<div style="max-width:920px;margin:0 auto 1.2rem">
+<svg viewBox="0 0 920 200" style="width:100%;height:auto;display:block">
+  <defs>
+    <marker id="arr-kg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#fbbf24"/>
+    </marker>
+  </defs>
+  <!-- Step 1: Raw docs -->
+  <rect x="10" y="40" width="180" height="100" rx="12" fill="#131620" stroke="#252a3a" stroke-width="1.5"/>
+  <text x="100" y="68" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#7d8298" letter-spacing="1.5">STEP 1</text>
+  <text x="100" y="90" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="14" font-weight="700" fill="#cdd1e0">원본 문서</text>
+  <text x="100" y="112" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#7d8298">PDF · 이메일</text>
+  <text x="100" y="128" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#7d8298">계약서 · 위키</text>
+  <!-- Arrow 1 -->
+  <line x1="195" y1="90" x2="230" y2="90" stroke="#fbbf24" stroke-width="2" marker-end="url(#arr-kg)"/>
+  <!-- Step 2: Entity extraction -->
+  <rect x="235" y="40" width="180" height="100" rx="12" fill="#fbbf241a" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="325" y="68" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#fbbf24" letter-spacing="1.5">STEP 2</text>
+  <text x="325" y="90" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="14" font-weight="700" fill="#cdd1e0">Entity 추출</text>
+  <text x="325" y="112" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#7d8298">LLM이 "누가·무엇·</text>
+  <text x="325" y="128" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#7d8298">어디·언제" 식별</text>
+  <!-- Arrow 2 -->
+  <line x1="420" y1="90" x2="455" y2="90" stroke="#fbbf24" stroke-width="2" marker-end="url(#arr-kg)"/>
+  <!-- Step 3: Relation extraction -->
+  <rect x="460" y="40" width="180" height="100" rx="12" fill="#fbbf241a" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="550" y="68" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#fbbf24" letter-spacing="1.5">STEP 3</text>
+  <text x="550" y="90" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="14" font-weight="700" fill="#cdd1e0">Relation 추출</text>
+  <text x="550" y="112" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#7d8298">트리플 생성:</text>
+  <text x="550" y="128" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#7d8298">(A, 근무한다, B)</text>
+  <!-- Arrow 3 -->
+  <line x1="645" y1="90" x2="680" y2="90" stroke="#fbbf24" stroke-width="2" marker-end="url(#arr-kg)"/>
+  <!-- Step 4: Ontology grounding + KG -->
+  <rect x="685" y="40" width="225" height="100" rx="12" fill="#fbbf2433" stroke="#fbbf24" stroke-width="2"/>
+  <text x="797" y="68" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#fbbf24" letter-spacing="1.5">STEP 4 ⭐</text>
+  <text x="797" y="90" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="14" font-weight="700" fill="#cdd1e0">온톨로지 그라운딩</text>
+  <text x="797" y="112" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#7d8298">도메인 온톨로지에 맞춰</text>
+  <text x="797" y="128" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#7d8298">정규화 + reasoner 검증</text>
+  <!-- bottom label -->
+  <text x="460" y="180" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="12" fill="#7d8298">각 Step에 <tspan fill="#fbbf24" font-weight="700">LLM</tspan>이 들어가는 것이 2024-2025 v2의 특징 — v1에선 사람 수작업</text>
+</svg>
+</div>
+
+<!-- step detail cards -->
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;max-width:920px;margin:0 auto">
+  <div style="padding:.8rem .9rem;background:var(--surface);border-left:3px solid var(--text-dim);border-radius:0 8px 8px 0">
+    <div style="font-size:.72rem;color:var(--text-dim);margin-bottom:.3rem">STEP 1 · 수집</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.65">비정형 코퍼스. Part 9 Ch.08 Document AI가 전처리 담당.</div>
+  </div>
+  <div style="padding:.8rem .9rem;background:var(--amber-bg);border-left:3px solid var(--amber);border-radius:0 8px 8px 0">
+    <div style="font-size:.72rem;color:var(--amber);margin-bottom:.3rem">STEP 2 · 추출</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.65">NER · coreference 해결. LLM이 80% 처리, 사람이 20% 검증.</div>
+  </div>
+  <div style="padding:.8rem .9rem;background:var(--amber-bg);border-left:3px solid var(--amber);border-radius:0 8px 8px 0">
+    <div style="font-size:.72rem;color:var(--amber);margin-bottom:.3rem">STEP 3 · 관계</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.65">문맥에서 트리플 생성. AutoSchemaKG·KARMA 같은 2025 프레임워크.</div>
+  </div>
+  <div style="padding:.8rem .9rem;background:var(--amber-bg);border-left:3px solid var(--amber);border-radius:0 8px 8px 0">
+    <div style="font-size:.72rem;color:var(--amber);margin-bottom:.3rem">STEP 4 · 그라운딩 ⭐</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.65">도메인 온톨로지에 정규화. OG-RAG가 결정적 성과를 내는 지점.</div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ PART 8. 같은 단어, 두 계보 ═══════════ -->
+
+<!-- 10-8. 두 계보 -->
+<div class="dia reveal">
+<div class="dia-title">🔀 10-8. 같은 단어, 두 계보 — 학술 온톨로지 vs Palantir 운영 온톨로지</div>
 <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:1.2rem;max-width:780px;margin-left:auto;margin-right:auto">벤더가 "Ontology"라는 단어를 쓸 때 <strong style="color:var(--text)">어느 쪽을 가리키는지 먼저 확인</strong>해야 합니다. W3C OWL을 염두에 두고 읽다가 Palantir 마케팅을 만나면 전혀 다른 개념을 보고 있게 됩니다.</div>
 
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:920px;margin:0 auto">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:940px;margin:0 auto">
 
   <div style="padding:1.2rem;background:var(--card);border:2px solid var(--border);border-radius:14px">
     <div style="font-family:var(--mono);font-size:.7rem;color:var(--text-dim);letter-spacing:1.5px;margin-bottom:.5rem">A. 학술 온톨로지</div>
     <div style="font-size:1rem;font-weight:800;color:var(--text);margin-bottom:.9rem">W3C OWL / Protégé 계보</div>
     <div style="font-size:.78rem;color:var(--text);line-height:1.9">
       <strong style="color:var(--amber)">성격:</strong> Descriptive · Inferential<br>
-      (서술하고 추론한다)<br><br>
+      (세계를 <em>서술</em>하고 <em>추론</em>한다)<br><br>
       <strong style="color:var(--amber)">구성:</strong> 클래스 · 속성 · 공리(axiom)<br>
       <strong style="color:var(--amber)">표준:</strong> RDF / OWL / SPARQL / SHACL<br>
       <strong style="color:var(--amber)">추론:</strong> OWL reasoner가 <em>새 사실</em>을 도출<br>
@@ -2705,7 +3113,7 @@ chunks = splitter.split_documents(docs)<br>
     <div style="font-size:1rem;font-weight:800;color:var(--text);margin-bottom:.9rem">Palantir Foundry / AIP 계보</div>
     <div style="font-size:.78rem;color:var(--text);line-height:1.9">
       <strong style="color:var(--amber)">성격:</strong> Operational · Kinetic<br>
-      (운영을 집행하고 세계를 변경)<br><br>
+      (운영을 <em>집행</em>하고 세계를 <em>변경</em>한다)<br><br>
       <strong style="color:var(--amber)">구성:</strong> Objects + <strong>Actions + Policies + Write-back</strong><br>
       <strong style="color:var(--amber)">표준:</strong> Palantir 독점 스택<br>
       <strong style="color:var(--amber)">추론:</strong> 액션이 실제 <em>상태를 변경</em><br>
@@ -2715,61 +3123,145 @@ chunks = splitter.split_documents(docs)<br>
   </div>
 
 </div>
-<div style="margin-top:1.2rem;padding:.9rem 1.1rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.8rem;color:var(--text);line-height:1.8;max-width:920px;margin-left:auto;margin-right:auto">
+
+<!-- Palantir 4 components diagram -->
+<div style="max-width:880px;margin:1.4rem auto 0">
+<div style="font-size:.78rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">Palantir Ontology의 4요소 — 학술 온톨로지에는 없는 "Actions"가 결정적 차이</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem">
+  <div style="padding:.8rem .9rem;background:var(--card);border:1.5px solid var(--amber-border);border-radius:10px;text-align:center">
+    <div style="font-size:1.4rem;margin-bottom:.3rem">📦</div>
+    <div style="font-size:.8rem;font-weight:700;color:var(--text)">Objects</div>
+    <div style="font-size:.68rem;color:var(--text-dim);margin-top:.3rem;line-height:1.6">항공기·계약·고객 — 비즈니스 엔티티</div>
+  </div>
+  <div style="padding:.8rem .9rem;background:var(--amber-bg);border:2px solid var(--amber);border-radius:10px;text-align:center">
+    <div style="font-size:1.4rem;margin-bottom:.3rem">⚡</div>
+    <div style="font-size:.8rem;font-weight:700;color:var(--text)">Actions ⭐</div>
+    <div style="font-size:.68rem;color:var(--text-dim);margin-top:.3rem;line-height:1.6">재고 이동·가격 변경 — 실제 쓰기</div>
+  </div>
+  <div style="padding:.8rem .9rem;background:var(--card);border:1.5px solid var(--amber-border);border-radius:10px;text-align:center">
+    <div style="font-size:1.4rem;margin-bottom:.3rem">🛡️</div>
+    <div style="font-size:.8rem;font-weight:700;color:var(--text)">Policies</div>
+    <div style="font-size:.68rem;color:var(--text-dim);margin-top:.3rem;line-height:1.6">누가 어떤 액션을 할 수 있는가</div>
+  </div>
+  <div style="padding:.8rem .9rem;background:var(--card);border:1.5px solid var(--amber-border);border-radius:10px;text-align:center">
+    <div style="font-size:1.4rem;margin-bottom:.3rem">↩️</div>
+    <div style="font-size:.8rem;font-weight:700;color:var(--text)">Write-back</div>
+    <div style="font-size:.68rem;color:var(--text-dim);margin-top:.3rem;line-height:1.6">ERP·CRM으로 변경 반영</div>
+  </div>
+</div>
+</div>
+
+<div style="margin-top:1.2rem;padding:.9rem 1.1rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.8rem;color:var(--text);line-height:1.85;max-width:940px;margin-left:auto;margin-right:auto">
   📊 <strong style="color:var(--amber)">재무 증거:</strong> Palantir 커머셜 매출 <strong>+71% YoY (Q1 2025)</strong>, <strong>+64% YoY (Q4 2024)</strong> — 성장 동력 대부분이 "Ontology 기반 운영 AI"(AIP). 공통 뿌리는 <strong>"도메인 지식의 명시적 명세"</strong>뿐, 나머지는 다릅니다.
 </div>
 </div>
 
-<!-- 2024-2025 주요 발전 -->
+<!-- ═══════════ PART 9. GraphRAG vs OG-RAG ═══════════ -->
+
+<!-- 10-9. GraphRAG vs OG-RAG -->
 <div class="dia reveal">
-<div class="dia-title">🚀 2024-2025 핵심 발전 — LLM × 온톨로지</div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:920px;margin:0 auto">
+<div class="dia-title">🆚 10-9. GraphRAG vs OG-RAG — 즉석 그래프 vs 그라운드 그래프</div>
+<div style="font-size:.85rem;color:var(--text);line-height:1.85;max-width:860px;margin:0 auto 1.2rem">
+  Ch.09의 GraphRAG와 본 장의 주인공 OG-RAG는 어떻게 다를까요? 한 줄로: <strong style="color:var(--amber)">"그래프를 어디서 가져오는가"</strong>가 전부입니다. GraphRAG는 매번 LLM이 새로 만들고, OG-RAG는 사전에 검증된 온톨로지를 씁니다.
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:.9rem;max-width:940px;margin:0 auto">
+
+  <div style="padding:1.2rem;background:var(--card);border:1.5px solid var(--border);border-radius:14px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--text-dim);letter-spacing:1.5px;margin-bottom:.5rem">A. GraphRAG (MS 2024)</div>
+    <div style="font-size:1rem;font-weight:800;color:var(--text);margin-bottom:.9rem">즉석 그래프 생성</div>
+    <div style="font-family:var(--mono);font-size:.74rem;color:var(--text);line-height:1.85;background:var(--surface);padding:.8rem 1rem;border-radius:8px;margin-bottom:.7rem">
+      문서 → LLM 추출<br>
+      &nbsp;&nbsp;↓<br>
+      <span style="color:var(--amber)">임시 그래프 (문서별)</span><br>
+      &nbsp;&nbsp;↓<br>
+      Leiden 클러스터링<br>
+      &nbsp;&nbsp;↓<br>
+      커뮤니티 요약 → 답변
+    </div>
+    <div style="font-size:.76rem;color:var(--text-dim);line-height:1.7">
+      ✓ <strong style="color:var(--text)">강점:</strong> 문서 전용 의문에 강함. 도메인 사전 지식 불필요.<br>
+      ✗ <strong style="color:var(--text-dim)">약점:</strong> 추출이 문서마다 달라져 일관성 떨어짐.
+    </div>
+  </div>
+
+  <div style="padding:1.2rem;background:var(--amber-bg);border:2px solid var(--amber);border-radius:14px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.5rem">B. OG-RAG (MS 2024-12) ⭐</div>
+    <div style="font-size:1rem;font-weight:800;color:var(--text);margin-bottom:.9rem">온톨로지 그라운드</div>
+    <div style="font-family:var(--mono);font-size:.74rem;color:var(--text);line-height:1.85;background:var(--surface);padding:.8rem 1rem;border-radius:8px;margin-bottom:.7rem">
+      문서 → LLM 추출<br>
+      &nbsp;&nbsp;↓<br>
+      <span style="color:var(--amber)">도메인 온톨로지에 정규화</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--text-dim)">(SNOMED / FIBO / ...)</span><br>
+      &nbsp;&nbsp;↓<br>
+      reasoner 검증 → 답변
+    </div>
+    <div style="font-size:.76rem;color:var(--text);line-height:1.7">
+      ✓ <strong style="color:var(--amber)">성과:</strong> +55% fact recall · +40% correctness · +27% reasoning (arXiv:2412.15235)<br>
+      ✓ <strong style="color:var(--amber)">적합:</strong> 규제·고위험 — 의료·법률·금융
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:1.2rem;text-align:center;font-size:.8rem;color:var(--text-dim);max-width:860px;margin-left:auto;margin-right:auto;line-height:1.8">
+  💡 실전에선 <strong style="color:var(--text)">하이브리드</strong>가 흔함 — GraphRAG로 문서 간 관계를 잡고, OG-RAG로 규제 영역 응답을 그라운딩.
+</div>
+</div>
+
+<!-- ═══════════ PART 10. 2024-2025 주요 스택 ═══════════ -->
+
+<!-- 10-10. 2024-2025 발전 -->
+<div class="dia reveal">
+<div class="dia-title">🚀 10-10. 2024-2025 핵심 발전 — LLM × 온톨로지 스택</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:940px;margin:0 auto">
 
   <div style="padding:1.1rem;background:var(--card);border:1.5px solid var(--amber-border);border-radius:12px">
-    <div style="display:flex;align-items:baseline;gap:.6rem;margin-bottom:.6rem">
-      <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:1.2px">2024-02 · 2024-04</div>
-    </div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:1.2px;margin-bottom:.5rem">2024-02 · 2024-04</div>
     <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.4rem">Microsoft GraphRAG</div>
-    <div style="font-size:.77rem;color:var(--text-dim);line-height:1.75">LLM이 문서에서 entity·relation을 추출 → Leiden 커뮤니티 탐지 → community summary. Multi-hop 질의와 "전체 주제 요약"에 강함. 블로그 2024-02-13, arXiv:2404.16130(2024-04), MIT 오픈소스.</div>
-    <div style="margin-top:.5rem;font-size:.72rem;color:var(--text-dim)">→ Ch.09에서 상세</div>
+    <div style="font-size:.77rem;color:var(--text-dim);line-height:1.75">Larson &amp; Truitt(MS Research) 블로그 2024-02-13 → Edge et al. arXiv:2404.16130(2024-04). MIT 오픈소스. <strong>Ch.09에서 상세</strong>.</div>
   </div>
 
   <div style="padding:1.1rem;background:var(--amber-bg);border:2px solid var(--amber);border-radius:12px">
-    <div style="display:flex;align-items:baseline;gap:.6rem;margin-bottom:.6rem">
-      <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:1.2px">2024-12 · EMNLP 2025</div>
-    </div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:1.2px;margin-bottom:.5rem">2024-12 · EMNLP 2025</div>
     <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.4rem">OG-RAG ⭐</div>
-    <div style="font-size:.77rem;color:var(--text);line-height:1.75">GraphRAG가 "LLM이 만든 즉석 그래프"를 쓴다면, OG-RAG는 <strong>사전 정의된 도메인 온톨로지에 검색을 그라운딩</strong>. Sharma et al., MS Research, arXiv:2412.15235. 4개 LLM 벤치:<br>
-      <strong style="color:var(--amber)">+55% fact recall · +40% correctness · +27% reasoning</strong><br>
-      규제 산업(의료·법률·금융) 선호.
-    </div>
+    <div style="font-size:.77rem;color:var(--text);line-height:1.75">Sharma/Kumar/Li(MS Research), arXiv:2412.15235. 4개 LLM 벤치 <strong style="color:var(--amber)">+55%/+40%/+27%</strong>. 규제 산업 선호.</div>
   </div>
 
   <div style="padding:1.1rem;background:var(--card);border:1.5px solid var(--amber-border);border-radius:12px">
-    <div style="display:flex;align-items:baseline;gap:.6rem;margin-bottom:.6rem">
-      <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:1.2px">2024-2025</div>
-    </div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:1.2px;margin-bottom:.5rem">2024-2025</div>
     <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.4rem">Stardog Voicebox</div>
-    <div style="font-size:.77rem;color:var(--text-dim);line-height:1.75">"첫 EKG + LLM data assistant"로 포지셔닝. RDF/OWL 기반 엔터프라이즈 KG + LLM 자연어 인터페이스. 슬로건: <em>"Enterprise AI Requires the Fusion of LLM and Knowledge Graph."</em></div>
+    <div style="font-size:.77rem;color:var(--text-dim);line-height:1.75">"첫 EKG + LLM data assistant". 슬로건: <em>"Enterprise AI Requires the Fusion of LLM and Knowledge Graph."</em></div>
   </div>
 
   <div style="padding:1.1rem;background:var(--card);border:1.5px solid var(--amber-border);border-radius:12px">
-    <div style="display:flex;align-items:baseline;gap:.6rem;margin-bottom:.6rem">
-      <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:1.2px">2025 · OSS 표준 스택</div>
-    </div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:1.2px;margin-bottom:.5rem">2025 · OSS 표준 스택</div>
     <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.4rem">Neo4j + LangGraph</div>
-    <div style="font-size:.77rem;color:var(--text-dim);line-height:1.75">에이전트의 사실상 표준 OSS 스택. <strong style="color:var(--text)">메모리</strong>=Neo4j, <strong style="color:var(--text)">오케스트레이션</strong>=LangGraph, <strong style="color:var(--text)">도구</strong>=Text2Cypher. Google <strong>Gen AI Toolbox for Databases (2025)</strong>에 Neo4j 포함.</div>
+    <div style="font-size:.77rem;color:var(--text-dim);line-height:1.75">메모리=Neo4j · 오케스트레이션=LangGraph · 도구=Text2Cypher. Google <strong>Gen AI Toolbox (2025)</strong>에 Neo4j 포함.</div>
+  </div>
+
+  <div style="padding:1.1rem;background:var(--card);border:1.5px solid var(--amber-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:1.2px;margin-bottom:.5rem">2025 · 파트너십</div>
+    <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.4rem">Ontotext + TopQuadrant</div>
+    <div style="font-size:.77rem;color:var(--text-dim);line-height:1.75">Legacy 시맨틱 웹 벤더 통합. 플래그십: LLM-populated 시맨틱 데이터 카탈로그.</div>
+  </div>
+
+  <div style="padding:1.1rem;background:var(--card);border:1.5px solid var(--amber-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:1.2px;margin-bottom:.5rem">2025 · 자동 KG</div>
+    <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.4rem">AutoSchemaKG · KARMA</div>
+    <div style="font-size:.77rem;color:var(--text-dim);line-height:1.75">멀티에이전트 스키마 추출 프레임워크. v1 실패 원인 중 "수공 메타데이터 비용"을 정면 해결.</div>
   </div>
 
 </div>
-<div style="margin-top:1rem;font-size:.78rem;color:var(--text-dim);text-align:center;max-width:920px;margin-left:auto;margin-right:auto;line-height:1.8">그 외 <strong style="color:var(--text)">Ontotext + TopQuadrant 2025 파트너십</strong>(legacy 시맨틱 웹 벤더 통합), <strong style="color:var(--text)">AutoSchemaKG · KARMA</strong>(2025 멀티에이전트 자동 KG 구축) 등 자동화가 본격화.</div>
 </div>
 
-<!-- v1 실패와 v2 부활 타임라인 -->
-<div class="dia reveal">
-<div class="dia-title">📜 v1 실패와 v2 부활 — 30년 계보</div>
+<!-- ═══════════ PART 11. 30년 계보 ═══════════ -->
 
-<div style="max-width:900px;margin:0 auto 1.2rem;display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;text-align:center">
+<!-- 10-11. v1 실패와 v2 부활 -->
+<div class="dia reveal">
+<div class="dia-title">📜 10-11. 30년 계보 — v1 실패와 v2 부활</div>
+
+<div style="max-width:920px;margin:0 auto 1.2rem;display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;text-align:center">
   <div style="padding:.7rem .4rem;background:var(--surface);border:1px solid var(--border);border-radius:10px">
     <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);font-weight:700">1993</div>
     <div style="font-size:.7rem;color:var(--text);margin-top:.35rem;line-height:1.5">Gruber 정의</div>
@@ -2797,7 +3289,7 @@ chunks = splitter.split_documents(docs)<br>
   <div style="font-size:.76rem;color:var(--text-dim);margin-top:.6rem">— Clay Shirky, NYU Interactive Telecommunications Program (뉴미디어 연구자·Web 2.0 사상가), O'Reilly ETech, 2005-03</div>
 </div>
 
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:900px;margin:0 auto">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:920px;margin:0 auto">
 
   <div style="padding:1.1rem;background:var(--surface);border:1.5px solid var(--border);border-radius:12px">
     <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);letter-spacing:1.2px;margin-bottom:.5rem">v1 실패 원인 — 2000s 현장 베테랑의 집단 진단</div>
@@ -2811,7 +3303,7 @@ chunks = splitter.split_documents(docs)<br>
   </div>
 
   <div style="padding:1.1rem;background:var(--amber-bg);border:2px solid var(--amber);border-radius:12px">
-    <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:1.2px;margin-bottom:.5rem">v2가 다른 이유 — LLM이 드러드저리 80%를 자동화</div>
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:1.2px;margin-bottom:.5rem">v2가 다른 이유 — LLM이 막노동 80%를 자동화</div>
     <div style="font-size:.78rem;color:var(--text);line-height:1.85">
       ✓ <strong>entity 추출·스키마 초안</strong>을 LLM이 자동<br>
       ✓ <strong>자연어 인터페이스</strong> (Stardog Voicebox, Text2Cypher) — OWL 편집기 학습 부담 제거<br>
@@ -2826,30 +3318,47 @@ chunks = splitter.split_documents(docs)<br>
 </div>
 </div>
 
-<!-- 실전 판단 -->
+<!-- ═══════════ PART 12. 실전 판단 ═══════════ -->
+
+<!-- 10-12. 실전 판단 -->
 <div class="dia reveal">
-<div class="dia-title">🎯 실전 판단 — 언제 온톨로지를 쓰고, 언제는 과한가</div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:900px;margin:0 auto">
+<div class="dia-title">🎯 10-12. 실전 판단 — 언제 쓰고, 언제는 과한가</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:920px;margin:0 auto">
 
   <div style="padding:1rem 1.2rem;background:var(--amber-bg);border-left:4px solid var(--amber);border-radius:0 10px 10px 0;font-size:.8rem;color:var(--text);line-height:1.9">
     ✓ <strong style="color:var(--amber)">적합:</strong><br>
     • 의료·법률·금융 등 <strong>규제 산업</strong> (설명 가능성 필수)<br>
     • 도메인 용어가 <strong>표준화된 분야</strong> (SNOMED, FIBO, Schema.org)<br>
     • Multi-hop 추론이 잦음<br>
-    • 여러 시스템에 <strong>같은 개념</strong>이 흩어져 있음
+    • 여러 시스템에 <strong>같은 개념</strong>이 흩어져 있음<br>
+    • <strong>장기 누적</strong>될 조직 지식 자산
   </div>
 
   <div style="padding:1rem 1.2rem;background:var(--surface);border-left:4px solid var(--text-dim);border-radius:0 10px 10px 0;font-size:.8rem;color:var(--text);line-height:1.9">
     ✗ <strong style="color:var(--text-dim)">과한 경우:</strong><br>
     • 단일 문서·FAQ 수준의 간단 RAG로 충분한 경우<br>
     • 도메인이 <strong>빠르게 변함</strong> (온톨로지 유지보수 비용 ↑)<br>
-    • 작은 코퍼스 · 작은 팀 (인재풀·도구 부담)<br>
-    • "똑똑해 보이려고" — killer use case가 명확하지 않다면 중단
+    • 작은 코퍼스·작은 팀 (인재풀·도구 부담)<br>
+    • "똑똑해 보이려고" — killer use case가 명확하지 않다면 중단<br>
+    • <strong>한 달 내 PoC</strong>가 목표라면 벡터 RAG 먼저
   </div>
 
 </div>
-<div style="margin-top:1rem;padding:.9rem 1.1rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.8rem;color:var(--text);line-height:1.8;max-width:900px;margin-left:auto;margin-right:auto">
-  ⚠️ <strong style="color:var(--amber)">벤더 수치 해석 주의:</strong> "X 도입 후 -28.6% 해결시간" 같은 공지는 벤더/고객 벤치입니다. 재현성은 학술 논문(OG-RAG의 +55%/+40%/+27%처럼 ablation이 붙은 것)에서 찾는 편이 낫습니다.
+
+<!-- 구축 순서 -->
+<div style="max-width:920px;margin:1.2rem auto 0;padding:1rem 1.3rem;background:var(--card);border:1.5px solid var(--amber-border);border-radius:12px">
+  <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.6rem">📋 현실적 구축 순서 — 기존 온톨로지부터</div>
+  <div style="font-size:.8rem;color:var(--text);line-height:1.95">
+    <strong>STEP 1.</strong> 도메인 공개 온톨로지가 있는가? (SNOMED·FIBO·Schema.org·Wikidata) → 있으면 <strong>그것부터 쓴다</strong><br>
+    <strong>STEP 2.</strong> 조직 고유 어휘 30-100개만 추가. 맨땅에서 1,000개 클래스 만들지 말 것<br>
+    <strong>STEP 3.</strong> LLM으로 문서에서 트리플 추출 자동화 (AutoSchemaKG 등)<br>
+    <strong>STEP 4.</strong> SHACL로 데이터 품질 게이트<br>
+    <strong>STEP 5.</strong> 실사용 응답에서 역으로 온톨로지 보강 (LLM Wiki 패턴과 유사)
+  </div>
+</div>
+
+<div style="margin-top:1rem;padding:.9rem 1.1rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.8rem;color:var(--text);line-height:1.85;max-width:920px;margin-left:auto;margin-right:auto">
+  ⚠️ <strong style="color:var(--amber)">벤더 수치 해석 주의:</strong> "X 도입 후 -28.6% 해결시간" 같은 공지는 벤더/고객 벤치입니다. 재현성은 학술 논문(OG-RAG의 +55%/+40%/+27%처럼 ablation이 붙은 것)에서 찾는 편이 낫습니다. <strong style="color:var(--text)">Palantir의 $850M·$1B</strong> 같은 고객 사례 수치도 "Palantir 때문"이라는 인과는 벤더 주장 — 기업의 다른 변수(프로세스·인력)가 함께 작용한 결과로 읽어야 합니다.
 </div>
 </div>
 
