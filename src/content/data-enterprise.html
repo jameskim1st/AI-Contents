@@ -17,9 +17,10 @@
       <a href="#p9-ch7"><span class="cn">07</span>RAG Evaluation</a>
       <a href="#p9-ch8"><span class="cn">08</span>Document AI</a>
       <a href="#p9-ch9"><span class="cn">09</span>GraphRAG</a>
-      <a href="#p9-ch10"><span class="cn">10</span>EU AI Act</a>
-      <a href="#p9-ch11"><span class="cn">11</span>Privacy · PII</a>
-      <a href="#p9-ch12"><span class="cn">12</span>Synthetic Data · 보안</a>
+      <a href="#p9-ch10"><span class="cn">10</span>온톨로지 & KG</a>
+      <a href="#p9-ch11"><span class="cn">11</span>EU AI Act</a>
+      <a href="#p9-ch12"><span class="cn">12</span>Privacy · PII</a>
+      <a href="#p9-ch13"><span class="cn">13</span>Synthetic Data · 보안</a>
     </nav>
   </div>
 </div>
@@ -29,7 +30,7 @@
 <div class="dia-title">🗺️ Part 9 로드맵 — 스택에서 거버넌스까지</div>
 <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:1.2rem">"데이터가 있다"는 끝이 아니라 시작입니다. 엔터프라이즈에서 데이터를 AI로 쓰려면 5개 관문을 통과해야 합니다.</div>
 
-<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem;max-width:900px;margin:0 auto">
+<div style="display:grid;grid-template-columns:repeat(6,1fr);gap:.5rem;max-width:960px;margin:0 auto">
 
   <div style="text-align:center">
     <div style="background:var(--amber-bg);border:2px solid var(--amber-border);border-radius:14px;padding:.9rem .5rem">
@@ -69,11 +70,20 @@
 
   <div style="text-align:center">
     <div style="background:var(--amber-bg);border:2px solid var(--amber-border);border-radius:14px;padding:.9rem .5rem">
+      <div style="font-size:1.3rem;margin-bottom:.3rem">🧠</div>
+      <div style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--amber)">Semantic</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">Ontology · KG</div>
+    </div>
+    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.10</div>
+  </div>
+
+  <div style="text-align:center">
+    <div style="background:var(--amber-bg);border:2px solid var(--amber-border);border-radius:14px;padding:.9rem .5rem">
       <div style="font-size:1.3rem;margin-bottom:.3rem">🛡️</div>
       <div style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--amber)">Governance</div>
       <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">AI Act · PII · 보안</div>
     </div>
-    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.10-12</div>
+    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.11-13</div>
   </div>
 
 </div>
@@ -2615,10 +2625,253 @@ chunks = splitter.split_documents(docs)<br>
 <div class="divider"><hr></div>
 
 <!-- ═══════════════════════════════════════════ -->
-<!-- CHAPTER 10: EU AI Act -->
+<!-- CHAPTER 10: 온톨로지와 지식 그래프 -->
 <!-- ═══════════════════════════════════════════ -->
 <section class="ch reveal" id="p9-ch10">
-<div class="ch-head"><div class="ch-num" style="color:var(--amber)">10</div><h2 class="ch-title">EU AI Act — 데이터 거버넌스가 법이 되는 해</h2></div>
+<div class="ch-head"><div class="ch-num" style="color:var(--amber)">10</div><h2 class="ch-title">온톨로지와 지식 그래프 — 의미 계층의 귀환</h2></div>
+
+<p class="section-desc">Ch.09에서 GraphRAG를 만났습니다. 이 장은 그 한 층 아래 — <strong style="color:var(--amber)">"그래프에 *의미*를 얹는 레이어"</strong>입니다. 2010년대 "딥러닝이 다 해결"이라는 분위기에 시들었던 <strong>온톨로지(Ontology)</strong>가 2024-2025 LLM 시대에 되돌아왔습니다. OG-RAG 논문은 4개 LLM 벤치에서 <strong style="color:var(--amber)">+55% fact recall, +40% correctness, +27% reasoning</strong>을 보고했고, Palantir는 "Ontology"를 상품명으로 내세우며 <strong style="color:var(--amber)">커머셜 매출 +71% YoY (Q1 2025)</strong>를 달성했습니다. 단 같은 단어를 쓰는 두 계보가 있어, 둘을 구분하지 않으면 혼선이 생깁니다.</p>
+
+<!-- Pull quote -->
+<div class="dia reveal">
+<div style="max-width:860px;margin:0 auto;padding:1.5rem 1.8rem;background:linear-gradient(135deg,var(--amber-bg),rgba(0,0,0,0.02));border-left:4px solid var(--amber);border-radius:0 14px 14px 0">
+  <div style="font-family:var(--display);font-size:1.2rem;font-weight:600;color:var(--text);line-height:1.6;font-style:italic">"An ontology is a specification of a conceptualization."</div>
+  <div style="font-size:.78rem;color:var(--text-dim);margin-top:.6rem">— Tom Gruber, Stanford KSL (Knowledge Systems Laboratory), <em>Knowledge Acquisition</em> 5(2):199-220, 1993</div>
+  <div style="font-size:.82rem;color:var(--text);line-height:1.8;margin-top:.9rem;padding-top:.9rem;border-top:1px dashed var(--amber-border)">풀어 쓰면 — <strong>"이 도메인엔 어떤 종류가 있고, 어떤 관계가 성립하고, 어떤 규칙이 따라오는가"를 컴퓨터가 추론할 수 있는 형태로 적은 것</strong>. 30년 넘게 이 한 문장이 학술 온톨로지 정의의 뿌리입니다.</div>
+</div>
+</div>
+
+<!-- 4-way 구분 -->
+<div class="dia reveal">
+<div class="dia-title">🧭 가장 많이 헷갈리는 4가지 — 한 줄로</div>
+<div style="text-align:center;font-size:1rem;color:var(--amber);font-family:var(--display);font-weight:600;margin-bottom:1.2rem;letter-spacing:.5px">
+  "Taxonomy classifies. Schema validates. Ontology means. Knowledge graph remembers."
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;max-width:920px;margin:0 auto">
+
+  <div style="padding:1rem;background:var(--card);border:1.5px solid var(--border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.4rem">TAXONOMY</div>
+    <div style="font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.5rem">분류 체계</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.7">대상을 카테고리로 <strong style="color:var(--text)">분류</strong>. 서점 장르, 생물 분류학.</div>
+  </div>
+
+  <div style="padding:1rem;background:var(--card);border:1.5px solid var(--border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.4rem">SCHEMA</div>
+    <div style="font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.5rem">스키마</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.7">데이터 구조를 <strong style="color:var(--text)">검증</strong>(유효/무효). JSON Schema, SQL DDL, Avro.</div>
+  </div>
+
+  <div style="padding:1rem;background:var(--amber-bg);border:2px solid var(--amber);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.4rem">ONTOLOGY ⭐</div>
+    <div style="font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.5rem">온톨로지</div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.7">개념·관계의 <strong style="color:var(--amber)">의미</strong>를 명세 + 자동 추론. OWL의 "Mammal ⊂ Animal".</div>
+  </div>
+
+  <div style="padding:1rem;background:var(--card);border:1.5px solid var(--border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.4rem">KNOWLEDGE GRAPH</div>
+    <div style="font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:.5rem">지식 그래프</div>
+    <div style="font-size:.75rem;color:var(--text-dim);line-height:1.7">사실들의 집합을 <strong style="color:var(--text)">기억</strong>(인스턴스). Wikidata, Google KG.</div>
+  </div>
+
+</div>
+<div style="margin-top:1.2rem;padding:.9rem 1.1rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.8rem;color:var(--text);line-height:1.8;max-width:920px;margin-left:auto;margin-right:auto">
+  💡 <strong style="color:var(--amber)">실무 포인트:</strong> 쓸만한 지식 그래프 = <strong>인스턴스 그래프 + 스키마/온톨로지</strong>. "온톨로지 vs 지식 그래프"는 대립이 아니라 "문법 vs 글"의 관계입니다.
+</div>
+</div>
+
+<!-- 두 계보: 학술 vs Palantir -->
+<div class="dia reveal">
+<div class="dia-title">🔀 같은 단어, 두 계보 — 학술 온톨로지 vs Palantir 운영 온톨로지</div>
+<div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:1.2rem;max-width:780px;margin-left:auto;margin-right:auto">벤더가 "Ontology"라는 단어를 쓸 때 <strong style="color:var(--text)">어느 쪽을 가리키는지 먼저 확인</strong>해야 합니다. W3C OWL을 염두에 두고 읽다가 Palantir 마케팅을 만나면 전혀 다른 개념을 보고 있게 됩니다.</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:920px;margin:0 auto">
+
+  <div style="padding:1.2rem;background:var(--card);border:2px solid var(--border);border-radius:14px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--text-dim);letter-spacing:1.5px;margin-bottom:.5rem">A. 학술 온톨로지</div>
+    <div style="font-size:1rem;font-weight:800;color:var(--text);margin-bottom:.9rem">W3C OWL / Protégé 계보</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.9">
+      <strong style="color:var(--amber)">성격:</strong> Descriptive · Inferential<br>
+      (서술하고 추론한다)<br><br>
+      <strong style="color:var(--amber)">구성:</strong> 클래스 · 속성 · 공리(axiom)<br>
+      <strong style="color:var(--amber)">표준:</strong> RDF / OWL / SPARQL / SHACL<br>
+      <strong style="color:var(--amber)">추론:</strong> OWL reasoner가 <em>새 사실</em>을 도출<br>
+      <strong style="color:var(--amber)">비유:</strong> 도서관 카탈로그<br><br>
+      <strong style="color:var(--amber)">대표:</strong> Schema.org, SNOMED CT, Gene Ontology, FIBO, Wikidata
+    </div>
+  </div>
+
+  <div style="padding:1.2rem;background:var(--amber-bg);border:2px solid var(--amber);border-radius:14px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.5rem">B. 운영 온톨로지 ⭐</div>
+    <div style="font-size:1rem;font-weight:800;color:var(--text);margin-bottom:.9rem">Palantir Foundry / AIP 계보</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.9">
+      <strong style="color:var(--amber)">성격:</strong> Operational · Kinetic<br>
+      (운영을 집행하고 세계를 변경)<br><br>
+      <strong style="color:var(--amber)">구성:</strong> Objects + <strong>Actions + Policies + Write-back</strong><br>
+      <strong style="color:var(--amber)">표준:</strong> Palantir 독점 스택<br>
+      <strong style="color:var(--amber)">추론:</strong> 액션이 실제 <em>상태를 변경</em><br>
+      <strong style="color:var(--amber)">비유:</strong> 살아있는 디지털 트윈 (DDD + Data Fabric)<br><br>
+      <strong style="color:var(--amber)">대표:</strong> Airbus Skywise &gt;$850M/yr, BP ~$1B 절감, Fortune-100 CPG $100M year-one
+    </div>
+  </div>
+
+</div>
+<div style="margin-top:1.2rem;padding:.9rem 1.1rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.8rem;color:var(--text);line-height:1.8;max-width:920px;margin-left:auto;margin-right:auto">
+  📊 <strong style="color:var(--amber)">재무 증거:</strong> Palantir 커머셜 매출 <strong>+71% YoY (Q1 2025)</strong>, <strong>+64% YoY (Q4 2024)</strong> — 성장 동력 대부분이 "Ontology 기반 운영 AI"(AIP). 공통 뿌리는 <strong>"도메인 지식의 명시적 명세"</strong>뿐, 나머지는 다릅니다.
+</div>
+</div>
+
+<!-- 2024-2025 주요 발전 -->
+<div class="dia reveal">
+<div class="dia-title">🚀 2024-2025 핵심 발전 — LLM × 온톨로지</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:920px;margin:0 auto">
+
+  <div style="padding:1.1rem;background:var(--card);border:1.5px solid var(--amber-border);border-radius:12px">
+    <div style="display:flex;align-items:baseline;gap:.6rem;margin-bottom:.6rem">
+      <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:1.2px">2024-02 · 2024-04</div>
+    </div>
+    <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.4rem">Microsoft GraphRAG</div>
+    <div style="font-size:.77rem;color:var(--text-dim);line-height:1.75">LLM이 문서에서 entity·relation을 추출 → Leiden 커뮤니티 탐지 → community summary. Multi-hop 질의와 "전체 주제 요약"에 강함. 블로그 2024-02-13, arXiv:2404.16130(2024-04), MIT 오픈소스.</div>
+    <div style="margin-top:.5rem;font-size:.72rem;color:var(--text-dim)">→ Ch.09에서 상세</div>
+  </div>
+
+  <div style="padding:1.1rem;background:var(--amber-bg);border:2px solid var(--amber);border-radius:12px">
+    <div style="display:flex;align-items:baseline;gap:.6rem;margin-bottom:.6rem">
+      <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:1.2px">2024-12 · EMNLP 2025</div>
+    </div>
+    <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.4rem">OG-RAG ⭐</div>
+    <div style="font-size:.77rem;color:var(--text);line-height:1.75">GraphRAG가 "LLM이 만든 즉석 그래프"를 쓴다면, OG-RAG는 <strong>사전 정의된 도메인 온톨로지에 검색을 그라운딩</strong>. Sharma et al., MS Research, arXiv:2412.15235. 4개 LLM 벤치:<br>
+      <strong style="color:var(--amber)">+55% fact recall · +40% correctness · +27% reasoning</strong><br>
+      규제 산업(의료·법률·금융) 선호.
+    </div>
+  </div>
+
+  <div style="padding:1.1rem;background:var(--card);border:1.5px solid var(--amber-border);border-radius:12px">
+    <div style="display:flex;align-items:baseline;gap:.6rem;margin-bottom:.6rem">
+      <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:1.2px">2024-2025</div>
+    </div>
+    <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.4rem">Stardog Voicebox</div>
+    <div style="font-size:.77rem;color:var(--text-dim);line-height:1.75">"첫 EKG + LLM data assistant"로 포지셔닝. RDF/OWL 기반 엔터프라이즈 KG + LLM 자연어 인터페이스. 슬로건: <em>"Enterprise AI Requires the Fusion of LLM and Knowledge Graph."</em></div>
+  </div>
+
+  <div style="padding:1.1rem;background:var(--card);border:1.5px solid var(--amber-border);border-radius:12px">
+    <div style="display:flex;align-items:baseline;gap:.6rem;margin-bottom:.6rem">
+      <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:1.2px">2025 · OSS 표준 스택</div>
+    </div>
+    <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.4rem">Neo4j + LangGraph</div>
+    <div style="font-size:.77rem;color:var(--text-dim);line-height:1.75">에이전트의 사실상 표준 OSS 스택. <strong style="color:var(--text)">메모리</strong>=Neo4j, <strong style="color:var(--text)">오케스트레이션</strong>=LangGraph, <strong style="color:var(--text)">도구</strong>=Text2Cypher. Google <strong>Gen AI Toolbox for Databases (2025)</strong>에 Neo4j 포함.</div>
+  </div>
+
+</div>
+<div style="margin-top:1rem;font-size:.78rem;color:var(--text-dim);text-align:center;max-width:920px;margin-left:auto;margin-right:auto;line-height:1.8">그 외 <strong style="color:var(--text)">Ontotext + TopQuadrant 2025 파트너십</strong>(legacy 시맨틱 웹 벤더 통합), <strong style="color:var(--text)">AutoSchemaKG · KARMA</strong>(2025 멀티에이전트 자동 KG 구축) 등 자동화가 본격화.</div>
+</div>
+
+<!-- v1 실패와 v2 부활 타임라인 -->
+<div class="dia reveal">
+<div class="dia-title">📜 v1 실패와 v2 부활 — 30년 계보</div>
+
+<div style="max-width:900px;margin:0 auto 1.2rem;display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;text-align:center">
+  <div style="padding:.7rem .4rem;background:var(--surface);border:1px solid var(--border);border-radius:10px">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);font-weight:700">1993</div>
+    <div style="font-size:.7rem;color:var(--text);margin-top:.35rem;line-height:1.5">Gruber 정의</div>
+  </div>
+  <div style="padding:.7rem .4rem;background:var(--surface);border:1px solid var(--border);border-radius:10px">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);font-weight:700">2001</div>
+    <div style="font-size:.7rem;color:var(--text);margin-top:.35rem;line-height:1.5">Semantic Web 비전<br><span style="color:var(--text-dim);font-size:.65rem">Berners-Lee</span></div>
+  </div>
+  <div style="padding:.7rem .4rem;background:var(--card);border:2px dashed var(--text-dim);border-radius:10px">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);font-weight:700">2005 ❌</div>
+    <div style="font-size:.7rem;color:var(--text);margin-top:.35rem;line-height:1.5">Shirky 비판<br><span style="color:var(--text-dim);font-size:.65rem">"overrated"</span></div>
+  </div>
+  <div style="padding:.7rem .4rem;background:var(--surface);border:1px solid var(--border);border-radius:10px">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);font-weight:700">2012</div>
+    <div style="font-size:.7rem;color:var(--text);margin-top:.35rem;line-height:1.5">Google KG<br><span style="color:var(--text-dim);font-size:.65rem">"things, not strings"</span></div>
+  </div>
+  <div style="padding:.7rem .4rem;background:var(--amber-bg);border:2px solid var(--amber);border-radius:10px">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);font-weight:700">2024 ⭐</div>
+    <div style="font-size:.7rem;color:var(--text);margin-top:.35rem;line-height:1.5">LLM × KG 재결합</div>
+  </div>
+</div>
+
+<div style="max-width:860px;margin:0 auto;padding:1.3rem 1.6rem;background:var(--card);border-left:4px solid var(--text-dim);border-radius:0 14px 14px 0;margin-bottom:1rem">
+  <div style="font-size:.95rem;color:var(--text);line-height:1.75;font-style:italic">"[The Semantic Web is] a throwback to archaic efforts to force the world into hierarchical organizational schema that become out of date almost immediately."</div>
+  <div style="font-size:.76rem;color:var(--text-dim);margin-top:.6rem">— Clay Shirky, NYU Interactive Telecommunications Program (뉴미디어 연구자·Web 2.0 사상가), O'Reilly ETech, 2005-03</div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:900px;margin:0 auto">
+
+  <div style="padding:1.1rem;background:var(--surface);border:1.5px solid var(--border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);letter-spacing:1.2px;margin-bottom:.5rem">v1 실패 원인 — 2000s 현장 베테랑의 집단 진단</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      ① <strong>OWL의 지나친 학술성</strong> — 실무자 진입 장벽<br>
+      ② <strong>저자 인센티브 부재</strong> — RDFa를 손으로 달 이유 없음<br>
+      ③ <strong>수공 메타데이터의 비현실성</strong> — <em>"inaccurate, insufficient, subjective, shoddy"</em><br>
+      ④ <strong>Reasoning 확장 한계</strong> — 대규모 OWL DL reasoner 속도 ❌<br>
+      ⑤ <strong>killer app 부재</strong> — 구글 검색 외에 체감 제품이 없었음
+    </div>
+  </div>
+
+  <div style="padding:1.1rem;background:var(--amber-bg);border:2px solid var(--amber);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:1.2px;margin-bottom:.5rem">v2가 다른 이유 — LLM이 드러드저리 80%를 자동화</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      ✓ <strong>entity 추출·스키마 초안</strong>을 LLM이 자동<br>
+      ✓ <strong>자연어 인터페이스</strong> (Stardog Voicebox, Text2Cypher) — OWL 편집기 학습 부담 제거<br>
+      ✓ <strong>규제 산업의 명확한 수요</strong> — 환각 억제용 "사실 근거 계층"<br>
+      ✓ <strong>Denny Vrandečić</strong> (Wikidata 공동창업자, Wikimedia Foundation): KG의 <em>brittleness</em>와 LLM의 <em>hallucination</em>이 서로 상쇄 — "both-and" 프레이밍
+    </div>
+  </div>
+
+</div>
+<div style="margin-top:1rem;text-align:center;font-size:.82rem;color:var(--amber);font-family:var(--display);font-weight:600;max-width:860px;margin-left:auto;margin-right:auto;line-height:1.8">
+  → v1 실패 원인 중 <strong>①·②·③번이 LLM으로 해결 가능</strong>해진 것이 v2 부활의 본질.
+</div>
+</div>
+
+<!-- 실전 판단 -->
+<div class="dia reveal">
+<div class="dia-title">🎯 실전 판단 — 언제 온톨로지를 쓰고, 언제는 과한가</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:900px;margin:0 auto">
+
+  <div style="padding:1rem 1.2rem;background:var(--amber-bg);border-left:4px solid var(--amber);border-radius:0 10px 10px 0;font-size:.8rem;color:var(--text);line-height:1.9">
+    ✓ <strong style="color:var(--amber)">적합:</strong><br>
+    • 의료·법률·금융 등 <strong>규제 산업</strong> (설명 가능성 필수)<br>
+    • 도메인 용어가 <strong>표준화된 분야</strong> (SNOMED, FIBO, Schema.org)<br>
+    • Multi-hop 추론이 잦음<br>
+    • 여러 시스템에 <strong>같은 개념</strong>이 흩어져 있음
+  </div>
+
+  <div style="padding:1rem 1.2rem;background:var(--surface);border-left:4px solid var(--text-dim);border-radius:0 10px 10px 0;font-size:.8rem;color:var(--text);line-height:1.9">
+    ✗ <strong style="color:var(--text-dim)">과한 경우:</strong><br>
+    • 단일 문서·FAQ 수준의 간단 RAG로 충분한 경우<br>
+    • 도메인이 <strong>빠르게 변함</strong> (온톨로지 유지보수 비용 ↑)<br>
+    • 작은 코퍼스 · 작은 팀 (인재풀·도구 부담)<br>
+    • "똑똑해 보이려고" — killer use case가 명확하지 않다면 중단
+  </div>
+
+</div>
+<div style="margin-top:1rem;padding:.9rem 1.1rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.8rem;color:var(--text);line-height:1.8;max-width:900px;margin-left:auto;margin-right:auto">
+  ⚠️ <strong style="color:var(--amber)">벤더 수치 해석 주의:</strong> "X 도입 후 -28.6% 해결시간" 같은 공지는 벤더/고객 벤치입니다. 재현성은 학술 논문(OG-RAG의 +55%/+40%/+27%처럼 ablation이 붙은 것)에서 찾는 편이 낫습니다.
+</div>
+</div>
+
+<!-- Tip -->
+<div class="tip reveal">
+<div style="font-size:.85rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--amber)">더 깊이:</strong>
+  <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/ontology.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">wiki: ontology</a>,
+  <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/graphrag.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">graphrag</a>,
+  <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/graph-db.md" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">graph-db</a>. Gruber 1993·Shirky 2005 원문, Palantir Ontology 기능(Interfaces·derived properties·Ontology-Backed Objects), W3C 4대 표준(RDF/OWL/SPARQL/SHACL) 상세 · 리서치 원본은 <a href="https://github.com/jameskim1st/AI-Contents/tree/main/wiki/sources/web" style="color:var(--amber);text-decoration:underline" target="_blank" rel="noopener">wiki/sources/web/2026-04-16_ontology-*.md</a> 3개 파일.
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 11: EU AI Act -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="p9-ch11">
+<div class="ch-head"><div class="ch-num" style="color:var(--amber)">11</div><h2 class="ch-title">EU AI Act — 데이터 거버넌스가 법이 되는 해</h2></div>
 
 <p class="section-desc">기술을 아는 것만으론 부족합니다. 2026년부터 <strong style="color:var(--amber)">EU AI Act가 단계적으로 강제력을 갖습니다</strong>. 특히 <strong>Article 10 "Data Governance"</strong>는 고위험 AI 시스템의 학습·검증·테스트 데이터에 구체적 의무를 부과합니다. 이 장은 "법 공부"가 아니라 <strong>데이터 팀이 내일 해야 할 일</strong>을 정리합니다.</p>
 
@@ -2844,7 +3097,7 @@ chunks = splitter.split_documents(docs)<br>
   <strong style="color:var(--amber)">□ 2.</strong> <strong>Data lineage</strong> 도구 도입 (OpenLineage, Unity Catalog 등)<br>
   <strong style="color:var(--amber)">□ 3.</strong> 학습 데이터 <strong>datasheet</strong> 작성 — 출처·수집일·라이선스·전처리<br>
   <strong style="color:var(--amber)">□ 4.</strong> <strong>Bias 감사</strong> 자동화 — Fairlearn, AIF360, Aequitas<br>
-  <strong style="color:var(--amber)">□ 5.</strong> <strong>PII 스캔</strong> 파이프라인 (Ch.11 참고)<br>
+  <strong style="color:var(--amber)">□ 5.</strong> <strong>PII 스캔</strong> 파이프라인 (Ch.12 참고)<br>
   <strong style="color:var(--amber)">□ 6.</strong> 모델 카드 (<strong>Google Model Cards</strong>, HuggingFace 양식)<br>
   <strong style="color:var(--amber)">□ 7.</strong> <strong>재현성</strong> — 학습 시드·환경·데이터 스냅샷 Git-LFS/DVC<br>
   <strong style="color:var(--amber)">□ 8.</strong> <strong>Human-in-the-loop</strong> 설계 — 고위험은 자동결정 금지<br>
@@ -2869,10 +3122,10 @@ chunks = splitter.split_documents(docs)<br>
 <div class="divider"><hr></div>
 
 <!-- ═══════════════════════════════════════════ -->
-<!-- CHAPTER 11: Privacy & PII -->
+<!-- CHAPTER 12: Privacy & PII -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p9-ch11">
-<div class="ch-head"><div class="ch-num" style="color:var(--amber)">11</div><h2 class="ch-title">Privacy & PII — LLM 시대의 실전 방어</h2></div>
+<section class="ch reveal" id="p9-ch12">
+<div class="ch-head"><div class="ch-num" style="color:var(--amber)">12</div><h2 class="ch-title">Privacy & PII — LLM 시대의 실전 방어</h2></div>
 
 <p class="section-desc">GDPR·PIPA·HIPAA가 다루는 핵심은 <strong style="color:var(--amber)">PII (Personally Identifiable Information)</strong>입니다. LLM 시대에 PII 리스크는 새 모양으로 돌아왔습니다 — 모델이 학습 데이터를 기억하고, prompt에 섞인 PII를 그대로 로그에 남기고, tool 사용으로 추가 PII를 긁어옵니다. 2026년 엔터프라이즈는 <strong>PII를 "가림"이 아니라 "아키텍처"로</strong> 다룹니다.</p>
 
@@ -3092,10 +3345,10 @@ chunks = splitter.split_documents(docs)<br>
 <div class="divider"><hr></div>
 
 <!-- ═══════════════════════════════════════════ -->
-<!-- CHAPTER 12: Synthetic Data + Data Security -->
+<!-- CHAPTER 13: Synthetic Data + Data Security -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p9-ch12">
-<div class="ch-head"><div class="ch-num" style="color:var(--amber)">12</div><h2 class="ch-title">Synthetic Data + Data Security — 가짜 데이터, 진짜 공격</h2></div>
+<section class="ch reveal" id="p9-ch13">
+<div class="ch-head"><div class="ch-num" style="color:var(--amber)">13</div><h2 class="ch-title">Synthetic Data + Data Security — 가짜 데이터, 진짜 공격</h2></div>
 
 <p class="section-desc">Part 9의 마지막 챕터는 두 주제를 엮습니다 — <strong style="color:var(--amber)">없으면 만들어내는 합성 데이터</strong>와, <strong>있는 데이터를 지키는 보안</strong>입니다. 둘은 짝입니다. 합성 데이터는 privacy를 해결하는 듯 보이지만, 잘못 쓰면 <strong>Model Autophagy Disorder</strong>로 모델을 망칩니다. 데이터 보안 공격은 2026년 들어 <strong>학습 파이프라인 자체</strong>를 노립니다.</p>
 
@@ -3265,7 +3518,7 @@ chunks = splitter.split_documents(docs)<br>
 <div class="dia-title">🔗 Part 4 보안 챕터와의 연결</div>
 <div style="max-width:900px;margin:0 auto">
 <div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.9">
-  Part 4 Ch.09 "AI 보안"은 <strong>런타임</strong>의 prompt injection·jailbreak·tool abuse를 다뤘습니다. Part 9 Ch.12는 그 <strong>위층</strong> — <strong>학습 시점</strong>의 데이터 자체를 공격하는 표면을 다룹니다.
+  Part 4 Ch.09 "AI 보안"은 <strong>런타임</strong>의 prompt injection·jailbreak·tool abuse를 다뤘습니다. Part 9 Ch.13은 그 <strong>위층</strong> — <strong>학습 시점</strong>의 데이터 자체를 공격하는 표면을 다룹니다.
   <br><br>
   <strong style="color:var(--amber)">두 층은 함께 움직입니다:</strong> poisoning으로 심어둔 backdoor가 inference 시 특정 prompt로 trigger되고, extraction으로 복제된 모델이 경쟁사의 새 공격 벡터가 됩니다. <strong>전체 스택의 보안은 가장 약한 고리의 함수</strong>입니다.
 </div>
