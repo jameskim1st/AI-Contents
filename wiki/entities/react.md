@@ -58,6 +58,34 @@ Final Answer: ...
 - [Augmented LLM](./augmented-llm.md) — Tools가 있어야 ReAct가 가능
 - [Memory](./memory.md) — Observation이 단기 메모리에 누적됨
 
+## Princeton + Google Brain 평가 (Yao et al., 2022)
+
+ReAct 논문은 4개 벤치마크에서 평가:
+- **HotpotQA** (질의응답) — Wikipedia API 활용 multi-hop QA
+- **FEVER** (팩트 검증) — CoT의 환각 직접 극복
+- **ALFWorld** (텍스트 게임) — **+34% 성공률**, 모방학습/강화학습 능가 (단 1-2 shot 예시로)
+- **WebShop** (웹 탐색) — **+10% 성공률**
+
+핵심 통찰: **ReAct + CoT 하이브리드가 최고 성능** — 모델 내부 지식(CoT) + 외부 환경 정보(ReAct) 결합.
+
+## ReAct vs CoT vs Function Calling
+
+- **CoT**: 순수 추론. 외부 상호작용 ❌. 환각 위험.
+- **ReAct**: 추론 + 행동(도구). 외부 정보로 환각 검증·수정.
+- **Function Calling**: ReAct의 "어떻게 함수를 호출할지" 형식 표준. 패턴이 아닌 구현 도구. 현대 ReAct 대부분 Function Calling 활용.
+
+**중요:** LLM이 직접 함수를 실행하지 않음. LLM은 "이 함수를 이 인자로 호출해 달라"는 요청을 응답으로 생성하고, 에이전트(코드)가 실제 호출을 수행 → 결과를 다시 LLM에 전달.
+
+## 아키텍처 (이미지 참조)
+
+```
+Task → [Agent: LLM ↔ Tools] → Environment
+                 ↑               (Action / Result)
+              Reasoning
+```
+
+LLM은 Environment를 직접 만지지 않고 **항상 Tools를 거침**. Reasoning은 LLM 내부 자기 루프.
+
 ## 2025-2026 진화
 
 - **LangGraph 1.0 GA (2025-10)** — `create_react_agent`가 `langchain.agents`로 이동, 표준 기본 에이전트로 정착. Klarna · Uber · LinkedIn 프로덕션. zero breaking changes.
@@ -79,3 +107,4 @@ Final Answer: ...
 
 - 2026-04-12 — 신규 생성. AI Agents 실전 리서치 ingest에서.
 - 2026-04-17 — 2025-2026 진화 섹션 추가 (Pre-Act +70%, LangGraph 1.0, 모델 다운사이징).
+- 2026-04-17 — Princeton 4 벤치마크 결과(HotpotQA/FEVER/ALFWorld +34%/WebShop +10%), CoT/Function Calling 비교, 아키텍처 다이어그램(Task→Agent[LLM↔Tools]→Environment) 추가. brunch.co.kr/@aideveloper/122 + leewayhertz.com 한국어 해설 참고.

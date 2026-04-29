@@ -346,6 +346,127 @@
     </div>
   </div>
 
+  <!-- 아키텍처 다이어그램 — Task / Agent[LLM ↔ Tools] / Environment -->
+  <div style="margin-bottom:1.2rem">
+  <div style="font-size:.8rem;color:var(--text-dim);text-align:center;margin-bottom:.8rem">🏗️ ReAct 에이전트 아키텍처 — 한 장으로 보는 구조</div>
+  <svg viewBox="0 0 880 280" style="width:100%;height:auto;display:block;max-width:880px;margin:0 auto">
+    <defs>
+      <marker id="arch-arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+        <path d="M 0 0 L 8 4 L 0 8 z" fill="#7c6cf0"/>
+      </marker>
+    </defs>
+
+    <!-- Agent container (dashed) -->
+    <rect x="180" y="40" width="440" height="200" rx="14" fill="none" stroke="#7c6cf0" stroke-width="1.5" stroke-dasharray="6,4"/>
+    <text x="400" y="60" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#7c6cf0" letter-spacing="3">AGENT</text>
+
+    <!-- Task (left, outside agent) -->
+    <rect x="20" y="115" width="120" height="60" rx="10" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="1.5"/>
+    <text x="80" y="148" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="14" font-weight="700" fill="#7c6cf0">Task</text>
+    <text x="80" y="165" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#7d8298">사용자 작업</text>
+
+    <!-- Task → LLM (short arrow, no overlap) -->
+    <line x1="145" y1="145" x2="215" y2="145" stroke="#7c6cf0" stroke-width="1.7" marker-end="url(#arch-arr)"/>
+
+    <!-- LLM (inside agent) -->
+    <rect x="220" y="115" width="120" height="60" rx="10" fill="#7c6cf033" stroke="#7c6cf0" stroke-width="2"/>
+    <text x="280" y="148" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="14" font-weight="700" fill="#cdd1e0">LLM</text>
+    <text x="280" y="165" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#7d8298">두뇌 (추론)</text>
+
+    <!-- Reasoning self-loop on LLM -->
+    <path d="M 263 180 Q 250 215 285 215 Q 318 215 305 183" stroke="#7c6cf0" stroke-width="1.3" fill="none" marker-end="url(#arch-arr)"/>
+    <text x="320" y="218" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#7c6cf0" font-style="italic" font-weight="600">Reasoning</text>
+    <text x="320" y="232" font-family="Noto Sans KR, sans-serif" font-size="9" fill="#7d8298" font-style="italic">자기 추론</text>
+
+    <!-- LLM ↔ Tools — two short arrows offset vertically -->
+    <line x1="345" y1="135" x2="435" y2="135" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#arch-arr)"/>
+    <line x1="435" y1="155" x2="345" y2="155" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#arch-arr)"/>
+
+    <!-- Tools (inside agent) -->
+    <rect x="440" y="115" width="120" height="60" rx="10" fill="#7c6cf033" stroke="#7c6cf0" stroke-width="2"/>
+    <text x="500" y="148" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="14" font-weight="700" fill="#cdd1e0">Tools</text>
+    <text x="500" y="165" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#7d8298">도구·함수</text>
+
+    <!-- Tools → Environment — top arc with Action label -->
+    <path d="M 562 125 Q 640 90 715 130" stroke="#7c6cf0" stroke-width="1.5" fill="none" marker-end="url(#arch-arr)"/>
+    <text x="640" y="86" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="12" fill="#7c6cf0" font-weight="700">Action</text>
+    <text x="640" y="100" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="9" fill="#7d8298" font-style="italic">행동 실행</text>
+
+    <!-- Environment → Tools — bottom arc with Result label -->
+    <path d="M 715 162 Q 640 200 562 168" stroke="#7c6cf0" stroke-width="1.5" fill="none" marker-end="url(#arch-arr)"/>
+    <text x="640" y="220" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="12" fill="#7c6cf0" font-weight="700">Result</text>
+    <text x="640" y="234" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="9" fill="#7d8298" font-style="italic">관찰값 회수</text>
+
+    <!-- Environment (right, outside agent) -->
+    <rect x="720" y="115" width="140" height="60" rx="10" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="1.5"/>
+    <text x="790" y="148" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="14" font-weight="700" fill="#7c6cf0">Environment</text>
+    <text x="790" y="165" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#7d8298">외부 환경 (DB · API · 웹)</text>
+  </svg>
+
+  <div style="margin-top:.8rem;padding:.9rem 1.1rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 10px 10px 0;font-size:.8rem;color:var(--text);line-height:1.85;max-width:880px;margin-left:auto;margin-right:auto">
+    👀 <strong style="color:var(--violet)">읽는 법:</strong> Task가 들어오면 → <strong>LLM</strong>이 머릿속(Reasoning)에서 무엇을 할지 정하고 → <strong>Tools</strong>를 통해 외부 <strong>Environment</strong>에 Action을 보내고 → 그 Result를 다시 받아 LLM에게 전달. <strong>LLM은 Environment를 직접 만지지 않습니다 — 항상 Tools를 거칩니다.</strong> 이게 ReAct의 핵심 구조.
+  </div>
+  </div>
+
+  <!-- Reason / Act / Observe 3-step detail cards -->
+  <div style="margin-bottom:1.2rem">
+  <div style="font-size:.8rem;color:var(--text-dim);text-align:center;margin-bottom:.8rem">🔁 Reason → Act → Observe — 한 사이클의 세 가지 단계</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem">
+
+    <div style="padding:1.1rem 1.2rem;background:var(--card);border:1.5px solid var(--violet-border);border-radius:12px">
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem">
+        <div style="font-size:1.6rem">🧠</div>
+        <div>
+          <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:1.5px">STEP 1 · REASON</div>
+          <div style="font-size:1rem;font-weight:700;color:var(--text)">추론</div>
+        </div>
+      </div>
+      <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+        ✓ 작업·현재 상황 분석<br>
+        ✓ 문제를 작은 단계로 분해<br>
+        ✓ 목표 달성 행동 계획<br>
+        ✓ <strong style="color:var(--violet)">"어떤 도구를 어떻게 써야 하나"</strong> 판단
+      </div>
+    </div>
+
+    <div style="padding:1.1rem 1.2rem;background:var(--card);border:1.5px solid var(--violet-border);border-radius:12px">
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem">
+        <div style="font-size:1.6rem">⚙️</div>
+        <div>
+          <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:1.5px">STEP 2 · ACT</div>
+          <div style="font-size:1rem;font-weight:700;color:var(--text)">행동</div>
+        </div>
+      </div>
+      <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+        ✓ 추론에 따라 <strong style="color:var(--violet)">적절한 도구 선택</strong><br>
+        ✓ 함수 인자(arguments) 결정<br>
+        ✓ 검색·DB·API·계산 등 실행<br>
+        ✓ 외부 환경과 실제로 상호작용
+      </div>
+    </div>
+
+    <div style="padding:1.1rem 1.2rem;background:var(--card);border:1.5px solid var(--violet-border);border-radius:12px">
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem">
+        <div style="font-size:1.6rem">👀</div>
+        <div>
+          <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:1.5px">STEP 3 · OBSERVE</div>
+          <div style="font-size:1rem;font-weight:700;color:var(--text)">관찰</div>
+        </div>
+      </div>
+      <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+        ✓ 도구 실행 결과(관찰값) 확인<br>
+        ✓ 새 정보로 <strong style="color:var(--violet)">지식 업데이트</strong><br>
+        ✓ 다음 추론 더 정교하게<br>
+        ✓ <strong style="color:var(--violet)">종료할지·계속할지</strong> 자율 판단
+      </div>
+    </div>
+
+  </div>
+  <div style="margin-top:.8rem;padding:.9rem 1.1rem;background:var(--violet-bg);border-left:3px solid var(--violet);border-radius:0 10px 10px 0;font-size:.8rem;color:var(--text);line-height:1.85">
+    ⚡ <strong style="color:var(--violet)">자율적 제어 능력:</strong> 외부 개입 없이 모델 스스로 도구 사용 여부와 종료 시점을 결정합니다. 단일 도구 호출로 끝나지 않고, 필요한 만큼 여러 단계를 거치며 복잡한 다단계 문제를 단계별로 분해해 풀어냅니다.
+  </div>
+  </div>
+
   <!-- Loop SVG (화살표 작게, 선 짧게) -->
   <div style="max-width:780px;margin:0 auto 1.2rem">
   <svg viewBox="0 0 780 240" style="width:100%;height:auto;display:block">
@@ -390,14 +511,97 @@
   </svg>
   </div>
 
-  <!-- Concrete example -->
-  <div style="background:var(--surface);border-radius:10px;padding:1.2rem;font-family:var(--mono);font-size:.78rem;line-height:1.85;color:var(--text);margin-bottom:1.2rem">
-    <span style="color:var(--text-dim)">Question:</span> 한국에서 가장 높은 산은?<br>
-    <span style="color:var(--violet)">Thought:</span> 산 이름과 높이가 필요해. 검색해야겠다.<br>
-    <span style="color:var(--accent)">Action:</span> search("한국 가장 높은 산")<br>
-    <span style="color:var(--teal)">Observation:</span> 한라산 1947m<br>
-    <span style="color:var(--violet)">Thought:</span> 답이 나왔다.<br>
-    <span style="color:var(--text-dim)">Final Answer:</span> 한라산(1947m)
+  <!-- 다단계 실전 예시 — 시가총액 비교 -->
+  <div style="margin-bottom:1.2rem">
+  <div style="font-size:.8rem;color:var(--text-dim);text-align:center;margin-bottom:.8rem">📖 다단계 실전 예시 — 사이클을 두 번 도는 질문</div>
+  <div style="background:var(--surface);border-radius:10px;padding:1.2rem;font-family:var(--mono);font-size:.78rem;line-height:1.95;color:var(--text)">
+    <div style="padding-bottom:.6rem;margin-bottom:.7rem;border-bottom:1px dashed var(--border)">
+      <span style="color:var(--text-dim)">Question:</span> "애플과 마이크로소프트 중 시가총액이 더 큰 기업은?"
+    </div>
+
+    <div style="margin-bottom:.6rem">
+      <span style="color:var(--text-dim);font-size:.7rem;letter-spacing:1.5px">— ITERATION 1 —</span><br>
+      <span style="color:var(--violet)">Thought:</span> 두 회사 시가총액을 비교해야 한다. 먼저 애플부터 검색.<br>
+      <span style="color:var(--accent)">Action:</span> search("Apple market cap 2026")<br>
+      <span style="color:var(--teal)">Observation:</span> Apple Inc. — $3.5T (2026-04 기준)
+    </div>
+
+    <div style="margin-bottom:.6rem">
+      <span style="color:var(--text-dim);font-size:.7rem;letter-spacing:1.5px">— ITERATION 2 —</span><br>
+      <span style="color:var(--violet)">Thought:</span> 이번엔 마이크로소프트.<br>
+      <span style="color:var(--accent)">Action:</span> search("Microsoft market cap 2026")<br>
+      <span style="color:var(--teal)">Observation:</span> Microsoft — $3.3T (2026-04 기준)
+    </div>
+
+    <div style="padding-top:.6rem;border-top:1px dashed var(--border)">
+      <span style="color:var(--violet)">Thought:</span> 두 수치 비교 가능. 애플이 약 $0.2T 더 크다.<br>
+      <span style="color:var(--text-dim)">Final Answer:</span> 애플($3.5T)이 마이크로소프트($3.3T)보다 약 $0.2T(약 200조 원) 더 큽니다.
+    </div>
+  </div>
+  <div style="margin-top:.8rem;font-size:.78rem;color:var(--text-dim);line-height:1.7;text-align:center">
+    💡 두 번의 검색이 필요한 질문도 ReAct는 <strong style="color:var(--text)">"단일 도구 호출"이 아니라 자기 스스로 두 번 사이클을 돌고 종료</strong>합니다. 사람이 "이번엔 마이크로소프트도 검색해" 같은 추가 지시를 줄 필요가 없습니다.
+  </div>
+  </div>
+
+  <!-- Princeton 벤치마크 결과 -->
+  <div style="padding:1.2rem 1.4rem;background:var(--card);border:1.5px solid var(--violet-border);border-radius:12px;margin-bottom:1.2rem">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.8rem">🏛️ Princeton + Google Brain 평가 (Yao et al., 2022, ICLR 2023)</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.85;margin-bottom:.9rem">
+      4개 벤치마크에서 ReAct를 평가 — <strong style="color:var(--violet)">기존 CoT의 환각·오류 전파를 극복</strong>하면서도, 단 1-2개 예시(few-shot)만으로 대량 데이터 학습된 imitation learning·강화 학습을 능가했습니다.
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;margin-bottom:.8rem">
+      <div style="padding:.7rem .9rem;background:var(--surface);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
+        <strong style="color:var(--violet)">HotpotQA</strong> (질의응답)<br>
+        <span style="color:var(--text-dim);font-size:.72rem">Wikipedia API 활용 multi-hop QA</span>
+      </div>
+      <div style="padding:.7rem .9rem;background:var(--surface);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
+        <strong style="color:var(--violet)">FEVER</strong> (팩트 검증)<br>
+        <span style="color:var(--text-dim);font-size:.72rem">CoT의 환각 직접 극복</span>
+      </div>
+      <div style="padding:.7rem .9rem;background:var(--violet-bg);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
+        <strong style="color:var(--violet)">ALFWorld</strong> (텍스트 게임)<br>
+        <span style="color:var(--violet);font-size:.72rem;font-weight:700">+34% 성공률</span> — 모방학습/RL 능가
+      </div>
+      <div style="padding:.7rem .9rem;background:var(--violet-bg);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
+        <strong style="color:var(--violet)">WebShop</strong> (웹 탐색)<br>
+        <span style="color:var(--violet);font-size:.72rem;font-weight:700">+10% 성공률</span> — 사람 수준 근접
+      </div>
+    </div>
+    <div style="padding:.7rem .9rem;background:var(--teal-bg);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;font-size:.8rem;color:var(--text);line-height:1.85">
+      🌟 <strong style="color:var(--teal)">최고 성능 조합:</strong> ReAct + CoT 하이브리드. 모델의 <strong>내부 지식</strong>(CoT)과 <strong>외부 환경 정보</strong>(ReAct)를 모두 활용 → 최고 정확도 달성.
+    </div>
+  </div>
+
+  <!-- ReAct vs CoT 비교 -->
+  <div style="margin-bottom:1.2rem">
+  <div style="font-size:.8rem;color:var(--text-dim);text-align:center;margin-bottom:.8rem">⚖️ ReAct vs CoT(Chain-of-Thought) — 어디가 다른가</div>
+  <div style="overflow-x:auto">
+  <table style="width:100%;border-collapse:collapse;font-size:.8rem;min-width:580px">
+    <thead>
+      <tr style="background:var(--surface)">
+        <th style="padding:.7rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--border)">관점</th>
+        <th style="padding:.7rem;text-align:left;color:var(--text);border-bottom:1px solid var(--border)">CoT (Chain-of-Thought)</th>
+        <th style="padding:.7rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border)">ReAct</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">초점</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">순수 추론 (생각만)</td><td style="padding:.55rem;color:var(--text);border-bottom:1px solid var(--border)">추론 + 행동 (생각 + 도구)</td></tr>
+      <tr><td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">외부 상호작용</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">❌ 모델 내부에서만</td><td style="padding:.55rem;color:var(--text);border-bottom:1px solid var(--border)">✅ 도구로 외부 호출</td></tr>
+      <tr><td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">사실 검증</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">환각 위험 ↑ · 오류 전파</td><td style="padding:.55rem;color:var(--text);border-bottom:1px solid var(--border)">외부 정보로 검증·수정</td></tr>
+      <tr><td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">정보 출처</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">학습 시점 지식 (정적)</td><td style="padding:.55rem;color:var(--text);border-bottom:1px solid var(--border)">실시간 외부 데이터 (동적)</td></tr>
+      <tr><td style="padding:.55rem;color:var(--text);font-weight:600">적합 작업</td><td style="padding:.55rem;color:var(--text-dim)">수학·논리 추론</td><td style="padding:.55rem;color:var(--text)">사실 기반 질의·환경 상호작용</td></tr>
+    </tbody>
+  </table>
+  </div>
+  </div>
+
+  <!-- ReAct vs Function Calling -->
+  <div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:4px solid var(--violet);border-radius:0 12px 12px 0;margin-bottom:1.2rem">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.6rem">🔧 ReAct vs Function Calling — 헷갈리지 말 것</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.9">
+      둘은 같은 층위가 아닙니다. <strong style="color:var(--violet)">ReAct는 "생각·행동을 어떻게 묶을까"의 패턴</strong>이고, <strong style="color:var(--violet)">Function Calling은 "LLM이 함수 호출 요청을 어떻게 표현할까"의 형식 표준</strong>입니다. 현대 ReAct 에이전트는 대부분 Function Calling을 도구 사용 메커니즘으로 활용 — 한쪽이 다른 쪽을 대체하는 게 아니라 <strong>ReAct가 패턴 · Function Calling이 구현 도구</strong>로 함께 쓰입니다.<br><br>
+      <strong style="color:var(--violet)">중요한 사실:</strong> LLM이 직접 함수를 실행하지 않습니다. <strong>LLM은 "이 함수를 이 인자로 호출해 달라"는 요청을 응답으로 생성</strong>하고, 에이전트(우리 코드)가 실제 호출을 수행합니다. 그 결과를 다시 LLM에게 전달.
+    </div>
   </div>
 
   <!-- 2025-2026 evolution: Pre-Act -->
