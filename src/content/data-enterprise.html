@@ -102,6 +102,11 @@
 
 <p class="section-desc">Part 8에서 "데이터가 어디에 사는가"(DB·DW·Lake·Lakehouse)를 배웠습니다. Part 9 Ch.01은 여기서 한 단계 나아갑니다 — <strong style="color:var(--amber)">"2026년 엔터프라이즈는 그 위에 무엇을 얹었는가"</strong>. 답은 Lakehouse + Vector DB + Feature Store + MLOps의 4층 구조, 그리고 이 전체를 묶는 <strong>Data-as-a-Product</strong> 모델입니다.</p>
 
+<!-- 챕터 가이드 — 무엇을 배우나 -->
+<div class="reveal" style="max-width:900px;margin:0 auto 1.4rem;padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 12px 12px 0;font-size:.85rem;color:var(--text);line-height:1.95">
+  📍 <strong style="color:var(--amber)">이 챕터에서 무엇을 배우나:</strong> ① <strong>업계가 무엇을 우선시하는지가 어떻게 변했는지</strong>("많이"에서 "믿을 수 있게"로 — 2026년 데이터 리더의 새 화두) → ② <strong>데이터가 흐르는 4개 층</strong>(Sources → Lakehouse → Vector/Feature → MLOps)이 어떻게 연결되는지 → ③ 각 층에서 <strong>실제로 쓰는 도구·결정 기준·실패 패턴</strong>. Part 8이 "각 저장소가 무엇인가"였다면, 이 챕터는 "그것들을 어떻게 한 시스템으로 엮느냐"입니다. 이후 Ch.02-13의 모든 세부(RAG/온톨로지/거버넌스)가 이 4층 위에서 돌아갑니다.
+</div>
+
 <!-- 2026 우선순위 전환 -->
 <div class="dia reveal">
 <div class="dia-title">🔥 2026 우선순위 전환 — "더 많이"에서 "더 믿을 수 있게"로</div>
@@ -817,6 +822,11 @@
 
 <p class="section-desc">Ch.01이 "전체 아키텍처"였다면 이 챕터는 <strong style="color:var(--amber)">"각 층의 실제 도구"</strong>입니다. 2026년 엔터프라이즈에서 쓰이는 5계층(Ingest → Store → Transform → Serve → Observe) 도구를 카탈로그 형태로 정리합니다. "뭘 써야 하지?"에 대한 실전 답.</p>
 
+<!-- 챕터 가이드 -->
+<div class="reveal" style="max-width:900px;margin:0 auto 1.4rem;padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 12px 12px 0;font-size:.85rem;color:var(--text);line-height:1.95">
+  📍 <strong style="color:var(--amber)">이 챕터를 읽는 법:</strong> Modern Data Stack은 <strong>"각 계층마다 가장 잘하는 도구만 골라 쓰는"</strong> 분업화된 구조입니다. 한 회사가 모든 것을 만들던 시대(예: Oracle 일체형)는 끝났고, 지금은 <strong>Fivetran(수집) + Snowflake(저장) + dbt(변환) + Looker(조회) + Monte Carlo(관측)</strong> 식으로 조합합니다. 이 챕터는 "5계층이 무엇이고, 각 계층에서 사실상 표준이 된 도구가 무엇인지"를 빠르게 훑습니다 — 이름을 외우기보다 <strong>왜 이 분업이 자리 잡았는지</strong>를 잡는 것이 목표.
+</div>
+
 <!-- 5계층 다이어그램 -->
 <div class="dia reveal">
 <div class="dia-title">Modern Data Stack — 5계층 개요</div>
@@ -1098,6 +1108,11 @@
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">03</div><h2 class="ch-title">Production RAG — 기초에서 프로덕션으로</h2></div>
 
 <p class="section-desc">Part 8 Ch.08에서 벡터 DB를 배웠습니다. 하지만 "벡터 DB를 쓴다"와 "RAG를 프로덕션에서 굴린다"는 완전히 다른 세계입니다. 이 챕터는 <strong style="color:var(--amber)">2025~2026년 현장에서 RAG가 실패한 이유와 고치는 법</strong>입니다.</p>
+
+<!-- 챕터 가이드 -->
+<div class="reveal" style="max-width:900px;margin:0 auto 1.4rem;padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 12px 12px 0;font-size:.85rem;color:var(--text);line-height:1.95">
+  📍 <strong style="color:var(--amber)">왜 이 챕터가 핵심인가:</strong> 2024년까지 "RAG = LangChain 30줄"이었습니다. 2025-2026 현장의 발견은 <strong>"30줄 PoC는 6개월 후 95% 폭망한다"</strong> — 그 폭망이 어디서 오는지 통계로 본 뒤(80%가 ingestion·chunking에서!), 프로덕션 RAG의 <strong>전체 파이프라인</strong>(데이터 → 청크 → 임베딩 → 검색 → 재정렬 → 평가)을 한 장에 그립니다. 이후 Ch.04-07이 각 단계를 깊게 다루므로, 이 챕터는 <strong>전체 지도</strong>를 그리는 챕터입니다.
+</div>
 
 <!-- 충격적 통계 -->
 <div class="dia reveal">
@@ -1458,6 +1473,11 @@ chunks = splitter.split_documents(docs)<br>
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">05</div><h2 class="ch-title">임베딩 모델 선택 2026</h2></div>
 
 <p class="section-desc">Part 8 Ch.07에서 "임베딩이 무엇인가"를 배웠습니다. 이제 질문은 <strong style="color:var(--amber)">"어떤 임베딩 모델을 써야 하는가"</strong>입니다. 2026년 시장은 4년 전과 비교할 수 없이 복잡합니다 — OpenAI가 유일한 선택이 아닙니다.</p>
+
+<!-- 챕터 가이드 -->
+<div class="reveal" style="max-width:900px;margin:0 auto 1.4rem;padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 12px 12px 0;font-size:.85rem;color:var(--text);line-height:1.95">
+  📍 <strong style="color:var(--amber)">왜 모델 선택이 중요한가:</strong> 임베딩 모델은 <strong>한 번 정하면 바꾸기 어려운 결정</strong>입니다 — 모델을 바꾸면 모든 문서를 재인덱싱해야 하고, 코사인 거리 분포가 바뀌면 검색 임계값도 다시 튜닝. 그래서 처음부터 <strong>"내 데이터·언어·예산에 맞는 모델"</strong>을 골라야 합니다. 이 챕터는 ① 2026 MTEB 리더보드 → ② 한국어 강한 모델 → ③ 차원·가격·도메인별 결정 기준 순으로, "내가 뭘 써야 하나"를 답할 수 있게 합니다.
+</div>
 
 <!-- MTEB 2026 리더 -->
 <div class="dia reveal">
@@ -2180,6 +2200,11 @@ chunks = splitter.split_documents(docs)<br>
 
 <p class="section-desc">엔터프라이즈에서 정말 중요한 지식은 깔끔한 Postgres 테이블이 아니라 <strong style="color:var(--amber)">PDF·PPT·스캔본·다이어그램·손글씨 메모</strong>에 갇혀 있습니다. 이 비구조 데이터를 RAG가 먹을 수 있게 꺼내오는 것이 <strong>Document AI</strong>입니다. 2023년의 OCR은 이제 <strong>VLM + Agentic parsing</strong>으로 진화했습니다.</p>
 
+<!-- 챕터 가이드 -->
+<div class="reveal" style="max-width:900px;margin:0 auto 1.4rem;padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 12px 12px 0;font-size:.85rem;color:var(--text);line-height:1.95">
+  📍 <strong style="color:var(--amber)">왜 'Document AI'가 별도 챕터인가:</strong> 엔터프라이즈 데이터의 <strong>약 80%가 비구조</strong>(IDC 2024) — 즉 RAG가 "텍스트만 잘 처리하면 된다"는 것은 거짓말입니다. 표·이미지·차트·각주가 섞인 PDF 한 장을 제대로 읽지 못하면 답변 품질이 30%에서 멈춥니다. 이 챕터는 ① <strong>왜 OCR이 충분하지 않은가</strong>(레이아웃 손실) → ② <strong>VLM(Vision-Language Model) 시대의 해법</strong> → ③ <strong>2026 도구 카탈로그</strong>(Unstructured.io, LlamaParse, Reducto, Mistral OCR 등) 순으로 풀어냅니다.
+</div>
+
 <!-- 80% 통계 -->
 <div class="dia reveal">
 <div class="dia-title">🔥 핵심 통계 — "80% 원칙"</div>
@@ -2475,6 +2500,11 @@ chunks = splitter.split_documents(docs)<br>
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">09</div><h2 class="ch-title">GraphRAG — 지식 그래프의 재부상</h2></div>
 
 <p class="section-desc">Vector RAG는 "한 청크에 답이 있는 질문"에 강합니다. 하지만 <strong style="color:var(--amber)">여러 문서·여러 사실을 엮어 추론해야 하는 질문</strong>엔 무력합니다. 2024년 Microsoft Research가 공개한 <strong>GraphRAG</strong>는 이 한계를 지식 그래프로 풀어냈고, 2025-26년 LinkedIn·Neo4j 사례로 실전 검증됐습니다.</p>
+
+<!-- 챕터 가이드 -->
+<div class="reveal" style="max-width:900px;margin:0 auto 1.4rem;padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 12px 12px 0;font-size:.85rem;color:var(--text);line-height:1.95">
+  📍 <strong style="color:var(--amber)">언제 GraphRAG가 필요한가:</strong> "A 회사의 CEO가 작년에 인수한 기업의 CTO는 누구인가?" — 답이 한 문서에 없는 <strong>multi-hop 질문</strong>. Vector 검색은 키워드가 분산되어 있으면 모든 hop에서 흐려집니다. GraphRAG는 ① <strong>엔터티·관계를 미리 그래프로 추출</strong>해 두고 → ② 그래프를 따라 답을 합성합니다. 이 챕터는 (a) Vector RAG가 어디서 깨지는지 → (b) GraphRAG의 동작 원리 → (c) 실전 사례·비용 트레이드오프 순. 다음 Ch.10 온톨로지가 그래프의 <em>의미 계층</em>을 다루므로 함께 읽으세요.
+</div>
 
 <!-- Vector RAG 한계 -->
 <div class="dia reveal">
@@ -3891,6 +3921,11 @@ chunks = splitter.split_documents(docs)<br>
 
 <p class="section-desc">기술을 아는 것만으론 부족합니다. 2026년부터 <strong style="color:var(--amber)">EU AI Act가 단계적으로 강제력을 갖습니다</strong>. 특히 <strong>Article 10 "Data Governance"</strong>는 고위험 AI 시스템의 학습·검증·테스트 데이터에 구체적 의무를 부과합니다. 이 장은 "법 공부"가 아니라 <strong>데이터 팀이 내일 해야 할 일</strong>을 정리합니다.</p>
 
+<!-- 챕터 가이드 -->
+<div class="reveal" style="max-width:900px;margin:0 auto 1.4rem;padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 12px 12px 0;font-size:.85rem;color:var(--text);line-height:1.95">
+  📍 <strong style="color:var(--amber)">한국 회사도 왜 알아야 하는가:</strong> EU 시장에 서비스를 제공하면 <strong>한국 회사도 의무 적용</strong>입니다(역외 적용 — GDPR과 동일 구조). 2026-08-02부터 GPAI(범용 AI) 의무가, <strong>2026년 하반기-2027년에 걸쳐 고위험 시스템 의무</strong>가 발효되며, 위반 시 매출의 7%(최대 €3,500만)가 부과됩니다. 이 챕터는 ① <strong>발효 타임라인</strong> → ② <strong>리스크 4단계 분류</strong>(금지·고위험·제한·저위험) → ③ <strong>Article 10 데이터 의무 5가지</strong> → ④ 데이터 팀이 이번 분기에 시작해야 할 액션 — 순으로 정리합니다.
+</div>
+
 <!-- 경고 배너 -->
 <div class="dia reveal">
 <div class="dia-title">⚠️ 2026년 핵심 타임라인</div>
@@ -4145,6 +4180,11 @@ chunks = splitter.split_documents(docs)<br>
 
 <p class="section-desc">GDPR·PIPA·HIPAA가 다루는 핵심은 <strong style="color:var(--amber)">PII (Personally Identifiable Information)</strong>입니다. LLM 시대에 PII 리스크는 새 모양으로 돌아왔습니다 — 모델이 학습 데이터를 기억하고, prompt에 섞인 PII를 그대로 로그에 남기고, tool 사용으로 추가 PII를 긁어옵니다. 2026년 엔터프라이즈는 <strong>PII를 "가림"이 아니라 "아키텍처"로</strong> 다룹니다.</p>
 
+<!-- 챕터 가이드 -->
+<div class="reveal" style="max-width:900px;margin:0 auto 1.4rem;padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 12px 12px 0;font-size:.85rem;color:var(--text);line-height:1.95">
+  📍 <strong style="color:var(--amber)">왜 LLM 시대에 PII가 다시 어려워졌나:</strong> 전통 시스템은 "DB 컬럼에 마스킹"이면 끝났습니다. LLM은 다릅니다 — 사용자가 prompt에 직접 PII를 적기도 하고, 모델이 학습 단계에서 기억해 둔 PII를 답변에 흘리기도 하고(<em>memorization attack</em>), tool 호출이 외부에서 PII를 끌고 옵니다. 이 챕터는 ① <strong>직접 vs 간접(Quasi-) PII 정의</strong>(이름·주민번호 vs 우편번호+생일+성별) → ② <strong>3중 방어선</strong>(입력·로그·출력) → ③ <strong>가명화/익명화/차분 프라이버시</strong> 도구 비교 → ④ 한국 PIPA·EU GDPR·미국 HIPAA의 실무 차이 순.
+</div>
+
 <!-- PII 정의 -->
 <div class="dia reveal">
 <div class="dia-title">PII 정의 — 직접 vs 간접 (Quasi)</div>
@@ -4367,6 +4407,11 @@ chunks = splitter.split_documents(docs)<br>
 <div class="ch-head"><div class="ch-num" style="color:var(--amber)">13</div><h2 class="ch-title">Synthetic Data + Data Security — 가짜 데이터, 진짜 공격</h2></div>
 
 <p class="section-desc">Part 9의 마지막 챕터는 두 주제를 엮습니다 — <strong style="color:var(--amber)">없으면 만들어내는 합성 데이터</strong>와, <strong>있는 데이터를 지키는 보안</strong>입니다. 둘은 짝입니다. 합성 데이터는 privacy를 해결하는 듯 보이지만, 잘못 쓰면 <strong>Model Autophagy Disorder</strong>로 모델을 망칩니다. 데이터 보안 공격은 2026년 들어 <strong>학습 파이프라인 자체</strong>를 노립니다.</p>
+
+<!-- 챕터 가이드 -->
+<div class="reveal" style="max-width:900px;margin:0 auto 1.4rem;padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 12px 12px 0;font-size:.85rem;color:var(--text);line-height:1.95">
+  📍 <strong style="color:var(--amber)">왜 두 주제를 한 챕터에서:</strong> Synthetic Data와 Data Security는 <strong>"데이터의 신뢰성"</strong>이라는 같은 코인의 양면입니다. 합성 데이터는 ① 진짜 데이터가 부족하거나(rare event), ② privacy 제약(GDPR), ③ 비용이 클 때 답이지만, <strong>합성 데이터로만 학습한 모델은 점차 망가지는 현상(MAD)</strong>이 보고됐습니다(Shumailov et al., Nature 2024). 한편 보안 측면에선 <strong>data poisoning, membership inference, model inversion</strong> 같은 공격이 학습 데이터 자체를 노립니다. 이 챕터는 합성 데이터의 이점·한계·실패 모드 → 학습 시점 보안 위협 4종 → 방어 패턴 순으로 정리합니다.
+</div>
 
 <!-- Synthetic Data 등장 이유 -->
 <div class="dia reveal">
