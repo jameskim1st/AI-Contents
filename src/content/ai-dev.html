@@ -18,6 +18,7 @@
       <a href="#ad-ch10"><span class="cn">10</span>체크리스트 총정리</a>
       <a href="#ad-ch11"><span class="cn">11</span>LLM API 마스터</a>
       <a href="#ad-ch12"><span class="cn">12</span>시스템 통합 API</a>
+      <a href="#ad-ch13"><span class="cn">13</span>AI 신뢰성 (Red Team·ATLAS·XAI)</a>
     </nav>
   </div>
 </div>
@@ -1263,6 +1264,14 @@
   2024년 8월 발효된 <strong>EU AI Act</strong>는 AI 시스템을 위험 수준별로 분류하고, 고위험 시스템에 투명성·설명가능성·인간 감독을 의무화합니다. 2026년부터 단계적으로 시행 중이며, EU 시장에 서비스를 제공하는 모든 기업에 적용됩니다. AI 거버넌스는 선택이 아닌 <strong>법적 의무</strong>가 되었습니다.
 </p>
 </div>
+
+<!-- Ch.13 cross-ref -->
+<div class="tip reveal" style="border-left-color:var(--accent)">
+<div class="tip-title" style="color:var(--accent)">🔗 거버넌스를 실제로 어떻게 검증하나 — Ch.13으로</div>
+<p style="margin:0;font-size:.85rem;line-height:1.85">
+  본 챕터가 거버넌스의 <strong>원칙·프레임워크</strong>(Responsible AI 4 axes, NIST AI RMF, EU AI Act)를 다룬다면, <a href="#ad-ch13" style="color:var(--accent);font-weight:700">Ch.13 AI 신뢰성</a>은 그 원칙을 <strong>실제로 검증·집행하는 도구</strong>를 다룹니다 — AI 레드팀(PyRIT·Garak), MITRE ATLAS 위협 분류, XAI(SHAP·LIME·Mechanistic Interpretability). EU AI Act Article 13의 "투명성"이 코드와 운영에서 어떻게 구현되는지가 거기서 이어집니다.
+</p>
+</div>
 </section>
 
 
@@ -1475,7 +1484,7 @@
     <div style="font-size:.82rem;color:var(--text);line-height:2">
       <span style="display:inline-block;width:1.3rem;text-align:center">☐</span> 자동 평가 스위트가 구축되었는가?<br>
       <span style="display:inline-block;width:1.3rem;text-align:center">☐</span> 엣지 케이스 테스트가 수행되었는가?<br>
-      <span style="display:inline-block;width:1.3rem;text-align:center">☐</span> 레드팀 테스트(악의적 입력)를 통과했는가?<br>
+      <span style="display:inline-block;width:1.3rem;text-align:center">☐</span> 레드팀 테스트(악의적 입력)를 통과했는가? <a href="#ad-ch13" style="color:var(--accent);font-size:.74rem;text-decoration:none">→ Ch.13 도구</a><br>
       <span style="display:inline-block;width:1.3rem;text-align:center">☐</span> 할루시네이션 비율이 허용 범위 내인가?<br>
       <span style="display:inline-block;width:1.3rem;text-align:center">☐</span> 편향성 테스트를 수행했는가?
     </div>
@@ -2822,6 +2831,549 @@ service-account.json</code></pre>
   <span style="font-size:.82rem;color:var(--text-dim)">코드를 복사해서 바로 시작하세요. 가장 좋은 학습은 직접 만들어 보는 것입니다.</span>
 </div>
 </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- CH.13 — AI 신뢰성: Red Team · MITRE ATLAS · XAI  -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="ch reveal" id="ad-ch13">
+<div class="ch-head"><div class="ch-num" style="color:var(--accent)">13</div><h2 class="ch-title">AI 신뢰성 — Red Team · MITRE ATLAS · XAI</h2></div>
+
+<p class="section-desc">Ch.08에서 "AI 거버넌스 — 책임감 있는 AI 구축"의 <strong>원칙</strong>을 봤습니다. 이 챕터는 그 원칙을 떠받치는 <strong style="color:var(--accent)">실전 도구 3종</strong>입니다 — <strong>Red Team</strong>(공격해보기) · <strong>MITRE ATLAS</strong>(공격 분류·기록) · <strong>XAI</strong>(원인 해석). 이 셋이 한 사이클로 돌아가야 "AI를 믿을 만한가?"라는 질문에 답할 수 있습니다.</p>
+
+<!-- 챕터 가이드 -->
+<div class="reveal" style="max-width:900px;margin:0 auto 1.4rem;padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;font-size:.85rem;color:var(--text);line-height:1.95">
+  📍 <strong style="color:var(--accent)">이 챕터에서 무엇을 배우나:</strong> ① <strong>Red Team</strong> — 공격자 관점에서 우리 AI를 부숴보기 (Microsoft 100개 제품 평가, Anthropic 3,700시간 챌린지). ② <strong>MITRE ATLAS</strong> — 발견한 공격을 표준 매트릭스에 분류·기록 (16 tactics × 84 techniques). ③ <strong>XAI</strong> — "왜 그런 답이 나왔는가"를 SHAP·LIME·SAE로 분해. ④ 셋이 어떻게 한 거버넌스 사이클로 돌아가는지(Skeleton Key 케이스). 산재된 보안 언급(Part 4 Ch.11, Part 9 Ch.13)과 거버넌스 추상(Ch.08)이 여기서 도구 수준으로 통합됩니다.
+</div>
+
+<!-- ─── ACT 0: 신뢰의 트라이앵글 ─── -->
+<div class="dia reveal">
+<div class="dia-title">🛡️ AI 신뢰성의 세 기둥 — 한 사이클로 도는 트라이앵글</div>
+
+<div style="font-size:.85rem;color:var(--text);line-height:1.95;max-width:880px;margin:0 auto 1.2rem">
+  하나의 도구만으로는 AI를 신뢰할 수 없습니다. <strong style="color:var(--accent)">공격해보지 않으면</strong> 약점을 모르고, <strong style="color:var(--accent)">분류·기록하지 않으면</strong> 같은 공격이 반복되며, <strong style="color:var(--accent)">원인을 해석하지 못하면</strong> 패치할 수 없습니다. 이 셋은 한 사이클을 이룹니다.
+</div>
+
+<!-- Triangle SVG -->
+<div style="max-width:760px;margin:0 auto 1.2rem">
+<svg viewBox="0 0 760 360" style="width:100%;height:auto;display:block">
+  <defs>
+    <marker id="trust-arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 z" fill="#d04a02"/>
+    </marker>
+  </defs>
+
+  <!-- Red Team (top) -->
+  <rect x="280" y="20" width="200" height="80" rx="14" fill="#d04a0233" stroke="#d04a02" stroke-width="2.5"/>
+  <text x="380" y="45" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#d04a02" letter-spacing="1.5">① RED TEAM</text>
+  <text x="380" y="68" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="14" font-weight="700" fill="#cdd1e0">공격해 보기</text>
+  <text x="380" y="88" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#7d8298">PyRIT · Garak · Mindgard</text>
+
+  <!-- ATLAS (right) -->
+  <rect x="540" y="200" width="200" height="80" rx="14" fill="#d04a0233" stroke="#d04a02" stroke-width="2.5"/>
+  <text x="640" y="225" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#d04a02" letter-spacing="1.5">② MITRE ATLAS</text>
+  <text x="640" y="248" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="14" font-weight="700" fill="#cdd1e0">분류·기록</text>
+  <text x="640" y="268" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#7d8298">16 tactics · 84 techniques</text>
+
+  <!-- XAI (left) -->
+  <rect x="20" y="200" width="200" height="80" rx="14" fill="#d04a0233" stroke="#d04a02" stroke-width="2.5"/>
+  <text x="120" y="225" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#d04a02" letter-spacing="1.5">③ XAI</text>
+  <text x="120" y="248" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="14" font-weight="700" fill="#cdd1e0">원인·feature 해석</text>
+  <text x="120" y="268" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#7d8298">SHAP · LIME · SAE</text>
+
+  <!-- Mitigation (center bottom) -->
+  <rect x="270" y="295" width="220" height="50" rx="10" fill="#2dd4bf1a" stroke="#2dd4bf" stroke-width="2"/>
+  <text x="380" y="316" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#2dd4bf" letter-spacing="1.5">MITIGATION</text>
+  <text x="380" y="334" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="12" fill="#cdd1e0">Guardrails · RLHF · Constitutional Classifier</text>
+
+  <!-- Arrows: Red Team → ATLAS -->
+  <line x1="485" y1="80" x2="540" y2="210" stroke="#d04a02" stroke-width="1.7" marker-end="url(#trust-arr)"/>
+  <text x="540" y="135" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#d04a02" font-style="italic">공격 결과 분류</text>
+
+  <!-- Arrows: ATLAS → XAI -->
+  <line x1="535" y1="265" x2="225" y2="265" stroke="#d04a02" stroke-width="1.7" marker-end="url(#trust-arr)"/>
+  <text x="380" y="280" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#d04a02" font-style="italic">위협 분류 → 원인 분석</text>
+
+  <!-- Arrows: XAI → Mitigation -->
+  <line x1="180" y1="285" x2="270" y2="320" stroke="#d04a02" stroke-width="1.7" marker-end="url(#trust-arr)"/>
+
+  <!-- Arrows: Mitigation → Red Team (재공격) -->
+  <line x1="380" y1="290" x2="380" y2="105" stroke="#2dd4bf" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#trust-arr)"/>
+  <text x="395" y="200" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#2dd4bf" font-style="italic">패치 후 재공격</text>
+</svg>
+</div>
+
+<div style="max-width:880px;margin:0 auto;padding:1rem 1.2rem;background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.9">
+  💡 <strong style="color:var(--accent)">이 사이클은 규제로도 강제됩니다:</strong> OpenAI Preparedness Framework v2(2025-04) · Anthropic Responsible Scaling Policy v3 · EU AI Act Article 15(robustness/cybersecurity) 모두 "공격 → 분류 → 해석 → 완화 → 재공격" 사이클을 명시 요구. 즉 "한 번 만들고 끝"이 아니라 <strong>지속 운영</strong>입니다.
+</div>
+</div>
+
+<!-- ─── ACT 1: AI 레드팀 ─── -->
+<div class="dia reveal">
+<div class="dia-title">① AI 레드팀 — 공격해 보기</div>
+
+<div style="font-size:.85rem;color:var(--text);line-height:1.95;max-width:880px;margin:0 auto 1.2rem">
+  Microsoft AI Red Team이 100개 이상의 생성형 AI 제품을 평가한 뒤 2025-01 발표한 정의:
+</div>
+
+<div style="max-width:860px;margin:0 auto 1.2rem;padding:1.3rem 1.5rem;background:linear-gradient(135deg,var(--accent-bg),rgba(0,0,0,0.02));border-left:4px solid var(--accent);border-radius:0 14px 14px 0">
+  <div style="font-family:var(--display);font-size:1.05rem;font-weight:600;color:var(--text);line-height:1.65;font-style:italic">"AI 레드팀은 생성형 AI 시스템의 안전성과 보안을 탐색(probing)하는 실천이며, 목적은 '기술을 부수어 다시 더 강하게 만드는 것'이다."</div>
+  <div style="font-size:.78rem;color:var(--text-dim);margin-top:.6rem">— Microsoft AI Red Team, "3 takeaways from red teaming 100 generative AI products", 2025-01-13</div>
+</div>
+
+<!-- 전통 vs AI 레드팀 -->
+<div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--text);max-width:880px;margin:0 auto .7rem">전통 보안 레드팀과의 결정적 차이</div>
+<div style="max-width:880px;margin:0 auto 1.2rem;overflow-x:auto">
+<table style="width:100%;border-collapse:collapse;font-size:.8rem;min-width:580px">
+  <thead><tr style="background:var(--surface)">
+    <th style="padding:.6rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--border)">구분</th>
+    <th style="padding:.6rem;text-align:left;color:var(--text);border-bottom:1px solid var(--border)">전통 레드팀</th>
+    <th style="padding:.6rem;text-align:left;color:var(--accent);border-bottom:1px solid var(--accent-border)">AI 레드팀</th>
+  </tr></thead>
+  <tbody>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">공격 표면</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">네트워크·물리·사회공학</td><td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">모델 가중치·프롬프트·학습 데이터·임베딩</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">결정성</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">결정론적</td><td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)"><strong style="color:var(--accent)">확률적</strong> — 같은 공격이 어떤 때만 통함</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">위협 모델</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">CIA (기밀성·무결성·가용성)</td><td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">CIA + <strong style="color:var(--accent)">Responsible AI 위해</strong> (편향·환각·유해 콘텐츠)</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600">그래디언트</td><td style="padding:.5rem;color:var(--text-dim)">N/A</td><td style="padding:.5rem;color:var(--text)"><strong style="color:var(--accent)">불필요</strong> — Microsoft 8교훈 #2</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- 4단계 프로세스 -->
+<div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--text);max-width:880px;margin:0 auto .7rem">표준 4단계 프로세스</div>
+<div style="max-width:880px;margin:0 auto 1.2rem;display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem">
+  <div style="padding:1rem .9rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px;text-align:center">
+    <div style="font-size:1.4rem;margin-bottom:.3rem">🔍</div>
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);font-weight:700">RECON</div>
+    <div style="font-size:.78rem;font-weight:600;color:var(--text);margin-top:.3rem">정찰</div>
+    <div style="font-size:.7rem;color:var(--text-dim);margin-top:.4rem;line-height:1.6">시스템 프롬프트·연결 도구·정책 매핑</div>
+  </div>
+  <div style="padding:1rem .9rem;background:var(--accent-bg);border:2px solid var(--accent);border-radius:12px;text-align:center">
+    <div style="font-size:1.4rem;margin-bottom:.3rem">⚔️</div>
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);font-weight:700">ATTACK</div>
+    <div style="font-size:.78rem;font-weight:600;color:var(--text);margin-top:.3rem">공격</div>
+    <div style="font-size:.7rem;color:var(--text-dim);margin-top:.4rem;line-height:1.6">카탈로그 + 신규 합성 (PyRIT/Garak)</div>
+  </div>
+  <div style="padding:1rem .9rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px;text-align:center">
+    <div style="font-size:1.4rem;margin-bottom:.3rem">📊</div>
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);font-weight:700">MEASURE</div>
+    <div style="font-size:.78rem;font-weight:600;color:var(--text);margin-top:.3rem">측정</div>
+    <div style="font-size:.7rem;color:var(--text-dim);margin-top:.4rem;line-height:1.6">위협별 성공률·재현성·심각도</div>
+  </div>
+  <div style="padding:1rem .9rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px;text-align:center">
+    <div style="font-size:1.4rem;margin-bottom:.3rem">🔧</div>
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);font-weight:700">MITIGATE</div>
+    <div style="font-size:.78rem;font-weight:600;color:var(--text);margin-top:.3rem">완화</div>
+    <div style="font-size:.7rem;color:var(--text-dim);margin-top:.4rem;line-height:1.6">패치 → 재공격 (영원)</div>
+  </div>
+</div>
+
+<!-- 공격 카탈로그 -->
+<div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--text);max-width:880px;margin:0 auto .7rem">공격 카탈로그 — 2024-2026 자주 보는 6종</div>
+<div style="max-width:880px;margin:0 auto 1.2rem;display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">DIRECT PROMPT INJECTION</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">사용자 입력에 악성 명령 직접 주입. <strong>OWASP LLM01:2025 1순위</strong>. ATLAS AML.T0051.000.</div>
+  </div>
+
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">INDIRECT PROMPT INJECTION</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">외부 데이터(웹·PDF·이메일)에 숨긴 명령. <strong>Perplexity Comet</strong>(2024) Reddit 비가시 텍스트로 OTP 유출, <strong>ChatGPT spAIware</strong>(2024-09) 메모리 영구 주입.</div>
+  </div>
+
+  <div style="padding:1rem 1.2rem;background:var(--accent-bg);border:2px solid var(--accent);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">JAILBREAK ⭐</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      <strong>Skeleton Key</strong>(MS, 2024-06): 가드레일에 자기 자신을 무시하라고 설득.<br>
+      <strong>Many-shot</strong>(Anthropic, 2024-04): 긴 컨텍스트에 가짜 우회 예시.<br>
+      <strong>DAN</strong>: 페르소나 부여.<br>
+      2025 분석(arXiv:2505.04806) — 53개 모델 67.3% 극도 취약, 일부 모델에 100% 성공.
+    </div>
+  </div>
+
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">MODEL EXTRACTION</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">추론 API에 쿼리를 던져 모델 가중치/기능 복제. ATLAS의 ML Model Access tactic.</div>
+  </div>
+
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">MEMBERSHIP INFERENCE</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">특정 데이터의 학습셋 포함 여부 추론. <strong>2024 Privacy Backdoor</strong> 연구(NeurIPS, arXiv:2404.01231) — fine-tuning 시 누출률 극적 증폭.</div>
+  </div>
+
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">DATA POISONING + BACKDOOR</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">학습/RAG 데이터 악성 샘플. <strong>소수 문서로 LLM 응답 90%+ 조작</strong> (Promptfoo 2024). <strong>PoisonGPT</strong>(2023) HuggingFace 위장 — 공급망.</div>
+  </div>
+
+</div>
+
+<!-- 자동화 도구표 -->
+<div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--text);max-width:880px;margin:0 auto .7rem">2025-2026 자동화 도구 카탈로그</div>
+<div style="max-width:880px;margin:0 auto 1.2rem;overflow-x:auto">
+<table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:680px">
+  <thead><tr style="background:var(--surface)">
+    <th style="padding:.6rem;text-align:left;color:var(--accent);border-bottom:1px solid var(--accent-border)">도구</th>
+    <th style="padding:.6rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--border)">제공</th>
+    <th style="padding:.6rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--border)">라이선스</th>
+    <th style="padding:.6rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--border)">핵심</th>
+  </tr></thead>
+  <tbody>
+    <tr style="background:var(--accent-bg)"><td style="padding:.5rem;color:var(--accent);font-weight:700;border-bottom:1px solid var(--border)">PyRIT</td><td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">Microsoft AI Red Team</td><td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">MIT</td><td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">2024-02 공개, 2025-04 Azure AI Foundry "Red Teaming Agent" 통합</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">Garak</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">L. Derczynski → NVIDIA</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Apache 2.0</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">~100 공격 벡터, 37+ probe</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">NeMo Guardrails</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">NVIDIA</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Apache 2.0</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">방어측 — 입출력 가드레일</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">Lakera Red / Guard</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Lakera (스위스)</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">상용</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Gandalf 게임으로 유명</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">Robust Intelligence</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">2024-10 <strong>Cisco가 ~$400M 인수</strong></td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">상용</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">업계 최초 AI Firewall</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600">Mindgard</td><td style="padding:.5rem;color:var(--text-dim)">영국 ($11.6M)</td><td style="padding:.5rem;color:var(--text-dim)">상용</td><td style="padding:.5rem;color:var(--text-dim)">DAST-AI, ATLAS·OWASP 매핑</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- 8교훈 인용 박스 -->
+<div style="max-width:880px;margin:0 auto;padding:1.1rem 1.3rem;background:var(--accent-bg);border:1.5px solid var(--accent-border);border-radius:12px">
+  <div style="font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.7rem">📌 Microsoft AI Red Team 8교훈 중 핵심 3개 (arXiv:2501.07238, 2025-01)</div>
+  <div style="font-size:.83rem;color:var(--text);line-height:1.95">
+    <strong>#2.</strong> "AI 시스템을 깨기 위해 그래디언트를 계산할 필요는 없다." — 단순 프롬프트 조작만으로도 충분히 깨진다.<br>
+    <strong>#3.</strong> "AI 레드팀은 안전 벤치마킹과 다르다." — 정량 점수보다 위협별 성공률·심각도 중심.<br>
+    <strong>#8.</strong> "AI 시스템을 안전하게 만드는 일은 결코 완성되지 않는다." — 신모델·신기능마다 새 공격면 등장.
+  </div>
+</div>
+</div>
+
+<!-- ─── ACT 2: MITRE ATLAS ─── -->
+<div class="dia reveal">
+<div class="dia-title">② MITRE ATLAS — 공격을 표준 매트릭스에 분류</div>
+
+<div style="font-size:.85rem;color:var(--text);line-height:1.95;max-width:880px;margin:0 auto 1.2rem">
+  레드팀이 수십 가지 공격을 발견했어도, <strong>같은 어휘로 분류·기록하지 않으면</strong> 다음 팀·다음 회사가 처음부터 다시 시작합니다. <strong style="color:var(--accent)">MITRE ATLAS</strong>는 사이버 보안 표준 ATT&amp;CK의 AI 버전 — 2020년 출범, 2026-04 시점 v5.4.0(<strong>16 tactics · 84 techniques · 56 sub-techniques · 32 mitigations · 42 case studies</strong>). KISA·NIST·OWASP가 모두 참조하는 사실상 산업 어휘.
+</div>
+
+<!-- ATT&CK vs ATLAS 비교 -->
+<div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--text);max-width:880px;margin:0 auto .7rem">ATT&amp;CK ↔ ATLAS 관계</div>
+<div style="max-width:880px;margin:0 auto 1.2rem;display:grid;grid-template-columns:1fr 1fr;gap:.8rem">
+  <div style="padding:1.1rem 1.2rem;background:var(--card);border:1.5px solid var(--border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);letter-spacing:1.5px;margin-bottom:.4rem">MITRE ATT&amp;CK (2013~)</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      대상: 일반 IT 시스템<br>
+      구조: 14 tactics × 600+ techniques<br>
+      성숙도: 보안 업계 표준 어휘
+    </div>
+  </div>
+  <div style="padding:1.1rem 1.2rem;background:var(--accent-bg);border:2px solid var(--accent);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">MITRE ATLAS (2020~)</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      대상: AI/ML 시스템<br>
+      구조: 16 tactics × 84+ techniques<br>
+      ATT&amp;CK 13 tactic 상속 + AI 고유(<strong>ML Attack Staging</strong>)
+    </div>
+  </div>
+</div>
+
+<!-- 16 Tactics -->
+<div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--text);max-width:880px;margin:0 auto .7rem">16 Tactics — 공격자가 거치는 단계</div>
+<div style="max-width:880px;margin:0 auto 1.2rem;overflow-x:auto">
+<table style="width:100%;border-collapse:collapse;font-size:.76rem;min-width:680px">
+  <thead><tr style="background:var(--surface)">
+    <th style="padding:.5rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--border);width:40px">#</th>
+    <th style="padding:.5rem;text-align:left;color:var(--accent);border-bottom:1px solid var(--accent-border)">영어</th>
+    <th style="padding:.5rem;text-align:left;color:var(--text);border-bottom:1px solid var(--border)">한국어</th>
+    <th style="padding:.5rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--border)">한 줄</th>
+  </tr></thead>
+  <tbody>
+    <tr><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">1</td><td style="padding:.4rem;color:var(--text);border-bottom:1px solid var(--border)">Reconnaissance</td><td style="padding:.4rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">정찰</td><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">시스템 프롬프트·정책·아키텍처 단서</td></tr>
+    <tr><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">2</td><td style="padding:.4rem;color:var(--text);border-bottom:1px solid var(--border)">Resource Development</td><td style="padding:.4rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">자원 개발</td><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">공격용 모델·데이터·도구 준비</td></tr>
+    <tr><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">3</td><td style="padding:.4rem;color:var(--text);border-bottom:1px solid var(--border)">Initial Access</td><td style="padding:.4rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">초기 접근</td><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">프롬프트 인젝션·노출 API</td></tr>
+    <tr><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">4</td><td style="padding:.4rem;color:var(--text);border-bottom:1px solid var(--border)">ML Model Access</td><td style="padding:.4rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">ML 모델 접근</td><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">추론 API/모델 아티팩트 직접</td></tr>
+    <tr><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">5</td><td style="padding:.4rem;color:var(--text);border-bottom:1px solid var(--border)">Execution</td><td style="padding:.4rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">실행</td><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">악성 프롬프트·도구 호출</td></tr>
+    <tr><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">6</td><td style="padding:.4rem;color:var(--text);border-bottom:1px solid var(--border)">Persistence</td><td style="padding:.4rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">지속</td><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">메모리·파인튜닝·플러그인</td></tr>
+    <tr><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">7</td><td style="padding:.4rem;color:var(--text);border-bottom:1px solid var(--border)">Privilege Escalation</td><td style="padding:.4rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">권한 상승</td><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">시스템 권한 우회 (Skeleton Key)</td></tr>
+    <tr><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">8</td><td style="padding:.4rem;color:var(--text);border-bottom:1px solid var(--border)">Defense Evasion</td><td style="padding:.4rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">방어 회피</td><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">가드레일·필터 우회</td></tr>
+    <tr><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">9</td><td style="padding:.4rem;color:var(--text);border-bottom:1px solid var(--border)">Credential Access</td><td style="padding:.4rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">자격증명 접근</td><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">API 키·시스템 프롬프트 탈취</td></tr>
+    <tr><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">10</td><td style="padding:.4rem;color:var(--text);border-bottom:1px solid var(--border)">Discovery</td><td style="padding:.4rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">발견</td><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">학습 데이터·내부 구조 탐색</td></tr>
+    <tr><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">11</td><td style="padding:.4rem;color:var(--text);border-bottom:1px solid var(--border)">Collection</td><td style="padding:.4rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">수집</td><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">사용자 입력·중간 결과 수집</td></tr>
+    <tr style="background:var(--accent-bg)"><td style="padding:.4rem;color:var(--accent);font-weight:700;border-bottom:1px solid var(--border)">12</td><td style="padding:.4rem;color:var(--accent);font-weight:700;border-bottom:1px solid var(--border)">ML Attack Staging</td><td style="padding:.4rem;color:var(--accent);font-weight:700;border-bottom:1px solid var(--border)">ML 공격 준비 ⭐</td><td style="padding:.4rem;color:var(--text);border-bottom:1px solid var(--border)">적대적 예제·백도어·프록시 모델 (<strong>ATLAS 고유</strong>)</td></tr>
+    <tr><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">13</td><td style="padding:.4rem;color:var(--text);border-bottom:1px solid var(--border)">Command and Control</td><td style="padding:.4rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">명령·통제</td><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">에이전트 통한 외부 통신</td></tr>
+    <tr><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">14</td><td style="padding:.4rem;color:var(--text);border-bottom:1px solid var(--border)">Exfiltration</td><td style="padding:.4rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">유출</td><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">학습 데이터·모델·사용자 데이터</td></tr>
+    <tr><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">15</td><td style="padding:.4rem;color:var(--text);border-bottom:1px solid var(--border)">Impact</td><td style="padding:.4rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">영향</td><td style="padding:.4rem;color:var(--text-dim);border-bottom:1px solid var(--border)">무결성·가용성·신뢰 훼손</td></tr>
+    <tr><td style="padding:.4rem;color:var(--text-dim)">16</td><td style="padding:.4rem;color:var(--text)">Cost Harvesting / Harm</td><td style="padding:.4rem;color:var(--text);font-weight:600">자원 남용·피해</td><td style="padding:.4rem;color:var(--text-dim)">토큰·GPU 비용 부담, 사회적 피해</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- Case Studies -->
+<div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--text);max-width:880px;margin:0 auto .7rem">대표 Case Studies (42건 중)</div>
+<div style="max-width:880px;margin:0 auto 1.2rem;display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">AML.CS0001 — Microsoft Tay (2016-03)</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">Twitter 봇 출시 16시간 만에 종료. "Repeat after me" + 적응형 학습 → trolling 오염으로 인종차별·반유대 트윗 생성. 분류: <strong>Online Data Poisoning + Erode Integrity</strong>.</div>
+  </div>
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">PoisonGPT (2023, Mithril Security)</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">HuggingFace 허브에 거짓 사실을 답하는 변조 LLM 위장 업로드 — <strong>공급망 위협</strong> 시연.</div>
+  </div>
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">ChatGPT Plugin Privacy Leak</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">간접 프롬프트 인젝션으로 플러그인 통해 대화 이력 유출. 도구 사용 에이전트의 새 위협면.</div>
+  </div>
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">AML.CS0031 — Deepfake KYC (2025-11 등록)</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">은행·암호화폐 KYC liveness 우회. 사회공학 → 얼굴 스왑 AI → OBS 가상 카메라 → 라이브니스 통과.</div>
+  </div>
+</div>
+
+<!-- 표준 매핑 -->
+<div style="max-width:880px;margin:0 auto;padding:1rem 1.2rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.9">
+  🇰🇷 <strong style="color:var(--accent)">한국·국제 표준 매핑:</strong> <strong>KISA 「AI 보안 안내서」(2025-12-10)</strong>가 ATLAS·NIST·ISO 매핑을 참조 표준으로 명시. <strong>NIST AI RMF 1.0</strong>(2023-01) — 자발적, 2024-07 GenAI 프로파일 추가, 공식 "2.0"은 2026-04 시점 미발표(프로파일·크로스워크로 진화). <strong>ISO/IEC 42001</strong>(2023-12) — AI 경영 시스템 인증 표준. 한국 ATLAS 등록 케이스 0건(2026-04 기준).
+</div>
+</div>
+
+<!-- ─── ACT 3: XAI ─── -->
+<div class="dia reveal">
+<div class="dia-title">③ Explainable AI (XAI) — 결정의 원인 해석</div>
+
+<div style="font-size:.85rem;color:var(--text);line-height:1.95;max-width:880px;margin:0 auto 1.2rem">
+  공격을 막아도 "왜 막혔는지", "왜 어떤 입력에는 막히고 어떤 입력에는 안 막히는지"를 모르면 다음 패치를 설계할 수 없습니다. 또 의료·금융·법은 <strong style="color:var(--accent)">법적으로</strong> 모델 결정의 설명을 요구합니다 — EU AI Act Article 13, GDPR Article 22, CJEU SCHUFA 판결(2023-12), 한국 AI 기본법(2026-01 시행).
+</div>
+
+<!-- 왜 필요한가 — 규제·산업 4가지 -->
+<div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--text);max-width:880px;margin:0 auto .7rem">왜 XAI가 의무인가 — 4대 압력</div>
+<div style="max-width:880px;margin:0 auto 1.2rem;display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">🇪🇺 EU AI Act</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      <strong>Article 13</strong>(2024-08 발효, 2026-08 전면): 고위험 AI 투명성 + instructions for use<br>
+      <strong>Article 86</strong>: 자동 결정의 주요 요소 설명 권리
+    </div>
+  </div>
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">⚖️ GDPR + CJEU 판례</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      <strong>Article 22 + 15(1)(h)</strong>: 자동 결정 거부 + "의미 있는 정보" 권리<br>
+      <strong>SCHUFA 판결 C-634/21</strong>(2023-12): 신용 점수 의존 자동 결정 위반
+    </div>
+  </div>
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">🏥 산업 규제</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      FDA AI/ML 의료기기 가이드(2024)<br>
+      Fed SR 11-7 모델 검증<br>
+      ECOA "Adverse Action Notice" (신용 거절 사유)
+    </div>
+  </div>
+  <div style="padding:1rem 1.2rem;background:var(--accent-bg);border:2px solid var(--accent);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">🇰🇷 한국 AI 기본법</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      <strong>2025-01-21 공포, 2026-01-22 시행</strong><br>
+      5대 의무: 투명성·안전성·고영향 AI 책무·영향평가·국내 대리인<br>
+      1년+ 계도기간(과태료 미부과)
+    </div>
+  </div>
+</div>
+
+<!-- 분류 4분면 -->
+<div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--text);max-width:880px;margin:0 auto .7rem">XAI 기법 분류 — 2×2 매트릭스</div>
+<div style="max-width:780px;margin:0 auto 1.2rem">
+<table style="width:100%;border-collapse:collapse;font-size:.78rem">
+  <thead><tr>
+    <th style="padding:.6rem;background:var(--surface);border:1px solid var(--border);width:25%"></th>
+    <th style="padding:.6rem;background:var(--surface);border:1px solid var(--border);text-align:center;color:var(--accent)">Global<br><span style="font-size:.7rem;color:var(--text-dim);font-weight:400">전체 모델 행동</span></th>
+    <th style="padding:.6rem;background:var(--surface);border:1px solid var(--border);text-align:center;color:var(--accent)">Local<br><span style="font-size:.7rem;color:var(--text-dim);font-weight:400">개별 예측</span></th>
+  </tr></thead>
+  <tbody>
+    <tr>
+      <td style="padding:.6rem;background:var(--surface);border:1px solid var(--border);color:var(--accent);font-weight:700;text-align:center;vertical-align:middle">Intrinsic<br><span style="font-size:.7rem;color:var(--text-dim);font-weight:400">자체 해석 가능</span></td>
+      <td style="padding:.7rem;border:1px solid var(--border);color:var(--text);line-height:1.7">Linear Regression, Decision Tree, GAM, <strong style="color:var(--accent)">Sparse Autoencoder</strong> (LLM)</td>
+      <td style="padding:.7rem;border:1px solid var(--border);color:var(--text-dim);line-height:1.7">(intrinsic 모델의 단일 결정)</td>
+    </tr>
+    <tr>
+      <td style="padding:.6rem;background:var(--surface);border:1px solid var(--border);color:var(--accent);font-weight:700;text-align:center;vertical-align:middle">Post-hoc<br><span style="font-size:.7rem;color:var(--text-dim);font-weight:400">사후 설명</span></td>
+      <td style="padding:.7rem;border:1px solid var(--border);color:var(--text);line-height:1.7">Permutation Importance, <strong>SHAP global</strong></td>
+      <td style="padding:.7rem;border:1px solid var(--border);color:var(--text);line-height:1.7"><strong style="color:var(--accent)">LIME · SHAP local · Integrated Gradients · Grad-CAM · Counterfactuals</strong></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- 4대 기법 카드 -->
+<div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--text);max-width:880px;margin:0 auto .7rem">4대 핵심 기법</div>
+<div style="max-width:880px;margin:0 auto 1.2rem;display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+
+  <div style="padding:1rem 1.2rem;background:var(--accent-bg);border:2px solid var(--accent);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">① SHAP ⭐ 사실상 표준</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      <strong>이론</strong>: Lloyd Shapley 1953 게임이론<br>
+      <strong>ML 적용</strong>: Lundberg &amp; Lee, NeurIPS 2017<br>
+      <strong>변종</strong>: TreeSHAP / KernelSHAP / DeepSHAP<br>
+      <strong>증명</strong>: local accuracy + missingness + consistency 세 공리를 모두 만족하는 유일 해<br>
+      <strong>점유</strong>: 의료·금융 사실상 표준 (FICO xAI 툴킷)
+    </div>
+  </div>
+
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">② LIME</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      <strong>출처</strong>: Ribeiro et al., KDD 2016<br>
+      <strong>동작</strong>: 인스턴스 주변 perturbation → 가중 선형 surrogate<br>
+      <strong>장점</strong>: SHAP보다 빠름, 텍스트·이미지·표 모두<br>
+      <strong>단점</strong>: 일관성(consistency) 미보장 — 같은 예측에 다른 설명 가능
+    </div>
+  </div>
+
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">③ Integrated Gradients</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      <strong>출처</strong>: Sundararajan et al., ICML 2017 (Google)<br>
+      <strong>동작</strong>: baseline에서 입력까지 직선 경로 그래디언트 적분<br>
+      <strong>공리</strong>: Sensitivity + Implementation Invariance<br>
+      <strong>구현</strong>: <strong>Captum</strong>(Meta), tf-explain, Alibi
+    </div>
+  </div>
+
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">④ Attention / Probing</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      <strong>한계</strong>: Jain &amp; Wallace 2019 <em>"Attention is not Explanation"</em> — attention weight ≠ 진짜 인과 기여<br>
+      <strong>Probing classifier</strong>: 중간층 표현으로 작은 분류기 학습 → "이 층에 X 정보가 인코딩됐는가"<br>
+      <strong>표준</strong>: Tenney 2019 BERTology
+    </div>
+  </div>
+
+</div>
+
+<!-- LLM 시대 — Mechanistic Interpretability -->
+<div style="max-width:880px;margin:0 auto 1.2rem;padding:1.2rem 1.4rem;background:linear-gradient(135deg,var(--accent-bg),rgba(0,0,0,0.02));border:1.5px solid var(--accent);border-radius:14px">
+  <div style="font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.7rem">⚡ LLM 시대 신흥 — Mechanistic Interpretability (2024-2026)</div>
+  <div style="font-size:.83rem;color:var(--text);line-height:1.95">
+    고전 기법으로는 LLM 같은 거대 모델 내부를 이해하기 어렵다는 합의가 형성되며, <strong>회로(circuit) 단위로 모델 내부를 분해</strong>하는 새 분야가 폭발적으로 성장했습니다.
+    <ul style="margin:.6rem 0 .3rem 1.2rem;padding:0;line-height:1.85">
+      <li><strong>Anthropic "Scaling Monosemanticity"</strong>(2024-05) — Claude 3 Sonnet에 SAE 학습, 다국어·멀티모달 일반화 추상 feature 발견</li>
+      <li><strong>Golden Gate Claude 데모</strong>(2024-05) — Golden Gate Bridge feature 강제 활성화 → 모델이 자기를 다리라고 착각. <strong>SAE가 행동을 인과적으로 조작 가능</strong>함을 증명</li>
+      <li><strong>Anthropic Constitutional Classifiers</strong>(2025-02) — 보편적 jailbreak 방어 프로토타입</li>
+      <li><strong>DeepMind Gemma Scope</strong>(2024-08, arXiv:2408.05147) — Gemma 2 2B/9B 전 layer JumpReLU SAE, <strong>400+개 SAE, 3천만+ feature</strong> 공개</li>
+      <li><strong>Gemma Scope 2</strong>(2025-12) — Gemma 3 풀스택 해석성 suite</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Rudin pull-quote -->
+<div style="max-width:880px;margin:0 auto;padding:1.3rem 1.5rem;background:var(--surface);border-left:4px solid var(--accent);border-radius:0 14px 14px 0">
+  <div style="font-size:.95rem;color:var(--text);line-height:1.75;font-style:italic">"고위험 결정에 블랙박스 머신러닝 모델을 설명하려 하지 말고, 처음부터 해석 가능한 모델을 사용하라. 범죄·의료·컴퓨터 비전·전력망 신뢰성 어디에서도 정확도를 해석성과 맞바꿔야 하는 문제는 없었다."</div>
+  <div style="font-size:.76rem;color:var(--text-dim);margin-top:.6rem">— Cynthia Rudin, Duke Prediction Analysis Lab 디렉터, 2022 Squirrel AI Award 수상자, <em>Nature Machine Intelligence</em> 2019 (arXiv:1811.10154)</div>
+</div>
+</div>
+
+<!-- ─── ACT 4: 통합 사이클 ─── -->
+<div class="dia reveal">
+<div class="dia-title">④ 통합 사이클 — Skeleton Key 한 케이스로 보기</div>
+
+<div style="font-size:.85rem;color:var(--text);line-height:1.95;max-width:880px;margin:0 auto 1.2rem">
+  세 도구가 어떻게 한 사이클로 도는지 — 2024-06 Microsoft가 공개한 <strong>Skeleton Key jailbreak</strong> 케이스로 따라가 봅시다. 이 한 케이스에서 Red Team → ATLAS → XAI → Mitigation → 재공격 사이클이 전부 작동합니다.
+</div>
+
+<div style="max-width:880px;margin:0 auto 1.2rem;display:grid;grid-template-columns:1fr;gap:.7rem">
+
+  <div style="padding:1rem 1.3rem;background:var(--card);border-left:3px solid var(--accent);border-radius:0 10px 10px 0">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">STEP 1 · Red Team이 발견</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.85">Microsoft Azure CTO Mark Russinovich 팀이 PyRIT 자동화 + 인간 창의성으로 새 jailbreak 발견. <strong>"Skeleton Key는 모델의 가드레일을 부수는 것이 아니라, 가드레일에게 자기 자신을 무시하라고 설득한다."</strong> 안전 경고를 "차단"이 아닌 "부착"하라고 in-context로 재정의.</div>
+  </div>
+
+  <div style="padding:1rem 1.3rem;background:var(--card);border-left:3px solid var(--accent);border-radius:0 10px 10px 0">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">STEP 2 · ATLAS에 분류·기록</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.85"><strong>AML.T0051 LLM Prompt Injection</strong> (Direct sub-technique) + <strong>Defense Evasion</strong> tactic으로 분류. 이 분류 덕에 다른 회사도 같은 어휘로 자기 모델을 점검 가능. OWASP LLM01:2025와 매핑.</div>
+  </div>
+
+  <div style="padding:1rem 1.3rem;background:var(--card);border-left:3px solid var(--accent);border-radius:0 10px 10px 0">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">STEP 3 · XAI로 원인 분석</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.85">Anthropic 류 SAE로 <strong>"안전 거부" feature</strong>가 in-context redefinition 신호에 의해 어떻게 억제되는지 회로 분석. 어떤 토큰 패턴이 활성화시키고 어떤 게 억제하는지를 feature 수준에서 본다.</div>
+  </div>
+
+  <div style="padding:1rem 1.3rem;background:var(--card);border-left:3px solid var(--accent);border-radius:0 10px 10px 0">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">STEP 4 · Mitigation</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.85"><strong>Constitutional Classifier</strong>(별도 분류기) 추가 + 시스템 프롬프트 강화 + 가드레일. Anthropic·OpenAI·Microsoft 각자 다른 방어 조합 적용.</div>
+  </div>
+
+  <div style="padding:1rem 1.3rem;background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 10px 10px 0">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">STEP 5 · 재공격 검증</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.85"><strong>Anthropic HackerOne 챌린지</strong> (2025-02): 339명·30만+ 시도·<strong>누적 ~3,700시간</strong>의 인간 레드팀이 새 방어를 시험. <strong>"수천 시간의 인간 레드팀에 견뎠다"</strong>가 Anthropic의 공개 발표 표현.</div>
+  </div>
+
+</div>
+
+<div style="max-width:880px;margin:0 auto;padding:1rem 1.2rem;background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.9">
+  💡 <strong style="color:var(--accent)">교훈:</strong> 한 도구만으로는 멈춥니다 — Red Team만 있으면 발견은 하지만 다음 회사가 모름. ATLAS만 있으면 분류는 하지만 새 공격이 안 나옴. XAI만 있으면 분석은 하지만 무엇을 분석할지 모름. <strong>셋이 함께 돌 때만 모델이 시간이 흐를수록 안전해집니다.</strong>
+</div>
+</div>
+
+<!-- 한국 자료 -->
+<div class="dia reveal">
+<div class="dia-title">🇰🇷 한국에서 시작하기</div>
+<div style="max-width:880px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">📋 한국 AI 기본법</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      법률 제20676호. <strong>공포 2025-01-21, 시행 2026-01-22</strong>.<br>
+      5대 의무: ① 투명성 ② 안전성 ③ 고영향 AI 사업자 책무 ④ AI 영향평가 ⑤ 국내 대리인.<br>
+      <strong>1년+ 계도기간</strong>(과태료 미부과)
+    </div>
+  </div>
+
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">🛡️ KISA 보안 안내서</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      「인공지능(AI) 보안 안내서」 <strong>2025-12-10</strong> — 모델 개발·서비스·이용 단계별 보안. ATLAS·NIST·ISO 매핑 명시.<br>
+      「생성형 AI 개인정보 처리 안내서」 2025-08
+    </div>
+  </div>
+
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">🏛️ NIA · KISDI</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      NIA — AI 윤리·신뢰성 국가 거버넌스, K-AI 정책 운영<br>
+      KISDI — OECD AI 원칙 중심 한국 정책 보고서 (2025-09 No.2)
+    </div>
+  </div>
+
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);letter-spacing:1.5px;margin-bottom:.4rem">🌐 산업 표준 채택</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      ATLAS 한국 등록 케이스: 0건 (2026-04 시점)<br>
+      → 한국 회사가 자체 사례를 등록하면 글로벌 표준에 한국 사례가 누적됨
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- Tip -->
+<div class="tip reveal">
+<div style="font-size:.85rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--accent)">더 깊이:</strong>
+  <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/ai-red-team.md" style="color:var(--accent);text-decoration:underline" target="_blank" rel="noopener">wiki: ai-red-team</a>,
+  <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/mitre-atlas.md" style="color:var(--accent);text-decoration:underline" target="_blank" rel="noopener">mitre-atlas</a>,
+  <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/xai.md" style="color:var(--accent);text-decoration:underline" target="_blank" rel="noopener">xai</a>.
+  Microsoft 8교훈 전문, ATLAS Tactic별 Technique 카탈로그, SHAP 코드 예시, Anthropic SAE 회로 분석 사례 등 상세. 리서치 원본은
+  <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/sources/web/2026-04-30_ai-redteam-atlas-xai-research.md" style="color:var(--accent);text-decoration:underline" target="_blank" rel="noopener">wiki/sources/web/2026-04-30_ai-redteam-atlas-xai-research.md</a>.
+</div>
+</div>
+
+<!-- 연결 -->
+<div class="dia reveal">
+<div class="dia-title">🔗 다른 챕터와의 연결</div>
+<div style="max-width:880px;margin:0 auto;font-size:.82rem;color:var(--text);line-height:1.95">
+  <strong style="color:var(--accent)">이 챕터의 도구들이 어디에서 쓰이나:</strong>
+  <ul style="margin:.5rem 0 0 1.2rem;padding:0;line-height:2">
+    <li><a href="/07-ai-dev/#ad-ch8" style="color:var(--accent);text-decoration:underline">Ch.08 AI 거버넌스</a> — 추상 원칙. 이 챕터의 도구가 그 원칙을 떠받침</li>
+    <li><a href="/07-ai-dev/#ad-ch10" style="color:var(--accent);text-decoration:underline">Ch.10 체크리스트</a> — "레드팀 테스트 통과했는가?"의 구체적 답</li>
+    <li><a href="/04-ai-agents-advanced/#p4-ch11" style="color:var(--accent);text-decoration:underline">Part 4 Ch.11 보안과 비용</a> — 런타임 prompt injection·jailbreak — 본 챕터 ATLAS Tactic으로 분류</li>
+    <li><a href="/09-data-enterprise/#p9-ch11" style="color:var(--accent);text-decoration:underline">Part 9 Ch.11 EU AI Act</a> — Article 13 설명 가능성 의무 — 본 챕터 XAI 도구로 충족</li>
+    <li><a href="/09-data-enterprise/#p9-ch13" style="color:var(--accent);text-decoration:underline">Part 9 Ch.13 Synthetic + Security</a> — 학습 시점 데이터 공격 — 본 챕터 ATLAS ML Attack Staging 매핑</li>
+  </ul>
+</div>
+</div>
+
 </section>
 
 

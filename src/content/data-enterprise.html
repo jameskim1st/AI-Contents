@@ -4168,6 +4168,14 @@ chunks = splitter.split_documents(docs)<br>
 </div>
 </div>
 
+<!-- Cross-ref: Article 13 투명성 → Part 7 Ch.13 XAI -->
+<div class="tip reveal" style="border-left-color:var(--accent)">
+<div class="tip-title" style="color:var(--accent)">🔗 Article 13 "투명성"을 코드로 — Part 7 Ch.13</div>
+<p style="margin:0;font-size:.85rem;line-height:1.85">
+  본 챕터가 EU AI Act <strong>Article 10 데이터 거버넌스</strong>를 다룬다면, <a href="/07-ai-dev/#ad-ch13" style="color:var(--accent);font-weight:700">Part 7 Ch.13 AI 신뢰성</a>은 같은 법의 <strong>Article 13 "투명성"·Article 86 "설명권"</strong>이 어떻게 SHAP·LIME·Mechanistic Interpretability로 구현되는지를 다룹니다 — CJEU SCHUFA 판결, 한국 AI 기본법, FICO xAI 툴킷 사례.
+</p>
+</div>
+
 </section>
 
 <div class="divider"><hr></div>
@@ -4574,14 +4582,14 @@ chunks = splitter.split_documents(docs)<br>
 </div>
 </div>
 
-<!-- Part 4과 연결 -->
+<!-- Part 4 / Part 7 과 연결 -->
 <div class="dia reveal">
-<div class="dia-title">🔗 Part 4 보안 챕터와의 연결</div>
+<div class="dia-title">🔗 다른 보안 챕터와의 연결 — 3층의 보안</div>
 <div style="max-width:900px;margin:0 auto">
 <div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.9">
-  Part 4 Ch.09 "AI 보안"은 <strong>런타임</strong>의 prompt injection·jailbreak·tool abuse를 다뤘습니다. Part 9 Ch.13은 그 <strong>위층</strong> — <strong>학습 시점</strong>의 데이터 자체를 공격하는 표면을 다룹니다.
+  본 챕터(Part 9 Ch.13)가 <strong>학습 시점</strong>의 데이터 공격을 다루고, <a href="/04-ai-agents-advanced/#p4-ch11" style="color:var(--accent);font-weight:700">Part 4 Ch.11 "보안과 비용"</a>이 <strong>런타임 방어</strong>(prompt injection·jailbreak·tool abuse)를 다룬다면, <a href="/07-ai-dev/#ad-ch13" style="color:var(--accent);font-weight:700">Part 7 Ch.13 "AI 신뢰성"</a>은 그 위에 <strong>탐지·분류·해석 사이클</strong>을 얹습니다 — AI 레드팀, MITRE ATLAS(Data Poisoning은 AML.T0020, Backdoor는 AML.T0018), XAI.
   <br><br>
-  <strong style="color:var(--amber)">두 층은 함께 움직입니다:</strong> poisoning으로 심어둔 backdoor가 inference 시 특정 prompt로 trigger되고, extraction으로 복제된 모델이 경쟁사의 새 공격 벡터가 됩니다. <strong>전체 스택의 보안은 가장 약한 고리의 함수</strong>입니다.
+  <strong style="color:var(--amber)">세 층은 함께 움직입니다:</strong> poisoning으로 심어둔 backdoor가 inference 시 특정 prompt로 trigger되고, ATLAS는 그 패턴을 분류·기록하며, XAI(SHAP·SAE)가 어떤 feature가 trigger를 활성화시켰는지 해석합니다. <strong>전체 스택의 보안은 가장 약한 고리의 함수</strong>입니다.
 </div>
 </div>
 </div>
