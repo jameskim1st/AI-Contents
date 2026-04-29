@@ -69,7 +69,7 @@
 
 ## Reference
 
-- [Part 4 — Ch.09 Observability — 비결정 시스템 디버깅](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch9) ⭐
+- [Part 4 — Ch.10 Observability + Evaluation](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch10) ⭐
 
 ## 연관 entity
 

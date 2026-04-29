@@ -75,7 +75,7 @@ A2A는 다음 스택의 중간 계층:
 
 ## Reference
 
-- [Part 4 — Ch.06 A2A — 멀티 에이전트 통신 표준](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch6) ⭐
+- [Part 4 — Ch.08 A2A — 멀티 에이전트 통신 표준](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch8) ⭐
 - [Part 3 — Ch.07 Multi-Agent](https://ai-contents-wine.vercel.app/03-ai-agents/) (전제)
 
 ## 연관 entity
