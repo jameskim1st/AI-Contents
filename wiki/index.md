@@ -18,6 +18,8 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
   - [Ontology — Critique & Revival](./sources/web/2026-04-16_ontology-critique-revival.md) — Gruber·Shirky·Singhal 계보
   - [Agent Design Patterns 2025-2026](./sources/web/2026-04-17_agent-design-patterns-2025-2026.md) — Pre-Act·MAR·MCP 1주년·Deep Agents·Anthropic Skills
   - [AI Red Team · MITRE ATLAS · XAI Research (2026-04-30)](./sources/web/2026-04-30_ai-redteam-atlas-xai-research.md) — Microsoft 100 products·ATLAS v5.4.0·Anthropic SAE·EU AI Act Article 13·한국 AI 기본법
+  - [Claude Mythos Research (2026-04-30)](./sources/web/2026-04-30_claude-mythos-research.md) — Project Glasswing·샌드박스 탈옥·ASL-4·USAMO 97.6%·zero-day
+  - [AI Governance Comprehensive Research (2026-04-30)](./sources/web/2026-04-30_ai-governance-research.md) — 10대 원칙·EU AI Act/NIST/ISO 42001/한국 AI 기본법·3 Lines of Defense·11 사고 연표
 - **`sources/papers/`** — 학술 논문
   - [Attention Is All You Need (2017)](./sources/papers/2017_attention-is-all-you-need.md)
 
@@ -120,9 +122,10 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
 - [Production Gap](./entities/production-gap.md)
 - [Observability](./entities/observability.md)
 - [Evaluation](./entities/evaluation.md)
-- [AI Red Team](./entities/ai-red-team.md) ⭐ NEW — Microsoft 100 products·PyRIT·Garak
-- [MITRE ATLAS](./entities/mitre-atlas.md) ⭐ NEW — 16 tactics·84 techniques·v5.4.0 (2026-02)
-- [XAI](./entities/xai.md) ⭐ NEW — SHAP·LIME·IG·Mechanistic Interpretability (Anthropic SAE)
+- [AI Red Team](./entities/ai-red-team.md) — Microsoft 100 products·PyRIT·Garak
+- [MITRE ATLAS](./entities/mitre-atlas.md) — 16 tactics·84 techniques·v5.4.0 (2026-02)
+- [XAI](./entities/xai.md) — SHAP·LIME·IG·Mechanistic Interpretability (Anthropic SAE)
+- [Claude Mythos](./entities/claude-mythos.md) ⭐ NEW — Anthropic 2026-04 frontier·ASL-4 첫 실전·Project Glasswing·샌드박스 탈옥
 
 ## 도구 / 프레임워크
 
@@ -208,9 +211,9 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
 
 ## 통계
 
-- entity 페이지: **119개** (116 → 119, +3 ai-red-team·mitre-atlas·xai)
+- entity 페이지: **120개** (119 → 120, +1 claude-mythos)
 - 카테고리: 17개
-- Last ingest: 2026-04-30 (AI Red Team·MITRE ATLAS·XAI — Part 7 Ch.13 신규 챕터 ingest)
+- Last ingest: 2026-04-30 (AI 거버넌스 통합 재구성 — Ch.08이 Ch.13 흡수, 6대 원칙·라이프사이클·운영 사이클·Mythos)
 - Prev ingest: 2026-04-17 (에이전트 디자인 패턴 5선 2025-2026 SOTA — Pre-Act/MAR/MCP 1주년/Deep Agents/Anthropic Skills)
 - Last query: 2026-04-12 (Part 2 + Part 9 동시 합성, 45 entity 활용, 5495줄)
 - **완료 사이클 #1**: Part 4 AI Agents 실전 — Sources → Ingest → Lint → Query → Ingest-back
