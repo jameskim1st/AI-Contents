@@ -228,22 +228,22 @@
 
 <!-- Relationship SVG -->
 <div style="max-width:880px;margin:0 auto 1.2rem">
-<svg viewBox="0 0 880 290" style="width:100%;height:auto;display:block">
+<svg viewBox="0 0 880 300" style="width:100%;height:auto;display:block">
   <defs>
-    <marker id="rel-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7c6cf0"/>
+    <marker id="rel-arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 z" fill="#7c6cf0"/>
     </marker>
   </defs>
   <!-- Tool Use foundation (bottom) -->
-  <rect x="80" y="220" width="720" height="50" rx="12" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="1.5" stroke-dasharray="4,3"/>
-  <text x="440" y="244" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#7c6cf0" letter-spacing="2">④ TOOL USE — 모든 패턴의 빌딩 블록</text>
-  <text x="440" y="262" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#7d8298">함수 호출 / MCP / Skills</text>
+  <rect x="80" y="225" width="720" height="55" rx="12" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="440" y="251" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#7c6cf0" letter-spacing="2">④ TOOL USE — 모든 패턴의 빌딩 블록</text>
+  <text x="440" y="269" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#7d8298">함수 호출 / MCP / Skills</text>
 
-  <!-- ReAct (center, foundation) -->
-  <rect x="340" y="120" width="200" height="65" rx="14" fill="#7c6cf033" stroke="#7c6cf0" stroke-width="2.5"/>
-  <text x="440" y="145" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#7c6cf0" letter-spacing="1.5">① ReAct (2022)</text>
-  <text x="440" y="165" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="13" font-weight="700" fill="#cdd1e0">Thought → Act → Observe</text>
-  <text x="440" y="180" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#7d8298">가장 기본 루프</text>
+  <!-- ReAct (center, base) -->
+  <rect x="340" y="125" width="200" height="65" rx="14" fill="#7c6cf033" stroke="#7c6cf0" stroke-width="2.5"/>
+  <text x="440" y="150" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#7c6cf0" letter-spacing="1.5">① ReAct (2022)</text>
+  <text x="440" y="170" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="13" font-weight="700" fill="#cdd1e0">Thought → Act → Observe</text>
+  <text x="440" y="185" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#7d8298">가장 기본 루프</text>
 
   <!-- Reflection (top-left) -->
   <rect x="50" y="20" width="200" height="65" rx="14" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="2"/>
@@ -251,9 +251,9 @@
   <text x="150" y="63" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="12" font-weight="700" fill="#cdd1e0">+ 자기 비판 단계</text>
   <text x="150" y="78" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="9" fill="#7d8298">Generate → Reflect → Refine</text>
 
-  <!-- Arrow ReAct → Reflection -->
-  <line x1="340" y1="140" x2="250" y2="80" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#rel-arr)"/>
-  <text x="278" y="102" font-family="Noto Sans KR, sans-serif" font-size="9" fill="#7c6cf0" font-style="italic">+ 검증</text>
+  <!-- Arrow ReAct → Reflection (short, no overlap) -->
+  <line x1="335" y1="135" x2="265" y2="92" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#rel-arr)"/>
+  <text x="282" y="118" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#7c6cf0" font-style="italic">+ 자기 검증</text>
 
   <!-- Plan-and-Execute (top-center) -->
   <rect x="340" y="20" width="200" height="65" rx="14" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="2"/>
@@ -261,9 +261,9 @@
   <text x="440" y="63" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="12" font-weight="700" fill="#cdd1e0">계획부터 한 번에</text>
   <text x="440" y="78" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="9" fill="#7d8298">Plan → Execute (DAG)</text>
 
-  <!-- Arrow ReAct → Plan -->
-  <line x1="440" y1="120" x2="440" y2="88" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#rel-arr)"/>
-  <text x="450" y="106" font-family="Noto Sans KR, sans-serif" font-size="9" fill="#7c6cf0" font-style="italic">+ 분리</text>
+  <!-- Arrow ReAct → Plan (vertical short) -->
+  <line x1="440" y1="120" x2="440" y2="93" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#rel-arr)"/>
+  <text x="453" y="110" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#7c6cf0" font-style="italic">+ 계획 분리</text>
 
   <!-- Orchestrator-Worker (top-right) -->
   <rect x="630" y="20" width="200" height="65" rx="14" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="2"/>
@@ -272,11 +272,12 @@
   <text x="730" y="78" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="9" fill="#7d8298">Lead + Subagents</text>
 
   <!-- Arrow ReAct → Orchestrator -->
-  <line x1="540" y1="140" x2="630" y2="80" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#rel-arr)"/>
-  <text x="582" y="102" font-family="Noto Sans KR, sans-serif" font-size="9" fill="#7c6cf0" font-style="italic">+ 위임</text>
+  <line x1="545" y1="135" x2="615" y2="92" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#rel-arr)"/>
+  <text x="568" y="118" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#7c6cf0" font-style="italic">+ 분업</text>
 
-  <!-- Arrow ReAct → Tool Use -->
-  <line x1="440" y1="185" x2="440" y2="220" stroke="#7c6cf0" stroke-width="1" stroke-dasharray="3,3"/>
+  <!-- Arrow ReAct → Tool Use (downward, dashed) -->
+  <line x1="440" y1="195" x2="440" y2="220" stroke="#7c6cf0" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#rel-arr)"/>
+  <text x="455" y="212" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#7d8298" font-style="italic">사용</text>
 </svg>
 </div>
 
@@ -337,43 +338,55 @@
     <strong style="color:var(--violet)">"생각한 다음 행동하고, 결과를 보고 다시 생각한다."</strong> 가장 직관적인 에이전트 루프. <strong>Klarna · Uber · LinkedIn</strong>이 LangGraph 1.0의 <code>create_react_agent</code>로 프로덕션에 배포 중.
   </div>
 
-  <!-- Loop SVG -->
+  <!-- 직관 비유 박스 -->
+  <div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:4px solid var(--violet);border-radius:0 12px 12px 0;margin-bottom:1.2rem">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.6rem">🎯 직관으로 이해하기 — 초보 요리사의 간 맞추기</div>
+    <div style="font-size:.83rem;color:var(--text);line-height:1.9">
+      레시피 없는 요리사를 떠올려보세요. ① <strong style="color:var(--violet)">맛본다</strong>(생각: "조금 싱겁네") → ② <strong style="color:var(--violet)">소금 친다</strong>(행동) → ③ <strong style="color:var(--violet)">또 맛본다</strong>(관찰: "이번엔 짜다") → ④ <strong style="color:var(--violet)">물 더 부어 희석</strong>(다음 행동). <strong>맛 → 행동 → 다시 맛 → 다시 행동.</strong> ReAct가 정확히 이 패턴입니다. "한 번에 완성"이 아니라 "조금씩 보면서 조정".
+    </div>
+  </div>
+
+  <!-- Loop SVG (화살표 작게, 선 짧게) -->
   <div style="max-width:780px;margin:0 auto 1.2rem">
-  <svg viewBox="0 0 780 230" style="width:100%;height:auto;display:block">
+  <svg viewBox="0 0 780 240" style="width:100%;height:auto;display:block">
     <defs>
-      <marker id="rc-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-        <path d="M 0 0 L 10 5 L 0 10 z" fill="#7c6cf0"/>
+      <marker id="rc-arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+        <path d="M 0 0 L 8 4 L 0 8 z" fill="#7c6cf0"/>
+      </marker>
+      <marker id="rc-arr-teal" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+        <path d="M 0 0 L 8 4 L 0 8 z" fill="#2dd4bf"/>
       </marker>
     </defs>
-    <!-- 4 nodes in circular flow -->
-    <circle cx="100" cy="115" r="55" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="2"/>
-    <text x="100" y="108" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#7c6cf0" letter-spacing="1.5">THOUGHT</text>
-    <text x="100" y="126" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">생각</text>
+    <!-- 3 main nodes — circular flow -->
+    <circle cx="120" cy="120" r="50" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="2"/>
+    <text x="120" y="113" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#7c6cf0" letter-spacing="1.5">THOUGHT</text>
+    <text x="120" y="131" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="12" fill="#cdd1e0">생각</text>
 
-    <circle cx="320" cy="55" r="55" fill="#7c6cf033" stroke="#7c6cf0" stroke-width="2"/>
-    <text x="320" y="48" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#7c6cf0" letter-spacing="1.5">ACTION</text>
-    <text x="320" y="66" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">행동</text>
+    <circle cx="320" cy="60" r="50" fill="#7c6cf033" stroke="#7c6cf0" stroke-width="2"/>
+    <text x="320" y="53" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#7c6cf0" letter-spacing="1.5">ACTION</text>
+    <text x="320" y="71" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="12" fill="#cdd1e0">행동</text>
 
-    <circle cx="540" cy="115" r="55" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="2"/>
-    <text x="540" y="108" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#7c6cf0" letter-spacing="1.5">OBSERVATION</text>
-    <text x="540" y="126" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">관찰</text>
+    <circle cx="520" cy="120" r="50" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="2"/>
+    <text x="520" y="113" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#7c6cf0" letter-spacing="1.5">OBSERVE</text>
+    <text x="520" y="131" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="12" fill="#cdd1e0">관찰</text>
 
-    <circle cx="320" cy="175" r="40" fill="#7c6cf033" stroke="#7c6cf0" stroke-width="2"/>
-    <text x="320" y="170" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#7c6cf0" letter-spacing="1">DECIDE</text>
-    <text x="320" y="186" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#cdd1e0">계속? 종료?</text>
+    <circle cx="320" cy="195" r="35" fill="#7c6cf033" stroke="#7c6cf0" stroke-width="2"/>
+    <text x="320" y="190" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#7c6cf0">DECIDE</text>
+    <text x="320" y="206" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#cdd1e0">계속? 종료?</text>
 
-    <!-- Arrows -->
-    <path d="M 145 88 Q 220 50 270 50" stroke="#7c6cf0" stroke-width="2" fill="none" marker-end="url(#rc-arr)"/>
-    <path d="M 370 50 Q 470 50 510 88" stroke="#7c6cf0" stroke-width="2" fill="none" marker-end="url(#rc-arr)"/>
-    <path d="M 510 145 Q 440 175 360 175" stroke="#7c6cf0" stroke-width="2" fill="none" marker-end="url(#rc-arr)"/>
-    <path d="M 280 175 Q 180 170 130 145" stroke="#7c6cf0" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#rc-arr)"/>
-    <text x="200" y="170" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#7d8298" font-style="italic">계속 → 다음 Thought</text>
+    <!-- Curved arrows — short, no overlap -->
+    <path d="M 162 90 Q 230 55 268 55" stroke="#7c6cf0" stroke-width="1.7" fill="none" marker-end="url(#rc-arr)"/>
+    <path d="M 372 55 Q 450 55 478 90" stroke="#7c6cf0" stroke-width="1.7" fill="none" marker-end="url(#rc-arr)"/>
+    <path d="M 490 160 Q 420 195 358 195" stroke="#7c6cf0" stroke-width="1.7" fill="none" marker-end="url(#rc-arr)"/>
+    <path d="M 282 195 Q 195 195 152 158" stroke="#7c6cf0" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#rc-arr)"/>
+    <text x="195" y="184" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#7d8298" font-style="italic">계속 → 다시 생각</text>
 
     <!-- Final answer -->
-    <rect x="630" y="160" width="140" height="40" rx="10" fill="#2dd4bf1a" stroke="#2dd4bf" stroke-width="1.5"/>
-    <text x="700" y="178" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#2dd4bf">FINAL ANSWER</text>
-    <text x="700" y="194" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#cdd1e0">종료 → 답</text>
-    <line x1="360" y1="190" x2="625" y2="180" stroke="#2dd4bf" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#rc-arr)"/>
+    <rect x="615" y="172" width="140" height="46" rx="10" fill="#2dd4bf1a" stroke="#2dd4bf" stroke-width="1.5"/>
+    <text x="685" y="192" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#2dd4bf">FINAL ANSWER</text>
+    <text x="685" y="208" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">완료 → 답 출력</text>
+    <line x1="358" y1="207" x2="608" y2="195" stroke="#2dd4bf" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#rc-arr-teal)"/>
+    <text x="475" y="217" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#7d8298" font-style="italic">종료</text>
   </svg>
   </div>
 
@@ -434,6 +447,35 @@
     ReAct에 <strong style="color:var(--violet)">"자기 비판"</strong> 단계를 추가. LLM은 자기가 만든 답을 평가하는 것을 처음부터 답을 만드는 것보다 잘합니다. 비용은 2~3배지만 정확도가 비대칭으로 ↑. <strong>Anthropic의 산업 표준 분류(2024-12)에선 "Evaluator-Optimizer"</strong>로 명명됨.
   </div>
 
+  <!-- 직관 비유 박스 -->
+  <div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:4px solid var(--violet);border-radius:0 12px 12px 0;margin-bottom:1.2rem">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.6rem">🎯 직관으로 이해하기 — 작가의 퇴고(推敲)</div>
+    <div style="font-size:.83rem;color:var(--text);line-height:1.9">
+      작가는 첫 초안을 그대로 출판하지 않습니다. <strong style="color:var(--violet)">초안 → 다시 읽기 → 어색한 부분 발견 → 고치기</strong>를 여러 번 반복합니다. 첫 초안과 3차 퇴고본의 격차는 종종 매우 큽니다. <strong>"내가 쓴 글을 읽는 일"은 "처음 쓰는 일"보다 훨씬 쉽습니다.</strong> LLM도 마찬가지 — 답을 생성하는 것보다 답을 검토하는 것을 더 잘합니다. 그래서 자기 비판 단계 한 번이 정확도를 비대칭으로 끌어올립니다.
+    </div>
+  </div>
+
+  <!-- 구체 전후 예시 -->
+  <div style="margin-bottom:1.2rem">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:1.5px;text-align:center;margin-bottom:.7rem">📖 구체 예시 — Reflection이 어떻게 답을 고치나</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+      <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--accent-border);border-radius:10px">
+        <div style="font-family:var(--mono);font-size:.7rem;color:var(--accent);margin-bottom:.5rem">📝 1차 답변 (Generate)</div>
+        <div style="font-size:.82rem;color:var(--text);line-height:1.8;margin-bottom:.5rem">"한국에서 가장 높은 산은 한라산(<strong>1950m</strong>)이며, 제주도에 위치합니다."</div>
+        <div style="font-size:.72rem;color:var(--accent);font-style:italic">사실 오류 — 실제는 1947m</div>
+      </div>
+      <div style="padding:1rem 1.2rem;background:var(--violet-bg);border:1.5px solid var(--violet);border-radius:10px">
+        <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);margin-bottom:.5rem">🪞 자기 비판 (Reflect)</div>
+        <div style="font-size:.82rem;color:var(--text);line-height:1.8;margin-bottom:.5rem">"높이 숫자를 확실히 알지 못한 채 추정으로 적었음. 검증 필요."</div>
+        <div style="font-size:.72rem;color:var(--violet);font-style:italic">→ 도구로 다시 확인 후 수정</div>
+      </div>
+    </div>
+    <div style="margin-top:.7rem;padding:.9rem 1.2rem;background:var(--teal-bg);border:1.5px solid var(--teal);border-radius:10px;text-align:center">
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--teal);margin-bottom:.4rem">✏️ 최종 답변 (Refine)</div>
+      <div style="font-size:.82rem;color:var(--text);line-height:1.8">"한국에서 가장 높은 산은 한라산(<strong style="color:var(--teal)">1947m</strong>, 제주도)입니다."</div>
+    </div>
+  </div>
+
   <!-- Generate → Reflect → Refine flow -->
   <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:.5rem;align-items:center;text-align:center;margin-bottom:1.2rem">
     <div style="padding:.9rem;background:var(--card);border:1px solid var(--border);border-radius:10px">
@@ -441,13 +483,13 @@
       <div style="font-size:.78rem;font-weight:700;color:var(--white)">Generate</div>
       <div style="font-size:.66rem;color:var(--text-dim);margin-top:.2rem">첫 답변</div>
     </div>
-    <div style="font-size:1.3rem;color:var(--text-dim)">→</div>
+    <div style="font-size:1.1rem;color:var(--violet)">▸</div>
     <div style="padding:.9rem;background:var(--violet-bg);border:1.5px solid var(--violet);border-radius:10px">
       <div style="font-size:1.4rem;margin-bottom:.3rem">🪞</div>
       <div style="font-size:.78rem;font-weight:700;color:var(--violet)">Reflect</div>
       <div style="font-size:.66rem;color:var(--text-dim);margin-top:.2rem">자기 비판</div>
     </div>
-    <div style="font-size:1.3rem;color:var(--text-dim)">→</div>
+    <div style="font-size:1.1rem;color:var(--violet)">▸</div>
     <div style="padding:.9rem;background:var(--card);border:1px solid var(--border);border-radius:10px">
       <div style="font-size:1.4rem;margin-bottom:.3rem">✏️</div>
       <div style="font-size:.78rem;font-weight:700;color:var(--white)">Refine</div>
@@ -508,48 +550,56 @@
     ReAct가 매 단계 계획+실행을 섞는다면, Plan-and-Execute는 <strong style="color:var(--violet)">먼저 전체 계획, 그다음 단계별 실행</strong>. 2025-2026 시점에 <strong>LLMCompiler가 LangGraph 공식 튜토리얼에 흡수</strong>되고, <strong>Deep Agents</strong>가 long-horizon 작업의 새 표준이 됐습니다.
   </div>
 
-  <!-- LLMCompiler DAG SVG -->
+  <!-- 직관 비유 박스 -->
+  <div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:4px solid var(--violet);border-radius:0 12px 12px 0;margin-bottom:1.2rem">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.6rem">🎯 직관으로 이해하기 — 여행 일정표 vs 즉흥 운전</div>
+    <div style="font-size:.83rem;color:var(--text);line-height:1.9">
+      도쿄 5일 여행을 간다고 가정해보세요. <strong style="color:var(--violet)">ReAct</strong>는 "공항 도착 → 여기 가볼까? → 가서 보고 결정" 식의 즉흥 여행 — 빠르지만 길 잃기 쉽고 시간 낭비도 많습니다. <strong style="color:var(--violet)">Plan-and-Execute</strong>는 "출발 전 5일치 일정표 작성 → 매일 그대로 진행" — 큰 그림을 한 번에 잡고, 각 일정은 최소한의 의사결정만. <strong>핵심 차이: 계획을 매 step 다시 짜느냐(ReAct) vs 처음 한 번에 짜느냐(P&amp;E).</strong>
+    </div>
+  </div>
+
+  <!-- LLMCompiler DAG SVG (화살표 작게, 선 짧게) -->
   <div style="max-width:840px;margin:0 auto 1.2rem">
   <div style="font-size:.8rem;color:var(--text-dim);text-align:center;margin-bottom:.8rem">LLMCompiler — Planner / Task Fetching / Joiner DAG 구조</div>
-  <svg viewBox="0 0 840 220" style="width:100%;height:auto;display:block">
+  <svg viewBox="0 0 860 230" style="width:100%;height:auto;display:block">
     <defs>
-      <marker id="pe-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-        <path d="M 0 0 L 10 5 L 0 10 z" fill="#7c6cf0"/>
+      <marker id="pe-arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+        <path d="M 0 0 L 8 4 L 0 8 z" fill="#7c6cf0"/>
       </marker>
     </defs>
     <!-- User -->
-    <rect x="20" y="90" width="100" height="40" rx="10" fill="#131620" stroke="#7c6cf0" stroke-width="1.5"/>
-    <text x="70" y="115" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="13" font-weight="700" fill="#cdd1e0">사용자 질문</text>
-    <line x1="125" y1="110" x2="155" y2="110" stroke="#7c6cf0" stroke-width="2" marker-end="url(#pe-arr)"/>
+    <rect x="10" y="100" width="100" height="42" rx="10" fill="#131620" stroke="#7c6cf0" stroke-width="1.5"/>
+    <text x="60" y="126" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="13" font-weight="700" fill="#cdd1e0">사용자 질문</text>
+    <line x1="115" y1="121" x2="148" y2="121" stroke="#7c6cf0" stroke-width="1.7" marker-end="url(#pe-arr)"/>
     <!-- Planner -->
-    <rect x="160" y="80" width="140" height="60" rx="12" fill="#7c6cf033" stroke="#7c6cf0" stroke-width="2"/>
-    <text x="230" y="105" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#7c6cf0" letter-spacing="1.5">PLANNER</text>
-    <text x="230" y="125" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">큰 모델 1회</text>
-    <!-- 3 task arrows -->
-    <line x1="305" y1="95" x2="345" y2="50" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#pe-arr)"/>
-    <line x1="305" y1="110" x2="345" y2="110" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#pe-arr)"/>
-    <line x1="305" y1="125" x2="345" y2="170" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#pe-arr)"/>
+    <rect x="155" y="95" width="140" height="55" rx="12" fill="#7c6cf033" stroke="#7c6cf0" stroke-width="2"/>
+    <text x="225" y="118" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#7c6cf0" letter-spacing="1.5">PLANNER</text>
+    <text x="225" y="138" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">큰 모델 · 1회</text>
+    <!-- 3 task arrows (short, no overlap) -->
+    <line x1="300" y1="108" x2="343" y2="60" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#pe-arr)"/>
+    <line x1="300" y1="122" x2="343" y2="122" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#pe-arr)"/>
+    <line x1="300" y1="138" x2="343" y2="186" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#pe-arr)"/>
     <!-- 3 parallel tasks -->
-    <rect x="350" y="30" width="170" height="40" rx="10" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="1.5"/>
-    <text x="435" y="55" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="12" fill="#cdd1e0">Task 1 — 작은 모델</text>
-    <rect x="350" y="90" width="170" height="40" rx="10" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="1.5"/>
-    <text x="435" y="115" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="12" fill="#cdd1e0">Task 2 — 작은 모델</text>
-    <rect x="350" y="150" width="170" height="40" rx="10" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="1.5"/>
-    <text x="435" y="175" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="12" fill="#cdd1e0">Task 3 — 작은 모델</text>
+    <rect x="350" y="40" width="170" height="42" rx="10" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="1.5"/>
+    <text x="435" y="65" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="12" fill="#cdd1e0">Task 1 — 작은 모델</text>
+    <rect x="350" y="100" width="170" height="42" rx="10" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="1.5"/>
+    <text x="435" y="125" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="12" fill="#cdd1e0">Task 2 — 작은 모델</text>
+    <rect x="350" y="160" width="170" height="42" rx="10" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="1.5"/>
+    <text x="435" y="185" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="12" fill="#cdd1e0">Task 3 — 작은 모델</text>
     <!-- Side label parallel -->
-    <text x="435" y="14" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#fbbf24" letter-spacing="1.5">⟨ PARALLEL — 병렬 실행 ⟩</text>
-    <!-- arrows to joiner -->
-    <line x1="525" y1="50" x2="565" y2="95" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#pe-arr)"/>
-    <line x1="525" y1="110" x2="565" y2="110" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#pe-arr)"/>
-    <line x1="525" y1="170" x2="565" y2="125" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#pe-arr)"/>
+    <text x="435" y="22" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#fbbf24" letter-spacing="1.5">⟨ PARALLEL — 병렬 실행 ⟩</text>
+    <!-- arrows to joiner (short) -->
+    <line x1="525" y1="60" x2="568" y2="108" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#pe-arr)"/>
+    <line x1="525" y1="122" x2="568" y2="122" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#pe-arr)"/>
+    <line x1="525" y1="186" x2="568" y2="138" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#pe-arr)"/>
     <!-- Joiner -->
-    <rect x="570" y="80" width="140" height="60" rx="12" fill="#7c6cf033" stroke="#7c6cf0" stroke-width="2"/>
-    <text x="640" y="105" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#7c6cf0" letter-spacing="1.5">JOINER</text>
-    <text x="640" y="125" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">결합 + 응답</text>
+    <rect x="575" y="95" width="140" height="55" rx="12" fill="#7c6cf033" stroke="#7c6cf0" stroke-width="2"/>
+    <text x="645" y="118" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#7c6cf0" letter-spacing="1.5">JOINER</text>
+    <text x="645" y="138" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">결합 + 응답</text>
     <!-- Output -->
-    <line x1="715" y1="110" x2="745" y2="110" stroke="#7c6cf0" stroke-width="2" marker-end="url(#pe-arr)"/>
-    <rect x="750" y="90" width="80" height="40" rx="10" fill="#2dd4bf1a" stroke="#2dd4bf" stroke-width="1.5"/>
-    <text x="790" y="115" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="13" font-weight="700" fill="#cdd1e0">최종 답</text>
+    <line x1="720" y1="121" x2="753" y2="121" stroke="#7c6cf0" stroke-width="1.7" marker-end="url(#pe-arr)"/>
+    <rect x="760" y="100" width="90" height="42" rx="10" fill="#2dd4bf1a" stroke="#2dd4bf" stroke-width="1.5"/>
+    <text x="805" y="126" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="13" font-weight="700" fill="#cdd1e0">최종 답</text>
   </svg>
   </div>
 
@@ -605,14 +655,75 @@
     LLM이 외부 함수(검색·계산·API)를 호출하는 패턴. 모든 frontier LLM이 native 지원. <strong style="color:var(--violet)">2024-11 Anthropic이 발표한 MCP가 1년 만에 산업 표준</strong>이 됐습니다 — 2025-12에는 Linux Foundation이 인수.
   </div>
 
-  <!-- Basic example -->
+  <!-- 직관 비유 박스 -->
+  <div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:4px solid var(--violet);border-radius:0 12px 12px 0;margin-bottom:1.2rem">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.6rem">🎯 직관으로 이해하기 — 공구 상자</div>
+    <div style="font-size:.83rem;color:var(--text);line-height:1.9">
+      목수의 공구 상자엔 망치·드라이버·줄자·전동 드릴이 있습니다. <strong style="color:var(--violet)">상황에 맞는 공구를 꺼내 쓸 뿐, 모든 일을 망치로 하지는 않습니다.</strong> LLM의 Tool Use도 같습니다 — "날씨 알려줘"엔 <code>get_weather()</code>, "메일 보내줘"엔 <code>send_email()</code>. <strong>LLM은 사용 가능한 공구 목록(name + 설명)을 받고, 질문에 맞춰 알아서 꺼내 씁니다.</strong> MCP는 이 공구 상자를 <strong>표준 규격</strong>으로 만든 것 — 어느 LLM에 끼워도 같은 공구가 작동합니다.
+    </div>
+  </div>
+
+  <!-- Tool Use Flow SVG -->
+  <div style="max-width:840px;margin:0 auto 1.2rem">
+  <div style="font-size:.8rem;color:var(--text-dim);text-align:center;margin-bottom:.8rem">Tool Use 흐름 — 사용자 질문 → LLM 결정 → 도구 실행 → LLM 답</div>
+  <svg viewBox="0 0 840 250" style="width:100%;height:auto;display:block">
+    <defs>
+      <marker id="tu-arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+        <path d="M 0 0 L 8 4 L 0 8 z" fill="#7c6cf0"/>
+      </marker>
+    </defs>
+    <!-- Step 1: User -->
+    <rect x="10" y="100" width="120" height="55" rx="12" fill="#131620" stroke="#7c6cf0" stroke-width="1.5"/>
+    <text x="70" y="121" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#7c6cf0">① 사용자</text>
+    <text x="70" y="142" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">"서울 날씨?"</text>
+    <line x1="135" y1="127" x2="168" y2="127" stroke="#7c6cf0" stroke-width="1.7" marker-end="url(#tu-arr)"/>
+
+    <!-- Step 2: LLM with tool list -->
+    <rect x="175" y="95" width="170" height="65" rx="12" fill="#7c6cf033" stroke="#7c6cf0" stroke-width="2"/>
+    <text x="260" y="115" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#7c6cf0">② LLM (도구 결정)</text>
+    <text x="260" y="135" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">"get_weather() 필요"</text>
+    <text x="260" y="151" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="9" fill="#7d8298">+ city="서울"</text>
+
+    <!-- Tool list (sidebar) -->
+    <rect x="175" y="20" width="170" height="55" rx="10" fill="#fbbf241a" stroke="#fbbf24" stroke-width="1" stroke-dasharray="3,2"/>
+    <text x="260" y="40" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#fbbf24" letter-spacing="1.5">사용 가능 도구 목록</text>
+    <text x="260" y="55" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#cdd1e0">get_weather · send_email</text>
+    <text x="260" y="69" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#cdd1e0">search · calculate · ...</text>
+    <line x1="260" y1="80" x2="260" y2="91" stroke="#fbbf24" stroke-width="1" stroke-dasharray="2,2"/>
+
+    <!-- Arrow to tool -->
+    <line x1="350" y1="127" x2="383" y2="127" stroke="#7c6cf0" stroke-width="1.7" marker-end="url(#tu-arr)"/>
+
+    <!-- Step 3: Tool execution -->
+    <rect x="390" y="95" width="170" height="65" rx="12" fill="#fbbf2433" stroke="#fbbf24" stroke-width="2"/>
+    <text x="475" y="115" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#fbbf24">③ 도구 실행</text>
+    <text x="475" y="135" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">get_weather("서울")</text>
+    <text x="475" y="151" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="9" fill="#7d8298">→ API 호출</text>
+
+    <!-- Arrow back to LLM with result -->
+    <line x1="565" y1="127" x2="598" y2="127" stroke="#7c6cf0" stroke-width="1.7" marker-end="url(#tu-arr)"/>
+
+    <!-- Step 4: LLM gets result -->
+    <rect x="605" y="95" width="170" height="65" rx="12" fill="#7c6cf033" stroke="#7c6cf0" stroke-width="2"/>
+    <text x="690" y="115" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#7c6cf0">④ LLM (답 생성)</text>
+    <text x="690" y="135" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">결과: 18°C, 맑음</text>
+    <text x="690" y="151" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="9" fill="#7d8298">→ 자연어로 답변</text>
+
+    <!-- Final answer -->
+    <line x1="690" y1="165" x2="690" y2="195" stroke="#2dd4bf" stroke-width="1.7" marker-end="url(#tu-arr)"/>
+    <rect x="600" y="200" width="180" height="40" rx="10" fill="#2dd4bf1a" stroke="#2dd4bf" stroke-width="1.5"/>
+    <text x="690" y="225" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">"오늘 서울은 18°C, 맑습니다"</text>
+  </svg>
+  </div>
+
+  <!-- Concrete code example -->
   <div style="background:var(--surface);border-radius:10px;padding:1.2rem;font-family:var(--mono);font-size:.78rem;line-height:1.85;color:var(--text);margin-bottom:1.2rem">
-    <span style="color:var(--text-dim)">// LLM이 함수를 "선언"으로 받음</span><br>
+    <span style="color:var(--text-dim)">// 1단계: LLM이 함수를 "선언"으로 받음</span><br>
     <span style="color:var(--violet)">tools = [</span><br>
     &nbsp;&nbsp;{ <span style="color:var(--accent)">name</span>: "get_weather", <span style="color:var(--accent)">params</span>: ["city"] },<br>
     &nbsp;&nbsp;{ <span style="color:var(--accent)">name</span>: "send_email", <span style="color:var(--accent)">params</span>: ["to", "body"] }<br>
     <span style="color:var(--violet)">]</span><br><br>
-    <span style="color:var(--text-dim)">// 사용자 질문 → LLM이 어떤 도구를 부를지 결정</span><br>
+    <span style="color:var(--text-dim)">// 2단계: 사용자 질문 → LLM이 어떤 도구를 부를지 결정</span><br>
     <span style="color:var(--teal)">user:</span> "오늘 서울 날씨 알려줘"<br>
     <span style="color:var(--violet)">LLM:</span> &nbsp;&nbsp;tool_call: get_weather(city="서울")
   </div>
@@ -712,13 +823,21 @@
     상위 "오케스트레이터"가 지휘하고 하위 "워커들"이 전문 작업을 수행. <strong style="color:var(--violet)">2026년 프로덕션 멀티 에이전트의 사실상 표준.</strong> Anthropic의 자체 Research System 사례에서 단일 Opus 4 대비 <strong style="color:var(--violet)">+90.2%</strong>의 성능을 보고 — 단 비용은 <strong style="color:var(--accent)">15× chat / 4× single-agent</strong>.
   </div>
 
-  <!-- Anthropic case study SVG (Lead + Subagents) -->
+  <!-- 직관 비유 박스 -->
+  <div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:4px solid var(--violet);border-radius:0 12px 12px 0;margin-bottom:1.2rem">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.6rem">🎯 직관으로 이해하기 — 영화 감독과 배우들</div>
+    <div style="font-size:.83rem;color:var(--text);line-height:1.9">
+      한 사람이 영화 속 모든 역할(감독·시나리오·연기·촬영·편집)을 다 하면 어떨까요? 가능은 하지만 품질·속도 모두 한계가 있습니다. <strong style="color:var(--violet)">실제 영화는 감독(Orchestrator)이 전체 그림을 그리고, 각 분야 전문가(Worker — 배우·촬영감독·편집자)가 자기 영역만 깊이 파고듭니다.</strong> 멀티에이전트도 동일 — Lead 에이전트가 작업을 분해해서 전문 Subagent에 위임합니다. <strong>주의:</strong> 영화 한 편에 100명이 동원되듯 비용도 15배 늡니다. 단순 작업엔 영화 같은 조직이 필요 없습니다.
+    </div>
+  </div>
+
+  <!-- Anthropic case study SVG (Lead + Subagents, 화살표 작게 짧게) -->
   <div style="max-width:840px;margin:0 auto 1.2rem">
   <div style="font-size:.8rem;color:var(--text-dim);text-align:center;margin-bottom:.8rem">Anthropic Multi-Agent Research System (2025-06) — Claude Opus 4 lead + Claude Sonnet 4 subagents</div>
-  <svg viewBox="0 0 840 270" style="width:100%;height:auto;display:block">
+  <svg viewBox="0 0 840 280" style="width:100%;height:auto;display:block">
     <defs>
-      <marker id="ow-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-        <path d="M 0 0 L 10 5 L 0 10 z" fill="#7c6cf0"/>
+      <marker id="ow-arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+        <path d="M 0 0 L 8 4 L 0 8 z" fill="#7c6cf0"/>
       </marker>
     </defs>
     <!-- Lead orchestrator -->
@@ -727,32 +846,32 @@
     <text x="420" y="65" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="13" font-weight="700" fill="#cdd1e0">Claude Opus 4</text>
     <text x="420" y="80" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#7d8298">계획 · 위임 · 검증 · 통합</text>
 
-    <!-- Arrows down -->
-    <line x1="350" y1="88" x2="160" y2="135" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#ow-arr)"/>
-    <line x1="420" y1="88" x2="420" y2="135" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#ow-arr)"/>
-    <line x1="490" y1="88" x2="680" y2="135" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#ow-arr)"/>
+    <!-- Arrows down (short, no overlap) -->
+    <line x1="345" y1="92" x2="180" y2="138" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#ow-arr)"/>
+    <line x1="420" y1="92" x2="420" y2="138" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#ow-arr)"/>
+    <line x1="495" y1="92" x2="660" y2="138" stroke="#7c6cf0" stroke-width="1.5" marker-end="url(#ow-arr)"/>
 
     <!-- Subagents -->
-    <rect x="60" y="140" width="200" height="55" rx="12" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="1.5"/>
-    <text x="160" y="162" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#7c6cf0">SUBAGENT 1 — 검색</text>
-    <text x="160" y="180" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">Claude Sonnet 4</text>
+    <rect x="60" y="145" width="200" height="55" rx="12" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="1.5"/>
+    <text x="160" y="167" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#7c6cf0">SUBAGENT 1 — 검색</text>
+    <text x="160" y="185" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">Claude Sonnet 4</text>
 
-    <rect x="320" y="140" width="200" height="55" rx="12" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="1.5"/>
-    <text x="420" y="162" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#7c6cf0">SUBAGENT 2 — 분석</text>
-    <text x="420" y="180" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">Claude Sonnet 4</text>
+    <rect x="320" y="145" width="200" height="55" rx="12" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="1.5"/>
+    <text x="420" y="167" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#7c6cf0">SUBAGENT 2 — 분석</text>
+    <text x="420" y="185" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">Claude Sonnet 4</text>
 
-    <rect x="580" y="140" width="200" height="55" rx="12" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="1.5"/>
-    <text x="680" y="162" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#7c6cf0">SUBAGENT 3 — 작성</text>
-    <text x="680" y="180" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">Claude Sonnet 4</text>
+    <rect x="580" y="145" width="200" height="55" rx="12" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="1.5"/>
+    <text x="680" y="167" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#7c6cf0">SUBAGENT 3 — 작성</text>
+    <text x="680" y="185" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">Claude Sonnet 4</text>
 
     <!-- Tools per subagent -->
-    <text x="160" y="220" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#7d8298">3-10 tool calls</text>
-    <text x="420" y="220" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#7d8298">10-15 tool calls</text>
-    <text x="680" y="220" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#7d8298">병렬 실행</text>
+    <text x="160" y="225" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#7d8298">3-10 tool calls</text>
+    <text x="420" y="225" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#7d8298">10-15 tool calls</text>
+    <text x="680" y="225" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#7d8298">병렬 실행</text>
 
     <!-- A2A protocol label -->
-    <rect x="280" y="240" width="280" height="25" rx="10" fill="#fbbf241a" stroke="#fbbf24" stroke-width="1" stroke-dasharray="3,2"/>
-    <text x="420" y="257" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#fbbf24">⚡ A2A 프로토콜 (Linux Foundation, 2025-12)</text>
+    <rect x="280" y="245" width="280" height="28" rx="10" fill="#fbbf241a" stroke="#fbbf24" stroke-width="1" stroke-dasharray="3,2"/>
+    <text x="420" y="263" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#fbbf24">⚡ A2A 프로토콜 (Linux Foundation, 2025-12)</text>
   </svg>
   </div>
 
