@@ -79,7 +79,7 @@
 
 ## Reference
 
-- [Part 4 — Ch.08 Evaluation — 비결정 시스템 평가](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/) ⭐
+- [Part 4 — Ch.10 Evaluation — 비결정 시스템 평가](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch10) ⭐
 
 ## 연관 entity
 

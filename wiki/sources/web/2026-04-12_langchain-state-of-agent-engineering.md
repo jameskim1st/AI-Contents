@@ -5,7 +5,7 @@ date_original: 2026-Q1
 date_ingested: 2026-04-12
 source_type: web
 url_or_path: https://www.langchain.com/state-of-agent-engineering
-used_for: Part 4 AI Agents 실전 (Ch.01, Ch.03, Ch.07, Ch.08)
+used_for: Part 4 AI Agents 실전 (Ch.01, Ch.08, Ch.09, Ch.10, Ch.12)
 ---
 
 # LangChain · State of Agent Engineering 2026
@@ -51,7 +51,7 @@ used_for: Part 4 AI Agents 실전 (Ch.01, Ch.03, Ch.07, Ch.08)
 ## Chapters created/updated
 
 - Part 4 Ch.01 — 왜 PoC ≠ 프로덕션
-- Part 4 Ch.03 — Narrow Scope 원칙
-- Part 4 Ch.07 — Observability
-- Part 4 Ch.08 — Evaluation
-- Part 4 Ch.10 — 프레임워크 카탈로그
+- Part 4 Ch.08 — Narrow Scope 원칙
+- Part 4 Ch.09 — Observability
+- Part 4 Ch.10 — Evaluation
+- Part 4 Ch.12 — 프레임워크 카탈로그

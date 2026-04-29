@@ -120,8 +120,8 @@ LangGraph로 구현되는 대표 에이전트 패턴:
 
 ## Reference
 
-- [Part 4 — Ch.11 LangGraph 딥다이브](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch11)
-- [Part 4 — Ch.10 2026 프레임워크 카탈로그](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/)
+- [Part 4 — Ch.04 LangGraph 딥다이브](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch4)
+- [Part 4 — Ch.12 2026 프레임워크 카탈로그](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch12)
 
 ## 연관 entity
 

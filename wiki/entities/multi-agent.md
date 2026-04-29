@@ -41,15 +41,15 @@
 ### 본 콘텐츠에서
 
 - Part 3 Ch.07 — **개념** ("에이전트가 서로 협업한다")
-- Part 4 Ch.05 — **운영** (A2A로 어떻게 표준화하나)
+- Part 4 Ch.06 — **운영** (A2A로 어떻게 표준화하나)
 
 같은 주제의 두 시점.
 
 ## Reference
 
 - [Part 3 — Ch.07 Multi-Agent 협업](https://ai-contents-wine.vercel.app/03-ai-agents/) (기초)
-- [Part 4 — Ch.02 디자인 패턴 5선](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/)
-- [Part 4 — Ch.05 A2A 프로토콜](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/) (운영)
+- [Part 4 — Ch.03 디자인 패턴 5선](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch3)
+- [Part 4 — Ch.06 A2A 프로토콜](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch6) (운영)
 - [Part 6 — Ch.07 멀티 에이전트 활용](https://ai-contents-wine.vercel.app/06-vibe-master/)
 
 ## 연관 entity

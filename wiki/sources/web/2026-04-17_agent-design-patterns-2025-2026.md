@@ -12,7 +12,7 @@ used_for: src/content/ai-agents-advanced.html Ch.02 · wiki/entities/{react,refl
 
 ## Context
 
-본 사이트의 Part 4 Ch.02 "에이전트 디자인 패턴 5선 — 2026년 표준"을 2025-2026 시점 사실 기반으로 보강하기 위한 리서치. 기존 챕터는 패턴별 개요만 있고, **2025년의 Pre-Act/MAR/Deep Agents/MCP 표준화/Anthropic 5패턴 분류 정착** 등 *최근 1년의 결정적 변화*를 반영하지 못했음. 본 소스에 모든 정량 데이터·인용·논문·블로그 URL을 보존해 추후 Lint·재사용 근거가 됨.
+본 사이트의 Part 4 Ch.03 "에이전트 디자인 패턴 5선 — 2026년 표준"을 2025-2026 시점 사실 기반으로 보강하기 위한 리서치. 기존 챕터는 패턴별 개요만 있고, **2025년의 Pre-Act/MAR/Deep Agents/MCP 표준화/Anthropic 5패턴 분류 정착** 등 *최근 1년의 결정적 변화*를 반영하지 못했음. 본 소스에 모든 정량 데이터·인용·논문·블로그 URL을 보존해 추후 Lint·재사용 근거가 됨.
 
 ## Key Points
 
@@ -232,7 +232,7 @@ MCP와 함께 Linux Foundation 표준 합류 (2025-12). 에이전트 간 통신 
 ### ReAct 한국어 해설 (2026-04-17 추가)
 - https://brunch.co.kr/@aideveloper/122 — ReAct 정의·동작·CoT/Function Calling 비교, CrewAI 기반 "2024 AI 조사" 사례
 - https://www.leewayhertz.com/react-agents-vs-function-calling-agents/ — Reason→Act→Observe 루프 상세, Princeton+Google Brain 4 벤치마크(HotpotQA/FEVER/ALFWorld/WebShop) 평가 결과 (+34% / +10% 성능 향상, CoT 환각 극복, one/two-shot으로 imitation/RL 능가, ReAct+CoT 하이브리드 최고 성능)
-- 다이어그램 참조: Task → Agent[LLM ↔ Tools] → Environment with Action/Result loop, LLM has Reasoning self-loop. 본 사이트 Part 4 Ch.02 ReAct 아키텍처 SVG의 직접 참조본.
+- 다이어그램 참조: Task → Agent[LLM ↔ Tools] → Environment with Action/Result loop, LLM has Reasoning self-loop. 본 사이트 Part 4 Ch.03 ReAct 아키텍처 SVG의 직접 참조본.
 
 ## Entities created/updated
 - [react](../../entities/react.md) — Pre-Act 2025-05, LangGraph 1.0 통합 추가
@@ -242,7 +242,7 @@ MCP와 함께 Linux Foundation 표준 합류 (2025-12). 에이전트 간 통신 
 - [mcp](../../entities/mcp.md) — 1주년 사실, Linux Foundation AAIF 기증
 
 ## Chapters created/updated
-- src/content/ai-agents-advanced.html — Part 4 Ch.02 "에이전트 디자인 패턴 5선" 전면 보강
+- src/content/ai-agents-advanced.html — Part 4 Ch.03 "에이전트 디자인 패턴 5선" 전면 보강
 
 ## Meta
 

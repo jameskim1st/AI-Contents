@@ -74,7 +74,7 @@
 
 ## Reference
 
-- [Part 4 — Ch.06 Computer Use — 컴퓨터를 직접 쓰는 에이전트](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/) ⭐
+- [Part 4 — Ch.07 Computer Use — 컴퓨터를 직접 쓰는 에이전트](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch7) ⭐
 
 ## 연관 entity
 

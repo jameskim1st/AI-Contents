@@ -82,7 +82,7 @@ n8n과 [LangGraph](./langgraph.md)는 경쟁이 아니라 **상호보완적**이
 
 ## Reference
 
-- [Part 4 — Ch.12 n8n: 비주얼 AI 에이전트 빌더](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch12)
+- [Part 4 — Ch.02 n8n: 비주얼 AI 에이전트 빌더](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch2)
 
 ## 연관 entity
 

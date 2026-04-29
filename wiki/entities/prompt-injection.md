@@ -67,7 +67,7 @@
 
 ## Reference
 
-- [Part 4 — Ch.09 보안과 비용](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/) ⭐
+- [Part 4 — Ch.11 보안과 비용](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch11) ⭐
 
 ## 연관 entity
 

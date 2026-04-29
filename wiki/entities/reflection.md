@@ -39,7 +39,7 @@
 
 ## Reference
 
-- [Part 4 — Ch.02 에이전트 디자인 패턴 5선](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/)
+- [Part 4 — Ch.03 에이전트 디자인 패턴 5선](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch3)
 - [Part 6 — Ch.05 조합하는 패턴 — Plan-Critic-Build](https://ai-contents-wine.vercel.app/06-vibe-master/) (vibe-master Ch.05)
 
 ## 연관 entity
