@@ -2,7 +2,7 @@
 
 **Category:** 아키텍처 / 패턴
 **Status:** stable
-**Last updated:** 2026-04-12
+**Last updated:** 2026-04-17
 
 ## TL;DR
 
@@ -48,11 +48,22 @@
 - [Plan-Critic-Build](./plan-critic-build.md) — 코딩에서의 적용
 - [Multi-Agent](./multi-agent.md) — Critic이 별도 에이전트일 때
 
+## 2025-2026 진화
+
+- **Anthropic 5-패턴 분류 (2024-12)** — Reflection이 산업 표준 어휘로 **"Evaluator-Optimizer"**로 명명됨 (Schluntz &amp; Zhang, "Building Effective Agents").
+- **MAR (Multi-Agent Reflexion)** (arXiv:2512.20845, 2025-12) — 핵심 발견: *"단일 에이전트 self-reflection은 같은 모델이 행동·평가·반성을 모두 수행하면 동일 추론 오류가 반복되는 degeneration-of-thought 현상이 발생"*. 액팅·진단·비평·종합을 서로 다른 에이전트로 분리. **HumanEval pass@1 76.4 → 82.6 (+6.2점)** vs 단일 Reflexion. 비용은 5-7× baseline.
+- **LangGraph 표현법** — 별도 모듈 없이 conditional edge로 generator → critic → loop.
+- **CrewAI 1.1.0 (2025-12)** — EventListener에 평가 hook 통합.
+
 ## 출처
 
-- "Reflexion: Language Agents with Verbal Reinforcement Learning" (Shinn et al., 2023)
-- 5 AI Agent Design Patterns to Master by 2026 (n1n.ai)
+- Shinn et al., "Reflexion: Language Agents with Verbal Reinforcement Learning", arXiv:2303.11366, NeurIPS 2023
+- "MAR: Multi-Agent Reflexion", arXiv:2512.20845, 2025-12
+- Schluntz &amp; Zhang (Anthropic), "Building Effective Agents", 2024-12-20
+
+본 엔티티의 2025-2026 자료는 `wiki/sources/web/2026-04-17_agent-design-patterns-2025-2026.md`에 상세 보존.
 
 ## 업데이트 이력
 
 - 2026-04-12 — 신규 생성. AI Agents 실전 리서치 ingest에서.
+- 2026-04-17 — MAR 2025-12 섹션 추가 (degeneration-of-thought 비판, +6.2pt). Anthropic Evaluator-Optimizer 명칭화.

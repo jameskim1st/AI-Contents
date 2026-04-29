@@ -2,7 +2,7 @@
 
 **Category:** 아키텍처 / 패턴
 **Status:** stable
-**Last updated:** 2026-04-12
+**Last updated:** 2026-04-17
 
 ## TL;DR
 
@@ -63,11 +63,39 @@
 - [Narrow Scope](./narrow-scope.md) — 이 패턴의 철학적 기반
 - [Plan-and-Execute](./plan-and-execute.md) — 단일 에이전트에서의 유사 사고
 
+## 2025-2026 핵심 사례 — Anthropic Multi-Agent Research System
+
+Anthropic 공식 (anthropic.com/engineering/multi-agent-research-system, 2025-06):
+
+- **구조:** Claude Opus 4 lead + Claude Sonnet 4 subagents
+- **성과:** 단일 Opus 4 대비 내부 research 평가 **+90.2%**
+- **비용:** token 소비 **~15× chat, ~4× single-agent**
+- **핵심 발견:** *"Token usage가 browsing eval 분산의 80%를 설명"* → 비용 정당화의 정량 근거
+- **Scaling rule (명시적 임베딩):** simple fact-finding = 1 agent / 3-10 tool calls; comparison = 2-4 subagents / 10-15 calls each
+
+## 2025-2026 표준 프레임워크
+
+- **LangGraph Supervisor** — 그래프 기반 supervisor 패턴이 표준. Klarna · Uber 프로덕션.
+- **CrewAI Flows** (2025 후반) — **44,600+ GitHub stars, 월 4.5억 워크플로우, MCP·A2A native 지원**.
+- **OpenAI Agents SDK** (2025-03 GA, Swarm 후속) — handoffs + guardrails + tracing. 2025-10 DevDay AgentKit 발표.
+- **Microsoft Agent Framework** (2025-10 발표, AutoGen + Semantic Kernel 통합) — GA Q1 2026, multi-language (C#·Python·Java).
+- **Databricks Supervisor Agent** (2025) — enterprise blueprint로 정착.
+
+## A2A (Agent-to-Agent)
+
+MCP와 함께 **Linux Foundation 표준**으로 합류 (2025-12 AAIF). 에이전트 간 통신 프로토콜.
+
 ## 출처
 
-- 7 Agentic AI Trends to Watch in 2026 (MachineLearningMastery)
-- LangChain State of Agent Engineering 2026
+- Anthropic Engineering, "How we built our multi-agent research system", anthropic.com, 2025-06
+- LangGraph Supervisor 공식 문서 (2025)
+- Databricks Multi-Agent Supervisor Architecture 블로그 (2025)
+- OpenAI Agents SDK 공식 문서 (2025)
+- Deloitte 2026 TMT Predictions
+
+본 엔티티의 2025-2026 자료는 `wiki/sources/web/2026-04-17_agent-design-patterns-2025-2026.md`에 상세 보존.
 
 ## 업데이트 이력
 
 - 2026-04-12 — 신규 생성. AI Agents 실전 리서치 ingest에서.
+- 2026-04-17 — Anthropic 사례(+90.2%/15×), 2025 프레임워크 4종, A2A Linux Foundation 표준화 추가.

@@ -1,7 +1,7 @@
 # Index
 
 `wiki/entities/` 카탈로그 + `wiki/sources/` 링크. 카테고리별 분류.
-**Last updated:** 2026-04-16
+**Last updated:** 2026-04-17
 
 ## Raw Sources (Layer 1)
 
@@ -16,6 +16,7 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
   - [Ontology × LLM 2024-2025 Research](./sources/web/2026-04-16_ontology-llm-2024-2025-research.md) — GraphRAG·OG-RAG·자동 KG 구축
   - [Ontology — Palantir & Enterprise KG](./sources/web/2026-04-16_ontology-palantir-enterprise.md) — Palantir AIP·Neo4j·Stardog·Ontotext
   - [Ontology — Critique & Revival](./sources/web/2026-04-16_ontology-critique-revival.md) — Gruber·Shirky·Singhal 계보
+  - [Agent Design Patterns 2025-2026](./sources/web/2026-04-17_agent-design-patterns-2025-2026.md) — Pre-Act·MAR·MCP 1주년·Deep Agents·Anthropic Skills
 - **`sources/papers/`** — 학술 논문
   - [Attention Is All You Need (2017)](./sources/papers/2017_attention-is-all-you-need.md)
 
@@ -205,7 +206,7 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
 
 - entity 페이지: **116개** (115 → 116, +1 n8n)
 - 카테고리: 17개
-- Last ingest: 2026-04-16 (Ontology 2024-2025 리서치 — GraphRAG/OG-RAG/Palantir/Shirky 계보)
+- Last ingest: 2026-04-17 (에이전트 디자인 패턴 5선 2025-2026 SOTA — Pre-Act/MAR/MCP 1주년/Deep Agents/Anthropic Skills)
 - Last query: 2026-04-12 (Part 2 + Part 9 동시 합성, 45 entity 활용, 5495줄)
 - **완료 사이클 #1**: Part 4 AI Agents 실전 — Sources → Ingest → Lint → Query → Ingest-back
 - **완료 사이클 #2**: Part 8/9 Data 동시 합성 — 완전한 5단계 사이클

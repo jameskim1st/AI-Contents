@@ -2,7 +2,7 @@
 
 **Category:** 아키텍처 / 패턴
 **Status:** stable
-**Last updated:** 2026-04-12
+**Last updated:** 2026-04-17
 
 ## TL;DR
 
@@ -64,10 +64,21 @@
 
 ## 출처
 
-- "Plan-and-Solve Prompting" (Wang et al., 2023)
-- LangGraph 공식 문서
-- 5 AI Agent Design Patterns (n1n.ai, 2026)
+- Wang et al., "Plan-and-Solve Prompting", ACL 2023, arXiv:2305.04091
+- Kim et al., "LLMCompiler", 2024
+- LangChain Deep Agents 블로그 (2025), blog.langchain.com/deep-agents/
+- LangGraph 공식 LLMCompiler 튜토리얼
+
+## 2025-2026 진화
+
+- **LLMCompiler (Kim et al., 2024)** — Planner / Task Fetching Unit / Joiner 3-component DAG. ReAct·plan-and-execute·ReWOO보다 빠르고 OpenAI parallel tool calling보다도 우위. 2025-2026 LangGraph 공식 튜토리얼 내장.
+- **Deep Agents (LangChain, 2025)** — *"long-horizon work에서 ReAct 단순 루프가 깨지는 작업"*을 위한 표준. 4개 미들웨어: Planning tool + 가상 filesystem + subagent spawning + context compression. NVIDIA AI-Q와 결합한 enterprise search 사례. **"Framework가 아닌 harness"**로 평가됨.
+- **사라진 변형:** AutoGPT, BabyAGI (2023)는 사실상 시장에서 사라짐. ReWOO는 LLMCompiler에 흡수.
+- **비용 우위:** LLMCompiler는 *"DAG eager execution + LLM 호출 횟수 감소"*로 token 비용 절감. Plan-and-Execute가 ReAct보다 작은 모델 사용 가능 (planner만 큰 모델, executor는 작은 모델).
+
+본 엔티티의 2025-2026 자료는 `wiki/sources/web/2026-04-17_agent-design-patterns-2025-2026.md`에 상세 보존.
 
 ## 업데이트 이력
 
 - 2026-04-12 — 신규 생성. AI Agents 실전 리서치 ingest에서.
+- 2026-04-17 — LLMCompiler 흡수, Deep Agents 2025 진화, AutoGPT/BabyAGI 사라짐 반영.

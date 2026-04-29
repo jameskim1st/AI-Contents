@@ -2,7 +2,7 @@
 
 **Category:** 아키텍처 / 패턴
 **Status:** stable
-**Last updated:** 2026-04-12
+**Last updated:** 2026-04-17
 
 ## TL;DR
 
@@ -58,12 +58,24 @@ Final Answer: ...
 - [Augmented LLM](./augmented-llm.md) — Tools가 있어야 ReAct가 가능
 - [Memory](./memory.md) — Observation이 단기 메모리에 누적됨
 
+## 2025-2026 진화
+
+- **LangGraph 1.0 GA (2025-10)** — `create_react_agent`가 `langchain.agents`로 이동, 표준 기본 에이전트로 정착. Klarna · Uber · LinkedIn 프로덕션. zero breaking changes.
+- **Pre-Act** (Sapkota et al., arXiv:2505.09970, 2025-05) — multi-step plan을 미리 만든 뒤 매 step refine. ReAct 대비 **Action Recall +70%**, fine-tuned 70B 모델 action accuracy +69.5%, goal completion +28%. ReAct 단순 루프의 long-horizon 한계를 정면 비판.
+- **Autono** (arXiv:2504.04650, 2025-04) — robust 자율 에이전트, hallucination 감소.
+- **모델 다운사이징** — 2025 초 70B 필요 → 2026 초 32B 동작, 14B로 75%+ 신뢰도 예측.
+- **Smolagents (HuggingFace)** vs **LangGraph** — 같은 ReAct가 40 lines vs 120 lines. 프로토타이핑 vs 프로덕션 분업 정착.
+
 ## 출처
 
-- "ReAct: Synergizing Reasoning and Acting in Language Models" (Yao et al., 2022)
+- Yao et al., "ReAct: Synergizing Reasoning and Acting in Language Models", arXiv:2210.03629, ICLR 2023
+- Sapkota et al., "Pre-Act: Multi-Step Planning and Reasoning Improves Acting in LLM Agents", arXiv:2505.09970, 2025-05
+- LangGraph 1.0 GA 블로그, blog.langchain.com/langchain-langgraph-1dot0/, 2025-10
 - LangChain ReAct agent 문서
-- 5 AI Agent Design Patterns (n1n.ai, 2026)
+
+본 엔티티의 2025-2026 자료는 `wiki/sources/web/2026-04-17_agent-design-patterns-2025-2026.md`에 상세 보존.
 
 ## 업데이트 이력
 
 - 2026-04-12 — 신규 생성. AI Agents 실전 리서치 ingest에서.
+- 2026-04-17 — 2025-2026 진화 섹션 추가 (Pre-Act +70%, LangGraph 1.0, 모델 다운사이징).

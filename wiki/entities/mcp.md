@@ -2,7 +2,7 @@
 
 **Category:** 프로토콜 / 표준
 **Status:** stable (2026년 사실상 표준)
-**Last updated:** 2026-04-12
+**Last updated:** 2026-04-17
 
 ## TL;DR
 
@@ -109,6 +109,36 @@ Slack MCP 서버 — 1개. 동일.
 - MCP vs A2A: Complete Guide 2026 (DEV Community)
 - Enterprise AI Stack 2026 (Dextra Labs)
 
+## 2025-2026 1년사 — 내부 프로토콜에서 산업 표준까지
+
+- **2024-11**: Anthropic 발표
+- **2025-03**: OpenAI 공식 채택 (ChatGPT desktop)
+- **2025-04**: Google DeepMind Gemini 지원 (Demis Hassabis 발표). 이 시점 다운로드 800만+
+- **2025-11**: 1주년 — 5,800+ MCP servers · 300+ clients
+- **2025-12 ⭐**: **Linux Foundation 산하 Agentic AI Foundation (AAIF)에 기증**. 공동창립 6사: OpenAI · Anthropic · Google · Microsoft · AWS · Block. **A2A 프로토콜과 함께** 표준화.
+- **2025-12 기준**: Python+TS SDK 월 9,700만 다운로드
+
+## 2025-2026 벤치마크 동향
+
+"단일 벤치 무용, 3종 triangulation 필수"가 2025년의 합의:
+- **BFCL v3/v4** (Berkeley): single-call precision. Claude Sonnet 4 = **70.29% (3위)**, GPT-5 = 59.22% (7위)
+- **τ²-Bench** (Sierra Research, arXiv:2506.07982, 2025-06): dual-control conversational. Claude Sonnet 4.5 multi-turn 선두
+- **MCP-Bench / MCPVerse** (Accenture Labs, arXiv:2508.16260): 28 live MCP server, 250 tool 통합 멀티홉
+
+## 2025-10 — Anthropic Skills (MCP 다음 표준 시도)
+
+`name + description`만 system prompt 미리 로딩, 필요할 때 instructions/scripts/resources 동적 로딩. **2025-12 open standard 전환**. MCP 다음 Anthropic의 표준화 시도.
+
+## 출처 (추가)
+
+- modelcontextprotocol.io 공식 1주년 회고, 2025-11-25
+- Sierra Research, "τ²-Bench", arXiv:2506.07982, 2025-06
+- Accenture Labs, "MCPVerse", arXiv:2508.16260, 2025-08
+- Berkeley Function Calling Leaderboard, gorilla.cs.berkeley.edu/leaderboard.html
+
+본 엔티티의 2025-2026 자료는 `wiki/sources/web/2026-04-17_agent-design-patterns-2025-2026.md`에 상세 보존.
+
 ## 업데이트 이력
 
 - 2026-04-12 — 신규 생성. AI Agents 실전 리서치 ingest에서.
+- 2026-04-17 — 1주년 사실, Linux Foundation AAIF 기증, BFCL/τ²/MCP-Bench 벤치마크, Anthropic Skills 추가.
