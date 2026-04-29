@@ -338,11 +338,11 @@
     <strong style="color:var(--violet)">"생각한 다음 행동하고, 결과를 보고 다시 생각한다."</strong> 가장 직관적인 에이전트 루프. <strong>Klarna · Uber · LinkedIn</strong>이 LangGraph 1.0의 <code>create_react_agent</code>로 프로덕션에 배포 중.
   </div>
 
-  <!-- 직관 비유 박스 -->
+  <!-- 직관 비유 박스 — Reason/Act/Observe 3단계가 명확히 분리되도록 -->
   <div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:4px solid var(--violet);border-radius:0 12px 12px 0;margin-bottom:1.2rem">
     <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.6rem">🎯 직관으로 이해하기 — 초보 요리사의 간 맞추기</div>
     <div style="font-size:.83rem;color:var(--text);line-height:1.9">
-      레시피 없는 요리사를 떠올려보세요. ① <strong style="color:var(--violet)">맛본다</strong>(생각: "조금 싱겁네") → ② <strong style="color:var(--violet)">소금 친다</strong>(행동) → ③ <strong style="color:var(--violet)">또 맛본다</strong>(관찰: "이번엔 짜다") → ④ <strong style="color:var(--violet)">물 더 부어 희석</strong>(다음 행동). <strong>맛 → 행동 → 다시 맛 → 다시 행동.</strong> ReAct가 정확히 이 패턴입니다. "한 번에 완성"이 아니라 "조금씩 보면서 조정".
+      레시피 없는 요리사를 떠올려보세요. <strong style="color:var(--violet)">[사이클 1]</strong> ① 한 숟갈 떠서 <strong style="color:var(--violet)">맛본다</strong>(행동) → ② 혀에서 "싱겁다"는 신호를 받는다(<strong style="color:var(--violet)">관찰</strong>) → ③ "소금이 필요하다"고 판단한다(<strong style="color:var(--violet)">추론</strong>). <strong>[사이클 2]</strong> ④ 소금을 친다(행동) → ⑤ 다시 맛본다 → "짜다"(관찰) → ⑥ "물 부어 희석"(추론) … <strong>한 사이클 = 행동 → 관찰 → 추론(또는 추론 → 행동 → 관찰).</strong> "한 번에 완성"이 아니라 "조금씩 보면서 조정"하는 것 — 이게 ReAct의 본질입니다.
     </div>
   </div>
 
@@ -404,13 +404,15 @@
   </svg>
 
   <div style="margin-top:.8rem;padding:.9rem 1.1rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 10px 10px 0;font-size:.8rem;color:var(--text);line-height:1.85;max-width:880px;margin-left:auto;margin-right:auto">
-    👀 <strong style="color:var(--violet)">읽는 법:</strong> Task가 들어오면 → <strong>LLM</strong>이 머릿속(Reasoning)에서 무엇을 할지 정하고 → <strong>Tools</strong>를 통해 외부 <strong>Environment</strong>에 Action을 보내고 → 그 Result를 다시 받아 LLM에게 전달. <strong>LLM은 Environment를 직접 만지지 않습니다 — 항상 Tools를 거칩니다.</strong> 이게 ReAct의 핵심 구조.
+    👀 <strong style="color:var(--violet)">읽는 법:</strong> Task가 들어오면 → <strong>LLM</strong>이 머릿속(Reasoning)에서 무엇을 할지 정하고 → <strong>Tools</strong>를 통해 외부 <strong>Environment</strong>에 Action을 보내고 → 그 Result를 다시 받아 LLM에게 전달. <strong>LLM은 Environment를 직접 만지지 않습니다 — 항상 Tools를 거칩니다.</strong> 이게 ReAct의 핵심 구조.<br><br>
+    <span style="font-size:.74rem;color:var(--text-dim)">📌 <strong>용어 정리:</strong> 그림의 <strong>Reasoning</strong>(LLM 자기 루프)은 "한 번의 의사결정 동안 LLM 내부에서 일어나는 토큰 단위 사고"를 가리키고, 아래 3-step 카드의 <strong>Reason 단계</strong>는 "한 사이클(Reason→Act→Observe) 중 의사결정 단계"를 가리킵니다. 즉 <strong>Reason 단계 안에서 Reasoning 자기 루프가 돌아간다</strong>는 포함 관계입니다.</span>
   </div>
   </div>
 
-  <!-- Reason / Act / Observe 3-step detail cards -->
+  <!-- Reason / Act / Observe 3-step detail cards (MECE 정리: 각 단계의 책임이 겹치지 않음) -->
   <div style="margin-bottom:1.2rem">
-  <div style="font-size:.8rem;color:var(--text-dim);text-align:center;margin-bottom:.8rem">🔁 Reason → Act → Observe — 한 사이클의 세 가지 단계</div>
+  <div style="font-size:.8rem;color:var(--text-dim);text-align:center;margin-bottom:.4rem">🔁 Reason → Act → Observe — 한 사이클의 세 가지 단계</div>
+  <div style="font-size:.74rem;color:var(--text-dim);text-align:center;margin-bottom:.8rem">각 단계가 책임지는 영역이 <strong style="color:var(--violet)">서로 겹치지 않음</strong> — Reason은 "결정", Act는 "실행", Observe는 "수신".</div>
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem">
 
     <div style="padding:1.1rem 1.2rem;background:var(--card);border:1.5px solid var(--violet-border);border-radius:12px">
@@ -418,14 +420,14 @@
         <div style="font-size:1.6rem">🧠</div>
         <div>
           <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:1.5px">STEP 1 · REASON</div>
-          <div style="font-size:1rem;font-weight:700;color:var(--text)">추론</div>
+          <div style="font-size:1rem;font-weight:700;color:var(--text)">추론 — 결정</div>
         </div>
       </div>
       <div style="font-size:.78rem;color:var(--text);line-height:1.85">
-        ✓ 작업·현재 상황 분석<br>
-        ✓ 문제를 작은 단계로 분해<br>
-        ✓ 목표 달성 행동 계획<br>
-        ✓ <strong style="color:var(--violet)">"어떤 도구를 어떻게 써야 하나"</strong> 판단
+        <div style="margin-bottom:.4rem;padding-bottom:.4rem;border-bottom:1px dashed var(--border)"><strong style="color:var(--violet)">담당:</strong> "다음에 무엇을 할지"의 결정</div>
+        ✓ 현재 상황·목표 평가<br>
+        ✓ <strong style="color:var(--violet)">도구·인자 선택</strong> (또는 "도구 불필요" 판단)<br>
+        ✓ 종료 조건 평가 (지금 답이 가능한가?)
       </div>
     </div>
 
@@ -434,14 +436,14 @@
         <div style="font-size:1.6rem">⚙️</div>
         <div>
           <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:1.5px">STEP 2 · ACT</div>
-          <div style="font-size:1rem;font-weight:700;color:var(--text)">행동</div>
+          <div style="font-size:1rem;font-weight:700;color:var(--text)">행동 — 실행</div>
         </div>
       </div>
       <div style="font-size:.78rem;color:var(--text);line-height:1.85">
-        ✓ 추론에 따라 <strong style="color:var(--violet)">적절한 도구 선택</strong><br>
-        ✓ 함수 인자(arguments) 결정<br>
-        ✓ 검색·DB·API·계산 등 실행<br>
-        ✓ 외부 환경과 실제로 상호작용
+        <div style="margin-bottom:.4rem;padding-bottom:.4rem;border-bottom:1px dashed var(--border)"><strong style="color:var(--violet)">담당:</strong> Reason에서 정한 결정의 실행</div>
+        ✓ 결정된 도구를 결정된 인자로 호출<br>
+        ✓ 외부 환경(API·DB·웹)에 요청 송신<br>
+        ✓ <strong style="color:var(--violet)">선택·판단 없이</strong> 단순 실행만
       </div>
     </div>
 
@@ -450,20 +452,20 @@
         <div style="font-size:1.6rem">👀</div>
         <div>
           <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:1.5px">STEP 3 · OBSERVE</div>
-          <div style="font-size:1rem;font-weight:700;color:var(--text)">관찰</div>
+          <div style="font-size:1rem;font-weight:700;color:var(--text)">관찰 — 수신</div>
         </div>
       </div>
       <div style="font-size:.78rem;color:var(--text);line-height:1.85">
-        ✓ 도구 실행 결과(관찰값) 확인<br>
-        ✓ 새 정보로 <strong style="color:var(--violet)">지식 업데이트</strong><br>
-        ✓ 다음 추론 더 정교하게<br>
-        ✓ <strong style="color:var(--violet)">종료할지·계속할지</strong> 자율 판단
+        <div style="margin-bottom:.4rem;padding-bottom:.4rem;border-bottom:1px dashed var(--border)"><strong style="color:var(--violet)">담당:</strong> Act 결과를 컨텍스트에 반영</div>
+        ✓ 도구 실행 결과(관찰값) 수신<br>
+        ✓ LLM 입력 컨텍스트에 누적<br>
+        ✓ <strong style="color:var(--violet)">다음 Reason의 입력</strong>이 됨
       </div>
     </div>
 
   </div>
   <div style="margin-top:.8rem;padding:.9rem 1.1rem;background:var(--violet-bg);border-left:3px solid var(--violet);border-radius:0 10px 10px 0;font-size:.8rem;color:var(--text);line-height:1.85">
-    ⚡ <strong style="color:var(--violet)">자율적 제어 능력:</strong> 외부 개입 없이 모델 스스로 도구 사용 여부와 종료 시점을 결정합니다. 단일 도구 호출로 끝나지 않고, 필요한 만큼 여러 단계를 거치며 복잡한 다단계 문제를 단계별로 분해해 풀어냅니다.
+    ⚡ <strong style="color:var(--violet)">자율적 제어:</strong> "종료할지·계속할지"는 <strong>다음 사이클의 Reason</strong>이 판단합니다(Observe 결과를 보고). 외부 개입 없이 모델 스스로 도구 사용 여부와 종료 시점을 결정 — 필요한 만큼 사이클을 반복해 다단계 문제를 분해해 풀어냅니다.
   </div>
   </div>
 
@@ -572,24 +574,24 @@
     </div>
   </div>
 
-  <!-- ReAct vs CoT 비교 -->
+  <!-- ReAct vs CoT 비교 (MECE: 각 행이 서로 다른 차원 — 능력/시간/리스크/적합) -->
   <div style="margin-bottom:1.2rem">
-  <div style="font-size:.8rem;color:var(--text-dim);text-align:center;margin-bottom:.8rem">⚖️ ReAct vs CoT(Chain-of-Thought) — 어디가 다른가</div>
+  <div style="font-size:.8rem;color:var(--text-dim);text-align:center;margin-bottom:.4rem">⚖️ ReAct vs CoT(Chain-of-Thought) — 어디가 다른가</div>
+  <div style="font-size:.74rem;color:var(--text-dim);text-align:center;margin-bottom:.8rem">서로 다른 차원만 비교 (능력 / 정보의 시점 / 주요 리스크 / 적합 작업)</div>
   <div style="overflow-x:auto">
   <table style="width:100%;border-collapse:collapse;font-size:.8rem;min-width:580px">
     <thead>
       <tr style="background:var(--surface)">
-        <th style="padding:.7rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--border)">관점</th>
+        <th style="padding:.7rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--border)">차원</th>
         <th style="padding:.7rem;text-align:left;color:var(--text);border-bottom:1px solid var(--border)">CoT (Chain-of-Thought)</th>
         <th style="padding:.7rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border)">ReAct</th>
       </tr>
     </thead>
     <tbody>
-      <tr><td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">초점</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">순수 추론 (생각만)</td><td style="padding:.55rem;color:var(--text);border-bottom:1px solid var(--border)">추론 + 행동 (생각 + 도구)</td></tr>
-      <tr><td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">외부 상호작용</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">❌ 모델 내부에서만</td><td style="padding:.55rem;color:var(--text);border-bottom:1px solid var(--border)">✅ 도구로 외부 호출</td></tr>
-      <tr><td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">사실 검증</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">환각 위험 ↑ · 오류 전파</td><td style="padding:.55rem;color:var(--text);border-bottom:1px solid var(--border)">외부 정보로 검증·수정</td></tr>
-      <tr><td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">정보 출처</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">학습 시점 지식 (정적)</td><td style="padding:.55rem;color:var(--text);border-bottom:1px solid var(--border)">실시간 외부 데이터 (동적)</td></tr>
-      <tr><td style="padding:.55rem;color:var(--text);font-weight:600">적합 작업</td><td style="padding:.55rem;color:var(--text-dim)">수학·논리 추론</td><td style="padding:.55rem;color:var(--text)">사실 기반 질의·환경 상호작용</td></tr>
+      <tr><td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">능력 (외부 호출)</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">❌ 불가 — 모델 내부 추론만</td><td style="padding:.55rem;color:var(--text);border-bottom:1px solid var(--border)">✅ 가능 — 도구로 외부 호출</td></tr>
+      <tr><td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">정보의 시점</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">학습 시점에 멈춤 (정적)</td><td style="padding:.55rem;color:var(--text);border-bottom:1px solid var(--border)">실시간 외부 데이터 (동적)</td></tr>
+      <tr><td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">주요 리스크</td><td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">환각 · 오류 전파 (검증 수단 없음)</td><td style="padding:.55rem;color:var(--text);border-bottom:1px solid var(--border)">무한 루프 · 도구 비용 (검증은 가능)</td></tr>
+      <tr><td style="padding:.55rem;color:var(--text);font-weight:600">적합 작업</td><td style="padding:.55rem;color:var(--text-dim)">수학·논리 추론 · 닫힌 문제</td><td style="padding:.55rem;color:var(--text)">사실 기반 질의 · 환경 상호작용</td></tr>
     </tbody>
   </table>
   </div>
@@ -617,20 +619,23 @@
     </div>
   </div>
 
-  <!-- Strengths/weaknesses -->
+  <!-- Strengths/weaknesses (MECE: 강점은 '왜 좋은가', 약점은 '진짜 한계'만) -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">
     <div style="padding:.9rem 1.2rem;background:var(--teal-bg);border:1px solid var(--teal-border);border-radius:10px;font-size:.78rem;color:var(--text);line-height:1.8">
       <strong style="color:var(--teal)">✓ 강점:</strong><br>
-      • 단순·유연·디버깅 쉬움<br>
-      • 1줄로 시작 가능 (LangGraph)<br>
-      • 모델 다운사이징 가능 — 32B로도 동작 (2026 초)
+      • <strong>단순함</strong> — 구조 직관적, 디버깅 쉬움<br>
+      • <strong>유연성</strong> — 매 step 동적 적응 (정적 plan 불필요)<br>
+      • <strong>저비용</strong> — 32B 모델로도 동작 (2026 초)
     </div>
     <div style="padding:.9rem 1.2rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:10px;font-size:.78rem;color:var(--text);line-height:1.8">
       <strong style="color:var(--accent)">✗ 약점:</strong><br>
-      • 무한 루프 위험<br>
-      • Long-horizon 작업에서 깨짐<br>
-      • → Pre-Act / Deep Agents로 진화 필요
+      • <strong>무한 루프 위험</strong> — 종료 조건 못 찾음<br>
+      • <strong>Long-horizon 깨짐</strong> — 사이클이 길어지면 일관성 붕괴<br>
+      • <strong>토큰 비용 증가</strong> — 매 사이클 누적된 컨텍스트 재처리
     </div>
+  </div>
+  <div style="margin-top:.8rem;font-size:.74rem;color:var(--text-dim);line-height:1.7;text-align:center">
+    💡 위 약점들의 해결책으로 <strong style="color:var(--violet)">Pre-Act</strong>(다단계 사전 계획) · <strong style="color:var(--violet)">Deep Agents</strong>(planning + virtual fs + subagent + 컨텍스트 압축)가 등장 — 위 "2025-2026 진화" 박스 참조.
   </div>
 </div>
 </div>
