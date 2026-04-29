@@ -9,14 +9,16 @@
     <nav class="ch-nav">
       <a href="#p4-ch1"><span class="cn">01</span>왜 PoC ≠ 프로덕션</a>
       <a href="#p4-ch2"><span class="cn">02</span>n8n 비주얼 빌더</a>
-      <a href="#p4-ch3"><span class="cn">03</span>디자인 패턴 5선</a>
-      <a href="#p4-ch4"><span class="cn">04</span>LangGraph 딥다이브</a>
-      <a href="#p4-ch5"><span class="cn">05</span>MCP</a>
-      <a href="#p4-ch6"><span class="cn">06</span>A2A + Computer Use</a>
-      <a href="#p4-ch7"><span class="cn">07</span>Narrow Scope 원칙</a>
-      <a href="#p4-ch8"><span class="cn">08</span>Obs + Evaluation</a>
-      <a href="#p4-ch9"><span class="cn">09</span>보안과 비용</a>
-      <a href="#p4-ch10"><span class="cn">10</span>프레임워크 카탈로그</a>
+      <a href="#p4-ch3"><span class="cn">03</span>n8n 핸즈온</a>
+      <a href="#p4-ch4"><span class="cn">04</span>디자인 패턴 5선</a>
+      <a href="#p4-ch5"><span class="cn">05</span>LangGraph 딥다이브</a>
+      <a href="#p4-ch6"><span class="cn">06</span>LangGraph 핸즈온</a>
+      <a href="#p4-ch7"><span class="cn">07</span>MCP</a>
+      <a href="#p4-ch8"><span class="cn">08</span>A2A + Computer Use</a>
+      <a href="#p4-ch9"><span class="cn">09</span>Narrow Scope 원칙</a>
+      <a href="#p4-ch10"><span class="cn">10</span>Obs + Evaluation</a>
+      <a href="#p4-ch11"><span class="cn">11</span>보안과 비용</a>
+      <a href="#p4-ch12"><span class="cn">12</span>프레임워크 결정 가이드</a>
     </nav>
   </div>
 </div>
@@ -41,9 +43,9 @@
     <div style="background:var(--violet-bg);border:2px solid var(--violet-border);border-radius:14px;padding:.9rem .5rem">
       <div style="font-size:1.3rem;margin-bottom:.3rem">🛠️</div>
       <div style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--violet)">Build</div>
-      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">n8n · 패턴 · LangGraph</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">n8n + 패턴 + LangGraph (핸즈온 포함)</div>
     </div>
-    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.02-04</div>
+    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.02-06</div>
   </div>
 
   <div style="text-align:center">
@@ -52,7 +54,7 @@
       <div style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--violet)">Protocols</div>
       <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">MCP · A2A (+CU)</div>
     </div>
-    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.05-06</div>
+    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.07-08</div>
   </div>
 
   <div style="text-align:center">
@@ -61,16 +63,16 @@
       <div style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--violet)">Operations</div>
       <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">Narrow · Obs+Eval · 보안</div>
     </div>
-    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.07-09</div>
+    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.09-11</div>
   </div>
 
   <div style="text-align:center">
     <div style="background:var(--violet-bg);border:2px solid var(--violet-border);border-radius:14px;padding:.9rem .5rem">
       <div style="font-size:1.3rem;margin-bottom:.3rem">🎯</div>
       <div style="font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--violet)">Decision</div>
-      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">프레임워크 선택</div>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;line-height:1.5">프레임워크 결정 가이드</div>
     </div>
-    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.10</div>
+    <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--mono)">Ch.12</div>
   </div>
 
 </div>
@@ -132,27 +134,27 @@
 
   <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem">
     <div style="font-size:.82rem;font-weight:700;color:var(--accent);margin-bottom:.5rem">② Scope 욕심</div>
-    <div style="font-size:.78rem;color:var(--text-dim);line-height:1.85">"만능 에이전트"는 데모만 멋지고 프로덕션은 폭망. <strong style="color:var(--text)">→ Ch.07 Narrow Scope</strong></div>
+    <div style="font-size:.78rem;color:var(--text-dim);line-height:1.85">"만능 에이전트"는 데모만 멋지고 프로덕션은 폭망. <strong style="color:var(--text)">→ Ch.09 Narrow Scope</strong></div>
   </div>
 
   <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem">
     <div style="font-size:.82rem;font-weight:700;color:var(--accent);margin-bottom:.5rem">③ Eval 부재</div>
-    <div style="font-size:.78rem;color:var(--text-dim);line-height:1.85">89% obs vs <strong style="color:var(--accent)">52% eval</strong>. 보고는 있는데 평가는 못 함. <strong style="color:var(--text)">→ Ch.08 (Part B)</strong></div>
+    <div style="font-size:.78rem;color:var(--text-dim);line-height:1.85">89% obs vs <strong style="color:var(--accent)">52% eval</strong>. 보고는 있는데 평가는 못 함. <strong style="color:var(--text)">→ Ch.10 (Part B)</strong></div>
   </div>
 
   <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem">
     <div style="font-size:.82rem;font-weight:700;color:var(--accent);margin-bottom:.5rem">④ Obs 미성숙</div>
-    <div style="font-size:.78rem;color:var(--text-dim);line-height:1.85">"LangSmith + 커스텀 + 희망"의 조합으로 운영 중. <strong style="color:var(--text)">→ Ch.08 (Part A)</strong></div>
+    <div style="font-size:.78rem;color:var(--text-dim);line-height:1.85">"LangSmith + 커스텀 + 희망"의 조합으로 운영 중. <strong style="color:var(--text)">→ Ch.10 (Part A)</strong></div>
   </div>
 
   <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem">
     <div style="font-size:.82rem;font-weight:700;color:var(--accent);margin-bottom:.5rem">⑤ 비용 폭증</div>
-    <div style="font-size:.78rem;color:var(--text-dim);line-height:1.85">에이전트가 도구를 몇 번 부를지 예측 불가. <strong style="color:var(--text)">"한 번 돌렸더니 $300"</strong>. → Ch.09</div>
+    <div style="font-size:.78rem;color:var(--text-dim);line-height:1.85">에이전트가 도구를 몇 번 부를지 예측 불가. <strong style="color:var(--text)">"한 번 돌렸더니 $300"</strong>. → Ch.11</div>
   </div>
 
   <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem">
     <div style="font-size:.82rem;font-weight:700;color:var(--accent);margin-bottom:.5rem">⑥ 보안 공격면</div>
-    <div style="font-size:.78rem;color:var(--text-dim);line-height:1.85">Prompt injection, tool exploit. <strong style="color:var(--text)">에이전트 시대의 SQL injection</strong>. → Ch.09</div>
+    <div style="font-size:.78rem;color:var(--text-dim);line-height:1.85">Prompt injection, tool exploit. <strong style="color:var(--text)">에이전트 시대의 SQL injection</strong>. → Ch.11</div>
   </div>
 
 </div>
@@ -180,22 +182,22 @@
 
   <div style="background:var(--card);border:2px solid var(--violet-border);border-radius:14px;padding:1.3rem">
     <div style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--violet);margin-bottom:.4rem">① Narrow Scope</div>
-    <div style="font-size:.82rem;color:var(--text);line-height:1.85">"하나만 잘하는 에이전트" 원칙. 만능 ❌, 단일 전문 ⭕. <strong>→ Ch.07</strong></div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.85">"하나만 잘하는 에이전트" 원칙. 만능 ❌, 단일 전문 ⭕. <strong>→ Ch.09</strong></div>
   </div>
 
   <div style="background:var(--card);border:2px solid var(--violet-border);border-radius:14px;padding:1.3rem">
     <div style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--violet);margin-bottom:.4rem">② Human-in-the-Loop</div>
-    <div style="font-size:.82rem;color:var(--text);line-height:1.85">불확실한 케이스는 사람으로. 100% 자동 ❌, 90% 자동 + 10% 사람 ⭕. <strong>→ Ch.07</strong></div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.85">불확실한 케이스는 사람으로. 100% 자동 ❌, 90% 자동 + 10% 사람 ⭕. <strong>→ Ch.09</strong></div>
   </div>
 
   <div style="background:var(--card);border:2px solid var(--violet-border);border-radius:14px;padding:1.3rem">
     <div style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--violet);margin-bottom:.4rem">③ Observability</div>
-    <div style="font-size:.82rem;color:var(--text);line-height:1.85">매 단계 trace. 비결정 시스템을 디버깅 가능하게. <strong>→ Ch.08 (Part A)</strong></div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.85">매 단계 trace. 비결정 시스템을 디버깅 가능하게. <strong>→ Ch.10 (Part A)</strong></div>
   </div>
 
   <div style="background:var(--card);border:2px solid var(--violet-border);border-radius:14px;padding:1.3rem">
     <div style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--violet);margin-bottom:.4rem">④ Evaluation</div>
-    <div style="font-size:.82rem;color:var(--text);line-height:1.85">시나리오 기반 자동 평가. LLM-as-judge + 도메인 시나리오. <strong>→ Ch.08 (Part B)</strong></div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.85">시나리오 기반 자동 평가. LLM-as-judge + 도메인 시나리오. <strong>→ Ch.10 (Part B)</strong></div>
   </div>
 
 </div>
@@ -214,7 +216,7 @@
 <section class="ch reveal" id="p4-ch2">
 <div class="ch-head"><div class="ch-num" style="color:var(--violet)">02</div><h2 class="ch-title">n8n — 비주얼 AI 에이전트 빌더</h2></div>
 
-<p class="section-desc">코드 없이 AI 에이전트를 만들고, <strong style="color:var(--violet)">500+개 서비스</strong>와 연결하는 오픈소스 자동화 플랫폼. Ch.04의 LangGraph가 "코드로 짠 정밀 설계도"라면, n8n은 <strong style="color:var(--violet)">"드래그 앤 드롭으로 만드는 자동화 공장"</strong>입니다. — Jan Oberhauser (n8n 창시자, 전 독일 기업 자동화 엔지니어)가 2019년에 시작한 오픈소스 프로젝트.</p>
+<p class="section-desc">코드 없이 AI 에이전트를 만들고, <strong style="color:var(--violet)">500+개 서비스</strong>와 연결하는 오픈소스 자동화 플랫폼. Ch.05의 LangGraph가 "코드로 짠 정밀 설계도"라면, n8n은 <strong style="color:var(--violet)">"드래그 앤 드롭으로 만드는 자동화 공장"</strong>입니다. — Jan Oberhauser (n8n 창시자, 전 독일 기업 자동화 엔지니어)가 2019년에 시작한 오픈소스 프로젝트.</p>
 
 <!-- ── 한 줄 정의 ── -->
 <div class="dia reveal">
@@ -366,7 +368,7 @@
       <strong>추론·판단·행동의 중심</strong>. LangChain JS 기반으로 ReAct 패턴 자동 구현. "어떤 도구를 부를까" 판단합니다.
     </div>
     <div style="margin-top:.5rem;font-size:.75rem;color:var(--text-dim);line-height:1.7;padding:.5rem;background:var(--surface);border-radius:8px">
-      Ch.04의 LangGraph가 코드로 하는 것을, n8n은 캔버스에서 노드 연결로 합니다.
+      Ch.05의 LangGraph가 코드로 하는 것을, n8n은 캔버스에서 노드 연결로 합니다.
     </div>
   </div>
 
@@ -1249,11 +1251,195 @@
 </section>
 
 
+
 <!-- ═══════════════════════════════════════════ -->
-<!-- CHAPTER 3: 디자인 패턴 5선 -->
+<!-- CHAPTER 3: n8n 핸즈온 — 회의록 → 액션 → Slack -->
 <!-- ═══════════════════════════════════════════ -->
 <section class="ch reveal" id="p4-ch3">
-<div class="ch-head"><div class="ch-num" style="color:var(--violet)">03</div><h2 class="ch-title">에이전트 디자인 패턴 5선 — 2026년 표준</h2></div>
+<div class="ch-head"><div class="ch-num" style="color:var(--violet)">03</div><h2 class="ch-title">n8n 핸즈온 — 회의록 에이전트 만들기</h2></div>
+
+<p class="section-desc">Ch.02에서 n8n이 무엇인지 봤으니, 이제 <strong style="color:var(--violet)">실제로 한 번 만들어 봅니다</strong>. 사무직이 가장 흔히 마주치는 작업 — <strong>"회의록 → 액션 아이템 추출 → 담당자별 Slack 발송"</strong>을 5개 노드로 빌드합니다. 이 use case는 Ch.06 LangGraph 핸즈온에서 같은 시나리오로 재구현해 두 도구의 차이를 봅니다.</p>
+
+<!-- 만들 것 한 장으로 -->
+<div class="dia reveal">
+<div class="dia-title">🎯 만들 것 — 한 장으로 보는 워크플로</div>
+<div style="max-width:880px;margin:0 auto 1rem">
+<svg viewBox="0 0 880 200" style="width:100%;height:auto;display:block">
+  <defs>
+    <marker id="hands-arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 z" fill="#7c6cf0"/>
+    </marker>
+  </defs>
+  <rect x="20" y="80" width="140" height="50" rx="10" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="1.5"/>
+  <text x="90" y="103" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#7c6cf0">① TRIGGER</text>
+  <text x="90" y="120" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">월 8AM 자동</text>
+  <line x1="165" y1="105" x2="195" y2="105" stroke="#7c6cf0" stroke-width="1.7" marker-end="url(#hands-arr)"/>
+  <rect x="200" y="80" width="140" height="50" rx="10" fill="#7c6cf033" stroke="#7c6cf0" stroke-width="1.5"/>
+  <text x="270" y="103" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#7c6cf0">② FETCH</text>
+  <text x="270" y="120" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">Notion API</text>
+  <line x1="345" y1="105" x2="375" y2="105" stroke="#7c6cf0" stroke-width="1.7" marker-end="url(#hands-arr)"/>
+  <rect x="380" y="65" width="160" height="80" rx="12" fill="#fbbf2433" stroke="#fbbf24" stroke-width="2"/>
+  <text x="460" y="88" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#fbbf24">③ AI AGENT NODE</text>
+  <text x="460" y="108" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="13" font-weight="700" fill="#cdd1e0">LLM 추출</text>
+  <text x="460" y="125" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="9" fill="#7d8298">"누가/무엇/언제까지"</text>
+  <line x1="545" y1="105" x2="575" y2="105" stroke="#7c6cf0" stroke-width="1.7" marker-end="url(#hands-arr)"/>
+  <rect x="580" y="80" width="140" height="50" rx="10" fill="#7c6cf01a" stroke="#7c6cf0" stroke-width="1.5"/>
+  <text x="650" y="103" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#7c6cf0">④ FORMAT</text>
+  <text x="650" y="120" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">담당자별 그룹</text>
+  <line x1="725" y1="105" x2="755" y2="105" stroke="#7c6cf0" stroke-width="1.7" marker-end="url(#hands-arr)"/>
+  <rect x="760" y="80" width="100" height="50" rx="10" fill="#2dd4bf1a" stroke="#2dd4bf" stroke-width="1.5"/>
+  <text x="810" y="103" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#2dd4bf">⑤ SEND</text>
+  <text x="810" y="120" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#cdd1e0">Slack DM</text>
+  <text x="440" y="170" text-anchor="middle" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#7d8298" font-style="italic">5개 노드 — 코드 한 줄 없이 동작합니다</text>
+</svg>
+</div>
+<div style="max-width:880px;margin:0 auto;padding:.9rem 1.1rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--violet)">관찰 포인트:</strong> 이 그래프는 Ch.04에서 배울 <strong>ReAct 패턴</strong>의 시각적 구현입니다. ① Schedule = Task, ③ AI Agent Node = LLM 추론, ②④⑤ = Tools/Action, 다시 LLM이 결과를 받아 다음 행동을 결정 — n8n은 이 사이클을 노드 그래프로 그려 보여줍니다.
+</div>
+</div>
+
+<!-- 빌드 5단계 -->
+<div class="dia reveal">
+<div class="dia-title">🛠️ 빌드 — 5단계 (각 노드의 의도와 설정)</div>
+<div style="max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:.8rem">
+
+  <div style="display:grid;grid-template-columns:60px 1fr;gap:1rem;padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--violet-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:1.5px;font-weight:700">STEP 1</div>
+    <div>
+      <div style="font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.4rem">⏰ Schedule Trigger 노드</div>
+      <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+        n8n 캔버스에서 <code>Schedule Trigger</code>를 끌어옵니다. <strong>매주 월요일 08:00 KST</strong>로 설정.<br>
+        <span style="color:var(--text-dim)">→ 결과: 워크플로의 시작점이 정해짐. 사람이 매번 켜지 않아도 자동 실행.</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:60px 1fr;gap:1rem;padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--violet-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:1.5px;font-weight:700">STEP 2</div>
+    <div>
+      <div style="font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.4rem">📥 Notion 노드 — 지난주 회의록 가져오기</div>
+      <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+        <code>Notion</code> 노드 추가 → <strong>Database Query</strong> 모드. 필터: <code>Date ≥ {{$today.minus(7, 'days')}}</code>, 태그=회의록.<br>
+        <span style="color:var(--text-dim)">→ 결과: 지난 7일치 회의록이 JSON 배열로 들어옴. 인증은 1회만(OAuth).</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:60px 1fr;gap:1rem;padding:1.1rem 1.3rem;background:var(--violet-bg);border:2px solid var(--violet);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:1.5px;font-weight:700">STEP 3 ⭐</div>
+    <div>
+      <div style="font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.4rem">🤖 AI Agent Node — 액션 아이템 추출 (이게 ReAct)</div>
+      <div style="font-size:.78rem;color:var(--text);line-height:1.85;margin-bottom:.6rem">
+        <code>AI Agent</code> 노드 추가. Model: Claude Sonnet 4.5 / GPT-5. System prompt:
+      </div>
+      <div style="background:var(--surface);border-radius:8px;padding:.7rem 1rem;font-family:var(--mono);font-size:.74rem;color:var(--text);line-height:1.8">
+"각 회의록을 읽고 <strong style="color:var(--violet)">액션 아이템만</strong> JSON 배열로 추출.<br>
+필드: <code>{ owner, task, due_date }</code>.<br>
+액션이 아닌 정보는 무시. 담당자 불명확하면 <code>owner: null</code>."
+      </div>
+      <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7;margin-top:.6rem">
+        → AI Agent Node가 내부적으로 <strong>Reason → Act → Observe</strong> 루프를 돌립니다. 사용자는 입력·출력만 보면 됨.
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:60px 1fr;gap:1rem;padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--violet-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:1.5px;font-weight:700">STEP 4</div>
+    <div>
+      <div style="font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.4rem">🔀 Code 노드 — 담당자별 그룹화</div>
+      <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+        <code>Code</code> 노드(JS 한 줄): <code>_.groupBy(items, 'owner')</code>.<br>
+        <span style="color:var(--text-dim)">→ 결과: <code>{ "김OO": [...액션들], "이OO": [...] }</code> 형태. Slack DM 발송 단위로 변환.</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:60px 1fr;gap:1rem;padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--violet-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:1.5px;font-weight:700">STEP 5</div>
+    <div>
+      <div style="font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.4rem">📨 Slack 노드 — 담당자에게 DM 발송</div>
+      <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+        <code>Slack</code> 노드 → <strong>Send Message</strong> 모드. <code>Loop Over Items</code>로 담당자별 반복.<br>
+        메시지 템플릿: <em>"이번 주 액션 {{$json.tasks.length}}건. 마감일순 정렬: ..."</em>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- 패턴 가시화 -->
+<div class="dia reveal">
+<div class="dia-title">🧩 만들고 나니 — 어떤 패턴들이 보입니까?</div>
+<div style="max-width:880px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:.8rem">
+
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--violet-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.4rem">REACT (Ch.04 ①)</div>
+    <div style="font-size:.8rem;color:var(--text);line-height:1.8">
+      Step ③의 AI Agent Node 안에서 일어나는 일 — Thought ("어떤 항목이 액션인가?") → Action (LLM 추론 호출) → Observation (JSON 결과). 사이클 자체가 <strong>ReAct</strong>.
+    </div>
+  </div>
+
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--violet-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.4rem">TOOL USE (Ch.04 ④)</div>
+    <div style="font-size:.8rem;color:var(--text);line-height:1.8">
+      Notion·Slack·Code 노드가 모두 <strong>도구</strong>입니다. n8n의 노드 = LLM의 함수 호출. 각 노드는 입력·출력 schema가 명시돼 도구 결정이 명확.
+    </div>
+  </div>
+
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--violet-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.4rem">PLAN-AND-EXECUTE (Ch.04 ③)</div>
+    <div style="font-size:.8rem;color:var(--text);line-height:1.8">
+      전체 워크플로가 사실 <strong>plan-and-execute</strong>의 정적 형태 — 5단계 plan을 캔버스에 그리고, 매번 같은 순서로 실행. 동적 plan이 필요해지는 순간 LangGraph로 갈 시점.
+    </div>
+  </div>
+
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--violet-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.4rem">REFLECTION (Ch.04 ②) — 추가 가능</div>
+    <div style="font-size:.8rem;color:var(--text);line-height:1.8">
+      Step ③ 뒤에 <strong>Critic</strong> AI Agent Node를 하나 더 두면: "각 액션이 정말 액션인가? 담당자 명확한가?" 자기 검증 → 이게 곧 <strong>Reflection</strong>. 비용 +30%, 정확도 +15%.
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- 한계 / 다음 단계 -->
+<div class="dia reveal">
+<div class="dia-title">⚠️ n8n으로 시작했지만, 곧 한계가 옵니다</div>
+<div style="max-width:880px;margin:0 auto">
+  <div style="font-size:.85rem;color:var(--text);line-height:1.85;margin-bottom:1rem">
+    이 워크플로가 잘 돌아가다가, <strong style="color:var(--violet)">"회의록 종류에 따라 추출 로직을 다르게 하고 싶다"</strong>거나 <strong style="color:var(--violet)">"실패 시 재시도 + Slack 발송 전 사람 승인"</strong> 같은 <em>동적 분기</em>가 필요해지는 순간 — n8n의 비주얼 모델이 복잡해집니다.
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">
+    <div style="padding:.9rem 1.1rem;background:var(--teal-bg);border-left:3px solid var(--teal);border-radius:0 10px 10px 0;font-size:.78rem;color:var(--text);line-height:1.85">
+      <strong style="color:var(--teal)">✓ n8n 강점</strong><br>
+      • 빠른 프로토타이핑 · 템플릿 카탈로그<br>
+      • 비개발자도 설계 참여<br>
+      • 500+ 통합 (Notion·Slack·구글 워크스페이스)
+    </div>
+    <div style="padding:.9rem 1.1rem;background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;font-size:.78rem;color:var(--text);line-height:1.85">
+      <strong style="color:var(--accent)">✗ n8n 한계</strong><br>
+      • 동적 분기·재계획 어려움<br>
+      • 버전 관리·테스트 부족<br>
+      • 복잡 state 관리는 코드가 유리
+    </div>
+  </div>
+  <div style="margin-top:1rem;padding:.9rem 1.2rem;background:var(--violet-bg);border:1.5px solid var(--violet);border-radius:10px;font-size:.82rem;color:var(--text);line-height:1.85;text-align:center">
+    🎯 <strong style="color:var(--violet)">→ Ch.06에서 같은 회의록 에이전트를 LangGraph로 재구현</strong>합니다. 같은 흐름이 코드에서는 어떻게 보이는지, 어디서 분기·재계획이 자유로워지는지 비교.
+  </div>
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 4: 디자인 패턴 5선 -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="p4-ch4">
+<div class="ch-head"><div class="ch-num" style="color:var(--violet)">04</div><h2 class="ch-title">에이전트 디자인 패턴 5선 — 2026년 표준</h2></div>
 
 <p class="section-desc">2025-2026년에 <strong style="color:var(--violet)">"에이전트는 어떻게 만드는가"</strong>의 산업 합의가 굳어졌습니다. <strong>Anthropic의 5-패턴 분류</strong>(2024-12)가 표준 어휘가 되고, <strong>MCP가 1년 만에 USB-C급 표준</strong>이 되고, <strong>AutoGPT/BabyAGI는 사라지고 Deep Agents·LangGraph 1.0이 그 자리</strong>를 차지했습니다. 본 챕터는 5개 핵심 패턴을 <strong>2025-2026 SOTA 자료</strong>(Pre-Act, MAR Multi-Agent Reflexion, Anthropic Multi-Agent Research System 등)로 풀어봅니다.</p>
 
@@ -2050,7 +2236,7 @@
   </div>
 
   <div style="margin-top:1rem;font-size:.78rem;color:var(--text-dim);line-height:1.7">
-    💡 Part 3 Ch.05 (Tools)는 <strong>"무엇이 가능한가"</strong>를, 여기서는 <strong>"어떻게 표준화되는가"</strong>를 다룹니다. MCP 자세히는 <strong>Ch.05</strong>에서.
+    💡 Part 3 Ch.05 (Tools)는 <strong>"무엇이 가능한가"</strong>를, 여기서는 <strong>"어떻게 표준화되는가"</strong>를 다룹니다. MCP 자세히는 <strong>Ch.07</strong>에서.
   </div>
 </div>
 </div>
@@ -2159,7 +2345,7 @@
   </div>
 
   <div style="padding:.9rem 1.2rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.85">
-    <strong style="color:var(--violet)">왜 단일보다 나은가:</strong> 전문화(각자 narrow scope) · 병렬화 · 격리(한 워커 실패 ≠ 전체 실패) · 비용 최적화 (Opus lead + Sonnet 워커들). <strong>주의:</strong> 비용이 15×까지 올라가므로, "single agent로 풀리는 작업"엔 멀티 도입 ❌. Ch.06 A2A 프로토콜이 워커 간 통신을 표준화.
+    <strong style="color:var(--violet)">왜 단일보다 나은가:</strong> 전문화(각자 narrow scope) · 병렬화 · 격리(한 워커 실패 ≠ 전체 실패) · 비용 최적화 (Opus lead + Sonnet 워커들). <strong>주의:</strong> 비용이 15×까지 올라가므로, "single agent로 풀리는 작업"엔 멀티 도입 ❌. Ch.08 A2A 프로토콜이 워커 간 통신을 표준화.
   </div>
 </div>
 </div>
@@ -2291,10 +2477,10 @@
 <div class="divider"><hr></div>
 
 <!-- ═══════════════════════════════════════════ -->
-<!-- CHAPTER 4: LangGraph 딥다이브 -->
+<!-- CHAPTER 5: LangGraph 딥다이브 -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p4-ch4">
-<div class="ch-head"><div class="ch-num" style="color:var(--violet)">04</div><h2 class="ch-title">LangGraph 딥다이브 — 그래프 기반 에이전트 개발</h2></div>
+<section class="ch reveal" id="p4-ch5">
+<div class="ch-head"><div class="ch-num" style="color:var(--violet)">05</div><h2 class="ch-title">LangGraph 딥다이브 — 그래프 기반 에이전트 개발</h2></div>
 
 <p class="section-desc">에이전트의 흐름을 <strong style="color:var(--violet)">노드와 엣지</strong>로 명시적으로 정의하는 프레임워크. Ch.10에서 "가장 유연하다"고 소개한 LangGraph를, 이번 챕터에서 코드 레벨까지 파고듭니다. — Harrison Chase (LangChain CEO, LangGraph/LangSmith 창시자) 팀이 만든 에이전트 오케스트레이션의 핵심.</p>
 
@@ -2580,7 +2766,7 @@ result = app.invoke({<span style="color:#a5d6a7">"messages"</span>: [<span style
 </table>
 </div>
 <div style="margin-top:.8rem;font-size:.78rem;color:var(--text-dim);text-align:center">
-  Ch.03 "디자인 패턴 5선"에서 배운 패턴이 LangGraph에서 어떻게 구현되는지 1:1 매핑됩니다.
+  Ch.04 "디자인 패턴 5선"에서 배운 패턴이 LangGraph에서 어떻게 구현되는지 1:1 매핑됩니다.
 </div>
 </div>
 
@@ -3246,11 +3432,160 @@ result = app.invoke({<span style="color:#a5d6a7">"messages"</span>: [<span style
 
 <div class="divider"><hr></div>
 
+
 <!-- ═══════════════════════════════════════════ -->
-<!-- CHAPTER 5: MCP -->
+<!-- CHAPTER 6: LangGraph 핸즈온 — 같은 회의록 에이전트를 코드로 -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p4-ch5">
-<div class="ch-head"><div class="ch-num" style="color:var(--violet)">05</div><h2 class="ch-title">MCP — 도구 통합의 표준 (2026)</h2></div>
+<section class="ch reveal" id="p4-ch6">
+<div class="ch-head"><div class="ch-num" style="color:var(--violet)">06</div><h2 class="ch-title">LangGraph 핸즈온 — 같은 에이전트를 코드로</h2></div>
+
+<p class="section-desc">Ch.03에서 n8n으로 만든 <strong style="color:var(--violet)">회의록 → 액션 → Slack 에이전트</strong>를 LangGraph로 재구현합니다. <strong>n8n 노드 ↔ LangGraph node</strong>가 1:1 대응되며, 코드 레벨에서는 <strong>동적 분기·테스트·버전 관리</strong>가 자유로워집니다.</p>
+
+<!-- 1:1 매핑 다이어그램 -->
+<div class="dia reveal">
+<div class="dia-title">🔁 노드 1:1 매핑 — n8n vs LangGraph</div>
+<div style="max-width:920px;margin:0 auto 1rem;overflow-x:auto">
+<table style="width:100%;border-collapse:collapse;font-size:.82rem;min-width:680px">
+  <thead><tr style="background:var(--surface)">
+    <th style="padding:.7rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--border)">단계</th>
+    <th style="padding:.7rem;text-align:left;color:var(--text);border-bottom:1px solid var(--border)">n8n 노드 (Ch.03)</th>
+    <th style="padding:.7rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border)">LangGraph node</th>
+  </tr></thead>
+  <tbody>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">①</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Schedule Trigger</td><td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)"><code>graph.invoke(input)</code> 호출 측 (외부 cron)</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">②</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Notion 노드</td><td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)"><code>fetch_meetings</code> node</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">③</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">AI Agent Node</td><td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)"><code>extract_actions</code> node (LLM call)</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">④</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Code 노드</td><td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)"><code>group_by_owner</code> node</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600">⑤</td><td style="padding:.5rem;color:var(--text-dim)">Slack 노드</td><td style="padding:.5rem;color:var(--text)"><code>send_slack</code> node</td></tr>
+  </tbody>
+</table>
+</div>
+<div style="font-size:.78rem;color:var(--text-dim);text-align:center;max-width:900px;margin:0 auto">노드는 <strong style="color:var(--text)">동일한 책임</strong>을 갖되, 표현이 비주얼 → 코드로 바뀝니다. 같은 ReAct 사이클이 양쪽 모두에서 작동.</div>
+</div>
+
+<!-- 코드 — StateGraph 정의 -->
+<div class="dia reveal">
+<div class="dia-title">📜 LangGraph 코드 — StateGraph + 5 nodes</div>
+<div style="max-width:880px;margin:0 auto">
+  <div style="background:var(--surface);border-radius:10px;padding:1.2rem;font-family:var(--mono);font-size:.74rem;line-height:1.85;color:var(--text);overflow-x:auto">
+<span style="color:var(--text-dim)"># 1. State 정의 (5개 node가 공유하는 데이터)</span><br>
+<span style="color:var(--violet)">class</span> <span style="color:var(--accent)">MeetingState</span>(TypedDict):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;meetings: list[dict]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;actions: list[dict]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;by_owner: dict[str, list]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sent_count: int<br><br>
+
+<span style="color:var(--text-dim)"># 2. 각 node = 함수 (state 받아 일부 갱신해서 return)</span><br>
+<span style="color:var(--violet)">def</span> <span style="color:var(--accent)">fetch_meetings</span>(state):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ms = notion.query(filter=last_7_days)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--violet)">return</span> {"meetings": ms}<br><br>
+
+<span style="color:var(--violet)">def</span> <span style="color:var(--accent)">extract_actions</span>(state):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;actions = []<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--violet)">for</span> m <span style="color:var(--violet)">in</span> state["meetings"]:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resp = llm.with_structured_output(ActionList).invoke(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f"회의록에서 액션만 추출: {m.body}"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;actions.extend(resp.actions)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--violet)">return</span> {"actions": actions}<br><br>
+
+<span style="color:var(--violet)">def</span> <span style="color:var(--accent)">group_by_owner</span>(state):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--violet)">return</span> {"by_owner": groupby(state["actions"], "owner")}<br><br>
+
+<span style="color:var(--violet)">def</span> <span style="color:var(--accent)">send_slack</span>(state):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--violet)">for</span> owner, tasks <span style="color:var(--violet)">in</span> state["by_owner"].items():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;slack.post(channel=f"@{owner}", text=fmt(tasks))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--violet)">return</span> {"sent_count": len(state["by_owner"])}<br><br>
+
+<span style="color:var(--text-dim)"># 3. 그래프 조립</span><br>
+<span style="color:var(--violet)">from</span> langgraph.graph <span style="color:var(--violet)">import</span> StateGraph, START, END<br>
+g = StateGraph(MeetingState)<br>
+g.add_node("fetch", fetch_meetings)<br>
+g.add_node("extract", extract_actions)<br>
+g.add_node("group", group_by_owner)<br>
+g.add_node("send", send_slack)<br>
+g.add_edge(START, "fetch")<br>
+g.add_edge("fetch", "extract")<br>
+g.add_edge("extract", "group")<br>
+g.add_edge("group", "send")<br>
+g.add_edge("send", END)<br>
+graph = g.compile()
+  </div>
+</div>
+</div>
+
+<!-- 코드에서 비로소 가능한 것 -->
+<div class="dia reveal">
+<div class="dia-title">⚡ 코드에서 비로소 자유로워지는 것 — 4가지</div>
+<div style="max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:.8rem">
+
+  <div style="padding:1.1rem 1.3rem;background:var(--card);border:1.5px solid var(--violet-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.5rem">① 동적 분기 (conditional edge)</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      "추출된 액션이 30개 넘으면 사람 승인 게이트, 아니면 바로 발송":<br>
+      <code style="font-size:.72rem">g.add_conditional_edges("group", lambda s: "approve" if len(s["actions"]) &gt; 30 else "send")</code>
+    </div>
+  </div>
+
+  <div style="padding:1.1rem 1.3rem;background:var(--card);border:1.5px solid var(--violet-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.5rem">② Reflection (자기 비판 node 추가)</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      <code>extract</code> → <code>critic</code> → (재추출 or 다음). LangGraph는 cycle 허용 — n8n에서 어려운 부분.
+    </div>
+  </div>
+
+  <div style="padding:1.1rem 1.3rem;background:var(--card);border:1.5px solid var(--violet-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.5rem">③ Checkpointing — 실패 지점 재개</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      <code>g.compile(checkpointer=...)</code>로 매 step state 저장. Slack 발송 중간에 죽어도 그 지점부터 재시작.
+    </div>
+  </div>
+
+  <div style="padding:1.1rem 1.3rem;background:var(--card);border:1.5px solid var(--violet-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.5rem">④ 테스트 & 버전 관리</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      각 node는 순수 함수 → unit test 가능. <code>git diff</code>로 워크플로 변경 추적. CI에 통합.
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- 언제 n8n / 언제 LangGraph -->
+<div class="dia reveal">
+<div class="dia-title">🧭 언제 n8n / 언제 LangGraph?</div>
+<div style="max-width:880px;margin:0 auto">
+<div style="overflow-x:auto">
+<table style="width:100%;border-collapse:collapse;font-size:.82rem;min-width:580px">
+  <thead><tr style="background:var(--surface)">
+    <th style="padding:.7rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--border)">조건</th>
+    <th style="padding:.7rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border)">n8n 권장</th>
+    <th style="padding:.7rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border)">LangGraph 권장</th>
+  </tr></thead>
+  <tbody>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">팀 구성</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">비개발자 포함 / 사무 자동화</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">개발자 중심 / SRE 있음</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">분기 복잡도</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">정적 5-10단계</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">동적·재계획·subagent</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">테스트·CI</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">수동 실행으로 충분</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">unit test + CI 필수</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">상태 관리</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">짧은 워크플로 (수 분)</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">long-horizon, 사람 승인 게이트</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600">통합 다양성</td><td style="padding:.5rem;color:var(--text-dim)">500+ 노드 카탈로그</td><td style="padding:.5rem;color:var(--text-dim)">Python 생태계 자유</td></tr>
+  </tbody>
+</table>
+</div>
+<div style="margin-top:1rem;padding:.9rem 1.2rem;background:var(--violet-bg);border:1.5px solid var(--violet);border-radius:10px;font-size:.82rem;color:var(--text);line-height:1.85;text-align:center">
+  💡 실무 권장 — <strong style="color:var(--violet)">n8n으로 프로토타입 → 한계 보이면 LangGraph로 마이그레이션</strong>. 둘은 경쟁이 아니라 같은 사고의 다른 표현입니다.
+</div>
+</div>
+</div>
+
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 7: MCP -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="p4-ch7">
+<div class="ch-head"><div class="ch-num" style="color:var(--violet)">07</div><h2 class="ch-title">MCP — 도구 통합의 표준 (2026)</h2></div>
 
 <p class="section-desc">2024년 말 Anthropic이 제안한 <strong>Model Context Protocol</strong>이 2026년 사실상 표준이 되었습니다. <strong style="color:var(--violet)">월 97M SDK 다운로드</strong>, 모든 frontier 랩이 채택. "에이전트 생태계의 USB-C".</p>
 
@@ -3370,10 +3705,10 @@ result = app.invoke({<span style="color:#a5d6a7">"messages"</span>: [<span style
 <div class="divider"><hr></div>
 
 <!-- ═══════════════════════════════════════════ -->
-<!-- CHAPTER 6: A2A -->
+<!-- CHAPTER 8: A2A -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p4-ch6">
-<div class="ch-head"><div class="ch-num" style="color:var(--violet)">06</div><h2 class="ch-title">A2A — 멀티 에이전트 통신 표준</h2></div>
+<section class="ch reveal" id="p4-ch8">
+<div class="ch-head"><div class="ch-num" style="color:var(--violet)">08</div><h2 class="ch-title">A2A — 멀티 에이전트 통신 표준</h2></div>
 
 <p class="section-desc">MCP가 "에이전트 ↔ 시스템"이라면, <strong>A2A (Agent-to-Agent)</strong>는 "에이전트 ↔ 에이전트". Google이 주도. 멀티 에이전트 시스템에서 워커들이 작업을 위임·조율하는 방식을 표준화. Part 3 Ch.07 멀티 에이전트의 운영 진화형.</p>
 
@@ -3483,7 +3818,7 @@ result = app.invoke({<span style="color:#a5d6a7">"messages"</span>: [<span style
 
   <!-- 보안 경고 -->
   <div style="padding:.9rem 1.2rem;background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.85">
-    ⚠️ <strong style="color:var(--accent)">최대 위험 — Prompt Injection의 가장 큰 공격면:</strong> 화면에 보이는 모든 텍스트가 잠재적 명령. 결제·전송 같은 비가역 작업은 <strong>반드시 사람 승인 게이트</strong>. 자세히는 Ch.09 보안.
+    ⚠️ <strong style="color:var(--accent)">최대 위험 — Prompt Injection의 가장 큰 공격면:</strong> 화면에 보이는 모든 텍스트가 잠재적 명령. 결제·전송 같은 비가역 작업은 <strong>반드시 사람 승인 게이트</strong>. 자세히는 Ch.11 보안.
   </div>
 </div>
 </div>
@@ -3493,10 +3828,10 @@ result = app.invoke({<span style="color:#a5d6a7">"messages"</span>: [<span style
 <div class="divider"><hr></div>
 
 <!-- ═══════════════════════════════════════════ -->
-<!-- CHAPTER 7: Narrow Scope 원칙 -->
+<!-- CHAPTER 9: Narrow Scope 원칙 -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p4-ch7">
-<div class="ch-head"><div class="ch-num" style="color:var(--violet)">07</div><h2 class="ch-title">Narrow Scope 원칙 — 만능 에이전트가 실패하는 이유</h2></div>
+<section class="ch reveal" id="p4-ch9">
+<div class="ch-head"><div class="ch-num" style="color:var(--violet)">09</div><h2 class="ch-title">Narrow Scope 원칙 — 만능 에이전트가 실패하는 이유</h2></div>
 
 <p class="section-desc">2026년 프로덕션 도달 에이전트의 가장 큰 공통점. <strong style="color:var(--violet)">"하나의 잘 정의된 작업만 잘하는 에이전트"</strong>가 "만능 에이전트"보다 압도적으로 성공합니다. 데모와 프로덕션의 가장 큰 갭은 scope 욕심에서 옵니다.</p>
 
@@ -3635,10 +3970,10 @@ result = app.invoke({<span style="color:#a5d6a7">"messages"</span>: [<span style
 <div class="divider"><hr></div>
 
 <!-- ═══════════════════════════════════════════ -->
-<!-- CHAPTER 8: Observability + Evaluation -->
+<!-- CHAPTER 10: Observability + Evaluation -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p4-ch8">
-<div class="ch-head"><div class="ch-num" style="color:var(--violet)">08</div><h2 class="ch-title">Observability + Evaluation — 비결정 시스템 운영의 두 축</h2></div>
+<section class="ch reveal" id="p4-ch10">
+<div class="ch-head"><div class="ch-num" style="color:var(--violet)">10</div><h2 class="ch-title">Observability + Evaluation — 비결정 시스템 운영의 두 축</h2></div>
 
 <p class="section-desc">비결정성 때문에 전통 모니터링·테스트가 무력합니다. <strong style="color:var(--violet)">Observability(89% 도입)</strong>가 "무엇이 일어났는가"라면, <strong style="color:var(--violet)">Evaluation(52% 도입)</strong>은 "그 결과가 좋았는가"입니다. 둘은 한 챕터에서 함께 봐야 의미가 있습니다.</p>
 
@@ -3865,10 +4200,10 @@ result = app.invoke({<span style="color:#a5d6a7">"messages"</span>: [<span style
 <div class="divider"><hr></div>
 
 <!-- ═══════════════════════════════════════════ -->
-<!-- CHAPTER 9: 보안과 비용 -->
+<!-- CHAPTER 11: 보안과 비용 -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p4-ch9">
-<div class="ch-head"><div class="ch-num" style="color:var(--violet)">09</div><h2 class="ch-title">보안과 비용 — 실전 운영의 두 축</h2></div>
+<section class="ch reveal" id="p4-ch11">
+<div class="ch-head"><div class="ch-num" style="color:var(--violet)">11</div><h2 class="ch-title">보안과 비용 — 실전 운영의 두 축</h2></div>
 
 <p class="section-desc">에이전트가 강해질수록 두 가지가 함께 폭발합니다 — <strong style="color:var(--violet)">보안 공격면</strong>과 <strong style="color:var(--violet)">운영 비용</strong>. 둘 다 근본 해결이 어렵고, "Blast radius를 좁히는" 것이 정답입니다.</p>
 
@@ -3937,7 +4272,7 @@ result = app.invoke({<span style="color:#a5d6a7">"messages"</span>: [<span style
 
     <div style="background:var(--card);border:1px solid var(--violet-border);border-radius:12px;padding:1rem">
       <div style="font-size:.78rem;font-weight:700;color:var(--violet);margin-bottom:.4rem">🎯 Narrow Scope</div>
-      <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7">애초에 위험한 도구 안 줌. Ch.07 원칙.</div>
+      <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7">애초에 위험한 도구 안 줌. Ch.09 원칙.</div>
     </div>
 
   </div>
@@ -3982,10 +4317,10 @@ result = app.invoke({<span style="color:#a5d6a7">"messages"</span>: [<span style
 <div class="divider"><hr></div>
 
 <!-- ═══════════════════════════════════════════ -->
-<!-- CHAPTER 10: 2026 프레임워크 카탈로그 -->
+<!-- CHAPTER 12: 2026 프레임워크 카탈로그 -->
 <!-- ═══════════════════════════════════════════ -->
-<section class="ch reveal" id="p4-ch10">
-<div class="ch-head"><div class="ch-num" style="color:var(--violet)">10</div><h2 class="ch-title">2026 프레임워크 카탈로그</h2></div>
+<section class="ch reveal" id="p4-ch12">
+<div class="ch-head"><div class="ch-num" style="color:var(--violet)">12</div><h2 class="ch-title">2026 프레임워크 카탈로그</h2></div>
 
 <p class="section-desc">2026년 거의 모든 frontier AI 랩이 자체 에이전트 프레임워크를 보유. 7개 주요 옵션을 비교하고 선택 기준을 봅니다. <strong style="color:var(--violet)">결론: 프레임워크보다 프로토콜에 베팅하라.</strong></p>
 
