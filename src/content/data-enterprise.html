@@ -1323,6 +1323,11 @@
 <!-- 도메인별 추천 -->
 <div class="dia reveal">
 <div class="dia-title">도메인별 추천 전략 (Prem AI Benchmark 2026)</div>
+
+<div style="max-width:860px;margin:0 auto 1rem;font-size:.85rem;color:var(--text);line-height:1.95">
+  <strong style="color:var(--amber)">왜 도메인별로 다른가:</strong> 같은 길이의 텍스트라도 <strong>의미 단위</strong>가 도메인마다 다릅니다. 일반 텍스트는 단락이지만, 코드는 함수, 의료 차트는 SOAP(주관·객관·평가·계획) 섹션, 채팅 로그는 한 턴이 자연스러운 경계죠. <strong>"chunk = 의미 한 덩어리"</strong>가 되도록 하는 것이 검색·맥락 모두에 이로운 선택입니다. 기본값(Recursive 256-512)으로 시작하되, 아래 표를 참고해 도메인 특성에 맞춰 조정하세요.
+</div>
+
 <div style="max-width:860px;margin:0 auto;overflow-x:auto">
 <table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:720px">
   <thead>
@@ -1641,10 +1646,20 @@ chunks = splitter.split_documents(docs)<br>
 
 <p class="section-desc">"임베딩 모델만 좋으면 된다"는 2023년의 신화였습니다. 2026년의 합의는 분명합니다 — <strong style="color:var(--amber)">Hybrid Search + Reranker가 기본값</strong>. Vector-only RAG는 이제 "기초 튜토리얼"의 영역이고, 프로덕션은 3단 구성을 씁니다.</p>
 
+<!-- 도입 설명 — 왜 이 챕터를 읽어야 하나 -->
+<div class="reveal" style="max-width:880px;margin:0 auto 1.2rem;padding:1rem 1.3rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 12px 12px 0;font-size:.85rem;color:var(--text);line-height:1.95">
+  💡 <strong style="color:var(--amber)">먼저 짚고 가는 것:</strong> "RAG = 임베딩 + 벡터 DB"라는 이미지는 2022-2023년의 기억입니다. 실제로 PoC를 돌려보면 곧 한계가 드러납니다 — <strong>제품 코드 같은 정확한 단어는 못 찾고, 신제품명은 무시되며, 비슷해 보이는 답이 자주 1순위로 올라옵니다.</strong> 이 챕터는 "왜 이런 일이 생기는가"부터 짚고, 2026 표준 해법인 <strong>BM25 + Vector + Reranker 3단 구성</strong>이 어떻게 그 한계를 메우는지 단계별로 풀어냅니다. 각 단계가 무엇을 책임지는지, 비용은 얼마나 드는지, 어떤 모델을 골라야 하는지까지 한 번에 봅니다.
+</div>
+
 <!-- Vector-only가 부족한 이유 -->
 <div class="dia reveal">
-<div class="dia-title">왜 Vector-only는 부족한가</div>
-<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:880px;margin:0 auto">
+<div class="dia-title">왜 Vector-only는 부족한가 — 3가지 약점</div>
+
+<div style="max-width:880px;margin:0 auto 1rem;font-size:.85rem;color:var(--text);line-height:1.9">
+  벡터 검색은 "의미가 비슷한 문서를 찾는" 능력이 강력합니다. "자동차"로 검색하면 "차량", "vehicle"이 나오죠. 그런데 <strong>이 강점이 곧 약점</strong>이 되기도 합니다 — 의미가 비슷한 것을 찾느라 <em>정확히 일치하는 것</em>을 놓칩니다. 아래 3가지가 실전에서 가장 자주 부딪히는 함정입니다.
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:880px;margin:0 auto 1rem">
 
   <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:14px;padding:1.2rem">
     <div style="font-size:1.4rem;margin-bottom:.5rem">🎯</div>
@@ -1671,12 +1686,21 @@ chunks = splitter.split_documents(docs)<br>
   </div>
 
 </div>
+
+<div style="max-width:880px;margin:0 auto;padding:.95rem 1.2rem;background:var(--surface);border-radius:10px;font-size:.82rem;color:var(--text);line-height:1.9">
+  📌 <strong style="color:var(--accent)">현장에서 자주 보는 시나리오:</strong> "AS-2024-01 모델 사양표 알려줘"라고 물었는데 검색 결과 1순위가 <em>"AS 시리즈 일반 소개 PDF"</em>로 나옵니다. 의미적으로는 가깝지만 사용자가 원한 건 정확한 모델 코드의 사양표였죠. 임베딩은 "모델 코드 ID" 같은 토큰의 정확도에 약합니다 — 그래서 BM25가 도와줘야 합니다.
+</div>
 </div>
 
 <!-- Hybrid Search -->
 <div class="dia reveal">
 <div class="dia-title">Hybrid Search — BM25 + Vector + RRF</div>
 <div style="max-width:880px;margin:0 auto">
+
+  <div style="font-size:.85rem;color:var(--text);line-height:1.95;margin-bottom:1.2rem">
+    <strong style="color:var(--amber)">핵심 아이디어:</strong> 두 검색 방식이 <strong>서로 다른 영역에서 강하다</strong>면, 둘을 합치면 약점이 메워집니다. 키워드 검색(BM25)은 정확한 단어를 잘 찾고, 벡터 검색은 의미를 잘 잡습니다. 이 둘의 결과 리스트를 RRF로 합쳐 하나의 순위표를 만드는 것이 Hybrid Search입니다.<br><br>
+    아래에서 각 방식의 강·약점을 본 뒤, 어떻게 합치는지(RRF)를 봅니다.
+  </div>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem">
 
@@ -1687,6 +1711,9 @@ chunks = splitter.split_documents(docs)<br>
         <strong style="color:var(--amber)">강점:</strong> exact match, 희귀어, 숫자/ID<br>
         <strong style="color:var(--accent)">약점:</strong> 동의어 무시 ("car" vs "automobile")
       </div>
+      <div style="margin-top:.6rem;padding:.6rem .8rem;background:var(--surface);border-radius:8px;font-size:.74rem;color:var(--text-dim);line-height:1.7">
+        <strong style="color:var(--text)">동작 원리:</strong> "이 단어가 문서에서 얼마나 자주 등장하는가(TF)" + "이 단어가 전체 코퍼스에서 얼마나 흔한가(IDF)"의 조합. 희귀하면서 자주 등장하는 단어 = 그 문서의 핵심 키워드로 판단.
+      </div>
     </div>
 
     <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:1.2rem">
@@ -1695,6 +1722,9 @@ chunks = splitter.split_documents(docs)<br>
         임베딩 기반 의미 검색. 2020년 이후 주류.<br>
         <strong style="color:var(--amber)">강점:</strong> 의미 유사성, 동의어, 다국어<br>
         <strong style="color:var(--accent)">약점:</strong> exact match, 희귀어
+      </div>
+      <div style="margin-top:.6rem;padding:.6rem .8rem;background:var(--surface);border-radius:8px;font-size:.74rem;color:var(--text-dim);line-height:1.7">
+        <strong style="color:var(--text)">동작 원리:</strong> 텍스트를 768~3072 차원 벡터로 변환 → 코사인 유사도 계산. "차"와 "자동차"가 다른 단어라도 벡터 공간에서 가까이 있어 함께 검색됨.
       </div>
     </div>
 
@@ -1706,6 +1736,9 @@ chunks = splitter.split_documents(docs)<br>
       두 결과 리스트를 <strong>순위 기반</strong>으로 결합. 공식: <code style="font-family:var(--mono);font-size:.74rem;color:var(--amber)">score(d) = Σ 1/(k + rank_i(d))</code>, 보통 k=60.<br>
       점수 스케일이 달라도 순위만 쓰니 튜닝이 쉬움. <strong>2026년 사실상 표준 결합 알고리즘</strong>.
     </div>
+    <div style="margin-top:.7rem;padding:.7rem 1rem;background:var(--surface);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.85">
+      <strong style="color:var(--amber)">왜 RRF가 표준이 됐나:</strong> 점수 합산(weighted sum)은 BM25 점수(예: 0~50)와 코사인(0~1)의 <strong>스케일이 너무 달라</strong> 가중치 튜닝이 어려웠습니다. RRF는 <strong>순위(rank)</strong>만 쓰므로 스케일이 항상 동일 — 어떤 검색 엔진을 섞어도 동작. 그래서 Elastic·OpenSearch·Weaviate 등 주요 엔진이 모두 채택했습니다.
+    </div>
   </div>
 </div>
 </div>
@@ -1714,6 +1747,10 @@ chunks = splitter.split_documents(docs)<br>
 <div class="dia reveal">
 <div class="dia-title">2026 표준 파이프라인 — 3단 검색</div>
 <div style="max-width:900px;margin:0 auto">
+
+  <div style="font-size:.85rem;color:var(--text);line-height:1.95;margin-bottom:1.2rem">
+    실전 RAG 파이프라인은 <strong>"넓게 잡고 → 좁히고 → 답하기"</strong>의 3단 깔때기 구조입니다. 각 단계가 다른 책임을 맡습니다 — Hybrid는 <strong>recall(놓치지 않기)</strong>, Reranker는 <strong>precision(정확도)</strong>, LLM은 <strong>합성(생성)</strong>. 한 모델에 다 맡기지 않고 책임을 분리한 이유는 비용·속도·품질의 균형 때문입니다.
+  </div>
 
   <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:.4rem;align-items:center;text-align:center">
 
@@ -1752,12 +1789,24 @@ chunks = splitter.split_documents(docs)<br>
   <div style="margin-top:1.2rem;padding:.9rem 1.2rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.85">
     <strong style="color:var(--amber)">🎯 핵심:</strong> 단계별로 "넓게 → 좁게" 필터링. Hybrid가 recall(놓치지 않음)을, Rerank가 precision(정확도)을 담당. 각 단계의 책임이 분리되어 있음.
   </div>
+
+  <div style="margin-top:.9rem;padding:1rem 1.3rem;background:var(--card);border:1.5px solid var(--amber-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:1.5px;margin-bottom:.6rem">📐 왜 100 → 10인가? — 숫자의 근거</div>
+    <div style="font-size:.82rem;color:var(--text);line-height:1.95">
+      <strong>100을 뽑는 이유:</strong> Hybrid가 너무 좁게(top-10) 뽑으면 reranker가 봐야 할 정답 후보가 빠질 수 있음(recall ↓). 너무 넓게(top-1000) 뽑으면 reranker 비용이 10배. 100은 <strong>recall 95%+ 보존하면서 reranker 비용을 감당 가능한</strong> 균형점.<br><br>
+      <strong>10으로 좁히는 이유:</strong> LLM 컨텍스트 윈도가 길어졌어도 여전히 "관련 없는 5개를 끼워넣으면 답이 흔들린다"는 <em>Lost in the Middle</em> 현상이 있음(Liu et al., 2023). 그래서 <strong>가장 관련 높은 5-10개</strong>만 LLM에 넘기는 것이 사실상 표준. Anthropic·OpenAI 공식 가이드도 이 범위 권장.
+    </div>
+  </div>
 </div>
 </div>
 
 <!-- Reranker 비교 -->
 <div class="dia reveal">
 <div class="dia-title">2026 Reranker 카탈로그</div>
+
+<div style="max-width:880px;margin:0 auto 1rem;font-size:.85rem;color:var(--text);line-height:1.95">
+  Reranker는 <strong>cross-encoder</strong>라는 모델 구조를 씁니다. 임베딩 모델(bi-encoder)은 질문과 문서를 따로 벡터화해 거리만 비교하지만, cross-encoder는 <strong>질문과 문서를 한꺼번에 입력해 직접 관련성 점수</strong>를 냅니다. 그래서 정확도가 높지만 느리죠 — 이게 reranker가 "100개 → 10개"의 작은 후보군에만 적용되는 이유입니다. 아래는 2026 시점 주요 reranker 비교입니다.
+</div>
 <div style="max-width:880px;margin:0 auto;overflow-x:auto">
 <table style="width:100%;border-collapse:collapse;font-size:.76rem;min-width:720px">
   <thead>
@@ -1776,6 +1825,10 @@ chunks = splitter.split_documents(docs)<br>
     <tr><td style="padding:.5rem;color:var(--text);font-weight:600">mixedbread mxbai-rerank</td><td style="padding:.5rem;color:var(--text-dim)">Mixedbread (OSS)</td><td style="padding:.5rem;color:var(--text-dim)">Self-host</td><td style="padding:.5rem;color:var(--text-dim)">OSS 품질 강자</td></tr>
   </tbody>
 </table>
+</div>
+
+<div style="max-width:880px;margin:1rem auto 0;padding:.9rem 1.2rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.9">
+  🧭 <strong style="color:var(--amber)">선택 가이드:</strong> 한국어 비중이 크면 <strong>Cohere 또는 BGE</strong>(다국어 강함). 데이터 보안상 self-host 필수면 <strong>BGE 또는 mxbai</strong>(둘 다 OSS). 가벼운 게 우선이면 <strong>Jina v2</strong>. 의심스러우면 일단 <strong>Cohere Rerank 3.5</strong>로 시작 — 가장 검증된 기본값입니다.
 </div>
 </div>
 
