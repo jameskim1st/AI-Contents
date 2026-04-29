@@ -1810,6 +1810,49 @@
 
 <div class="divider"><hr></div>
 
+<!-- ── BRIDGE: 일반 데이터 → AI 데이터 전환 ── -->
+<div class="dia reveal" style="border:2px solid var(--amber);background:linear-gradient(135deg,var(--amber-bg),var(--surface));margin-bottom:2rem">
+<div style="text-align:center;padding:.6rem 0">
+  <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);letter-spacing:2px;text-transform:uppercase;margin-bottom:.5rem">▾ 흐름 전환 ▾</div>
+  <div style="font-family:var(--display);font-size:1.15rem;font-weight:800;color:var(--text);line-height:1.7;margin-bottom:.8rem;max-width:760px;margin-left:auto;margin-right:auto">
+    여기까지는 <strong style="color:var(--text-dim)">"모든 데이터"</strong>의 이야기 — 이제부터는 <strong style="color:var(--amber)">"AI를 위한 데이터"</strong>입니다
+  </div>
+
+  <!-- Bridge 시각화 -->
+  <svg viewBox="0 0 760 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px;display:block;margin:.5rem auto;height:auto" role="img" aria-label="일반 데이터에서 AI 데이터로 전환">
+    <defs>
+      <marker id="arrBR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+        <path d="M0,2 L9,5 L0,8 z" fill="#cc8800"/>
+      </marker>
+    </defs>
+
+    <!-- LEFT: 일반 데이터 -->
+    <rect x="20" y="20" width="290" height="90" rx="12" fill="var(--card)" stroke="var(--border)" stroke-width="1.5"/>
+    <text x="165" y="42" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="var(--text-dim)" text-anchor="middle">Ch.01-04 — 모든 데이터</text>
+    <text x="165" y="62" font-family="var(--display,sans-serif)" font-size="12" fill="var(--text)" text-anchor="middle">DIKW · 3유형 · 저장소 · 인터페이스</text>
+    <text x="165" y="82" font-family="Arial,sans-serif" font-size="11" fill="var(--text-dim)" text-anchor="middle">"DB·DW·Lake에 무엇을, 어떻게"</text>
+    <text x="165" y="98" font-family="Arial,sans-serif" font-size="10.5" fill="var(--text-dim)" text-anchor="middle">SQL·BI 시대부터 50년 — AI 이전</text>
+
+    <!-- ARROW -->
+    <line x1="320" y1="65" x2="448" y2="65" stroke="#cc8800" stroke-width="2.5" marker-end="url(#arrBR)"/>
+    <text x="384" y="55" font-family="JetBrains Mono,monospace" font-size="10" fill="#cc8800" font-weight="700" text-anchor="middle">시점 변화</text>
+    <text x="384" y="84" font-family="Arial,sans-serif" font-size="10" fill="var(--text-dim)" text-anchor="middle">"누가 만들 데이터"</text>
+
+    <!-- RIGHT: AI 데이터 -->
+    <rect x="450" y="20" width="290" height="90" rx="12" fill="rgba(255,180,0,0.12)" stroke="#cc8800" stroke-width="2"/>
+    <text x="595" y="42" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#cc8800" text-anchor="middle">Ch.05-08 — AI 데이터</text>
+    <text x="595" y="62" font-family="var(--display,sans-serif)" font-size="12" fill="var(--text)" text-anchor="middle" font-weight="700">Pre-train · Fine-tune · 임베딩 · Vector</text>
+    <text x="595" y="82" font-family="Arial,sans-serif" font-size="11" fill="var(--text-dim)" text-anchor="middle">"AI를 만들고 쓰기 위한 특수 데이터"</text>
+    <text x="595" y="98" font-family="Arial,sans-serif" font-size="10.5" fill="var(--text-dim)" text-anchor="middle">2017년 Transformer 이후의 새 영역</text>
+  </svg>
+
+  <div style="max-width:780px;margin:.5rem auto 0;padding:0 1rem;font-size:.85rem;color:var(--text);line-height:1.95;text-align:left">
+    지금까지 배운 데이터 인프라(DB·DW·Lake·SQL)는 <strong>50년에 걸쳐 다듬어진 일반 데이터의 세계</strong>입니다. 이제부터 다룰 4개 챕터(Ch.05-08)는 <strong style="color:var(--amber)">AI 시대에 새로 등장한 "AI를 만들기 위한 데이터"·"AI가 쓰는 데이터"</strong>입니다.<br><br>
+    <strong style="color:var(--amber)">다음 흐름:</strong> Ch.05 LLM이 어떻게 만들어지나(Pre-training) → Ch.06 내 작업에 맞추기(Fine-tuning) → Ch.07 의미를 숫자로(Embedding) → Ch.08 의미 검색을 빠르게(Vector DB). 그 후 Ch.09-12에서 다시 일반 데이터의 <strong>품질·편향·운영</strong>으로 돌아옵니다.
+  </div>
+</div>
+</div>
+
 <!-- ═══════════════════════════════════════════ -->
 <!-- CHAPTER 5: LLM Pre-training과 데이터 -->
 <!-- ═══════════════════════════════════════════ -->
@@ -2175,30 +2218,105 @@
 
 <p class="section-desc">컴퓨터는 "사과"와 "배"가 비슷한 과일이라는 걸 어떻게 알까요? 답은 <strong style="color:var(--amber)">임베딩(Embedding)</strong>입니다. 단어·문장·문서를 수백~수천 차원의 벡터로 바꿔서, <strong>의미를 좌표로 표현</strong>하는 기술. 2026년 RAG, 검색, 추천, 분류 — 대부분의 AI 시스템이 이것 위에 돌아갑니다.</p>
 
-<!-- 임베딩 핵심 아이디어 -->
+<!-- 풀어쓴 도입: 왜 임베딩이 필요한가 -->
 <div class="dia reveal">
-<div class="dia-title">핵심 아이디어 — 텍스트를 숫자 목록으로</div>
-<div style="max-width:820px;margin:0 auto">
-  <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:1.2rem;align-items:center">
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem">
-      <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-bottom:.5rem">INPUT</div>
-      <div style="font-size:.95rem;color:var(--text);line-height:1.8">"사과는 빨갛다"<br>"왕은 남자다"<br>"파리는 프랑스"</div>
-    </div>
-    <div style="text-align:center">
-      <div style="font-family:var(--mono);font-size:.65rem;color:var(--amber)">Embedding<br>Model</div>
-      <div style="font-size:1.6rem;color:var(--amber);margin:.3rem 0">→</div>
-      <div style="font-family:var(--mono);font-size:.6rem;color:var(--text-dim)">(1536-d)</div>
-    </div>
-    <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1.2rem;font-family:var(--mono);font-size:.72rem;line-height:1.8;color:var(--text)">
-      <div style="color:var(--text-dim)">OUTPUT (vector)</div>
-      [0.21, -0.47, 0.83, ...<br>
-      &nbsp;0.05, 0.61, -0.12, ...<br>
-      &nbsp;... 1536 numbers]
-    </div>
+<div class="dia-title">🤔 왜 임베딩이 필요한가 — 컴퓨터에게 "비슷하다"를 가르치기</div>
+<div style="max-width:880px;margin:0 auto">
+  <div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.85rem;color:var(--text);line-height:1.95;margin-bottom:1.2rem">
+    문자열 비교만 알면 컴퓨터는 "사과"와 "배"가 비슷한 과일이라는 걸 모릅니다. 글자가 아예 다르니까요. <strong>"휴가 신청"을 검색했을 때 "연차 사용법" 문서가 뜨는</strong> 검색을 만들려면, 컴퓨터가 단어·문장의 <strong style="color:var(--amber)">"의미"</strong>를 이해해야 합니다.<br><br>
+    그런데 컴퓨터는 숫자만 다룹니다. 그래서 <strong>"의미를 숫자로 바꾸는 함수"</strong>가 필요합니다 — 이것이 임베딩입니다. 단어가 들어가면 1,536개 숫자(벡터)가 나오고, <strong>의미가 비슷한 단어는 비슷한 숫자 패턴</strong>을 가지도록 학습됩니다.
   </div>
-  <div style="margin-top:1.2rem;padding:1rem 1.2rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.85">
-    🎯 <strong style="color:var(--amber)">왜 벡터인가?</strong> 벡터는 <strong>더하고, 빼고, 거리를 잴 수 있기 때문</strong>입니다. 의미가 숫자가 되는 순간, 의미도 "연산 가능"해집니다. 이것이 AI가 언어를 이해하는 수학적 트릭의 전부입니다.
+</div>
+</div>
+
+<!-- 임베딩 파이프라인 SVG -->
+<div class="dia reveal">
+<div class="dia-title">핵심 아이디어 — 텍스트를 숫자 목록으로 변환하는 파이프라인</div>
+<div style="max-width:880px;margin:0 auto">
+
+<!-- Pipeline SVG -->
+<svg viewBox="0 0 880 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:880px;display:block;margin:0 auto 1.2rem;height:auto" role="img" aria-label="임베딩 파이프라인">
+  <defs>
+    <style>
+      .ptit{font-family:JetBrains Mono,monospace;font-size:11px;font-weight:700;fill:#cc8800}
+      .pname{font-family:var(--display,sans-serif);font-size:13px;font-weight:800;fill:var(--text)}
+      .pcontent{font-family:JetBrains Mono,monospace;font-size:10.5px;fill:var(--text)}
+      .pdsc{font-family:Arial,sans-serif;font-size:10.5px;fill:var(--text-dim)}
+    </style>
+    <marker id="arrEMB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M0,2 L9,5 L0,8 z" fill="#cc8800"/>
+    </marker>
+  </defs>
+
+  <!-- Step 1: 입력 텍스트 -->
+  <rect x="20" y="40" width="180" height="100" rx="12" fill="var(--card)" stroke="var(--border)" stroke-width="1.5"/>
+  <text x="110" y="60" class="ptit" text-anchor="middle">① INPUT</text>
+  <text x="110" y="80" class="pname" text-anchor="middle">자연어 텍스트</text>
+  <rect x="35" y="92" width="150" height="35" rx="6" fill="var(--surface)"/>
+  <text x="110" y="108" class="pcontent" text-anchor="middle">"사과는 빨갛다"</text>
+  <text x="110" y="123" class="pdsc" text-anchor="middle">사람이 읽는 형태</text>
+
+  <line x1="200" y1="90" x2="248" y2="90" stroke="#cc8800" stroke-width="2.5" marker-end="url(#arrEMB)"/>
+  <text x="224" y="80" class="pdsc" text-anchor="middle">tokenize</text>
+
+  <!-- Step 2: 토큰 -->
+  <rect x="250" y="40" width="180" height="100" rx="12" fill="var(--card)" stroke="var(--border)" stroke-width="1.5"/>
+  <text x="340" y="60" class="ptit" text-anchor="middle">② TOKENS</text>
+  <text x="340" y="80" class="pname" text-anchor="middle">토큰 ID 시퀀스</text>
+  <rect x="265" y="92" width="150" height="35" rx="6" fill="var(--surface)"/>
+  <text x="340" y="108" class="pcontent" text-anchor="middle">[12483, 8201, 47, ...]</text>
+  <text x="340" y="123" class="pdsc" text-anchor="middle">정수 배열 (BPE 분할)</text>
+
+  <line x1="430" y1="90" x2="478" y2="90" stroke="#cc8800" stroke-width="2.5" marker-end="url(#arrEMB)"/>
+  <text x="454" y="80" class="pdsc" text-anchor="middle">embed</text>
+
+  <!-- Step 3: 임베딩 모델 -->
+  <rect x="480" y="20" width="200" height="140" rx="12" fill="rgba(255,180,0,0.13)" stroke="#cc8800" stroke-width="2.5"/>
+  <text x="580" y="42" class="ptit" text-anchor="middle">③ EMBEDDING MODEL</text>
+  <text x="580" y="62" class="pname" text-anchor="middle">의미→숫자 함수</text>
+  <text x="580" y="82" class="pdsc" text-anchor="middle">text-embedding-3-large</text>
+  <text x="580" y="100" class="pdsc" text-anchor="middle">Voyage · Cohere · BGE</text>
+  <rect x="495" y="110" width="170" height="40" rx="6" fill="var(--card)"/>
+  <text x="580" y="126" class="pdsc" text-anchor="middle">학습 데이터로 형성된</text>
+  <text x="580" y="142" class="pdsc" text-anchor="middle">"의미 공간" 매핑</text>
+
+  <line x1="680" y1="90" x2="728" y2="90" stroke="#cc8800" stroke-width="2.5" marker-end="url(#arrEMB)"/>
+
+  <!-- Step 4: 출력 벡터 -->
+  <rect x="730" y="40" width="135" height="100" rx="12" fill="var(--card)" stroke="#cc8800" stroke-width="2"/>
+  <text x="797" y="60" class="ptit" text-anchor="middle">④ OUTPUT</text>
+  <text x="797" y="80" class="pname" text-anchor="middle" font-size="12">벡터</text>
+  <rect x="740" y="92" width="115" height="35" rx="6" fill="var(--surface)"/>
+  <text x="797" y="105" class="pcontent" text-anchor="middle" font-size="9">[0.21, -0.47,</text>
+  <text x="797" y="118" class="pcontent" text-anchor="middle" font-size="9">0.83, ... ]</text>
+  <text x="797" y="135" class="pdsc" text-anchor="middle">1,536개 숫자</text>
+
+  <!-- Bottom annotation -->
+  <text x="440" y="200" class="pname" text-anchor="middle" font-size="13" fill="#cc8800">"의미가 숫자가 되는 순간, 의미도 연산 가능해진다"</text>
+  <text x="440" y="222" class="pdsc" text-anchor="middle">→ 거리 계산(cos sim) · 덧뺄셈(king − man + woman) · 클러스터링 모두 가능</text>
+  <text x="440" y="244" class="pdsc" text-anchor="middle" font-style="italic">이것이 AI가 언어를 "이해"하는 수학적 트릭의 전부.</text>
+</svg>
+
+<div style="display:grid;grid-template-columns:1fr auto 1fr;gap:1.2rem;align-items:center;margin-bottom:1rem">
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-dim);margin-bottom:.5rem">INPUT 예시</div>
+    <div style="font-size:.95rem;color:var(--text);line-height:1.8">"사과는 빨갛다"<br>"왕은 남자다"<br>"파리는 프랑스"</div>
   </div>
+  <div style="text-align:center">
+    <div style="font-family:var(--mono);font-size:.65rem;color:var(--amber)">Embedding<br>Model</div>
+    <div style="font-size:1.6rem;color:var(--amber);margin:.3rem 0">→</div>
+    <div style="font-family:var(--mono);font-size:.6rem;color:var(--text-dim)">(1536-d)</div>
+  </div>
+  <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1.2rem;font-family:var(--mono);font-size:.72rem;line-height:1.8;color:var(--text)">
+    <div style="color:var(--text-dim)">OUTPUT (vector)</div>
+    [0.21, -0.47, 0.83, ...<br>
+    &nbsp;0.05, 0.61, -0.12, ...<br>
+    &nbsp;... 1536 numbers]
+  </div>
+</div>
+<div style="padding:1rem 1.2rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.85">
+  🎯 <strong style="color:var(--amber)">왜 벡터인가?</strong> 벡터는 <strong>더하고, 빼고, 거리를 잴 수 있기 때문</strong>입니다. 의미가 숫자가 되는 순간, 의미도 "연산 가능"해집니다. 다음 두 다이어그램에서 그 "연산 가능성"이 실제로 어떻게 의미를 만드는지(2D 공간 시각화·king-queen 산술)를 봅니다.
+</div>
 </div>
 </div>
 
@@ -2241,8 +2359,72 @@
 <!-- Cosine similarity -->
 <div class="dia reveal">
 <div class="dia-title">Cosine Similarity — 두 벡터가 얼마나 비슷한가</div>
-<div style="max-width:820px;margin:0 auto">
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem">
+<div style="max-width:880px;margin:0 auto">
+
+  <!-- 풀어쓴 설명 -->
+  <div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.85rem;color:var(--text);line-height:1.95;margin-bottom:1.2rem">
+    🤔 <strong style="color:var(--amber)">왜 거리가 아니라 각도인가?</strong> 두 벡터를 비교할 때 두 가지 척도가 있습니다 — <strong>거리(얼마나 떨어져 있나)</strong>와 <strong>각도(어느 방향을 가리키나)</strong>. "긴 문서"는 좌표값이 크고 "짧은 문서"는 작아서 단순 거리로 비교하면 길이가 결과를 좌우합니다. 코사인은 길이를 무시하고 <strong>방향만 보기 때문에</strong>, 한 문장과 책 한 권이라도 같은 주제면 비슷하다고 판단합니다. 이게 의미 검색의 표준이 된 이유입니다.
+  </div>
+
+  <!-- 각도 시각화 SVG -->
+  <svg viewBox="0 0 760 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px;display:block;margin:0 auto 1.2rem;height:auto" role="img" aria-label="Cosine Similarity 각도 시각화">
+    <defs>
+      <style>
+        .vlbl{font-family:var(--display,sans-serif);font-size:13px;font-weight:800;fill:var(--amber)}
+        .vsim{font-family:JetBrains Mono,monospace;font-size:14px;font-weight:700;fill:var(--text)}
+        .vdsc{font-family:Arial,sans-serif;font-size:11px;fill:var(--text-dim)}
+        .vorigin{fill:var(--text-dim)}
+      </style>
+      <marker id="arrCS" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+        <path d="M0,2 L9,5 L0,8 z" fill="#cc8800"/>
+      </marker>
+    </defs>
+
+    <!-- Case 1: 매우 유사 (작은 각도) -->
+    <g transform="translate(40,40)">
+      <text x="80" y="-10" class="vlbl" text-anchor="middle">cos = 0.87</text>
+      <text x="80" y="200" class="vsim" text-anchor="middle">매우 유사 ✅</text>
+      <text x="80" y="220" class="vdsc" text-anchor="middle">"연차 규정" ↔ "휴가 신청"</text>
+      <!-- vector A -->
+      <line x1="20" y1="170" x2="135" y2="40" stroke="#cc8800" stroke-width="2.5" marker-end="url(#arrCS)"/>
+      <!-- vector B -->
+      <line x1="20" y1="170" x2="155" y2="60" stroke="#cc8800" stroke-width="2.5" marker-end="url(#arrCS)"/>
+      <!-- arc -->
+      <path d="M 70 122 A 60 60 0 0 1 80 110" fill="none" stroke="#cc8800" stroke-width="1.5"/>
+      <text x="74" y="105" class="vdsc" font-weight="700" fill="#cc8800">θ ≈ 30°</text>
+      <circle cx="20" cy="170" r="4" class="vorigin"/>
+    </g>
+
+    <!-- Case 2: 무관 (직교) -->
+    <g transform="translate(280,40)">
+      <text x="80" y="-10" class="vlbl" text-anchor="middle">cos = 0.31</text>
+      <text x="80" y="200" class="vsim" text-anchor="middle">무관</text>
+      <text x="80" y="220" class="vdsc" text-anchor="middle">"연차 규정" ↔ "회의실 예약"</text>
+      <line x1="20" y1="170" x2="155" y2="55" stroke="#cc8800" stroke-width="2.5" marker-end="url(#arrCS)"/>
+      <line x1="20" y1="170" x2="160" y2="135" stroke="var(--text-dim)" stroke-width="2.5" marker-end="url(#arrCS)"/>
+      <path d="M 80 144 A 50 50 0 0 1 124 130" fill="none" stroke="var(--text-dim)" stroke-width="1.5"/>
+      <text x="100" y="125" class="vdsc" font-weight="700">θ ≈ 70°</text>
+      <circle cx="20" cy="170" r="4" class="vorigin"/>
+    </g>
+
+    <!-- Case 3: 완전 무관 (직교) -->
+    <g transform="translate(520,40)">
+      <text x="80" y="-10" class="vlbl" text-anchor="middle">cos = 0.09</text>
+      <text x="80" y="200" class="vsim" text-anchor="middle">완전 무관</text>
+      <text x="80" y="220" class="vdsc" text-anchor="middle">"연차 규정" ↔ "피자 주문"</text>
+      <line x1="20" y1="170" x2="155" y2="55" stroke="#cc8800" stroke-width="2.5" marker-end="url(#arrCS)"/>
+      <line x1="20" y1="170" x2="170" y2="170" stroke="var(--text-dim)" stroke-width="2.5" marker-end="url(#arrCS)"/>
+      <path d="M 60 170 A 40 40 0 0 0 90 138" fill="none" stroke="var(--text-dim)" stroke-width="1.5"/>
+      <text x="78" y="160" class="vdsc" font-weight="700">θ ≈ 85°</text>
+      <circle cx="20" cy="170" r="4" class="vorigin"/>
+    </g>
+
+    <!-- Bottom legend -->
+    <text x="380" y="265" class="vdsc" text-anchor="middle">두 벡터의 각도 θ가 작을수록 cos(θ)는 1에 가까움 → 의미가 가깝다</text>
+  </svg>
+
+  <!-- 수식 + 해석 카드 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1rem">
 
     <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:12px;padding:1.2rem">
       <div style="font-family:var(--mono);font-size:.72rem;color:var(--amber);margin-bottom:.5rem">수식</div>
@@ -2250,7 +2432,8 @@
         cos(θ) = (A · B) / (‖A‖ × ‖B‖)
       </div>
       <div style="font-size:.75rem;color:var(--text-dim);line-height:1.8;margin-top:.6rem">
-        두 벡터 사이의 각도 θ의 코사인. <strong style="color:var(--text)">방향만 보고 길이는 무시</strong>하기 때문에 "긴 문서"와 "짧은 문서"도 공정하게 비교됩니다.
+        분자: 두 벡터 내적(같은 차원끼리 곱해서 합). 분모: 각 벡터의 길이.<br>
+        결과는 -1 ~ +1 사이 값.
       </div>
     </div>
 
@@ -2260,13 +2443,13 @@
         <strong style="color:var(--amber)">+1.0</strong> — 완벽히 동일 방향 (같은 의미)<br>
         <strong style="color:var(--amber)">+0.7~0.9</strong> — 매우 유사<br>
         <strong style="color:var(--text-dim)">0.0</strong> — 직교 (무관)<br>
-        <strong style="color:var(--text-dim)">-1.0</strong> — 정반대
+        <strong style="color:var(--text-dim)">-1.0</strong> — 정반대 (반의어)
       </div>
     </div>
 
   </div>
 
-  <div style="margin-top:1rem;padding:1rem;background:var(--surface);border-radius:10px;font-family:var(--mono);font-size:.72rem;line-height:1.85;color:var(--text)">
+  <div style="padding:1rem;background:var(--surface);border-radius:10px;font-family:var(--mono);font-size:.72rem;line-height:1.85;color:var(--text)">
     <span style="color:var(--text-dim)"># 실제 계산 예시 (OpenAI text-embedding-3-small)</span><br>
     cos("연차 규정", "휴가 신청 방법") &nbsp;&nbsp;= <span style="color:var(--amber)">0.87</span> ← 매우 가까움 ✅<br>
     cos("연차 규정", "회의실 예약") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= <span style="color:var(--amber)">0.31</span> ← 무관<br>
@@ -2278,10 +2461,72 @@
 <!-- 고전 예시: king - man + woman -->
 <div class="dia reveal">
 <div class="dia-title">고전 예시 — king − man + woman ≈ queen</div>
-<div style="max-width:820px;margin:0 auto">
-  <div style="font-size:.82rem;color:var(--text-dim);margin-bottom:1rem">2013년 Word2Vec 논문에서 세상을 놀라게 한 발견. <strong>의미가 벡터 덧뺄셈으로 표현된다</strong>는 증거였습니다.</div>
+<div style="max-width:880px;margin:0 auto">
+  <div style="font-size:.82rem;color:var(--text);line-height:1.95;margin-bottom:1.2rem">
+    2013년 Mikolov 등의 <strong>Word2Vec 논문</strong>이 세상을 놀라게 한 발견입니다 — <strong>의미가 벡터 덧뺄셈으로 표현된다</strong>는 사실이었습니다. 이 발견의 의미는 컸습니다 — 모델이 단어를 외우는 게 아니라, "성별"·"왕족 지위"·"수도-국가 관계" 같은 <strong style="color:var(--amber)">추상 개념을 차원 축으로 자기 스스로 학습</strong>한다는 증거였습니다.
+  </div>
 
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.4rem">
+  <!-- Vector arithmetic 2D SVG -->
+  <svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px;display:block;margin:0 auto 1.2rem;height:auto" role="img" aria-label="king-man+woman=queen 벡터 산술">
+    <defs>
+      <style>
+        .axL{font-family:JetBrains Mono,monospace;font-size:11px;fill:var(--text-dim)}
+        .wlbl{font-family:var(--display,sans-serif);font-size:13px;font-weight:800;fill:var(--text)}
+        .vlbl{font-family:JetBrains Mono,monospace;font-size:11px;font-weight:700}
+        .step{font-family:var(--display,sans-serif);font-size:12px;font-weight:700;fill:var(--amber)}
+      </style>
+      <marker id="arrK1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+        <path d="M0,2 L9,5 L0,8 z" fill="#cc8800"/>
+      </marker>
+      <marker id="arrK2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0,2 L9,5 L0,8 z" fill="var(--text-dim)"/>
+      </marker>
+    </defs>
+
+    <!-- Axes -->
+    <line x1="60" y1="320" x2="700" y2="320" stroke="var(--text-dim)" stroke-width="1"/>
+    <line x1="60" y1="40" x2="60" y2="320" stroke="var(--text-dim)" stroke-width="1"/>
+    <text x="710" y="324" class="axL">남성 ────────► 여성</text>
+    <text x="62" y="34" class="axL">왕족</text>
+    <text x="62" y="332" class="axL">평민</text>
+
+    <!-- 4 word points -->
+    <!-- man: low royalty, low femininity -->
+    <circle cx="180" cy="240" r="6" fill="var(--text-dim)"/>
+    <text x="190" y="244" class="wlbl">man</text>
+
+    <!-- woman: low royalty, high femininity -->
+    <circle cx="500" cy="240" r="6" fill="var(--text-dim)"/>
+    <text x="510" y="244" class="wlbl">woman</text>
+
+    <!-- king: high royalty, low femininity -->
+    <circle cx="180" cy="100" r="7" fill="#cc8800"/>
+    <text x="190" y="104" class="wlbl" fill="#cc8800">king</text>
+
+    <!-- queen: high royalty, high femininity -->
+    <circle cx="500" cy="100" r="8" fill="#cc8800" stroke="#d04a02" stroke-width="2"/>
+    <text x="510" y="104" class="wlbl" fill="#d04a02">queen ⭐</text>
+
+    <!-- Vector arithmetic: king - man = "royalty axis" -->
+    <line x1="180" y1="240" x2="180" y2="115" stroke="var(--text-dim)" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrK2)"/>
+    <text x="105" y="180" class="step">① king − man</text>
+    <text x="100" y="195" class="axL">= 왕족 차원</text>
+
+    <!-- + woman: parallel transport from woman -->
+    <line x1="500" y1="240" x2="500" y2="115" stroke="#cc8800" stroke-width="2" marker-end="url(#arrK1)"/>
+    <text x="540" y="180" class="step">② + woman 위치에서</text>
+    <text x="540" y="195" class="axL">같은 만큼 위로 → queen</text>
+
+    <!-- man → woman path -->
+    <line x1="195" y1="240" x2="490" y2="240" stroke="var(--text-dim)" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="320" y="258" class="axL" text-anchor="middle">성별 차원 (man → woman)</text>
+
+    <!-- Title -->
+    <text x="380" y="22" class="step" text-anchor="middle" font-size="14">2D로 단순화한 의미 공간 (실제는 1536차원)</text>
+  </svg>
+
+  <!-- 수식 표현 -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.4rem;margin-bottom:1rem">
     <div style="display:flex;align-items:center;justify-content:center;gap:.7rem;flex-wrap:wrap;font-family:var(--mono);font-size:.95rem">
       <div style="background:var(--amber-bg);border:1.5px solid var(--amber);padding:.6rem 1rem;border-radius:10px;color:var(--amber);font-weight:700">vec(king)</div>
       <div style="font-size:1.3rem;color:var(--text)">−</div>
@@ -2291,21 +2536,24 @@
       <div style="font-size:1.3rem;color:var(--amber)">≈</div>
       <div style="background:var(--amber-bg);border:2px solid var(--amber);padding:.6rem 1rem;border-radius:10px;color:var(--amber);font-weight:800">vec(queen)</div>
     </div>
-    <div style="margin-top:1rem;text-align:center;font-size:.78rem;color:var(--text-dim);line-height:1.75">
-      "왕"에서 "남성성"을 빼고 "여성성"을 더하니 정말로 "여왕"이 나왔습니다.<br>
-      모델은 "왕족(royalty) − 성별(gender)"이라는 차원을 <strong style="color:var(--text)">스스로 학습</strong>했다는 뜻.
+    <div style="margin-top:1rem;text-align:center;font-size:.81rem;color:var(--text);line-height:1.85">
+      <strong>"왕"에서 "남성성"을 빼고 "여성성"을 더하니 정말로 "여왕"이 나왔다.</strong><br>
+      <span style="color:var(--text-dim)">모델은 "왕족(royalty) − 성별(gender)"이라는 차원을 명시적으로 가르치지 않았는데도 스스로 발견했다는 뜻 — 이게 "임베딩이 의미를 학습한다"의 진짜 의미.</span>
     </div>
   </div>
 
-  <div style="margin-top:1rem;display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem">
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem">
     <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:10px;padding:.8rem;text-align:center;font-family:var(--mono);font-size:.72rem;color:var(--text);line-height:1.7">
       Paris − France<br>+ Japan ≈<br><strong style="color:var(--amber)">Tokyo</strong>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--display)">"수도" 차원 학습</div>
     </div>
     <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:10px;padding:.8rem;text-align:center;font-family:var(--mono);font-size:.72rem;color:var(--text);line-height:1.7">
       walking − walk<br>+ swim ≈<br><strong style="color:var(--amber)">swimming</strong>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--display)">"-ing" 어미 학습</div>
     </div>
     <div style="background:var(--card);border:1px solid var(--amber-border);border-radius:10px;padding:.8rem;text-align:center;font-family:var(--mono);font-size:.72rem;color:var(--text);line-height:1.7">
       bigger − big<br>+ small ≈<br><strong style="color:var(--amber)">smaller</strong>
+      <div style="font-size:.65rem;color:var(--text-dim);margin-top:.3rem;font-family:var(--display)">"비교급" 차원 학습</div>
     </div>
   </div>
 </div>
@@ -2525,43 +2773,115 @@
 
 </div>
 
-<!-- HNSW 시각화 -->
-<div style="margin-top:1rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.2rem">
-  <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);margin-bottom:.6rem">HNSW 작동 원리 — 다층 그래프 탐색</div>
-  <div style="display:grid;grid-template-columns:80px 1fr;gap:.5rem;align-items:center">
-    <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-dim);text-align:right">Layer 2</div>
-    <div style="display:flex;gap:1.5rem;padding:.4rem 0">
-      <div style="width:10px;height:10px;background:var(--amber);border-radius:50%"></div>
-      <div style="width:10px;height:10px;background:var(--text-dim);border-radius:50%"></div>
-      <div style="width:10px;height:10px;background:var(--text-dim);border-radius:50%"></div>
-    </div>
-    <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-dim);text-align:right">Layer 1</div>
-    <div style="display:flex;gap:.8rem;padding:.4rem 0">
-      <div style="width:10px;height:10px;background:var(--amber);border-radius:50%"></div>
-      <div style="width:10px;height:10px;background:var(--text-dim);border-radius:50%"></div>
-      <div style="width:10px;height:10px;background:var(--amber);border-radius:50%"></div>
-      <div style="width:10px;height:10px;background:var(--text-dim);border-radius:50%"></div>
-      <div style="width:10px;height:10px;background:var(--text-dim);border-radius:50%"></div>
-      <div style="width:10px;height:10px;background:var(--text-dim);border-radius:50%"></div>
-    </div>
-    <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-dim);text-align:right">Layer 0</div>
-    <div style="display:flex;gap:.35rem;padding:.4rem 0">
-      <div style="width:8px;height:8px;background:var(--text-dim);border-radius:50%"></div>
-      <div style="width:8px;height:8px;background:var(--amber);border-radius:50%"></div>
-      <div style="width:8px;height:8px;background:var(--text-dim);border-radius:50%"></div>
-      <div style="width:8px;height:8px;background:var(--amber);border-radius:50%"></div>
-      <div style="width:8px;height:8px;background:var(--text-dim);border-radius:50%"></div>
-      <div style="width:8px;height:8px;background:var(--text-dim);border-radius:50%"></div>
-      <div style="width:8px;height:8px;background:var(--amber);border-radius:50%"></div>
-      <div style="width:8px;height:8px;background:var(--text-dim);border-radius:50%"></div>
-      <div style="width:8px;height:8px;background:var(--text-dim);border-radius:50%"></div>
-      <div style="width:8px;height:8px;background:var(--text-dim);border-radius:50%"></div>
-      <div style="width:8px;height:8px;background:var(--amber);border-radius:50%"></div>
-      <div style="width:8px;height:8px;background:var(--text-dim);border-radius:50%"></div>
-    </div>
-  </div>
-  <div style="margin-top:.8rem;font-size:.72rem;color:var(--text-dim);line-height:1.75">
-    상층(Layer 2)은 "고속도로", 하층(Layer 0)은 "골목". 상층에서 시작해 단계적으로 내려가며 <strong style="color:var(--text)">log(N) 시간</strong>에 최근접을 찾음.
+<!-- HNSW 시각화 SVG -->
+<div style="margin-top:1rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.4rem">
+  <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);margin-bottom:.7rem">HNSW 작동 원리 — 다층 그래프 + 탐색 경로</div>
+
+  <svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px;display:block;margin:0 auto;height:auto" role="img" aria-label="HNSW 다층 그래프 시각화">
+    <defs>
+      <style>
+        .ll{font-family:JetBrains Mono,monospace;font-size:11px;font-weight:700;fill:#cc8800}
+        .lh{font-family:Arial,sans-serif;font-size:10px;fill:var(--text-dim)}
+        .qry{font-family:var(--display,sans-serif);font-size:12px;font-weight:800;fill:#d04a02}
+      </style>
+      <marker id="arrHN" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+        <path d="M0,2 L9,5 L0,8 z" fill="#d04a02"/>
+      </marker>
+    </defs>
+
+    <!-- Layer 2 (top — sparse, "highway") -->
+    <text x="20" y="40" class="ll">Layer 2</text>
+    <text x="20" y="54" class="lh">고속도로</text>
+    <line x1="100" y1="30" x2="700" y2="30" stroke="var(--text-dim)" stroke-width="0.5" stroke-dasharray="3,3"/>
+    <!-- nodes -->
+    <circle cx="180" cy="30" r="8" fill="#cc8800" stroke="#d04a02" stroke-width="2"/>
+    <circle cx="430" cy="30" r="6" fill="var(--text-dim)"/>
+    <circle cx="640" cy="30" r="6" fill="var(--text-dim)"/>
+    <!-- edges -->
+    <line x1="186" y1="30" x2="425" y2="30" stroke="var(--text-dim)" stroke-width="1"/>
+    <line x1="436" y1="30" x2="635" y2="30" stroke="var(--text-dim)" stroke-width="1"/>
+    <text x="180" y="18" class="lh" text-anchor="middle">START</text>
+
+    <!-- Layer 1 (middle) -->
+    <text x="20" y="135" class="ll">Layer 1</text>
+    <text x="20" y="149" class="lh">중간 도로</text>
+    <line x1="100" y1="125" x2="700" y2="125" stroke="var(--text-dim)" stroke-width="0.5" stroke-dasharray="3,3"/>
+    <!-- nodes -->
+    <circle cx="180" cy="125" r="6" fill="#cc8800"/>
+    <circle cx="280" cy="125" r="5" fill="var(--text-dim)"/>
+    <circle cx="380" cy="125" r="6" fill="#cc8800"/>
+    <circle cx="480" cy="125" r="5" fill="var(--text-dim)"/>
+    <circle cx="580" cy="125" r="5" fill="var(--text-dim)"/>
+    <circle cx="660" cy="125" r="5" fill="var(--text-dim)"/>
+    <!-- edges -->
+    <line x1="186" y1="125" x2="275" y2="125" stroke="var(--text-dim)" stroke-width="1"/>
+    <line x1="285" y1="125" x2="375" y2="125" stroke="var(--text-dim)" stroke-width="1"/>
+    <line x1="385" y1="125" x2="475" y2="125" stroke="var(--text-dim)" stroke-width="1"/>
+    <line x1="485" y1="125" x2="575" y2="125" stroke="var(--text-dim)" stroke-width="1"/>
+    <line x1="585" y1="125" x2="655" y2="125" stroke="var(--text-dim)" stroke-width="1"/>
+    <!-- skip-list connection from layer 2 to 1 -->
+    <line x1="180" y1="36" x2="180" y2="119" stroke="#cc8800" stroke-width="1.5" stroke-dasharray="2,2"/>
+    <line x1="430" y1="36" x2="380" y2="119" stroke="var(--text-dim)" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="640" y1="36" x2="660" y2="119" stroke="var(--text-dim)" stroke-width="1" stroke-dasharray="2,2"/>
+
+    <!-- Layer 0 (dense — "골목") -->
+    <text x="20" y="245" class="ll">Layer 0</text>
+    <text x="20" y="259" class="lh">전체 노드 + 골목</text>
+    <line x1="100" y1="235" x2="700" y2="235" stroke="var(--text-dim)" stroke-width="0.5" stroke-dasharray="3,3"/>
+    <!-- many small nodes -->
+    <g fill="var(--text-dim)">
+      <circle cx="120" cy="235" r="4"/><circle cx="160" cy="235" r="4"/>
+      <circle cx="220" cy="235" r="4"/><circle cx="260" cy="235" r="4"/>
+      <circle cx="300" cy="235" r="4"/><circle cx="340" cy="235" r="4"/>
+      <circle cx="420" cy="235" r="4"/><circle cx="460" cy="235" r="4"/>
+      <circle cx="500" cy="235" r="4"/><circle cx="540" cy="235" r="4"/>
+      <circle cx="580" cy="235" r="4"/><circle cx="620" cy="235" r="4"/>
+      <circle cx="660" cy="235" r="4"/><circle cx="700" cy="235" r="4"/>
+    </g>
+    <!-- highlighted in path -->
+    <circle cx="180" cy="235" r="5" fill="#cc8800"/>
+    <circle cx="380" cy="235" r="5" fill="#cc8800"/>
+    <!-- target -->
+    <circle cx="400" cy="235" r="8" fill="#d04a02" stroke="#d04a02" stroke-width="2"/>
+    <text x="400" y="222" class="qry" text-anchor="middle">TARGET</text>
+    <!-- dense edges (sample) -->
+    <g stroke="var(--text-dim)" stroke-width="0.5">
+      <line x1="120" y1="235" x2="160" y2="235"/>
+      <line x1="160" y1="235" x2="180" y2="235"/>
+      <line x1="180" y1="235" x2="220" y2="235"/>
+      <line x1="220" y1="235" x2="260" y2="235"/>
+      <line x1="260" y1="235" x2="300" y2="235"/>
+      <line x1="300" y1="235" x2="340" y2="235"/>
+      <line x1="340" y1="235" x2="380" y2="235"/>
+      <line x1="380" y1="235" x2="400" y2="235"/>
+      <line x1="400" y1="235" x2="420" y2="235"/>
+      <line x1="420" y1="235" x2="460" y2="235"/>
+      <line x1="460" y1="235" x2="500" y2="235"/>
+    </g>
+    <!-- skip-list 1 → 0 -->
+    <line x1="180" y1="131" x2="180" y2="229" stroke="#cc8800" stroke-width="1.5" stroke-dasharray="2,2"/>
+    <line x1="380" y1="131" x2="380" y2="229" stroke="#cc8800" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+    <!-- Search path arrows (orange, prominent) -->
+    <path d="M 180 30 Q 250 70 380 125" fill="none" stroke="#d04a02" stroke-width="2.5" marker-end="url(#arrHN)"/>
+    <path d="M 380 125 Q 390 180 395 228" fill="none" stroke="#d04a02" stroke-width="2.5" marker-end="url(#arrHN)"/>
+
+    <!-- Step labels -->
+    <text x="240" y="80" class="qry">① 고속도로 점프</text>
+    <text x="410" y="180" class="qry">② 골목으로 내려옴</text>
+    <text x="430" y="200" class="lh">→ 최근접 도착</text>
+
+    <!-- Bottom legend -->
+    <text x="380" y="320" class="lh" text-anchor="middle" font-size="11.5">
+      🚀 상층은 "스킵 리스트"처럼 거의 모든 노드를 점프 — 하층에서는 가까운 노드만 정밀 탐색
+    </text>
+    <text x="380" y="340" class="lh" text-anchor="middle" font-size="11.5">
+      <tspan fill="#cc8800" font-weight="700">결과: 10억 노드도 log(N) ≈ 30단계로 도착</tspan>
+    </text>
+  </svg>
+
+  <div style="margin-top:.8rem;font-size:.78rem;color:var(--text);line-height:1.85">
+    🛣 <strong style="color:var(--amber)">비유:</strong> 도로망과 같습니다. <strong>고속도로(Layer 2)</strong>는 IC가 적지만 멀리 빨리 가고, <strong>국도(Layer 1)</strong>는 중간 단위, <strong>골목(Layer 0)</strong>은 모든 집을 다 연결합니다. 검색은 <strong>고속도로에서 시작 → 가까운 IC에서 빠짐 → 국도로 → 골목 진입</strong>의 순서. 이게 <code style="font-family:var(--mono);font-size:.74rem">log(N)</code> 시간에 1억 개 벡터에서 최근접을 찾는 비결입니다.
   </div>
 </div>
 
@@ -3212,35 +3532,72 @@
 <!-- 루프 다이어그램 -->
 <div class="dia reveal">
 <div class="dia-title">Data-Centric Loop — Error Analysis 기반 개선</div>
-<div style="max-width:820px;margin:0 auto">
-<div style="display:grid;grid-template-columns:repeat(4,1fr) auto;gap:.5rem;align-items:center">
+<div style="max-width:880px;margin:0 auto">
 
-  <div style="background:var(--card);border:2px solid var(--amber);border-radius:12px;padding:.8rem;text-align:center">
-    <div style="font-size:1.3rem">🎯</div>
-    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);font-weight:700;margin-top:.3rem">Train</div>
-    <div style="font-size:.64rem;color:var(--text-dim);margin-top:.2rem">baseline 모델</div>
-  </div>
+<!-- Loop SVG -->
+<svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px;display:block;margin:0 auto 1rem;height:auto" role="img" aria-label="Data-Centric Loop">
+  <defs>
+    <style>
+      .lstep{font-family:JetBrains Mono,monospace;font-size:11px;font-weight:700;fill:#cc8800}
+      .ltit{font-family:var(--display,sans-serif);font-size:13px;font-weight:800;fill:var(--text)}
+      .ldsc{font-family:Arial,sans-serif;font-size:10.5px;fill:var(--text-dim)}
+    </style>
+    <marker id="arrLP2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M0,2 L9,5 L0,8 z" fill="#cc8800"/>
+    </marker>
+  </defs>
 
-  <div style="text-align:center;color:var(--amber);font-size:1.3rem">→</div>
+  <!-- 4 nodes around a center -->
+  <!-- Top: Train -->
+  <rect x="290" y="20" width="180" height="80" rx="14" fill="rgba(255,180,0,0.13)" stroke="#cc8800" stroke-width="2"/>
+  <text x="380" y="42" class="lstep" text-anchor="middle">① TRAIN</text>
+  <text x="380" y="62" class="ltit" text-anchor="middle">baseline 모델 학습</text>
+  <text x="380" y="82" class="ldsc" text-anchor="middle">기존 데이터·아키텍처로 시작</text>
 
-  <div style="background:var(--card);border:2px solid var(--amber);border-radius:12px;padding:.8rem;text-align:center">
-    <div style="font-size:1.3rem">🔍</div>
-    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);font-weight:700;margin-top:.3rem">Error Analysis</div>
-    <div style="font-size:.64rem;color:var(--text-dim);margin-top:.2rem">어떤 케이스 실패?</div>
-  </div>
+  <!-- Right: Error Analysis -->
+  <rect x="540" y="140" width="200" height="80" rx="14" fill="rgba(255,180,0,0.13)" stroke="#cc8800" stroke-width="2"/>
+  <text x="640" y="162" class="lstep" text-anchor="middle">② ERROR ANALYSIS</text>
+  <text x="640" y="182" class="ltit" text-anchor="middle">"왜 틀렸나" 분석</text>
+  <text x="640" y="202" class="ldsc" text-anchor="middle">어떤 케이스에서 실패하나</text>
 
-  <div style="text-align:center;color:var(--amber);font-size:1.3rem">→</div>
+  <!-- Bottom: Improve Data -->
+  <rect x="290" y="260" width="180" height="80" rx="14" fill="rgba(255,180,0,0.13)" stroke="#cc8800" stroke-width="2"/>
+  <text x="380" y="282" class="lstep" text-anchor="middle">③ IMPROVE DATA</text>
+  <text x="380" y="302" class="ltit" text-anchor="middle">데이터 개선</text>
+  <text x="380" y="322" class="ldsc" text-anchor="middle">라벨 수정·새 케이스 추가</text>
 
-  <div style="background:var(--card);border:2px solid var(--amber);border-radius:12px;padding:.8rem;text-align:center">
-    <div style="font-size:1.3rem">🛠️</div>
-    <div style="font-family:var(--mono);font-size:.7rem;color:var(--amber);font-weight:700;margin-top:.3rem">Improve Data</div>
-    <div style="font-size:.64rem;color:var(--text-dim);margin-top:.2rem">더 모으고·라벨 수정</div>
-  </div>
+  <!-- Left: Re-deploy -->
+  <rect x="20" y="140" width="180" height="80" rx="14" fill="rgba(255,180,0,0.13)" stroke="#cc8800" stroke-width="2"/>
+  <text x="110" y="162" class="lstep" text-anchor="middle">④ RE-TRAIN</text>
+  <text x="110" y="182" class="ltit" text-anchor="middle">재학습 + 배포</text>
+  <text x="110" y="202" class="ldsc" text-anchor="middle">측정 → 다시 ①로</text>
 
+  <!-- Center -->
+  <circle cx="380" cy="180" r="50" fill="rgba(255,180,0,0.08)" stroke="#cc8800" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="380" y="172" class="lstep" text-anchor="middle" font-size="12">REPEAT</text>
+  <text x="380" y="190" class="ltit" text-anchor="middle" font-size="11">until production</text>
+  <text x="380" y="205" class="ltit" text-anchor="middle" font-size="11">quality 도달</text>
+
+  <!-- Arrows clockwise -->
+  <path d="M 470 80 Q 540 105 590 145" fill="none" stroke="#cc8800" stroke-width="2.5" marker-end="url(#arrLP2)"/>
+  <path d="M 590 220 Q 540 250 475 265" fill="none" stroke="#cc8800" stroke-width="2.5" marker-end="url(#arrLP2)"/>
+  <path d="M 290 290 Q 220 270 200 220" fill="none" stroke="#cc8800" stroke-width="2.5" marker-end="url(#arrLP2)"/>
+  <path d="M 200 145 Q 220 105 290 78" fill="none" stroke="#cc8800" stroke-width="2.5" marker-end="url(#arrLP2)"/>
+
+  <!-- Annotations on edges -->
+  <text x="540" y="100" class="ldsc">평가</text>
+  <text x="540" y="265" class="ldsc">"라벨이 틀렸어"</text>
+  <text x="220" y="265" class="ldsc">"이 50개만 고쳤다"</text>
+  <text x="220" y="100" class="ldsc">새 모델 평가</text>
+</svg>
+
+<!-- 풀어쓴 설명 -->
+<div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.84rem;color:var(--text);line-height:1.95;margin-bottom:.8rem">
+  🔁 <strong style="color:var(--amber)">왜 "루프"인가?</strong> 한 번 학습으로 끝나지 않습니다. 모델이 어디에서 틀렸는지 분석하고(② Error Analysis), 그 부분의 <strong>데이터를 고치고 다시 학습</strong>합니다. <strong>모델을 바꾸지 않고도 정확도가 오릅니다</strong>. 무작위로 데이터를 더 모으는 것보다, "잘못된 라벨 50개를 정확히 고치기"가 더 큰 효과를 내는 경우가 흔합니다.
 </div>
-<div style="margin-top:.8rem;text-align:center;font-family:var(--mono);font-size:.72rem;color:var(--amber)">↻ Repeat until production quality</div>
-<div style="margin-top:1rem;padding:.9rem 1.2rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.85">
-  💡 <strong style="color:var(--amber)">모델을 바꾸면 1% 오르고, 데이터를 고치면 10% 오른다</strong>는 게 Ng 팀의 실증 관찰. 무작위 에러 분석보다 <strong>"잘못된 라벨만 수정"</strong>이 더 큰 효과를 내는 경우가 흔합니다.
+
+<div style="padding:.9rem 1.2rem;background:var(--surface);border-radius:10px;font-size:.81rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--amber)">실증 관찰:</strong> Andrew Ng 팀의 보고 — "<strong>모델을 바꾸면 1% 오르고, 데이터를 고치면 10% 오른다</strong>." 무작위 에러 분석보다 <strong>"잘못된 라벨만 수정"</strong>이 더 큰 효과를 내는 경우가 흔합니다. 이게 <strong>Data-Centric AI 운동의 핵심 발견</strong>입니다.
 </div>
 </div>
 </div>
@@ -3364,8 +3721,119 @@
 <!-- ETL vs ELT 비교 -->
 <div class="dia reveal">
 <div class="dia-title">ETL vs ELT — 순서가 바뀌면 세상이 바뀐다</div>
-<div style="max-width:820px;margin:0 auto">
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+<div style="max-width:880px;margin:0 auto">
+
+<!-- 풀어쓴 도입 -->
+<div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.85rem;color:var(--text);line-height:1.95;margin-bottom:1.2rem">
+  🤔 <strong style="color:var(--amber)">한 글자만 자리를 바꿨는데 왜 큰 차이?</strong> ETL과 ELT의 차이는 <strong>변환(Transform)이 어디서 일어나는가</strong>입니다. ETL 시대(2015 이전)에는 DB가 비싸서 <strong>데이터를 다듬은 후에만 저장</strong>했습니다. 클라우드 DW가 등장하면서 저장이 싸졌고, "일단 다 넣고 나중에 SQL로 변환"이 더 빠르고 유연해졌습니다. 이 한 자리 바꿈이 <strong>Modern Data Stack 전체를 새로 그렸습니다</strong>.
+</div>
+
+<!-- ETL vs ELT Flow SVG -->
+<svg viewBox="0 0 880 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:880px;display:block;margin:0 auto 1.2rem;height:auto" role="img" aria-label="ETL vs ELT 흐름 비교">
+  <defs>
+    <style>
+      .ftit{font-family:var(--display,sans-serif);font-size:13px;font-weight:800;fill:var(--text)}
+      .ftit2{font-family:var(--display,sans-serif);font-size:14px;font-weight:800;fill:#cc8800}
+      .fnode{font-family:JetBrains Mono,monospace;font-size:11px;font-weight:700;fill:var(--text)}
+      .fdsc{font-family:Arial,sans-serif;font-size:10.5px;fill:var(--text-dim)}
+      .fbig{font-family:var(--display,sans-serif);font-size:18px;font-weight:800}
+    </style>
+    <marker id="arrETL" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M0,2 L9,5 L0,8 z" fill="var(--text-dim)"/>
+    </marker>
+    <marker id="arrELT" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M0,2 L9,5 L0,8 z" fill="#cc8800"/>
+    </marker>
+  </defs>
+
+  <!-- ETL row -->
+  <text x="20" y="35" class="ftit2" fill="var(--text-dim)">ETL (1990~2015)</text>
+  <text x="20" y="50" class="fdsc">변환을 별도 서버에서 — 저장은 정제된 데이터만</text>
+
+  <g transform="translate(40,75)">
+    <!-- Source -->
+    <rect x="0" y="0" width="120" height="60" rx="10" fill="var(--card)" stroke="var(--border)" stroke-width="1.5"/>
+    <text x="60" y="25" class="fnode" text-anchor="middle">📁 Source</text>
+    <text x="60" y="42" class="fdsc" text-anchor="middle">DB · API · 파일</text>
+
+    <!-- Arrow E -->
+    <line x1="120" y1="30" x2="178" y2="30" stroke="var(--text-dim)" stroke-width="2" marker-end="url(#arrETL)"/>
+    <text x="148" y="22" class="fdsc" text-anchor="middle" font-weight="700">E</text>
+
+    <!-- ETL Server -->
+    <rect x="180" y="0" width="160" height="60" rx="10" fill="rgba(255,180,0,0.12)" stroke="#cc8800" stroke-width="2"/>
+    <text x="260" y="22" class="fnode" text-anchor="middle">⚙️ ETL Server</text>
+    <text x="260" y="38" class="fdsc" text-anchor="middle" font-weight="700" fill="#cc8800">변환 (Transform)</text>
+    <text x="260" y="52" class="fdsc" text-anchor="middle">Informatica·SSIS</text>
+
+    <!-- Arrow T+L -->
+    <line x1="340" y1="30" x2="398" y2="30" stroke="var(--text-dim)" stroke-width="2" marker-end="url(#arrETL)"/>
+    <text x="368" y="22" class="fdsc" text-anchor="middle" font-weight="700">L</text>
+
+    <!-- DW -->
+    <rect x="400" y="0" width="120" height="60" rx="10" fill="var(--card)" stroke="var(--border)" stroke-width="1.5"/>
+    <text x="460" y="25" class="fnode" text-anchor="middle">🏛 DW</text>
+    <text x="460" y="42" class="fdsc" text-anchor="middle">정제된 데이터만</text>
+
+    <!-- Cost annotation -->
+    <text x="280" y="100" class="fdsc" text-anchor="middle" font-style="italic">💰 별도 서버 라이선스 + 변환 시간 길어짐</text>
+  </g>
+
+  <!-- Divider line -->
+  <line x1="40" y1="180" x2="840" y2="180" stroke="var(--border)" stroke-width="1" stroke-dasharray="5,5"/>
+
+  <!-- ELT row -->
+  <text x="20" y="210" class="ftit2">ELT ⭐ (2015~)</text>
+  <text x="20" y="225" class="fdsc">변환을 DW 안에서 SQL로 — 저장이 먼저, 변환은 필요할 때</text>
+
+  <g transform="translate(40,250)">
+    <!-- Source -->
+    <rect x="0" y="0" width="120" height="60" rx="10" fill="var(--card)" stroke="var(--amber-border)" stroke-width="1.5"/>
+    <text x="60" y="25" class="fnode" text-anchor="middle">📁 Source</text>
+    <text x="60" y="42" class="fdsc" text-anchor="middle">DB · API · 파일</text>
+
+    <!-- Arrow E (Fivetran) -->
+    <line x1="120" y1="30" x2="178" y2="30" stroke="#cc8800" stroke-width="2" marker-end="url(#arrELT)"/>
+    <text x="148" y="22" class="fdsc" text-anchor="middle" font-weight="700" fill="#cc8800">E</text>
+
+    <!-- Fivetran -->
+    <rect x="180" y="0" width="100" height="60" rx="10" fill="var(--card)" stroke="var(--amber-border)" stroke-width="1.5"/>
+    <text x="230" y="25" class="fnode" text-anchor="middle">🔌 Connector</text>
+    <text x="230" y="42" class="fdsc" text-anchor="middle">Fivetran·Airbyte</text>
+
+    <!-- Arrow L -->
+    <line x1="280" y1="30" x2="338" y2="30" stroke="#cc8800" stroke-width="2" marker-end="url(#arrELT)"/>
+    <text x="308" y="22" class="fdsc" text-anchor="middle" font-weight="700" fill="#cc8800">L</text>
+
+    <!-- Cloud DW -->
+    <rect x="340" y="-10" width="240" height="80" rx="12" fill="rgba(255,180,0,0.15)" stroke="#cc8800" stroke-width="2.5"/>
+    <text x="460" y="14" class="fnode" text-anchor="middle" font-size="12">☁️ Cloud DW (Snowflake · BQ)</text>
+    <!-- Internal: Raw -->
+    <rect x="350" y="22" width="100" height="38" rx="6" fill="var(--card)" stroke="var(--border)" stroke-width="1"/>
+    <text x="400" y="38" class="fdsc" text-anchor="middle" font-weight="700">Raw</text>
+    <text x="400" y="52" class="fdsc" text-anchor="middle">원본 그대로</text>
+    <!-- Inside arrow T -->
+    <line x1="455" y1="42" x2="465" y2="42" stroke="#cc8800" stroke-width="2" marker-end="url(#arrELT)"/>
+    <!-- Internal: Transformed -->
+    <rect x="470" y="22" width="100" height="38" rx="6" fill="rgba(255,180,0,0.15)" stroke="#cc8800" stroke-width="1.5"/>
+    <text x="520" y="38" class="fdsc" text-anchor="middle" font-weight="700" fill="#cc8800">Transformed</text>
+    <text x="520" y="52" class="fdsc" text-anchor="middle">dbt SQL</text>
+
+    <!-- Arrow consumer -->
+    <line x1="580" y1="30" x2="638" y2="30" stroke="#cc8800" stroke-width="2" marker-end="url(#arrELT)"/>
+
+    <!-- BI/AI -->
+    <rect x="640" y="0" width="140" height="60" rx="10" fill="var(--card)" stroke="var(--amber-border)" stroke-width="1.5"/>
+    <text x="710" y="25" class="fnode" text-anchor="middle">📊 BI · AI</text>
+    <text x="710" y="42" class="fdsc" text-anchor="middle">Looker·Tableau·LLM</text>
+
+    <!-- Cost annotation -->
+    <text x="400" y="100" class="fdsc" text-anchor="middle" font-style="italic" fill="#cc8800" font-weight="700">☁️ 별도 서버 없음 · Git 친화 · Pay-as-you-query</text>
+  </g>
+</svg>
+
+<!-- 카드 비교 -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
 
   <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem">
     <div style="font-family:var(--mono);font-size:.68rem;color:var(--text-dim);letter-spacing:1px">1990~2015</div>
@@ -3374,11 +3842,7 @@
       <strong>E</strong>xtract → <strong>T</strong>ransform → <strong>L</strong>oad<br>
       "저장하기 전에 변환한다"
     </div>
-    <div style="margin-top:.7rem;padding:.6rem;background:var(--surface);border-radius:6px;font-family:var(--mono);font-size:.7rem;color:var(--text-dim);line-height:1.8">
-      소스 → ETL 서버(Informatica) → DW<br>
-      변환이 <strong style="color:var(--text)">전용 서버</strong>에서
-    </div>
-    <div style="margin-top:.5rem;font-size:.72rem;color:var(--text-dim);line-height:1.7">
+    <div style="margin-top:.7rem;font-size:.72rem;color:var(--text-dim);line-height:1.7">
       🏢 Informatica, SSIS, Talend, DataStage<br>
       💰 라이선스 비용 ↑, 유연성 ↓
     </div>
@@ -3391,19 +3855,15 @@
       <strong>E</strong>xtract → <strong>L</strong>oad → <strong>T</strong>ransform<br>
       "원본 먼저 저장, 나중에 변환"
     </div>
-    <div style="margin-top:.7rem;padding:.6rem;background:var(--surface);border-radius:6px;font-family:var(--mono);font-size:.7rem;color:var(--text-dim);line-height:1.8">
-      소스 → Fivetran → <strong style="color:var(--amber)">Snowflake/BQ</strong> → dbt<br>
-      변환이 <strong style="color:var(--text)">DW 안</strong>에서 SQL로
-    </div>
-    <div style="margin-top:.5rem;font-size:.72rem;color:var(--text-dim);line-height:1.7">
+    <div style="margin-top:.7rem;font-size:.72rem;color:var(--text-dim);line-height:1.7">
       🚀 Fivetran, Airbyte, dbt, Snowflake, BigQuery<br>
       ☁️ Cloud-first, Git-friendly, 저렴
     </div>
   </div>
 
 </div>
-<div style="margin-top:1rem;padding:.9rem 1.2rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.85">
-  🎯 <strong style="color:var(--amber)">왜 바뀌었나?</strong> Cloud DW(Snowflake, BigQuery)가 저장·컴퓨팅을 분리하면서 <strong>"DW 안에서 SQL로 변환"이 더 빠르고 싸졌습니다</strong>. 굳이 별도 ETL 서버를 둘 이유가 사라진 것. 이것이 Modern Data Stack의 출발점입니다.
+<div style="padding:.95rem 1.2rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.85">
+  🎯 <strong style="color:var(--amber)">왜 바뀌었나?</strong> Cloud DW(Snowflake·BigQuery)가 <strong>저장·컴퓨팅을 분리</strong>하면서 "DW 안에서 SQL로 변환"이 더 빠르고 싸졌습니다. 굳이 별도 ETL 서버를 둘 이유가 사라진 것. <strong>또 하나의 함의:</strong> Raw 데이터가 그대로 남아있으니 <strong>나중에 다시 다른 변환을 해도 OK</strong>. ETL 시대엔 변환이 손상되면 원본을 다시 가져와야 했지만, ELT는 원본이 항상 DW에 있습니다. 이게 Modern Data Stack의 출발점입니다.
 </div>
 </div>
 </div>
