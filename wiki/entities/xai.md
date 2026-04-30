@@ -95,7 +95,7 @@ shap.force_plot(explainer.expected_value, shap_values[0], X.iloc[0])  # local
 
 ## Reference
 
-- [Part 7 — Ch.08 AI 거버넌스](https://ai-contents-wine.vercel.app/07-ai-dev/#ad-ch8) ⭐ 핵심 챕터 (ACT 6 운영 사이클로 통합 흡수)
+- [Part 12 Ch.07 운영 사이클](https://ai-contents-wine.vercel.app/12-ai-governance/#gov-ch7) ⭐ 핵심 챕터 (ACT 6 운영 사이클로 통합 흡수)
 - [Part 9 — Ch.11 EU AI Act](https://ai-contents-wine.vercel.app/09-data-enterprise/#p9-ch11) — Article 13 설명 가능성 의무
 - [Part 9 — Ch.10 온톨로지·KG](https://ai-contents-wine.vercel.app/09-data-enterprise/#p9-ch10) — 규제 산업 설명 가능성과 연결
 

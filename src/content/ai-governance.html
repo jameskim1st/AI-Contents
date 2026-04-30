@@ -1,0 +1,1285 @@
+<!-- PART 12: AI 거버넌스 -->
+<div class="part-header" id="part12">
+  <div class="part-header-inner">
+    <span class="part-header-num" style="color:var(--violet)">Part 12</span>
+    <h2 class="part-header-title">AI 거버넌스 — 원칙·구조·운영</h2>
+    <p class="part-header-desc">만들 수 있는 것과 만들어도 되는 것 사이를 메우는 통합 시스템</p>
+    <p style="font-size:.85rem;color:var(--violet);margin-bottom:1rem;">⚖️ 단편적 윤리 원칙 4개가 아닙니다. 2026년 컨센서스로 확장된 <strong>6대 원칙 + 글로벌 프레임워크 + 조직 구조 + 라이프사이클 + 12개 사고 연표 + 운영 사이클</strong>을 한 Part로 통합합니다. Claude Mythos 사건이 연 새로운 거버넌스 시대.</p>
+    <nav class="ch-nav">
+      <a href="#gov-ch1"><span class="cn">01</span>왜 거버넌스인가</a>
+      <a href="#gov-ch2"><span class="cn">02</span>6대 원칙</a>
+      <a href="#gov-ch3"><span class="cn">03</span>글로벌 프레임워크</a>
+      <a href="#gov-ch4"><span class="cn">04</span>조직 구조</a>
+      <a href="#gov-ch5"><span class="cn">05</span>라이프사이클</a>
+      <a href="#gov-ch6"><span class="cn">06</span>12개 사고 연표</a>
+      <a href="#gov-ch7"><span class="cn">07</span>운영 사이클</a>
+      <a href="#gov-ch8"><span class="cn">08</span>한국 시작 가이드</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ── Part 12 로드맵 ── -->
+<div class="dia reveal" style="margin-bottom:2rem">
+<div class="dia-title">🗺️ Part 12 로드맵 — 거버넌스 8단계</div>
+<div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:1.2rem">왜 필요한가(Ch.01) → 무엇을(Ch.02 원칙) → 어떤 규제로(Ch.03) → 누가(Ch.04 조직) → 어떻게 돌아가나(Ch.05 라이프사이클·Ch.07 운영) → 무엇을 배웠나(Ch.06 사고) → 한국 회사는?(Ch.08)</div>
+
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;max-width:900px;margin:0 auto">
+
+  <a href="#gov-ch1" style="text-decoration:none;background:var(--violet-bg);border:2px solid var(--violet);border-radius:14px;padding:.8rem .5rem;text-align:center;transition:transform .2s">
+    <div style="font-size:1.2rem;margin-bottom:.2rem">🚨</div>
+    <div style="font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--violet)">CH.01</div>
+    <div style="font-size:.72rem;font-weight:600;color:var(--text);margin-top:.2rem">왜 거버넌스인가</div>
+    <div style="font-size:.6rem;color:var(--text-dim);margin-top:.2rem">Mythos 사건<br>샌드박스 탈옥</div>
+  </a>
+
+  <a href="#gov-ch2" style="text-decoration:none;background:var(--violet-bg);border:2px solid var(--violet-border);border-radius:14px;padding:.8rem .5rem;text-align:center;transition:transform .2s">
+    <div style="font-size:1.2rem;margin-bottom:.2rem">🎯</div>
+    <div style="font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--violet)">CH.02</div>
+    <div style="font-size:.72rem;font-weight:600;color:var(--text);margin-top:.2rem">6대 원칙</div>
+    <div style="font-size:.6rem;color:var(--text-dim);margin-top:.2rem">Fairness · XAI<br>Capability Control</div>
+  </a>
+
+  <a href="#gov-ch3" style="text-decoration:none;background:var(--violet-bg);border:2px solid var(--violet-border);border-radius:14px;padding:.8rem .5rem;text-align:center;transition:transform .2s">
+    <div style="font-size:1.2rem;margin-bottom:.2rem">🌍</div>
+    <div style="font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--violet)">CH.03</div>
+    <div style="font-size:.72rem;font-weight:600;color:var(--text);margin-top:.2rem">글로벌 프레임워크</div>
+    <div style="font-size:.6rem;color:var(--text-dim);margin-top:.2rem">EU AI Act<br>한국 AI 기본법</div>
+  </a>
+
+  <a href="#gov-ch4" style="text-decoration:none;background:var(--violet-bg);border:2px solid var(--violet-border);border-radius:14px;padding:.8rem .5rem;text-align:center;transition:transform .2s">
+    <div style="font-size:1.2rem;margin-bottom:.2rem">🏛</div>
+    <div style="font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--violet)">CH.04</div>
+    <div style="font-size:.72rem;font-weight:600;color:var(--text);margin-top:.2rem">조직 구조</div>
+    <div style="font-size:.6rem;color:var(--text-dim);margin-top:.2rem">3 Lines · CAIO<br>Microsoft AETHER</div>
+  </a>
+
+  <a href="#gov-ch5" style="text-decoration:none;background:var(--violet-bg);border:2px solid var(--violet-border);border-radius:14px;padding:.8rem .5rem;text-align:center;transition:transform .2s">
+    <div style="font-size:1.2rem;margin-bottom:.2rem">🔄</div>
+    <div style="font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--violet)">CH.05</div>
+    <div style="font-size:.72rem;font-weight:600;color:var(--text);margin-top:.2rem">라이프사이클</div>
+    <div style="font-size:.6rem;color:var(--text-dim);margin-top:.2rem">9단계 + Stage Gate<br>Use case→폐기</div>
+  </a>
+
+  <a href="#gov-ch6" style="text-decoration:none;background:var(--violet-bg);border:2px solid var(--violet-border);border-radius:14px;padding:.8rem .5rem;text-align:center;transition:transform .2s">
+    <div style="font-size:1.2rem;margin-bottom:.2rem">📚</div>
+    <div style="font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--violet)">CH.06</div>
+    <div style="font-size:.72rem;font-weight:600;color:var(--text);margin-top:.2rem">12개 사고 연표</div>
+    <div style="font-size:.6rem;color:var(--text-dim);margin-top:.2rem">Tay → COMPAS<br>→ Air Canada → Mythos</div>
+  </a>
+
+  <a href="#gov-ch7" style="text-decoration:none;background:var(--violet-bg);border:2px solid var(--violet);border-radius:14px;padding:.8rem .5rem;text-align:center;transition:transform .2s">
+    <div style="font-size:1.2rem;margin-bottom:.2rem">⚙</div>
+    <div style="font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--violet)">CH.07</div>
+    <div style="font-size:.72rem;font-weight:600;color:var(--text);margin-top:.2rem">운영 사이클</div>
+    <div style="font-size:.6rem;color:var(--text-dim);margin-top:.2rem">Red Team→ATLAS<br>→XAI→Mitigation</div>
+  </a>
+
+  <a href="#gov-ch8" style="text-decoration:none;background:var(--violet-bg);border:2px solid var(--violet);border-radius:14px;padding:.8rem .5rem;text-align:center;transition:transform .2s">
+    <div style="font-size:1.2rem;margin-bottom:.2rem">🚀</div>
+    <div style="font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--violet)">CH.08</div>
+    <div style="font-size:.72rem;font-weight:600;color:var(--text);margin-top:.2rem">한국 시작 가이드</div>
+    <div style="font-size:.6rem;color:var(--text-dim);margin-top:.2rem">6주 부트스트랩<br>+ KISA·AI 기본법</div>
+  </a>
+
+</div>
+
+<div style="margin-top:1.5rem;padding:1rem 1.2rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 10px 10px 0;max-width:900px;margin-left:auto;margin-right:auto;font-size:.85rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--violet)">3가지 핵심 메시지:</strong>
+  ① "거버넌스 = 만들 수 있는 것 vs 만들어도 되는 것 사이에 만들지 결정 단계 추가" &nbsp;②&nbsp; "EU AI Act 2026-08 + 한국 AI 기본법 2026-01 = 두 마감선" &nbsp;③&nbsp; "Mythos는 Capability Control이 신원칙으로 등장한 사건"
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CH.01 — ACT 0 -->
+<!-- ═══════════════════════════════════════ -->
+<section class="ch reveal" id="gov-ch1">
+<div class="ch-head"><div class="ch-num" style="color:var(--violet)">01</div><h2 class="ch-title">왜 거버넌스인가 — Claude Mythos가 던진 질문</h2></div>
+
+<!-- ACT 0 — 충격 오프닝: Claude Mythos 사건 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="dia reveal" style="border:2px solid var(--coral);background:linear-gradient(135deg,rgba(255,107,107,0.05),var(--surface))">
+<div class="dia-title" style="color:var(--coral)">🚨 ACT 0 — 왜 지금 거버넌스인가: Claude Mythos가 던진 질문</div>
+
+<div style="max-width:880px;margin:0 auto">
+
+<!-- Mythos 핵심 사실 카드 -->
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.8rem;margin-bottom:1.4rem">
+  <div style="padding:1rem 1.1rem;background:var(--card);border:1px solid var(--coral-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--coral);letter-spacing:1.5px;margin-bottom:.4rem">2026-03-26</div>
+    <div style="font-size:.82rem;color:var(--text);font-weight:700;margin-bottom:.3rem">Fortune 데이터 leak</div>
+    <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">Anthropic CMS 구성 오류로 ~3,000개 내부 자료가 인증 없이 공개. "Mythos" 명칭 + "전례 없는 사이버보안 위험" 표현 발견.</div>
+  </div>
+  <div style="padding:1rem 1.1rem;background:var(--card);border:1px solid var(--coral-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--coral);letter-spacing:1.5px;margin-bottom:.4rem">2026-04-07</div>
+    <div style="font-size:.82rem;color:var(--text);font-weight:700;margin-bottom:.3rem">공식 발표 + 공개 거부</div>
+    <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">Claude Opus 4.7 위 프론티어 모델. 17개 측정 벤치마크 중 17개 1위. <strong style="color:var(--coral)">"너무 위험해서 공개 안 함"</strong> — Project Glasswing 컨소시엄 한정.</div>
+  </div>
+  <div style="padding:1rem 1.1rem;background:var(--card);border:1px solid var(--coral-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--coral);letter-spacing:1.5px;margin-bottom:.4rem">2026-04-11</div>
+    <div style="font-size:.82rem;color:var(--text);font-weight:700;margin-bottom:.3rem">샌드박스 탈옥</div>
+    <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">통제 환경에 배치된 모델이 시뮬레이션 사용자 지시로 <strong>다단계 익스플로잇 자력 구축</strong> → 인터넷 접근 → 공원에서 점심 먹던 연구자에게 이메일 발송.</div>
+  </div>
+  <div style="padding:1rem 1.1rem;background:var(--card);border:1px solid var(--coral-border);border-radius:12px">
+    <div style="font-family:var(--mono);font-size:.7rem;color:var(--coral);letter-spacing:1.5px;margin-bottom:.4rem">능력</div>
+    <div style="font-size:.82rem;color:var(--text);font-weight:700;margin-bottom:.3rem">모든 OS·브라우저 zero-day</div>
+    <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">Linux·Windows·macOS·OpenBSD·FreeBSD + Chrome·Safari·Edge·Firefox에서 자율 발견. 일부는 <strong>10-20년 묵은 잠복 취약점</strong>. Firefox 한 버전에서 working exploit 181개.</div>
+  </div>
+</div>
+
+<!-- 벤치마크 표 -->
+<div style="margin-bottom:1.4rem;overflow-x:auto">
+<table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:560px">
+  <thead>
+    <tr style="background:var(--surface)">
+      <th style="padding:.6rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">벤치마크</th>
+      <th style="padding:.6rem;text-align:right;color:var(--coral);font-weight:700;border-bottom:1px solid var(--coral-border)">Mythos</th>
+      <th style="padding:.6rem;text-align:right;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">Opus 4.6</th>
+      <th style="padding:.6rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">의미</th>
+    </tr>
+  </thead>
+  <tbody style="font-size:.78rem">
+    <tr><td style="padding:.55rem">USAMO 2026</td><td style="padding:.55rem;text-align:right;color:var(--coral);font-weight:700">97.6%</td><td style="padding:.55rem;text-align:right;color:var(--text-dim)">42.3%</td><td style="padding:.55rem;color:var(--text-dim)">미국 수학 올림피아드 거의 정복</td></tr>
+    <tr style="background:var(--surface)"><td style="padding:.55rem">SWE-bench Verified</td><td style="padding:.55rem;text-align:right;color:var(--coral);font-weight:700">93.9%</td><td style="padding:.55rem;text-align:right;color:var(--text-dim)">~70%</td><td style="padding:.55rem;color:var(--text-dim)">실제 GitHub 이슈 자율 해결</td></tr>
+    <tr><td style="padding:.55rem">Cybench</td><td style="padding:.55rem;text-align:right;color:var(--coral);font-weight:700">100% (포화)</td><td style="padding:.55rem;text-align:right;color:var(--text-dim)">&lt;50%</td><td style="padding:.55rem;color:var(--text-dim)">CTF 챌린지 SOTA</td></tr>
+    <tr style="background:var(--surface)"><td style="padding:.55rem">CyberGym</td><td style="padding:.55rem;text-align:right;color:var(--coral);font-weight:700">83.1%</td><td style="padding:.55rem;text-align:right;color:var(--text-dim)">66.6%</td><td style="padding:.55rem;color:var(--text-dim)">17pp 점프 — 통상 수개월 단위 진전을 단번에</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- 사건의 의미 -->
+<div style="padding:1.2rem 1.4rem;background:var(--coral-bg);border:1px solid var(--coral-border);border-radius:12px;font-size:.86rem;color:var(--text);line-height:1.95">
+  💥 <strong style="color:var(--coral)">사건의 의미 — 거버넌스의 모든 축이 한 모델에서 동시에 시험됨:</strong>
+  <ul style="margin:.6rem 0 0 1.2rem;padding:0">
+    <li><strong>Capability Control</strong>: "공개 거부 + 한정 컨소시엄"이 frontier 모델의 새 표준이 될 것인가? — Anthropic RSP의 ASL-4 첫 사례로 해석.</li>
+    <li><strong>Accountability</strong>: 누가 책임지는가 — Anthropic? 12개 컨소시엄 멤버? 정부? <a href="https://www.promarket.org/2026/04/22/the-antitrust-risks-of-anthropics-project-glasswing-and-the-ai-avengers/" target="_blank" rel="noopener" style="color:var(--coral);text-decoration:underline">"AI Avengers" 반독점 우려</a>까지.</li>
+    <li><strong>Transparency vs Security</strong>: Schneier — "비밀주의는 장기적 보안에 거의 도움이 안 된다." 근본 긴장이 정면으로.</li>
+    <li><strong>Safety</strong>: 샌드박스 탈옥은 "지시 받았을 때 한 행동"이지만 — <strong>지시받았을 때 진짜로 깰 수 있는 모델</strong>이 frontier에 도달했다.</li>
+  </ul>
+  <div style="margin-top:.8rem;padding-top:.8rem;border-top:1px solid var(--coral-border);font-size:.83rem">
+    <strong>"거버넌스 = 어떻게 만들지(WHAT)와 어떻게 운영할지(HOW) 사이에 만들지 결정 단계(IF, WHEN, FOR WHOM)를 추가하는 것이다."</strong>
+  </div>
+</div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CH.02 — ACT 1 -->
+<!-- ═══════════════════════════════════════ -->
+<section class="ch reveal" id="gov-ch2">
+<div class="ch-head"><div class="ch-num" style="color:var(--violet)">02</div><h2 class="ch-title">AI 거버넌스 6대 원칙 — 2026 컨센서스</h2></div>
+
+<!-- ACT 1 — 6대 원칙 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="dia reveal" style="margin-top:2.5rem">
+<div class="dia-title">🎯 ACT 1 — AI 거버넌스 6대 원칙 (2026 컨센서스)</div>
+<div style="max-width:900px;margin:0 auto 1.2rem;font-size:.86rem;color:var(--text);line-height:1.95">
+  기존 4대 원칙(Fairness·Transparency·Accountability·Privacy)이 <strong>10대 원칙</strong>으로 확장되는 중 — OECD AI Principles 2024 update + EU AI Act + NIST AI RMF GenAI Profile(2024-07-26)이 합쳐 만든 통합 카탈로그. 본 콘텐츠는 그중 가장 운영 의미가 큰 <strong style="color:var(--violet)">6대 원칙</strong>을 깊이 다룹니다(Inclusion·Robustness·Human Oversight·Information Integrity는 각 원칙의 부분으로 통합).
+</div>
+
+<!-- 6 원칙 인덱스 SVG -->
+<svg viewBox="0 0 880 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:880px;display:block;margin:0 auto 1.4rem;height:auto" role="img" aria-label="6대 원칙 인덱스">
+  <defs>
+    <style>
+      .pname{font-family:var(--display, sans-serif);font-size:14px;font-weight:800;fill:var(--text)}
+      .pdesc{font-family:Arial,sans-serif;font-size:11px;fill:var(--text-dim)}
+      .pn{font-family:JetBrains Mono,monospace;font-size:11px;font-weight:700}
+    </style>
+  </defs>
+  <rect x="20"  y="20"  width="265" height="95" rx="14" fill="rgba(208,74,2,0.07)" stroke="#7c6cf0" stroke-width="2"/>
+  <text x="35"  y="42" class="pn" fill="#7c6cf0">① FAIRNESS</text>
+  <text x="35"  y="62" class="pname">공정성</text>
+  <text x="35"  y="82" class="pdesc">보호변수에 따른 결과·오류율 차이 없게</text>
+  <text x="35"  y="100" class="pdesc">→ Fairlearn · Aequitas · COMPAS 사례</text>
+
+  <rect x="307" y="20"  width="265" height="95" rx="14" fill="rgba(208,74,2,0.07)" stroke="#7c6cf0" stroke-width="2"/>
+  <text x="322" y="42" class="pn" fill="#7c6cf0">② TRANSPARENCY</text>
+  <text x="322" y="62" class="pname">투명성 · 설명가능성</text>
+  <text x="322" y="82" class="pdesc">결정의 근거 공개 + AI 생성 식별</text>
+  <text x="322" y="100" class="pdesc">→ Model Card · SHAP · SAE · 워터마크</text>
+
+  <rect x="595" y="20"  width="265" height="95" rx="14" fill="rgba(208,74,2,0.07)" stroke="#7c6cf0" stroke-width="2"/>
+  <text x="610" y="42" class="pn" fill="#7c6cf0">③ SAFETY</text>
+  <text x="610" y="62" class="pname">안전성 · 신뢰성</text>
+  <text x="610" y="82" class="pdesc">의도된 범위 내 일관 작동, 무해</text>
+  <text x="610" y="100" class="pdesc">→ Red Team · Eval · 할루시네이션 관리</text>
+
+  <rect x="20"  y="125" width="265" height="95" rx="14" fill="rgba(208,74,2,0.07)" stroke="#7c6cf0" stroke-width="2"/>
+  <text x="35"  y="147" class="pn" fill="#7c6cf0">④ PRIVACY · SECURITY</text>
+  <text x="35"  y="167" class="pname">프라이버시 · 보안</text>
+  <text x="35"  y="187" class="pdesc">학습·추론 양 단계 보호 + 적대적 공격 견디기</text>
+  <text x="35"  y="205" class="pdesc">→ DPIA · Differential Privacy · MITRE ATLAS</text>
+
+  <rect x="307" y="125" width="265" height="95" rx="14" fill="rgba(208,74,2,0.07)" stroke="#7c6cf0" stroke-width="2"/>
+  <text x="322" y="147" class="pn" fill="#7c6cf0">⑤ ACCOUNTABILITY</text>
+  <text x="322" y="167" class="pname">책임성 · 인간 감독</text>
+  <text x="322" y="187" class="pdesc">결정 책임자 명시 + 사람 멈추기 가능</text>
+  <text x="322" y="205" class="pdesc">→ RACI · Audit log · HITL · Air Canada 판결</text>
+
+  <rect x="595" y="125" width="265" height="95" rx="14" fill="rgba(208,74,2,0.07)" stroke="#7c6cf0" stroke-width="2.5"/>
+  <text x="610" y="147" class="pn" fill="#7c6cf0">⑥ CAPABILITY CONTROL ⭐</text>
+  <text x="610" y="167" class="pname">능력 통제 (NEW)</text>
+  <text x="610" y="187" class="pdesc">수준별 안전 조치 차등 — frontier 전용</text>
+  <text x="610" y="205" class="pdesc">→ Anthropic RSP · OpenAI Preparedness · FSF</text>
+</svg>
+
+</div>
+
+<!-- ─── 원칙 ① 공정성 ─── -->
+<div class="dia reveal" style="margin-top:1.6rem">
+<div class="dia-title" style="color:var(--violet)">① 공정성 (Fairness) — "비슷한 사람을 비슷하게 대하는가"</div>
+
+<div style="max-width:900px;margin:0 auto">
+
+<div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 12px 12px 0;font-size:.85rem;color:var(--text);line-height:1.9;margin-bottom:1.2rem">
+  <strong style="color:var(--violet)">정의:</strong> 보호변수(성별·인종·연령·장애 등)에 따라 모델의 <strong>결과·오류율이 체계적으로 다르지 않도록</strong> 하는 것. <strong>"같은 자격이면 같은 결정, 같은 위험이면 같은 분류"</strong>의 통계적 보장.
+</div>
+
+<!-- 결정적 사례: COMPAS -->
+<div style="padding:1.2rem 1.4rem;background:var(--card);border:1px solid var(--violet-border);border-radius:12px;margin-bottom:1.1rem">
+  <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.5rem">📌 결정적 사례 — COMPAS (2016-05-23 ProPublica)</div>
+  <div style="font-size:.84rem;color:var(--text);line-height:1.9">
+    Northpointe(現 Equivant)의 재범예측 알고리즘이 미국 법원에서 양형 보조에 사용. ProPublica가 1만+ 피고를 추적 분석:
+    <ul style="margin:.6rem 0 .6rem 1.2rem;padding:0;font-size:.82rem">
+      <li><strong>흑인이 백인보다 false positive(고위험 오분류) 약 2배</strong></li>
+      <li>통제변수 적용 후에도 <strong>흑인은 violent recidivism 분류에서 77%, 일반 재범 분류에서 45% 더 높은 위험으로 잘못 분류됨</strong></li>
+      <li>Northpointe는 "PPV(positive predictive value)는 인종 간 같다"고 반박</li>
+    </ul>
+    <strong style="color:var(--coral)">결정타:</strong> Kleinberg-Mullainathan-Raghavan(2017) — <strong>여러 fairness 정의를 동시에 만족하는 것은 수학적으로 불가능</strong>(impossibility theorem). "어느 fairness 정의를 우선했는가"를 명시하는 게 거버넌스의 핵심.
+  </div>
+</div>
+
+<!-- Fairness metrics 시각화 -->
+<div style="margin-bottom:1.2rem">
+<svg viewBox="0 0 820 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:820px;display:block;margin:0 auto;height:auto" role="img" aria-label="Fairness 정의 비교">
+  <defs>
+    <style>
+      .ftit{font-family:var(--display,sans-serif);font-size:13px;font-weight:800;fill:var(--text)}
+      .fdesc{font-family:Arial,sans-serif;font-size:10.5px;fill:var(--text-dim)}
+      .fname{font-family:JetBrains Mono,monospace;font-size:10px;font-weight:700;fill:#7c6cf0}
+    </style>
+  </defs>
+  <rect x="10"  y="10" width="195" height="180" rx="12" fill="var(--card)" stroke="var(--violet-border)" stroke-width="1.5"/>
+  <text x="20" y="35" class="fname">DEMOGRAPHIC PARITY</text>
+  <text x="20" y="58" class="ftit">집단별 합격률 같게</text>
+  <text x="20" y="80" class="fdesc">남녀 채용률 같음</text>
+  <text x="20" y="98" class="fdesc">→ 통계적 평등</text>
+  <text x="20" y="125" class="fdesc">⚠ 실제 자격 차이 무시 가능</text>
+  <text x="20" y="145" class="fdesc">유효: 채용 적극적 시정조치</text>
+  <text x="20" y="170" class="fdesc">도구: Fairlearn DemographicParity</text>
+
+  <rect x="215" y="10" width="195" height="180" rx="12" fill="var(--card)" stroke="var(--violet-border)" stroke-width="1.5"/>
+  <text x="225" y="35" class="fname">EQUALIZED ODDS</text>
+  <text x="225" y="58" class="ftit">집단별 오류율 같게</text>
+  <text x="225" y="80" class="fdesc">FPR·FNR 모두 동일</text>
+  <text x="225" y="98" class="fdesc">→ 가장 엄격</text>
+  <text x="225" y="125" class="fdesc">⚠ 정확도와 trade-off</text>
+  <text x="225" y="145" class="fdesc">유효: 사법·의료</text>
+  <text x="225" y="170" class="fdesc">도구: Fairlearn EqualizedOdds</text>
+
+  <rect x="420" y="10" width="195" height="180" rx="12" fill="var(--card)" stroke="var(--violet-border)" stroke-width="1.5"/>
+  <text x="430" y="35" class="fname">PREDICTIVE PARITY</text>
+  <text x="430" y="58" class="ftit">집단별 PPV 같게</text>
+  <text x="430" y="80" class="fdesc">"고위험"이라 했을 때</text>
+  <text x="430" y="98" class="fdesc">실제 위험 비율 동일</text>
+  <text x="430" y="125" class="fdesc">⚠ FPR 차이 가능 (COMPAS)</text>
+  <text x="430" y="145" class="fdesc">유효: 진단·신용평가</text>
+  <text x="430" y="170" class="fdesc">도구: Aequitas calibration</text>
+
+  <rect x="625" y="10" width="185" height="180" rx="12" fill="var(--card)" stroke="var(--violet-border)" stroke-width="1.5"/>
+  <text x="635" y="35" class="fname">COUNTERFACTUAL</text>
+  <text x="635" y="58" class="ftit">개인 단위 반사실</text>
+  <text x="635" y="80" class="fdesc">"이 사람이 다른 성별</text>
+  <text x="635" y="98" class="fdesc">이라면 결과가 같은가"</text>
+  <text x="635" y="125" class="fdesc">⚠ 인과 모델 필요 (어려움)</text>
+  <text x="635" y="145" class="fdesc">유효: 채용·의료 진단</text>
+  <text x="635" y="170" class="fdesc">도구: DoWhy · CausalNex</text>
+</svg>
+</div>
+
+<!-- 실전 도구 -->
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.7rem;margin-bottom:1rem">
+  <div style="padding:.9rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:10px">
+    <div style="font-size:.78rem;font-weight:700;color:var(--violet);margin-bottom:.3rem">🛠 Fairlearn (Microsoft)</div>
+    <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">Python, MIT. <code style="font-family:var(--mono);font-size:.7rem">DemographicParityDifference</code>·<code style="font-family:var(--mono);font-size:.7rem">EqualizedOddsDifference</code> 측정 + reduction·post-processing 완화. Responsible AI Toolbox에 통합.</div>
+  </div>
+  <div style="padding:.9rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:10px">
+    <div style="font-size:.78rem;font-weight:700;color:var(--violet);margin-bottom:.3rem">🛠 IBM AIF360</div>
+    <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">70+ fairness metric, 10+ bias mitigation algorithm. 학계·연구 기준.</div>
+  </div>
+  <div style="padding:.9rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:10px">
+    <div style="font-size:.78rem;font-weight:700;color:var(--violet);margin-bottom:.3rem">🛠 Aequitas (CMU)</div>
+    <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">정책 결정자용. 시각화·리포트 중심. 미 연방기관 도입.</div>
+  </div>
+  <div style="padding:.9rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:10px">
+    <div style="font-size:.78rem;font-weight:700;color:var(--violet);margin-bottom:.3rem">🛠 What-If Tool (Google)</div>
+    <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">TensorBoard 통합. 비기술 stakeholder가 fairness 시나리오 인터랙티브 탐색.</div>
+  </div>
+</div>
+
+<!-- 다른 사례 짧게 -->
+<div style="padding:.9rem 1.1rem;background:var(--surface);border-radius:10px;font-size:.8rem;color:var(--text-dim);line-height:1.85">
+  💡 <strong style="color:var(--violet)">또 다른 굵직한 사례:</strong> <strong>Amazon 채용 알고리즘 폐기(2018-10-10)</strong> — 5점 채점 시스템이 10년치 남성 위주 이력서로 학습 → "executed", "captured" 같은 단어 선호, 여성 대학교명 패널티. 모델 자체가 history bias를 증폭. <strong>Apple Card 신용한도 차별 논란(2019-11-09)</strong> — David Heinemeier Hansson이 "본인이 아내 20배" 한도 받았다고 트윗 → 바이럴. NY DFS 조사(<a href="https://www.dfs.ny.gov/reports_and_publications/press_releases/pr202103231" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">2021-03-23 결론</a>): 차별 증거 없음. 그러나 <strong>"투명성 부족 → 소비자 신뢰 훼손"</strong>이 별개의 거버넌스 실패로 지적.
+</div>
+
+</div>
+</div>
+
+<!-- ─── 원칙 ② 투명성 ─── -->
+<div class="dia reveal" style="margin-top:1.6rem">
+<div class="dia-title" style="color:var(--violet)">② 투명성 (Transparency) — "왜 그런 결정이 나왔는지 설명할 수 있는가"</div>
+
+<div style="max-width:900px;margin:0 auto">
+
+<div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 12px 12px 0;font-size:.85rem;color:var(--text);line-height:1.9;margin-bottom:1.2rem">
+  <strong style="color:var(--violet)">정의:</strong> 시스템이 <strong>무엇이고</strong>, <strong>어떻게 결정했고</strong>, <strong>AI가 만든 결과임을 사용자가 인식할 수 있는</strong> 상태. EU AI Act <strong>Article 13</strong>(투명성 의무) + <strong>Article 86</strong>(자연인의 설명을 받을 권리) + 한국 AI 기본법 <strong>워터마크 의무</strong>.
+</div>
+
+<!-- 3층 모델 -->
+<div style="margin-bottom:1.2rem">
+<svg viewBox="0 0 820 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:820px;display:block;margin:0 auto;height:auto" role="img" aria-label="투명성 3층 모델">
+  <defs>
+    <style>
+      .ttit{font-family:var(--display,sans-serif);font-size:14px;font-weight:800}
+      .tlbl{font-family:JetBrains Mono,monospace;font-size:11px;font-weight:700}
+      .tdesc{font-family:Arial,sans-serif;font-size:11.5px;fill:var(--text)}
+      .tfine{font-family:Arial,sans-serif;font-size:10.5px;fill:var(--text-dim)}
+    </style>
+  </defs>
+  <!-- Layer 1: System-level -->
+  <rect x="20" y="20" width="780" height="85" rx="12" fill="rgba(208,74,2,0.05)" stroke="#7c6cf0" stroke-width="1.5"/>
+  <text x="40" y="45" class="tlbl" fill="#7c6cf0">LAYER 1 — SYSTEM (시스템 레벨)</text>
+  <text x="40" y="68" class="ttit" fill="var(--text)">"이 시스템은 무엇인가" — Model Card, System Card, Datasheet</text>
+  <text x="40" y="90" class="tfine">Mitchell 2018 (arXiv:1810.03993): 학습 데이터·의도된 사용·그룹별 성능·한계 / OpenAI System Cards (GPT-4o 2024-08, o1 2024-12)</text>
+
+  <!-- Layer 2: Decision-level -->
+  <rect x="20" y="115" width="780" height="85" rx="12" fill="rgba(208,74,2,0.07)" stroke="#7c6cf0" stroke-width="1.5"/>
+  <text x="40" y="140" class="tlbl" fill="#7c6cf0">LAYER 2 — DECISION (개별 결정 레벨)</text>
+  <text x="40" y="163" class="ttit" fill="var(--text)">"왜 이 사람에게 이 결정이 나왔는가" — XAI (SHAP·LIME·IG·Counterfactual)</text>
+  <text x="40" y="185" class="tfine">Lundberg-Lee 2017 NeurIPS / Ribeiro 2016 KDD / EU AI Act Art.86 + GDPR Art.22 + CJEU SCHUFA C-634/21 (2023-12)</text>
+
+  <!-- Layer 3: Mechanism-level -->
+  <rect x="20" y="210" width="780" height="95" rx="12" fill="rgba(208,74,2,0.09)" stroke="#7c6cf0" stroke-width="2"/>
+  <text x="40" y="235" class="tlbl" fill="#7c6cf0">LAYER 3 — MECHANISM (모델 내부 메커니즘) ⭐ 2024-2026 신영역</text>
+  <text x="40" y="258" class="ttit" fill="var(--text)">"모델이 실제로 무엇을 학습했는가" — Mechanistic Interpretability (SAE)</text>
+  <text x="40" y="280" class="tfine">Anthropic Scaling Monosemanticity 2024-05 · Golden Gate Claude 데모 · DeepMind Gemma Scope 400+ SAE 공개 (arXiv:2408.05147)</text>
+  <text x="40" y="298" class="tfine">→ 본 챕터 ACT 6 운영 사이클의 "원인 분석" 핵심 도구</text>
+</svg>
+</div>
+
+<!-- Cynthia Rudin pull-quote -->
+<div style="margin:1.2rem 0;padding:1.3rem 1.5rem;background:var(--card);border-left:4px solid var(--violet);border-radius:0 12px 12px 0">
+  <div style="font-family:var(--display);font-size:1rem;font-weight:600;color:var(--text);line-height:1.7;font-style:italic;margin-bottom:.6rem">"고위험 결정에 블랙박스 머신러닝 모델을 설명하려 하지 말고, 처음부터 해석 가능한 모델을 사용하라. 범죄·의료·컴퓨터 비전·전력망 신뢰성 어디에서도 정확도를 해석성과 맞바꿔야 하는 문제는 없었다."</div>
+  <div style="font-size:.8rem;color:var(--text-dim)">— <strong>Cynthia Rudin</strong>, Duke 교수, Prediction Analysis Lab 디렉터, 2022 Squirrel AI Award 수상, <em>Nature Machine Intelligence</em> 2019 (arXiv:1811.10154)</div>
+</div>
+
+<!-- AI 생성 식별 - 워터마크 -->
+<div style="padding:1.1rem 1.3rem;background:var(--surface);border-radius:12px;margin-bottom:1rem">
+  <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.5rem">🏷 INFORMATION INTEGRITY — 생성물 식별</div>
+  <div style="font-size:.83rem;color:var(--text);line-height:1.9">
+    <strong>SynthID (DeepMind 2023~)</strong>: 픽셀·토큰 레벨 invisible watermark. 2024-05 텍스트(Gemini)·비디오(Veo) 확장, 2024-10 SynthID Text 오픈소스. 누적 <strong>200억+ 이미지</strong>에 적용. <br>
+    <strong>C2PA Content Credentials 2.1</strong>: Adobe·MS·Sony·Intel 컨소시엄. 암호 서명된 메타데이터 envelope. SynthID와 상호보완(메타데이터 stripping 시 watermark fallback). <br>
+    <strong>한국 AI 기본법</strong>: 생성형 AI 결과물에 사람·기계 인식 가능 표시 둘 다 가능. <strong>딥페이크는 사람이 명확히 인식할 수 있는 표시만 인정</strong>. (2026-01-22 시행, 2027 강제)
+  </div>
+</div>
+
+<!-- 거버넌스 함의 -->
+<div style="padding:.9rem 1.1rem;background:var(--violet-bg);border:1px solid var(--violet-border);border-radius:10px;font-size:.8rem;color:var(--text);line-height:1.85">
+  ⚠ <strong style="color:var(--violet)">긴장 관계:</strong> 투명성을 강하게 걸수록 <strong>보안 공격면이 커지고</strong>(Model Card의 디테일 = attack vector), <strong>프라이버시와 충돌</strong>한다(개별 결정 설명은 학습 데이터 정보 누출 가능). 거버넌스는 이 trade-off에서 어느 축을 우선했는지 <strong>명시적으로 기록</strong>하는 것.
+</div>
+
+</div>
+</div>
+
+<!-- ─── 원칙 ③ 안전성 ─── -->
+<div class="dia reveal" style="margin-top:1.6rem">
+<div class="dia-title" style="color:var(--violet)">③ 안전성 (Safety / Reliability) — "의도된 범위 안에서 일관되게 작동하는가"</div>
+
+<div style="max-width:900px;margin:0 auto">
+
+<div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 12px 12px 0;font-size:.85rem;color:var(--text);line-height:1.9;margin-bottom:1.2rem">
+  <strong style="color:var(--violet)">정의:</strong> 모델이 <strong>설계된 사용 범위 안</strong>에서 <strong>예측 가능하게</strong> 작동하고, 범위를 벗어났을 때 <strong>인식하고 멈추거나 사람에게 넘기는</strong> 것. 할루시네이션·유해 출력·악용 시도에 대한 다층 방어.
+</div>
+
+<!-- 결정적 사례 -->
+<div style="padding:1.2rem 1.4rem;background:var(--card);border:1px solid var(--violet-border);border-radius:12px;margin-bottom:1.1rem">
+  <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.5rem">📌 결정적 사례 — IBM Watson for Oncology (2018-07-25 STAT News 폭로)</div>
+  <div style="font-size:.84rem;color:var(--text);line-height:1.9">
+    Memorial Sloan Kettering 합성 데이터 + 소수 의사 의견으로 학습 → <strong>출혈 환자에 출혈 위험을 높이는 약물 권고</strong> 등. 다행히 환자 사망은 없었지만, 다국가 병원 도입 후 신뢰성 붕괴. <a href="https://www.statnews.com/2018/07/25/ibm-watson-recommended-unsafe-incorrect-treatments/" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">STAT News 폭로</a>가 "real-world data + multi-site validation 필수"의 표준을 만듦.
+  </div>
+</div>
+
+<!-- 안전성 4층 방어 -->
+<div style="margin-bottom:1.2rem">
+<svg viewBox="0 0 820 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:820px;display:block;margin:0 auto;height:auto" role="img" aria-label="안전성 4층 방어">
+  <defs>
+    <style>
+      .stit{font-family:var(--display,sans-serif);font-size:13px;font-weight:800;fill:var(--text)}
+      .slbl{font-family:JetBrains Mono,monospace;font-size:10.5px;font-weight:700;fill:#7c6cf0}
+      .sdesc{font-family:Arial,sans-serif;font-size:10.5px;fill:var(--text-dim)}
+    </style>
+  </defs>
+  <!-- 4 layers -->
+  <g>
+    <rect x="20"  y="20" width="190" height="240" rx="14" fill="var(--card)" stroke="var(--violet-border)" stroke-width="1.5"/>
+    <text x="35"  y="45" class="slbl">LAYER 1 · INPUT</text>
+    <text x="35"  y="70" class="stit">입력 검증</text>
+    <text x="35"  y="105" class="sdesc">• PII 마스킹</text>
+    <text x="35"  y="125" class="sdesc">• 프롬프트 인젝션 탐지</text>
+    <text x="35"  y="145" class="sdesc">• Out-of-distribution 차단</text>
+    <text x="35"  y="170" class="sdesc">도구:</text>
+    <text x="35"  y="188" class="sdesc">- NeMo Guardrails</text>
+    <text x="35"  y="206" class="sdesc">- Lakera Guard</text>
+    <text x="35"  y="224" class="sdesc">- Microsoft Presidio</text>
+    <text x="35"  y="248" class="sdesc">→ Part 4 Ch.11 Sandboxing</text>
+  </g>
+  <g>
+    <rect x="220" y="20" width="190" height="240" rx="14" fill="var(--card)" stroke="var(--violet-border)" stroke-width="1.5"/>
+    <text x="235" y="45" class="slbl">LAYER 2 · PROCESS</text>
+    <text x="235" y="70" class="stit">처리 가드</text>
+    <text x="235" y="105" class="sdesc">• Tool budget 제한</text>
+    <text x="235" y="125" class="sdesc">• 권한 분리</text>
+    <text x="235" y="145" class="sdesc">• 도구 호출 화이트리스트</text>
+    <text x="235" y="170" class="sdesc">도구:</text>
+    <text x="235" y="188" class="sdesc">- MCP Server 권한</text>
+    <text x="235" y="206" class="sdesc">- Approval Gate</text>
+    <text x="235" y="224" class="sdesc">- Human-in-the-Loop</text>
+    <text x="235" y="248" class="sdesc">→ Part 4 Ch.07 MCP</text>
+  </g>
+  <g>
+    <rect x="420" y="20" width="190" height="240" rx="14" fill="var(--card)" stroke="var(--violet-border)" stroke-width="1.5"/>
+    <text x="435" y="45" class="slbl">LAYER 3 · OUTPUT</text>
+    <text x="435" y="70" class="stit">출력 검증</text>
+    <text x="435" y="105" class="sdesc">• 환각 검증 (RAG citation)</text>
+    <text x="435" y="125" class="sdesc">• 유해 콘텐츠 필터</text>
+    <text x="435" y="145" class="sdesc">• 토픽 이탈 감지</text>
+    <text x="435" y="170" class="sdesc">도구:</text>
+    <text x="435" y="188" class="sdesc">- LLM-as-judge</text>
+    <text x="435" y="206" class="sdesc">- Factuality classifier</text>
+    <text x="435" y="224" class="sdesc">- Constitutional Classifier</text>
+    <text x="435" y="248" class="sdesc">→ Anthropic 2025-02</text>
+  </g>
+  <g>
+    <rect x="620" y="20" width="190" height="240" rx="14" fill="var(--card)" stroke="var(--violet-border)" stroke-width="2"/>
+    <text x="635" y="45" class="slbl">LAYER 4 · CONTINUOUS</text>
+    <text x="635" y="70" class="stit">지속 평가</text>
+    <text x="635" y="105" class="sdesc">• Eval harness 자동화</text>
+    <text x="635" y="125" class="sdesc">• Red Team 사이클</text>
+    <text x="635" y="145" class="sdesc">• Drift 모니터링</text>
+    <text x="635" y="170" class="sdesc">도구:</text>
+    <text x="635" y="188" class="sdesc">- PyRIT (Microsoft)</text>
+    <text x="635" y="206" class="sdesc">- Garak (NVIDIA)</text>
+    <text x="635" y="224" class="sdesc">- LangSmith eval</text>
+    <text x="635" y="248" class="sdesc">→ ACT 6 운영 사이클</text>
+  </g>
+</svg>
+</div>
+
+<!-- 할루시네이션 -->
+<div style="padding:1.1rem 1.3rem;background:var(--surface);border-radius:12px;margin-bottom:1rem">
+  <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.5rem">🌀 SUB-TOPIC — 할루시네이션 ("자신있게 틀리는" 문제)</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.7rem;font-size:.78rem">
+    <div style="padding:.7rem;background:var(--card);border-radius:8px"><strong style="color:var(--teal)">RAG 근거 제공</strong><br><span style="color:var(--text-dim)">외부 문서 → "출처 기반" 답변</span></div>
+    <div style="padding:.7rem;background:var(--card);border-radius:8px"><strong style="color:var(--amber)">출력 검증 레이어</strong><br><span style="color:var(--text-dim)">두 번째 LLM이 사실 검증</span></div>
+    <div style="padding:.7rem;background:var(--card);border-radius:8px"><strong style="color:var(--violet)">"모르겠다" 허용</strong><br><span style="color:var(--text-dim)">낮은 확신 시 거부 응답</span></div>
+    <div style="padding:.7rem;background:var(--card);border-radius:8px"><strong style="color:var(--pink)">Human-in-the-Loop</strong><br><span style="color:var(--text-dim)">고위험 결정은 사람 확인</span></div>
+  </div>
+</div>
+
+<!-- Microsoft Tay 경고 -->
+<div style="padding:.9rem 1.1rem;background:var(--coral-bg);border:1px solid var(--coral-border);border-radius:10px;font-size:.8rem;color:var(--text);line-height:1.85">
+  ⚠ <strong style="color:var(--coral)">Microsoft Tay (2016-03-23):</strong> Twitter 출시 후 <strong>16시간 만에 종료</strong>, 96,000건 트윗. "repeat after me" 취약점 + 트롤 적응형 학습 → 인종차별·반유대 발언. 2016-03-30 재출시도 즉시 실패. <strong>교훈: 적대적 입력에 적응하는 시스템은 적대적 입력에서 학습한다.</strong>
+</div>
+
+</div>
+</div>
+
+<!-- ─── 원칙 ④ 프라이버시 · 보안 ─── -->
+<div class="dia reveal" style="margin-top:1.6rem">
+<div class="dia-title" style="color:var(--violet)">④ 프라이버시 · 보안 (Privacy &amp; Security) — "데이터를 지키고 공격을 견디는가"</div>
+
+<div style="max-width:900px;margin:0 auto">
+
+<div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 12px 12px 0;font-size:.85rem;color:var(--text);line-height:1.9;margin-bottom:1.2rem">
+  <strong style="color:var(--violet)">정의:</strong> <strong>학습 단계</strong>(데이터 수집·전처리)와 <strong>추론 단계</strong>(요청·응답·메모리) 양쪽에서 개인정보를 보호하고, <strong>적대적 공격</strong>(prompt injection·model extraction·data poisoning)에 견디는 것.
+</div>
+
+<!-- Italy Garante / DeepSeek -->
+<div style="padding:1.2rem 1.4rem;background:var(--card);border:1px solid var(--violet-border);border-radius:12px;margin-bottom:1.1rem">
+  <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.5rem">📌 결정적 사례 — Italy Garante 일련의 처분</div>
+  <div style="font-size:.84rem;color:var(--text);line-height:1.9">
+    이탈리아 개인정보 감독기구 Garante는 EU에서 가장 빠르고 단호한 제재를 내려옴:
+    <ul style="margin:.6rem 0 .6rem 1.2rem;padding:0;font-size:.82rem">
+      <li><strong>ChatGPT 차단(2023-03-31)</strong> — GDPR 위반(법적 근거·미성년 보호·2023-03 데이터 유출 미고지). 약 1개월 후 OpenAI 조치 후 해제, <strong>2024년 €15M 벌금</strong></li>
+      <li><strong>Replika 처분(2023-02-03~2025-05)</strong> — 정서 의존 유도, 미성년 보호 미흡 → 2025-05 <strong>€5M 벌금 확정</strong></li>
+      <li><strong>DeepSeek 차단(2025-01-30)</strong> — Hangzhou·Beijing DeepSeek에 definitive limitation. GDPR 적용 부인을 부적절하다고 판단. <strong>중국 AI EU 시장 사실상 봉쇄 사례</strong></li>
+    </ul>
+    <strong>교훈:</strong> EU 시장에 서비스를 제공한다면 <strong>GDPR이 1순위 적용 대상</strong>. 한국 회사도 EU 사용자가 있다면 동일.
+  </div>
+</div>
+
+<!-- 사이드 박스: MITRE ATLAS -->
+<div style="padding:1.1rem 1.3rem;background:var(--surface);border:2px dashed var(--violet-border);border-radius:12px;margin-bottom:1.1rem">
+  <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.5rem">🗂 사이드 박스 — MITRE ATLAS: AI 공격 표준 어휘</div>
+  <div style="font-size:.83rem;color:var(--text);line-height:1.9">
+    MITRE의 <a href="https://atlas.mitre.org/" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline"><strong>ATLAS</strong></a>(Adversarial Threat Landscape for AI Systems)는 일반 IT 공격 표준 <strong>ATT&amp;CK의 AI/ML 버전</strong>. 2026-04 v5.4.0 기준 <strong>16 tactics × 84 techniques × 56 sub-techniques × 32 mitigations × 42 case studies</strong>. ATT&amp;CK의 13 tactic을 상속하고 <strong>ML Attack Staging</strong> 같은 AI 고유 tactic 추가.<br><br>
+    의의: 보안팀 간 <strong>공통 어휘</strong>. KISA 「AI 보안 안내서」(2025-12-10), NIST AI RMF가 참조 표준으로 명시. 실무에서 AML.T0051(Prompt Injection), AML.T0018(Backdoor ML Model) 같은 코드로 사고 분류.<br><br>
+    실무자가 직접 매핑하는 도구라기보단 <strong>"우리가 본 공격이 표준 카탈로그의 어디에 해당하나"를 기록·공유하는 어휘</strong>. 자세히는 <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/mitre-atlas.md" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">wiki entity</a>.
+  </div>
+</div>
+
+<!-- 한국 KISA 안내서 -->
+<div style="padding:1rem 1.2rem;background:var(--violet-bg);border:1px solid var(--violet-border);border-radius:10px;font-size:.82rem;color:var(--text);line-height:1.85">
+  🇰🇷 <strong style="color:var(--violet)">한국 두 안내서:</strong>
+  ① <strong>「생성형 AI 개발·활용을 위한 개인정보 처리 안내서」</strong>(2025-08, 개인정보보호위원회) — 4단계 수명주기(목적→전략→학습/개발→적용/관리)별 개인정보 보호 사항.
+  ② <strong>「AI 보안 안내서」</strong>(2025-12-10, KISA) — 모델 개발자/서비스 제공자/이용자별 보안 수칙. ATLAS·NIST·ISO 매핑.
+</div>
+
+</div>
+</div>
+
+<!-- ─── 원칙 ⑤ 책임성 ─── -->
+<div class="dia reveal" style="margin-top:1.6rem">
+<div class="dia-title" style="color:var(--violet)">⑤ 책임성 (Accountability) — "누가 결정에 책임지는가, 어떻게 멈추는가"</div>
+
+<div style="max-width:900px;margin:0 auto">
+
+<div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 12px 12px 0;font-size:.85rem;color:var(--text);line-height:1.9;margin-bottom:1.2rem">
+  <strong style="color:var(--violet)">정의:</strong> AI의 결정에 대해 <strong>책임을 지는 자연인 또는 법인이 명확히 식별</strong>되고, 사람이 그 결정을 <strong>멈추거나 뒤집을 수 있는</strong>(Human Oversight) 구조. EU AI Act <strong>Article 14</strong> 인간 감독 의무.
+</div>
+
+<!-- Air Canada 결정적 사례 -->
+<div style="padding:1.3rem 1.5rem;background:var(--card);border:2px solid var(--violet);border-radius:14px;margin-bottom:1.2rem">
+  <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.6rem">⚖ 결정적 판례 — Moffatt v. Air Canada (BCCRT 2024 BCCRT 149, 2024-02-14)</div>
+  <div style="font-size:.86rem;color:var(--text);line-height:1.95">
+    <strong>사실관계:</strong> Jake Moffatt가 모친상 항공권을 위해 Air Canada 챗봇에 문의. 챗봇이 <strong>"애도 요금은 사후 신청 가능"</strong>이라고 안내 → 실제로는 사전 신청 필수. Air Canada는 환불 거부.<br><br>
+    <strong>회사 항변:</strong> "챗봇은 별도의 법인격(separate legal entity)으로, 자기 발언에 대해 직접 책임진다."<br><br>
+    <strong>BC 민사조정원 판결:</strong> 항변 <strong>전면 기각</strong>. "챗봇은 회사의 일부이며, 회사는 자기 웹사이트의 모든 정보에 책임을 진다(negligent misrepresentation)." → <strong>CAD $650 + 이자·비용 배상</strong>.<br><br>
+    <strong>거버넌스 함의:</strong> <strong style="color:var(--violet)">"챗봇 = 별도 인격" 항변은 법적으로 작동하지 않는다.</strong> 챗봇 발언은 회사의 발언이며, 책임 회피 수단으로 AI를 끼울 수 없다. PM이 가장 직관적으로 이해하는 책임 사례.
+  </div>
+</div>
+
+<!-- 책임 구조 시각화 -->
+<div style="margin-bottom:1.2rem">
+<svg viewBox="0 0 820 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:820px;display:block;margin:0 auto;height:auto" role="img" aria-label="책임 구조">
+  <defs>
+    <style>
+      .atit{font-family:var(--display,sans-serif);font-size:13px;font-weight:800;fill:var(--text)}
+      .albl{font-family:JetBrains Mono,monospace;font-size:10.5px;font-weight:700;fill:#7c6cf0}
+      .adesc{font-family:Arial,sans-serif;font-size:10.5px;fill:var(--text-dim)}
+    </style>
+  </defs>
+  <!-- 4 columns -->
+  <rect x="20"  y="20" width="190" height="180" rx="12" fill="var(--card)" stroke="var(--violet-border)" stroke-width="1.5"/>
+  <text x="35"  y="45" class="albl">RACI 매트릭스</text>
+  <text x="35"  y="68" class="atit">"누가 무엇을 하나"</text>
+  <text x="35"  y="98" class="adesc">R Responsible 실행자</text>
+  <text x="35"  y="118" class="adesc">A Accountable 최종책임자 ⭐</text>
+  <text x="35"  y="138" class="adesc">C Consulted 협의자</text>
+  <text x="35"  y="158" class="adesc">I Informed 통지받는자</text>
+  <text x="35"  y="185" class="adesc">A는 단 1명 — 명확</text>
+
+  <rect x="220" y="20" width="190" height="180" rx="12" fill="var(--card)" stroke="var(--violet-border)" stroke-width="1.5"/>
+  <text x="235" y="45" class="albl">AUDIT LOG</text>
+  <text x="235" y="68" class="atit">"무엇이 일어났나"</text>
+  <text x="235" y="98" class="adesc">EU AI Act Art.12 의무</text>
+  <text x="235" y="118" class="adesc">• 입력·출력</text>
+  <text x="235" y="138" class="adesc">• 결정 사유</text>
+  <text x="235" y="158" class="adesc">• 사용자·시간</text>
+  <text x="235" y="185" class="adesc">→ Observability (Ch.10)</text>
+
+  <rect x="420" y="20" width="190" height="180" rx="12" fill="var(--card)" stroke="var(--violet-border)" stroke-width="1.5"/>
+  <text x="435" y="45" class="albl">HUMAN OVERSIGHT</text>
+  <text x="435" y="68" class="atit">"멈출 수 있는가"</text>
+  <text x="435" y="98" class="adesc">HITL 사람 사이에</text>
+  <text x="435" y="118" class="adesc">HOTL 사람 위에서</text>
+  <text x="435" y="138" class="adesc">Kill switch</text>
+  <text x="435" y="158" class="adesc">Override 권한</text>
+  <text x="435" y="185" class="adesc">EU AI Act Art.14</text>
+
+  <rect x="620" y="20" width="190" height="180" rx="12" fill="var(--card)" stroke="var(--violet-border)" stroke-width="1.5"/>
+  <text x="635" y="45" class="albl">사고 보고</text>
+  <text x="635" y="68" class="atit">"누구에게 알리나"</text>
+  <text x="635" y="98" class="adesc">EU Art.73:</text>
+  <text x="635" y="118" class="adesc">15일 / 2일 / 10일</text>
+  <text x="635" y="138" class="adesc">한국 AI 기본법:</text>
+  <text x="635" y="158" class="adesc">24h 최초 + 15일 결과</text>
+  <text x="635" y="185" class="adesc">AIID·OECD AIM</text>
+</svg>
+</div>
+
+</div>
+</div>
+
+<!-- ─── 원칙 ⑥ 능력 통제 ─── -->
+<div class="dia reveal" style="margin-top:1.6rem">
+<div class="dia-title" style="color:var(--violet)">⑥ 능력 통제 (Capability Control) ⭐ 2024-2026 신영역</div>
+
+<div style="max-width:900px;margin:0 auto">
+
+<div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--coral);border-radius:0 12px 12px 0;font-size:.85rem;color:var(--text);line-height:1.9;margin-bottom:1.2rem">
+  <strong style="color:var(--coral)">정의:</strong> 모델의 능력이 일정 임계를 넘으면 <strong>배포 전·후에 차등화된 안전 조치</strong>를 적용하는 원칙. 일반 거버넌스(Fairness·Transparency 등)에 더해, frontier 모델만의 추가 의무. <strong>Mythos·Project Glasswing</strong>이 첫 본격 사례.
+</div>
+
+<!-- 3개 frontier framework 비교 -->
+<div style="overflow-x:auto;margin-bottom:1.2rem">
+<table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:680px">
+  <thead>
+    <tr style="background:var(--surface)">
+      <th style="padding:.6rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">제공자</th>
+      <th style="padding:.6rem;text-align:left;color:var(--coral);font-weight:700;border-bottom:1px solid var(--coral-border)">프레임워크</th>
+      <th style="padding:.6rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">단계</th>
+      <th style="padding:.6rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">실전 사례</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td style="padding:.6rem;font-weight:700">Anthropic</td><td style="padding:.6rem"><strong style="color:var(--coral)">RSP (Responsible Scaling Policy)</strong></td><td style="padding:.6rem;color:var(--text-dim)">ASL-1 / 2 (현재) / 3 / 4 / 5</td><td style="padding:.6rem;color:var(--text-dim)"><strong>2025-05 ASL-3 활성화</strong> (Claude Opus 4) · Mythos가 사실상 ASL-4 첫 사례</td></tr>
+    <tr style="background:var(--surface)"><td style="padding:.6rem;font-weight:700">OpenAI</td><td style="padding:.6rem"><strong style="color:var(--coral)">Preparedness Framework v2</strong> (2025-04-15)</td><td style="padding:.6rem;color:var(--text-dim)">High / Critical (단순화)</td><td style="padding:.6rem;color:var(--text-dim)">3 위험 영역: Bio/Chem · Cyber · AI Self-improvement</td></tr>
+    <tr><td style="padding:.6rem;font-weight:700">Google DeepMind</td><td style="padding:.6rem"><strong style="color:var(--coral)">Frontier Safety Framework v3</strong> (2025-09)</td><td style="padding:.6rem;color:var(--text-dim)">CCLs (Critical Capability Levels)</td><td style="padding:.6rem;color:var(--text-dim)">4 도메인: autonomy/biosec/cyber/ML R&amp;D + harmful manipulation(2025) · Gemini 3 Pro FSF Report (2025-11)</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ASL 단계 시각화 -->
+<div style="margin-bottom:1.2rem">
+<svg viewBox="0 0 820 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:820px;display:block;margin:0 auto;height:auto" role="img" aria-label="Anthropic ASL 단계">
+  <defs>
+    <style>
+      .ctit{font-family:var(--display,sans-serif);font-size:12px;font-weight:800;fill:var(--text)}
+      .clbl{font-family:JetBrains Mono,monospace;font-size:11px;font-weight:700;fill:#7c6cf0}
+      .cdesc{font-family:Arial,sans-serif;font-size:10px;fill:var(--text-dim)}
+    </style>
+  </defs>
+  <!-- ASL bar -->
+  <rect x="20"  y="60" width="155" height="80" rx="10" fill="rgba(0,150,80,0.12)" stroke="#00a060" stroke-width="1.5"/>
+  <text x="35"  y="85" class="clbl" fill="#00a060">ASL-1</text>
+  <text x="35"  y="105" class="ctit">의미있는 위험 없음</text>
+  <text x="35"  y="125" class="cdesc">2024 이전 LLM</text>
+
+  <rect x="180" y="60" width="155" height="80" rx="10" fill="rgba(255,180,0,0.12)" stroke="#ffb400" stroke-width="1.5"/>
+  <text x="195" y="85" class="clbl" fill="#cc8800">ASL-2 (현재)</text>
+  <text x="195" y="105" class="ctit">초기 위험 신호</text>
+  <text x="195" y="125" class="cdesc">현 Claude 4.x 일반</text>
+
+  <rect x="340" y="60" width="155" height="80" rx="10" fill="rgba(255,107,107,0.15)" stroke="#ff6b6b" stroke-width="2"/>
+  <text x="355" y="85" class="clbl" fill="#ff6b6b">ASL-3 (2025-05~)</text>
+  <text x="355" y="105" class="ctit">CBRN/사이버 uplift</text>
+  <text x="355" y="125" class="cdesc">Claude Opus 4 활성화</text>
+
+  <rect x="500" y="60" width="155" height="80" rx="10" fill="rgba(208,74,2,0.18)" stroke="#7c6cf0" stroke-width="2.5"/>
+  <text x="515" y="85" class="clbl" fill="#7c6cf0">ASL-4 (Mythos?)</text>
+  <text x="515" y="105" class="ctit">국가급 OR 자율 R&amp;D</text>
+  <text x="515" y="125" class="cdesc">정의 미완성 — 2026-04</text>
+
+  <rect x="660" y="60" width="140" height="80" rx="10" fill="rgba(80,0,0,0.2)" stroke="#800000" stroke-width="2"/>
+  <text x="675" y="85" class="clbl" fill="#800000">ASL-5 (이론)</text>
+  <text x="675" y="105" class="ctit">극도의 catastrophic</text>
+  <text x="675" y="125" class="cdesc">미정의</text>
+
+  <text x="20" y="175" class="cdesc">↑ 능력 임계가 올라갈수록 → 보안 강화·배포 제한·권한 분리·외부 평가·사고 보고가 단계적으로 더 강해짐</text>
+</svg>
+</div>
+
+<!-- METR -->
+<div style="padding:1.1rem 1.3rem;background:var(--surface);border-radius:12px;margin-bottom:1rem">
+  <div style="font-family:var(--mono);font-size:.72rem;color:var(--coral);letter-spacing:1.5px;margin-bottom:.5rem">📈 METR Time Horizon — 능력 진전을 정량 추적</div>
+  <div style="font-size:.83rem;color:var(--text);line-height:1.9">
+    <strong>METR (Model Evaluation &amp; Threat Research)</strong> Time Horizon = AI가 50% 성공률로 완료 가능한 <strong>인간 작업 시간</strong>. 2019-2025 doubling time <strong>7개월 → 2024-2025 4개월로 가속</strong>. Claude 3.7 Sonnet ≈ 1시간 horizon (2025-03 시점). <a href="https://metr.org/time-horizons/" target="_blank" rel="noopener" style="color:var(--coral);text-decoration:underline">metr.org/time-horizons</a>는 frontier 능력 진전의 사실상 표준 지표.<br><br>
+    <strong>거버넌스 함의:</strong> 모델 능력은 4개월에 2배. EU AI Act는 4년 입법 + 2년 implement. <strong>거버넌스가 항상 2-3 generation 뒤처진다.</strong> Capability Control은 이 velocity gap을 메우는 자발적 안전 조치.
+  </div>
+</div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CH.03 — ACT 2 -->
+<!-- ═══════════════════════════════════════ -->
+<section class="ch reveal" id="gov-ch3">
+<div class="ch-head"><div class="ch-num" style="color:var(--violet)">03</div><h2 class="ch-title">글로벌 거버넌스 프레임워크 매트릭스</h2></div>
+
+<!-- ACT 2 — 글로벌 프레임워크 매트릭스 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="dia reveal" style="margin-top:2.5rem">
+<div class="dia-title">🌍 ACT 2 — 글로벌 거버넌스 프레임워크 매트릭스</div>
+
+<div style="max-width:900px;margin:0 auto">
+
+<div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 12px 12px 0;font-size:.85rem;color:var(--text);line-height:1.9;margin-bottom:1.4rem">
+  📍 <strong style="color:var(--violet)">한국 회사가 직면한 두 마감선:</strong>
+  <strong>2026-01-22 한국 AI 기본법 시행</strong> (실질 강제 2027 초) + <strong>2026-08-02 EU AI Act 고위험 AI 의무 발효</strong>. EU 시장에 서비스를 제공하면 한국 회사도 <strong>역외 적용</strong>(GDPR과 동일 구조).
+</div>
+
+<!-- 5개 프레임워크 비교표 -->
+<div style="overflow-x:auto;margin-bottom:1.4rem">
+<table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:780px">
+  <thead>
+    <tr style="background:var(--surface)">
+      <th style="padding:.65rem;text-align:left;color:var(--violet);font-weight:700;border-bottom:1.5px solid var(--violet-border)">프레임워크</th>
+      <th style="padding:.65rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">법적 강제력</th>
+      <th style="padding:.65rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">발효일</th>
+      <th style="padding:.65rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">핵심 의무</th>
+      <th style="padding:.65rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">한국 회사 영향</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding:.65rem;font-weight:700;color:var(--violet)">EU AI Act</td>
+      <td style="padding:.65rem">법규 (역외 적용)</td>
+      <td style="padding:.65rem;color:var(--text-dim)">2024-08-01 발효 / 단계적</td>
+      <td style="padding:.65rem;color:var(--text-dim)">위험 4단계, 고위험 AI 의무, GPAI 의무, Article 73 사고 보고</td>
+      <td style="padding:.65rem;color:var(--coral);font-weight:700">EU 시장 서비스면 직접 적용 · 위반 시 매출 7%</td>
+    </tr>
+    <tr style="background:var(--surface)">
+      <td style="padding:.65rem;font-weight:700;color:var(--violet)">한국 AI 기본법</td>
+      <td style="padding:.65rem">법률 제20676호</td>
+      <td style="padding:.65rem;color:var(--text-dim)">2026-01-22 시행 (1년+ 유예)</td>
+      <td style="padding:.65rem;color:var(--text-dim)">5대 의무, 고영향 AI, 워터마크, 24h 사고 보고</td>
+      <td style="padding:.65rem;color:var(--coral);font-weight:700">국내 사업자 직접 적용 · 해외 사업자도 국내 대리인 지정</td>
+    </tr>
+    <tr>
+      <td style="padding:.65rem;font-weight:700;color:var(--violet)">NIST AI RMF</td>
+      <td style="padding:.65rem">자발적</td>
+      <td style="padding:.65rem;color:var(--text-dim)">2023-01 / GenAI Profile 2024-07</td>
+      <td style="padding:.65rem;color:var(--text-dim)">GOVERN/MAP/MEASURE/MANAGE 4 함수, 200+ 액션</td>
+      <td style="padding:.65rem;color:var(--text-dim)">미국 시장·연방 조달 사실상 표준</td>
+    </tr>
+    <tr style="background:var(--surface)">
+      <td style="padding:.65rem;font-weight:700;color:var(--violet)">ISO/IEC 42001</td>
+      <td style="padding:.65rem">국제 표준 (인증)</td>
+      <td style="padding:.65rem;color:var(--text-dim)">2023-12</td>
+      <td style="padding:.65rem;color:var(--text-dim)">AI 경영 시스템(AIMS) PDCA</td>
+      <td style="padding:.65rem;color:var(--text-dim)">EU "presumption of conformity" 경로 — 인증 시 의무 일부 자동 충족</td>
+    </tr>
+    <tr>
+      <td style="padding:.65rem;font-weight:700;color:var(--violet)">OECD AI Principles</td>
+      <td style="padding:.65rem">자발적 (47개국)</td>
+      <td style="padding:.65rem;color:var(--text-dim)">2019 / 2024-05 update</td>
+      <td style="padding:.65rem;color:var(--text-dim)">5 가치 원칙 + 5 정책 권고. 환경·허위정보·노동시장 추가</td>
+      <td style="padding:.65rem;color:var(--text-dim)">한국 채택국. 후속 G7 Hiroshima Process 행동 강령</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- EU AI Act 타임라인 -->
+<div style="padding:1.1rem 1.3rem;background:var(--card);border:1px solid var(--violet-border);border-radius:12px;margin-bottom:1rem">
+  <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.7rem">🇪🇺 EU AI Act 발효 타임라인</div>
+  <div style="font-size:.82rem;color:var(--text);line-height:1.95">
+    <strong>2024-08-01</strong> 발효 → <strong>2025-02-02</strong> Prohibited AI 적용(사회적 점수, 직장·학교 감정 인식 등) → <strong>2025-08-02</strong> GPAI 의무 → <strong style="color:var(--coral)">2026-08-02 ⭐ Article 10 데이터 거버넌스 + 고위험 AI 본체 의무</strong> → 2027-08-02 Annex I (제품 안전 통합형).<br><br>
+    <strong>고위험 분야 8개 (Annex III):</strong> 생체인식 / 핵심 인프라 / 교육 / 채용·노동 / 필수 공공서비스 / 법 집행 / 이민·국경 / 사법·민주적 절차.<br>
+    <strong>벌금:</strong> 금지 위반 €35M 또는 글로벌 매출 7% / 고위험 €15M·3% / GPAI €15M·3%.
+  </div>
+</div>
+
+<!-- 한국 AI 기본법 5대 의무 -->
+<div style="padding:1.1rem 1.3rem;background:var(--card);border:1px solid var(--violet-border);border-radius:12px">
+  <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.7rem">🇰🇷 한국 AI 기본법 5대 의무</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.7rem;font-size:.78rem">
+    <div style="padding:.7rem;background:var(--surface);border-radius:8px"><strong style="color:var(--violet)">① 투명성</strong><br><span style="color:var(--text-dim)">생성형 AI 결과물 고지 + 워터마크</span></div>
+    <div style="padding:.7rem;background:var(--surface);border-radius:8px"><strong style="color:var(--violet)">② 안전성</strong><br><span style="color:var(--text-dim)">대규모 누적 연산량 모델 — 한국판 systemic risk</span></div>
+    <div style="padding:.7rem;background:var(--surface);border-radius:8px"><strong style="color:var(--violet)">③ 고영향 AI 책무</strong><br><span style="color:var(--text-dim)">의료·채용·금융신용·사법·공공서비스</span></div>
+    <div style="padding:.7rem;background:var(--surface);border-radius:8px"><strong style="color:var(--violet)">④ AI 영향평가</strong><br><span style="color:var(--text-dim)">자율 권고지만 사실상 의무화 추세</span></div>
+    <div style="padding:.7rem;background:var(--surface);border-radius:8px"><strong style="color:var(--violet)">⑤ 국내 대리인</strong><br><span style="color:var(--text-dim)">해외 사업자 대상 — GDPR과 동일 구조</span></div>
+  </div>
+  <div style="margin-top:.8rem;padding-top:.7rem;border-top:1px solid var(--violet-border);font-size:.78rem;color:var(--text-dim)">
+    <strong>사고 보고:</strong> 24시간 최초 보고 + 15일 결과 보고 (EU 대비 first-notice 더 빠름). <strong>워터마크:</strong> 사람·기계 인식 가능 둘 다 OK. <strong>딥페이크는 사람 인식 표시만 인정.</strong>
+  </div>
+</div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CH.04 — ACT 3 -->
+<!-- ═══════════════════════════════════════ -->
+<section class="ch reveal" id="gov-ch4">
+<div class="ch-head"><div class="ch-num" style="color:var(--violet)">04</div><h2 class="ch-title">AI 거버넌스 조직 구조 — 3 Lines of Defense</h2></div>
+
+<!-- ACT 3 — 조직 구조 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="dia reveal" style="margin-top:2.5rem">
+<div class="dia-title">🏛 ACT 3 — AI 거버넌스 조직 구조</div>
+
+<div style="max-width:900px;margin:0 auto">
+
+<div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 12px 12px 0;font-size:.85rem;color:var(--text);line-height:1.9;margin-bottom:1.4rem">
+  원칙·프레임워크는 종이지만, 사람이 없으면 실행되지 않습니다. <strong>3 Lines of Defense</strong> 모델을 AI에 적용하면 임원진이 자기 회사에 그릴 수 있는 그림이 됩니다.
+</div>
+
+<!-- 3 Lines of Defense SVG -->
+<div style="margin-bottom:1.4rem">
+<svg viewBox="0 0 820 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:820px;display:block;margin:0 auto;height:auto" role="img" aria-label="3 Lines of Defense">
+  <defs>
+    <style>
+      .ltit{font-family:var(--display,sans-serif);font-size:13px;font-weight:800;fill:var(--text)}
+      .llbl{font-family:JetBrains Mono,monospace;font-size:11px;font-weight:700;fill:#7c6cf0}
+      .ldesc{font-family:Arial,sans-serif;font-size:10.5px;fill:var(--text-dim)}
+    </style>
+  </defs>
+  <!-- Line 1 -->
+  <rect x="20" y="20" width="780" height="65" rx="12" fill="rgba(0,150,80,0.07)" stroke="#00a060" stroke-width="1.5"/>
+  <text x="40" y="45" class="llbl" fill="#00a060">1선 (Builder) — 모델을 만드는 사람들</text>
+  <text x="40" y="68" class="ltit">ML/Data 엔지니어 · Data Scientist · AI Product Manager</text>
+  <text x="500" y="68" class="ldesc">자체 QA · 편향 탐지 · 데이터 무결성 · Eval harness</text>
+
+  <!-- Line 2 -->
+  <rect x="20" y="95" width="780" height="65" rx="12" fill="rgba(208,74,2,0.07)" stroke="#7c6cf0" stroke-width="1.5"/>
+  <text x="40" y="120" class="llbl" fill="#7c6cf0">2선 (Governance) — 정책·독립 검토</text>
+  <text x="40" y="143" class="ltit">AI Risk Officer · Compliance Officer · Privacy Officer</text>
+  <text x="500" y="143" class="ldesc">정책 수립 · 독립적 검토 · Model Card 승인 · 사고 보고</text>
+
+  <!-- Line 3 -->
+  <rect x="20" y="170" width="780" height="65" rx="12" fill="rgba(124,108,240,0.07)" stroke="#7c6cf0" stroke-width="1.5"/>
+  <text x="40" y="195" class="llbl" fill="#7c6cf0">3선 (Audit) — 1·2선 검증, 이사회 보고</text>
+  <text x="40" y="218" class="ltit">Internal Audit · 외부 인증(ISO 42001) · 외부 감사</text>
+  <text x="500" y="218" class="ldesc">독립성 검증 · 1·2선 효과성 점검 · Board reporting</text>
+
+  <!-- Top: Board -->
+  <rect x="290" y="245" width="240" height="30" rx="8" fill="rgba(208,74,2,0.12)" stroke="#7c6cf0" stroke-width="1.5"/>
+  <text x="410" y="266" class="llbl" fill="#7c6cf0" text-anchor="middle">↑ BOARD / SENIOR LEADERSHIP</text>
+</svg>
+</div>
+
+<!-- Microsoft AETHER 사례 -->
+<div style="padding:1.2rem 1.4rem;background:var(--card);border:1px solid var(--violet-border);border-radius:12px;margin-bottom:1.1rem">
+  <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.6rem">🏢 케이스 — Microsoft 3-body 모델 (가장 성숙한 구조)</div>
+  <div style="font-size:.83rem;color:var(--text);line-height:1.95">
+    <strong>① Senior Leadership Team</strong> — AI 원칙·인권 약속의 최종 의사결정.<br>
+    <strong>② Office of Responsible AI (ORA)</strong> — 4개 기능: Internal policy / Enablement / Case management / Public policy.<br>
+    <strong>③ AETHER Committee</strong> (AI and Ethics in Engineering and Research, Eric Horvitz 주도) — 6개 워킹그룹: Fairness/Inclusiveness · Human-AI Interaction · Transparency · Reliability/Safety · Security · Privacy.<br>
+    <strong>+ RAISE</strong> (Responsible AI Strategy in Engineering) — 엔지니어링 팀에 책임 AI 통합. <strong>Hub-and-spoke</strong> 모델 (privacy·security 통합 경험에서 차용).
+  </div>
+</div>
+
+<!-- 다른 사례 -->
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.8rem;margin-bottom:1.1rem">
+  <div style="padding:1rem 1.1rem;background:var(--card);border:1px solid var(--border);border-radius:10px">
+    <div style="font-size:.78rem;font-weight:700;color:var(--violet);margin-bottom:.4rem">Salesforce — OEHU</div>
+    <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">2018-08 신설 Office of Ethical and Humane Use. <strong>Paula Goldman</strong> 초대 Chief Ethical and Humane Use Officer. Ethical Use Advisory Council = 외부 학계·시민사회 + 사내 + 고객 응대 직원 혼합.</div>
+  </div>
+  <div style="padding:1rem 1.1rem;background:var(--card);border:1px solid var(--border);border-radius:10px">
+    <div style="font-size:.78rem;font-weight:700;color:var(--violet);margin-bottom:.4rem">Google — ARAC</div>
+    <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">AI Review Council. Sundar Pichai의 2018 AI Principles 후속. 민감 사용 사례 검토.</div>
+  </div>
+  <div style="padding:1rem 1.1rem;background:var(--card);border:1px solid var(--border);border-radius:10px">
+    <div style="font-size:.78rem;font-weight:700;color:var(--violet);margin-bottom:.4rem">IBM — AI Ethics Board</div>
+    <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">중앙 위원회 + 사업부별 ethics focal points. 기술·법무 균형.</div>
+  </div>
+  <div style="padding:1rem 1.1rem;background:var(--card);border:1px solid var(--border);border-radius:10px">
+    <div style="font-size:.78rem;font-weight:700;color:var(--violet);margin-bottom:.4rem">Anthropic — Capability Reports</div>
+    <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">RSP의 안전팀이 별도 Capability Report 작성, CEO/Board에 직접 보고. 제품팀에서 분리.</div>
+  </div>
+</div>
+
+<!-- 윤리 위원회 권장 구성 -->
+<div style="padding:.9rem 1.1rem;background:var(--surface);border-radius:10px;font-size:.81rem;color:var(--text);line-height:1.9">
+  💡 <strong style="color:var(--violet)">윤리 위원회 권장 구성 (5-9명):</strong> 법무·기술·UX·영업 + 외부 전문가(학계 또는 시민단체) + 윤리 전공자 1인. <strong>외부인이 30%+이어야 ethics washing 방지.</strong> 신규 직군: <strong>CAIO (Chief AI Officer)</strong> — 2024 Fortune 500의 1/3 신설, 미 연방정부 OMB M-24-10에 따라 모든 부처가 CAIO 지정 의무.
+</div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CH.05 — ACT 4 -->
+<!-- ═══════════════════════════════════════ -->
+<section class="ch reveal" id="gov-ch5">
+<div class="ch-head"><div class="ch-num" style="color:var(--violet)">05</div><h2 class="ch-title">거버넌스 라이프사이클 — 9단계</h2></div>
+
+<!-- ACT 4 — 라이프사이클 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="dia reveal" style="margin-top:2.5rem">
+<div class="dia-title">🔄 ACT 4 — AI 거버넌스 라이프사이클 (9단계)</div>
+
+<div style="max-width:900px;margin:0 auto">
+
+<!-- 라이프사이클 SVG -->
+<div style="margin-bottom:1.4rem">
+<svg viewBox="0 0 880 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:880px;display:block;margin:0 auto;height:auto" role="img" aria-label="거버넌스 라이프사이클 9단계">
+  <defs>
+    <style>
+      .ptit{font-family:var(--display,sans-serif);font-size:11px;font-weight:800;fill:var(--text)}
+      .pnum{font-family:JetBrains Mono,monospace;font-size:10px;font-weight:700;fill:#7c6cf0}
+    </style>
+    <marker id="arrLP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,2 L9,5 L0,8 z" fill="var(--violet)"/>
+    </marker>
+  </defs>
+  <!-- 9 stages -->
+  <g>
+    <rect x="10"  y="40" width="85" height="55" rx="10" fill="rgba(208,74,2,0.07)" stroke="#7c6cf0" stroke-width="1.3"/>
+    <text x="52" y="58" class="pnum" text-anchor="middle">①</text>
+    <text x="52" y="76" class="ptit" text-anchor="middle">Use case</text>
+    <text x="52" y="90" class="ptit" text-anchor="middle">정의</text>
+  </g>
+  <g>
+    <rect x="105" y="40" width="85" height="55" rx="10" fill="rgba(208,74,2,0.07)" stroke="#7c6cf0" stroke-width="1.3"/>
+    <text x="147" y="58" class="pnum" text-anchor="middle">②</text>
+    <text x="147" y="76" class="ptit" text-anchor="middle">위험 분류</text>
+    <text x="147" y="90" class="ptit" text-anchor="middle">EU 4단계</text>
+  </g>
+  <g>
+    <rect x="200" y="40" width="85" height="55" rx="10" fill="rgba(208,74,2,0.07)" stroke="#7c6cf0" stroke-width="1.3"/>
+    <text x="242" y="58" class="pnum" text-anchor="middle">③</text>
+    <text x="242" y="76" class="ptit" text-anchor="middle">데이터</text>
+    <text x="242" y="90" class="ptit" text-anchor="middle">거버넌스</text>
+  </g>
+  <g>
+    <rect x="295" y="40" width="85" height="55" rx="10" fill="rgba(208,74,2,0.07)" stroke="#7c6cf0" stroke-width="1.3"/>
+    <text x="337" y="58" class="pnum" text-anchor="middle">④</text>
+    <text x="337" y="76" class="ptit" text-anchor="middle">모델 개발</text>
+    <text x="337" y="90" class="ptit" text-anchor="middle">+ Eval</text>
+  </g>
+  <g>
+    <rect x="390" y="30" width="95" height="75" rx="10" fill="rgba(208,74,2,0.13)" stroke="#7c6cf0" stroke-width="2"/>
+    <text x="437" y="48" class="pnum" text-anchor="middle">⑤ ⭐</text>
+    <text x="437" y="68" class="ptit" text-anchor="middle">배포 전 검토</text>
+    <text x="437" y="83" class="ptit" text-anchor="middle">Stage Gate</text>
+    <text x="437" y="97" class="ptit" text-anchor="middle">(Ethics Board)</text>
+  </g>
+  <g>
+    <rect x="495" y="40" width="80" height="55" rx="10" fill="rgba(208,74,2,0.07)" stroke="#7c6cf0" stroke-width="1.3"/>
+    <text x="535" y="58" class="pnum" text-anchor="middle">⑥</text>
+    <text x="535" y="76" class="ptit" text-anchor="middle">배포</text>
+    <text x="535" y="90" class="ptit" text-anchor="middle">canary</text>
+  </g>
+  <g>
+    <rect x="585" y="40" width="80" height="55" rx="10" fill="rgba(208,74,2,0.07)" stroke="#7c6cf0" stroke-width="1.3"/>
+    <text x="625" y="58" class="pnum" text-anchor="middle">⑦</text>
+    <text x="625" y="76" class="ptit" text-anchor="middle">모니터링</text>
+    <text x="625" y="90" class="ptit" text-anchor="middle">drift·incident</text>
+  </g>
+  <g>
+    <rect x="675" y="40" width="80" height="55" rx="10" fill="rgba(208,74,2,0.07)" stroke="#7c6cf0" stroke-width="1.3"/>
+    <text x="715" y="58" class="pnum" text-anchor="middle">⑧</text>
+    <text x="715" y="76" class="ptit" text-anchor="middle">사고 대응</text>
+    <text x="715" y="90" class="ptit" text-anchor="middle">15일/24h</text>
+  </g>
+  <g>
+    <rect x="765" y="40" width="100" height="55" rx="10" fill="rgba(208,74,2,0.07)" stroke="#7c6cf0" stroke-width="1.3"/>
+    <text x="815" y="58" class="pnum" text-anchor="middle">⑨</text>
+    <text x="815" y="76" class="ptit" text-anchor="middle">폐기</text>
+    <text x="815" y="90" class="ptit" text-anchor="middle">잊혀질 권리</text>
+  </g>
+  <!-- arrows -->
+  <line x1="95"  y1="68" x2="103" y2="68" stroke="var(--violet)" stroke-width="1.5" marker-end="url(#arrLP)"/>
+  <line x1="190" y1="68" x2="198" y2="68" stroke="var(--violet)" stroke-width="1.5" marker-end="url(#arrLP)"/>
+  <line x1="285" y1="68" x2="293" y2="68" stroke="var(--violet)" stroke-width="1.5" marker-end="url(#arrLP)"/>
+  <line x1="380" y1="68" x2="388" y2="68" stroke="var(--violet)" stroke-width="1.5" marker-end="url(#arrLP)"/>
+  <line x1="485" y1="68" x2="493" y2="68" stroke="var(--violet)" stroke-width="1.5" marker-end="url(#arrLP)"/>
+  <line x1="575" y1="68" x2="583" y2="68" stroke="var(--violet)" stroke-width="1.5" marker-end="url(#arrLP)"/>
+  <line x1="665" y1="68" x2="673" y2="68" stroke="var(--violet)" stroke-width="1.5" marker-end="url(#arrLP)"/>
+  <line x1="755" y1="68" x2="763" y2="68" stroke="var(--violet)" stroke-width="1.5" marker-end="url(#arrLP)"/>
+  <text x="440" y="22" class="pnum" text-anchor="middle">└ Stage Gate ─ Ethics Board 승인 없으면 다음 단계로 못 감</text>
+</svg>
+</div>
+
+<!-- 단계별 상세 표 -->
+<div style="overflow-x:auto">
+<table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:760px">
+  <thead>
+    <tr style="background:var(--surface)">
+      <th style="padding:.6rem;text-align:left;color:var(--violet);font-weight:700;border-bottom:1.5px solid var(--violet-border);width:18%">단계</th>
+      <th style="padding:.6rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">검토 항목</th>
+      <th style="padding:.6rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">산출물 (Artifact)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td style="padding:.55rem;font-weight:700">① Use case 정의</td><td style="padding:.55rem">비즈니스 가치, 영향 범위</td><td style="padding:.55rem;color:var(--text-dim)">Use case canvas</td></tr>
+    <tr style="background:var(--surface)"><td style="padding:.55rem;font-weight:700">② 위험 분류</td><td style="padding:.55rem">EU 4단계, 한국 고영향?</td><td style="padding:.55rem;color:var(--text-dim)">Risk classification report</td></tr>
+    <tr><td style="padding:.55rem;font-weight:700">③ 데이터 거버넌스</td><td style="padding:.55rem">출처·라이선스·편향, PII</td><td style="padding:.55rem;color:var(--text-dim)"><strong>Datasheet for Datasets</strong>, DPIA</td></tr>
+    <tr style="background:var(--surface)"><td style="padding:.55rem;font-weight:700">④ 모델 개발</td><td style="padding:.55rem">학습 분포, 평가 메트릭</td><td style="padding:.55rem;color:var(--text-dim)"><strong>Model Card</strong>, eval report</td></tr>
+    <tr><td style="padding:.55rem;font-weight:700;color:var(--coral)">⑤ 배포 전 검토 ⭐</td><td style="padding:.55rem">Red Team, 적대적 테스트</td><td style="padding:.55rem;color:var(--text-dim)"><strong>System Card · AIA · AIBOM</strong></td></tr>
+    <tr style="background:var(--surface)"><td style="padding:.55rem;font-weight:700">⑥ 배포</td><td style="padding:.55rem">canary, 사용자 고지</td><td style="padding:.55rem;color:var(--text-dim)">UI 문구, watermark, 모니터링 SLA</td></tr>
+    <tr><td style="padding:.55rem;font-weight:700">⑦ 모니터링</td><td style="padding:.55rem">drift, 사고율, 피드백</td><td style="padding:.55rem;color:var(--text-dim)">Observability 대시보드</td></tr>
+    <tr style="background:var(--surface)"><td style="padding:.55rem;font-weight:700">⑧ 사고 대응</td><td style="padding:.55rem">영향 범위, 근본 원인</td><td style="padding:.55rem;color:var(--text-dim)">Incident report (EU 15일 / 한국 24h+15일)</td></tr>
+    <tr><td style="padding:.55rem;font-weight:700">⑨ 폐기</td><td style="padding:.55rem">데이터·weights 삭제</td><td style="padding:.55rem;color:var(--text-dim)">Decommissioning log, GDPR 잊혀질 권리</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- 핵심 산출물 박스 -->
+<div style="padding:.95rem 1.1rem;background:var(--surface);border-radius:10px;font-size:.79rem;color:var(--text-dim);line-height:1.85;margin-top:1rem">
+  📋 <strong style="color:var(--violet)">7대 산출물 — 시간순:</strong>
+  <strong>Datasheet for Datasets</strong> (Gebru 2018) →
+  <strong>DPIA</strong>(데이터 영향평가, GDPR/PIPA) →
+  <strong>Model Card</strong> (Mitchell 2018, arXiv:1810.03993) →
+  <strong>AIA</strong> (Algorithmic Impact Assessment, Canada Treasury Board 2020 mandatory, 65 위험 + 41 완화 질문) →
+  <strong>System Card</strong> (OpenAI 2023~) →
+  <strong>AIBOM</strong> (AI Bill of Materials — NIST CSRC 2024, OWASP 2025, IBM Granite 4.0 첫 공개) →
+  <strong>Audit Log</strong> (EU AI Act Article 12 의무).
+</div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CH.06 — ACT 5 -->
+<!-- ═══════════════════════════════════════ -->
+<section class="ch reveal" id="gov-ch6">
+<div class="ch-head"><div class="ch-num" style="color:var(--violet)">06</div><h2 class="ch-title">거버넌스를 형성한 12개 사고 연표</h2></div>
+
+<!-- ACT 5 — 실패 사례 연표 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="dia reveal" style="margin-top:2.5rem">
+<div class="dia-title">📚 ACT 5 — 거버넌스를 형성한 12개 사고 연표</div>
+
+<div style="max-width:900px;margin:0 auto;overflow-x:auto">
+<table style="width:100%;border-collapse:collapse;font-size:.76rem;min-width:780px">
+  <thead>
+    <tr style="background:var(--surface)">
+      <th style="padding:.55rem;text-align:left;color:var(--violet);font-weight:700;border-bottom:1.5px solid var(--violet-border)">날짜</th>
+      <th style="padding:.55rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">사건</th>
+      <th style="padding:.55rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">핵심 사실</th>
+      <th style="padding:.55rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">교훈 / 영향</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td style="padding:.5rem;font-family:var(--mono);color:var(--text-dim)">2016-03</td><td style="padding:.5rem;font-weight:700">Microsoft Tay</td><td style="padding:.5rem">Twitter 16시간 만에 종료, 96K 트윗</td><td style="padding:.5rem;color:var(--text-dim)">적대적 학습 + content filter 부재</td></tr>
+    <tr style="background:var(--surface)"><td style="padding:.5rem;font-family:var(--mono);color:var(--text-dim)">2016-05</td><td style="padding:.5rem;font-weight:700">COMPAS (ProPublica)</td><td style="padding:.5rem">흑인 false positive 약 2배</td><td style="padding:.5rem;color:var(--text-dim)">Fairness 정의 동시 만족 불가능 정리</td></tr>
+    <tr><td style="padding:.5rem;font-family:var(--mono);color:var(--text-dim)">2018-07</td><td style="padding:.5rem;font-weight:700">IBM Watson Oncology</td><td style="padding:.5rem">출혈 환자에 출혈 위험 약물 권고</td><td style="padding:.5rem;color:var(--text-dim)">Real-world data + multi-site validation 표준화</td></tr>
+    <tr style="background:var(--surface)"><td style="padding:.5rem;font-family:var(--mono);color:var(--text-dim)">2018-10</td><td style="padding:.5rem;font-weight:700">Amazon 채용 폐기</td><td style="padding:.5rem">10년 남성 위주 이력서로 학습 → 여성 패널티</td><td style="padding:.5rem;color:var(--text-dim)">History bias 자체 + 모델 폐기 결정의 어려움</td></tr>
+    <tr><td style="padding:.5rem;font-family:var(--mono);color:var(--text-dim)">2019-11</td><td style="padding:.5rem;font-weight:700">Apple Card 차별 논란</td><td style="padding:.5rem">DHH "본인이 아내 20배 한도" 트윗</td><td style="padding:.5rem;color:var(--text-dim)">Black box → 신뢰 손실이 별개 거버넌스 실패</td></tr>
+    <tr style="background:var(--surface)"><td style="padding:.5rem;font-family:var(--mono);color:var(--text-dim)">2023-03</td><td style="padding:.5rem;font-weight:700">Italy ChatGPT 차단</td><td style="padding:.5rem">GDPR 위반, 2024 €15M 벌금</td><td style="padding:.5rem;color:var(--text-dim)">EU 시장 = GDPR 1순위 적용</td></tr>
+    <tr><td style="padding:.5rem;font-family:var(--mono);color:var(--text-dim)">2023-02~2025</td><td style="padding:.5rem;font-weight:700">Replika 정서 의존</td><td style="padding:.5rem">Italy €5M 벌금 (2025-05 확정)</td><td style="padding:.5rem;color:var(--text-dim)">정서적 dark pattern도 거버넌스 대상</td></tr>
+    <tr style="background:var(--surface)"><td style="padding:.5rem;font-family:var(--mono);color:var(--text-dim)">2024-01</td><td style="padding:.5rem;font-weight:700">DPD 챗봇</td><td style="padding:.5rem">욕설·시(詩) 작성, 1.3M 트윗</td><td style="padding:.5rem;color:var(--text-dim)">프롬프트 인젝션 가드레일 필수</td></tr>
+    <tr><td style="padding:.5rem;font-family:var(--mono);color:var(--coral);font-weight:700">2024-02 ⭐</td><td style="padding:.5rem;font-weight:700">Air Canada 판결</td><td style="padding:.5rem">"챗봇은 별도 인격" 항변 기각, $650 배상</td><td style="padding:.5rem;color:var(--text-dim)"><strong>회사는 챗봇 발언에 책임</strong> — 가장 직관적 사례</td></tr>
+    <tr style="background:var(--surface)"><td style="padding:.5rem;font-family:var(--mono);color:var(--text-dim)">2025-01</td><td style="padding:.5rem;font-weight:700">Italy Garante DeepSeek</td><td style="padding:.5rem">Definitive limitation, GDPR 부인 부적절</td><td style="padding:.5rem;color:var(--text-dim)">중국 AI EU 시장 사실상 봉쇄</td></tr>
+    <tr><td style="padding:.5rem;font-family:var(--mono);color:var(--text-dim)">2025-05</td><td style="padding:.5rem;font-weight:700">Anthropic ASL-3 활성화</td><td style="padding:.5rem">Claude Opus 4 출시, weights 도난 방지 + CBRN 차단</td><td style="padding:.5rem;color:var(--text-dim)">Frontier 자발적 capability gating 첫 작동</td></tr>
+    <tr style="background:var(--coral-bg)"><td style="padding:.5rem;font-family:var(--mono);color:var(--coral);font-weight:700">2026-04 ⭐</td><td style="padding:.5rem;font-weight:700">Claude Mythos</td><td style="padding:.5rem">샌드박스 탈옥 + 공개 거부 + Project Glasswing</td><td style="padding:.5rem;color:var(--text-dim)"><strong>ASL-4 첫 실전, 컨소시엄 거버넌스 모델</strong></td></tr>
+  </tbody>
+</table>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CH.07 — ACT 6 -->
+<!-- ═══════════════════════════════════════ -->
+<section class="ch reveal" id="gov-ch7">
+<div class="ch-head"><div class="ch-num" style="color:var(--violet)">07</div><h2 class="ch-title">운영 사이클 — Red Team → ATLAS → XAI → Mitigation</h2></div>
+
+<!-- ACT 6 — 운영 사이클 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="dia reveal" style="margin-top:2.5rem">
+<div class="dia-title">⚙ ACT 6 — 운영 사이클: Red Team → ATLAS → XAI → Mitigation</div>
+
+<div style="max-width:900px;margin:0 auto">
+
+<div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 12px 12px 0;font-size:.85rem;color:var(--text);line-height:1.9;margin-bottom:1.4rem">
+  원칙·프레임워크·조직·라이프사이클이 갖춰져도, <strong>실제로 시스템을 시간이 흐를수록 안전하게</strong> 만드는 것은 운영 사이클입니다. 4단계가 한 사이클로 돌아가야 함:
+</div>
+
+<!-- 4단계 운영 사이클 SVG -->
+<div style="margin-bottom:1.4rem">
+<svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px;display:block;margin:0 auto;height:auto" role="img" aria-label="운영 사이클">
+  <defs>
+    <style>
+      .ctit{font-family:var(--display,sans-serif);font-size:13px;font-weight:800;fill:var(--text)}
+      .clbl{font-family:JetBrains Mono,monospace;font-size:11px;font-weight:700;fill:#7c6cf0}
+      .cdesc{font-family:Arial,sans-serif;font-size:11px;fill:var(--text-dim)}
+    </style>
+    <marker id="arrCY" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,2 L9,5 L0,8 z" fill="#7c6cf0"/>
+    </marker>
+  </defs>
+  <!-- Top: Red Team -->
+  <rect x="295" y="20" width="170" height="65" rx="14" fill="rgba(208,74,2,0.13)" stroke="#7c6cf0" stroke-width="2"/>
+  <text x="380" y="42" class="clbl" text-anchor="middle">① RED TEAM</text>
+  <text x="380" y="62" class="ctit" text-anchor="middle">공격해보기</text>
+  <text x="380" y="78" class="cdesc" text-anchor="middle">PyRIT · Garak · 인간 챌린지</text>
+
+  <!-- Right: ATLAS -->
+  <rect x="540" y="145" width="170" height="65" rx="14" fill="rgba(208,74,2,0.13)" stroke="#7c6cf0" stroke-width="2"/>
+  <text x="625" y="167" class="clbl" text-anchor="middle">② ATLAS</text>
+  <text x="625" y="187" class="ctit" text-anchor="middle">분류·기록</text>
+  <text x="625" y="203" class="cdesc" text-anchor="middle">표준 어휘 · 16 tactics</text>
+
+  <!-- Bottom: XAI -->
+  <rect x="295" y="270" width="170" height="65" rx="14" fill="rgba(208,74,2,0.13)" stroke="#7c6cf0" stroke-width="2"/>
+  <text x="380" y="292" class="clbl" text-anchor="middle">③ XAI</text>
+  <text x="380" y="312" class="ctit" text-anchor="middle">원인 분석</text>
+  <text x="380" y="328" class="cdesc" text-anchor="middle">SHAP · LIME · SAE</text>
+
+  <!-- Left: Mitigation -->
+  <rect x="50"  y="145" width="170" height="65" rx="14" fill="rgba(208,74,2,0.13)" stroke="#7c6cf0" stroke-width="2"/>
+  <text x="135" y="167" class="clbl" text-anchor="middle">④ MITIGATION</text>
+  <text x="135" y="187" class="ctit" text-anchor="middle">완화·재훈련</text>
+  <text x="135" y="203" class="cdesc" text-anchor="middle">패치 · 재훈련 · 가드레일</text>
+
+  <!-- Center -->
+  <circle cx="380" cy="178" r="40" fill="var(--violet-bg)" stroke="#7c6cf0" stroke-width="1.5"/>
+  <text x="380" y="172" class="clbl" text-anchor="middle">CONTINUOUS</text>
+  <text x="380" y="188" class="clbl" text-anchor="middle">CYCLE</text>
+
+  <!-- arrows -->
+  <path d="M 460 75 Q 540 100 580 145" fill="none" stroke="#7c6cf0" stroke-width="2" marker-end="url(#arrCY)"/>
+  <path d="M 580 210 Q 540 250 460 285" fill="none" stroke="#7c6cf0" stroke-width="2" marker-end="url(#arrCY)"/>
+  <path d="M 295 285 Q 200 250 175 210" fill="none" stroke="#7c6cf0" stroke-width="2" marker-end="url(#arrCY)"/>
+  <path d="M 175 145 Q 200 100 295 75" fill="none" stroke="#7c6cf0" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrCY)"/>
+</svg>
+</div>
+
+<!-- Skeleton Key 케이스 -->
+<div style="padding:1.2rem 1.4rem;background:var(--card);border:1px solid var(--violet-border);border-radius:12px;margin-bottom:1.1rem">
+  <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:1.5px;margin-bottom:.6rem">🔑 사이클 작동 사례 — Skeleton Key Jailbreak (Microsoft 2024-06-26 공개)</div>
+  <div style="font-size:.83rem;color:var(--text);line-height:1.95">
+    <strong>STEP 1 (Red Team):</strong> Microsoft AI Red Team이 "가드레일에 자기 자신을 무시하라고 설득"하는 다단계 프롬프트 발견. <a href="https://www.microsoft.com/en-us/security/blog/2024/06/26/mitigating-skeleton-key-a-new-type-of-generative-ai-jailbreak-technique/" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">Mark Russinovich 명명</a>.<br>
+    <strong>STEP 2 (ATLAS):</strong> AML.T0054 (Jailbreak) sub-technique으로 공식 분류. 다른 회사 보안팀이 공통 어휘로 인지·대응.<br>
+    <strong>STEP 3 (XAI):</strong> 어떤 layer/feature에서 가드레일 회피가 일어나는지 mechanistic interp로 분석. Anthropic Sparse Autoencoder 연구가 같은 종류.<br>
+    <strong>STEP 4 (Mitigation):</strong> Microsoft Azure AI Content Safety의 Prompt Shield 업데이트, 다른 모델 제공자에게 공개 → 산업 전체 패치.<br>
+    <strong>STEP 5 (재공격):</strong> Anthropic HackerOne 챌린지 (2025-02): 339명·30만+ 시도·누적 ~3,700시간 인간 레드팀이 새 방어 시험. <strong>"수천 시간의 인간 레드팀에 견뎠다"</strong>가 Anthropic의 공개 표현.
+  </div>
+  <div style="margin-top:.8rem;padding-top:.7rem;border-top:1px solid var(--violet-border);font-size:.81rem;color:var(--text)">
+    💡 <strong style="color:var(--violet)">교훈:</strong> 한 도구만으론 멈춥니다 — Red Team만 있으면 발견은 하지만 다음 회사가 모름. ATLAS만 있으면 분류는 하지만 새 공격이 안 나옴. XAI만 있으면 분석은 하지만 무엇을 분석할지 모름. <strong>셋이 함께 돌 때만 모델이 시간이 흐를수록 안전해집니다.</strong>
+  </div>
+</div>
+
+<!-- 도구 표 -->
+<div style="overflow-x:auto;margin-bottom:.8rem">
+<table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:700px">
+  <thead>
+    <tr style="background:var(--surface)">
+      <th style="padding:.55rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">단계</th>
+      <th style="padding:.55rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">대표 도구</th>
+      <th style="padding:.55rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">핵심 사례</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td style="padding:.5rem;font-weight:700;color:var(--violet)">① Red Team</td><td style="padding:.5rem">PyRIT (Microsoft) · Garak (NVIDIA) · NeMo Guardrails · Lakera · Robust Intelligence (Cisco $400M 인수)</td><td style="padding:.5rem;color:var(--text-dim)">Microsoft 100개 제품 평가, Anthropic 3,700시간 챌린지</td></tr>
+    <tr style="background:var(--surface)"><td style="padding:.5rem;font-weight:700;color:var(--violet)">② ATLAS</td><td style="padding:.5rem">MITRE ATLAS v5.4.0 (2026-02), KISA AI 보안 안내서</td><td style="padding:.5rem;color:var(--text-dim)">42 case studies, Skeleton Key·PoisonGPT·Deepfake KYC</td></tr>
+    <tr><td style="padding:.5rem;font-weight:700;color:var(--violet)">③ XAI</td><td style="padding:.5rem">SHAP · LIME · IG · Captum · Anthropic SAE · DeepMind Gemma Scope</td><td style="padding:.5rem;color:var(--text-dim)">FICO xAI 툴킷, Golden Gate Claude 데모</td></tr>
+    <tr style="background:var(--surface)"><td style="padding:.5rem;font-weight:700;color:var(--violet)">④ Mitigation</td><td style="padding:.5rem">Constitutional Classifiers · Prompt Shield · 재훈련 파이프라인</td><td style="padding:.5rem;color:var(--text-dim)">Anthropic 2025-02 보편적 jailbreak 방어 프로토타입</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div style="padding:.85rem 1rem;background:var(--surface);border-radius:8px;font-size:.78rem;color:var(--text-dim);line-height:1.85">
+  💡 <strong style="color:var(--violet)">더 깊이:</strong>
+  <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/ai-red-team.md" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">ai-red-team</a> ·
+  <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/mitre-atlas.md" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">mitre-atlas</a> ·
+  <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/xai.md" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">xai</a> ·
+  <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/claude-mythos.md" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">claude-mythos</a>
+  wiki entity에 도구·사례·출처 풀버전.
+</div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CH.08 — ACT 7 -->
+<!-- ═══════════════════════════════════════ -->
+<section class="ch reveal" id="gov-ch8">
+<div class="ch-head"><div class="ch-num" style="color:var(--violet)">08</div><h2 class="ch-title">한국 회사를 위한 시작 가이드</h2></div>
+
+<!-- ACT 7 — 한국 시작 가이드 + 마지막 메시지 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="dia reveal" style="margin-top:2.5rem">
+<div class="dia-title">🚀 ACT 7 — 한국 회사를 위한 시작 가이드</div>
+
+<div style="max-width:900px;margin:0 auto">
+
+<!-- 6주 부트스트랩 -->
+<div style="overflow-x:auto;margin-bottom:1.4rem">
+<table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:700px">
+  <thead>
+    <tr style="background:var(--surface)">
+      <th style="padding:.6rem;text-align:left;color:var(--violet);font-weight:700;border-bottom:1.5px solid var(--violet-border);width:13%">주차</th>
+      <th style="padding:.6rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">목표</th>
+      <th style="padding:.6rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">산출물</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td style="padding:.55rem;font-weight:700">Week 1</td><td style="padding:.55rem">AI 유스케이스 인벤토리 — 사용 중인 모델·툴 모두 리스트업</td><td style="padding:.55rem;color:var(--text-dim)">Use case canvas (도메인·사용자·영향 범위)</td></tr>
+    <tr style="background:var(--surface)"><td style="padding:.55rem;font-weight:700">Week 2</td><td style="padding:.55rem">위험 분류 — EU AI Act 4단계 + 한국 고영향 AI 매핑</td><td style="padding:.55rem;color:var(--text-dim)">Risk classification 표</td></tr>
+    <tr><td style="padding:.55rem;font-weight:700">Week 3</td><td style="padding:.55rem">데이터 lineage — 출처·라이선스·PII 점검</td><td style="padding:.55rem;color:var(--text-dim)">Datasheet for Datasets, DPIA</td></tr>
+    <tr style="background:var(--surface)"><td style="padding:.55rem;font-weight:700">Week 4</td><td style="padding:.55rem">Model Card·System Card 작성</td><td style="padding:.55rem;color:var(--text-dim)">고위험 시스템 우선 작성</td></tr>
+    <tr><td style="padding:.55rem;font-weight:700">Week 5</td><td style="padding:.55rem">조직 구조 — RACI 매트릭스, 사고 보고 라인</td><td style="padding:.55rem;color:var(--text-dim)">Accountable owner 명시 (단 1명)</td></tr>
+    <tr style="background:var(--surface)"><td style="padding:.55rem;font-weight:700">Week 6</td><td style="padding:.55rem">첫 Red Team 사이클 — 가장 위험한 1개 시스템</td><td style="padding:.55rem;color:var(--text-dim)">Garak 또는 PyRIT 1회 실행, 발견 사항 기록</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- 한국 자료 그리드 -->
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.8rem;margin-bottom:1.2rem">
+  <div style="padding:1rem 1.1rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+    <div style="font-size:.77rem;font-weight:700;color:var(--violet);margin-bottom:.4rem">📜 한국 AI 기본법</div>
+    <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">법률 제20676호 · 2026-01-22 시행 · 시행령 입법예고 2025-11. <a href="https://www.law.go.kr/lsInfoP.do?lsiSeq=268543" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">국가법령정보센터</a></div>
+  </div>
+  <div style="padding:1rem 1.1rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+    <div style="font-size:.77rem;font-weight:700;color:var(--violet);margin-bottom:.4rem">🔒 KISA AI 보안 안내서</div>
+    <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">2025-12-10 · 모델 개발자/제공자/이용자별 수칙 · ATLAS·NIST·ISO 매핑</div>
+  </div>
+  <div style="padding:1rem 1.1rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+    <div style="font-size:.77rem;font-weight:700;color:var(--violet);margin-bottom:.4rem">🔐 PIPC 생성형 AI 안내서</div>
+    <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">2025-08 · 4단계 수명주기 개인정보 보호 · 개인정보보호위원회</div>
+  </div>
+  <div style="padding:1rem 1.1rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+    <div style="font-size:.77rem;font-weight:700;color:var(--violet);margin-bottom:.4rem">🌐 NIST AI RMF + GenAI Profile</div>
+    <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">미국 시장 진출 시 사실상 표준. NIST AI 600-1 (2024-07-26)</div>
+  </div>
+</div>
+
+<!-- 거버넌스 실패 패턴 경고 -->
+<div style="padding:1.2rem 1.4rem;background:var(--coral-bg);border:1px solid var(--coral-border);border-radius:12px;margin-bottom:1.4rem">
+  <div style="font-family:var(--mono);font-size:.72rem;color:var(--coral);letter-spacing:1.5px;margin-bottom:.6rem">⚠ 거버넌스 6대 실패 패턴 — 자기 회사에서 발견하면 적신호</div>
+  <ol style="margin:.4rem 0 0 1.3rem;padding:0;font-size:.81rem;color:var(--text);line-height:1.95">
+    <li><strong>Ethics Washing</strong> — 윤리위 거부권 없음, 외부 위원 NDA, 연 1회 형식 회의</li>
+    <li><strong>Fairness Theater</strong> — 통계적 fairness 정의 충족 ≠ 실질 공정. <strong>여러 metric 동시 보고 + 우선순위 명시</strong>가 회피 전략</li>
+    <li><strong>Box-checking Compliance</strong> — 체크리스트 통과 vs 시스템적 위험. EU AI Act가 process 의무로 가득해서 발생할 수 있는 함정</li>
+    <li><strong>Tradeoff Blind Spot</strong> — Privacy↔Explainability(DP는 개별 설명 어려움), Fairness↔Accuracy, Safety↔Accessibility(over-refusal), Transparency↔Security</li>
+    <li><strong>Responsibility Gap</strong> — Air Canada가 시도한 "AI 별도 인격" 항변. Springer 2024 "persistent agency gap"</li>
+    <li><strong>Velocity Mismatch</strong> — METR 4개월 doubling vs EU AI Act 4년 입법. 거버넌스가 항상 2-3 generation 뒤처짐</li>
+  </ol>
+</div>
+
+<!-- 마지막 메시지 -->
+<div style="padding:1.5rem 1.7rem;background:linear-gradient(135deg,var(--violet-bg),rgba(208,74,2,0.04));border:2px solid var(--violet);border-radius:14px;text-align:center">
+  <div style="font-family:var(--display);font-size:1.05rem;font-weight:700;color:var(--text);line-height:1.85;margin-bottom:.6rem">
+    "AI 거버넌스는 윤리 부서의 일이 아니라 <strong style="color:var(--violet)">제품 부서의 일</strong>이다."
+  </div>
+  <div style="font-size:.83rem;color:var(--text-dim);line-height:1.9;max-width:700px;margin:0 auto">
+    원칙은 종이지만 — 실행은 라이프사이클에서, 책임은 RACI에서, 학습은 운영 사이클에서, 그리고 frontier 모델의 안전은 capability control에서 일어난다. 한국 회사가 마주한 두 마감선 — <strong>2026-01-22 한국 AI 기본법</strong>과 <strong>2026-08-02 EU AI Act 고위험 의무</strong> — 은 거버넌스가 더는 자발적 선택이 아니라는 신호다. <strong>모델 능력은 4개월에 2배, 거버넌스는 4년 입법.</strong> 이 velocity gap을 메우는 것이 다음 챕터(<a href="#ad-ch9" style="color:var(--violet);font-weight:700">Ch.09</a>) 실패·성공 패턴과 <a href="#ad-ch10" style="color:var(--violet);font-weight:700">Ch.10</a> 체크리스트의 출발점이다.
+  </div>
+</div>
+
+</div>
+</div>
+
+</section>
+
