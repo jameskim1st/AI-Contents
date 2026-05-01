@@ -1017,22 +1017,38 @@
 <div class="dia reveal">
 <div class="dia-title">🏔️ 경사하강법 — 안개 낀 산 내려가기</div>
 <div style="max-width:900px;margin:0 auto">
-<svg viewBox="0 0 600 220" style="width:100%;display:block">
-  <!-- 산 곡면 (Loss Landscape) -->
-  <path d="M20,180 Q80,190 120,160 Q160,120 200,140 Q250,180 300,80 Q350,30 400,50 Q450,80 500,140 Q540,170 580,175" fill="none" stroke="var(--text-dim)" stroke-width="1.5"/>
-  <!-- 지역 최솟값 -->
-  <circle cx="200" cy="140" r="5" fill="#e67e22"/>
-  <text x="175" y="160" font-size="8" fill="#e67e22">지역 최솟값</text>
-  <!-- 전역 최솟값 -->
-  <circle cx="350" cy="30" r="6" fill="var(--pink)"/>
-  <text x="330" y="20" font-size="8" fill="var(--pink)" font-weight="700">전역 최솟값 🎯</text>
-  <!-- 공 이동 -->
-  <circle cx="120" cy="160" r="8" fill="var(--pink)" opacity=".8"/>
-  <text x="108" y="150" font-size="7" fill="var(--pink)">현재 위치</text>
-  <path d="M128,158 Q150,145 170,148 Q185,145 195,141" fill="none" stroke="var(--pink)" stroke-width="1.5" stroke-dasharray="4,2"/>
-  <!-- 라벨 -->
-  <text x="20" y="210" font-size="9" fill="var(--text-dim)">x축: 가중치(w) 값</text>
-  <text x="400" y="210" font-size="9" fill="var(--text-dim)">y축: 손실(Loss) 크기</text>
+<svg viewBox="0 0 600 230" style="width:100%;display:block">
+  <!-- Y축 (Loss 화살표 — 위로 갈수록 큼) -->
+  <line x1="15" y1="40" x2="15" y2="195" stroke="var(--text-dim)" stroke-width="1"/>
+  <path d="M12,40 L15,33 L18,40 z" fill="var(--text-dim)"/>
+  <text x="22" y="38" font-size="9" fill="var(--text-dim)">Loss ↑</text>
+  <!-- X축 -->
+  <line x1="15" y1="195" x2="585" y2="195" stroke="var(--text-dim)" stroke-width="1"/>
+  <path d="M585,192 L592,195 L585,198 z" fill="var(--text-dim)"/>
+  <text x="555" y="212" font-size="9" fill="var(--text-dim)">가중치(w) →</text>
+
+  <!-- Loss Landscape (계곡 = 골짜기, 위로 솟은 곳이 Loss 높음) -->
+  <path d="M 20 70 C 80 70 80 130 140 130 C 200 130 200 50 260 50 C 320 50 320 180 390 180 C 460 180 460 60 520 60 C 560 60 560 95 580 100" fill="none" stroke="var(--text-dim)" stroke-width="1.5"/>
+
+  <!-- 지역 최솟값 (얕은 골짜기 — y가 큼 = 화면에서 아래쪽) -->
+  <circle cx="140" cy="130" r="5" fill="#e67e22"/>
+  <text x="100" y="124" font-size="9" fill="#e67e22" font-weight="600">지역 최솟값</text>
+  <line x1="140" y1="135" x2="140" y2="148" stroke="#e67e22" stroke-width="0.7" stroke-dasharray="2,2"/>
+
+  <!-- 전역 최솟값 (가장 깊은 골짜기 — y가 가장 큼 = 화면에서 가장 아래쪽) -->
+  <circle cx="390" cy="180" r="6" fill="var(--pink)"/>
+  <text x="345" y="174" font-size="9" fill="var(--pink)" font-weight="700">전역 최솟값 🎯</text>
+
+  <!-- 현재 위치 (왼쪽 슬로프 위쪽 = 높은 Loss) -->
+  <circle cx="80" cy="100" r="7" fill="var(--pink)" opacity=".85"/>
+  <text x="55" y="92" font-size="9" fill="var(--pink)" font-weight="600">현재 위치</text>
+  <!-- 경사하강 방향 화살표: 현재 위치 → 지역 최솟값 (down-right) -->
+  <path d="M 88 102 Q 110 118 130 128" fill="none" stroke="var(--pink)" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <path d="M127,125 L132,131 L130,124 z" fill="var(--pink)"/>
+  <text x="92" y="115" font-size="8" fill="var(--pink)" font-style="italic">−∇L 방향</text>
+
+  <!-- 캡션 -->
+  <text x="300" y="225" text-anchor="middle" font-size="9" fill="var(--text-dim)">⚠ 잘못 출발하면 지역 최솟값에 갇힘 — 전역 최솟값(가장 깊은 골)을 찾아야 진짜 정답</text>
 </svg>
 </div>
 </div>
@@ -1043,45 +1059,54 @@
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem;max-width:900px;margin:0 auto">
 
   <div style="background:var(--card);border:1.5px solid #e74c3c;border-radius:12px;padding:1rem;text-align:center">
-    <svg viewBox="0 0 160 100" style="width:100%;max-width:140px;margin:0 auto;display:block">
-      <path d="M10,80 Q40,85 60,60 Q80,35 100,50 Q120,70 150,65" fill="none" stroke="var(--text-dim)" stroke-width="1.5"/>
-      <!-- 발산하는 점들 -->
-      <circle cx="30" cy="82" r="4" fill="#e74c3c"/>
-      <circle cx="120" cy="68" r="4" fill="#e74c3c"/>
-      <circle cx="50" cy="65" r="4" fill="#e74c3c"/>
-      <circle cx="140" cy="90" r="4" fill="#e74c3c"/>
-      <path d="M30,82 L120,68 L50,65 L140,90" fill="none" stroke="#e74c3c" stroke-width="1" stroke-dasharray="3,2"/>
+    <svg viewBox="0 0 160 100" style="width:100%;max-width:160px;margin:0 auto;display:block">
+      <!-- 골짜기 (Valley) — 바닥은 y=80 (화면 아래) -->
+      <path d="M 10 25 Q 40 25 80 80 Q 120 25 150 25" fill="none" stroke="var(--text-dim)" stroke-width="1.2"/>
+      <!-- 골짜기 바닥 마커 -->
+      <circle cx="80" cy="80" r="2" fill="var(--text-dim)" opacity=".5"/>
+      <!-- 발산하는 점들 — 보폭이 너무 커서 골짜기 위로 튀어나감 -->
+      <circle cx="28" cy="68" r="3.5" fill="#e74c3c"/>
+      <circle cx="132" cy="60" r="3.5" fill="#e74c3c"/>
+      <circle cx="22" cy="48" r="3.5" fill="#e74c3c"/>
+      <circle cx="138" cy="36" r="3.5" fill="#e74c3c"/>
+      <!-- 점 사이 점선 (발산 추적) -->
+      <path d="M 28 68 L 132 60 L 22 48 L 138 36" fill="none" stroke="#e74c3c" stroke-width="0.8" stroke-dasharray="3,2"/>
     </svg>
     <div style="font-family:var(--display);font-size:.85rem;font-weight:700;color:#e74c3c;margin-top:.5rem">너무 큰 LR</div>
-    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7;margin-top:.3rem">산을 뛰어넘어 발산!<br>Loss가 커짐</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7;margin-top:.3rem">골을 건너뛰며 발산!<br>Loss가 점점 커짐</div>
   </div>
 
   <div style="background:var(--card);border:1.5px solid var(--pink);border-radius:12px;padding:1rem;text-align:center">
-    <svg viewBox="0 0 160 100" style="width:100%;max-width:140px;margin:0 auto;display:block">
-      <path d="M10,80 Q40,85 60,60 Q80,35 100,50 Q120,70 150,65" fill="none" stroke="var(--text-dim)" stroke-width="1.5"/>
-      <!-- 수렴하는 점들 -->
-      <circle cx="30" cy="82" r="4" fill="var(--pink)"/>
-      <circle cx="50" cy="70" r="4" fill="var(--pink)"/>
-      <circle cx="65" cy="58" r="4" fill="var(--pink)"/>
-      <circle cx="78" cy="40" r="5" fill="var(--pink)"/>
-      <path d="M30,82 L50,70 L65,58 L78,40" fill="none" stroke="var(--pink)" stroke-width="1.5"/>
+    <svg viewBox="0 0 160 100" style="width:100%;max-width:160px;margin:0 auto;display:block">
+      <!-- 골짜기 -->
+      <path d="M 10 25 Q 40 25 80 80 Q 120 25 150 25" fill="none" stroke="var(--text-dim)" stroke-width="1.2"/>
+      <circle cx="80" cy="80" r="2" fill="var(--text-dim)" opacity=".5"/>
+      <!-- 수렴하는 점들 — 골짜기 바닥으로 차근차근 -->
+      <circle cx="22" cy="32" r="3" fill="var(--pink)"/>
+      <circle cx="40" cy="52" r="3" fill="var(--pink)"/>
+      <circle cx="60" cy="72" r="3" fill="var(--pink)"/>
+      <circle cx="78" cy="80" r="4" fill="var(--pink)"/>
+      <path d="M 22 32 L 40 52 L 60 72 L 78 80" fill="none" stroke="var(--pink)" stroke-width="1"/>
     </svg>
     <div style="font-family:var(--display);font-size:.85rem;font-weight:700;color:var(--pink);margin-top:.5rem">적당한 LR ✅</div>
-    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7;margin-top:.3rem">안정적으로 수렴!<br>최적점에 도달</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7;margin-top:.3rem">골 바닥으로 안정 수렴<br>최적점 도달</div>
   </div>
 
   <div style="background:var(--card);border:1.5px solid #f39c12;border-radius:12px;padding:1rem;text-align:center">
-    <svg viewBox="0 0 160 100" style="width:100%;max-width:140px;margin:0 auto;display:block">
-      <path d="M10,80 Q40,85 60,60 Q80,35 100,50 Q120,70 150,65" fill="none" stroke="var(--text-dim)" stroke-width="1.5"/>
-      <!-- 너무 느린 수렴 -->
-      <circle cx="25" cy="81" r="3" fill="#f39c12"/>
-      <circle cx="28" cy="82" r="3" fill="#f39c12"/>
-      <circle cx="31" cy="82.5" r="3" fill="#f39c12"/>
-      <circle cx="34" cy="83" r="3" fill="#f39c12"/>
-      <circle cx="37" cy="83.5" r="3" fill="#f39c12"/>
+    <svg viewBox="0 0 160 100" style="width:100%;max-width:160px;margin:0 auto;display:block">
+      <!-- 골짜기 -->
+      <path d="M 10 25 Q 40 25 80 80 Q 120 25 150 25" fill="none" stroke="var(--text-dim)" stroke-width="1.2"/>
+      <circle cx="80" cy="80" r="2" fill="var(--text-dim)" opacity=".5"/>
+      <!-- 너무 작은 보폭 — 슬로프 윗쪽에서 거의 못 움직임 -->
+      <circle cx="20" cy="30" r="2.5" fill="#f39c12"/>
+      <circle cx="23" cy="33" r="2.5" fill="#f39c12"/>
+      <circle cx="26" cy="36" r="2.5" fill="#f39c12"/>
+      <circle cx="29" cy="39" r="2.5" fill="#f39c12"/>
+      <circle cx="32" cy="42" r="2.5" fill="#f39c12"/>
+      <path d="M 20 30 L 23 33 L 26 36 L 29 39 L 32 42" fill="none" stroke="#f39c12" stroke-width="0.8"/>
     </svg>
     <div style="font-family:var(--display);font-size:.85rem;font-weight:700;color:#f39c12;margin-top:.5rem">너무 작은 LR</div>
-    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7;margin-top:.3rem">지역 최솟값에 갇힘!<br>학습이 끝나지 않음</div>
+    <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7;margin-top:.3rem">한 발자국이 너무 작음<br>학습이 끝나지 않음</div>
   </div>
 
 </div>
@@ -1251,7 +1276,229 @@
   <text x="360" y="155" font-size="9" fill="var(--pink)" font-weight="700">Feature Map에 기록!</text>
 
   <!-- 비유 텍스트 -->
-  <text x="30" y="195" font-size="9" fill="var(--text-dim)">🔍 필터가 이미지 위를 슬라이딩하며 패턴을 감지합니다 — 돋보기로 훑는 것과 같습니다</text>
+  <text x="30" y="195" font-size="9" fill="var(--text-dim)">🔍 위는 한 위치에서의 계산 — 실제로는 이 동작을 9개 위치에서 반복합니다 (아래 그림)</text>
+</svg>
+</div>
+</div>
+
+<!-- 슬라이딩 전체 흐름 -->
+<div class="dia reveal">
+<div class="dia-title">🎯 슬라이딩 전체 흐름 — 9개 위치 × 1장의 Feature Map</div>
+<div style="max-width:900px;margin:0 auto">
+<svg viewBox="0 0 720 320" style="width:100%;display:block">
+  <defs>
+    <marker id="conv-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/>
+    </marker>
+  </defs>
+
+  <!-- ====== INPUT IMAGE (5×5) on left ====== -->
+  <text x="120" y="22" text-anchor="middle" font-size="10" fill="var(--pink)" font-weight="700">입력 이미지 (5×5)</text>
+  <g transform="translate(20, 32)">
+    <!-- Outer + grid -->
+    <rect x="0" y="0" width="200" height="200" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/>
+    <line x1="40" y1="0" x2="40" y2="200" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
+    <line x1="80" y1="0" x2="80" y2="200" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
+    <line x1="120" y1="0" x2="120" y2="200" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
+    <line x1="160" y1="0" x2="160" y2="200" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
+    <line x1="0" y1="40" x2="200" y2="40" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
+    <line x1="0" y1="80" x2="200" y2="80" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
+    <line x1="0" y1="120" x2="200" y2="120" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
+    <line x1="0" y1="160" x2="200" y2="160" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
+    <!-- Cell values 5x5 (faint) -->
+    <text x="20" y="25" text-anchor="middle" font-size="11" fill="var(--text-dim)">1</text>
+    <text x="60" y="25" text-anchor="middle" font-size="11" fill="var(--text-dim)">0</text>
+    <text x="100" y="25" text-anchor="middle" font-size="11" fill="var(--text-dim)">1</text>
+    <text x="140" y="25" text-anchor="middle" font-size="11" fill="var(--text-dim)">0</text>
+    <text x="180" y="25" text-anchor="middle" font-size="11" fill="var(--text-dim)">1</text>
+    <text x="20" y="65" text-anchor="middle" font-size="11" fill="var(--text-dim)">0</text>
+    <text x="60" y="65" text-anchor="middle" font-size="11" fill="var(--text-dim)">1</text>
+    <text x="100" y="65" text-anchor="middle" font-size="11" fill="var(--text-dim)">1</text>
+    <text x="140" y="65" text-anchor="middle" font-size="11" fill="var(--text-dim)">0</text>
+    <text x="180" y="65" text-anchor="middle" font-size="11" fill="var(--text-dim)">1</text>
+    <text x="20" y="105" text-anchor="middle" font-size="11" fill="var(--text-dim)">1</text>
+    <text x="60" y="105" text-anchor="middle" font-size="11" fill="var(--text-dim)">0</text>
+    <text x="100" y="105" text-anchor="middle" font-size="11" fill="var(--text-dim)">1</text>
+    <text x="140" y="105" text-anchor="middle" font-size="11" fill="var(--text-dim)">1</text>
+    <text x="180" y="105" text-anchor="middle" font-size="11" fill="var(--text-dim)">0</text>
+    <text x="20" y="145" text-anchor="middle" font-size="11" fill="var(--text-dim)">0</text>
+    <text x="60" y="145" text-anchor="middle" font-size="11" fill="var(--text-dim)">1</text>
+    <text x="100" y="145" text-anchor="middle" font-size="11" fill="var(--text-dim)">0</text>
+    <text x="140" y="145" text-anchor="middle" font-size="11" fill="var(--text-dim)">0</text>
+    <text x="180" y="145" text-anchor="middle" font-size="11" fill="var(--text-dim)">1</text>
+    <text x="20" y="185" text-anchor="middle" font-size="11" fill="var(--text-dim)">1</text>
+    <text x="60" y="185" text-anchor="middle" font-size="11" fill="var(--text-dim)">0</text>
+    <text x="100" y="185" text-anchor="middle" font-size="11" fill="var(--text-dim)">1</text>
+    <text x="140" y="185" text-anchor="middle" font-size="11" fill="var(--text-dim)">0</text>
+    <text x="180" y="185" text-anchor="middle" font-size="11" fill="var(--text-dim)">1</text>
+
+    <!-- Filter position ① top-left (red) -->
+    <rect x="0" y="0" width="120" height="120" fill="#ef444412" stroke="#ef4444" stroke-width="1" rx="2"/>
+    <circle cx="14" cy="14" r="9" fill="#ef4444"/>
+    <text x="14" y="18" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">1</text>
+
+    <!-- Filter position ⑤ middle (orange) -->
+    <rect x="40" y="40" width="120" height="120" fill="#f59e0b12" stroke="#f59e0b" stroke-width="1" rx="2"/>
+    <circle cx="54" cy="54" r="9" fill="#f59e0b"/>
+    <text x="54" y="58" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">5</text>
+
+    <!-- Filter position ⑨ bottom-right (blue) -->
+    <rect x="80" y="80" width="120" height="120" fill="#3b82f612" stroke="#3b82f6" stroke-width="1" rx="2"/>
+    <circle cx="94" cy="94" r="9" fill="#3b82f6"/>
+    <text x="94" y="98" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">9</text>
+  </g>
+
+  <!-- Slide pattern note under input -->
+  <text x="120" y="252" text-anchor="middle" font-size="9" fill="var(--text-dim)">필터가 한 칸씩 이동: ① → ② → ③ → 다음 줄</text>
+  <text x="120" y="266" text-anchor="middle" font-size="9" fill="var(--text-dim)">→ ④ → ⑤ → ⑥ → 다음 줄 → ⑦ → ⑧ → ⑨</text>
+
+  <!-- ====== FILTER 3×3 (middle) ====== -->
+  <text x="290" y="22" text-anchor="middle" font-size="10" fill="var(--pink)" font-weight="700">필터 (3×3)</text>
+  <g transform="translate(260, 80)">
+    <rect x="0" y="0" width="60" height="60" fill="var(--pink)" rx="4"/>
+    <line x1="20" y1="0" x2="20" y2="60" stroke="#fff" stroke-width="0.5" opacity=".4"/>
+    <line x1="40" y1="0" x2="40" y2="60" stroke="#fff" stroke-width="0.5" opacity=".4"/>
+    <line x1="0" y1="20" x2="60" y2="20" stroke="#fff" stroke-width="0.5" opacity=".4"/>
+    <line x1="0" y1="40" x2="60" y2="40" stroke="#fff" stroke-width="0.5" opacity=".4"/>
+    <text x="10" y="14" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">1</text>
+    <text x="30" y="14" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">0</text>
+    <text x="50" y="14" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">1</text>
+    <text x="10" y="34" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">0</text>
+    <text x="30" y="34" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">1</text>
+    <text x="50" y="34" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">0</text>
+    <text x="10" y="54" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">1</text>
+    <text x="30" y="54" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">0</text>
+    <text x="50" y="54" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">1</text>
+  </g>
+  <text x="290" y="166" text-anchor="middle" font-size="9" fill="var(--text-dim)">동일한 필터를</text>
+  <text x="290" y="180" text-anchor="middle" font-size="9" fill="var(--text-dim)">9개 위치에 적용</text>
+
+  <!-- arrow filter → output -->
+  <line x1="345" y1="120" x2="395" y2="120" stroke="#9ca3af" stroke-width="1" marker-end="url(#conv-arr)"/>
+
+  <!-- ====== OUTPUT FEATURE MAP (3×3) on right ====== -->
+  <text x="500" y="22" text-anchor="middle" font-size="10" fill="var(--pink)" font-weight="700">Feature Map (3×3)</text>
+  <g transform="translate(420, 32)">
+    <rect x="0" y="0" width="160" height="160" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/>
+    <line x1="53.3" y1="0" x2="53.3" y2="160" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
+    <line x1="106.7" y1="0" x2="106.7" y2="160" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
+    <line x1="0" y1="53.3" x2="160" y2="53.3" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
+    <line x1="0" y1="106.7" x2="160" y2="106.7" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
+
+    <!-- Cell (0,0) red ① -->
+    <rect x="0" y="0" width="53.3" height="53.3" fill="#ef444412" stroke="#ef4444" stroke-width="1.2"/>
+    <text x="26.7" y="32" text-anchor="middle" font-size="15" fill="#ef4444" font-weight="700">2</text>
+    <text x="46" y="49" text-anchor="middle" font-size="8" fill="#ef4444" font-weight="700">①</text>
+    <!-- (0,1) -->
+    <text x="80" y="32" text-anchor="middle" font-size="15" fill="var(--text)">3</text>
+    <text x="100" y="49" text-anchor="middle" font-size="8" fill="var(--text-dim)">②</text>
+    <!-- (0,2) -->
+    <text x="133.3" y="32" text-anchor="middle" font-size="15" fill="var(--text)">2</text>
+    <text x="153" y="49" text-anchor="middle" font-size="8" fill="var(--text-dim)">③</text>
+
+    <!-- (1,0) -->
+    <text x="26.7" y="86" text-anchor="middle" font-size="15" fill="var(--text)">2</text>
+    <text x="46" y="103" text-anchor="middle" font-size="8" fill="var(--text-dim)">④</text>
+    <!-- Cell (1,1) orange ⑤ -->
+    <rect x="53.3" y="53.3" width="53.4" height="53.4" fill="#f59e0b12" stroke="#f59e0b" stroke-width="1.2"/>
+    <text x="80" y="86" text-anchor="middle" font-size="15" fill="#f59e0b" font-weight="700">3</text>
+    <text x="100" y="103" text-anchor="middle" font-size="8" fill="#f59e0b" font-weight="700">⑤</text>
+    <!-- (1,2) -->
+    <text x="133.3" y="86" text-anchor="middle" font-size="15" fill="var(--text)">2</text>
+    <text x="153" y="103" text-anchor="middle" font-size="8" fill="var(--text-dim)">⑥</text>
+
+    <!-- (2,0) -->
+    <text x="26.7" y="139" text-anchor="middle" font-size="15" fill="var(--text)">1</text>
+    <text x="46" y="156" text-anchor="middle" font-size="8" fill="var(--text-dim)">⑦</text>
+    <!-- (2,1) -->
+    <text x="80" y="139" text-anchor="middle" font-size="15" fill="var(--text)">2</text>
+    <text x="100" y="156" text-anchor="middle" font-size="8" fill="var(--text-dim)">⑧</text>
+    <!-- Cell (2,2) blue ⑨ -->
+    <rect x="106.7" y="106.7" width="53.3" height="53.3" fill="#3b82f612" stroke="#3b82f6" stroke-width="1.2"/>
+    <text x="133.3" y="139" text-anchor="middle" font-size="15" fill="#3b82f6" font-weight="700">2</text>
+    <text x="153" y="156" text-anchor="middle" font-size="8" fill="#3b82f6" font-weight="700">⑨</text>
+  </g>
+
+  <text x="500" y="252" text-anchor="middle" font-size="9" fill="var(--text-dim)">필터 위치 ①·⑤·⑨가</text>
+  <text x="500" y="266" text-anchor="middle" font-size="9" fill="var(--text-dim)">Feature Map의 ①·⑤·⑨ 칸과 1:1 대응</text>
+
+  <!-- 핵심 메시지 -->
+  <rect x="20" y="290" width="680" height="22" rx="4" fill="var(--pink-bg)" stroke="var(--pink-border)" stroke-width="1"/>
+  <text x="360" y="306" text-anchor="middle" font-size="10" fill="var(--pink)" font-weight="600">필터 1장 = 패턴 1개 검출기. 9번 슬라이딩하면 "이미지 어디에 그 패턴이 있는지" 9칸짜리 지도가 나온다</text>
+</svg>
+</div>
+</div>
+
+<!-- 위치 불변성 (Translation Invariance) 시각화 -->
+<div class="dia reveal">
+<div class="dia-title">📍 위치 불변성 — 같은 패턴, 다른 위치도 같은 필터로 잡는다</div>
+<div style="max-width:900px;margin:0 auto">
+<svg viewBox="0 0 700 220" style="width:100%;display:block">
+  <!-- 입력 1: 패턴이 왼쪽 위 -->
+  <text x="100" y="20" text-anchor="middle" font-size="10" fill="var(--text-dim)" font-weight="600">왼쪽 위에 ㅗ 모양</text>
+  <g transform="translate(40, 30)">
+    <rect x="0" y="0" width="120" height="120" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/>
+    <!-- Grid -->
+    <line x1="30" y1="0" x2="30" y2="120" stroke="var(--text-dim)" stroke-width="0.4" opacity=".4"/>
+    <line x1="60" y1="0" x2="60" y2="120" stroke="var(--text-dim)" stroke-width="0.4" opacity=".4"/>
+    <line x1="90" y1="0" x2="90" y2="120" stroke="var(--text-dim)" stroke-width="0.4" opacity=".4"/>
+    <line x1="0" y1="30" x2="120" y2="30" stroke="var(--text-dim)" stroke-width="0.4" opacity=".4"/>
+    <line x1="0" y1="60" x2="120" y2="60" stroke="var(--text-dim)" stroke-width="0.4" opacity=".4"/>
+    <line x1="0" y1="90" x2="120" y2="90" stroke="var(--text-dim)" stroke-width="0.4" opacity=".4"/>
+    <!-- 패턴 픽셀 (밝은 픽셀 = 1) -->
+    <rect x="0" y="0" width="30" height="30" fill="var(--pink)" opacity=".7"/>
+    <rect x="30" y="0" width="30" height="30" fill="var(--pink)" opacity=".7"/>
+    <rect x="60" y="0" width="30" height="30" fill="var(--pink)" opacity=".7"/>
+    <rect x="30" y="30" width="30" height="30" fill="var(--pink)" opacity=".7"/>
+    <!-- 필터 매칭 표시 (ㅗ 패턴 영역) -->
+    <rect x="0" y="0" width="90" height="60" fill="none" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="4,3" rx="3"/>
+    <text x="45" y="80" text-anchor="middle" font-size="10" fill="#22c55e" font-weight="700">필터 발견 ✓</text>
+  </g>
+
+  <!-- 가운데 : 같은 필터 -->
+  <text x="350" y="20" text-anchor="middle" font-size="10" fill="var(--pink)" font-weight="700">동일한 필터</text>
+  <g transform="translate(320, 50)">
+    <rect x="0" y="0" width="60" height="60" fill="var(--pink)" rx="4"/>
+    <line x1="20" y1="0" x2="20" y2="60" stroke="#fff" stroke-width="0.5" opacity=".4"/>
+    <line x1="40" y1="0" x2="40" y2="60" stroke="#fff" stroke-width="0.5" opacity=".4"/>
+    <line x1="0" y1="20" x2="60" y2="20" stroke="#fff" stroke-width="0.5" opacity=".4"/>
+    <line x1="0" y1="40" x2="60" y2="40" stroke="#fff" stroke-width="0.5" opacity=".4"/>
+    <text x="10" y="14" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">1</text>
+    <text x="30" y="14" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">1</text>
+    <text x="50" y="14" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">1</text>
+    <text x="10" y="34" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">0</text>
+    <text x="30" y="34" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">1</text>
+    <text x="50" y="34" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">0</text>
+    <text x="10" y="54" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">0</text>
+    <text x="30" y="54" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">0</text>
+    <text x="50" y="54" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">0</text>
+  </g>
+  <text x="350" y="138" text-anchor="middle" font-size="9" fill="var(--text-dim)">"ㅗ" 패턴</text>
+  <text x="350" y="152" text-anchor="middle" font-size="9" fill="var(--text-dim)">검출기</text>
+
+  <!-- 입력 2: 패턴이 오른쪽 아래 -->
+  <text x="600" y="20" text-anchor="middle" font-size="10" fill="var(--text-dim)" font-weight="600">오른쪽 아래에 ㅗ 모양</text>
+  <g transform="translate(540, 30)">
+    <rect x="0" y="0" width="120" height="120" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/>
+    <line x1="30" y1="0" x2="30" y2="120" stroke="var(--text-dim)" stroke-width="0.4" opacity=".4"/>
+    <line x1="60" y1="0" x2="60" y2="120" stroke="var(--text-dim)" stroke-width="0.4" opacity=".4"/>
+    <line x1="90" y1="0" x2="90" y2="120" stroke="var(--text-dim)" stroke-width="0.4" opacity=".4"/>
+    <line x1="0" y1="30" x2="120" y2="30" stroke="var(--text-dim)" stroke-width="0.4" opacity=".4"/>
+    <line x1="0" y1="60" x2="120" y2="60" stroke="var(--text-dim)" stroke-width="0.4" opacity=".4"/>
+    <line x1="0" y1="90" x2="120" y2="90" stroke="var(--text-dim)" stroke-width="0.4" opacity=".4"/>
+    <!-- 패턴 픽셀: 오른쪽 아래로 이동 -->
+    <rect x="30" y="60" width="30" height="30" fill="var(--pink)" opacity=".7"/>
+    <rect x="60" y="60" width="30" height="30" fill="var(--pink)" opacity=".7"/>
+    <rect x="90" y="60" width="30" height="30" fill="var(--pink)" opacity=".7"/>
+    <rect x="60" y="90" width="30" height="30" fill="var(--pink)" opacity=".7"/>
+    <rect x="30" y="60" width="90" height="60" fill="none" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="4,3" rx="3"/>
+    <text x="75" y="50" text-anchor="middle" font-size="10" fill="#22c55e" font-weight="700">필터 발견 ✓</text>
+  </g>
+
+  <!-- 핵심 메시지 -->
+  <rect x="20" y="180" width="660" height="28" rx="4" fill="var(--pink-bg)" stroke="var(--pink-border)" stroke-width="1"/>
+  <text x="350" y="198" text-anchor="middle" font-size="10" fill="var(--pink)" font-weight="600">패턴이 어디에 있든 같은 필터가 잡아낸다 → "위치 불변성(Translation Invariance)"</text>
+  <text x="350" y="208" text-anchor="middle" font-size="9" fill="var(--text-dim)">CNN이 사진 어디에서나 "고양이의 귀"를 인식할 수 있는 이유</text>
 </svg>
 </div>
 </div>
