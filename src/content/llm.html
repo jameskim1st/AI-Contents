@@ -2051,39 +2051,56 @@
   <h3 style="color:var(--violet)">Context Window 확대의 역사</h3>
   <div class="dia reveal">
     <div class="dia-title">📏 Context Window 크기 타임라인 — 4K에서 2M까지</div>
-    <div style="display:flex;align-items:flex-end;gap:.4rem;justify-content:center;height:220px;padding:0 1rem;flex-wrap:wrap">
-      <div style="text-align:center;flex:1;min-width:80px">
-        <div style="background:linear-gradient(to top,var(--violet),rgba(124,108,240,.4));width:100%;height:20px;border-radius:6px 6px 0 0;margin:0 auto"></div>
-        <div style="font-size:.7rem;font-weight:700;color:var(--violet);margin-top:.4rem">4K</div>
-        <div style="font-size:.62rem;color:var(--text-dim)">GPT-3.5<br>2022</div>
+    <div style="max-width:780px;margin:0 auto">
+
+      <!-- Top values row (모두 같은 baseline에서 위로 자라는 막대 위에 표시) -->
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:.5rem;align-items:end;height:230px">
+
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
+          <div style="font-size:.85rem;font-weight:800;color:var(--violet);margin-bottom:.3rem">4K</div>
+          <div style="background:linear-gradient(to top,var(--violet),rgba(124,108,240,.45));width:60%;height:16px;border-radius:6px 6px 0 0"></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
+          <div style="font-size:.85rem;font-weight:800;color:var(--violet);margin-bottom:.3rem">32K</div>
+          <div style="background:linear-gradient(to top,var(--violet),rgba(124,108,240,.45));width:60%;height:35px;border-radius:6px 6px 0 0"></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
+          <div style="font-size:.85rem;font-weight:800;color:var(--violet);margin-bottom:.3rem">128K</div>
+          <div style="background:linear-gradient(to top,var(--violet),rgba(124,108,240,.45));width:60%;height:65px;border-radius:6px 6px 0 0"></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
+          <div style="font-size:.85rem;font-weight:800;color:var(--violet);margin-bottom:.3rem">200K</div>
+          <div style="background:linear-gradient(to top,var(--violet),rgba(124,108,240,.45));width:60%;height:95px;border-radius:6px 6px 0 0"></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
+          <div style="font-size:.85rem;font-weight:800;color:var(--violet);margin-bottom:.3rem">1M</div>
+          <div style="background:linear-gradient(to top,var(--violet),rgba(124,108,240,.45));width:60%;height:150px;border-radius:6px 6px 0 0"></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
+          <div style="font-size:.85rem;font-weight:800;color:var(--violet);margin-bottom:.3rem">2M</div>
+          <div style="background:linear-gradient(to top,var(--violet),rgba(124,108,240,.65));width:60%;height:200px;border-radius:6px 6px 0 0"></div>
+        </div>
       </div>
-      <div style="text-align:center;flex:1;min-width:80px">
-        <div style="background:linear-gradient(to top,var(--violet),rgba(124,108,240,.4));width:100%;height:40px;border-radius:6px 6px 0 0;margin:0 auto"></div>
-        <div style="font-size:.7rem;font-weight:700;color:var(--violet);margin-top:.4rem">32K</div>
-        <div style="font-size:.62rem;color:var(--text-dim)">GPT-4<br>2023</div>
+
+      <!-- Bottom labels — 가로선으로 막대와 분리 -->
+      <div style="border-top:1px solid var(--border);margin-top:.2rem;padding-top:.5rem">
+        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:.5rem">
+          <div style="text-align:center"><div style="font-size:.7rem;color:var(--text);font-weight:600">GPT-3.5</div><div style="font-size:.65rem;color:var(--text-dim);margin-top:.15rem">2022</div></div>
+          <div style="text-align:center"><div style="font-size:.7rem;color:var(--text);font-weight:600">GPT-4</div><div style="font-size:.65rem;color:var(--text-dim);margin-top:.15rem">2023</div></div>
+          <div style="text-align:center"><div style="font-size:.7rem;color:var(--text);font-weight:600">GPT-4 Turbo</div><div style="font-size:.65rem;color:var(--text-dim);margin-top:.15rem">2024</div></div>
+          <div style="text-align:center"><div style="font-size:.7rem;color:var(--text);font-weight:600">Claude 3.5</div><div style="font-size:.65rem;color:var(--text-dim);margin-top:.15rem">2024</div></div>
+          <div style="text-align:center"><div style="font-size:.7rem;color:var(--text);font-weight:600">Gemini 1.5</div><div style="font-size:.65rem;color:var(--text-dim);margin-top:.15rem">2025</div></div>
+          <div style="text-align:center"><div style="font-size:.7rem;color:var(--text);font-weight:600">Gemini 2.0</div><div style="font-size:.65rem;color:var(--text-dim);margin-top:.15rem">2026</div></div>
+        </div>
       </div>
-      <div style="text-align:center;flex:1;min-width:80px">
-        <div style="background:linear-gradient(to top,var(--violet),rgba(124,108,240,.4));width:100%;height:70px;border-radius:6px 6px 0 0;margin:0 auto"></div>
-        <div style="font-size:.7rem;font-weight:700;color:var(--violet);margin-top:.4rem">128K</div>
-        <div style="font-size:.62rem;color:var(--text-dim)">GPT-4 Turbo<br>2024</div>
-      </div>
-      <div style="text-align:center;flex:1;min-width:80px">
-        <div style="background:linear-gradient(to top,var(--violet),rgba(124,108,240,.4));width:100%;height:100px;border-radius:6px 6px 0 0;margin:0 auto"></div>
-        <div style="font-size:.7rem;font-weight:700;color:var(--violet);margin-top:.4rem">200K</div>
-        <div style="font-size:.62rem;color:var(--text-dim)">Claude 3.5<br>2024</div>
-      </div>
-      <div style="text-align:center;flex:1;min-width:80px">
-        <div style="background:linear-gradient(to top,var(--violet),rgba(124,108,240,.4));width:100%;height:150px;border-radius:6px 6px 0 0;margin:0 auto"></div>
-        <div style="font-size:.7rem;font-weight:700;color:var(--violet);margin-top:.4rem">1M</div>
-        <div style="font-size:.62rem;color:var(--text-dim)">Gemini 1.5<br>2025</div>
-      </div>
-      <div style="text-align:center;flex:1;min-width:80px">
-        <div style="background:linear-gradient(to top,var(--violet),rgba(124,108,240,.6));width:100%;height:200px;border-radius:6px 6px 0 0;margin:0 auto"></div>
-        <div style="font-size:.7rem;font-weight:700;color:var(--violet);margin-top:.4rem">2M</div>
-        <div style="font-size:.62rem;color:var(--text-dim)">Gemini 2.0<br>2026</div>
-      </div>
+
     </div>
-    <div style="text-align:center;margin-top:.8rem;font-size:.78rem;color:var(--text-dim)">
+    <div style="text-align:center;margin-top:1rem;font-size:.78rem;color:var(--text-dim)">
       4년 만에 <strong style="color:var(--violet)">500배</strong> 확장 — 책 한 페이지 → 책 20권 분량을 한 번에 처리
     </div>
   </div>

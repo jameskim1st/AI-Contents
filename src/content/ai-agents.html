@@ -787,8 +787,12 @@
           <div style="display:flex;align-items:center;gap:.5rem;justify-content:center;">
             <div style="border:1.5px solid var(--border);border-radius:8px;padding:.35rem .7rem;font-size:.78rem;color:var(--text);font-weight:500;">Prompt</div>
             <div style="color:var(--text-dim);font-size:.75rem;">→</div>
-            <!-- LLM → Plan ↻ Action 루프 -->
-            <div style="border:1.5px solid var(--border);border-radius:10px;padding:.8rem .6rem .5rem;position:relative;">
+            <!-- LLM → Plan ↻ Action 루프 (라벨 박스 위쪽에 충분한 여백) -->
+            <div style="border:1.5px solid var(--border);border-radius:10px;padding:1.6rem .7rem .55rem;position:relative;">
+              <!-- "Update plan" 라벨 — 박스 위에 별도 박스로 분리 -->
+              <div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--card);padding:0 .5rem;font-size:.62rem;color:var(--text-dim);white-space:nowrap;line-height:1">
+                ↺ Update <strong style="color:var(--teal);">plan</strong>
+              </div>
               <div style="display:flex;align-items:center;gap:.4rem;">
                 <div style="background:var(--blue-bg);border:1.5px solid var(--blue-border);border-radius:6px;padding:.3rem .5rem;font-size:.72rem;font-weight:600;color:var(--blue);">LLM</div>
                 <div style="color:var(--text-dim);font-size:.65rem;">→</div>
@@ -796,10 +800,6 @@
                 <div style="color:var(--text-dim);font-size:.65rem;">→</div>
                 <div style="background:var(--accent-bg);border:1.5px solid var(--accent-border);border-radius:6px;padding:.3rem .5rem;font-size:.72rem;font-weight:600;color:var(--accent);">Action</div>
               </div>
-              <!-- Action → Plan 되돌아가는 화살표 -->
-              <div style="position:absolute;top:-2px;left:38%;width:30%;height:0;border-top:1.5px solid var(--text-dim);"></div>
-              <div style="position:absolute;top:-8px;right:calc(32% + 28%);font-size:.55rem;color:var(--text-dim);">◀</div>
-              <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:.58rem;color:var(--text-dim);white-space:nowrap;">Update <strong style="color:var(--teal);">plan</strong></div>
             </div>
             <div style="color:var(--text-dim);font-size:.75rem;">→</div>
             <div style="background:var(--violet-dim);border:1.5px solid var(--violet);border-radius:8px;padding:.35rem .7rem;font-size:.78rem;font-weight:600;color:var(--violet);">Answer</div>
