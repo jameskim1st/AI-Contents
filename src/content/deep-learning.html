@@ -1071,61 +1071,49 @@
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem;max-width:900px;margin:0 auto">
 
   <div style="background:var(--card);border:1.5px solid #e74c3c;border-radius:12px;padding:1rem;text-align:center">
-    <svg viewBox="0 0 180 110" style="width:100%;max-width:180px;margin:0 auto;display:block">
-      <!-- 골짜기 (Valley) — 깔끔한 U자: y(x) = (x-90)^2 / 80 + 20 형태 근사 -->
-      <!-- 점들이 정확히 곡선 위에 박히도록: 곡선 식 사용 -->
-      <!-- y = ((x-90)^2)/72 + 18, 정의역 x∈[15,165] → y∈[18, ~96] -->
-      <path d="M 15 96 Q 52 16 90 16 Q 128 16 165 96" fill="none" stroke="var(--text-dim)" stroke-width="1.2"/>
+    <svg viewBox="0 0 160 100" style="width:100%;max-width:160px;margin:0 auto;display:block">
+      <!-- 골짜기 V자 (양 끝 위 y=25 = 높은 Loss, 가운데 아래 y=80 = 낮은 Loss) -->
+      <path d="M 10 25 Q 40 25 80 80 Q 120 25 150 25" fill="none" stroke="var(--text-dim)" stroke-width="1.2"/>
       <!-- 골 바닥 마커 -->
-      <circle cx="90" cy="50" r="1.8" fill="var(--text-dim)" opacity=".55"/>
-      <!-- 점들 — 곡선 위에 정확히 -->
-      <!-- 큰 LR: 한 쪽에서 다른 쪽으로 튀어나가며 점점 발산 (위로 올라감) -->
-      <circle cx="52" cy="48" r="3.5" fill="#e74c3c"/>
-      <circle cx="125" cy="34" r="3.5" fill="#e74c3c"/>
-      <circle cx="42" cy="59" r="3.5" fill="#e74c3c"/>
-      <circle cx="138" cy="48" r="3.5" fill="#e74c3c"/>
-      <circle cx="30" cy="76" r="3.5" fill="#e74c3c"/>
-      <!-- 점 사이 화살표 점선 (오가며 발산) -->
-      <path d="M 52 48 Q 88 8 125 34" fill="none" stroke="#e74c3c" stroke-width="0.9" stroke-dasharray="3,2"/>
-      <path d="M 125 34 Q 88 4 42 59" fill="none" stroke="#e74c3c" stroke-width="0.9" stroke-dasharray="3,2"/>
-      <path d="M 42 59 Q 88 0 138 48" fill="none" stroke="#e74c3c" stroke-width="0.9" stroke-dasharray="3,2"/>
+      <circle cx="80" cy="80" r="2" fill="var(--text-dim)" opacity=".5"/>
+      <!-- 발산하는 점들 — 곡선 위에 정확히 박힘 (좌↔우 오가며 위로 발산) -->
+      <circle cx="42.5" cy="38.75" r="3.2" fill="#e74c3c"/>
+      <circle cx="117.5" cy="38.75" r="3.2" fill="#e74c3c"/>
+      <circle cx="25.6" cy="28.4" r="3.2" fill="#e74c3c"/>
+      <circle cx="134.4" cy="28.4" r="3.2" fill="#e74c3c"/>
+      <!-- 점 사이 점선 (지그재그) -->
+      <path d="M 42.5 38.75 L 117.5 38.75 L 25.6 28.4 L 134.4 28.4" fill="none" stroke="#e74c3c" stroke-width="0.8" stroke-dasharray="3,2"/>
     </svg>
     <div style="font-family:var(--display);font-size:.85rem;font-weight:700;color:#e74c3c;margin-top:.5rem">너무 큰 LR</div>
     <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7;margin-top:.3rem">골을 건너뛰며 발산!<br>Loss가 점점 커짐</div>
   </div>
 
   <div style="background:var(--card);border:1.5px solid var(--pink);border-radius:12px;padding:1rem;text-align:center">
-    <svg viewBox="0 0 180 110" style="width:100%;max-width:180px;margin:0 auto;display:block">
-      <path d="M 15 96 Q 52 16 90 16 Q 128 16 165 96" fill="none" stroke="var(--text-dim)" stroke-width="1.2"/>
-      <circle cx="90" cy="50" r="1.8" fill="var(--text-dim)" opacity=".55"/>
-      <!-- 적당한 LR: 슬로프 따라 차근차근 골 바닥으로 -->
-      <circle cx="22" cy="86" r="3.2" fill="var(--pink)"/>
-      <circle cx="40" cy="64" r="3.2" fill="var(--pink)"/>
-      <circle cx="62" cy="40" r="3.2" fill="var(--pink)"/>
-      <circle cx="78" cy="22" r="3.2" fill="var(--pink)"/>
-      <circle cx="90" cy="16" r="4" fill="var(--pink)"/>
-      <!-- 곡선 따라가는 화살표 -->
-      <path d="M 22 86 Q 30 78 40 64" fill="none" stroke="var(--pink)" stroke-width="1"/>
-      <path d="M 40 64 Q 50 53 62 40" fill="none" stroke="var(--pink)" stroke-width="1"/>
-      <path d="M 62 40 Q 70 30 78 22" fill="none" stroke="var(--pink)" stroke-width="1"/>
-      <path d="M 78 22 Q 84 18 90 16" fill="none" stroke="var(--pink)" stroke-width="1"/>
+    <svg viewBox="0 0 160 100" style="width:100%;max-width:160px;margin:0 auto;display:block">
+      <path d="M 10 25 Q 40 25 80 80 Q 120 25 150 25" fill="none" stroke="var(--text-dim)" stroke-width="1.2"/>
+      <circle cx="80" cy="80" r="2" fill="var(--text-dim)" opacity=".5"/>
+      <!-- 수렴하는 점들 — 좌측 슬로프 따라 골 바닥으로 (모두 곡선 위) -->
+      <circle cx="25.6" cy="28.4" r="3" fill="var(--pink)"/>
+      <circle cx="42.5" cy="38.75" r="3" fill="var(--pink)"/>
+      <circle cx="60.6" cy="55.9" r="3" fill="var(--pink)"/>
+      <circle cx="80" cy="80" r="3.6" fill="var(--pink)"/>
+      <path d="M 25.6 28.4 L 42.5 38.75 L 60.6 55.9 L 80 80" fill="none" stroke="var(--pink)" stroke-width="1"/>
     </svg>
     <div style="font-family:var(--display);font-size:.85rem;font-weight:700;color:var(--pink);margin-top:.5rem">적당한 LR ✅</div>
     <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7;margin-top:.3rem">골 바닥으로 안정 수렴<br>최적점 도달</div>
   </div>
 
   <div style="background:var(--card);border:1.5px solid #f39c12;border-radius:12px;padding:1rem;text-align:center">
-    <svg viewBox="0 0 180 110" style="width:100%;max-width:180px;margin:0 auto;display:block">
-      <path d="M 15 96 Q 52 16 90 16 Q 128 16 165 96" fill="none" stroke="var(--text-dim)" stroke-width="1.2"/>
-      <circle cx="90" cy="50" r="1.8" fill="var(--text-dim)" opacity=".55"/>
-      <!-- 너무 작은 LR: 슬로프 윗쪽에 점들이 다닥다닥 (거의 못 움직임) -->
-      <circle cx="22" cy="86" r="2.6" fill="#f39c12"/>
-      <circle cx="26" cy="83" r="2.6" fill="#f39c12"/>
-      <circle cx="30" cy="80" r="2.6" fill="#f39c12"/>
-      <circle cx="34" cy="76" r="2.6" fill="#f39c12"/>
-      <circle cx="38" cy="72" r="2.6" fill="#f39c12"/>
-      <circle cx="42" cy="68" r="2.6" fill="#f39c12"/>
-      <path d="M 22 86 L 26 83 L 30 80 L 34 76 L 38 72 L 42 68" fill="none" stroke="#f39c12" stroke-width="0.9"/>
+    <svg viewBox="0 0 160 100" style="width:100%;max-width:160px;margin:0 auto;display:block">
+      <path d="M 10 25 Q 40 25 80 80 Q 120 25 150 25" fill="none" stroke="var(--text-dim)" stroke-width="1.2"/>
+      <circle cx="80" cy="80" r="2" fill="var(--text-dim)" opacity=".5"/>
+      <!-- 너무 작은 보폭 — 좌측 곡선 윗쪽에 다닥다닥 (모두 정확히 곡선 위) -->
+      <circle cx="10" cy="25" r="2.6" fill="#f39c12"/>
+      <circle cx="16.1" cy="25.55" r="2.6" fill="#f39c12"/>
+      <circle cx="22.4" cy="27.2" r="2.6" fill="#f39c12"/>
+      <circle cx="28.9" cy="29.95" r="2.6" fill="#f39c12"/>
+      <circle cx="35.6" cy="33.75" r="2.6" fill="#f39c12"/>
+      <path d="M 10 25 L 16.1 25.55 L 22.4 27.2 L 28.9 29.95 L 35.6 33.75" fill="none" stroke="#f39c12" stroke-width="0.8"/>
     </svg>
     <div style="font-family:var(--display);font-size:.85rem;font-weight:700;color:#f39c12;margin-top:.5rem">너무 작은 LR</div>
     <div style="font-size:.72rem;color:var(--text-dim);line-height:1.7;margin-top:.3rem">한 발자국이 너무 작음<br>학습이 끝나지 않음</div>
@@ -1230,103 +1218,212 @@
   </div>
 </div>
 
-<!-- Convolution 연산 — 직관적 슬라이딩 -->
+<!-- Convolution 연산 — 직관적 슬라이딩 (9 step 전부) -->
 <div class="dia reveal">
-<div class="dia-title">🔍 Convolution 연산 — 필터가 이미지를 훑는다 (한 칸씩!)</div>
-<div style="max-width:900px;margin:0 auto">
-<svg viewBox="0 0 760 230" style="width:100%;display:block">
-  <defs>
-    <marker id="conv-i-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-      <path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/>
-    </marker>
-  </defs>
+<div class="dia-title">🔍 Convolution 연산 — 필터가 이미지를 훑는다 (한 칸씩, 9번!)</div>
+<div style="max-width:920px;margin:0 auto">
 
-  <!-- Title -->
-  <text x="380" y="18" text-anchor="middle" font-size="11" fill="var(--pink)" font-weight="700">필터(돋보기)가 1칸씩 옆으로 이동하며 입력의 모든 영역을 훑음</text>
+  <div style="text-align:center;font-size:.85rem;color:var(--pink);font-weight:700;margin-bottom:.7rem">
+    필터(돋보기)가 1칸씩 옆으로 이동 → 줄 끝에서 다음 줄로 → 9번 = 3×3 Feature Map 완성
+  </div>
 
-  <!-- ============ Frame 1: position (0,0) ============ -->
-  <g transform="translate(10, 30)">
-    <text x="100" y="14" text-anchor="middle" font-size="9.5" fill="var(--text-dim)">Step 1 — 좌상단</text>
-    <rect x="40" y="20" width="120" height="120" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/>
-    <line x1="64" y1="20" x2="64" y2="140" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <line x1="88" y1="20" x2="88" y2="140" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <line x1="112" y1="20" x2="112" y2="140" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <line x1="136" y1="20" x2="136" y2="140" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <line x1="40" y1="44" x2="160" y2="44" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <line x1="40" y1="68" x2="160" y2="68" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <line x1="40" y1="92" x2="160" y2="92" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <line x1="40" y1="116" x2="160" y2="116" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <!-- Filter at position (0,0) - first 3x3 -->
-    <rect x="40" y="20" width="72" height="72" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1.5"/>
-    <text x="76" y="62" text-anchor="middle" font-size="13" fill="var(--pink)" font-weight="700">필터</text>
-    <text x="100" y="160" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">→ Output (0,0) 칸</text>
-  </g>
+  <!-- ═══ ROW 1: Step 1·2·3 (input 행 0) ═══ -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem">
 
-  <!-- arrow to frame 2 -->
-  <g transform="translate(190, 90)">
-    <line x1="0" y1="20" x2="40" y2="20" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#conv-i-arr)"/>
-    <text x="22" y="14" text-anchor="middle" font-size="9" fill="#9ca3af" font-style="italic">1칸 →</text>
-  </g>
+    <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:8px;padding:.7rem;text-align:center">
+      <div style="font-size:.78rem;font-weight:700;color:var(--pink);margin-bottom:.3rem">Step 1 — 좌상단 (0,0)</div>
+      <svg viewBox="0 0 130 130" style="max-width:140px;width:100%;display:block;margin:0 auto">
+        <rect x="5" y="5" width="120" height="120" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="0.7"/>
+        <line x1="29" y1="5" x2="29" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="53" y1="5" x2="53" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="77" y1="5" x2="77" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="101" y1="5" x2="101" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="29" x2="125" y2="29" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="53" x2="125" y2="53" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="77" x2="125" y2="77" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="101" x2="125" y2="101" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <rect x="5" y="5" width="72" height="72" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1.5"/>
+        <text x="41" y="46" text-anchor="middle" font-size="11" fill="var(--pink)" font-weight="700">필터</text>
+      </svg>
+      <div style="font-size:.7rem;color:var(--text-dim);margin-top:.3rem">→ Out (0,0)</div>
+    </div>
 
-  <!-- ============ Frame 2: position (0,1) ============ -->
-  <g transform="translate(245, 30)">
-    <text x="100" y="14" text-anchor="middle" font-size="9.5" fill="var(--text-dim)">Step 2 — 1칸 오른쪽</text>
-    <rect x="40" y="20" width="120" height="120" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/>
-    <line x1="64" y1="20" x2="64" y2="140" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <line x1="88" y1="20" x2="88" y2="140" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <line x1="112" y1="20" x2="112" y2="140" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <line x1="136" y1="20" x2="136" y2="140" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <line x1="40" y1="44" x2="160" y2="44" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <line x1="40" y1="68" x2="160" y2="68" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <line x1="40" y1="92" x2="160" y2="92" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <line x1="40" y1="116" x2="160" y2="116" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <!-- Filter at (0,1) - shifted 24 right -->
-    <rect x="64" y="20" width="72" height="72" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1.5"/>
-    <text x="100" y="62" text-anchor="middle" font-size="13" fill="var(--pink)" font-weight="700">필터</text>
-    <!-- 이전 위치 trace -->
-    <rect x="40" y="20" width="72" height="72" fill="none" stroke="var(--pink)" stroke-width="0.7" stroke-dasharray="3,2" opacity=".5"/>
-    <text x="100" y="160" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">→ Output (0,1) 칸</text>
-  </g>
+    <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:8px;padding:.7rem;text-align:center">
+      <div style="font-size:.78rem;font-weight:700;color:var(--pink);margin-bottom:.3rem">Step 2 — 1칸 오른쪽 (0,1)</div>
+      <svg viewBox="0 0 130 130" style="max-width:140px;width:100%;display:block;margin:0 auto">
+        <rect x="5" y="5" width="120" height="120" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="0.7"/>
+        <line x1="29" y1="5" x2="29" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="53" y1="5" x2="53" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="77" y1="5" x2="77" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="101" y1="5" x2="101" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="29" x2="125" y2="29" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="53" x2="125" y2="53" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="77" x2="125" y2="77" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="101" x2="125" y2="101" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <rect x="5" y="5" width="72" height="72" fill="none" stroke="var(--pink)" stroke-width="0.7" stroke-dasharray="3,2" opacity=".5"/>
+        <rect x="29" y="5" width="72" height="72" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1.5"/>
+        <text x="65" y="46" text-anchor="middle" font-size="11" fill="var(--pink)" font-weight="700">필터</text>
+      </svg>
+      <div style="font-size:.7rem;color:var(--text-dim);margin-top:.3rem">→ Out (0,1)</div>
+    </div>
 
-  <!-- arrow to frame 3 -->
-  <g transform="translate(425, 90)">
-    <line x1="0" y1="20" x2="40" y2="20" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#conv-i-arr)"/>
-    <text x="22" y="14" text-anchor="middle" font-size="9" fill="#9ca3af" font-style="italic">1칸 →</text>
-  </g>
+    <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:8px;padding:.7rem;text-align:center">
+      <div style="font-size:.78rem;font-weight:700;color:var(--pink);margin-bottom:.3rem">Step 3 — 줄 끝 (0,2)</div>
+      <svg viewBox="0 0 130 130" style="max-width:140px;width:100%;display:block;margin:0 auto">
+        <rect x="5" y="5" width="120" height="120" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="0.7"/>
+        <line x1="29" y1="5" x2="29" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="53" y1="5" x2="53" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="77" y1="5" x2="77" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="101" y1="5" x2="101" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="29" x2="125" y2="29" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="53" x2="125" y2="53" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="77" x2="125" y2="77" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="101" x2="125" y2="101" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <rect x="5" y="5" width="72" height="72" fill="none" stroke="var(--pink)" stroke-width="0.7" stroke-dasharray="3,2" opacity=".4"/>
+        <rect x="29" y="5" width="72" height="72" fill="none" stroke="var(--pink)" stroke-width="0.7" stroke-dasharray="3,2" opacity=".4"/>
+        <rect x="53" y="5" width="72" height="72" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1.5"/>
+        <text x="89" y="46" text-anchor="middle" font-size="11" fill="var(--pink)" font-weight="700">필터</text>
+      </svg>
+      <div style="font-size:.7rem;color:var(--text-dim);margin-top:.3rem">→ Out (0,2)</div>
+    </div>
+  </div>
 
-  <!-- ============ Frame 3: position (0,2) ============ -->
-  <g transform="translate(480, 30)">
-    <text x="100" y="14" text-anchor="middle" font-size="9.5" fill="var(--text-dim)">Step 3 — 줄 끝</text>
-    <rect x="40" y="20" width="120" height="120" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="1"/>
-    <line x1="64" y1="20" x2="64" y2="140" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <line x1="88" y1="20" x2="88" y2="140" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <line x1="112" y1="20" x2="112" y2="140" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <line x1="136" y1="20" x2="136" y2="140" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <line x1="40" y1="44" x2="160" y2="44" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <line x1="40" y1="68" x2="160" y2="68" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <line x1="40" y1="92" x2="160" y2="92" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <line x1="40" y1="116" x2="160" y2="116" stroke="var(--text-dim)" stroke-width="0.5" opacity=".5"/>
-    <!-- Filter at (0,2) - last position in top row -->
-    <rect x="88" y="20" width="72" height="72" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1.5"/>
-    <text x="124" y="62" text-anchor="middle" font-size="13" fill="var(--pink)" font-weight="700">필터</text>
-    <!-- 이전 위치 trace 2개 -->
-    <rect x="40" y="20" width="72" height="72" fill="none" stroke="var(--pink)" stroke-width="0.7" stroke-dasharray="3,2" opacity=".4"/>
-    <rect x="64" y="20" width="72" height="72" fill="none" stroke="var(--pink)" stroke-width="0.7" stroke-dasharray="3,2" opacity=".4"/>
-    <text x="124" y="160" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">→ Output (0,2) 칸</text>
-  </g>
+  <!-- 줄바꿈 표시 1 -->
+  <div style="text-align:center;font-size:.85rem;color:var(--pink);font-weight:600;margin:.6rem 0;font-style:italic">
+    ↓ 줄 끝 도달 → 다음 줄(행 1)로 이동
+  </div>
 
-  <!-- next-row hint (after frame 3) -->
-  <g transform="translate(660, 90)">
-    <path d="M 0 20 Q 30 30 30 50 Q 30 70 -55 80" fill="none" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#conv-i-arr)"/>
-    <text x="20" y="14" text-anchor="middle" font-size="9" fill="#9ca3af" font-style="italic">↓ 줄 바꿈</text>
-    <text x="0" y="105" text-anchor="middle" font-size="8" fill="var(--text-dim)">다음 줄에서</text>
-    <text x="0" y="116" text-anchor="middle" font-size="8" fill="var(--text-dim)">또 좌→우 반복</text>
-  </g>
+  <!-- ═══ ROW 2: Step 4·5·6 (input 행 1) ═══ -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem">
 
-  <!-- caption box -->
-  <rect x="20" y="200" width="720" height="22" rx="4" fill="var(--pink-bg)" stroke="var(--pink-border)" stroke-width="1"/>
-  <text x="380" y="216" text-anchor="middle" font-size="10" fill="var(--pink)" font-weight="600">5×5 입력에서 3×3 필터를 9개 위치(3×3)로 옮기며 적용 → 결과는 3×3 Feature Map (계산식은 아래 도식)</text>
-</svg>
+    <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:8px;padding:.7rem;text-align:center">
+      <div style="font-size:.78rem;font-weight:700;color:var(--pink);margin-bottom:.3rem">Step 4 — 행 1 시작 (1,0)</div>
+      <svg viewBox="0 0 130 130" style="max-width:140px;width:100%;display:block;margin:0 auto">
+        <rect x="5" y="5" width="120" height="120" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="0.7"/>
+        <line x1="29" y1="5" x2="29" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="53" y1="5" x2="53" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="77" y1="5" x2="77" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="101" y1="5" x2="101" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="29" x2="125" y2="29" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="53" x2="125" y2="53" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="77" x2="125" y2="77" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="101" x2="125" y2="101" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <rect x="5" y="29" width="72" height="72" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1.5"/>
+        <text x="41" y="70" text-anchor="middle" font-size="11" fill="var(--pink)" font-weight="700">필터</text>
+      </svg>
+      <div style="font-size:.7rem;color:var(--text-dim);margin-top:.3rem">→ Out (1,0)</div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:8px;padding:.7rem;text-align:center">
+      <div style="font-size:.78rem;font-weight:700;color:var(--pink);margin-bottom:.3rem">Step 5 — 1칸 오른쪽 (1,1)</div>
+      <svg viewBox="0 0 130 130" style="max-width:140px;width:100%;display:block;margin:0 auto">
+        <rect x="5" y="5" width="120" height="120" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="0.7"/>
+        <line x1="29" y1="5" x2="29" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="53" y1="5" x2="53" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="77" y1="5" x2="77" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="101" y1="5" x2="101" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="29" x2="125" y2="29" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="53" x2="125" y2="53" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="77" x2="125" y2="77" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="101" x2="125" y2="101" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <rect x="5" y="29" width="72" height="72" fill="none" stroke="var(--pink)" stroke-width="0.7" stroke-dasharray="3,2" opacity=".5"/>
+        <rect x="29" y="29" width="72" height="72" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1.5"/>
+        <text x="65" y="70" text-anchor="middle" font-size="11" fill="var(--pink)" font-weight="700">필터</text>
+      </svg>
+      <div style="font-size:.7rem;color:var(--text-dim);margin-top:.3rem">→ Out (1,1)</div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:8px;padding:.7rem;text-align:center">
+      <div style="font-size:.78rem;font-weight:700;color:var(--pink);margin-bottom:.3rem">Step 6 — 줄 끝 (1,2)</div>
+      <svg viewBox="0 0 130 130" style="max-width:140px;width:100%;display:block;margin:0 auto">
+        <rect x="5" y="5" width="120" height="120" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="0.7"/>
+        <line x1="29" y1="5" x2="29" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="53" y1="5" x2="53" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="77" y1="5" x2="77" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="101" y1="5" x2="101" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="29" x2="125" y2="29" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="53" x2="125" y2="53" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="77" x2="125" y2="77" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="101" x2="125" y2="101" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <rect x="5" y="29" width="72" height="72" fill="none" stroke="var(--pink)" stroke-width="0.7" stroke-dasharray="3,2" opacity=".4"/>
+        <rect x="29" y="29" width="72" height="72" fill="none" stroke="var(--pink)" stroke-width="0.7" stroke-dasharray="3,2" opacity=".4"/>
+        <rect x="53" y="29" width="72" height="72" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1.5"/>
+        <text x="89" y="70" text-anchor="middle" font-size="11" fill="var(--pink)" font-weight="700">필터</text>
+      </svg>
+      <div style="font-size:.7rem;color:var(--text-dim);margin-top:.3rem">→ Out (1,2)</div>
+    </div>
+  </div>
+
+  <!-- 줄바꿈 표시 2 -->
+  <div style="text-align:center;font-size:.85rem;color:var(--pink);font-weight:600;margin:.6rem 0;font-style:italic">
+    ↓ 줄 끝 도달 → 마지막 줄(행 2)로 이동
+  </div>
+
+  <!-- ═══ ROW 3: Step 7·8·9 (input 행 2) ═══ -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem">
+
+    <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:8px;padding:.7rem;text-align:center">
+      <div style="font-size:.78rem;font-weight:700;color:var(--pink);margin-bottom:.3rem">Step 7 — 행 2 시작 (2,0)</div>
+      <svg viewBox="0 0 130 130" style="max-width:140px;width:100%;display:block;margin:0 auto">
+        <rect x="5" y="5" width="120" height="120" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="0.7"/>
+        <line x1="29" y1="5" x2="29" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="53" y1="5" x2="53" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="77" y1="5" x2="77" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="101" y1="5" x2="101" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="29" x2="125" y2="29" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="53" x2="125" y2="53" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="77" x2="125" y2="77" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="101" x2="125" y2="101" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <rect x="5" y="53" width="72" height="72" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1.5"/>
+        <text x="41" y="94" text-anchor="middle" font-size="11" fill="var(--pink)" font-weight="700">필터</text>
+      </svg>
+      <div style="font-size:.7rem;color:var(--text-dim);margin-top:.3rem">→ Out (2,0)</div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid var(--pink-border);border-radius:8px;padding:.7rem;text-align:center">
+      <div style="font-size:.78rem;font-weight:700;color:var(--pink);margin-bottom:.3rem">Step 8 — 1칸 오른쪽 (2,1)</div>
+      <svg viewBox="0 0 130 130" style="max-width:140px;width:100%;display:block;margin:0 auto">
+        <rect x="5" y="5" width="120" height="120" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="0.7"/>
+        <line x1="29" y1="5" x2="29" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="53" y1="5" x2="53" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="77" y1="5" x2="77" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="101" y1="5" x2="101" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="29" x2="125" y2="29" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="53" x2="125" y2="53" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="77" x2="125" y2="77" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="101" x2="125" y2="101" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <rect x="5" y="53" width="72" height="72" fill="none" stroke="var(--pink)" stroke-width="0.7" stroke-dasharray="3,2" opacity=".5"/>
+        <rect x="29" y="53" width="72" height="72" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1.5"/>
+        <text x="65" y="94" text-anchor="middle" font-size="11" fill="var(--pink)" font-weight="700">필터</text>
+      </svg>
+      <div style="font-size:.7rem;color:var(--text-dim);margin-top:.3rem">→ Out (2,1)</div>
+    </div>
+
+    <div style="background:var(--card);border:1.5px solid var(--pink);border-radius:8px;padding:.7rem;text-align:center">
+      <div style="font-size:.78rem;font-weight:700;color:var(--pink);margin-bottom:.3rem">Step 9 — 마지막! (2,2)</div>
+      <svg viewBox="0 0 130 130" style="max-width:140px;width:100%;display:block;margin:0 auto">
+        <rect x="5" y="5" width="120" height="120" fill="var(--surface)" stroke="var(--text-dim)" stroke-width="0.7"/>
+        <line x1="29" y1="5" x2="29" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="53" y1="5" x2="53" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="77" y1="5" x2="77" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="101" y1="5" x2="101" y2="125" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="29" x2="125" y2="29" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="53" x2="125" y2="53" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="77" x2="125" y2="77" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <line x1="5" y1="101" x2="125" y2="101" stroke="var(--text-dim)" stroke-width="0.4" opacity=".5"/>
+        <rect x="5" y="53" width="72" height="72" fill="none" stroke="var(--pink)" stroke-width="0.7" stroke-dasharray="3,2" opacity=".4"/>
+        <rect x="29" y="53" width="72" height="72" fill="none" stroke="var(--pink)" stroke-width="0.7" stroke-dasharray="3,2" opacity=".4"/>
+        <rect x="53" y="53" width="72" height="72" fill="var(--pink-bg)" stroke="var(--pink)" stroke-width="1.5"/>
+        <text x="89" y="94" text-anchor="middle" font-size="11" fill="var(--pink)" font-weight="700">필터</text>
+      </svg>
+      <div style="font-size:.7rem;color:var(--pink);margin-top:.3rem;font-weight:700">→ Out (2,2) ✓</div>
+    </div>
+  </div>
+
+  <div style="margin-top:.9rem;padding:.65rem 1rem;background:var(--pink-bg);border:1px solid var(--pink-border);border-radius:6px;font-size:.82rem;color:var(--pink);font-weight:600;text-align:center">
+    ✅ 9번 슬라이딩 완료 → 3×3 Feature Map 1장 생성! (각 칸의 실제 계산식은 아래 도식에서)
+  </div>
+
 </div>
 </div>
 
