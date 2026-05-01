@@ -2566,6 +2566,90 @@
 </div>
 </div>
 
+<!-- ── Why LangGraph? Vanilla vs Graph ── -->
+<div class="dia reveal">
+<div class="dia-title">🤔 왜 LangGraph인가? — 같은 에이전트, 두 가지 접근</div>
+<div style="max-width:920px;margin:0 auto">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+
+  <!-- Vanilla Python -->
+  <div style="background:var(--card);border:1.5px solid var(--accent-border);border-radius:12px;overflow:hidden">
+    <div style="padding:.55rem 1rem;background:var(--accent-bg);border-bottom:1px solid var(--accent-border);display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+      <span style="font-family:var(--mono);font-size:.72rem;color:var(--accent);font-weight:700">😵 Vanilla Python</span>
+      <span style="font-size:.65rem;color:var(--text-dim)">while + try/except 직접 짜기</span>
+    </div>
+<pre style="padding:1rem;font-family:var(--mono);font-size:.7rem;line-height:1.85;color:var(--text);overflow-x:auto;margin:0;background:var(--surface)"><code>messages = [<span style="color:#a5d6a7">"서울 날씨"</span>]
+step = 0
+<span style="color:var(--accent)">while</span> step &lt; 10:
+    resp = llm.invoke(messages)
+    messages.append(resp)
+    <span style="color:var(--accent)">if not</span> resp.tool_calls:
+        <span style="color:var(--accent)">break</span>
+    <span style="color:var(--accent)">try</span>:
+        result = exec_tool(resp.tool_calls[0])
+        messages.append(result)
+    <span style="color:var(--accent)">except</span> Exception <span style="color:var(--accent)">as</span> e:
+        <span style="color:var(--text-dim)"># 어디서 실패?</span>
+        <span style="color:var(--text-dim)"># State는 어떻게?</span>
+        <span style="color:var(--text-dim)"># 재시작은 처음부터?</span>
+        <span style="color:var(--accent)">raise</span>
+    step += 1
+
+<span style="color:var(--text-dim)"># 디버깅: print 폭격</span>
+<span style="color:var(--text-dim)"># 테스트: 거의 불가능</span>
+<span style="color:var(--text-dim)"># 시각화: 없음</span></code></pre>
+  </div>
+
+  <!-- LangGraph -->
+  <div style="background:var(--card);border:1.5px solid var(--violet-border);border-radius:12px;overflow:hidden">
+    <div style="padding:.55rem 1rem;background:var(--violet-bg);border-bottom:1px solid var(--violet-border);display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+      <span style="font-family:var(--mono);font-size:.72rem;color:var(--violet);font-weight:700">✨ LangGraph</span>
+      <span style="font-size:.65rem;color:var(--text-dim)">코드가 곧 다이어그램</span>
+    </div>
+<pre style="padding:1rem;font-family:var(--mono);font-size:.7rem;line-height:1.85;color:var(--text);overflow-x:auto;margin:0;background:var(--surface)"><code>g = StateGraph(AgentState)
+g.add_node(<span style="color:#a5d6a7">"model"</span>, call_model)
+g.add_node(<span style="color:#a5d6a7">"tool"</span>, use_tool)
+
+g.add_edge(START, <span style="color:#a5d6a7">"model"</span>)
+g.add_conditional_edges(
+    <span style="color:#a5d6a7">"model"</span>, should_use_tool,
+    {<span style="color:#a5d6a7">"tool"</span>: <span style="color:#a5d6a7">"tool"</span>, <span style="color:#a5d6a7">"end"</span>: END}
+)
+g.add_edge(<span style="color:#a5d6a7">"tool"</span>, <span style="color:#a5d6a7">"model"</span>)
+
+app = g.compile(checkpointer=db)
+<span style="color:var(--text-dim)"># ↑ 한 줄로 체크포인팅 ON</span>
+
+<span style="color:var(--text-dim)"># 디버깅: Studio에서 노드 클릭</span>
+<span style="color:var(--text-dim)"># 테스트: 노드별 unit test</span>
+<span style="color:var(--text-dim)"># 재시작: 7번부터 자동 재개</span>
+<span style="color:var(--text-dim)"># 시각화: 그래프 자동 렌더</span></code></pre>
+  </div>
+</div>
+
+<!-- Comparison table -->
+<div style="overflow-x:auto">
+<table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:560px">
+  <thead><tr style="background:var(--surface)">
+    <th style="padding:.6rem;text-align:left;color:var(--text-dim);font-weight:700;border-bottom:1px solid var(--border)">관점</th>
+    <th style="padding:.6rem;text-align:left;color:var(--accent);font-weight:700;border-bottom:1px solid var(--accent-border)">😵 Vanilla</th>
+    <th style="padding:.6rem;text-align:left;color:var(--violet);font-weight:700;border-bottom:1px solid var(--violet-border)">✨ LangGraph</th>
+  </tr></thead>
+  <tbody>
+    <tr><td style="padding:.5rem .6rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">코드를 그림으로?</td><td style="padding:.5rem .6rem;color:var(--text-dim);border-bottom:1px solid var(--border)">머릿속에서 추적</td><td style="padding:.5rem .6rem;color:var(--text-dim);border-bottom:1px solid var(--border)"><strong style="color:var(--violet)">자동 SVG 렌더</strong></td></tr>
+    <tr><td style="padding:.5rem .6rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">Step 7에서 죽으면?</td><td style="padding:.5rem .6rem;color:var(--text-dim);border-bottom:1px solid var(--border)">처음부터 재실행</td><td style="padding:.5rem .6rem;color:var(--text-dim);border-bottom:1px solid var(--border)"><strong style="color:var(--violet)">Step 7부터 이어서</strong></td></tr>
+    <tr><td style="padding:.5rem .6rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">사람 승인 게이트?</td><td style="padding:.5rem .6rem;color:var(--text-dim);border-bottom:1px solid var(--border)">input() + 직접 큐</td><td style="padding:.5rem .6rem;color:var(--text-dim);border-bottom:1px solid var(--border)"><code style="font-size:.7rem">interrupt_before</code> 한 줄</td></tr>
+    <tr><td style="padding:.5rem .6rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">실행 추적</td><td style="padding:.5rem .6rem;color:var(--text-dim);border-bottom:1px solid var(--border)">print 폭격</td><td style="padding:.5rem .6rem;color:var(--text-dim);border-bottom:1px solid var(--border)">LangSmith 자동 트레이스</td></tr>
+    <tr><td style="padding:.5rem .6rem;color:var(--text);font-weight:600">노드별 단위 테스트</td><td style="padding:.5rem .6rem;color:var(--text-dim)">한 덩어리라 분리 어려움</td><td style="padding:.5rem .6rem;color:var(--text-dim)">함수가 곧 노드 → 즉시 가능</td></tr>
+  </tbody>
+</table>
+</div>
+<div style="margin-top:.8rem;padding:.7rem 1rem;background:var(--violet-bg);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.85">
+  💡 <strong style="color:var(--violet)">핵심:</strong> LangGraph의 본질은 "<strong>워크플로 구조</strong>"와 "<strong>실행 로직</strong>"의 분리. 그래프 정의(<code>add_node</code>·<code>add_edge</code>)가 다이어그램이 되고, 노드 함수에는 순수한 작업 로직만 남습니다. 이 분리가 모든 다른 강점(체크포인팅·트레이싱·테스트)의 출발점.
+</div>
+</div>
+</div>
+
 <!-- ── 4대 핵심 개념 카드 그리드 ── -->
 <div class="dia reveal">
 <div class="dia-title">4대 핵심 개념</div>
@@ -2679,6 +2763,115 @@ result = app.invoke({<span style="color:#a5d6a7">"messages"</span>: [<span style
 </div>
 </div>
 
+<!-- ── State 진화 라이브 트레이스 ── -->
+<div class="dia reveal">
+<div class="dia-title">🎬 State 진화 라이브 — 한 쿼리가 그래프를 통과하는 5스텝</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <!-- Query box -->
+  <div style="margin-bottom:1.2rem;padding:.8rem 1.2rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 10px 10px 0;display:flex;align-items:center;gap:.8rem">
+    <span style="font-size:1.3rem">👤</span>
+    <span style="font-size:.85rem;color:var(--text)">사용자 입력: <strong style="color:var(--violet)">"서울 날씨 알려줘"</strong></span>
+    <span style="margin-left:auto;font-family:var(--mono);font-size:.65rem;background:var(--violet-bg);color:var(--violet);padding:.2rem .5rem;border-radius:4px">thread_abc123</span>
+  </div>
+
+  <!-- Step timeline -->
+  <div style="position:relative">
+    <!-- Vertical line -->
+    <div style="position:absolute;left:24px;top:30px;bottom:30px;width:2px;background:linear-gradient(to bottom, var(--violet), #f59e0b, #2dd4bf, var(--violet), #22c55e);opacity:.4"></div>
+
+    <!-- Step 1: call_model -->
+    <div style="display:flex;gap:1rem;margin-bottom:.9rem;position:relative">
+      <div style="width:50px;height:50px;border-radius:50%;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.85rem;font-weight:700;flex-shrink:0;z-index:1;box-shadow:0 0 0 4px var(--violet-bg)">1</div>
+      <div style="flex:1;background:var(--card);border:1.5px solid var(--violet-border);border-radius:12px;padding:1rem 1.2rem">
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap">
+          <span style="font-family:var(--mono);font-size:.78rem;color:var(--violet);font-weight:700">▶ call_model</span>
+          <span style="font-size:.72rem;color:var(--text-dim)">— LLM이 도구 호출 결정</span>
+          <span style="margin-left:auto;font-family:var(--mono);font-size:.65rem;background:var(--violet-bg);color:var(--violet);padding:.15rem .5rem;border-radius:4px">1.1s</span>
+          <span style="font-family:var(--mono);font-size:.65rem;background:var(--surface);color:var(--text-dim);padding:.15rem .5rem;border-radius:4px">842 tok</span>
+        </div>
+        <div style="font-family:var(--mono);font-size:.72rem;line-height:1.85;background:var(--surface);border-radius:8px;padding:.7rem .9rem;color:var(--text-dim)">
+          <span style="color:var(--violet)">State.messages:</span><br>
+          &nbsp;&nbsp;<span style="color:#a5d6a7">[HumanMessage("서울 날씨 알려줘")]</span><br>
+          &nbsp;&nbsp;<span style="color:#22c55e">+ AIMessage(tool_calls=[get_weather({city:"서울"})])</span> <span style="color:#6c7086">← 추가</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: routing -->
+    <div style="display:flex;gap:1rem;margin-bottom:.9rem;position:relative">
+      <div style="width:50px;height:50px;border-radius:50%;background:#f59e0b;color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.85rem;font-weight:700;flex-shrink:0;z-index:1;box-shadow:0 0 0 4px var(--violet-bg)">2</div>
+      <div style="flex:1;background:var(--card);border:1.5px solid #f59e0b40;border-radius:12px;padding:1rem 1.2rem">
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap">
+          <span style="font-family:var(--mono);font-size:.78rem;color:#f59e0b;font-weight:700">◆ should_use_tool?</span>
+          <span style="font-size:.72rem;color:var(--text-dim)">— 라우팅 함수가 분기 결정</span>
+          <span style="margin-left:auto;font-family:var(--mono);font-size:.65rem;background:#f59e0b20;color:#f59e0b;padding:.15rem .5rem;border-radius:4px">&lt;1ms</span>
+        </div>
+        <div style="font-family:var(--mono);font-size:.72rem;line-height:1.85;background:var(--surface);border-radius:8px;padding:.7rem .9rem;color:var(--text-dim)">
+          <span style="color:#f59e0b">if</span> state["messages"][-1].tool_calls: &nbsp; <span style="color:#22c55e">→ "tool"</span> ✓<br>
+          <span style="color:#f59e0b">else</span>: &nbsp; → "end"
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: use_tool -->
+    <div style="display:flex;gap:1rem;margin-bottom:.9rem;position:relative">
+      <div style="width:50px;height:50px;border-radius:50%;background:#2dd4bf;color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.85rem;font-weight:700;flex-shrink:0;z-index:1;box-shadow:0 0 0 4px var(--violet-bg)">3</div>
+      <div style="flex:1;background:var(--card);border:1.5px solid #2dd4bf40;border-radius:12px;padding:1rem 1.2rem">
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap">
+          <span style="font-family:var(--mono);font-size:.78rem;color:#2dd4bf;font-weight:700">▶ use_tool</span>
+          <span style="font-size:.72rem;color:var(--text-dim)">— 외부 API 실제 호출</span>
+          <span style="margin-left:auto;font-family:var(--mono);font-size:.65rem;background:#2dd4bf20;color:#2dd4bf;padding:.15rem .5rem;border-radius:4px">0.3s</span>
+        </div>
+        <div style="font-family:var(--mono);font-size:.72rem;line-height:1.85;background:var(--surface);border-radius:8px;padding:.7rem .9rem;color:var(--text-dim)">
+          <span style="color:#2dd4bf">State.messages:</span><br>
+          &nbsp;&nbsp;<span style="color:#a5d6a7">[HumanMessage, AIMessage(tool_calls)]</span><br>
+          &nbsp;&nbsp;<span style="color:#22c55e">+ ToolMessage('{"temp":22, "condition":"맑음"}')</span> <span style="color:#6c7086">← 추가</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4: call_model again -->
+    <div style="display:flex;gap:1rem;margin-bottom:.9rem;position:relative">
+      <div style="width:50px;height:50px;border-radius:50%;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.85rem;font-weight:700;flex-shrink:0;z-index:1;box-shadow:0 0 0 4px var(--violet-bg)">4</div>
+      <div style="flex:1;background:var(--card);border:1.5px solid var(--violet-border);border-radius:12px;padding:1rem 1.2rem">
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap">
+          <span style="font-family:var(--mono);font-size:.78rem;color:var(--violet);font-weight:700">▶ call_model</span>
+          <span style="font-size:.72rem;color:var(--text-dim)">— 결과 종합 (루프 복귀)</span>
+          <span style="margin-left:auto;font-family:var(--mono);font-size:.65rem;background:var(--violet-bg);color:var(--violet);padding:.15rem .5rem;border-radius:4px">0.8s</span>
+          <span style="font-family:var(--mono);font-size:.65rem;background:var(--surface);color:var(--text-dim);padding:.15rem .5rem;border-radius:4px">356 tok</span>
+        </div>
+        <div style="font-family:var(--mono);font-size:.72rem;line-height:1.85;background:var(--surface);border-radius:8px;padding:.7rem .9rem;color:var(--text-dim)">
+          <span style="color:var(--violet)">State.messages:</span><br>
+          &nbsp;&nbsp;<span style="color:#a5d6a7">[Human, AI(tool_calls), Tool]</span><br>
+          &nbsp;&nbsp;<span style="color:#22c55e">+ AIMessage("서울은 22도, 맑음입니다.")</span> <span style="color:#6c7086"># tool_calls 없음 ✓</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5: routing → END -->
+    <div style="display:flex;gap:1rem;position:relative">
+      <div style="width:50px;height:50px;border-radius:50%;background:#22c55e;color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.85rem;font-weight:700;flex-shrink:0;z-index:1;box-shadow:0 0 0 4px var(--violet-bg)">5</div>
+      <div style="flex:1;background:var(--card);border:1.5px solid #22c55e40;border-radius:12px;padding:1rem 1.2rem">
+        <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap">
+          <span style="font-family:var(--mono);font-size:.78rem;color:#22c55e;font-weight:700">◆ should_use_tool? → END</span>
+          <span style="font-size:.72rem;color:var(--text-dim)">— tool_calls 없음 → 종료</span>
+          <span style="margin-left:auto;font-family:var(--mono);font-size:.65rem;background:#22c55e20;color:#22c55e;padding:.15rem .5rem;border-radius:4px">완료</span>
+        </div>
+        <div style="font-family:var(--mono);font-size:.72rem;line-height:1.85;background:var(--surface);border-radius:8px;padding:.7rem .9rem;color:var(--text-dim)">
+          <span style="color:#22c55e">최종 응답:</span> <span style="color:#a5d6a7">"서울은 22도, 맑음입니다."</span><br>
+          <span style="color:#6c7086">총 시간: 2.2s · 토큰: 1,198 · LLM 호출 2회 · 도구 호출 1회</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:.9rem;padding:.7rem 1rem;background:var(--violet-bg);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.85">
+    💡 <strong style="color:var(--violet)">State는 누적된다:</strong> messages 리스트는 append-only. step 4에서 LLM은 1·3에서 일어난 일을 모두 기억하므로 자연스럽게 결과를 종합합니다. 그리고 <strong>각 step 사이에 자동 체크포인트가 찍히므로</strong>, step 3에서 죽어도 step 3부터 재개 가능 (다음 섹션 참고).
+  </div>
+</div>
+</div>
+
 <!-- ── Checkpointing ── -->
 <div class="dia reveal">
 <div class="dia-title">🔄 Checkpointing — 에이전트의 세이브 포인트</div>
@@ -2715,6 +2908,79 @@ result = app.invoke({<span style="color:#a5d6a7">"messages"</span>: [<span style
 <div style="padding:1rem 1.2rem;background:var(--violet-bg);border:1px solid var(--violet-border);border-radius:10px;font-size:.82rem;color:var(--text);line-height:1.85">
   <strong style="color:var(--violet)">왜 중요한가:</strong> 다른 프레임워크(CrewAI, AutoGen)에는 네이티브 체크포인팅이 없습니다. 에이전트가 10단계 중 7단계에서 실패했을 때 — LangGraph는 7단계에서 재개하고, 다른 프레임워크는 1단계부터 다시 시작합니다. <strong>프로덕션 환경에서 이 차이는 절대적입니다.</strong>
 </div>
+</div>
+</div>
+
+<!-- ── Checkpointing 시뮬레이션 ── -->
+<div class="dia reveal">
+<div class="dia-title">🎮 체크포인팅 시뮬레이션 — 5단계 중 3에서 죽으면?</div>
+<div style="max-width:880px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:.9rem">
+
+  <!-- LangGraph version -->
+  <div style="background:var(--card);border:2px solid var(--violet-border);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem;flex-wrap:wrap">
+      <span style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--violet)">✨ LangGraph + Checkpointer</span>
+      <span style="margin-left:auto;font-family:var(--mono);font-size:.65rem;color:#22c55e;background:#22c55e20;padding:.2rem .55rem;border-radius:4px;font-weight:600">재실행 시간 ~30초</span>
+    </div>
+
+    <!-- 1차 실행 (실패) -->
+    <div style="display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.5rem">
+      <span style="font-size:.7rem;color:var(--text-dim);min-width:80px">1차 실행:</span>
+      <div style="padding:.4rem .7rem;background:#22c55e20;border:1.5px solid #22c55e;border-radius:8px;font-family:var(--mono);font-size:.72rem;color:#22c55e;font-weight:700">✓ 1.fetch</div>
+      <span style="color:#22c55e">→</span>
+      <div style="padding:.4rem .7rem;background:#22c55e20;border:1.5px solid #22c55e;border-radius:8px;font-family:var(--mono);font-size:.72rem;color:#22c55e;font-weight:700">✓ 2.extract</div>
+      <span style="color:#ef4444">→</span>
+      <div style="padding:.4rem .7rem;background:#ef444420;border:1.5px solid #ef4444;border-radius:8px;font-family:var(--mono);font-size:.72rem;color:#ef4444;font-weight:700">💥 3.group</div>
+      <span style="color:#6c7086">→</span>
+      <div style="padding:.4rem .7rem;background:var(--surface);border:1.5px dashed #6c708680;border-radius:8px;font-family:var(--mono);font-size:.72rem;color:#6c7086">4.send</div>
+      <span style="color:#6c7086">→</span>
+      <div style="padding:.4rem .7rem;background:var(--surface);border:1.5px dashed #6c708680;border-radius:8px;font-family:var(--mono);font-size:.72rem;color:#6c7086">5.notify</div>
+    </div>
+
+    <!-- DB 저장 표시 -->
+    <div style="display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.5rem;padding-left:80px">
+      <span style="font-size:.65rem;color:#22c55e;font-family:var(--mono)">💾 DB checkpoint: thread_abc123 — step=2, state={meetings:[...12개], actions:[...47개]}</span>
+    </div>
+
+    <!-- 2차 실행 (재개) -->
+    <div style="display:flex;align-items:center;gap:.4rem;flex-wrap:wrap">
+      <span style="font-size:.7rem;color:var(--text-dim);min-width:80px">재시작 →</span>
+      <div style="padding:.4rem .7rem;background:var(--violet-bg);border:1.5px solid var(--violet);border-radius:8px;font-family:var(--mono);font-size:.72rem;color:var(--violet);font-weight:700">▶ 3.group 재시도</div>
+      <span style="color:var(--violet)">→</span>
+      <div style="padding:.4rem .7rem;background:var(--violet-bg);border:1.5px solid var(--violet);border-radius:8px;font-family:var(--mono);font-size:.72rem;color:var(--violet);font-weight:700">4.send</div>
+      <span style="color:var(--violet)">→</span>
+      <div style="padding:.4rem .7rem;background:var(--violet-bg);border:1.5px solid var(--violet);border-radius:8px;font-family:var(--mono);font-size:.72rem;color:var(--violet);font-weight:700">5.notify ✓</div>
+    </div>
+    <div style="margin-top:.7rem;font-size:.72rem;color:var(--text-dim);line-height:1.7;padding-left:80px">
+      step 1·2 결과(LLM 호출 + 토큰 비용)는 <strong style="color:var(--violet)">DB에 저장된 채로 재사용</strong>. 재시작 후 마지막 체크포인트를 읽고 step 3부터 이어서 실행.
+    </div>
+  </div>
+
+  <!-- Other frameworks version -->
+  <div style="background:var(--card);border:1.5px solid var(--accent-border);border-radius:14px;padding:1.2rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem;flex-wrap:wrap">
+      <span style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--accent)">😱 일반 프레임워크 (체크포인팅 없음)</span>
+      <span style="margin-left:auto;font-family:var(--mono);font-size:.65rem;color:#ef4444;background:#ef444420;padding:.2rem .55rem;border-radius:4px;font-weight:600">재실행 ~3분 + LLM 재호출</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:.4rem;flex-wrap:wrap">
+      <span style="font-size:.7rem;color:var(--text-dim);min-width:80px">재시작 →</span>
+      <div style="padding:.4rem .7rem;background:#ef444420;border:1.5px solid #ef4444;border-radius:8px;font-family:var(--mono);font-size:.72rem;color:#ef4444;font-weight:700">↻ 1.fetch</div>
+      <span style="color:#ef4444">→</span>
+      <div style="padding:.4rem .7rem;background:#ef444420;border:1.5px solid #ef4444;border-radius:8px;font-family:var(--mono);font-size:.72rem;color:#ef4444;font-weight:700">↻ 2.extract <span style="font-size:.6rem;opacity:.85">(LLM 또)</span></div>
+      <span style="color:#ef4444">→</span>
+      <div style="padding:.4rem .7rem;background:#ef444420;border:1.5px solid #ef4444;border-radius:8px;font-family:var(--mono);font-size:.72rem;color:#ef4444;font-weight:700">↻ 3.group</div>
+      <span style="color:#ef4444">→</span>
+      <div style="padding:.4rem .7rem;background:var(--surface);border:1.5px dashed #6c708680;border-radius:8px;font-family:var(--mono);font-size:.72rem;color:#6c7086">4·5...</div>
+    </div>
+    <div style="margin-top:.7rem;font-size:.72rem;color:var(--text-dim);line-height:1.7;padding-left:80px">
+      모든 step을 처음부터 다시 실행. <strong style="color:var(--accent)">LLM 호출과 토큰 비용이 두 번 청구</strong>되며, 외부 API에 부작용이 있는 노드(이메일 발송 등)는 두 번 실행될 위험.
+    </div>
+  </div>
+
+</div>
+
+<div style="max-width:880px;margin:.9rem auto 0;padding:.7rem 1rem;background:var(--violet-bg);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.85">
+  ⚙️ <strong style="color:var(--violet)">활성화는 한 줄:</strong> <code>g.compile(checkpointer=PostgresSaver(...))</code>. 이후 모든 노드 실행 후 자동으로 State가 PostgreSQL에 저장됩니다. <code>thread_id</code>로 특정 실행을 식별·재개·time travel 가능.
 </div>
 </div>
 
@@ -3461,6 +3727,96 @@ result = app.invoke({<span style="color:#a5d6a7">"messages"</span>: [<span style
 </table>
 </div>
 <div style="font-size:.78rem;color:var(--text-dim);text-align:center;max-width:900px;margin:0 auto">노드는 <strong style="color:var(--text)">동일한 책임</strong>을 갖되, 표현이 비주얼 → 코드로 바뀝니다. 같은 ReAct 사이클이 양쪽 모두에서 작동.</div>
+</div>
+
+<!-- 회의록 에이전트 그래프 SVG -->
+<div class="dia reveal">
+<div class="dia-title">📊 회의록 에이전트 — 전체 그래프 (5 nodes + 자동 체크포인트)</div>
+<div style="max-width:920px;margin:0 auto;background:var(--card);border:1.5px solid var(--violet-border);border-radius:14px;padding:1.5rem 1rem">
+  <svg viewBox="0 0 820 290" style="max-width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="grid-mt" width="20" height="20" patternUnits="userSpaceOnUse">
+        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#6d28d9" stroke-opacity="0.07" stroke-width="0.5"/>
+      </pattern>
+      <marker id="ar-mt" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#6d28d9"/>
+      </marker>
+    </defs>
+    <rect width="820" height="290" fill="url(#grid-mt)"/>
+
+    <!-- Title -->
+    <text x="410" y="22" text-anchor="middle" fill="#8b8b8b" font-size="10" font-weight="600" font-family="sans-serif">매일 오전 9시 cron → graph.invoke({})</text>
+
+    <!-- START -->
+    <circle cx="50" cy="135" r="22" fill="#6d28d9" fill-opacity=".15" stroke="#6d28d9" stroke-width="2"/>
+    <text x="50" y="139" text-anchor="middle" fill="#6d28d9" font-size="10" font-weight="700" font-family="monospace">START</text>
+    <line x1="73" y1="135" x2="115" y2="135" stroke="#6d28d9" stroke-width="2" marker-end="url(#ar-mt)"/>
+
+    <!-- 1. fetch_meetings -->
+    <rect x="120" y="100" width="125" height="70" rx="12" fill="#6d28d9" fill-opacity=".12" stroke="#6d28d9" stroke-width="2"/>
+    <text x="182" y="118" text-anchor="middle" fill="#a78bfa" font-size="8.5" font-weight="600" font-family="sans-serif">① 외부 데이터</text>
+    <text x="182" y="135" text-anchor="middle" fill="#6d28d9" font-size="11" font-weight="700" font-family="monospace">fetch_meetings</text>
+    <text x="182" y="150" text-anchor="middle" fill="#8b8b8b" font-size="9" font-family="sans-serif">Notion API</text>
+    <text x="182" y="162" text-anchor="middle" fill="#8b8b8b" font-size="9" font-family="sans-serif">최근 7일 회의록</text>
+    <line x1="247" y1="135" x2="280" y2="135" stroke="#6d28d9" stroke-width="2" marker-end="url(#ar-mt)"/>
+
+    <!-- 2. extract_actions (LLM) -->
+    <rect x="285" y="100" width="125" height="70" rx="12" fill="#6d28d9" fill-opacity=".22" stroke="#6d28d9" stroke-width="2.5"/>
+    <text x="347" y="118" text-anchor="middle" fill="#a78bfa" font-size="8.5" font-weight="600" font-family="sans-serif">② AI 핵심 단계</text>
+    <text x="347" y="133" text-anchor="middle" fill="#6d28d9" font-size="11" font-weight="700" font-family="monospace">extract_actions</text>
+    <text x="347" y="148" text-anchor="middle" fill="#a78bfa" font-size="9" font-family="sans-serif">🤖 LLM + structured</text>
+    <text x="347" y="160" text-anchor="middle" fill="#8b8b8b" font-size="9" font-family="sans-serif">→ ActionList</text>
+    <line x1="412" y1="135" x2="445" y2="135" stroke="#6d28d9" stroke-width="2" marker-end="url(#ar-mt)"/>
+
+    <!-- 3. group_by_owner -->
+    <rect x="450" y="100" width="125" height="70" rx="12" fill="#6d28d9" fill-opacity=".12" stroke="#6d28d9" stroke-width="2"/>
+    <text x="512" y="118" text-anchor="middle" fill="#a78bfa" font-size="8.5" font-weight="600" font-family="sans-serif">③ 변환</text>
+    <text x="512" y="135" text-anchor="middle" fill="#6d28d9" font-size="11" font-weight="700" font-family="monospace">group_by_owner</text>
+    <text x="512" y="150" text-anchor="middle" fill="#8b8b8b" font-size="9" font-family="sans-serif">담당자별 묶기</text>
+    <text x="512" y="162" text-anchor="middle" fill="#8b8b8b" font-size="9" font-family="sans-serif">groupby()</text>
+    <line x1="577" y1="135" x2="610" y2="135" stroke="#6d28d9" stroke-width="2" marker-end="url(#ar-mt)"/>
+
+    <!-- 4. send_slack -->
+    <rect x="615" y="100" width="125" height="70" rx="12" fill="#6d28d9" fill-opacity=".12" stroke="#6d28d9" stroke-width="2"/>
+    <text x="677" y="118" text-anchor="middle" fill="#a78bfa" font-size="8.5" font-weight="600" font-family="sans-serif">④ Side-effect</text>
+    <text x="677" y="135" text-anchor="middle" fill="#6d28d9" font-size="11" font-weight="700" font-family="monospace">send_slack</text>
+    <text x="677" y="150" text-anchor="middle" fill="#8b8b8b" font-size="9" font-family="sans-serif">@담당자 DM 발송</text>
+    <text x="677" y="162" text-anchor="middle" fill="#8b8b8b" font-size="9" font-family="sans-serif">Slack API</text>
+    <line x1="742" y1="135" x2="775" y2="135" stroke="#6d28d9" stroke-width="2" marker-end="url(#ar-mt)"/>
+
+    <!-- END -->
+    <circle cx="800" cy="135" r="20" fill="#6d28d9" fill-opacity=".25" stroke="#6d28d9" stroke-width="2.5"/>
+    <text x="800" y="139" text-anchor="middle" fill="#6d28d9" font-size="9" font-weight="700" font-family="monospace">END</text>
+
+    <!-- Checkpoint annotations above each node -->
+    <g opacity="0.85">
+      <circle cx="182" cy="86" r="4" fill="#22c55e"/>
+      <circle cx="347" cy="86" r="4" fill="#22c55e"/>
+      <circle cx="512" cy="86" r="4" fill="#22c55e"/>
+      <circle cx="677" cy="86" r="4" fill="#22c55e"/>
+      <line x1="190" y1="86" x2="339" y2="86" stroke="#22c55e" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+      <line x1="355" y1="86" x2="504" y2="86" stroke="#22c55e" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+      <line x1="520" y1="86" x2="669" y2="86" stroke="#22c55e" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+      <text x="430" y="76" text-anchor="middle" fill="#22c55e" font-size="9" font-weight="600" font-family="sans-serif">▼ 매 노드 완료 후 자동 checkpoint (PostgreSQL)</text>
+    </g>
+
+    <!-- State summary box -->
+    <rect x="120" y="200" width="620" height="68" rx="10" fill="#6d28d9" fill-opacity=".05" stroke="#6d28d9" stroke-width="1" stroke-dasharray="4,3"/>
+    <text x="430" y="220" text-anchor="middle" fill="#6d28d9" font-size="10" font-weight="700" font-family="monospace">MeetingState (모든 노드가 공유하는 단일 객체)</text>
+    <text x="142" y="240" fill="#8b8b8b" font-size="9" font-family="monospace">meetings:</text>
+    <text x="200" y="240" fill="#a78bfa" font-size="9" font-family="monospace">list[dict]</text>
+    <text x="280" y="240" fill="#8b8b8b" font-size="9" font-family="monospace">actions:</text>
+    <text x="335" y="240" fill="#a78bfa" font-size="9" font-family="monospace">list[Action]</text>
+    <text x="425" y="240" fill="#8b8b8b" font-size="9" font-family="monospace">by_owner:</text>
+    <text x="490" y="240" fill="#a78bfa" font-size="9" font-family="monospace">dict[str,list]</text>
+    <text x="585" y="240" fill="#8b8b8b" font-size="9" font-family="monospace">sent_count:</text>
+    <text x="660" y="240" fill="#a78bfa" font-size="9" font-family="monospace">int</text>
+    <text x="430" y="258" text-anchor="middle" fill="#6c7086" font-size="9" font-style="italic" font-family="sans-serif">노드는 자기 키만 업데이트 (return {key: value}) → 나머지는 자동 보존</text>
+  </svg>
+</div>
+<div style="margin-top:.7rem;font-size:.78rem;color:var(--text-dim);text-align:center;max-width:900px;margin-left:auto;margin-right:auto">
+  왼쪽에서 오른쪽으로 흐르는 단순 선형 그래프 (정적 plan-and-execute). 다음 코드 블록의 <code>g.add_edge(...)</code> 4줄이 위 4개 화살표를 그려냅니다.
+</div>
 </div>
 
 <!-- 코드 — StateGraph 정의 -->
