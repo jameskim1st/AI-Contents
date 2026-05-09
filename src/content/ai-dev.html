@@ -2758,6 +2758,155 @@ service-account.json</code></pre>
 <p class="section-desc">Ch.11(LLM API)·Ch.12(시스템 통합)가 "어떻게 호출하나"였다면, 이번 챕터는 <strong style="color:var(--accent)">"엔터프라이즈 AI 시스템에서 마주치는 API 통합 작업의 종류 전체"</strong>를 분류·정리합니다. 평균 엔터프라이즈 AI 프로젝트는 <strong>5~15개의 다른 종류 API를 동시에</strong> 다루는데, 각 종류마다 인증·지연·실패·비용 패턴이 달라 — 한 종류만 잘못 다뤄도 시스템이 죽습니다. 신규 AI 프로젝트 설계 시 빠짐없이 검토할 수 있는 <strong>field guide</strong>로 사용하세요.</p>
 
 <!-- ═══════════════════════════════════════════
+     INTRO 0: 초보자 용어 사전 (한 줄 정의)
+     ═══════════════════════════════════════════ -->
+<div class="dia reveal">
+<div class="dia-title">📖 들어가기 전 — 자주 등장하는 용어 한 줄 정의</div>
+<div style="max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:.5rem">
+
+  <div style="padding:.7rem .9rem;background:var(--card);border:1px solid var(--border);border-radius:8px">
+    <div style="font-family:var(--mono);font-size:.78rem;font-weight:700;color:var(--accent);margin-bottom:.2rem">API</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.65">한 프로그램이 다른 프로그램을 호출하는 약속. "이 주소로 이런 데이터를 보내면, 이런 응답을 줄게."</div>
+  </div>
+
+  <div style="padding:.7rem .9rem;background:var(--card);border:1px solid var(--border);border-radius:8px">
+    <div style="font-family:var(--mono);font-size:.78rem;font-weight:700;color:var(--accent);margin-bottom:.2rem">REST</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.65">가장 흔한 API 스타일. URL과 HTTP 메서드(GET/POST/PUT/DELETE)로 자원을 다룸.</div>
+  </div>
+
+  <div style="padding:.7rem .9rem;background:var(--card);border:1px solid var(--border);border-radius:8px">
+    <div style="font-family:var(--mono);font-size:.78rem;font-weight:700;color:var(--accent);margin-bottom:.2rem">OAuth</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.65">사용자가 비밀번호 안 주고도, 앱이 사용자 대신 SaaS(Slack/Google 등) 사용 가능하게 해주는 표준.</div>
+  </div>
+
+  <div style="padding:.7rem .9rem;background:var(--card);border:1px solid var(--border);border-radius:8px">
+    <div style="font-family:var(--mono);font-size:.78rem;font-weight:700;color:var(--accent);margin-bottom:.2rem">JWT (JSON Web Token)</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.65">서명된 토큰 문자열. 서버 간에 "이 사람은 누구다"를 증명하는 신분증 역할.</div>
+  </div>
+
+  <div style="padding:.7rem .9rem;background:var(--card);border:1px solid var(--border);border-radius:8px">
+    <div style="font-family:var(--mono);font-size:.78rem;font-weight:700;color:var(--accent);margin-bottom:.2rem">Webhook</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.65">외부 서비스가 우리 URL로 "이런 일이 일어났어요" 알림을 보내는 방식. 이메일 푸시처럼.</div>
+  </div>
+
+  <div style="padding:.7rem .9rem;background:var(--card);border:1px solid var(--border);border-radius:8px">
+    <div style="font-family:var(--mono);font-size:.78rem;font-weight:700;color:var(--accent);margin-bottom:.2rem">SSE (Server-Sent Events)</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.65">서버가 클라이언트로 데이터를 한 글자씩 흘려보내는 방식. ChatGPT 응답이 한 글자씩 나타나는 게 이것.</div>
+  </div>
+
+  <div style="padding:.7rem .9rem;background:var(--card);border:1px solid var(--border);border-radius:8px">
+    <div style="font-family:var(--mono);font-size:.78rem;font-weight:700;color:var(--accent);margin-bottom:.2rem">Rate Limit</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.65">"1초에 몇 번까지 호출 가능" 제한. 초과하면 429 에러. 모든 외부 API에 있음.</div>
+  </div>
+
+  <div style="padding:.7rem .9rem;background:var(--card);border:1px solid var(--border);border-radius:8px">
+    <div style="font-family:var(--mono);font-size:.78rem;font-weight:700;color:var(--accent);margin-bottom:.2rem">Idempotency</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.65">같은 요청을 N번 보내도 결과가 1번과 같게 만드는 설계. 재시도 시 중복 결제 방지의 핵심.</div>
+  </div>
+
+  <div style="padding:.7rem .9rem;background:var(--card);border:1px solid var(--border);border-radius:8px">
+    <div style="font-family:var(--mono);font-size:.78rem;font-weight:700;color:var(--accent);margin-bottom:.2rem">Circuit Breaker</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.65">외부 서비스 연속 실패 시 일정 시간 호출 자체를 차단해 시스템 전체 마비 방지.</div>
+  </div>
+
+  <div style="padding:.7rem .9rem;background:var(--card);border:1px solid var(--border);border-radius:8px">
+    <div style="font-family:var(--mono);font-size:.78rem;font-weight:700;color:var(--accent);margin-bottom:.2rem">MCP / A2A</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.65">에이전트가 외부 도구·다른 에이전트와 통신하는 표준 프로토콜. 2026년 사실상 업계 표준.</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     INTRO 1: AI 앱 전체 아키텍처 (한눈에 — 빅 SVG)
+     ═══════════════════════════════════════════ -->
+<div class="dia reveal">
+<div class="dia-title">🏗️ AI 앱 전체 아키텍처 — 10가지 API가 실제로 어디 위치하는가</div>
+<div style="max-width:940px;margin:0 auto">
+<div style="background:var(--card);border:1px solid var(--accent-border);border-radius:12px;padding:1.2rem">
+<svg viewBox="0 0 920 460" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arch-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/>
+    </marker>
+  </defs>
+
+  <!-- 사용자 (왼쪽) -->
+  <rect x="20" y="200" width="100" height="60" rx="8" style="fill:var(--surface);stroke:var(--accent)" stroke-width="1"/>
+  <text x="70" y="225" text-anchor="middle" font-size="11" font-weight="700" fill="#d04a02">👤 사용자</text>
+  <text x="70" y="244" text-anchor="middle" font-size="9" fill="#9ca3af">"환불해줘"</text>
+
+  <line x1="120" y1="230" x2="158" y2="230" stroke="#9ca3af" stroke-width="1" marker-end="url(#arch-ar)"/>
+
+  <!-- ⑨ Auth Gateway -->
+  <rect x="160" y="195" width="110" height="70" rx="8" fill="#d04a02" fill-opacity=".10" stroke="#d04a02" stroke-width="1"/>
+  <text x="215" y="213" text-anchor="middle" font-size="9.5" font-weight="700" fill="#d04a02">⑨ Auth/Security</text>
+  <text x="215" y="228" text-anchor="middle" font-size="8.5" fill="#9ca3af">OAuth · JWT · mTLS</text>
+  <text x="215" y="241" text-anchor="middle" font-size="8.5" fill="#9ca3af">→ API Gateway</text>
+  <text x="215" y="256" text-anchor="middle" font-size="8.5" fill="#9ca3af">→ Rate Limit 검증</text>
+
+  <line x1="270" y1="230" x2="308" y2="230" stroke="#9ca3af" stroke-width="1" marker-end="url(#arch-ar)"/>
+
+  <!-- AI Agent (중앙 큰 박스) -->
+  <rect x="310" y="180" width="180" height="100" rx="10" fill="#d04a02" fill-opacity=".18" stroke="#d04a02" stroke-width="1.5"/>
+  <text x="400" y="205" text-anchor="middle" font-size="12" font-weight="700" fill="#d04a02">🤖 AI Agent (오케스트레이터)</text>
+  <text x="400" y="222" text-anchor="middle" font-size="9" fill="#9ca3af">LangGraph · Custom · 자체 코드</text>
+  <text x="400" y="241" text-anchor="middle" font-size="9" fill="var(--text)">의사결정 · 도구 선택</text>
+  <text x="400" y="256" text-anchor="middle" font-size="9" fill="var(--text)">재시도 · Circuit Breaker</text>
+  <text x="400" y="271" text-anchor="middle" font-size="9" fill="var(--text)">⑤ MCP / A2A 라우팅</text>
+
+  <!-- 외곽 박스: ⑩ Compliance + ⑧ Observability (모든 호출 감싸기) -->
+  <rect x="295" y="160" width="610" height="160" rx="14" fill="none" stroke="#d04a02" stroke-width="1" stroke-dasharray="5,3" opacity=".5"/>
+  <text x="600" y="155" text-anchor="middle" font-size="9.5" fill="#d04a02" font-weight="700">↑ ⑧ Observability + ⑩ Compliance — 모든 호출에 감싸짐 (PII 마스킹·trace·감사 로그)</text>
+
+  <!-- 5개 외부 화살표 -->
+  <line x1="490" y1="200" x2="568" y2="100" stroke="#9ca3af" stroke-width="1" marker-end="url(#arch-ar)"/>
+  <line x1="490" y1="220" x2="568" y2="180" stroke="#9ca3af" stroke-width="1" marker-end="url(#arch-ar)"/>
+  <line x1="490" y1="240" x2="568" y2="240" stroke="#9ca3af" stroke-width="1" marker-end="url(#arch-ar)"/>
+  <line x1="490" y1="260" x2="568" y2="300" stroke="#9ca3af" stroke-width="1" marker-end="url(#arch-ar)"/>
+  <line x1="490" y1="270" x2="568" y2="370" stroke="#9ca3af" stroke-width="1" marker-end="url(#arch-ar)"/>
+
+  <!-- ① LLM Provider -->
+  <rect x="570" y="80" width="190" height="42" rx="8" fill="#d04a02" fill-opacity=".10" stroke="#d04a02" stroke-width="1"/>
+  <text x="665" y="97" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">① LLM Provider APIs</text>
+  <text x="665" y="113" text-anchor="middle" font-size="8.5" fill="#9ca3af">OpenAI · Anthropic · HyperCLOVA X</text>
+
+  <!-- ⑦ Streaming -->
+  <rect x="570" y="160" width="190" height="42" rx="8" fill="#d04a02" fill-opacity=".10" stroke="#d04a02" stroke-width="1"/>
+  <text x="665" y="177" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">⑦ Streaming (SSE/WebSocket)</text>
+  <text x="665" y="193" text-anchor="middle" font-size="8.5" fill="#9ca3af">실시간 토큰 응답 · 양방향 chat</text>
+
+  <!-- ② Tool/Action -->
+  <rect x="570" y="220" width="190" height="42" rx="8" fill="#d04a02" fill-opacity=".10" stroke="#d04a02" stroke-width="1"/>
+  <text x="665" y="237" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">② Tool / Action APIs</text>
+  <text x="665" y="253" text-anchor="middle" font-size="8.5" fill="#9ca3af">검색 · Code Sandbox · Browser</text>
+
+  <!-- ③ Data Source -->
+  <rect x="570" y="280" width="190" height="42" rx="8" fill="#d04a02" fill-opacity=".10" stroke="#d04a02" stroke-width="1"/>
+  <text x="665" y="297" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">③ Data Source APIs</text>
+  <text x="665" y="313" text-anchor="middle" font-size="8.5" fill="#9ca3af">Vector DB · Notion · Confluence</text>
+
+  <!-- 묶음 1: ④ Internal + ⑥ SaaS (오른쪽 더 멀리) -->
+  <rect x="570" y="350" width="190" height="42" rx="8" fill="#d04a02" fill-opacity=".10" stroke="#d04a02" stroke-width="1"/>
+  <text x="665" y="367" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">④ Internal + ⑥ External SaaS</text>
+  <text x="665" y="383" text-anchor="middle" font-size="8.5" fill="#9ca3af">SAP · Salesforce · Slack · Stripe</text>
+
+  <!-- 응답 흐름 (오른쪽에서 왼쪽으로 돌아옴) -->
+  <path d="M 765 100 Q 880 100 880 240 Q 880 410 200 410 Q 70 410 70 270" fill="none" stroke="#22c55e" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <path d="M73,267 L70,275 L67,267 z" fill="#22c55e"/>
+  <text x="490" y="425" text-anchor="middle" font-size="9.5" fill="#22c55e" font-weight="600">↑ 응답이 다시 사용자에게 돌아오는 경로 (모든 호출이 ⑧ Observability에 trace 기록)</text>
+
+  <!-- 하단 캡션 -->
+  <text x="460" y="450" text-anchor="middle" font-size="9.5" fill="#9ca3af" font-style="italic">한 사용자 요청 = 위 5개 API 종류의 다단계 호출 + Auth/Obs/Compliance 횡단 적용</text>
+</svg>
+</div>
+<div style="margin-top:.7rem;font-size:.8rem;color:var(--text-dim);text-align:center;line-height:1.7">
+  💡 <strong style="color:var(--accent)">핵심:</strong> 한 사용자 요청 → 인증 통과 → AI Agent가 5종 API를 조합해 호출 → 결과 응답 → 모든 단계가 Observability·Compliance로 감싸짐. 이 그림이 이번 챕터의 전체 지도입니다.
+</div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
      SECTION 1: 왜 분류부터 시작하나
      ═══════════════════════════════════════════ -->
 <div class="dia reveal">
@@ -3272,40 +3421,375 @@ service-account.json</code></pre>
 </div>
 
 <!-- ═══════════════════════════════════════════
-     SECTION 5: Cross-cutting Concerns
+     SECTION 5: Cross-cutting Concerns (시각화)
      ═══════════════════════════════════════════ -->
 <div class="dia reveal">
-<div class="dia-title">🔄 Cross-cutting Concerns — 모든 통합에 공통 적용</div>
-<div style="max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:.6rem">
+<div class="dia-title">🔄 Cross-cutting Concerns — 모든 통합에 공통 적용 (그림으로 보기)</div>
+<p style="max-width:880px;margin:0 auto 1rem;font-size:.85rem;color:var(--text);line-height:1.85;text-align:center">10개 카테고리 어느 것을 통합하든 <strong style="color:var(--accent)">"공통으로 신경 써야 할 6가지"</strong>가 있습니다. 각각이 무엇이고 어떻게 동작하는지 그림으로.</p>
+</div>
 
-  <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
-    <div style="font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.35rem">🔐 Auth 패턴</div>
-    <div style="font-size:.74rem;color:var(--text);line-height:1.7">OAuth (사용자) · JWT (서버 간) · API Key (간단) · mTLS (엔터프라이즈). 통합마다 다른 방식 → API Gateway에서 통합 처리.</div>
+<!-- ── ① Auth 패턴 — 4가지 비교 ── -->
+<div class="dia reveal">
+<div class="dia-title">① 🔐 Auth — "누가 호출하는가"를 증명하는 4가지 방법</div>
+<div style="max-width:920px;margin:0 auto">
+<svg viewBox="0 0 920 220" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="auth-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/>
+    </marker>
+  </defs>
+
+  <!-- API Key -->
+  <g>
+    <rect x="20" y="20" width="200" height="180" rx="10" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+    <text x="120" y="40" text-anchor="middle" font-size="11" font-weight="700" fill="#d04a02">🔑 API Key</text>
+    <rect x="40" y="60" width="60" height="30" rx="6" style="fill:var(--card);stroke:var(--accent-border)" stroke-width="1"/>
+    <text x="70" y="79" text-anchor="middle" font-size="9" fill="var(--text)">내 앱</text>
+    <rect x="140" y="60" width="60" height="30" rx="6" style="fill:var(--card);stroke:var(--accent-border)" stroke-width="1"/>
+    <text x="170" y="79" text-anchor="middle" font-size="9" fill="var(--text)">외부 API</text>
+    <line x1="100" y1="75" x2="138" y2="75" stroke="#9ca3af" stroke-width="1" marker-end="url(#auth-ar)"/>
+    <text x="120" y="65" text-anchor="middle" font-size="8" fill="#9ca3af" font-style="italic">key 동봉</text>
+    <text x="120" y="115" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">매 요청마다</text>
+    <text x="120" y="127" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">Header에 키 포함</text>
+    <text x="120" y="148" text-anchor="middle" font-size="8.5" fill="#22c55e" font-weight="600">✓ 가장 단순</text>
+    <text x="120" y="162" text-anchor="middle" font-size="8.5" fill="#ef4444">✗ 회전 어려움</text>
+    <text x="120" y="183" text-anchor="middle" font-size="8" fill="#9ca3af">예: OpenAI · NCP CLOVA</text>
+  </g>
+
+  <!-- OAuth 2.0 -->
+  <g>
+    <rect x="240" y="20" width="200" height="180" rx="10" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+    <text x="340" y="40" text-anchor="middle" font-size="11" font-weight="700" fill="#d04a02">🔄 OAuth 2.0</text>
+    <rect x="252" y="56" width="50" height="22" rx="4" style="fill:var(--card);stroke:var(--accent-border)" stroke-width="1"/>
+    <text x="277" y="71" text-anchor="middle" font-size="8" fill="var(--text)">사용자</text>
+    <rect x="315" y="56" width="50" height="22" rx="4" style="fill:var(--card);stroke:var(--accent-border)" stroke-width="1"/>
+    <text x="340" y="71" text-anchor="middle" font-size="8" fill="var(--text)">내 앱</text>
+    <rect x="378" y="56" width="50" height="22" rx="4" style="fill:var(--card);stroke:var(--accent-border)" stroke-width="1"/>
+    <text x="403" y="71" text-anchor="middle" font-size="8" fill="var(--text)">SaaS</text>
+    <line x1="302" y1="67" x2="313" y2="67" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#auth-ar)"/>
+    <line x1="365" y1="67" x2="376" y2="67" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#auth-ar)"/>
+    <text x="340" y="92" text-anchor="middle" font-size="7.5" fill="#9ca3af" font-style="italic">→ 로그인 → 동의 → 토큰</text>
+    <text x="340" y="115" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">사용자별 access_token +</text>
+    <text x="340" y="127" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">refresh_token 발급</text>
+    <text x="340" y="148" text-anchor="middle" font-size="8.5" fill="#22c55e" font-weight="600">✓ 사용자별 권한</text>
+    <text x="340" y="162" text-anchor="middle" font-size="8.5" fill="#ef4444">✗ 흐름 복잡, 갱신 필요</text>
+    <text x="340" y="183" text-anchor="middle" font-size="8" fill="#9ca3af">예: Slack · Google · Notion</text>
+  </g>
+
+  <!-- JWT -->
+  <g>
+    <rect x="460" y="20" width="200" height="180" rx="10" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+    <text x="560" y="40" text-anchor="middle" font-size="11" font-weight="700" fill="#d04a02">🎫 JWT</text>
+    <rect x="480" y="60" width="60" height="30" rx="6" style="fill:var(--card);stroke:var(--accent-border)" stroke-width="1"/>
+    <text x="510" y="79" text-anchor="middle" font-size="9" fill="var(--text)">서비스 A</text>
+    <rect x="580" y="60" width="60" height="30" rx="6" style="fill:var(--card);stroke:var(--accent-border)" stroke-width="1"/>
+    <text x="610" y="79" text-anchor="middle" font-size="9" fill="var(--text)">서비스 B</text>
+    <line x1="540" y1="75" x2="578" y2="75" stroke="#9ca3af" stroke-width="1" marker-end="url(#auth-ar)"/>
+    <text x="560" y="65" text-anchor="middle" font-size="8" fill="#9ca3af" font-style="italic">서명된 토큰</text>
+    <text x="560" y="115" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">자체 포함 (stateless)</text>
+    <text x="560" y="127" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">서버 간 신원 증명</text>
+    <text x="560" y="148" text-anchor="middle" font-size="8.5" fill="#22c55e" font-weight="600">✓ 빠름, 분산 친화</text>
+    <text x="560" y="162" text-anchor="middle" font-size="8.5" fill="#ef4444">✗ 즉시 revoke 어려움</text>
+    <text x="560" y="183" text-anchor="middle" font-size="8" fill="#9ca3af">예: 마이크로서비스 간</text>
+  </g>
+
+  <!-- mTLS -->
+  <g>
+    <rect x="680" y="20" width="220" height="180" rx="10" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+    <text x="790" y="40" text-anchor="middle" font-size="11" font-weight="700" fill="#d04a02">🔒 mTLS</text>
+    <rect x="700" y="60" width="60" height="30" rx="6" style="fill:var(--card);stroke:var(--accent-border)" stroke-width="1"/>
+    <text x="730" y="73" text-anchor="middle" font-size="9" fill="var(--text)">서비스 A</text>
+    <text x="730" y="84" text-anchor="middle" font-size="7" fill="#9ca3af">+ 인증서</text>
+    <rect x="820" y="60" width="60" height="30" rx="6" style="fill:var(--card);stroke:var(--accent-border)" stroke-width="1"/>
+    <text x="850" y="73" text-anchor="middle" font-size="9" fill="var(--text)">서비스 B</text>
+    <text x="850" y="84" text-anchor="middle" font-size="7" fill="#9ca3af">+ 인증서</text>
+    <line x1="760" y1="75" x2="818" y2="75" stroke="#9ca3af" stroke-width="1" marker-start="url(#auth-ar)" marker-end="url(#auth-ar)"/>
+    <text x="790" y="65" text-anchor="middle" font-size="7.5" fill="#9ca3af" font-style="italic">상호 인증서 검증</text>
+    <text x="790" y="115" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">양쪽 모두 인증서 검증</text>
+    <text x="790" y="127" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">위조 사실상 불가</text>
+    <text x="790" y="148" text-anchor="middle" font-size="8.5" fill="#22c55e" font-weight="600">✓ 가장 강력</text>
+    <text x="790" y="162" text-anchor="middle" font-size="8.5" fill="#ef4444">✗ 인증서 운영 부담</text>
+    <text x="790" y="183" text-anchor="middle" font-size="8" fill="#9ca3af">예: 금융·정부·국방</text>
+  </g>
+</svg>
+<div style="margin-top:.6rem;padding:.7rem 1rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
+  💡 <strong style="color:var(--accent)">선택 가이드:</strong> 빠른 시작 = API Key / SaaS 통합 = OAuth / 마이크로서비스 간 = JWT / 금융·정부 = mTLS. 보통 <strong>여러 방식을 조합</strong>해 쓰며, API Gateway가 한 곳에서 검증.
+</div>
+</div>
+</div>
+
+<!-- ── ② Rate Limit — 토큰 버킷 ── -->
+<div class="dia reveal">
+<div class="dia-title">② ⚖️ Rate Limit — "1초에 몇 번까지 가능한가" (토큰 버킷)</div>
+<div style="max-width:880px;margin:0 auto">
+<svg viewBox="0 0 880 240" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="rl-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/>
+    </marker>
+  </defs>
+
+  <!-- 토큰 보충 (수도꼭지) -->
+  <text x="180" y="22" text-anchor="middle" font-size="10" fill="#d04a02" font-weight="700">매초 N개씩 토큰 추가</text>
+  <text x="180" y="42" text-anchor="middle" font-size="20" fill="#22c55e">💧</text>
+  <line x1="180" y1="50" x2="180" y2="80" stroke="#9ca3af" stroke-width="1" marker-end="url(#rl-ar)"/>
+
+  <!-- 버킷 -->
+  <path d="M 100 90 L 110 200 L 250 200 L 260 90 Z" fill="none" stroke="#d04a02" stroke-width="1.5"/>
+  <text x="180" y="80" text-anchor="middle" font-size="9" fill="#9ca3af">↓ 버킷 (최대 N개)</text>
+  <!-- 버킷 안 토큰들 -->
+  <circle cx="135" cy="180" r="8" fill="#22c55e" opacity=".7"/>
+  <circle cx="155" cy="180" r="8" fill="#22c55e" opacity=".7"/>
+  <circle cx="175" cy="180" r="8" fill="#22c55e" opacity=".7"/>
+  <circle cx="195" cy="180" r="8" fill="#22c55e" opacity=".7"/>
+  <circle cx="215" cy="180" r="8" fill="#22c55e" opacity=".7"/>
+  <circle cx="235" cy="180" r="8" fill="#22c55e" opacity=".7"/>
+  <circle cx="145" cy="160" r="8" fill="#22c55e" opacity=".5"/>
+  <circle cx="175" cy="160" r="8" fill="#22c55e" opacity=".5"/>
+  <circle cx="205" cy="160" r="8" fill="#22c55e" opacity=".5"/>
+  <text x="180" y="220" text-anchor="middle" font-size="9" fill="var(--text-dim)" font-style="italic">현재 9개 토큰 보유</text>
+
+  <!-- API 호출 (오른쪽) -->
+  <line x1="265" y1="145" x2="305" y2="145" stroke="#9ca3af" stroke-width="1" marker-end="url(#rl-ar)"/>
+  <text x="285" y="135" text-anchor="middle" font-size="8" fill="#9ca3af" font-style="italic">호출 시 1개 사용</text>
+
+  <!-- 케이스 A: 토큰 있음 → 통과 -->
+  <rect x="320" y="60" width="240" height="80" rx="8" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="1"/>
+  <text x="440" y="80" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">A. 토큰 있음 → 호출 통과</text>
+  <text x="440" y="100" text-anchor="middle" font-size="8.5" fill="var(--text)">API 호출 → 토큰 1개 차감</text>
+  <text x="440" y="115" text-anchor="middle" font-size="8.5" fill="var(--text)">→ 정상 응답 200 OK</text>
+  <text x="440" y="132" text-anchor="middle" font-size="8" fill="#22c55e" font-weight="600">✓ 평소 상황</text>
+
+  <!-- 케이스 B: 토큰 없음 → 거절 -->
+  <rect x="320" y="155" width="240" height="80" rx="8" fill="#ef4444" fill-opacity=".10" stroke="#ef4444" stroke-width="1"/>
+  <text x="440" y="175" text-anchor="middle" font-size="10" font-weight="700" fill="#ef4444">B. 토큰 없음 → 거절 (429)</text>
+  <text x="440" y="195" text-anchor="middle" font-size="8.5" fill="var(--text)">버킷 비었음 → "잠깐 기다려"</text>
+  <text x="440" y="210" text-anchor="middle" font-size="8.5" fill="var(--text)">429 Too Many Requests + Retry-After</text>
+  <text x="440" y="227" text-anchor="middle" font-size="8" fill="#ef4444" font-weight="600">⚠ 처리 필수</text>
+
+  <!-- 우리 대응 -->
+  <line x1="565" y1="195" x2="600" y2="145" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#rl-ar)"/>
+
+  <rect x="600" y="60" width="260" height="170" rx="8" fill="#d04a02" fill-opacity=".08" stroke="#d04a02" stroke-width="1"/>
+  <text x="730" y="80" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">우리 코드의 대응 (Retry)</text>
+  <text x="615" y="105" font-size="9" fill="var(--text)">1초 후 다시 호출</text>
+  <text x="615" y="125" font-size="9" fill="var(--text)">→ 또 429 → <strong>2초</strong> 후 다시</text>
+  <text x="615" y="145" font-size="9" fill="var(--text)">→ 또 429 → <strong>4초</strong> 후 다시</text>
+  <text x="615" y="165" font-size="9" fill="var(--text)">→ 또 429 → <strong>8초</strong> 후 다시</text>
+  <text x="730" y="190" text-anchor="middle" font-size="9" fill="#d04a02" font-weight="700">= Exponential Backoff</text>
+  <text x="730" y="210" text-anchor="middle" font-size="8" fill="#9ca3af" font-style="italic">+ jitter (랜덤): 폭주 방지</text>
+  <text x="730" y="223" text-anchor="middle" font-size="8" fill="#9ca3af">+ 최대 N회 후 포기</text>
+</svg>
+<div style="margin-top:.6rem;padding:.7rem 1rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
+  💡 <strong style="color:var(--accent)">실전:</strong> OpenAI·Stripe·Slack 모두 token bucket 방식. 우리 쪽에서는 <strong>429 받으면 무조건 backoff</strong> + 사용량 미리 모니터링. tenant별 quota도 같은 알고리즘.
+</div>
+</div>
+</div>
+
+<!-- ── ③ Circuit Breaker — 3 상태 ── -->
+<div class="dia reveal">
+<div class="dia-title">③ 🛡️ Circuit Breaker — 외부 장애 시 호출 차단 (3 상태)</div>
+<div style="max-width:920px;margin:0 auto">
+<svg viewBox="0 0 920 240" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="cb-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/>
+    </marker>
+  </defs>
+
+  <!-- CLOSED -->
+  <rect x="20" y="50" width="240" height="140" rx="10" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="140" y="75" text-anchor="middle" font-size="13" font-weight="700" fill="#22c55e">🟢 CLOSED</text>
+  <text x="140" y="92" text-anchor="middle" font-size="9" fill="var(--text-dim)">(정상 — 회로 닫힘)</text>
+  <text x="140" y="120" text-anchor="middle" font-size="10" fill="var(--text)">호출 → 외부 API</text>
+  <text x="140" y="138" text-anchor="middle" font-size="10" fill="var(--text)">정상 응답</text>
+  <text x="140" y="160" text-anchor="middle" font-size="9" fill="#22c55e" font-weight="600">평상시 동작</text>
+  <text x="140" y="180" text-anchor="middle" font-size="8.5" fill="#9ca3af" font-style="italic">실패 누적 카운트만 추적</text>
+
+  <!-- 화살표 + 조건 -->
+  <line x1="265" y1="120" x2="335" y2="120" stroke="#ef4444" stroke-width="1" marker-end="url(#cb-ar)"/>
+  <text x="300" y="110" text-anchor="middle" font-size="8.5" fill="#ef4444" font-weight="700">5번 연속 실패</text>
+  <text x="300" y="138" text-anchor="middle" font-size="8" fill="#9ca3af" font-style="italic">자동 전환</text>
+
+  <!-- OPEN -->
+  <rect x="340" y="50" width="240" height="140" rx="10" fill="#ef4444" fill-opacity=".10" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="460" y="75" text-anchor="middle" font-size="13" font-weight="700" fill="#ef4444">🔴 OPEN</text>
+  <text x="460" y="92" text-anchor="middle" font-size="9" fill="var(--text-dim)">(차단 — 회로 열림)</text>
+  <text x="460" y="120" text-anchor="middle" font-size="10" fill="var(--text)">호출 → 즉시 fail</text>
+  <text x="460" y="138" text-anchor="middle" font-size="10" fill="var(--text)">외부 API 호출 안 함</text>
+  <text x="460" y="160" text-anchor="middle" font-size="9" fill="#ef4444" font-weight="600">30초간 차단 유지</text>
+  <text x="460" y="180" text-anchor="middle" font-size="8.5" fill="#9ca3af" font-style="italic">→ fallback 응답 (캐시·기본값)</text>
+
+  <line x1="585" y1="120" x2="655" y2="120" stroke="#f59e0b" stroke-width="1" marker-end="url(#cb-ar)"/>
+  <text x="620" y="110" text-anchor="middle" font-size="8.5" fill="#f59e0b" font-weight="700">30초 경과</text>
+  <text x="620" y="138" text-anchor="middle" font-size="8" fill="#9ca3af" font-style="italic">시간 초과</text>
+
+  <!-- HALF-OPEN -->
+  <rect x="660" y="50" width="240" height="140" rx="10" fill="#f59e0b" fill-opacity=".10" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="780" y="75" text-anchor="middle" font-size="13" font-weight="700" fill="#f59e0b">🟡 HALF-OPEN</text>
+  <text x="780" y="92" text-anchor="middle" font-size="9" fill="var(--text-dim)">(테스트 — 반쯤 닫힘)</text>
+  <text x="780" y="120" text-anchor="middle" font-size="10" fill="var(--text)">딱 1번만 시도</text>
+  <text x="780" y="138" text-anchor="middle" font-size="10" fill="var(--text)">→ 성공? → CLOSED 복귀</text>
+  <text x="780" y="160" text-anchor="middle" font-size="9" fill="#f59e0b" font-weight="600">→ 실패? → 다시 OPEN</text>
+  <text x="780" y="180" text-anchor="middle" font-size="8.5" fill="#9ca3af" font-style="italic">서비스 회복 자동 감지</text>
+
+  <!-- HALF-OPEN → CLOSED 회복 (위쪽 곡선) -->
+  <path d="M 780 50 Q 780 20 460 20 Q 140 20 140 50" fill="none" stroke="#22c55e" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#cb-ar)"/>
+  <text x="460" y="13" text-anchor="middle" font-size="8.5" fill="#22c55e" font-weight="700">✓ 성공 → CLOSED 복귀</text>
+
+  <!-- HALF-OPEN → OPEN 재차단 (아래 곡선) -->
+  <path d="M 780 190 Q 780 220 620 220 Q 460 220 460 190" fill="none" stroke="#ef4444" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#cb-ar)"/>
+  <text x="620" y="234" text-anchor="middle" font-size="8.5" fill="#ef4444" font-weight="700">✗ 실패 → OPEN 재차단</text>
+</svg>
+<div style="margin-top:.6rem;padding:.7rem 1rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
+  💡 <strong style="color:var(--accent)">왜 필요한가:</strong> 외부 LLM API가 죽어도 우리 시스템은 살아있어야 함. Circuit Breaker 없으면 모든 worker가 죽은 API 기다리며 timeout → 우리 시스템 자체 마비. <strong style="color:var(--accent)">라이브러리:</strong> Python <code style="background:var(--surface);padding:.1em .3em;border-radius:3px;font-size:.85em">pybreaker</code>, JS <code style="background:var(--surface);padding:.1em .3em;border-radius:3px;font-size:.85em">opossum</code>.
+</div>
+</div>
+</div>
+
+<!-- ── ④ Idempotency — 중복 결제 방지 ── -->
+<div class="dia reveal">
+<div class="dia-title">④ 🔁 Idempotency — "재시도해도 한 번만 일어남" 보장</div>
+<div style="max-width:920px;margin:0 auto">
+<svg viewBox="0 0 920 280" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="id-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/>
+    </marker>
+  </defs>
+
+  <!-- 시나리오 -->
+  <text x="460" y="20" text-anchor="middle" font-size="11" font-weight="700" fill="#d04a02">시나리오: AI 에이전트가 환불 5만원 요청 → 네트워크 오류 → 자동 재시도 3회</text>
+
+  <!-- BAD: Idempotency 없을 때 -->
+  <rect x="20" y="40" width="430" height="220" rx="10" fill="#ef4444" fill-opacity=".05" stroke="#ef4444" stroke-width="1"/>
+  <text x="235" y="62" text-anchor="middle" font-size="12" font-weight="700" fill="#ef4444">😱 Idempotency 없음 (BAD)</text>
+
+  <!-- 호출 1 -->
+  <rect x="40" y="80" width="100" height="34" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+  <text x="90" y="95" text-anchor="middle" font-size="9" fill="var(--text)">시도 1</text>
+  <text x="90" y="107" text-anchor="middle" font-size="8.5" fill="#9ca3af">POST /refund</text>
+  <line x1="142" y1="97" x2="178" y2="97" stroke="#9ca3af" stroke-width="1" marker-end="url(#id-ar)"/>
+  <rect x="180" y="80" width="120" height="34" rx="6" fill="#ef4444" fill-opacity=".15" stroke="#ef4444" stroke-width="1"/>
+  <text x="240" y="93" text-anchor="middle" font-size="9" fill="#ef4444">5만원 환불 ✓</text>
+  <text x="240" y="106" text-anchor="middle" font-size="8" fill="#9ca3af">(타임아웃)</text>
+
+  <!-- 호출 2 -->
+  <rect x="40" y="125" width="100" height="34" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+  <text x="90" y="140" text-anchor="middle" font-size="9" fill="var(--text)">시도 2 (재시도)</text>
+  <text x="90" y="152" text-anchor="middle" font-size="8.5" fill="#9ca3af">POST /refund</text>
+  <line x1="142" y1="142" x2="178" y2="142" stroke="#9ca3af" stroke-width="1" marker-end="url(#id-ar)"/>
+  <rect x="180" y="125" width="120" height="34" rx="6" fill="#ef4444" fill-opacity=".15" stroke="#ef4444" stroke-width="1"/>
+  <text x="240" y="138" text-anchor="middle" font-size="9" fill="#ef4444">또 5만원 환불 ✓</text>
+  <text x="240" y="151" text-anchor="middle" font-size="8" fill="#9ca3af">(타임아웃)</text>
+
+  <!-- 호출 3 -->
+  <rect x="40" y="170" width="100" height="34" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+  <text x="90" y="185" text-anchor="middle" font-size="9" fill="var(--text)">시도 3 (재시도)</text>
+  <text x="90" y="197" text-anchor="middle" font-size="8.5" fill="#9ca3af">POST /refund</text>
+  <line x1="142" y1="187" x2="178" y2="187" stroke="#9ca3af" stroke-width="1" marker-end="url(#id-ar)"/>
+  <rect x="180" y="170" width="120" height="34" rx="6" fill="#ef4444" fill-opacity=".15" stroke="#ef4444" stroke-width="1"/>
+  <text x="240" y="183" text-anchor="middle" font-size="9" fill="#ef4444">또 5만원 환불 ✓</text>
+  <text x="240" y="196" text-anchor="middle" font-size="8" fill="#22c55e">(성공 응답!)</text>
+
+  <!-- 결과 -->
+  <rect x="320" y="80" width="120" height="124" rx="8" fill="#ef4444" fill-opacity=".18" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="380" y="105" text-anchor="middle" font-size="11" fill="#ef4444" font-weight="700">결과</text>
+  <text x="380" y="135" text-anchor="middle" font-size="20" fill="#ef4444">15만원</text>
+  <text x="380" y="158" text-anchor="middle" font-size="9" fill="#ef4444">3번 환불됨!</text>
+  <text x="380" y="175" text-anchor="middle" font-size="8" fill="#9ca3af">고객 5만원 받기로 했는데</text>
+  <text x="380" y="188" text-anchor="middle" font-size="8" fill="#9ca3af">15만원 받음 → 손실</text>
+
+  <text x="235" y="235" text-anchor="middle" font-size="9.5" fill="#ef4444" font-weight="700">⚠ 같은 요청 = 매번 새 작업으로 처리됨</text>
+  <text x="235" y="252" text-anchor="middle" font-size="8.5" fill="#9ca3af" font-style="italic">금융·결제 시스템에서 흔한 사고</text>
+
+  <!-- GOOD: Idempotency 있을 때 -->
+  <rect x="470" y="40" width="430" height="220" rx="10" fill="#22c55e" fill-opacity=".05" stroke="#22c55e" stroke-width="1"/>
+  <text x="685" y="62" text-anchor="middle" font-size="12" font-weight="700" fill="#22c55e">✨ Idempotency Key 사용 (GOOD)</text>
+
+  <!-- 호출 1 -->
+  <rect x="490" y="80" width="120" height="34" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+  <text x="550" y="93" text-anchor="middle" font-size="9" fill="var(--text)">시도 1</text>
+  <text x="550" y="106" text-anchor="middle" font-size="7.5" fill="#9ca3af">key=uuid-abc-123</text>
+  <line x1="612" y1="97" x2="648" y2="97" stroke="#9ca3af" stroke-width="1" marker-end="url(#id-ar)"/>
+  <rect x="650" y="80" width="130" height="34" rx="6" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1"/>
+  <text x="715" y="93" text-anchor="middle" font-size="9" fill="#22c55e">5만원 환불 ✓</text>
+  <text x="715" y="106" text-anchor="middle" font-size="8" fill="#9ca3af">key 저장 + 결과 캐시</text>
+
+  <!-- 호출 2 -->
+  <rect x="490" y="125" width="120" height="34" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+  <text x="550" y="138" text-anchor="middle" font-size="9" fill="var(--text)">시도 2 (재시도)</text>
+  <text x="550" y="151" text-anchor="middle" font-size="7.5" fill="#9ca3af">key=uuid-abc-123</text>
+  <line x1="612" y1="142" x2="648" y2="142" stroke="#9ca3af" stroke-width="1" marker-end="url(#id-ar)"/>
+  <rect x="650" y="125" width="130" height="34" rx="6" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1"/>
+  <text x="715" y="138" text-anchor="middle" font-size="9" fill="#22c55e">"이미 처리됨"</text>
+  <text x="715" y="151" text-anchor="middle" font-size="8" fill="#9ca3af">캐시된 결과 반환</text>
+
+  <!-- 호출 3 -->
+  <rect x="490" y="170" width="120" height="34" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+  <text x="550" y="183" text-anchor="middle" font-size="9" fill="var(--text)">시도 3 (재시도)</text>
+  <text x="550" y="196" text-anchor="middle" font-size="7.5" fill="#9ca3af">key=uuid-abc-123</text>
+  <line x1="612" y1="187" x2="648" y2="187" stroke="#9ca3af" stroke-width="1" marker-end="url(#id-ar)"/>
+  <rect x="650" y="170" width="130" height="34" rx="6" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1"/>
+  <text x="715" y="183" text-anchor="middle" font-size="9" fill="#22c55e">"이미 처리됨"</text>
+  <text x="715" y="196" text-anchor="middle" font-size="8" fill="#9ca3af">캐시된 결과 반환</text>
+
+  <text x="685" y="232" text-anchor="middle" font-size="11" fill="#22c55e" font-weight="700">결과: 5만원만 환불 ✓</text>
+  <text x="685" y="252" text-anchor="middle" font-size="8.5" fill="#9ca3af" font-style="italic">서버가 같은 key 보고 "이미 처리한 요청"으로 인식</text>
+</svg>
+<div style="margin-top:.6rem;padding:.7rem 1rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
+  💡 <strong style="color:var(--accent)">규칙:</strong> 모든 mutating(변경) API 호출에 <code style="background:var(--surface);padding:.1em .3em;border-radius:3px;font-size:.85em">Idempotency-Key: &lt;UUID v4&gt;</code> 헤더. 재시도 시 <strong>같은 key 재사용</strong>. Stripe·Square·결제 PG의 표준. 자세히 → <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/idempotency.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">wiki/entities/idempotency.md</a>.
+</div>
+</div>
+</div>
+
+<!-- ── ⑤ Observability — trace tree ── -->
+<div class="dia reveal">
+<div class="dia-title">⑤ 📊 Observability — 한 사용자 요청의 모든 호출을 trace로 추적</div>
+<div style="max-width:880px;margin:0 auto">
+<div style="background:var(--card);border:1px solid var(--accent-border);border-radius:10px;padding:1rem;font-family:var(--mono);font-size:.78rem;color:var(--text);line-height:1.85">
+<span style="color:var(--accent)">▼ Trace abc-123</span> &nbsp; <span style="color:#9ca3af">total: 3.2s · cost: $0.087 · tokens: 5,721</span><br>
+├── <span style="color:var(--text)">User input:</span> "AAPL Q4 분석해줘"<br>
+├── <span style="color:#22c55e">[600ms] LLM call</span> (gpt-4o, 234 tok, $0.012)<br>
+│ &nbsp;&nbsp;&nbsp;└── <span style="color:#9ca3af">decided: tool=search_news</span><br>
+├── <span style="color:#f59e0b">[200ms] tool: search_news</span> (Tavily, $0.005)<br>
+│ &nbsp;&nbsp;&nbsp;└── <span style="color:#9ca3af">15 articles fetched</span><br>
+├── <span style="color:#22c55e">[1100ms] LLM call</span> (claude-sonnet, 1.4k tok, $0.034)<br>
+│ &nbsp;&nbsp;&nbsp;└── <span style="color:#9ca3af">decided: tool=query_db (재무 데이터)</span><br>
+├── <span style="color:#f59e0b">[180ms] tool: query_db</span> (Snowflake, $0.001)<br>
+│ &nbsp;&nbsp;&nbsp;└── <span style="color:#9ca3af">12 rows</span><br>
+├── <span style="color:#22c55e">[1200ms] LLM call</span> (claude-sonnet, 4k tok, $0.035)<br>
+│ &nbsp;&nbsp;&nbsp;└── <span style="color:#9ca3af">최종 답변 생성</span><br>
+└── <span style="color:var(--accent)">[100ms] PII 마스킹</span> + <span style="color:var(--accent)">감사 로그</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;└── <span style="color:#9ca3af">사용자에게 응답</span>
+</div>
+<div style="margin-top:.6rem;padding:.7rem 1rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
+  💡 <strong style="color:var(--accent)">한 줄로:</strong> 모든 LLM·도구·DB 호출을 한 trace 트리로 묶어 기록. 어디서 시간 많이 썼는지·어디서 비용 많이 썼는지·어디서 실패했는지 한눈에. <strong style="color:var(--accent)">도구:</strong> LangSmith · Langfuse · Helicone · Datadog. 자세히 → <a href="/04-ai-agents-advanced#p4-ch10" style="color:var(--accent);text-decoration:underline">Part 4 Ch.10 Observability</a>.
+</div>
+</div>
+</div>
+
+<!-- ── ⑥ Cost Control + Versioning (텍스트 카드 2개) ── -->
+<div class="dia reveal">
+<div class="dia-title">⑥ 💰 Cost Control + 📦 Versioning — 운영 단계의 마지막 두 축</div>
+<div style="max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+    <div style="font-size:.92rem;font-weight:700;color:var(--accent);margin-bottom:.5rem">💰 Cost Control</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      ① <strong>Tenant·feature별 attribution</strong> — 모든 호출에 태그<br>
+      ② <strong>Prompt cache</strong> — 같은 시스템 프롬프트 재사용 시 90% 절감 (Anthropic·OpenAI)<br>
+      ③ <strong>모델 fallback</strong> — 작은 모델로도 가능한 작업은 작은 모델로<br>
+      ④ <strong>일일 한도 + 알람</strong> — "월말 1억 청구서" 사고 방지
+    </div>
   </div>
-
-  <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
-    <div style="font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.35rem">⚖️ Rate Limiting / Quota</div>
-    <div style="font-size:.74rem;color:var(--text);line-height:1.7">429 응답 처리 + exponential backoff + jitter. 토큰 버킷 알고리즘. tenant별 quota.</div>
-  </div>
-
-  <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
-    <div style="font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.35rem">📊 Observability</div>
-    <div style="font-size:.74rem;color:var(--text);line-height:1.7">OpenTelemetry trace + LangSmith (LLM 특화). 모든 호출 자동 기록. <a href="/04-ai-agents-advanced#p4-ch10" style="color:var(--accent);text-decoration:underline">Part 4 Ch.10</a> 참고.</div>
-  </div>
-
-  <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
-    <div style="font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.35rem">💰 Cost Control</div>
-    <div style="font-size:.74rem;color:var(--text);line-height:1.7">tenant별·feature별 attribution. Prompt cache (90% 절감). 모델 fallback. 일일 한도 + 알람.</div>
-  </div>
-
-  <div style="padding:.85rem;background:var(--card);border:1.5px solid var(--accent);border-radius:10px">
-    <div style="font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.35rem">🛡️ Error Handling ⭐</div>
-    <div style="font-size:.74rem;color:var(--text);line-height:1.7">Retry (exponential backoff + jitter) + <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/circuit-breaker.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">Circuit breaker</a> + Bulkhead + <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/idempotency.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">Idempotency</a>. AI 시대 더 중요.</div>
-  </div>
-
-  <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
-    <div style="font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.35rem">📦 Versioning</div>
-    <div style="font-size:.74rem;color:var(--text);line-height:1.7">Backward compat 유지. Deprecation 6개월 이상 사전 공지. URL 또는 헤더로 버전 명시 (/v2/, X-API-Version).</div>
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+    <div style="font-size:.92rem;font-weight:700;color:var(--accent);margin-bottom:.5rem">📦 Versioning</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      ① <strong>URL 또는 헤더로 버전 명시</strong> — <code style="background:var(--surface);padding:.05em .3em;border-radius:3px;font-size:.85em">/v2/</code> 또는 <code style="background:var(--surface);padding:.05em .3em;border-radius:3px;font-size:.85em">X-API-Version: 2026-05-09</code><br>
+      ② <strong>Backward compat</strong> 6개월 이상 유지<br>
+      ③ <strong>Deprecation 사전 공지</strong> + 마이그레이션 가이드<br>
+      ④ <strong>모델 버전 추적</strong> — "이 결정은 어느 모델 버전이?" 감사 가능
+    </div>
   </div>
 
 </div>
@@ -3391,18 +3875,102 @@ service-account.json</code></pre>
     </div>
   </div>
 
-  <!-- 망분리 환경 패턴 -->
+  <!-- 망분리 환경 패턴 — SVG 시각화 -->
   <div style="margin-bottom:1rem">
     <div style="font-family:var(--display);font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:.5rem">🛡 망분리 환경의 통합 패턴 (금융·공공·대기업)</div>
-    <div style="padding:.85rem 1rem;background:var(--surface);border-radius:8px;font-size:.8rem;color:var(--text);line-height:1.85">
-      <strong>문제:</strong> 인터넷망과 내부망이 물리적으로 분리. 외부 LLM API 직접 호출 불가.<br>
-      <strong>해결 패턴:</strong>
-      <ol style="margin:.3rem 0 0 1.4rem;padding:0">
-        <li><strong>온프레미스 LLM</strong> — Brity Copilot · KT MI:DM 사내 서버 배포</li>
-        <li><strong>DMZ 게이트웨이</strong> — 외부 LLM API를 DMZ에서 프록시 + PII 마스킹·감사 로그</li>
-        <li><strong>NeuroCloud / Sovereign Cloud</strong> — 고객 IDC 내 hybrid cloud (네이버·KT·NCP)</li>
-        <li><strong>API 게이트웨이 + PII 필터</strong> — 모든 외부 호출에 의무. PIPA 준수</li>
-      </ol>
+    <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:10px;padding:1rem">
+    <svg viewBox="0 0 920 320" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="mb-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/>
+        </marker>
+      </defs>
+
+      <!-- Title -->
+      <text x="460" y="20" text-anchor="middle" font-size="11" font-weight="700" fill="#d04a02">3개 영역 (내부망 ─ DMZ ─ 인터넷) 사이의 통합 패턴</text>
+
+      <!-- 내부망 (왼쪽) -->
+      <rect x="20" y="40" width="240" height="240" rx="12" fill="#22c55e" fill-opacity=".06" stroke="#22c55e" stroke-width="1" stroke-dasharray="6,4"/>
+      <text x="140" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="#22c55e">🔒 내부망 (사내)</text>
+      <text x="140" y="78" text-anchor="middle" font-size="9" fill="#9ca3af">금융·공공·대기업의 비즈니스 시스템</text>
+
+      <!-- 사용자 + 사내 시스템 -->
+      <rect x="40" y="95" width="100" height="42" rx="8" style="fill:var(--surface);stroke:#22c55e" stroke-width="1"/>
+      <text x="90" y="113" text-anchor="middle" font-size="10" font-weight="600" fill="#22c55e">👤 사내 사용자</text>
+      <text x="90" y="127" text-anchor="middle" font-size="8" fill="#9ca3af">SSO 로그인</text>
+
+      <rect x="160" y="95" width="80" height="42" rx="8" style="fill:var(--surface);stroke:#22c55e" stroke-width="1"/>
+      <text x="200" y="113" text-anchor="middle" font-size="9" font-weight="600" fill="#22c55e">사내 ERP</text>
+      <text x="200" y="127" text-anchor="middle" font-size="8" fill="#9ca3af">SAP·자체</text>
+
+      <rect x="40" y="155" width="100" height="42" rx="8" style="fill:var(--surface);stroke:#22c55e" stroke-width="1"/>
+      <text x="90" y="173" text-anchor="middle" font-size="10" font-weight="600" fill="#22c55e">🤖 AI Agent</text>
+      <text x="90" y="187" text-anchor="middle" font-size="8" fill="#9ca3af">사내 배포</text>
+
+      <rect x="160" y="155" width="80" height="42" rx="8" style="fill:var(--surface);stroke:#22c55e" stroke-width="1"/>
+      <text x="200" y="173" text-anchor="middle" font-size="9" font-weight="600" fill="#22c55e">국산 LLM</text>
+      <text x="200" y="187" text-anchor="middle" font-size="7.5" fill="#9ca3af">Brity·MI:DM·HCX-Neuro</text>
+
+      <text x="140" y="225" text-anchor="middle" font-size="9" fill="#22c55e" font-weight="600">옵션 A: 100% 내부 처리</text>
+      <text x="140" y="240" text-anchor="middle" font-size="8" fill="#9ca3af">국산 LLM이 사내 ERP 직접 조회</text>
+      <text x="140" y="255" text-anchor="middle" font-size="8" fill="#9ca3af">→ 외부망 안 거침 (가장 안전)</text>
+      <text x="140" y="272" text-anchor="middle" font-size="8" fill="#22c55e" font-style="italic">✓ 망분리 100% 준수</text>
+
+      <!-- 화살표: 내부망 → DMZ -->
+      <line x1="262" y1="170" x2="332" y2="170" stroke="#9ca3af" stroke-width="1" marker-end="url(#mb-ar)"/>
+      <text x="297" y="160" text-anchor="middle" font-size="8" fill="#9ca3af" font-style="italic">옵션 B 시</text>
+
+      <!-- DMZ (가운데) -->
+      <rect x="335" y="40" width="240" height="240" rx="12" fill="#f59e0b" fill-opacity=".06" stroke="#f59e0b" stroke-width="1" stroke-dasharray="6,4"/>
+      <text x="455" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="#f59e0b">⚖️ DMZ (방화벽 사이)</text>
+      <text x="455" y="78" text-anchor="middle" font-size="9" fill="#9ca3af">검증된 외부 통로만 허용</text>
+
+      <!-- API Gateway -->
+      <rect x="355" y="100" width="200" height="50" rx="8" fill="#f59e0b" fill-opacity=".15" stroke="#f59e0b" stroke-width="1.2"/>
+      <text x="455" y="118" text-anchor="middle" font-size="10" font-weight="700" fill="#f59e0b">🚪 API Gateway + PII 필터</text>
+      <text x="455" y="132" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">주민번호·계좌번호 자동 마스킹</text>
+      <text x="455" y="144" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">모든 호출 감사 로그 기록</text>
+
+      <!-- 화살표 down -->
+      <line x1="455" y1="152" x2="455" y2="178" stroke="#9ca3af" stroke-width="1" marker-end="url(#mb-ar)"/>
+
+      <!-- 감사 로그 -->
+      <rect x="355" y="180" width="200" height="40" rx="8" style="fill:var(--surface);stroke:#f59e0b" stroke-width="1"/>
+      <text x="455" y="197" text-anchor="middle" font-size="9.5" font-weight="600" fill="#f59e0b">📋 감사 로그 + 모니터링</text>
+      <text x="455" y="211" text-anchor="middle" font-size="8" fill="#9ca3af">금감원·KISA 점검 시 즉시 제출</text>
+
+      <text x="455" y="245" text-anchor="middle" font-size="9" fill="#f59e0b" font-weight="600">옵션 B: 외부 LLM 사용 시 의무 통과</text>
+      <text x="455" y="260" text-anchor="middle" font-size="8" fill="#9ca3af">PII 제거 + 익명화 후 외부로</text>
+      <text x="455" y="275" text-anchor="middle" font-size="8" fill="#f59e0b" font-style="italic">→ PIPA·전자금융감독규정 준수</text>
+
+      <!-- 화살표: DMZ → 외부 -->
+      <line x1="577" y1="170" x2="647" y2="170" stroke="#9ca3af" stroke-width="1" marker-end="url(#mb-ar)"/>
+
+      <!-- 인터넷 (오른쪽) -->
+      <rect x="650" y="40" width="250" height="240" rx="12" fill="#ef4444" fill-opacity=".06" stroke="#ef4444" stroke-width="1" stroke-dasharray="6,4"/>
+      <text x="775" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="#ef4444">🌐 인터넷 (외부)</text>
+      <text x="775" y="78" text-anchor="middle" font-size="9" fill="#9ca3af">신뢰 불가 영역</text>
+
+      <rect x="675" y="100" width="200" height="40" rx="8" style="fill:var(--surface);stroke:#ef4444" stroke-width="1"/>
+      <text x="775" y="117" text-anchor="middle" font-size="9.5" font-weight="600" fill="#ef4444">🤖 외부 LLM API</text>
+      <text x="775" y="131" text-anchor="middle" font-size="8" fill="#9ca3af">OpenAI · Anthropic · Gemini</text>
+
+      <rect x="675" y="155" width="200" height="40" rx="8" style="fill:var(--surface);stroke:#ef4444" stroke-width="1"/>
+      <text x="775" y="172" text-anchor="middle" font-size="9.5" font-weight="600" fill="#ef4444">🔍 외부 검색·도구</text>
+      <text x="775" y="186" text-anchor="middle" font-size="8" fill="#9ca3af">Tavily · Brave · Bing</text>
+
+      <text x="775" y="225" text-anchor="middle" font-size="9" fill="#ef4444" font-weight="600">⚠ 직접 호출 금지</text>
+      <text x="775" y="240" text-anchor="middle" font-size="8" fill="#9ca3af">반드시 DMZ Gateway 통과</text>
+      <text x="775" y="255" text-anchor="middle" font-size="8" fill="#9ca3af">PII 제거된 데이터만 전달</text>
+      <text x="775" y="272" text-anchor="middle" font-size="8" fill="#ef4444" font-style="italic">위반 시 보안 사고</text>
+
+      <!-- 옵션 C: NeuroCloud Hybrid (아래 강조) -->
+      <rect x="20" y="295" width="880" height="20" rx="4" fill="#d04a02" fill-opacity=".08" stroke="#d04a02" stroke-width="1" stroke-dasharray="3,2"/>
+      <text x="460" y="309" text-anchor="middle" font-size="9" fill="#d04a02" font-weight="600">옵션 C — NeuroCloud / Sovereign Cloud: 외부 LLM을 사내 IDC 내 hybrid cloud로 배포 → "외부망처럼 보이지만 사내" (네이버·KT·NCP가 제공)</text>
+    </svg>
+    </div>
+    <div style="margin-top:.6rem;padding:.7rem 1rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
+      💡 <strong style="color:var(--accent)">3가지 옵션 요약:</strong> A) 100% 내부 (국산 LLM 사내 배포) — 가장 안전, 성능 한계 / B) DMZ Gateway 통과 (PII 마스킹 후 외부 LLM) — 균형 / C) Hybrid Cloud (외부 LLM의 사내 인스턴스) — 최신 모델 + 사내 데이터. 산업·규제에 맞게 조합.
     </div>
   </div>
 
@@ -3492,6 +4060,158 @@ service-account.json</code></pre>
   <div style="padding:.85rem;background:var(--card);border:1px solid #ef444444;border-radius:10px">
     <div style="font-size:.82rem;font-weight:700;color:#ef4444;margin-bottom:.3rem">😱 Idempotency 무시</div>
     <div style="font-size:.74rem;color:var(--text);line-height:1.7">재시도 시 중복 결제·중복 환불·중복 이메일. <strong style="color:var(--accent)">대안:</strong> 모든 mutating 호출에 <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/idempotency.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">Idempotency-Key</a> (UUID v4).</div>
+  </div>
+
+</div>
+</div>
+
+<!-- 안티패턴 핵심 2종 시각화 — 의존성 폭발 + 동기 호출 -->
+<div class="dia reveal">
+<div class="dia-title">🔥 가장 흔한 두 가지 사고 — Before / After 시각화</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <!-- (A) 의존성 폭발 vs API Gateway -->
+  <div style="margin-bottom:1.2rem">
+    <div style="font-family:var(--display);font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:.55rem">A. 의존성 폭발 → API Gateway 도입</div>
+    <svg viewBox="0 0 920 240" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="ap1-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/>
+        </marker>
+      </defs>
+
+      <!-- BEFORE -->
+      <rect x="20" y="10" width="430" height="220" rx="10" fill="#ef4444" fill-opacity=".05" stroke="#ef4444" stroke-width="1"/>
+      <text x="235" y="32" text-anchor="middle" font-size="11" font-weight="700" fill="#ef4444">😱 BEFORE — 직접 호출 폭발</text>
+
+      <rect x="40" y="100" width="100" height="48" rx="8" fill="#ef4444" fill-opacity=".10" stroke="#ef4444" stroke-width="1"/>
+      <text x="90" y="120" text-anchor="middle" font-size="10" font-weight="700" fill="#ef4444">🤖 AI Agent</text>
+      <text x="90" y="135" text-anchor="middle" font-size="8" fill="#9ca3af">8개 API 직접</text>
+
+      <!-- 8개 화살표 → 8개 외부 -->
+      <line x1="142" y1="115" x2="290" y2="55" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#ap1-ar)"/>
+      <line x1="142" y1="120" x2="290" y2="80" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#ap1-ar)"/>
+      <line x1="142" y1="125" x2="290" y2="105" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#ap1-ar)"/>
+      <line x1="142" y1="130" x2="290" y2="130" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#ap1-ar)"/>
+      <line x1="142" y1="135" x2="290" y2="155" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#ap1-ar)"/>
+      <line x1="142" y1="140" x2="290" y2="180" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#ap1-ar)"/>
+
+      <!-- 6개 외부 박스 -->
+      <rect x="295" y="45" width="140" height="22" rx="4" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="0.7"/>
+      <text x="365" y="60" text-anchor="middle" font-size="8.5" fill="var(--text)">OpenAI (자체 인증)</text>
+      <rect x="295" y="70" width="140" height="22" rx="4" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="0.7"/>
+      <text x="365" y="85" text-anchor="middle" font-size="8.5" fill="var(--text)">Anthropic (자체 인증)</text>
+      <rect x="295" y="95" width="140" height="22" rx="4" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="0.7"/>
+      <text x="365" y="110" text-anchor="middle" font-size="8.5" fill="var(--text)">Slack (OAuth)</text>
+      <rect x="295" y="120" width="140" height="22" rx="4" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="0.7"/>
+      <text x="365" y="135" text-anchor="middle" font-size="8.5" fill="var(--text)">GitHub (PAT)</text>
+      <rect x="295" y="145" width="140" height="22" rx="4" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="0.7"/>
+      <text x="365" y="160" text-anchor="middle" font-size="8.5" fill="var(--text)">Stripe (HMAC)</text>
+      <rect x="295" y="170" width="140" height="22" rx="4" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="0.7"/>
+      <text x="365" y="185" text-anchor="middle" font-size="8.5" fill="var(--text)">Vector DB (API Key)</text>
+
+      <text x="235" y="215" text-anchor="middle" font-size="9" fill="#ef4444" font-weight="600">⚠ 인증·로깅·rate limit이 8곳에 흩어짐</text>
+
+      <!-- AFTER -->
+      <rect x="470" y="10" width="430" height="220" rx="10" fill="#22c55e" fill-opacity=".05" stroke="#22c55e" stroke-width="1"/>
+      <text x="685" y="32" text-anchor="middle" font-size="11" font-weight="700" fill="#22c55e">✨ AFTER — API Gateway 도입</text>
+
+      <rect x="490" y="100" width="100" height="48" rx="8" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="1"/>
+      <text x="540" y="120" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">🤖 AI Agent</text>
+      <text x="540" y="135" text-anchor="middle" font-size="8" fill="#9ca3af">1개 endpoint만</text>
+
+      <line x1="592" y1="124" x2="618" y2="124" stroke="#9ca3af" stroke-width="1" marker-end="url(#ap1-ar)"/>
+
+      <rect x="620" y="98" width="100" height="52" rx="8" fill="#f59e0b" fill-opacity=".15" stroke="#f59e0b" stroke-width="1.2"/>
+      <text x="670" y="116" text-anchor="middle" font-size="10" font-weight="700" fill="#f59e0b">🚪 Gateway</text>
+      <text x="670" y="131" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">Auth · Rate · Log</text>
+      <text x="670" y="142" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">한 곳에서 처리</text>
+
+      <line x1="722" y1="105" x2="745" y2="60" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#ap1-ar)"/>
+      <line x1="722" y1="115" x2="745" y2="90" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#ap1-ar)"/>
+      <line x1="722" y1="124" x2="745" y2="124" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#ap1-ar)"/>
+      <line x1="722" y1="134" x2="745" y2="158" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#ap1-ar)"/>
+      <line x1="722" y1="143" x2="745" y2="188" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#ap1-ar)"/>
+
+      <rect x="750" y="50" width="140" height="22" rx="4" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="0.7"/>
+      <text x="820" y="65" text-anchor="middle" font-size="8.5" fill="var(--text)">OpenAI</text>
+      <rect x="750" y="80" width="140" height="22" rx="4" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="0.7"/>
+      <text x="820" y="95" text-anchor="middle" font-size="8.5" fill="var(--text)">Slack</text>
+      <rect x="750" y="113" width="140" height="22" rx="4" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="0.7"/>
+      <text x="820" y="128" text-anchor="middle" font-size="8.5" fill="var(--text)">GitHub</text>
+      <rect x="750" y="148" width="140" height="22" rx="4" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="0.7"/>
+      <text x="820" y="163" text-anchor="middle" font-size="8.5" fill="var(--text)">Stripe</text>
+      <rect x="750" y="178" width="140" height="22" rx="4" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="0.7"/>
+      <text x="820" y="193" text-anchor="middle" font-size="8.5" fill="var(--text)">Vector DB</text>
+
+      <text x="685" y="220" text-anchor="middle" font-size="9" fill="#22c55e" font-weight="600">✓ 인증·로깅·rate limit이 한 곳(Gateway)에서 통합</text>
+    </svg>
+  </div>
+
+  <!-- (B) 동기 호출 vs 비동기 + Job Queue -->
+  <div>
+    <div style="font-family:var(--display);font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:.55rem">B. 동기 호출 → 비동기 + Job Queue</div>
+    <svg viewBox="0 0 920 220" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="ap2-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/>
+        </marker>
+      </defs>
+
+      <!-- BEFORE -->
+      <rect x="20" y="10" width="430" height="200" rx="10" fill="#ef4444" fill-opacity=".05" stroke="#ef4444" stroke-width="1"/>
+      <text x="235" y="32" text-anchor="middle" font-size="11" font-weight="700" fill="#ef4444">😱 동기 호출 — 사용자 대기</text>
+
+      <!-- 사용자 -->
+      <rect x="40" y="60" width="80" height="36" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="80" y="83" text-anchor="middle" font-size="10" fill="var(--text)">👤 사용자</text>
+      <line x1="122" y1="78" x2="158" y2="78" stroke="#9ca3af" stroke-width="1" marker-end="url(#ap2-ar)"/>
+
+      <rect x="160" y="60" width="100" height="36" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="210" y="83" text-anchor="middle" font-size="10" fill="var(--text)">서버 (대기)</text>
+      <line x1="262" y1="78" x2="298" y2="78" stroke="#9ca3af" stroke-width="1" marker-end="url(#ap2-ar)"/>
+
+      <rect x="300" y="60" width="120" height="36" rx="6" fill="#ef4444" fill-opacity=".15" stroke="#ef4444" stroke-width="1"/>
+      <text x="360" y="78" text-anchor="middle" font-size="9.5" font-weight="600" fill="#ef4444">LLM 호출 (15s)</text>
+      <text x="360" y="91" text-anchor="middle" font-size="8" fill="#9ca3af">사용자 대기 중...</text>
+
+      <!-- 시간 -->
+      <text x="80" y="120" text-anchor="middle" font-size="9" fill="#9ca3af">0초</text>
+      <text x="210" y="120" text-anchor="middle" font-size="9" fill="#9ca3af">⏱ 대기 시작</text>
+      <text x="360" y="120" text-anchor="middle" font-size="9" fill="#9ca3af">15초 후 응답</text>
+
+      <text x="235" y="155" text-anchor="middle" font-size="10" fill="#ef4444" font-weight="700">⚠ 사용자가 15초간 멍하니 기다림</text>
+      <text x="235" y="172" text-anchor="middle" font-size="9" fill="#9ca3af">→ HTTP timeout (보통 30초) 가능</text>
+      <text x="235" y="188" text-anchor="middle" font-size="9" fill="#9ca3af">→ 서버 worker thread 점유 (자체 마비)</text>
+
+      <!-- AFTER -->
+      <rect x="470" y="10" width="430" height="200" rx="10" fill="#22c55e" fill-opacity=".05" stroke="#22c55e" stroke-width="1"/>
+      <text x="685" y="32" text-anchor="middle" font-size="11" font-weight="700" fill="#22c55e">✨ 비동기 + Job Queue + Streaming</text>
+
+      <rect x="490" y="60" width="80" height="36" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="530" y="83" text-anchor="middle" font-size="10" fill="var(--text)">👤 사용자</text>
+      <line x1="572" y1="78" x2="608" y2="78" stroke="#9ca3af" stroke-width="1" marker-end="url(#ap2-ar)"/>
+
+      <rect x="610" y="60" width="100" height="36" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="660" y="78" text-anchor="middle" font-size="10" fill="var(--text)">서버 (즉시 응답)</text>
+      <text x="660" y="91" text-anchor="middle" font-size="7.5" fill="#22c55e">"job_id 받음"</text>
+
+      <line x1="660" y1="100" x2="660" y2="125" stroke="#9ca3af" stroke-width="1" marker-end="url(#ap2-ar)"/>
+
+      <rect x="600" y="128" width="120" height="32" rx="6" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1"/>
+      <text x="660" y="143" text-anchor="middle" font-size="9" font-weight="600" fill="#22c55e">📦 Job Queue</text>
+      <text x="660" y="155" text-anchor="middle" font-size="7.5" fill="#9ca3af">SQS · Celery · BullMQ</text>
+
+      <line x1="722" y1="144" x2="753" y2="144" stroke="#9ca3af" stroke-width="1" marker-end="url(#ap2-ar)"/>
+
+      <rect x="755" y="128" width="130" height="32" rx="6" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1"/>
+      <text x="820" y="143" text-anchor="middle" font-size="9" font-weight="600" fill="#22c55e">Worker → LLM</text>
+      <text x="820" y="155" text-anchor="middle" font-size="7.5" fill="#9ca3af">백그라운드 처리</text>
+
+      <!-- SSE 응답 -->
+      <path d="M 820 162 Q 820 185 530 185 Q 530 100 530 100" fill="none" stroke="#22c55e" stroke-width="0.8" stroke-dasharray="3,2" marker-end="url(#ap2-ar)"/>
+      <text x="685" y="200" text-anchor="middle" font-size="8.5" fill="#22c55e" font-weight="600">↑ SSE로 결과 한 글자씩 스트리밍</text>
+    </svg>
   </div>
 
 </div>
