@@ -3052,6 +3052,68 @@ service-account.json</code></pre>
 <div class="dia reveal">
 <div class="dia-title">① LLM Provider APIs — 모델 호출의 표준 작업 절차</div>
 <div style="max-width:880px;margin:0 auto">
+
+  <!-- 데이터 흐름 시각화 -->
+  <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:10px;padding:.9rem;margin-bottom:.9rem">
+    <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.4rem;text-align:center">▼ 한 번의 LLM 호출이 거치는 7단계</div>
+    <svg viewBox="0 0 880 180" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="cat1-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+
+      <!-- Prompt 입력 -->
+      <rect x="10" y="60" width="100" height="50" rx="8" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="60" y="80" text-anchor="middle" font-size="10" font-weight="600" fill="#d04a02">사용자 prompt</text>
+      <text x="60" y="95" text-anchor="middle" font-size="8" fill="#9ca3af">"환불해줘"</text>
+
+      <line x1="112" y1="85" x2="148" y2="85" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat1-ar)"/>
+
+      <!-- Cache check -->
+      <rect x="150" y="60" width="100" height="50" rx="8" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="1"/>
+      <text x="200" y="80" text-anchor="middle" font-size="10" font-weight="600" fill="#22c55e">Prompt Cache</text>
+      <text x="200" y="95" text-anchor="middle" font-size="8" fill="#9ca3af">hit? → 90% 절감</text>
+
+      <line x1="252" y1="85" x2="288" y2="85" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat1-ar)"/>
+
+      <!-- Primary LLM -->
+      <rect x="290" y="40" width="120" height="90" rx="8" fill="#d04a02" fill-opacity=".15" stroke="#d04a02" stroke-width="1.2"/>
+      <text x="350" y="60" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">Primary LLM</text>
+      <text x="350" y="75" text-anchor="middle" font-size="8.5" fill="#9ca3af">Claude Sonnet</text>
+      <text x="350" y="100" text-anchor="middle" font-size="8" fill="var(--text-dim)" font-style="italic">실패 시 ↓</text>
+
+      <!-- Fallback (아래) -->
+      <rect x="290" y="135" width="120" height="35" rx="6" fill="#f59e0b" fill-opacity=".15" stroke="#f59e0b" stroke-width="1"/>
+      <text x="350" y="153" text-anchor="middle" font-size="9" font-weight="600" fill="#f59e0b">Fallback: GPT-4o</text>
+      <text x="350" y="165" text-anchor="middle" font-size="7.5" fill="#9ca3af">→ Gemini</text>
+
+      <line x1="412" y1="85" x2="448" y2="85" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat1-ar)"/>
+
+      <!-- Streaming response -->
+      <rect x="450" y="60" width="120" height="50" rx="8" fill="#d04a02" fill-opacity=".10" stroke="#d04a02" stroke-width="1"/>
+      <text x="510" y="80" text-anchor="middle" font-size="10" font-weight="600" fill="#d04a02">SSE Streaming</text>
+      <text x="510" y="95" text-anchor="middle" font-size="8" fill="#9ca3af">토큰 실시간 응답</text>
+
+      <line x1="572" y1="85" x2="608" y2="85" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat1-ar)"/>
+
+      <!-- 사용자에게 응답 -->
+      <rect x="610" y="60" width="100" height="50" rx="8" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="660" y="80" text-anchor="middle" font-size="10" font-weight="600" fill="#d04a02">👤 사용자</text>
+      <text x="660" y="95" text-anchor="middle" font-size="8" fill="#22c55e">응답 받음</text>
+
+      <!-- 옆에서 trace + cost -->
+      <line x1="510" y1="111" x2="780" y2="111" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="3,2"/>
+      <line x1="780" y1="111" x2="780" y2="60" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="3,2" marker-end="url(#cat1-ar)"/>
+      <rect x="720" y="35" width="150" height="42" rx="6" fill="#d04a02" fill-opacity=".05" stroke="#d04a02" stroke-width="1" stroke-dasharray="3,2"/>
+      <text x="795" y="52" text-anchor="middle" font-size="9" font-weight="600" fill="#d04a02">Trace + Cost</text>
+      <text x="795" y="64" text-anchor="middle" font-size="7.5" fill="#9ca3af">tokens · $ · tenant_id</text>
+      <text x="795" y="74" text-anchor="middle" font-size="7" fill="#9ca3af">→ LangSmith</text>
+
+      <!-- 아래 캡션 -->
+      <text x="170" y="25" text-anchor="middle" font-size="9" fill="#9ca3af" font-style="italic">① 인증 + 모델 선정</text>
+      <text x="350" y="25" text-anchor="middle" font-size="9" fill="#9ca3af" font-style="italic">③ 호출 (재시도/Fallback)</text>
+      <text x="510" y="25" text-anchor="middle" font-size="9" fill="#9ca3af" font-style="italic">④ 응답 streaming</text>
+      <text x="660" y="25" text-anchor="middle" font-size="9" fill="#9ca3af" font-style="italic">⑦ 모니터링</text>
+    </svg>
+  </div>
+
   <div style="display:grid;grid-template-columns:1fr;gap:.5rem;margin-bottom:.9rem">
     <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
       <strong style="color:var(--accent)">1) 모델 선정 + 인증 설정</strong> — 작업 난이도 → 모델 선택 (저난도: GPT-4o-mini, 고난도: Claude Opus). API Key를 Vault/Secrets Manager에 저장 (절대 코드 하드코딩 X).
@@ -3085,6 +3147,60 @@ service-account.json</code></pre>
 <div class="dia reveal">
 <div class="dia-title">② Tool / Action APIs — 에이전트가 사용하는 도구의 통합 절차</div>
 <div style="max-width:880px;margin:0 auto">
+
+  <!-- 데이터 흐름 시각화 -->
+  <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:10px;padding:.9rem;margin-bottom:.9rem">
+    <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.4rem;text-align:center">▼ Function Calling 한 사이클 — LLM이 도구 호출 결정 → 실제 실행 → 결과 환원</div>
+    <svg viewBox="0 0 880 200" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="cat2-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+
+      <!-- LLM (왼쪽) -->
+      <rect x="20" y="70" width="120" height="60" rx="8" fill="#d04a02" fill-opacity=".15" stroke="#d04a02" stroke-width="1.2"/>
+      <text x="80" y="92" text-anchor="middle" font-size="11" font-weight="700" fill="#d04a02">🧠 LLM</text>
+      <text x="80" y="108" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">+ tool 카탈로그</text>
+      <text x="80" y="120" text-anchor="middle" font-size="7.5" fill="#9ca3af">(JSON 스키마 N개)</text>
+
+      <line x1="142" y1="100" x2="178" y2="100" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat2-ar)"/>
+      <text x="160" y="92" text-anchor="middle" font-size="8" fill="#9ca3af" font-style="italic">결정</text>
+
+      <!-- Tool 결정 (JSON) -->
+      <rect x="180" y="70" width="160" height="60" rx="8" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="260" y="88" text-anchor="middle" font-size="9.5" font-weight="600" fill="#d04a02">tool_call JSON</text>
+      <text x="260" y="103" text-anchor="middle" font-size="8" fill="#9ca3af" font-family="var(--mono)">{"tool":"search_news",</text>
+      <text x="260" y="115" text-anchor="middle" font-size="8" fill="#9ca3af" font-family="var(--mono)">"args":{"q":"AAPL Q4"}}</text>
+
+      <line x1="342" y1="100" x2="378" y2="100" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat2-ar)"/>
+
+      <!-- 우리 코드 (Validator + Executor) -->
+      <rect x="380" y="60" width="140" height="80" rx="8" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="1.2"/>
+      <text x="450" y="80" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">우리 코드</text>
+      <text x="450" y="96" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">① Validator (Poka-Yoke)</text>
+      <text x="450" y="110" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">② Idempotency key</text>
+      <text x="450" y="124" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">③ 실제 API 호출</text>
+
+      <line x1="522" y1="100" x2="558" y2="100" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat2-ar)"/>
+
+      <!-- 외부 도구 (3종) -->
+      <rect x="560" y="35" width="170" height="30" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="645" y="55" text-anchor="middle" font-size="9" fill="var(--text)">🔍 Tavily / Brave (검색)</text>
+      <rect x="560" y="85" width="170" height="30" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="645" y="105" text-anchor="middle" font-size="9" fill="var(--text)">💻 E2B / Modal (sandbox)</text>
+      <rect x="560" y="135" width="170" height="30" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="645" y="155" text-anchor="middle" font-size="9" fill="var(--text)">🌐 Browserbase (브라우저)</text>
+
+      <line x1="540" y1="90" x2="558" y2="50" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#cat2-ar)"/>
+      <line x1="540" y1="100" x2="558" y2="100" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#cat2-ar)"/>
+      <line x1="540" y1="110" x2="558" y2="150" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#cat2-ar)"/>
+
+      <!-- 결과 환원 (위쪽으로) -->
+      <path d="M 645 35 Q 645 15 80 15 Q 80 60 80 60" fill="none" stroke="#22c55e" stroke-width="0.8" stroke-dasharray="4,3" marker-end="url(#cat2-ar)"/>
+      <text x="450" y="10" text-anchor="middle" font-size="8.5" fill="#22c55e" font-weight="600">↑ 도구 결과 → normalize → LLM에게 환원 (다음 turn에서 활용)</text>
+
+      <!-- 캡션 -->
+      <text x="450" y="190" text-anchor="middle" font-size="9" fill="#9ca3af" font-style="italic">에이전트는 매 turn마다 이 사이클을 반복 — "도구 호출 → 결과 → 다음 결정"</text>
+    </svg>
+  </div>
+
   <div style="display:grid;grid-template-columns:1fr;gap:.5rem;margin-bottom:.9rem">
     <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
       <strong style="color:var(--accent)">1) Tool 카탈로그 정의</strong> — 에이전트가 쓸 수 있는 도구 목록 (검색·sandbox·browser·계산기 등). 각 도구의 JSON 스키마 + 한 줄 설명 + 예시 입력.
@@ -3118,6 +3234,81 @@ service-account.json</code></pre>
 <div class="dia reveal">
 <div class="dia-title">③ Data Source APIs — RAG·검색의 데이터 통합 절차</div>
 <div style="max-width:880px;margin:0 auto">
+
+  <!-- 데이터 흐름 시각화 -->
+  <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:10px;padding:.9rem;margin-bottom:.9rem">
+    <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.4rem;text-align:center">▼ RAG 시스템 — 두 단계 (① 사전 ingestion · ② 실시간 검색)</div>
+    <svg viewBox="0 0 880 240" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="cat3-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+
+      <!-- 위쪽: ① Ingestion Pipeline (사전, 배치) -->
+      <rect x="10" y="10" width="860" height="100" rx="10" fill="#22c55e" fill-opacity=".05" stroke="#22c55e" stroke-width="1" stroke-dasharray="4,3"/>
+      <text x="440" y="28" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">① Ingestion Pipeline (사전·배치, Airflow/Prefect)</text>
+
+      <rect x="30" y="42" width="100" height="50" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="80" y="62" text-anchor="middle" font-size="9.5" fill="var(--text)">📄 원본 문서</text>
+      <text x="80" y="78" text-anchor="middle" font-size="8" fill="#9ca3af">Notion·SharePoint·PDF</text>
+
+      <line x1="132" y1="67" x2="158" y2="67" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat3-ar)"/>
+
+      <rect x="160" y="42" width="100" height="50" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="210" y="62" text-anchor="middle" font-size="9.5" fill="var(--text)">✂️ 청킹</text>
+      <text x="210" y="78" text-anchor="middle" font-size="8" fill="#9ca3af">500 토큰 단위</text>
+
+      <line x1="262" y1="67" x2="288" y2="67" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat3-ar)"/>
+
+      <rect x="290" y="42" width="100" height="50" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="340" y="62" text-anchor="middle" font-size="9.5" fill="var(--text)">🔢 임베딩</text>
+      <text x="340" y="78" text-anchor="middle" font-size="8" fill="#9ca3af">text-embedding-3</text>
+
+      <line x1="392" y1="67" x2="418" y2="67" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat3-ar)"/>
+
+      <!-- Vector DB -->
+      <ellipse cx="500" cy="67" rx="80" ry="20" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1.2"/>
+      <text x="500" y="63" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">📦 Vector DB</text>
+      <text x="500" y="76" text-anchor="middle" font-size="8" fill="#9ca3af">Pinecone·Weaviate</text>
+
+      <!-- + permission metadata -->
+      <line x1="582" y1="67" x2="608" y2="67" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat3-ar)"/>
+      <rect x="610" y="42" width="240" height="50" rx="6" fill="#d04a02" fill-opacity=".10" stroke="#d04a02" stroke-width="1"/>
+      <text x="730" y="62" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">🔐 권한 metadata 함께 저장</text>
+      <text x="730" y="78" text-anchor="middle" font-size="8" fill="#9ca3af">user_id · group_id · ACL</text>
+
+      <!-- 아래쪽: ② 실시간 검색 -->
+      <rect x="10" y="125" width="860" height="105" rx="10" fill="#d04a02" fill-opacity=".05" stroke="#d04a02" stroke-width="1" stroke-dasharray="4,3"/>
+      <text x="440" y="143" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">② 실시간 검색 (사용자 질의 시)</text>
+
+      <rect x="30" y="158" width="100" height="50" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="80" y="178" text-anchor="middle" font-size="9.5" fill="var(--text)">👤 사용자 질의</text>
+      <text x="80" y="194" text-anchor="middle" font-size="8" fill="#9ca3af">+ user_id</text>
+
+      <line x1="132" y1="183" x2="158" y2="183" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat3-ar)"/>
+
+      <rect x="160" y="158" width="100" height="50" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="210" y="178" text-anchor="middle" font-size="9.5" fill="var(--text)">🔢 임베딩</text>
+      <text x="210" y="194" text-anchor="middle" font-size="8" fill="#9ca3af">질의 → 벡터</text>
+
+      <line x1="262" y1="183" x2="288" y2="183" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat3-ar)"/>
+
+      <rect x="290" y="158" width="160" height="50" rx="6" fill="#d04a02" fill-opacity=".15" stroke="#d04a02" stroke-width="1.2"/>
+      <text x="370" y="175" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">검색 + 권한 필터</text>
+      <text x="370" y="190" text-anchor="middle" font-size="8" fill="var(--text-dim)">Vector DB.search(</text>
+      <text x="370" y="200" text-anchor="middle" font-size="8" fill="var(--text-dim)">filter={user_id})</text>
+
+      <line x1="452" y1="183" x2="478" y2="183" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat3-ar)"/>
+
+      <rect x="480" y="158" width="100" height="50" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="530" y="178" text-anchor="middle" font-size="9.5" fill="var(--text)">📑 Top-K 문서</text>
+      <text x="530" y="194" text-anchor="middle" font-size="8" fill="#9ca3af">+ rerank</text>
+
+      <line x1="582" y1="183" x2="608" y2="183" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat3-ar)"/>
+
+      <rect x="610" y="158" width="240" height="50" rx="6" fill="#d04a02" fill-opacity=".10" stroke="#d04a02" stroke-width="1"/>
+      <text x="730" y="178" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">🧠 LLM에 컨텍스트로 주입</text>
+      <text x="730" y="194" text-anchor="middle" font-size="8" fill="#9ca3af">→ 답변 생성</text>
+    </svg>
+  </div>
+
   <div style="display:grid;grid-template-columns:1fr;gap:.5rem;margin-bottom:.9rem">
     <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
       <strong style="color:var(--accent)">1) 데이터 출처 분류</strong> — 정형 (DB, Snowflake), 비정형 (PDF, Notion, SharePoint), 실시간 (Slack, 메신저). 각각 다른 통합 패턴.
@@ -3151,6 +3342,67 @@ service-account.json</code></pre>
 <div class="dia reveal">
 <div class="dia-title">④ Internal Service APIs — 사내 시스템 통합의 표준 절차</div>
 <div style="max-width:880px;margin:0 auto">
+
+  <!-- 데이터 흐름 시각화 -->
+  <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:10px;padding:.9rem;margin-bottom:.9rem">
+    <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.4rem;text-align:center">▼ 사내 시스템 호출 — 사용자 권한을 그대로 위임 + 감사 로그</div>
+    <svg viewBox="0 0 880 200" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="cat4-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+
+      <!-- 사용자 -->
+      <rect x="20" y="80" width="100" height="50" rx="8" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="70" y="100" text-anchor="middle" font-size="10" font-weight="600" fill="#d04a02">👤 사용자</text>
+      <text x="70" y="115" text-anchor="middle" font-size="8" fill="#9ca3af">SSO 로그인됨</text>
+
+      <line x1="122" y1="105" x2="158" y2="105" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat4-ar)"/>
+      <text x="140" y="97" text-anchor="middle" font-size="7.5" fill="#9ca3af" font-style="italic">SSO token</text>
+
+      <!-- AI Agent -->
+      <rect x="160" y="80" width="100" height="50" rx="8" fill="#d04a02" fill-opacity=".10" stroke="#d04a02" stroke-width="1"/>
+      <text x="210" y="100" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">🤖 AI Agent</text>
+      <text x="210" y="115" text-anchor="middle" font-size="8" fill="#9ca3af">사용자 요청 받음</text>
+
+      <line x1="262" y1="105" x2="298" y2="105" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat4-ar)"/>
+
+      <!-- Token Exchange -->
+      <rect x="300" y="70" width="160" height="70" rx="8" fill="#f59e0b" fill-opacity=".15" stroke="#f59e0b" stroke-width="1.2"/>
+      <text x="380" y="90" text-anchor="middle" font-size="10" font-weight="700" fill="#f59e0b">🔄 Token Exchange</text>
+      <text x="380" y="105" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">RFC 8693 (OAuth2)</text>
+      <text x="380" y="120" text-anchor="middle" font-size="8" fill="#9ca3af">SSO token →</text>
+      <text x="380" y="132" text-anchor="middle" font-size="8" fill="#9ca3af">사내 시스템 token</text>
+
+      <line x1="462" y1="105" x2="498" y2="105" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat4-ar)"/>
+
+      <!-- Adapter -->
+      <rect x="500" y="70" width="120" height="70" rx="8" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="1.2"/>
+      <text x="560" y="90" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">📦 Adapter</text>
+      <text x="560" y="105" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">노후 응답 →</text>
+      <text x="560" y="118" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">LLM 친화 스키마</text>
+      <text x="560" y="132" text-anchor="middle" font-size="7.5" fill="#9ca3af">XML/SOAP → JSON</text>
+
+      <line x1="622" y1="105" x2="658" y2="105" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat4-ar)"/>
+
+      <!-- 사내 시스템들 -->
+      <rect x="660" y="40" width="200" height="30" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="760" y="60" text-anchor="middle" font-size="9" fill="var(--text)">🏢 SAP (ERP)</text>
+      <rect x="660" y="78" width="200" height="30" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="760" y="98" text-anchor="middle" font-size="9" fill="var(--text)">📞 Salesforce (CRM)</text>
+      <rect x="660" y="116" width="200" height="30" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="760" y="136" text-anchor="middle" font-size="9" fill="var(--text)">👥 Workday (HR)</text>
+
+      <line x1="640" y1="105" x2="658" y2="55" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#cat4-ar)"/>
+      <line x1="640" y1="105" x2="658" y2="93" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#cat4-ar)"/>
+      <line x1="640" y1="105" x2="658" y2="131" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#cat4-ar)"/>
+
+      <!-- 감사 로그 (아래쪽) -->
+      <rect x="160" y="160" width="700" height="30" rx="6" fill="#d04a02" fill-opacity=".05" stroke="#d04a02" stroke-width="1" stroke-dasharray="3,2"/>
+      <text x="510" y="180" text-anchor="middle" font-size="9" fill="#d04a02" font-weight="600">📋 감사 로그 — 누가·언제·어느 시스템에·무엇을 (사고 시 책임 추적)</text>
+
+      <!-- 캡션 -->
+      <text x="380" y="22" text-anchor="middle" font-size="9" fill="#9ca3af" font-style="italic">핵심: 사용자 권한 그대로 위임 (AI가 사용자 권한 초과 X)</text>
+    </svg>
+  </div>
+
   <div style="display:grid;grid-template-columns:1fr;gap:.5rem;margin-bottom:.9rem">
     <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
       <strong style="color:var(--accent)">1) Discovery</strong> — 사내에 어떤 API가 있는지 파악. Backstage·Apidocs·내부 API 카탈로그 활용. 노후 시스템은 API 없을 수도 → DB 직접 접근 또는 RPA wrapping.
@@ -3184,6 +3436,60 @@ service-account.json</code></pre>
 <div class="dia reveal">
 <div class="dia-title">⑤ Agent Protocol APIs (MCP · A2A) — 표준화된 통신 절차</div>
 <div style="max-width:880px;margin:0 auto">
+
+  <!-- 데이터 흐름 시각화 -->
+  <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:10px;padding:.9rem;margin-bottom:.9rem">
+    <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.4rem;text-align:center">▼ MCP의 4개 컴포넌트 — 한 번 만들면 어디서나 통합</div>
+    <svg viewBox="0 0 880 220" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="cat5-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+
+      <!-- Hosts (왼쪽) -->
+      <text x="100" y="22" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">① Host (사용자 앱)</text>
+      <rect x="20" y="36" width="160" height="30" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="100" y="55" text-anchor="middle" font-size="9" fill="var(--text)">Claude Desktop</text>
+      <rect x="20" y="74" width="160" height="30" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="100" y="93" text-anchor="middle" font-size="9" fill="var(--text)">Cursor / VS Code</text>
+      <rect x="20" y="112" width="160" height="30" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="100" y="131" text-anchor="middle" font-size="9" fill="var(--text)">ChatGPT Desktop</text>
+
+      <line x1="183" y1="89" x2="218" y2="89" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat5-ar)"/>
+
+      <!-- Client (host 안) -->
+      <text x="290" y="22" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">② Client (Host 안)</text>
+      <rect x="220" y="60" width="140" height="60" rx="8" fill="#d04a02" fill-opacity=".10" stroke="#d04a02" stroke-width="1"/>
+      <text x="290" y="80" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">MCP Client</text>
+      <text x="290" y="95" text-anchor="middle" font-size="8" fill="#9ca3af">JSON-RPC 통신</text>
+      <text x="290" y="108" text-anchor="middle" font-size="8" fill="#9ca3af">stdio 또는 HTTP/SSE</text>
+
+      <line x1="362" y1="89" x2="397" y2="89" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat5-ar)"/>
+
+      <!-- Server -->
+      <text x="475" y="22" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">③ MCP Server (도구 노출자)</text>
+      <rect x="400" y="40" width="170" height="100" rx="8" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="1.2"/>
+      <text x="485" y="60" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">MCP Server</text>
+      <text x="485" y="80" text-anchor="middle" font-size="8" fill="var(--text-dim)">📦 Tools (액션)</text>
+      <text x="485" y="94" text-anchor="middle" font-size="8" fill="var(--text-dim)">📁 Resources (데이터)</text>
+      <text x="485" y="108" text-anchor="middle" font-size="8" fill="var(--text-dim)">📝 Prompts (템플릿)</text>
+      <text x="485" y="128" text-anchor="middle" font-size="7.5" fill="#9ca3af">3 primitives 노출</text>
+
+      <line x1="572" y1="89" x2="608" y2="89" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat5-ar)"/>
+
+      <!-- 외부 시스템 -->
+      <text x="730" y="22" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">④ 외부 시스템</text>
+      <rect x="610" y="36" width="240" height="30" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="730" y="55" text-anchor="middle" font-size="9" fill="var(--text)">📦 GitHub MCP Server</text>
+      <rect x="610" y="74" width="240" height="30" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="730" y="93" text-anchor="middle" font-size="9" fill="var(--text)">💬 Slack MCP Server</text>
+      <rect x="610" y="112" width="240" height="30" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="730" y="131" text-anchor="middle" font-size="9" fill="var(--text)">⚡ Zapier MCP (5,000+ 앱)</text>
+
+      <!-- 핵심 인사이트 (아래) -->
+      <rect x="20" y="170" width="830" height="40" rx="6" fill="#d04a02" fill-opacity=".08" stroke="#d04a02" stroke-width="1" stroke-dasharray="3,2"/>
+      <text x="435" y="188" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">💡 가치: GitHub 통합 1번 만들면 → Claude·Cursor·ChatGPT 등 모든 MCP Client에서 사용 가능</text>
+      <text x="435" y="202" text-anchor="middle" font-size="8.5" fill="#9ca3af">(MCP 없이는 클라이언트마다 따로 N번 통합해야 함)</text>
+    </svg>
+  </div>
+
   <div style="display:grid;grid-template-columns:1fr;gap:.5rem;margin-bottom:.9rem">
     <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
       <strong style="color:var(--accent)">1) Protocol 선정</strong> — 도구 노출 = MCP, 에이전트 간 위임 = A2A. <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/mcp.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">MCP entity</a> · <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/a2a.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">A2A entity</a>.
@@ -3217,6 +3523,60 @@ service-account.json</code></pre>
 <div class="dia reveal">
 <div class="dia-title">⑥ External SaaS APIs — 외부 SaaS 통합 절차</div>
 <div style="max-width:880px;margin:0 auto">
+
+  <!-- 데이터 흐름 시각화: OAuth 3-leg 흐름 -->
+  <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:10px;padding:.9rem;margin-bottom:.9rem">
+    <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.4rem;text-align:center">▼ OAuth 2.0 3-leg 흐름 — 사용자가 SaaS 권한을 우리 앱에 위임 + 토큰 자동 갱신</div>
+    <svg viewBox="0 0 880 240" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="cat6-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+
+      <!-- 3 column header -->
+      <rect x="20" y="10" width="240" height="24" rx="4" fill="#d04a02" fill-opacity=".10"/>
+      <text x="140" y="27" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">👤 사용자 (브라우저)</text>
+      <rect x="270" y="10" width="240" height="24" rx="4" fill="#22c55e" fill-opacity=".10"/>
+      <text x="390" y="27" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">🤖 우리 AI 앱</text>
+      <rect x="520" y="10" width="240" height="24" rx="4" fill="#f59e0b" fill-opacity=".10"/>
+      <text x="640" y="27" text-anchor="middle" font-size="10" font-weight="700" fill="#f59e0b">🔐 SaaS (Slack/Google)</text>
+
+      <!-- Step 1: 사용자가 "Slack 연결" 클릭 -->
+      <text x="140" y="55" text-anchor="middle" font-size="8.5" fill="var(--text)" font-weight="600">① "Slack 연결" 클릭</text>
+      <line x1="240" y1="60" x2="282" y2="60" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat6-ar)"/>
+
+      <!-- Step 2: 우리 앱이 SaaS 인증 페이지로 redirect -->
+      <text x="390" y="80" text-anchor="middle" font-size="8.5" fill="var(--text)">② 우리 앱이 SaaS 인증 URL로 redirect</text>
+      <line x1="510" y1="85" x2="540" y2="85" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat6-ar)"/>
+      <line x1="240" y1="60" x2="240" y2="85" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="2,2"/>
+      <line x1="240" y1="85" x2="270" y2="85" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="2,2"/>
+
+      <!-- Step 3: 사용자가 SaaS에서 로그인 + 동의 -->
+      <text x="640" y="105" text-anchor="middle" font-size="8.5" fill="var(--text)" font-weight="600">③ 사용자 로그인 + "허용" 클릭</text>
+      <text x="640" y="118" text-anchor="middle" font-size="7.5" fill="#9ca3af">"이 앱에 메시지 보낼 권한 허용?"</text>
+
+      <!-- Step 4: SaaS가 우리 앱에 authorization code 전달 -->
+      <line x1="540" y1="138" x2="510" y2="138" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat6-ar)"/>
+      <text x="430" y="135" text-anchor="middle" font-size="8.5" fill="var(--text)">④ authorization code</text>
+
+      <!-- Step 5: 우리 앱이 code를 토큰으로 교환 -->
+      <line x1="510" y1="158" x2="540" y2="158" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat6-ar)"/>
+      <text x="525" y="153" text-anchor="middle" font-size="8.5" fill="var(--text)">⑤ code → 토큰 교환 (POST)</text>
+
+      <!-- Step 6: SaaS가 access_token + refresh_token 발급 -->
+      <line x1="540" y1="178" x2="510" y2="178" stroke="#22c55e" stroke-width="1" marker-end="url(#cat6-ar)"/>
+      <text x="430" y="175" text-anchor="middle" font-size="8.5" fill="#22c55e" font-weight="600">⑥ access_token + refresh_token</text>
+
+      <!-- 토큰 저장 박스 -->
+      <rect x="280" y="190" width="220" height="40" rx="6" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="1"/>
+      <text x="390" y="207" text-anchor="middle" font-size="9.5" font-weight="600" fill="#22c55e">💾 우리 DB에 사용자별 토큰 저장</text>
+      <text x="390" y="222" text-anchor="middle" font-size="7.5" fill="#9ca3af">(암호화) + 만료 5분 전 자동 refresh</text>
+
+      <!-- 이후 API 호출 -->
+      <line x1="500" y1="210" x2="540" y2="210" stroke="#22c55e" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#cat6-ar)"/>
+      <rect x="540" y="195" width="220" height="35" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="650" y="212" text-anchor="middle" font-size="9.5" fill="var(--text)" font-weight="600">⑦ 이후 API 호출</text>
+      <text x="650" y="225" text-anchor="middle" font-size="8" fill="#9ca3af">Authorization: Bearer &lt;access_token&gt;</text>
+    </svg>
+  </div>
+
   <div style="display:grid;grid-template-columns:1fr;gap:.5rem;margin-bottom:.9rem">
     <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
       <strong style="color:var(--accent)">1) OAuth 2.0 앱 등록</strong> — Slack/Google/Microsoft 콘솔에 앱 등록 → Client ID·Secret 발급. Redirect URI 설정.
@@ -3294,6 +3654,65 @@ service-account.json</code></pre>
 <div class="dia reveal">
 <div class="dia-title">⑧ Observability APIs — 관측·평가의 통합 절차</div>
 <div style="max-width:880px;margin:0 auto">
+
+  <!-- 데이터 흐름 시각화 -->
+  <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:10px;padding:.9rem;margin-bottom:.9rem">
+    <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.4rem;text-align:center">▼ 한 trace의 일생 — 자동 수집 → 저장 → 분석 → eval 환원</div>
+    <svg viewBox="0 0 880 200" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="cat8-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+
+      <!-- AI Agent (왼쪽) -->
+      <rect x="20" y="60" width="120" height="80" rx="8" fill="#d04a02" fill-opacity=".10" stroke="#d04a02" stroke-width="1"/>
+      <text x="80" y="85" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">🤖 AI Agent</text>
+      <text x="80" y="103" text-anchor="middle" font-size="8" fill="var(--text-dim)">@traceable 데코레이터</text>
+      <text x="80" y="118" text-anchor="middle" font-size="8" fill="var(--text-dim)">또는 환경변수 1줄</text>
+      <text x="80" y="132" text-anchor="middle" font-size="7.5" fill="#9ca3af">→ 모든 호출 자동 기록</text>
+
+      <line x1="142" y1="100" x2="178" y2="100" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat8-ar)"/>
+
+      <!-- OTel SDK -->
+      <rect x="180" y="60" width="120" height="80" rx="8" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="240" y="85" text-anchor="middle" font-size="10" font-weight="600" fill="var(--text)">OTel SDK</text>
+      <text x="240" y="103" text-anchor="middle" font-size="8" fill="#9ca3af">trace · span · metric</text>
+      <text x="240" y="118" text-anchor="middle" font-size="8" fill="#9ca3af">+ user_id · tenant_id</text>
+      <text x="240" y="132" text-anchor="middle" font-size="7.5" fill="#9ca3af">표준 protocol</text>
+
+      <line x1="302" y1="100" x2="338" y2="100" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat8-ar)"/>
+
+      <!-- Trace Storage -->
+      <ellipse cx="400" cy="100" rx="60" ry="45" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="1.2"/>
+      <text x="400" y="92" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">Trace Store</text>
+      <text x="400" y="108" text-anchor="middle" font-size="8" fill="#9ca3af">LangSmith</text>
+      <text x="400" y="120" text-anchor="middle" font-size="8" fill="#9ca3af">Langfuse·Datadog</text>
+
+      <line x1="462" y1="100" x2="498" y2="100" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat8-ar)"/>
+
+      <!-- Dashboard -->
+      <rect x="500" y="40" width="170" height="55" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="585" y="60" text-anchor="middle" font-size="9.5" font-weight="600" fill="var(--text)">📊 Dashboard</text>
+      <text x="585" y="75" text-anchor="middle" font-size="8" fill="#9ca3af">P50 lat · cost · errors</text>
+      <text x="585" y="88" text-anchor="middle" font-size="8" fill="#9ca3af">tenant별 attribution</text>
+
+      <!-- Alarm -->
+      <rect x="500" y="105" width="170" height="55" rx="6" fill="#ef4444" fill-opacity=".10" stroke="#ef4444" stroke-width="1"/>
+      <text x="585" y="125" text-anchor="middle" font-size="9.5" font-weight="600" fill="#ef4444">🚨 Alarm</text>
+      <text x="585" y="140" text-anchor="middle" font-size="8" fill="#9ca3af">에러율 5%↑ → PagerDuty</text>
+      <text x="585" y="153" text-anchor="middle" font-size="8" fill="#9ca3af">비용 일일 한도 초과</text>
+
+      <!-- Eval pipeline -->
+      <line x1="675" y1="100" x2="710" y2="100" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat8-ar)"/>
+      <rect x="710" y="60" width="160" height="80" rx="8" fill="#d04a02" fill-opacity=".10" stroke="#d04a02" stroke-width="1.2"/>
+      <text x="790" y="80" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">🧪 Eval Pipeline</text>
+      <text x="790" y="98" text-anchor="middle" font-size="8" fill="var(--text-dim)">실패 trace → eval set</text>
+      <text x="790" y="112" text-anchor="middle" font-size="8" fill="var(--text-dim)">CI에서 매 PR 자동 채점</text>
+      <text x="790" y="127" text-anchor="middle" font-size="7.5" fill="#9ca3af">→ 회귀 차단</text>
+
+      <!-- Feedback loop arrow -->
+      <path d="M 790 142 Q 790 175 80 175 Q 80 145 80 145" fill="none" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="3,2" marker-end="url(#cat8-ar)"/>
+      <text x="430" y="190" text-anchor="middle" font-size="8.5" fill="#9ca3af" font-style="italic">↑ Eval 통과한 패턴이 다시 Agent 개선에 환원 (자동 학습 사이클)</text>
+    </svg>
+  </div>
+
   <div style="display:grid;grid-template-columns:1fr;gap:.5rem;margin-bottom:.9rem">
     <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
       <strong style="color:var(--accent)">1) OpenTelemetry 표준 채택</strong> — trace·metric·log을 OTel SDK로. 벤더 락인 회피.
@@ -3324,6 +3743,67 @@ service-account.json</code></pre>
 <div class="dia reveal">
 <div class="dia-title">⑨ Auth / Security APIs — 인증·인가·secrets 절차</div>
 <div style="max-width:880px;margin:0 auto">
+
+  <!-- 데이터 흐름 시각화: API Gateway 중앙 집중 -->
+  <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:10px;padding:.9rem;margin-bottom:.9rem">
+    <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.4rem;text-align:center">▼ API Gateway 한 곳에서 모든 인증·secret·rate limit 처리</div>
+    <svg viewBox="0 0 880 220" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="cat9-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+
+      <!-- 외부 호출자 -->
+      <rect x="20" y="80" width="100" height="60" rx="8" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="70" y="105" text-anchor="middle" font-size="10" font-weight="600" fill="var(--text)">외부 호출자</text>
+      <text x="70" y="120" text-anchor="middle" font-size="8" fill="#9ca3af">사용자/앱/서비스</text>
+
+      <line x1="122" y1="110" x2="158" y2="110" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat9-ar)"/>
+
+      <!-- API Gateway (큰 박스) -->
+      <rect x="160" y="40" width="220" height="160" rx="10" fill="#d04a02" fill-opacity=".15" stroke="#d04a02" stroke-width="1.5"/>
+      <text x="270" y="62" text-anchor="middle" font-size="12" font-weight="700" fill="#d04a02">🚪 API Gateway</text>
+
+      <rect x="180" y="74" width="180" height="22" rx="4" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="0.7"/>
+      <text x="270" y="89" text-anchor="middle" font-size="9" fill="var(--text)">① 인증 검증 (OAuth/JWT)</text>
+      <rect x="180" y="100" width="180" height="22" rx="4" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="0.7"/>
+      <text x="270" y="115" text-anchor="middle" font-size="9" fill="var(--text)">② Rate limit 검사</text>
+      <rect x="180" y="126" width="180" height="22" rx="4" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="0.7"/>
+      <text x="270" y="141" text-anchor="middle" font-size="9" fill="var(--text)">③ 요청 로깅 (감사)</text>
+      <rect x="180" y="152" width="180" height="22" rx="4" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="0.7"/>
+      <text x="270" y="167" text-anchor="middle" font-size="9" fill="var(--text)">④ Request 검증·변환</text>
+      <text x="270" y="190" text-anchor="middle" font-size="8" fill="#9ca3af" font-style="italic">(통과한 요청만 백엔드로)</text>
+
+      <!-- Vault (위쪽) -->
+      <rect x="395" y="40" width="140" height="50" rx="8" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="1"/>
+      <text x="465" y="60" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">🔒 Vault</text>
+      <text x="465" y="76" text-anchor="middle" font-size="8" fill="#9ca3af">API Key·secret 중앙 관리</text>
+
+      <line x1="395" y1="65" x2="378" y2="65" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="3,2" marker-end="url(#cat9-ar)"/>
+
+      <line x1="382" y1="120" x2="418" y2="120" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat9-ar)"/>
+
+      <!-- 백엔드 -->
+      <rect x="420" y="100" width="140" height="50" rx="8" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="490" y="120" text-anchor="middle" font-size="10" font-weight="600" fill="var(--text)">🤖 AI Agent</text>
+      <text x="490" y="135" text-anchor="middle" font-size="8" fill="#9ca3af">비즈니스 로직만 집중</text>
+
+      <line x1="562" y1="125" x2="598" y2="125" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat9-ar)"/>
+
+      <!-- 외부 시스템들 -->
+      <rect x="600" y="60" width="180" height="28" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="690" y="78" text-anchor="middle" font-size="9" fill="var(--text)">🧠 LLM Provider</text>
+      <rect x="600" y="98" width="180" height="28" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="690" y="116" text-anchor="middle" font-size="9" fill="var(--text)">📦 사내 ERP / CRM</text>
+      <rect x="600" y="136" width="180" height="28" rx="6" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="690" y="154" text-anchor="middle" font-size="9" fill="var(--text)">💬 외부 SaaS</text>
+
+      <line x1="580" y1="125" x2="598" y2="74" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#cat9-ar)"/>
+      <line x1="580" y1="125" x2="598" y2="112" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#cat9-ar)"/>
+      <line x1="580" y1="125" x2="598" y2="150" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#cat9-ar)"/>
+
+      <!-- 캡션 -->
+      <text x="440" y="218" text-anchor="middle" font-size="9" fill="#9ca3af" font-style="italic">↑ 인증·secret·로그가 한 곳(Gateway)에 모이고, AI Agent는 비즈니스 로직만 집중</text>
+    </svg>
+  </div>
+
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:.9rem">
 
     <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
@@ -3361,6 +3841,75 @@ service-account.json</code></pre>
 <div class="dia reveal">
 <div class="dia-title">⑩ Compliance / Governance APIs — 규제 대응 절차</div>
 <div style="max-width:880px;margin:0 auto">
+
+  <!-- 데이터 흐름 시각화 -->
+  <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:10px;padding:.9rem;margin-bottom:.9rem">
+    <div style="font-size:.78rem;color:var(--text-dim);margin-bottom:.4rem;text-align:center">▼ 입력·출력 양 끝에서 PII 마스킹 + 모더레이션 + 감사 로그</div>
+    <svg viewBox="0 0 880 220" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="cat10-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+
+      <!-- 사용자 입력 -->
+      <rect x="20" y="80" width="100" height="60" rx="8" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="70" y="100" text-anchor="middle" font-size="10" font-weight="600" fill="#d04a02">👤 사용자</text>
+      <text x="70" y="115" text-anchor="middle" font-size="8" fill="#9ca3af">"홍길동(900101)</text>
+      <text x="70" y="127" text-anchor="middle" font-size="8" fill="#9ca3af">계좌 110-XXX 이체"</text>
+
+      <line x1="122" y1="110" x2="158" y2="110" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat10-ar)"/>
+
+      <!-- ① PII 검출 + 마스킹 -->
+      <rect x="160" y="70" width="130" height="80" rx="8" fill="#d04a02" fill-opacity=".15" stroke="#d04a02" stroke-width="1.2"/>
+      <text x="225" y="90" text-anchor="middle" font-size="10" font-weight="700" fill="#d04a02">① PII 마스킹</text>
+      <text x="225" y="105" text-anchor="middle" font-size="8" fill="var(--text-dim)">Microsoft Presidio</text>
+      <text x="225" y="118" text-anchor="middle" font-size="8" fill="var(--text-dim)">→ "[NAME](***)</text>
+      <text x="225" y="130" text-anchor="middle" font-size="8" fill="var(--text-dim)">[ACCOUNT] 이체"</text>
+      <text x="225" y="144" text-anchor="middle" font-size="7.5" fill="#9ca3af">주민·계좌 자동 검출</text>
+
+      <line x1="292" y1="110" x2="328" y2="110" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat10-ar)"/>
+
+      <!-- ② Prompt Injection 방어 -->
+      <rect x="330" y="70" width="120" height="80" rx="8" fill="#f59e0b" fill-opacity=".15" stroke="#f59e0b" stroke-width="1"/>
+      <text x="390" y="90" text-anchor="middle" font-size="10" font-weight="700" fill="#f59e0b">② Injection 방어</text>
+      <text x="390" y="108" text-anchor="middle" font-size="8" fill="var(--text-dim)">Lakera Guard</text>
+      <text x="390" y="121" text-anchor="middle" font-size="8" fill="var(--text-dim)">또는 자체 detector</text>
+      <text x="390" y="138" text-anchor="middle" font-size="7.5" fill="#9ca3af">"system: ignore..." 차단</text>
+
+      <line x1="452" y1="110" x2="488" y2="110" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat10-ar)"/>
+
+      <!-- LLM (가운데) -->
+      <rect x="490" y="80" width="100" height="60" rx="8" style="fill:var(--surface);stroke:var(--accent-border)" stroke-width="1"/>
+      <text x="540" y="100" text-anchor="middle" font-size="10" font-weight="600" fill="var(--text)">🧠 LLM</text>
+      <text x="540" y="115" text-anchor="middle" font-size="8" fill="#9ca3af">마스킹된 입력으로</text>
+      <text x="540" y="127" text-anchor="middle" font-size="8" fill="#9ca3af">처리</text>
+
+      <line x1="592" y1="110" x2="628" y2="110" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat10-ar)"/>
+
+      <!-- ③ 출력 모더레이션 -->
+      <rect x="630" y="70" width="120" height="80" rx="8" fill="#f59e0b" fill-opacity=".15" stroke="#f59e0b" stroke-width="1"/>
+      <text x="690" y="90" text-anchor="middle" font-size="10" font-weight="700" fill="#f59e0b">③ 출력 모더레이션</text>
+      <text x="690" y="108" text-anchor="middle" font-size="8" fill="var(--text-dim)">OpenAI Moderation</text>
+      <text x="690" y="121" text-anchor="middle" font-size="8" fill="var(--text-dim)">유해 콘텐츠 필터</text>
+      <text x="690" y="138" text-anchor="middle" font-size="7.5" fill="#9ca3af">+ 할루시네이션 검증</text>
+
+      <line x1="752" y1="110" x2="788" y2="110" stroke="#9ca3af" stroke-width="1" marker-end="url(#cat10-ar)"/>
+
+      <!-- 응답 -->
+      <rect x="790" y="80" width="80" height="60" rx="8" style="fill:var(--surface);stroke:#22c55e" stroke-width="1"/>
+      <text x="830" y="100" text-anchor="middle" font-size="10" font-weight="600" fill="#22c55e">👤 사용자</text>
+      <text x="830" y="115" text-anchor="middle" font-size="8" fill="#9ca3af">안전한 응답</text>
+
+      <!-- 감사 로그 (아래 전체 가로) -->
+      <rect x="160" y="170" width="700" height="35" rx="6" fill="#d04a02" fill-opacity=".08" stroke="#d04a02" stroke-width="1" stroke-dasharray="3,2"/>
+      <text x="510" y="190" text-anchor="middle" font-size="10" fill="#d04a02" font-weight="600">📋 감사 로그 (Audit Trail)</text>
+      <text x="510" y="202" text-anchor="middle" font-size="8" fill="#9ca3af">모든 단계 기록 — 사용자·시점·모델 버전·결정 이유. PIPA·EU AI Act·전자금융감독규정 대응</text>
+
+      <!-- 위쪽 화살표 (감사 로그로) -->
+      <line x1="225" y1="155" x2="225" y2="168" stroke="#9ca3af" stroke-width="0.5" stroke-dasharray="2,2"/>
+      <line x1="390" y1="155" x2="390" y2="168" stroke="#9ca3af" stroke-width="0.5" stroke-dasharray="2,2"/>
+      <line x1="540" y1="145" x2="540" y2="168" stroke="#9ca3af" stroke-width="0.5" stroke-dasharray="2,2"/>
+      <line x1="690" y1="155" x2="690" y2="168" stroke="#9ca3af" stroke-width="0.5" stroke-dasharray="2,2"/>
+    </svg>
+  </div>
+
   <div style="display:grid;grid-template-columns:1fr;gap:.5rem;margin-bottom:.9rem">
     <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
       <strong style="color:var(--accent)">1) PII 검출·마스킹</strong> — Microsoft Presidio (오픈소스) · AWS Comprehend · Google Cloud DLP. 입력·출력 모두 검사. 한국어 주민번호·계좌번호 패턴 보강.
