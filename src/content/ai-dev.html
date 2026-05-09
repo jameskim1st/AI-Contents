@@ -3114,31 +3114,97 @@ service-account.json</code></pre>
     </svg>
   </div>
 
-  <div style="display:grid;grid-template-columns:1fr;gap:.5rem;margin-bottom:.9rem">
-    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
-      <strong style="color:var(--accent)">1) 모델 선정 + 인증 설정</strong> — 작업 난이도 → 모델 선택 (저난도: GPT-4o-mini, 고난도: Claude Opus). API Key를 Vault/Secrets Manager에 저장 (절대 코드 하드코딩 X).
+  <!-- 5-step 친절한 풀이 -->
+  <div style="display:grid;grid-template-columns:1fr;gap:.7rem;margin-bottom:.9rem">
+
+    <!-- Step 1 -->
+    <div style="display:grid;grid-template-columns:42px 1fr;gap:.8rem;align-items:start">
+      <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:var(--display);font-size:.95rem;margin-top:.2rem">1</div>
+      <div style="padding:.85rem 1rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0">
+        <div style="font-size:.92rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">어떤 모델을 쓸지 고르기</div>
+        <div style="font-size:.8rem;color:var(--text);line-height:1.85">
+          <strong style="color:var(--accent)">왜?</strong> 모델마다 가격·속도·답변 품질이 천차만별. 잘못 고르면 비용 폭발하거나 답변이 부족합니다.<br>
+          <strong style="color:var(--accent)">무엇을:</strong> 작업 난이도에 맞춰 선택<br>
+          <span style="color:var(--text-dim);padding-left:1rem">• 간단한 분류·요약 → <strong>GPT-4o-mini</strong> (1,000 토큰당 약 $0.0002, 매우 저렴)</span><br>
+          <span style="color:var(--text-dim);padding-left:1rem">• 일반 추론·대화 → <strong>Claude Sonnet 4.6</strong> 또는 <strong>GPT-4o</strong> (중간)</span><br>
+          <span style="color:var(--text-dim);padding-left:1rem">• 어려운 코딩·분석 → <strong>Claude Opus 4.7</strong> (비싸지만 강력)</span><br>
+          <strong style="color:var(--accent)">📌 Tip:</strong> 처음엔 가장 작은 모델로 시작하고, 품질 부족할 때만 큰 모델로 올리기.
+        </div>
+      </div>
     </div>
-    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
-      <strong style="color:var(--accent)">2) Streaming vs Batch 결정</strong> — 사용자 대화는 streaming (SSE), 백그라운드 배치는 일반 API. Batch API (50% 할인) 활용 가능 여부 검토.
+
+    <!-- Step 2 -->
+    <div style="display:grid;grid-template-columns:42px 1fr;gap:.8rem;align-items:start">
+      <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:var(--display);font-size:.95rem;margin-top:.2rem">2</div>
+      <div style="padding:.85rem 1rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0">
+        <div style="font-size:.92rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">API 키를 안전하게 발급·보관하기</div>
+        <div style="font-size:.8rem;color:var(--text);line-height:1.85">
+          <strong style="color:var(--accent)">왜?</strong> API 키가 유출되면 누구든 우리 계정으로 LLM을 호출 가능 → 청구서 폭탄 + 데이터 유출. 실제 사고 빈번.<br>
+          <strong style="color:var(--accent)">무엇을:</strong><br>
+          <span style="color:var(--text-dim);padding-left:1rem">① 각 LLM 회사 웹사이트(OpenAI Platform, Anthropic Console 등)에서 키 발급</span><br>
+          <span style="color:var(--text-dim);padding-left:1rem">② 키를 <strong>"비밀 저장소"</strong>에 보관 — AWS Secrets Manager, GCP Secret Manager, HashiCorp Vault 같은 전용 도구</span><br>
+          <span style="color:var(--text-dim);padding-left:1rem">③ 코드는 환경변수로 키를 읽어옴 (코드 파일에 키를 직접 쓰지 X)</span><br>
+          <strong style="color:var(--accent)">⚠ 절대 금지:</strong> 키를 코드에 직접 쓰고 Git에 push. 봇이 1분 내에 발견해서 악용. 발견 즉시 키 폐기 + 새 키 발급.
+        </div>
+      </div>
     </div>
-    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
-      <strong style="color:var(--accent)">3) 캐싱 전략</strong> — Anthropic prompt cache (90% 절감) · OpenAI prompt cache · 사용자별 응답 캐시. 같은 시스템 프롬프트 재사용 시 필수.
+
+    <!-- Step 3 -->
+    <div style="display:grid;grid-template-columns:42px 1fr;gap:.8rem;align-items:start">
+      <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:var(--display);font-size:.95rem;margin-top:.2rem">3</div>
+      <div style="padding:.85rem 1rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0">
+        <div style="font-size:.92rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">스트리밍 + 캐싱으로 사용자 경험·비용 최적화</div>
+        <div style="font-size:.8rem;color:var(--text);line-height:1.85">
+          <strong style="color:var(--accent)">왜?</strong> LLM 호출은 5~30초 걸림. 사용자가 멍하니 기다리면 이탈. 또 같은 prompt 반복 호출은 비용 낭비.<br>
+          <strong style="color:var(--accent)">무엇을:</strong><br>
+          <span style="color:var(--text-dim);padding-left:1rem">• <strong>Streaming (SSE)</strong> — 답변이 한 글자씩 나타나도록. ChatGPT 응답이 그렇게 나옴. <code style="background:var(--card);padding:.05em .3em;border-radius:3px;font-size:.85em">stream=True</code> 옵션 1줄.</span><br>
+          <span style="color:var(--text-dim);padding-left:1rem">• <strong>Prompt Cache</strong> — 같은 시스템 프롬프트가 계속 재사용되면 LLM 회사가 캐시 → 입력 비용 90% 절감 (Anthropic·OpenAI 공식 기능)</span><br>
+          <strong style="color:var(--accent)">📌 효과:</strong> 첫 토큰 도달까지 30초 → 0.5초로 단축. 비용 월 1,000만원 → 100만원.
+        </div>
+      </div>
     </div>
-    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
-      <strong style="color:var(--accent)">4) 에러 처리</strong> — 429 (rate limit) → exponential backoff. 5xx → 다른 provider로 fallback. <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/circuit-breaker.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">Circuit breaker</a> 적용.
+
+    <!-- Step 4 -->
+    <div style="display:grid;grid-template-columns:42px 1fr;gap:.8rem;align-items:start">
+      <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:var(--display);font-size:.95rem;margin-top:.2rem">4</div>
+      <div style="padding:.85rem 1rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0">
+        <div style="font-size:.92rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">에러·장애에 대비한 fallback 체인</div>
+        <div style="font-size:.8rem;color:var(--text);line-height:1.85">
+          <strong style="color:var(--accent)">왜?</strong> LLM provider가 가끔 다운됩니다 (OpenAI 장애는 평균 월 1~2회). 장애 시 우리 서비스도 같이 죽으면 안 됨.<br>
+          <strong style="color:var(--accent)">무엇을:</strong> 한 provider만 쓰지 말고 fallback 체인 구성<br>
+          <span style="color:var(--text-dim);padding-left:1rem">① <strong>Primary</strong>: Claude Sonnet (평소 사용)</span><br>
+          <span style="color:var(--text-dim);padding-left:1rem">② <strong>Fallback A</strong>: GPT-4o (Claude 장애 시)</span><br>
+          <span style="color:var(--text-dim);padding-left:1rem">③ <strong>Fallback B</strong>: Gemini (둘 다 장애 시)</span><br>
+          <strong style="color:var(--accent)">📌 도구:</strong> <strong>LiteLLM Proxy · Portkey · OpenRouter</strong>가 fallback을 자동 처리. 직접 짤 필요 없음.<br>
+          <strong style="color:var(--accent)">+추가:</strong> 같은 provider 안에서도 429 (Rate Limit) 응답이 오면 1초 → 2초 → 4초 → 8초 식으로 기다리며 재시도 (Exponential Backoff).
+        </div>
+      </div>
     </div>
-    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
-      <strong style="color:var(--accent)">5) 비용 추적</strong> — 모든 호출의 input·output 토큰 + cost 계산 + tenant_id로 attribution. LangSmith / Helicone 권장.
+
+    <!-- Step 5 -->
+    <div style="display:grid;grid-template-columns:42px 1fr;gap:.8rem;align-items:start">
+      <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:var(--display);font-size:.95rem;margin-top:.2rem">5</div>
+      <div style="padding:.85rem 1rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0">
+        <div style="font-size:.92rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">비용·성능 모니터링 + 알람</div>
+        <div style="font-size:.8rem;color:var(--text);line-height:1.85">
+          <strong style="color:var(--accent)">왜?</strong> "월말에 1억 청구서" 사고 방지. 어느 기능이 비용 90%를 쓰는지 모르면 줄일 수 없음.<br>
+          <strong style="color:var(--accent)">무엇을:</strong><br>
+          <span style="color:var(--text-dim);padding-left:1rem">• 모든 호출의 <strong>토큰 수 + 비용 + 지연시간</strong> 기록</span><br>
+          <span style="color:var(--text-dim);padding-left:1rem">• <strong>tenant별·기능별 attribution</strong> — "어느 사용자/어느 기능이 비용 얼마?" 분석 가능</span><br>
+          <span style="color:var(--text-dim);padding-left:1rem">• <strong>일일 한도 + 알람</strong> — 비용이 평소 2배 초과 시 PagerDuty/Slack 알림</span><br>
+          <strong style="color:var(--accent)">📌 도구:</strong> <strong>LangSmith</strong>(LangChain 공식, 가장 널리 사용), <strong>Helicone</strong>(open source), <strong>Langfuse</strong>(self-host 가능). 환경변수 1줄 추가로 시작 가능.
+        </div>
+      </div>
     </div>
-    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
-      <strong style="color:var(--accent)">6) Fallback chain</strong> — Primary (Claude Sonnet) → Fallback A (GPT-4o) → Fallback B (Gemini). 한 provider 장애 시 자동 전환. LiteLLM·Portkey·OpenRouter가 자동 처리.
-    </div>
-    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
-      <strong style="color:var(--accent)">7) 모니터링 + 알람</strong> — P50/P95 latency · 비용 일일 한도 · 에러율 5% 초과 시 PagerDuty.
-    </div>
+
   </div>
-  <div style="padding:.7rem 1rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
-    ⚠️ <strong style="color:var(--accent)">흔한 실수:</strong> ① API Key를 .env에 두고 git에 push (즉시 rotate 필요), ② Provider 1곳만 사용 (장애 시 전체 다운), ③ 토큰 비용 추적 없음 (월말에 1억 청구서)
+
+  <!-- 흔한 실수 -->
+  <div style="padding:.85rem 1rem;background:#ef444415;border:1px solid #ef444444;border-radius:8px;font-size:.8rem;color:var(--text);line-height:1.85">
+    <div style="font-weight:700;color:#ef4444;margin-bottom:.3rem">⚠ 흔한 실수 3가지</div>
+    <strong style="color:#ef4444">①</strong> API Key를 코드 파일이나 .env에 두고 git에 commit → 즉시 유출 (봇이 GitHub 모니터링)<br>
+    <strong style="color:#ef4444">②</strong> Provider 1곳만 사용 → 장애 시 전체 서비스 다운<br>
+    <strong style="color:#ef4444">③</strong> 토큰 비용 추적 안 함 → 월말에 예상 100배 청구서
   </div>
 </div>
 </div>
@@ -3201,31 +3267,98 @@ service-account.json</code></pre>
     </svg>
   </div>
 
-  <div style="display:grid;grid-template-columns:1fr;gap:.5rem;margin-bottom:.9rem">
-    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
-      <strong style="color:var(--accent)">1) Tool 카탈로그 정의</strong> — 에이전트가 쓸 수 있는 도구 목록 (검색·sandbox·browser·계산기 등). 각 도구의 JSON 스키마 + 한 줄 설명 + 예시 입력.
+  <!-- 5-step 친절한 풀이 -->
+  <div style="display:grid;grid-template-columns:1fr;gap:.7rem;margin-bottom:.9rem">
+
+    <!-- Step 1 -->
+    <div style="display:grid;grid-template-columns:42px 1fr;gap:.8rem;align-items:start">
+      <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:var(--display);font-size:.95rem;margin-top:.2rem">1</div>
+      <div style="padding:.85rem 1rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0">
+        <div style="font-size:.92rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">에이전트가 쓸 도구 목록(카탈로그) 만들기</div>
+        <div style="font-size:.8rem;color:var(--text);line-height:1.85">
+          <strong style="color:var(--accent)">왜?</strong> 에이전트는 LLM 자체가 도구를 호출하지 않습니다. <strong>"이런 도구들이 있다"는 메뉴판을 LLM에게 보여주면 LLM이 어떤 걸 쓸지 결정</strong>해 우리에게 알려줌. 우리가 실제 호출.<br>
+          <strong style="color:var(--accent)">무엇을:</strong> 각 도구를 JSON 스키마로 정의<br>
+          <span style="color:var(--text-dim);padding-left:1rem">• <strong>이름</strong>: <code style="background:var(--card);padding:.05em .3em;border-radius:3px;font-size:.85em">search_news</code> 같은 명확한 동사+명사</span><br>
+          <span style="color:var(--text-dim);padding-left:1rem">• <strong>설명</strong>: "특정 키워드의 최근 뉴스 검색. 30일 이내 한정." (LLM이 읽고 언제 쓸지 판단)</span><br>
+          <span style="color:var(--text-dim);padding-left:1rem">• <strong>입력 파라미터</strong>: <code style="background:var(--card);padding:.05em .3em;border-radius:3px;font-size:.85em">query: string</code> 등. 타입·범위·예시 명시</span><br>
+          <strong style="color:var(--accent)">📌 팁:</strong> 처음에는 도구 3~5개로 시작. 너무 많으면 LLM이 헷갈림.
+        </div>
+      </div>
     </div>
-    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
-      <strong style="color:var(--accent)">2) 인증 설정</strong> — 도구마다 다름. Tavily·Brave (API Key), E2B·Modal (API Key + workspace), Browserbase (Project ID + API Key).
+
+    <!-- Step 2 -->
+    <div style="display:grid;grid-template-columns:42px 1fr;gap:.8rem;align-items:start">
+      <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:var(--display);font-size:.95rem;margin-top:.2rem">2</div>
+      <div style="padding:.85rem 1rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0">
+        <div style="font-size:.92rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">대표 도구 3종 선택 + 인증 설정</div>
+        <div style="font-size:.8rem;color:var(--text);line-height:1.85">
+          <strong style="color:var(--accent)">왜?</strong> 직접 도구를 만들 필요 없음. 검증된 SaaS 사용이 안전·빠름.<br>
+          <strong style="color:var(--accent)">대표 3종:</strong><br>
+          <span style="color:var(--text-dim);padding-left:1rem">🔍 <strong>웹 검색</strong> — Tavily / Brave Search ($0.005/호출). 인증: API Key 1개</span><br>
+          <span style="color:var(--text-dim);padding-left:1rem">💻 <strong>코드 실행 sandbox</strong> — E2B / Modal. AI가 짠 Python 코드를 격리 환경에서 안전 실행. 인증: API Key + workspace ID</span><br>
+          <span style="color:var(--text-dim);padding-left:1rem">🌐 <strong>브라우저 자동화</strong> — Browserbase / Playwright Cloud. AI가 웹사이트 직접 클릭·입력. 인증: Project ID + API Key</span><br>
+          <strong style="color:var(--accent)">📌 팁:</strong> 검색은 거의 모든 에이전트에 필수. sandbox·브라우저는 필요 시.
+        </div>
+      </div>
     </div>
-    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
-      <strong style="color:var(--accent)">3) Function calling 노출</strong> — LLM에게 도구 스키마 전달 (OpenAI/Anthropic 표준). LLM이 도구 호출 결정 → 우리 코드가 실제 API 실행.
+
+    <!-- Step 3 -->
+    <div style="display:grid;grid-template-columns:42px 1fr;gap:.8rem;align-items:start">
+      <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:var(--display);font-size:.95rem;margin-top:.2rem">3</div>
+      <div style="padding:.85rem 1rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0">
+        <div style="font-size:.92rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">Function Calling으로 LLM에 도구 노출</div>
+        <div style="font-size:.8rem;color:var(--text);line-height:1.85">
+          <strong style="color:var(--accent)">왜?</strong> LLM에게 도구 카탈로그(Step 1의 JSON)를 매 호출 시 함께 보내야 LLM이 도구 호출 가능.<br>
+          <strong style="color:var(--accent)">무엇을:</strong> OpenAI/Anthropic 표준 사용<br>
+          <span style="color:var(--text-dim);padding-left:1rem">① <strong>요청에 tools 파라미터 포함</strong> — <code style="background:var(--card);padding:.05em .3em;border-radius:3px;font-size:.85em">client.chat.create(model="...", tools=[search_tool, ...])</code></span><br>
+          <span style="color:var(--text-dim);padding-left:1rem">② <strong>LLM이 응답 시 tool_call JSON 반환</strong> — <code style="background:var(--card);padding:.05em .3em;border-radius:3px;font-size:.85em">{"tool":"search_news","args":{"query":"AAPL Q4"}}</code></span><br>
+          <span style="color:var(--text-dim);padding-left:1rem">③ <strong>우리 코드가 그 JSON을 보고 실제 API 호출</strong></span><br>
+          <span style="color:var(--text-dim);padding-left:1rem">④ <strong>결과를 LLM에게 다시 전달</strong> → LLM이 다음 결정</span><br>
+          <strong style="color:var(--accent)">📌 핵심:</strong> LLM은 결정만, 실제 호출은 우리 코드가 함. 보안·비용 통제 가능.
+        </div>
+      </div>
     </div>
-    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
-      <strong style="color:var(--accent)">4) Argument validation (Poka-Yoke)</strong> — Anthropic 권고: 모델이 실수하기 어려운 인터페이스 설계. 예: 상대경로 X → 절대경로만 받기.
+
+    <!-- Step 4 -->
+    <div style="display:grid;grid-template-columns:42px 1fr;gap:.8rem;align-items:start">
+      <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:var(--display);font-size:.95rem;margin-top:.2rem">4</div>
+      <div style="padding:.85rem 1rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0">
+        <div style="font-size:.92rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">LLM이 잘못 호출하지 못하게 방어 (Validation)</div>
+        <div style="font-size:.8rem;color:var(--text);line-height:1.85">
+          <strong style="color:var(--accent)">왜?</strong> LLM은 가끔 잘못된 형식으로 도구를 호출함. 그대로 외부 API에 전달하면 에러 또는 사고.<br>
+          <strong style="color:var(--accent)">무엇을:</strong><br>
+          <span style="color:var(--text-dim);padding-left:1rem">• <strong>형식 검증</strong> — JSON 스키마로 자동 (Pydantic·Zod 활용)</span><br>
+          <span style="color:var(--text-dim);padding-left:1rem">• <strong>실수 방지 설계 (Anthropic 권고)</strong> — LLM이 실수 못 하게 인터페이스를 디자인. 예: 파일 경로는 <strong>상대경로 받지 말고 절대경로만</strong> 받기 (LLM이 헷갈리는 부분 차단)</span><br>
+          <span style="color:var(--text-dim);padding-left:1rem">• <strong>위험 작업은 사람 승인</strong> — 결제·삭제·이메일 발송 등은 자동 실행 X, 사람이 한 번 더 확인</span><br>
+          <strong style="color:var(--accent)">⚠ 주의:</strong> 부작용 있는 도구(이메일 발송 등)는 반드시 <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/idempotency.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">Idempotency key</a> — 재시도 시 중복 발송 방지.
+        </div>
+      </div>
     </div>
-    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
-      <strong style="color:var(--accent)">5) 결과 normalize</strong> — 도구마다 응답 포맷 다름 → LLM이 이해할 수 있는 일관된 markdown/JSON으로 변환.
+
+    <!-- Step 5 -->
+    <div style="display:grid;grid-template-columns:42px 1fr;gap:.8rem;align-items:start">
+      <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:var(--display);font-size:.95rem;margin-top:.2rem">5</div>
+      <div style="padding:.85rem 1rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0">
+        <div style="font-size:.92rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">결과를 LLM 친화적으로 정리 (Normalize) + 비용 추적</div>
+        <div style="font-size:.8rem;color:var(--text);line-height:1.85">
+          <strong style="color:var(--accent)">왜?</strong> 도구마다 응답 포맷이 제각각. 그대로 LLM에 주면 LLM이 헷갈려 잘못 해석.<br>
+          <strong style="color:var(--accent)">무엇을:</strong><br>
+          <span style="color:var(--text-dim);padding-left:1rem">• <strong>응답을 일관된 markdown 또는 JSON으로 변환</strong> — LLM이 이해 쉬움</span><br>
+          <span style="color:var(--text-dim);padding-left:1rem">• <strong>긴 응답은 요약</strong> — 검색 결과 100개 → 상위 5개 + 핵심 정리</span><br>
+          <span style="color:var(--text-dim);padding-left:1rem">• <strong>도구별 비용 추적</strong> — Tavily $0.005/호출, E2B 분당, Browserbase page-load당. 어느 도구가 비용 폭발?</span><br>
+          <strong style="color:var(--accent)">📌 효과:</strong> 도구별 사용량·비용 visible → 비싼 도구 캐싱이나 대체.
+        </div>
+      </div>
     </div>
-    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
-      <strong style="color:var(--accent)">6) Retry + Idempotency</strong> — 도구 호출 실패 시 backoff 재시도. 부작용 있는 도구(이메일 발송 등)는 <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/idempotency.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">idempotency key</a> 필수.
-    </div>
-    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
-      <strong style="color:var(--accent)">7) Per-tool 비용 추적</strong> — Tavily 검색은 호출당 $0.005, E2B sandbox는 분당, Browserbase는 page-load당. 도구별 비용 attribution.
-    </div>
+
   </div>
-  <div style="padding:.7rem 1rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
-    💡 <strong style="color:var(--accent)">팁:</strong> 도구 정의는 <strong>프롬프트 엔지니어링과 동일한 정성</strong>으로 다뤄야 함 (Anthropic 권고). 모호한 description → 모델이 잘못된 도구 선택.
+
+  <!-- 흔한 실수 -->
+  <div style="padding:.85rem 1rem;background:#ef444415;border:1px solid #ef444444;border-radius:8px;font-size:.8rem;color:var(--text);line-height:1.85">
+    <div style="font-weight:700;color:#ef4444;margin-bottom:.3rem">⚠ 흔한 실수 3가지</div>
+    <strong style="color:#ef4444">①</strong> 도구 description이 모호 → LLM이 엉뚱한 도구 선택 (예: "search" vs "search_news")<br>
+    <strong style="color:#ef4444">②</strong> 위험 작업(결제·삭제)에 사람 승인 게이트 없음 → AI 사고<br>
+    <strong style="color:#ef4444">③</strong> 도구별 비용 추적 안 함 → Browserbase가 한 달에 100만원 청구
   </div>
 </div>
 </div>
