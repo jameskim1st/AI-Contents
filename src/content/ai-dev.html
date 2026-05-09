@@ -18,6 +18,7 @@
       <a href="#ad-ch10"><span class="cn">10</span>체크리스트 총정리</a>
       <a href="#ad-ch11"><span class="cn">11</span>LLM API 마스터</a>
       <a href="#ad-ch12"><span class="cn">12</span>시스템 통합 API</a>
+      <a href="#ad-ch13"><span class="cn">13</span>엔터프라이즈 API 통합 분류 ⭐</a>
     </nav>
   </div>
 </div>
@@ -2748,6 +2749,791 @@ service-account.json</code></pre>
 </section>
 
 
+<!-- ═══════════════════════════════════════════ -->
+<!-- CHAPTER 13: 엔터프라이즈 API 통합 작업 분류 ⭐ -->
+<!-- ═══════════════════════════════════════════ -->
+<section class="ch reveal" id="ad-ch13">
+<div class="ch-head"><div class="ch-num" style="color:var(--accent)">13</div><h2 class="ch-title">엔터프라이즈 API 통합 — 10가지 작업 분류와 실전 패턴 ⭐</h2></div>
+
+<p class="section-desc">Ch.11(LLM API)·Ch.12(시스템 통합)가 "어떻게 호출하나"였다면, 이번 챕터는 <strong style="color:var(--accent)">"엔터프라이즈 AI 시스템에서 마주치는 API 통합 작업의 종류 전체"</strong>를 분류·정리합니다. 평균 엔터프라이즈 AI 프로젝트는 <strong>5~15개의 다른 종류 API를 동시에</strong> 다루는데, 각 종류마다 인증·지연·실패·비용 패턴이 달라 — 한 종류만 잘못 다뤄도 시스템이 죽습니다. 신규 AI 프로젝트 설계 시 빠짐없이 검토할 수 있는 <strong>field guide</strong>로 사용하세요.</p>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 1: 왜 분류부터 시작하나
+     ═══════════════════════════════════════════ -->
+<div class="dia reveal">
+<div class="dia-title">🤔 왜 "분류"부터 시작하나</div>
+<div style="max-width:880px;margin:0 auto">
+
+  <div style="font-size:.88rem;color:var(--text);line-height:1.85;margin-bottom:1rem">
+    엔터프라이즈 AI 시스템은 <strong style="color:var(--accent)">"모델 + 수많은 API 통합"</strong>의 합입니다. 단순 LLM 챗봇조차 — 인증·로깅·비용 추적까지 포함하면 5개 이상의 외부 API를 호출합니다. 사내 RAG 챗봇은 평균 8~12개, 본격적인 멀티-에이전트 시스템은 15개 이상.
+  </div>
+
+  <!-- 카테고리별 차이 강조 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:1rem">
+    <div style="padding:.85rem 1rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+      <div style="font-size:.78rem;font-weight:700;color:var(--accent);margin-bottom:.3rem">⏱ 지연 특성이 다름</div>
+      <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">LLM API: 1~30초 / Vector DB: 50ms / 사내 ERP: 5분도 가능. 동일한 timeout 적용하면 모두 깨짐.</div>
+    </div>
+    <div style="padding:.85rem 1rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+      <div style="font-size:.78rem;font-weight:700;color:var(--accent);margin-bottom:.3rem">🔐 인증 방식이 다름</div>
+      <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">SaaS: OAuth 사용자별 / LLM: API Key / 사내 시스템: SSO + JWT / 결제: HMAC 서명. 통합 어댑터 필요.</div>
+    </div>
+    <div style="padding:.85rem 1rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+      <div style="font-size:.78rem;font-weight:700;color:var(--accent);margin-bottom:.3rem">💰 비용 모델이 다름</div>
+      <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">LLM: 토큰당 / SaaS: seat당 / Vector DB: 저장량 + QPS / 외부 search: 호출당. attribution 필수.</div>
+    </div>
+  </div>
+
+  <!-- 핵심 메시지 -->
+  <div style="padding:.95rem 1.2rem;background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;font-size:.85rem;color:var(--text);line-height:1.85">
+    💡 <strong style="color:var(--accent)">핵심:</strong> "API 통합"이라는 한 단어에 묶이지만, 실제로는 <strong>10가지 다른 종류의 작업</strong>입니다. 각 종류마다 패턴·도구·실패 모드를 미리 알아야 — 신규 프로젝트에서 "이 종류는 빠뜨렸다"가 안 생깁니다. 본 챕터는 <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/api-integration-taxonomy.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">wiki/entities/api-integration-taxonomy.md</a>에 압축 정리됨.
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 2: 10가지 카테고리 한눈에
+     ═══════════════════════════════════════════ -->
+<div class="dia reveal">
+<div class="dia-title">🗂️ 10가지 API 통합 작업 분류 — 한눈에</div>
+<div style="max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:.6rem">
+
+  <!-- 1. LLM Provider -->
+  <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:10px;padding:.9rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+      <span style="font-family:var(--display);font-size:1.05rem;font-weight:800;color:var(--accent)">①</span>
+      <span style="font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--accent)">LLM Provider APIs</span>
+    </div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.7">모델 호출 자체. <strong>OpenAI · Anthropic · Gemini · Bedrock · Azure OpenAI · NCP HyperCLOVA X</strong>. 토큰 비용 + streaming + function calling + 멀티모달.</div>
+  </div>
+
+  <!-- 2. Tool/Action -->
+  <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:10px;padding:.9rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+      <span style="font-family:var(--display);font-size:1.05rem;font-weight:800;color:var(--accent)">②</span>
+      <span style="font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--accent)">Tool / Action APIs</span>
+    </div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.7">에이전트 도구로 노출. <strong>Tavily/Brave (검색) · E2B/Modal (코드 sandbox) · Browserbase (브라우저)</strong>. function calling 스키마로 노출.</div>
+  </div>
+
+  <!-- 3. Data Source -->
+  <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:10px;padding:.9rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+      <span style="font-family:var(--display);font-size:1.05rem;font-weight:800;color:var(--accent)">③</span>
+      <span style="font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--accent)">Data Source APIs</span>
+    </div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.7">RAG·검색의 데이터. <strong>Pinecone/Weaviate/Qdrant (Vector) · Notion/Confluence/SharePoint (문서)</strong>. 임베딩 동기화 + 권한 매핑 핵심.</div>
+  </div>
+
+  <!-- 4. Internal Service -->
+  <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:10px;padding:.9rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+      <span style="font-family:var(--display);font-size:1.05rem;font-weight:800;color:var(--accent)">④</span>
+      <span style="font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--accent)">Internal Service APIs</span>
+    </div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.7">사내 시스템. <strong>SAP · Salesforce · Workday · 카카오워크 · 사내 마이크로서비스</strong>. 가장 까다로움 — 스키마 변환 + 권한 위임 + 노후 시스템 호환.</div>
+  </div>
+
+  <!-- 5. Agent Protocol -->
+  <div style="background:var(--card);border:1.5px solid var(--accent);border-radius:10px;padding:.9rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+      <span style="font-family:var(--display);font-size:1.05rem;font-weight:800;color:var(--accent)">⑤</span>
+      <span style="font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--accent)">Agent Protocol APIs ⭐</span>
+    </div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.7">표준화된 에이전트 통신. <strong>MCP (에이전트↔도구) · A2A (에이전트↔에이전트)</strong>. 2026 사실상 표준. <a href="/04-ai-agents-advanced#p4-ch7" style="color:var(--accent);text-decoration:underline">Part 4 Ch.07</a>에서 깊이.</div>
+  </div>
+
+  <!-- 6. External SaaS -->
+  <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:10px;padding:.9rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+      <span style="font-family:var(--display);font-size:1.05rem;font-weight:800;color:var(--accent)">⑥</span>
+      <span style="font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--accent)">External SaaS APIs</span>
+    </div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.7">외부 SaaS와의 통합. <strong>Slack/Teams/카카오워크 · Stripe/PG · Calendar · Email</strong>. OAuth 사용자별 토큰 관리 + 토큰 갱신 자동화.</div>
+  </div>
+
+  <!-- 7. Streaming -->
+  <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:10px;padding:.9rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+      <span style="font-family:var(--display);font-size:1.05rem;font-weight:800;color:var(--accent)">⑦</span>
+      <span style="font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--accent)">Streaming / Real-time APIs</span>
+    </div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.7">실시간 통신. <strong>SSE (LLM 토큰 streaming) · WebSocket (양방향 chat) · Webhook (push 이벤트)</strong>. 연결 유지·재연결·duplicate 처리.</div>
+  </div>
+
+  <!-- 8. Observability -->
+  <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:10px;padding:.9rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+      <span style="font-family:var(--display);font-size:1.05rem;font-weight:800;color:var(--accent)">⑧</span>
+      <span style="font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--accent)">Observability APIs</span>
+    </div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.7">관측·평가. <strong>LangSmith · Datadog · OpenTelemetry · Helicone · Langfuse</strong>. 모든 LLM·도구 호출의 trace 자동 수집.</div>
+  </div>
+
+  <!-- 9. Auth/Security -->
+  <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:10px;padding:.9rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+      <span style="font-family:var(--display);font-size:1.05rem;font-weight:800;color:var(--accent)">⑨</span>
+      <span style="font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--accent)">Auth / Security APIs</span>
+    </div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.7">인증·인가. <strong>OAuth 2.0 · JWT · mTLS · API Gateway · HashiCorp Vault</strong>. 모든 통합의 가장 아래 레이어. 잘못 짜면 보안 사고.</div>
+  </div>
+
+  <!-- 10. Compliance -->
+  <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:10px;padding:.9rem">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">
+      <span style="font-family:var(--display);font-size:1.05rem;font-weight:800;color:var(--accent)">⑩</span>
+      <span style="font-family:var(--display);font-size:.92rem;font-weight:700;color:var(--accent)">Compliance / Governance APIs</span>
+    </div>
+    <div style="font-size:.75rem;color:var(--text);line-height:1.7">규제 대응. <strong>PII 마스킹 (Microsoft Presidio) · 콘텐츠 모더레이션 (OpenAI Moderation, AWS Comprehend) · 감사 로그</strong>. <a href="/12-ai-governance" style="color:var(--accent);text-decoration:underline">Part 12 거버넌스</a>와 직결.</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 3: 카테고리별 상세 작업 절차
+     ═══════════════════════════════════════════ -->
+<div class="dia reveal">
+<div class="dia-title">🛠️ 각 카테고리별 상세 작업 절차 — "실제로 무엇을 하는가"</div>
+<p style="max-width:880px;margin:0 auto 1rem;font-size:.85rem;color:var(--text);line-height:1.85;text-align:center">아래 10개 카테고리는 각각 5~7단계 표준 작업 절차를 갖습니다. 신규 통합 시 체크리스트로 사용하세요.</p>
+</div>
+
+<!-- ① LLM Provider APIs -->
+<div class="dia reveal">
+<div class="dia-title">① LLM Provider APIs — 모델 호출의 표준 작업 절차</div>
+<div style="max-width:880px;margin:0 auto">
+  <div style="display:grid;grid-template-columns:1fr;gap:.5rem;margin-bottom:.9rem">
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">1) 모델 선정 + 인증 설정</strong> — 작업 난이도 → 모델 선택 (저난도: GPT-4o-mini, 고난도: Claude Opus). API Key를 Vault/Secrets Manager에 저장 (절대 코드 하드코딩 X).
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">2) Streaming vs Batch 결정</strong> — 사용자 대화는 streaming (SSE), 백그라운드 배치는 일반 API. Batch API (50% 할인) 활용 가능 여부 검토.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">3) 캐싱 전략</strong> — Anthropic prompt cache (90% 절감) · OpenAI prompt cache · 사용자별 응답 캐시. 같은 시스템 프롬프트 재사용 시 필수.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">4) 에러 처리</strong> — 429 (rate limit) → exponential backoff. 5xx → 다른 provider로 fallback. <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/circuit-breaker.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">Circuit breaker</a> 적용.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">5) 비용 추적</strong> — 모든 호출의 input·output 토큰 + cost 계산 + tenant_id로 attribution. LangSmith / Helicone 권장.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">6) Fallback chain</strong> — Primary (Claude Sonnet) → Fallback A (GPT-4o) → Fallback B (Gemini). 한 provider 장애 시 자동 전환. LiteLLM·Portkey·OpenRouter가 자동 처리.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">7) 모니터링 + 알람</strong> — P50/P95 latency · 비용 일일 한도 · 에러율 5% 초과 시 PagerDuty.
+    </div>
+  </div>
+  <div style="padding:.7rem 1rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
+    ⚠️ <strong style="color:var(--accent)">흔한 실수:</strong> ① API Key를 .env에 두고 git에 push (즉시 rotate 필요), ② Provider 1곳만 사용 (장애 시 전체 다운), ③ 토큰 비용 추적 없음 (월말에 1억 청구서)
+  </div>
+</div>
+</div>
+
+<!-- ② Tool / Action APIs -->
+<div class="dia reveal">
+<div class="dia-title">② Tool / Action APIs — 에이전트가 사용하는 도구의 통합 절차</div>
+<div style="max-width:880px;margin:0 auto">
+  <div style="display:grid;grid-template-columns:1fr;gap:.5rem;margin-bottom:.9rem">
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">1) Tool 카탈로그 정의</strong> — 에이전트가 쓸 수 있는 도구 목록 (검색·sandbox·browser·계산기 등). 각 도구의 JSON 스키마 + 한 줄 설명 + 예시 입력.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">2) 인증 설정</strong> — 도구마다 다름. Tavily·Brave (API Key), E2B·Modal (API Key + workspace), Browserbase (Project ID + API Key).
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">3) Function calling 노출</strong> — LLM에게 도구 스키마 전달 (OpenAI/Anthropic 표준). LLM이 도구 호출 결정 → 우리 코드가 실제 API 실행.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">4) Argument validation (Poka-Yoke)</strong> — Anthropic 권고: 모델이 실수하기 어려운 인터페이스 설계. 예: 상대경로 X → 절대경로만 받기.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">5) 결과 normalize</strong> — 도구마다 응답 포맷 다름 → LLM이 이해할 수 있는 일관된 markdown/JSON으로 변환.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">6) Retry + Idempotency</strong> — 도구 호출 실패 시 backoff 재시도. 부작용 있는 도구(이메일 발송 등)는 <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/idempotency.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">idempotency key</a> 필수.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">7) Per-tool 비용 추적</strong> — Tavily 검색은 호출당 $0.005, E2B sandbox는 분당, Browserbase는 page-load당. 도구별 비용 attribution.
+    </div>
+  </div>
+  <div style="padding:.7rem 1rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
+    💡 <strong style="color:var(--accent)">팁:</strong> 도구 정의는 <strong>프롬프트 엔지니어링과 동일한 정성</strong>으로 다뤄야 함 (Anthropic 권고). 모호한 description → 모델이 잘못된 도구 선택.
+  </div>
+</div>
+</div>
+
+<!-- ③ Data Source APIs -->
+<div class="dia reveal">
+<div class="dia-title">③ Data Source APIs — RAG·검색의 데이터 통합 절차</div>
+<div style="max-width:880px;margin:0 auto">
+  <div style="display:grid;grid-template-columns:1fr;gap:.5rem;margin-bottom:.9rem">
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">1) 데이터 출처 분류</strong> — 정형 (DB, Snowflake), 비정형 (PDF, Notion, SharePoint), 실시간 (Slack, 메신저). 각각 다른 통합 패턴.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">2) Ingestion pipeline</strong> — 원본 → 청킹 → 임베딩 → Vector DB 저장. Airflow·Prefect·Dagster 활용. 증분 업데이트 (변경된 문서만) 필수.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">3) 권한 매핑 (Permission propagation)</strong> — 사용자 A가 접근 못 하는 문서를 RAG로 노출하면 <strong style="color:#ef4444">데이터 유출 사고</strong>. 사용자별 권한을 검색 시점에 적용. Pinecone metadata filter, Notion API의 user-scoped search 등.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">4) 임베딩 모델 버전 관리</strong> — 임베딩 모델 교체 시 전체 re-index 필요 (Blue/Green 배포). 같은 인덱스에 두 버전 섞이면 검색 품질 급락.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">5) 검색 품질 평가 (Eval)</strong> — Recall@K, MRR, 도메인 전문가 라벨링. <a href="/04-ai-agents-advanced#p4-ch10" style="color:var(--accent);text-decoration:underline">Part 4 Ch.10 Eval</a> 참고.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">6) 캐싱</strong> — 자주 검색되는 질의는 결과 캐시 (Redis). 임베딩 자체도 캐시 (같은 텍스트 재계산 X).
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">7) Hybrid search</strong> — Vector + 키워드 (BM25) 조합. 한국어는 형태소 분석기(Mecab, Khaiii) 함께. <a href="/09-data-enterprise" style="color:var(--accent);text-decoration:underline">Part 9 Data 실전</a>에서 깊이.
+    </div>
+  </div>
+  <div style="padding:.7rem 1rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
+    ⚠️ <strong style="color:var(--accent)">치명적 실수:</strong> 권한 매핑을 빼먹는 것. "AI가 내 비공개 급여 정보를 동료에게 답변" 같은 사고 빈발.
+  </div>
+</div>
+</div>
+
+<!-- ④ Internal Service APIs -->
+<div class="dia reveal">
+<div class="dia-title">④ Internal Service APIs — 사내 시스템 통합의 표준 절차</div>
+<div style="max-width:880px;margin:0 auto">
+  <div style="display:grid;grid-template-columns:1fr;gap:.5rem;margin-bottom:.9rem">
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">1) Discovery</strong> — 사내에 어떤 API가 있는지 파악. Backstage·Apidocs·내부 API 카탈로그 활용. 노후 시스템은 API 없을 수도 → DB 직접 접근 또는 RPA wrapping.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">2) 인증 위임</strong> — 사용자 SSO 토큰을 백엔드에서 사내 시스템 토큰으로 교환 (token exchange, RFC 8693). 사용자의 권한 그대로 적용.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">3) 스키마 변환 (Adapter)</strong> — 사내 시스템 응답이 일관되지 않거나 노후 → 어댑터 레이어가 LLM 친화적 스키마로 변환.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">4) Rate limit 협상</strong> — 사내 시스템도 부하 한계 있음. AI 트래픽 급증 시 서비스 마비 가능 → 사전에 운영팀과 SLA 협의.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">5) 부작용 격리</strong> — 사내 ERP에 잘못된 주문 입력 같은 사고 방지. write 작업은 항상 사람 승인 게이트 (HITL) + idempotency key.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">6) 감사 로그</strong> — "AI가 누구의 권한으로 무엇을 했는가"를 기록. 사고 시 책임 추적 가능해야.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">7) Fallback (사람 라우팅)</strong> — 사내 시스템 장애 시 자동 사람에게 escalate. AI가 "지금 처리 불가" 응답하지 말고.
+    </div>
+  </div>
+  <div style="padding:.7rem 1rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
+    💡 <strong style="color:var(--accent)">엔터프라이즈 현실:</strong> 사내 시스템 통합이 가장 시간 많이 걸림 (전체 프로젝트의 50%+). 보안·법무·운영팀 합의 필수.
+  </div>
+</div>
+</div>
+
+<!-- ⑤ Agent Protocol APIs (MCP, A2A) -->
+<div class="dia reveal">
+<div class="dia-title">⑤ Agent Protocol APIs (MCP · A2A) — 표준화된 통신 절차</div>
+<div style="max-width:880px;margin:0 auto">
+  <div style="display:grid;grid-template-columns:1fr;gap:.5rem;margin-bottom:.9rem">
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">1) Protocol 선정</strong> — 도구 노출 = MCP, 에이전트 간 위임 = A2A. <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/mcp.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">MCP entity</a> · <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/a2a.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">A2A entity</a>.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">2) MCP 서버 구축</strong> — Tools·Resources·Prompts 3종 노출. 공식 SDK (Python/TS) 활용. stdio (로컬) 또는 SSE/HTTP (원격).
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">3) 인증 통합</strong> — MCP는 OAuth 2.1 표준. 서버마다 인증 흐름 다름 → 클라이언트가 적절히 처리. 엔터프라이즈는 사내 IdP 매핑.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">4) 도구 스키마 설계</strong> — 모델이 잘 이해하는 명확한 description + 입력 예시. argument validation으로 잘못된 호출 방지.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">5) MCP Gateway 활용</strong> — 여러 MCP 서버를 단일 endpoint로 노출. Composio·Pica 활용 시 MCP 자체 운영 부담 ↓.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">6) A2A 세션 관리</strong> — 에이전트가 다른 에이전트에 작업 위임 → 세션 ID로 컨텍스트 공유. 결과 콜백·streaming 지원.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">7) 거버넌스</strong> — 누가 누구의 MCP 호출 가능한가 정책. 사고 시 trace·audit log 확보.
+    </div>
+  </div>
+  <div style="padding:.7rem 1rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
+    🔗 <strong style="color:var(--accent)">자세히:</strong> <a href="/04-ai-agents-advanced#p4-ch7" style="color:var(--accent);text-decoration:underline">Part 4 Ch.07 MCP</a> · <a href="/04-ai-agents-advanced#p4-ch8" style="color:var(--accent);text-decoration:underline">Ch.08 A2A</a>
+  </div>
+</div>
+</div>
+
+<!-- ⑥ External SaaS APIs -->
+<div class="dia reveal">
+<div class="dia-title">⑥ External SaaS APIs — 외부 SaaS 통합 절차</div>
+<div style="max-width:880px;margin:0 auto">
+  <div style="display:grid;grid-template-columns:1fr;gap:.5rem;margin-bottom:.9rem">
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">1) OAuth 2.0 앱 등록</strong> — Slack/Google/Microsoft 콘솔에 앱 등록 → Client ID·Secret 발급. Redirect URI 설정.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">2) 사용자별 토큰 관리</strong> — 각 사용자가 자신의 SaaS 계정 연결 → access token·refresh token DB 저장 (암호화). per-tenant 격리.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">3) 토큰 자동 갱신</strong> — 만료 전 자동 refresh. refresh 실패 시 사용자에게 재인증 요청.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">4) Webhook 등록</strong> — 이벤트 수신 시. <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/webhook-patterns.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">Webhook patterns</a> 참고. 서명 검증·idempotency 필수.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">5) Rate limit 처리</strong> — Slack: 1초 1건 (티어별), Stripe: 100/sec. 각 SaaS 별도 처리 + queue로 흡수.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">6) Zapier MCP / 통합 플랫폼 활용</strong> — 직접 SDK 통합 대신 Zapier MCP·Composio·Pica로 5,000+ 앱 한 번에. <a href="/04-ai-agents-advanced#p4-ch9" style="color:var(--accent);text-decoration:underline">Part 4 Ch.09 Zapier 위임</a>.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">7) 비용 attribution</strong> — Stripe: per-transaction fee, Slack: seat당, Zoom: minute당. tenant별 비용 집계.
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ⑦ Streaming/Real-time APIs -->
+<div class="dia reveal">
+<div class="dia-title">⑦ Streaming / Real-time APIs — SSE · WebSocket · Webhook 절차</div>
+<div style="max-width:880px;margin:0 auto">
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:.9rem">
+
+    <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+      <div style="font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">📡 SSE (Server-Sent Events)</div>
+      <div style="font-size:.74rem;color:var(--text);line-height:1.7">
+        <strong>용도:</strong> LLM 토큰 streaming, 단방향 push<br>
+        <strong>설치:</strong> 표준 EventSource API<br>
+        <strong>장점:</strong> HTTP 위에서 단순<br>
+        <strong>주의:</strong> 자동 재연결 처리, browser 6 connection 한도
+      </div>
+    </div>
+
+    <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+      <div style="font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">🔄 WebSocket</div>
+      <div style="font-size:.74rem;color:var(--text);line-height:1.7">
+        <strong>용도:</strong> 양방향 chat, 협업 에디터<br>
+        <strong>프로토콜:</strong> ws:// 또는 wss://<br>
+        <strong>장점:</strong> 진정한 양방향<br>
+        <strong>주의:</strong> heartbeat (ping/pong), reconnect, sticky session
+      </div>
+    </div>
+
+    <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+      <div style="font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">📨 Webhook</div>
+      <div style="font-size:.74rem;color:var(--text);line-height:1.7">
+        <strong>용도:</strong> 이벤트 수신, 액션 위임<br>
+        <strong>프로토콜:</strong> 표준 HTTP POST<br>
+        <strong>장점:</strong> 가장 단순, 방화벽 우호적<br>
+        <strong>주의:</strong> 서명 검증, idempotency, 재시도 폭주
+      </div>
+    </div>
+
+  </div>
+
+  <div style="padding:.75rem 1rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.75;margin-bottom:.6rem">
+    <strong style="color:var(--accent)">표준 작업 절차:</strong> 1) 연결 수립·인증 → 2) heartbeat/ping 설정 → 3) 에러·끊김 시 자동 reconnect (exponential backoff) → 4) 메시지 순서 보장 (sequence number) → 5) idempotency (중복 메시지 처리) → 6) 백프레셔 (consumer 처리 못 따라갈 때) → 7) 종료 시 graceful shutdown
+  </div>
+  <div style="padding:.7rem 1rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
+    💡 <strong style="color:var(--accent)">선택 가이드:</strong> 단방향 + LLM streaming = SSE / 양방향 chat = WebSocket / 외부 이벤트 수신 = Webhook
+  </div>
+</div>
+</div>
+
+<!-- ⑧ Observability APIs -->
+<div class="dia reveal">
+<div class="dia-title">⑧ Observability APIs — 관측·평가의 통합 절차</div>
+<div style="max-width:880px;margin:0 auto">
+  <div style="display:grid;grid-template-columns:1fr;gap:.5rem;margin-bottom:.9rem">
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">1) OpenTelemetry 표준 채택</strong> — trace·metric·log을 OTel SDK로. 벤더 락인 회피.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">2) LLM-특화 trace</strong> — LangSmith·Langfuse·Helicone. <code>@traceable</code> 데코레이터 1줄로 모든 LLM·도구 호출 자동 기록. <a href="/04-ai-agents-advanced#p4-ch10" style="color:var(--accent);text-decoration:underline">Part 4 Ch.10</a> 참고.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">3) 비용 attribution</strong> — 모든 호출에 tenant_id·user_id·feature 태그 → "어느 기능이 토큰 90% 쓰는가" 분석 가능.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">4) 알람 정책</strong> — P99 latency · 에러율 · 비용 일일 한도 · circuit breaker open 횟수. PagerDuty·Opsgenie 연동.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">5) Eval pipeline 자동화</strong> — CI에 시나리오 1,000건 자동 채점. 회귀 발견 시 PR 차단.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">6) Trace → Eval feedback loop</strong> — 프로덕션 실패 trace를 즉시 eval 데이터셋에 추가 → 다음 PR에서 회귀 검증.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">7) 데이터 보존 정책</strong> — trace에 PII 포함 가능 → 30일 후 마스킹 또는 삭제. 한국 PIPA 대응.
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ⑨ Auth/Security APIs -->
+<div class="dia reveal">
+<div class="dia-title">⑨ Auth / Security APIs — 인증·인가·secrets 절차</div>
+<div style="max-width:880px;margin:0 auto">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:.9rem">
+
+    <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+      <div style="font-size:.82rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">🔑 API Key</div>
+      <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">서버 간, 간단. <strong>장점:</strong> 빠른 시작. <strong>단점:</strong> 회전 어려움. <strong>저장:</strong> 환경변수·Vault.</div>
+    </div>
+
+    <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+      <div style="font-size:.82rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">🔄 OAuth 2.0</div>
+      <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">사용자 위임. <strong>장점:</strong> 사용자별 권한. <strong>단점:</strong> 흐름 복잡, refresh 필요. <strong>표준:</strong> SaaS 통합의 99%.</div>
+    </div>
+
+    <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+      <div style="font-size:.82rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">🎫 JWT</div>
+      <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">자체 포함 토큰. <strong>장점:</strong> stateless. <strong>단점:</strong> 즉시 revoke 어려움. <strong>적합:</strong> 마이크로서비스 간.</div>
+    </div>
+
+    <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+      <div style="font-size:.82rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">🔒 mTLS</div>
+      <div style="font-size:.74rem;color:var(--text-dim);line-height:1.7">상호 인증서. <strong>장점:</strong> 가장 강력. <strong>단점:</strong> 인증서 운영 부담. <strong>적합:</strong> 금융·정부.</div>
+    </div>
+
+  </div>
+
+  <div style="padding:.75rem 1rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.75;margin-bottom:.6rem">
+    <strong style="color:var(--accent)">표준 작업 절차:</strong> 1) 인증 방식 선택 → 2) Secrets 저장소 (Vault/AWS Secrets/GCP Secret Manager) → 3) 토큰 자동 회전 (90일) → 4) <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/api-gateway.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">API Gateway</a>에서 인증 검증 → 5) Per-tenant 격리 → 6) 감사 로그 (누가·언제·무엇) → 7) 정기 보안 audit
+  </div>
+  <div style="padding:.7rem 1rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.7">
+    ⚠️ <strong style="color:var(--accent)">실수:</strong> API key를 git에 커밋 (즉시 rotate + git history clean), JWT secret 하드코딩, secret rotation 안 함 (1년+ 같은 키)
+  </div>
+</div>
+</div>
+
+<!-- ⑩ Compliance / Governance APIs -->
+<div class="dia reveal">
+<div class="dia-title">⑩ Compliance / Governance APIs — 규제 대응 절차</div>
+<div style="max-width:880px;margin:0 auto">
+  <div style="display:grid;grid-template-columns:1fr;gap:.5rem;margin-bottom:.9rem">
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">1) PII 검출·마스킹</strong> — Microsoft Presidio (오픈소스) · AWS Comprehend · Google Cloud DLP. 입력·출력 모두 검사. 한국어 주민번호·계좌번호 패턴 보강.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">2) 콘텐츠 모더레이션</strong> — OpenAI Moderation API (무료) · AWS Comprehend Safety · Azure AI Content Safety. 입력 prompt + LLM 응답 모두 검증.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">3) Prompt Injection 방어</strong> — Lakera Guard · Rebuff · 자체 detector. 사용자 입력 prompt에 시스템 명령 주입 차단.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">4) 감사 로그 (Audit Trail)</strong> — 모든 LLM 호출 + 결정 이유 + 사용자 신원 + 시점 기록. 공개·금융권 의무.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">5) 데이터 보존·삭제 정책</strong> — GDPR right to be forgotten · 한국 PIPA. 사용자 요청 시 trace·embedding 모두 삭제 가능해야.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">6) 모델 버전 추적</strong> — "이 결정은 어느 모델 버전이 내렸는가" 추적. 모델 교체 시 회귀 검증.
+    </div>
+    <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+      <strong style="color:var(--accent)">7) 규제 매핑</strong> — EU AI Act (2026-08-02 고위험 의무), 한국 AI 기본법 (2026-01-22 시행), 금융권 전자금융감독규정. <a href="/12-ai-governance" style="color:var(--accent);text-decoration:underline">Part 12 거버넌스</a>에서 깊이.
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 4: 시나리오별 통합 매트릭스
+     ═══════════════════════════════════════════ -->
+<div class="dia reveal">
+<div class="dia-title">🎯 시나리오별 통합 매트릭스 — "내 프로젝트엔 어떤 종류가 필요한가"</div>
+<div style="max-width:920px;margin:0 auto;overflow-x:auto">
+<table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:780px">
+  <thead><tr style="background:var(--surface)">
+    <th style="padding:.55rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--accent-border)">시나리오</th>
+    <th style="padding:.55rem;text-align:center;color:var(--accent);border-bottom:1px solid var(--accent-border)">①LLM</th>
+    <th style="padding:.55rem;text-align:center;color:var(--accent);border-bottom:1px solid var(--accent-border)">②Tool</th>
+    <th style="padding:.55rem;text-align:center;color:var(--accent);border-bottom:1px solid var(--accent-border)">③Data</th>
+    <th style="padding:.55rem;text-align:center;color:var(--accent);border-bottom:1px solid var(--accent-border)">④Internal</th>
+    <th style="padding:.55rem;text-align:center;color:var(--accent);border-bottom:1px solid var(--accent-border)">⑤Proto</th>
+    <th style="padding:.55rem;text-align:center;color:var(--accent);border-bottom:1px solid var(--accent-border)">⑥SaaS</th>
+    <th style="padding:.55rem;text-align:center;color:var(--accent);border-bottom:1px solid var(--accent-border)">⑦Stream</th>
+    <th style="padding:.55rem;text-align:center;color:var(--accent);border-bottom:1px solid var(--accent-border)">⑧Obs</th>
+    <th style="padding:.55rem;text-align:center;color:var(--accent);border-bottom:1px solid var(--accent-border)">⑨Auth</th>
+    <th style="padding:.55rem;text-align:center;color:var(--accent);border-bottom:1px solid var(--accent-border)">⑩Comp</th>
+  </tr></thead>
+  <tbody>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">고객 지원 AI</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓<br>(CRM)</td><td style="padding:.5rem;text-align:center;color:#f59e0b;border-bottom:1px solid var(--border)">◐</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓<br>(Slack)</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">사내 분석 봇</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓</td><td style="padding:.5rem;text-align:center;color:#f59e0b;border-bottom:1px solid var(--border)">◐</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓<br>(SF)</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓<br>(DW)</td><td style="padding:.5rem;text-align:center;color:#9ca3af;border-bottom:1px solid var(--border)">—</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓</td><td style="padding:.5rem;text-align:center;color:#f59e0b;border-bottom:1px solid var(--border)">◐</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">코딩 에이전트</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓<br>(SBX)</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓<br>(코드)</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓<br>(GH)</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓<br>(MCP)</td><td style="padding:.5rem;text-align:center;color:#9ca3af;border-bottom:1px solid var(--border)">—</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">✓</td><td style="padding:.5rem;text-align:center;color:#9ca3af;border-bottom:1px solid var(--border)">—</td></tr>
+    <tr><td style="padding:.5rem;color:var(--text);font-weight:600">사내 RAG 챗봇</td><td style="padding:.5rem;text-align:center;color:#22c55e">✓</td><td style="padding:.5rem;text-align:center;color:#f59e0b">◐</td><td style="padding:.5rem;text-align:center;color:#22c55e">✓<br>(Vec)</td><td style="padding:.5rem;text-align:center;color:#22c55e">✓<br>(Doc)</td><td style="padding:.5rem;text-align:center;color:#9ca3af">—</td><td style="padding:.5rem;text-align:center;color:#22c55e">✓</td><td style="padding:.5rem;text-align:center;color:#22c55e">✓</td><td style="padding:.5rem;text-align:center;color:#22c55e">✓</td><td style="padding:.5rem;text-align:center;color:#22c55e">✓</td><td style="padding:.5rem;text-align:center;color:#22c55e">✓</td></tr>
+  </tbody>
+</table>
+</div>
+<div style="max-width:880px;margin:.7rem auto 0;font-size:.76rem;color:var(--text-dim);text-align:center">
+  ✓ = 필수 · ◐ = 선택적/소규모 · — = 보통 불필요. <strong style="color:var(--accent)">사내 RAG 챗봇</strong>이 가장 많은 종류 통합 — 권한 관리 + 문서 동기화 + 모니터링 동시.
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 5: Cross-cutting Concerns
+     ═══════════════════════════════════════════ -->
+<div class="dia reveal">
+<div class="dia-title">🔄 Cross-cutting Concerns — 모든 통합에 공통 적용</div>
+<div style="max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:.6rem">
+
+  <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+    <div style="font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.35rem">🔐 Auth 패턴</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.7">OAuth (사용자) · JWT (서버 간) · API Key (간단) · mTLS (엔터프라이즈). 통합마다 다른 방식 → API Gateway에서 통합 처리.</div>
+  </div>
+
+  <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+    <div style="font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.35rem">⚖️ Rate Limiting / Quota</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.7">429 응답 처리 + exponential backoff + jitter. 토큰 버킷 알고리즘. tenant별 quota.</div>
+  </div>
+
+  <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+    <div style="font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.35rem">📊 Observability</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.7">OpenTelemetry trace + LangSmith (LLM 특화). 모든 호출 자동 기록. <a href="/04-ai-agents-advanced#p4-ch10" style="color:var(--accent);text-decoration:underline">Part 4 Ch.10</a> 참고.</div>
+  </div>
+
+  <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+    <div style="font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.35rem">💰 Cost Control</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.7">tenant별·feature별 attribution. Prompt cache (90% 절감). 모델 fallback. 일일 한도 + 알람.</div>
+  </div>
+
+  <div style="padding:.85rem;background:var(--card);border:1.5px solid var(--accent);border-radius:10px">
+    <div style="font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.35rem">🛡️ Error Handling ⭐</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.7">Retry (exponential backoff + jitter) + <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/circuit-breaker.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">Circuit breaker</a> + Bulkhead + <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/idempotency.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">Idempotency</a>. AI 시대 더 중요.</div>
+  </div>
+
+  <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+    <div style="font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.35rem">📦 Versioning</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.7">Backward compat 유지. Deprecation 6개월 이상 사전 공지. URL 또는 헤더로 버전 명시 (/v2/, X-API-Version).</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 6: 통합 작업 우선순위 (성장 단계별)
+     ═══════════════════════════════════════════ -->
+<div class="dia reveal">
+<div class="dia-title">📅 통합 작업 우선순위 — Day 1 → Year 1</div>
+<div style="max-width:880px;margin:0 auto">
+  <div style="display:grid;grid-template-columns:1fr;gap:.6rem">
+
+    <div style="display:grid;grid-template-columns:90px 1fr;gap:1rem;align-items:start">
+      <div style="padding:.5rem;background:var(--accent);color:#fff;border-radius:8px;text-align:center;font-family:var(--display);font-size:.85rem;font-weight:800">Day 1</div>
+      <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+        <strong>LLM Provider API + 기본 인증.</strong> API Key를 환경변수로 → 첫 호출 성공. Provider 1곳만으로 OK.
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:90px 1fr;gap:1rem;align-items:start">
+      <div style="padding:.5rem;background:var(--accent);color:#fff;border-radius:8px;text-align:center;font-family:var(--display);font-size:.85rem;font-weight:800">Week 1</div>
+      <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+        <strong>1~2개 Internal/SaaS API 추가.</strong> 가장 핵심 시스템 (예: CRM 또는 Slack). LangSmith 무료 plan으로 trace 시작.
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:90px 1fr;gap:1rem;align-items:start">
+      <div style="padding:.5rem;background:var(--accent);color:#fff;border-radius:8px;text-align:center;font-family:var(--display);font-size:.85rem;font-weight:800">Month 1</div>
+      <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+        <strong>Observability + Rate Limiting + Auth Gateway.</strong> 사용자 늘면 비용·에러 추적 필수. Vault로 secrets 통합.
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:90px 1fr;gap:1rem;align-items:start">
+      <div style="padding:.5rem;background:var(--accent);color:#fff;border-radius:8px;text-align:center;font-family:var(--display);font-size:.85rem;font-weight:800">Quarter 1</div>
+      <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+        <strong>Multi-system orchestration + Compliance + 보안 강화.</strong> 5+ API 통합. PII 마스킹·콘텐츠 모더레이션. Provider fallback 체인.
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:90px 1fr;gap:1rem;align-items:start">
+      <div style="padding:.5rem;background:var(--accent);color:#fff;border-radius:8px;text-align:center;font-family:var(--display);font-size:.85rem;font-weight:800">Year 1</div>
+      <div style="padding:.7rem .95rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-size:.82rem;color:var(--text);line-height:1.75">
+        <strong>A2A + Multi-region + Compliance audit.</strong> 멀티 에이전트로 발전. 글로벌 사용자 다국가 배포. SOC2·ISO 27001 인증.
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 7: 한국 엔터프라이즈 특수 사례 ⭐
+     ═══════════════════════════════════════════ -->
+<div class="dia reveal">
+<div class="dia-title">🇰🇷 한국 엔터프라이즈 특수 사례 — 망분리·국산 LLM·사내 SSO</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="padding:.85rem 1rem;background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;margin-bottom:1rem;font-size:.83rem;color:var(--text);line-height:1.85">
+    한국 엔터프라이즈(특히 금융·공공·대기업)는 글로벌 일반 패턴을 그대로 적용하기 어려움. <strong>망분리 환경 + 국산 LLM 의무화 압력 + 사내 SSO 종속성 + 국내 규제(PIPA·전자금융감독·AI 기본법)</strong>가 별도 고려사항으로 작용. source: <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/sources/web/2026-05-09_korea-enterprise-ai.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">2026-05-09_korea-enterprise-ai.md</a>.
+  </div>
+
+  <!-- 국산 LLM 표 -->
+  <div style="margin-bottom:1rem">
+    <div style="font-family:var(--display);font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:.5rem">🇰🇷 국산 LLM API (2026)</div>
+    <div style="overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:560px">
+      <thead><tr style="background:var(--surface)">
+        <th style="padding:.5rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--border)">제품</th>
+        <th style="padding:.5rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--border)">제공</th>
+        <th style="padding:.5rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--border)">특징</th>
+        <th style="padding:.5rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--border)">통합 형태</th>
+      </tr></thead>
+      <tbody>
+        <tr><td style="padding:.45rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">HyperCLOVA X</td><td style="padding:.45rem;color:var(--text-dim);border-bottom:1px solid var(--border)">네이버 클라우드</td><td style="padding:.45rem;color:var(--text-dim);border-bottom:1px solid var(--border)">한국어 최적, CLOVA Studio API</td><td style="padding:.45rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Public + <strong>NeuroCloud</strong> (IDC 내 hybrid)</td></tr>
+        <tr><td style="padding:.45rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">Brity Copilot</td><td style="padding:.45rem;color:var(--text-dim);border-bottom:1px solid var(--border)">삼성SDS</td><td style="padding:.45rem;color:var(--text-dim);border-bottom:1px solid var(--border)">다중 LLM 통합 (OpenAI + HyperCLOVA X)</td><td style="padding:.45rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Private Cloud / 데이터센터 독립</td></tr>
+        <tr><td style="padding:.45rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">KT MI:DM (믿음)</td><td style="padding:.45rem;color:var(--text-dim);border-bottom:1px solid var(--border)">KT GenieLabs</td><td style="padding:.45rem;color:var(--text-dim);border-bottom:1px solid var(--border)">통신·금융 도메인 특화</td><td style="padding:.45rem;color:var(--text-dim);border-bottom:1px solid var(--border)">KT Cloud + 사내 구축</td></tr>
+        <tr><td style="padding:.45rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">Solar / Solar Pro</td><td style="padding:.45rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Upstage</td><td style="padding:.45rem;color:var(--text-dim);border-bottom:1px solid var(--border)">글로벌 출시, 한국형</td><td style="padding:.45rem;color:var(--text-dim);border-bottom:1px solid var(--border)">API + 온프레미스</td></tr>
+        <tr><td style="padding:.45rem;color:var(--text);font-weight:600">Exaone</td><td style="padding:.45rem;color:var(--text-dim)">LG AI Research</td><td style="padding:.45rem;color:var(--text-dim)">제조·바이오·통신 특화</td><td style="padding:.45rem;color:var(--text-dim)">제한적 (LG 계열사)</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- 망분리 환경 패턴 -->
+  <div style="margin-bottom:1rem">
+    <div style="font-family:var(--display);font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:.5rem">🛡 망분리 환경의 통합 패턴 (금융·공공·대기업)</div>
+    <div style="padding:.85rem 1rem;background:var(--surface);border-radius:8px;font-size:.8rem;color:var(--text);line-height:1.85">
+      <strong>문제:</strong> 인터넷망과 내부망이 물리적으로 분리. 외부 LLM API 직접 호출 불가.<br>
+      <strong>해결 패턴:</strong>
+      <ol style="margin:.3rem 0 0 1.4rem;padding:0">
+        <li><strong>온프레미스 LLM</strong> — Brity Copilot · KT MI:DM 사내 서버 배포</li>
+        <li><strong>DMZ 게이트웨이</strong> — 외부 LLM API를 DMZ에서 프록시 + PII 마스킹·감사 로그</li>
+        <li><strong>NeuroCloud / Sovereign Cloud</strong> — 고객 IDC 내 hybrid cloud (네이버·KT·NCP)</li>
+        <li><strong>API 게이트웨이 + PII 필터</strong> — 모든 외부 호출에 의무. PIPA 준수</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- 사내 SSO -->
+  <div style="margin-bottom:1rem;display:grid;grid-template-columns:1fr 1fr;gap:.6rem">
+    <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+      <div style="font-size:.82rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">🔐 사내 SSO/인증 통합</div>
+      <div style="font-size:.74rem;color:var(--text);line-height:1.75">
+        <strong>대표:</strong> 삼성 모바일ID · 카카오워크 SSO · 네이버웍스 OAuth · PASS · 공동인증서 / 금융인증서.<br>
+        <strong>패턴:</strong> 글로벌 OAuth 2.0 / SAML과 사내 IdP 매핑·토큰 변환 필수.
+      </div>
+    </div>
+    <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+      <div style="font-size:.82rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">☁️ 한국 클라우드 API</div>
+      <div style="font-size:.74rem;color:var(--text);line-height:1.75">
+        <strong>NCP</strong> CLOVA + STT/TTS, CSAP 인증<br>
+        <strong>KT Cloud</strong> 망분리 옵션, G-Cloud 인증<br>
+        <strong>NHN Cloud</strong> 한국어 검색 강점<br>
+        <strong>삼성SDS Cloud</strong> Brity Copilot 통합
+      </div>
+    </div>
+  </div>
+
+  <!-- 한국 SaaS / 결제 -->
+  <div style="margin-bottom:1rem;display:grid;grid-template-columns:1fr 1fr;gap:.6rem">
+    <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+      <div style="font-size:.82rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">💼 한국 SaaS (Slack/Teams 대안)</div>
+      <div style="font-size:.74rem;color:var(--text);line-height:1.75">
+        카카오워크 (Kakao Enterprise) · 네이버웍스 · 잔디 (JANDI) · 두레이 (NHN). 모두 OpenAPI · webhook 지원. 한국어 멘션·이모지 처리 다름.
+      </div>
+    </div>
+    <div style="padding:.85rem;background:var(--card);border:1px solid var(--accent-border);border-radius:10px">
+      <div style="font-size:.82rem;font-weight:700;color:var(--accent);margin-bottom:.4rem">💳 한국 결제/PG</div>
+      <div style="font-size:.74rem;color:var(--text);line-height:1.75">
+        이니시스 · KG이니시스 · NHN KCP · 토스페이먼츠 · 카카오페이 · 네이버페이. <strong>자체 인증·서명 방식</strong> (글로벌 Stripe와 다름). 전자금융감독규정 준수.
+      </div>
+    </div>
+  </div>
+
+  <!-- 규제 -->
+  <div style="padding:.85rem 1rem;background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:8px;font-size:.8rem;color:var(--text);line-height:1.85">
+    📜 <strong style="color:var(--accent)">한국 규제 환경:</strong>
+    <ul style="margin:.3rem 0 0 1.4rem;padding:0">
+      <li><strong>개인정보보호법 (PIPA)</strong> — 개인정보 해외 전송 제한 → 외국 LLM API 호출 시 익명화 필수</li>
+      <li><strong>전자금융감독규정</strong> — 금융권 클라우드 사용 제약 → 망분리·인증 의무</li>
+      <li><strong>AI 기본법</strong> — 2026-01-22 시행. 고위험 AI 시스템 거버넌스 의무</li>
+      <li><strong>CSAP</strong> — 공공 클라우드 보안 인증</li>
+    </ul>
+    한국 엔터프라이즈 AI는 <strong>글로벌 베스트 프랙티스 + 한국 규제 모두 충족</strong> 필요. <a href="/12-ai-governance" style="color:var(--accent);text-decoration:underline">Part 12 AI 거버넌스</a>에서 깊이 다룸.
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 8: 안티패턴
+     ═══════════════════════════════════════════ -->
+<div class="dia reveal">
+<div class="dia-title">⚠️ 안티패턴 — 흔한 실패 케이스와 권장 대안</div>
+<div style="max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:.6rem">
+
+  <div style="padding:.85rem;background:var(--card);border:1px solid #ef444444;border-radius:10px">
+    <div style="font-size:.82rem;font-weight:700;color:#ef4444;margin-bottom:.3rem">😱 API 키 하드코딩</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.7">.env에 두고 git push → 즉시 유출. <strong style="color:var(--accent)">대안:</strong> Vault / AWS Secrets / GCP Secret Manager + git-secrets pre-commit hook.</div>
+  </div>
+
+  <div style="padding:.85rem;background:var(--card);border:1px solid #ef444444;border-radius:10px">
+    <div style="font-size:.82rem;font-weight:700;color:#ef4444;margin-bottom:.3rem">😱 동기 호출만 사용</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.7">LLM 호출이 5초+ → 사용자 대기 → timeout. <strong style="color:var(--accent)">대안:</strong> 비동기 + Job Queue (Celery, BullMQ, SQS) + streaming.</div>
+  </div>
+
+  <div style="padding:.85rem;background:var(--card);border:1px solid #ef444444;border-radius:10px">
+    <div style="font-size:.82rem;font-weight:700;color:#ef4444;margin-bottom:.3rem">😱 무한 재시도</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.7">실패 → 즉시 재시도 → "Retry Storm" → 외부 서비스 더 망가뜨림. <strong style="color:var(--accent)">대안:</strong> Exponential backoff + jitter + <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/circuit-breaker.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">Circuit breaker</a>.</div>
+  </div>
+
+  <div style="padding:.85rem;background:var(--card);border:1px solid #ef444444;border-radius:10px">
+    <div style="font-size:.82rem;font-weight:700;color:#ef4444;margin-bottom:.3rem">😱 Per-call 인증</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.7">매 호출마다 OAuth 토큰 새로 발급 → 외부 API rate limit 초과. <strong style="color:var(--accent)">대안:</strong> 토큰 캐싱 + 만료 5분 전 자동 갱신.</div>
+  </div>
+
+  <div style="padding:.85rem;background:var(--card);border:1px solid #ef444444;border-radius:10px">
+    <div style="font-size:.82rem;font-weight:700;color:#ef4444;margin-bottom:.3rem">😱 의존성 폭발</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.7">N개 API 직접 호출 → 인증·로깅·rate limit 사방에 흩어짐. <strong style="color:var(--accent)">대안:</strong> <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/api-gateway.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">API Gateway</a> / BFF 패턴.</div>
+  </div>
+
+  <div style="padding:.85rem;background:var(--card);border:1px solid #ef444444;border-radius:10px">
+    <div style="font-size:.82rem;font-weight:700;color:#ef4444;margin-bottom:.3rem">😱 Idempotency 무시</div>
+    <div style="font-size:.74rem;color:var(--text);line-height:1.7">재시도 시 중복 결제·중복 환불·중복 이메일. <strong style="color:var(--accent)">대안:</strong> 모든 mutating 호출에 <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/idempotency.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">Idempotency-Key</a> (UUID v4).</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 9: Reference / 출처
+     ═══════════════════════════════════════════ -->
+<div class="dia reveal">
+<div class="dia-title">📚 Reference / 출처</div>
+<div style="max-width:880px;margin:0 auto;padding:1rem 1.2rem;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;font-size:.78rem;color:var(--text);line-height:1.95">
+
+  <strong style="color:var(--accent)">📄 외부 출처:</strong>
+  <ul style="margin:.4rem 0 0 1.3rem;padding:0">
+    <li>Anthropic, <em>"Building Effective Agents"</em> (Erik S. · Barry Zhang, 2024-12) — <a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">anthropic.com</a></li>
+    <li>Composio, <em>"APIs for AI Agents: 5 Integration Patterns 2026"</em> (Manveer Chawla, 2026-01) — <a href="https://composio.dev/content/apis-ai-agents-integration-patterns" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">composio.dev</a></li>
+    <li>Stripe, <em>"Idempotent Requests"</em> docs — <a href="https://docs.stripe.com/api/idempotent_requests" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">docs.stripe.com</a></li>
+    <li>Model Context Protocol — <a href="https://modelcontextprotocol.io/introduction" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">modelcontextprotocol.io</a></li>
+    <li>Microsoft, <em>"API resilience and reliability patterns for AI apps"</em> (2026)</li>
+    <li>네이버 CLOVA, KT GenieLabs, 삼성SDS Brity Copilot 공식 자료 — <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/sources/web/2026-05-09_korea-enterprise-ai.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">source meta</a></li>
+  </ul>
+
+  <strong style="color:var(--accent);margin-top:.6rem;display:inline-block">🔗 본 사이트 wiki entity:</strong>
+  <ul style="margin:.4rem 0 0 1.3rem;padding:0">
+    <li><a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/api-integration-taxonomy.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">api-integration-taxonomy</a> ⭐ — 본 챕터의 압축 entity</li>
+    <li><a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/mcp.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">mcp</a> · <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/a2a.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">a2a</a> — 에이전트 프로토콜</li>
+    <li><a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/idempotency.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">idempotency</a> · <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/circuit-breaker.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">circuit-breaker</a> — Resilience</li>
+    <li><a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/api-gateway.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">api-gateway</a> · <a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/webhook-patterns.md" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">webhook-patterns</a></li>
+  </ul>
+
+  <strong style="color:var(--accent);margin-top:.6rem;display:inline-block">🌐 본 사이트 cross-link:</strong>
+  <ul style="margin:.4rem 0 0 1.3rem;padding:0">
+    <li><a href="#ad-ch11" style="color:var(--accent);text-decoration:underline">Ch.11 LLM API 마스터</a> · <a href="#ad-ch12" style="color:var(--accent);text-decoration:underline">Ch.12 시스템 통합 API</a> — 기초·중급</li>
+    <li><a href="/04-ai-agents-advanced#p4-ch7" style="color:var(--accent);text-decoration:underline">Part 4 Ch.07 MCP</a> · <a href="/04-ai-agents-advanced#p4-ch10" style="color:var(--accent);text-decoration:underline">Part 4 Ch.10 Observability + Eval</a></li>
+    <li><a href="/09-data-enterprise" style="color:var(--accent);text-decoration:underline">Part 9 Data 실전 — Feature Store API</a></li>
+    <li><a href="/12-ai-governance" style="color:var(--accent);text-decoration:underline">Part 12 AI 거버넌스</a> — Compliance APIs 심화</li>
+  </ul>
+
+</div>
+</div>
+
+</section>
 
 
 <!-- 마무리 -->

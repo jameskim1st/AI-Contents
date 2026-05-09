@@ -18,6 +18,11 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
   - [Ontology — Critique & Revival](./sources/web/2026-04-16_ontology-critique-revival.md) — Gruber·Shirky·Singhal 계보
   - [Agent Design Patterns 2025-2026](./sources/web/2026-04-17_agent-design-patterns-2025-2026.md) — Pre-Act·MAR·MCP 1주년·Deep Agents·Anthropic Skills
   - [AI Red Team · MITRE ATLAS · XAI Research (2026-04-30)](./sources/web/2026-04-30_ai-redteam-atlas-xai-research.md) — Microsoft 100 products·ATLAS v5.4.0·Anthropic SAE·EU AI Act Article 13·한국 AI 기본법
+  - [Anthropic — Building Effective Agents](./sources/web/2026-05-09_anthropic-building-effective-agents.md) — workflow vs agent 5 패턴 + Augmented LLM (Erik S. · Barry Zhang, 2024-12)
+  - [Stripe — Idempotent Requests](./sources/web/2026-05-09_stripe-idempotency.md) — `Idempotency-Key` 헤더 표준
+  - [MCP Introduction](./sources/web/2026-05-09_mcp-introduction.md) — Model Context Protocol 공식 spec
+  - [Composio — APIs for AI Agents 2026](./sources/web/2026-05-09_composio-ai-agent-api-patterns.md) — 5 통합 패턴 비교 (Manveer Chawla, 2026-01)
+  - [한국 엔터프라이즈 AI](./sources/web/2026-05-09_korea-enterprise-ai.md) — 망분리·HyperCLOVA X·Brity·KT MI:DM·NCP/KT Cloud·PIPA
   - [Claude Mythos Research (2026-04-30)](./sources/web/2026-04-30_claude-mythos-research.md) — Project Glasswing·샌드박스 탈옥·ASL-4·USAMO 97.6%·zero-day
   - [AI Governance Comprehensive Research (2026-04-30)](./sources/web/2026-04-30_ai-governance-research.md) — 10대 원칙·EU AI Act/NIST/ISO 42001/한국 AI 기본법·3 Lines of Defense·11 사고 연표
 - **`sources/papers/`** — 학술 논문
@@ -57,6 +62,14 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
 - [A2A (Agent-to-Agent)](./entities/a2a.md)
 - [Data Contracts](./entities/data-contracts.md) ⭐ NEW
 - [Medallion Architecture](./entities/medallion-architecture.md) ⭐ NEW
+
+## 통합 / API 패턴 ⭐ NEW 카테고리 (2026-05-09)
+
+- [API Integration Taxonomy](./entities/api-integration-taxonomy.md) ⭐ — 엔터프라이즈 AI의 10가지 통합 작업 분류
+- [Idempotency](./entities/idempotency.md) — 안전 재시도 (Stripe 표준)
+- [Circuit Breaker](./entities/circuit-breaker.md) — 장애 격리 패턴
+- [API Gateway / BFF](./entities/api-gateway.md) — 단일 진입점, LLM Gateway, MCP Gateway
+- [Webhook Patterns](./entities/webhook-patterns.md) — 이벤트 push, 서명 검증, 재시도
 
 ## 저장 계층 (Storage Layers) ⭐ NEW 카테고리
 
