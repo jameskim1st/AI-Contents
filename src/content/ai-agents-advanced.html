@@ -5860,6 +5860,102 @@ graph = g.compile()
     LangGraph에는 Supervisor를 만드는 <strong>두 가지 방식</strong>이 있고, 둘은 동작 원리가 완전히 다릅니다. 거의 모든 튜토리얼이 둘을 섞어 설명해서 혼란이 옵니다 — 여기서 분리합니다.
   </div>
 
+  <!-- 그래프 구조 비교 SVG (한 눈에 차이) -->
+  <div style="background:var(--card);border:1px solid var(--violet-border);border-radius:10px;padding:1rem;margin-bottom:.9rem">
+    <div style="font-size:.8rem;color:var(--text-dim);text-align:center;margin-bottom:.7rem">▼ 그래프 구조 차이 — 노드는 같지만 <strong>엣지 종류</strong>가 완전히 다름</div>
+    <svg viewBox="0 0 920 260" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="va-solid" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#a78bfa"/></marker>
+        <marker id="va-dash" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#22c55e"/></marker>
+        <marker id="va-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker>
+      </defs>
+
+      <!-- 좌측: Plain Router -->
+      <text x="220" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#a78bfa">① Plain Router</text>
+      <text x="220" y="36" text-anchor="middle" font-size="8.5" fill="var(--text-dim)" font-style="italic">conditional_edges로 분기</text>
+
+      <!-- Plain: START -->
+      <rect x="180" y="50" width="80" height="28" rx="6" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+      <text x="220" y="68" text-anchor="middle" font-size="9.5" fill="var(--text)">START</text>
+      <line x1="220" y1="78" x2="220" y2="100" stroke="#9ca3af" stroke-width="1" marker-end="url(#va-gray)"/>
+
+      <!-- Plain: supervisor -->
+      <rect x="170" y="102" width="100" height="38" rx="8" fill="#a78bfa" fill-opacity=".25" stroke="#a78bfa" stroke-width="1.2"/>
+      <text x="220" y="120" text-anchor="middle" font-size="10" font-weight="700" fill="#a78bfa">supervisor</text>
+      <text x="220" y="133" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">Router 출력</text>
+
+      <!-- Plain: conditional_edges (마름모) -->
+      <polygon points="220,150 270,178 220,206 170,178" fill="#f59e0b" fill-opacity=".15" stroke="#f59e0b" stroke-width="1"/>
+      <text x="220" y="174" text-anchor="middle" font-size="9" font-weight="700" fill="#f59e0b">conditional</text>
+      <text x="220" y="185" text-anchor="middle" font-size="9" font-weight="700" fill="#f59e0b">_edges</text>
+      <line x1="220" y1="140" x2="220" y2="148" stroke="#9ca3af" stroke-width="0.8" marker-end="url(#va-gray)"/>
+
+      <!-- Plain: 3 workers + END (라벨드 분기) -->
+      <line x1="178" y1="195" x2="100" y2="225" stroke="#a78bfa" stroke-width="1" marker-end="url(#va-solid)"/>
+      <text x="120" y="207" text-anchor="middle" font-size="7" fill="#a78bfa" font-style="italic">"researcher"</text>
+      <line x1="220" y1="208" x2="220" y2="225" stroke="#a78bfa" stroke-width="1" marker-end="url(#va-solid)"/>
+      <text x="248" y="220" text-anchor="middle" font-size="7" fill="#a78bfa" font-style="italic">"coder"</text>
+      <line x1="262" y1="195" x2="340" y2="225" stroke="#ef4444" stroke-width="1" marker-end="url(#va-solid)"/>
+      <text x="318" y="207" text-anchor="middle" font-size="7" fill="#ef4444" font-style="italic">"FINISH"</text>
+
+      <rect x="60" y="225" width="80" height="28" rx="6" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1"/>
+      <text x="100" y="243" text-anchor="middle" font-size="9.5" fill="#22c55e" font-weight="600">researcher</text>
+      <rect x="180" y="225" width="80" height="28" rx="6" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1"/>
+      <text x="220" y="243" text-anchor="middle" font-size="9.5" fill="#22c55e" font-weight="600">coder</text>
+      <rect x="300" y="225" width="80" height="28" rx="6" style="fill:var(--surface);stroke:#ef4444" stroke-width="1"/>
+      <text x="340" y="243" text-anchor="middle" font-size="9.5" fill="#ef4444" font-weight="600">END</text>
+
+      <!-- Plain: worker → supervisor (back edge, dashed green) -->
+      <path d="M 100 225 Q 60 160 170 120" fill="none" stroke="#22c55e" stroke-width="0.9" stroke-dasharray="3,2" marker-end="url(#va-dash)"/>
+      <path d="M 220 225 Q 290 200 270 130" fill="none" stroke="#22c55e" stroke-width="0.9" stroke-dasharray="3,2" marker-end="url(#va-dash)"/>
+      <text x="50" y="180" text-anchor="middle" font-size="7" fill="#22c55e" font-style="italic">add_edge</text>
+
+      <!-- 세로 구분선 -->
+      <line x1="460" y1="20" x2="460" y2="260" stroke="var(--text-dim)" stroke-width="0.5" stroke-dasharray="2,3"/>
+
+      <!-- 우측: Tool-calling Supervisor -->
+      <text x="700" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#22c55e">② Tool-calling Supervisor</text>
+      <text x="700" y="36" text-anchor="middle" font-size="8.5" fill="var(--text-dim)" font-style="italic">Command.PARENT로 점프</text>
+
+      <!-- Tool: START -->
+      <rect x="660" y="50" width="80" height="28" rx="6" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+      <text x="700" y="68" text-anchor="middle" font-size="9.5" fill="var(--text)">START</text>
+      <line x1="700" y1="78" x2="700" y2="100" stroke="#9ca3af" stroke-width="1" marker-end="url(#va-gray)"/>
+
+      <!-- Tool: supervisor (react_agent + bind_tools) -->
+      <rect x="630" y="102" width="140" height="50" rx="8" fill="#a78bfa" fill-opacity=".25" stroke="#a78bfa" stroke-width="1.2"/>
+      <text x="700" y="120" text-anchor="middle" font-size="10" font-weight="700" fill="#a78bfa">supervisor</text>
+      <text x="700" y="133" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">react_agent</text>
+      <text x="700" y="145" text-anchor="middle" font-size="7" fill="#9ca3af" font-family="var(--mono)">+ bind_tools([transfer_to_*])</text>
+
+      <!-- Tool: workers (tool call로 점프) -->
+      <line x1="640" y1="152" x2="540" y2="200" stroke="#a78bfa" stroke-width="1" marker-end="url(#va-solid)"/>
+      <text x="560" y="170" text-anchor="middle" font-size="7" fill="#a78bfa" font-family="var(--mono)">tool: transfer_to_research</text>
+
+      <line x1="700" y1="155" x2="700" y2="200" stroke="#a78bfa" stroke-width="1" marker-end="url(#va-solid)"/>
+      <text x="800" y="175" text-anchor="middle" font-size="7" fill="#a78bfa" font-family="var(--mono)">tool: transfer_to_code</text>
+
+      <line x1="760" y1="152" x2="860" y2="225" stroke="#ef4444" stroke-width="1" marker-end="url(#va-solid)"/>
+      <text x="830" y="200" text-anchor="middle" font-size="7" fill="#ef4444" font-style="italic">no tool call</text>
+
+      <rect x="500" y="200" width="80" height="28" rx="6" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1"/>
+      <text x="540" y="218" text-anchor="middle" font-size="9.5" fill="#22c55e" font-weight="600">researcher</text>
+      <rect x="660" y="200" width="80" height="28" rx="6" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1"/>
+      <text x="700" y="218" text-anchor="middle" font-size="9.5" fill="#22c55e" font-weight="600">coder</text>
+      <rect x="820" y="225" width="80" height="28" rx="6" style="fill:var(--surface);stroke:#ef4444" stroke-width="1"/>
+      <text x="860" y="243" text-anchor="middle" font-size="9.5" fill="#ef4444" font-weight="600">END</text>
+
+      <!-- Tool: worker → supervisor (unconditional add_edge) -->
+      <path d="M 540 228 Q 540 240 540 248 L 620 248 L 620 142" fill="none" stroke="#22c55e" stroke-width="1.2" marker-end="url(#va-dash)"/>
+      <path d="M 700 228 Q 700 245 780 245 L 780 142" fill="none" stroke="#22c55e" stroke-width="1.2" marker-end="url(#va-dash)"/>
+      <text x="610" y="258" text-anchor="middle" font-size="7" fill="#22c55e" font-style="italic">add_edge (무조건 복귀)</text>
+    </svg>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.5rem;font-size:.7rem;color:var(--text-dim);text-align:center">
+      <div>① <strong style="color:#f59e0b">마름모 = 분기점</strong>. Router 출력 따라 노드 선택 → END 직접 분기</div>
+      <div>② <strong style="color:#22c55e">초록 화살표 = 무조건 복귀</strong>. supervisor가 다시 결정. tool 안 부르면 END</div>
+    </div>
+  </div>
+
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:1rem">
 
     <!-- Plain Router -->
@@ -5931,15 +6027,91 @@ graph = g.compile()
 
   <div style="background:var(--card);border:1px solid var(--violet-border);border-radius:10px;padding:1rem;margin-bottom:.7rem">
     <div style="font-family:var(--mono);font-size:.78rem;color:var(--text);line-height:1.85;background:var(--surface);padding:.85rem 1rem;border-radius:6px;border-left:3px solid var(--violet)">
-      "You are a <strong style="color:#a78bfa">supervisor</strong> tasked with managing a conversation between the following workers: <strong style="color:#22c55e">{members}</strong>. Given the following user request, respond with the worker to <strong style="color:#f59e0b">act next</strong>. Each worker will perform a task and respond with their <strong style="color:#f59e0b">results and status</strong>. When finished, respond with <strong style="color:#ef4444">FINISH</strong>."
+      "You are a <strong style="color:#a78bfa">supervisor</strong><sup style="color:#a78bfa">①</sup> tasked with managing a conversation between the following workers: <strong style="color:#22c55e">{members}</strong><sup style="color:#22c55e">②</sup>. Given the following user request, respond with the worker to <strong style="color:#f59e0b">act next</strong><sup style="color:#f59e0b">③</sup>. Each worker will perform a task and respond with their results and status. When finished, respond with <strong style="color:#ef4444">FINISH</strong><sup style="color:#ef4444">④</sup>."
     </div>
-    <div style="font-size:.74rem;color:var(--text);line-height:1.8;margin-top:.7rem;padding-left:.4rem">
-      <strong style="color:var(--violet)">⚙ 4가지 요소 분석:</strong><br>
-      <span style="color:var(--text-dim)">①</span> <strong>"supervisor managing conversation"</strong> — LLM에 "지휘자" 역할 부여 (역할 인식)<br>
-      <span style="color:var(--text-dim)">②</span> <strong>{members}</strong> — worker 이름 목록 f-string 삽입 (예: <code style="font-size:.85em">["researcher", "coder"]</code>). <strong>주의:</strong> worker description은 여기 안 들어감 — worker 자체 system prompt에 따로<br>
-      <span style="color:var(--text-dim)">③</span> <strong>"act next"</strong> — Pydantic 출력의 <code style="font-size:.85em">next</code> 필드와 의미 일치<br>
-      <span style="color:var(--text-dim)">④</span> <strong>"respond with FINISH"</strong> — 명시적 종료 신호 강제 (MAST의 "Unaware of termination 9.82%" 직접 방어)
-    </div>
+  </div>
+
+  <!-- Prompt → LLM → Router 흐름 시각화 -->
+  <div style="background:var(--card);border:1px solid var(--violet-border);border-radius:10px;padding:1rem;margin-bottom:.7rem">
+    <div style="font-size:.8rem;color:var(--text-dim);text-align:center;margin-bottom:.7rem">▼ Prompt의 4 요소가 → LLM 출력의 어디로 연결되는가</div>
+    <svg viewBox="0 0 920 320" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="vb-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+
+      <!-- 좌측: 4 prompt elements stacked -->
+      <text x="160" y="20" text-anchor="middle" font-size="10" font-weight="700" fill="var(--text-dim)">PROMPT 요소</text>
+
+      <rect x="20" y="32" width="280" height="50" rx="8" fill="#a78bfa" fill-opacity=".15" stroke="#a78bfa" stroke-width="1"/>
+      <circle cx="40" cy="58" r="11" fill="#a78bfa"/>
+      <text x="40" y="62" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">①</text>
+      <text x="62" y="52" font-size="9.5" font-weight="700" fill="#a78bfa">"You are a supervisor..."</text>
+      <text x="62" y="66" font-size="8" fill="var(--text-dim)">→ LLM에 "지휘자" 역할 부여</text>
+      <text x="62" y="78" font-size="8" fill="#9ca3af" font-style="italic">role identity</text>
+
+      <rect x="20" y="92" width="280" height="50" rx="8" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1"/>
+      <circle cx="40" cy="118" r="11" fill="#22c55e"/>
+      <text x="40" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">②</text>
+      <text x="62" y="112" font-size="9.5" font-weight="700" fill="#22c55e">{members} 삽입</text>
+      <text x="62" y="126" font-size="8" fill="var(--text-dim)" font-family="var(--mono)">["researcher", "coder"]</text>
+      <text x="62" y="138" font-size="8" fill="#9ca3af" font-style="italic">선택 가능 옵션 정의</text>
+
+      <rect x="20" y="152" width="280" height="50" rx="8" fill="#f59e0b" fill-opacity=".15" stroke="#f59e0b" stroke-width="1"/>
+      <circle cx="40" cy="178" r="11" fill="#f59e0b"/>
+      <text x="40" y="182" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">③</text>
+      <text x="62" y="172" font-size="9.5" font-weight="700" fill="#f59e0b">"respond with worker to act next"</text>
+      <text x="62" y="186" font-size="8" fill="var(--text-dim)">→ 출력 형식 (Router의 next 필드)</text>
+      <text x="62" y="198" font-size="8" fill="#9ca3af" font-style="italic">output instruction</text>
+
+      <rect x="20" y="212" width="280" height="50" rx="8" fill="#ef4444" fill-opacity=".15" stroke="#ef4444" stroke-width="1"/>
+      <circle cx="40" cy="238" r="11" fill="#ef4444"/>
+      <text x="40" y="242" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">④</text>
+      <text x="62" y="232" font-size="9.5" font-weight="700" fill="#ef4444">"When finished, respond with FINISH"</text>
+      <text x="62" y="246" font-size="8" fill="var(--text-dim)">→ 종료 신호 (MAST 9.82% 방어)</text>
+      <text x="62" y="258" font-size="8" fill="#9ca3af" font-style="italic">termination signal</text>
+
+      <!-- 중간: LLM 박스 -->
+      <line x1="305" y1="147" x2="378" y2="147" stroke="#9ca3af" stroke-width="1" marker-end="url(#vb-ar)"/>
+      <rect x="380" y="115" width="140" height="65" rx="10" fill="#a78bfa" fill-opacity=".25" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="450" y="138" text-anchor="middle" font-size="12" font-weight="700" fill="#a78bfa">🧠 LLM</text>
+      <text x="450" y="155" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">+ messages history</text>
+      <text x="450" y="168" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">+ Router schema (강제)</text>
+
+      <line x1="522" y1="147" x2="608" y2="147" stroke="#9ca3af" stroke-width="1" marker-end="url(#vb-ar)"/>
+
+      <!-- 우측: 출력 JSON (4 요소 어디로 가는지 색으로 표시) -->
+      <text x="760" y="20" text-anchor="middle" font-size="10" font-weight="700" fill="var(--text-dim)">강제된 출력 (Router)</text>
+
+      <rect x="610" y="32" width="300" height="240" rx="10" fill="var(--surface)" stroke="var(--violet-border)" stroke-width="1.5"/>
+
+      <!-- JSON 시각화 -->
+      <text x="630" y="60" font-size="11" font-family="var(--mono)" fill="var(--text)">{</text>
+      <text x="650" y="80" font-size="10" font-family="var(--mono)" fill="#9ca3af">"next":</text>
+
+      <rect x="710" y="68" width="180" height="22" rx="4" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="0.8"/>
+      <text x="800" y="83" text-anchor="middle" font-size="10" font-family="var(--mono)" fill="#22c55e">"researcher"</text>
+
+      <text x="630" y="115" font-size="9" font-family="var(--mono)" fill="var(--text-dim)" font-style="italic">// 또는</text>
+      <text x="650" y="135" font-size="10" font-family="var(--mono)" fill="#9ca3af">"next":</text>
+      <rect x="710" y="123" width="180" height="22" rx="4" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="0.8"/>
+      <text x="800" y="138" text-anchor="middle" font-size="10" font-family="var(--mono)" fill="#22c55e">"coder"</text>
+
+      <text x="630" y="170" font-size="9" font-family="var(--mono)" fill="var(--text-dim)" font-style="italic">// 또는</text>
+      <text x="650" y="190" font-size="10" font-family="var(--mono)" fill="#9ca3af">"next":</text>
+      <rect x="710" y="178" width="180" height="22" rx="4" fill="#ef4444" fill-opacity=".10" stroke="#ef4444" stroke-width="0.8"/>
+      <text x="800" y="193" text-anchor="middle" font-size="10" font-family="var(--mono)" fill="#ef4444">"FINISH"</text>
+
+      <text x="630" y="225" font-size="11" font-family="var(--mono)" fill="var(--text)">}</text>
+
+      <!-- 출력값 어디서 왔는지 표시 -->
+      <text x="630" y="252" font-size="8" fill="#22c55e" font-weight="600">↑ ②의 members 목록에서만 선택 가능</text>
+      <text x="630" y="266" font-size="8" fill="#ef4444" font-weight="600">↑ ④의 "FINISH" 신호 (필수 포함)</text>
+
+      <!-- 화살표: 좌측 요소 → JSON 영역 (색 매핑) -->
+      <path d="M 245 117 Q 380 90 615 78" fill="none" stroke="#22c55e" stroke-width="0.6" stroke-dasharray="2,2"/>
+      <path d="M 245 237 Q 400 250 615 188" fill="none" stroke="#ef4444" stroke-width="0.6" stroke-dasharray="2,2"/>
+
+      <!-- 캡션 -->
+      <text x="460" y="305" text-anchor="middle" font-size="9" fill="#9ca3af" font-style="italic">LLM은 "자유롭게" 답하는 게 아니라 Router schema에 의해 출력 강제</text>
+    </svg>
   </div>
 
   <!-- ─────────────────────────────────
@@ -6090,15 +6262,238 @@ graph = g.compile()
     </table>
   </div>
 
+  <!-- State 진화 timeline SVG -->
+  <div style="background:var(--card);border:1px solid var(--violet-border);border-radius:10px;padding:1rem;margin-bottom:.7rem">
+    <div style="font-size:.8rem;color:var(--text-dim);text-align:center;margin-bottom:.7rem">▼ 같은 데이터를 timeline으로 보기 — messages는 누적, next는 매 supervisor turn 변화</div>
+    <svg viewBox="0 0 920 340" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="vd-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+
+      <!-- 가로 timeline 축 -->
+      <line x1="80" y1="50" x2="880" y2="50" stroke="var(--text-dim)" stroke-width="0.7"/>
+
+      <!-- 6 turn 마커 (T0~T5) -->
+      <g font-size="10" font-weight="700" fill="var(--text)">
+        <circle cx="100" cy="50" r="14" style="fill:var(--surface);stroke:var(--text-dim)" stroke-width="1"/>
+        <text x="100" y="54" text-anchor="middle">T0</text>
+        <text x="100" y="32" text-anchor="middle" font-size="7.5" fill="var(--text-dim)" font-weight="400">START</text>
+
+        <circle cx="240" cy="50" r="14" fill="#a78bfa" fill-opacity=".3" stroke="#a78bfa" stroke-width="1.2"/>
+        <text x="240" y="54" text-anchor="middle" fill="#a78bfa">T1</text>
+        <text x="240" y="32" text-anchor="middle" font-size="7.5" fill="#a78bfa" font-weight="700">SUP</text>
+
+        <circle cx="380" cy="50" r="14" fill="#22c55e" fill-opacity=".3" stroke="#22c55e" stroke-width="1.2"/>
+        <text x="380" y="54" text-anchor="middle" fill="#22c55e">T2</text>
+        <text x="380" y="32" text-anchor="middle" font-size="7.5" fill="#22c55e" font-weight="700">RESEARCHER</text>
+
+        <circle cx="520" cy="50" r="14" fill="#a78bfa" fill-opacity=".3" stroke="#a78bfa" stroke-width="1.2"/>
+        <text x="520" y="54" text-anchor="middle" fill="#a78bfa">T3</text>
+        <text x="520" y="32" text-anchor="middle" font-size="7.5" fill="#a78bfa" font-weight="700">SUP</text>
+
+        <circle cx="660" cy="50" r="14" fill="#22c55e" fill-opacity=".3" stroke="#22c55e" stroke-width="1.2"/>
+        <text x="660" y="54" text-anchor="middle" fill="#22c55e">T4</text>
+        <text x="660" y="32" text-anchor="middle" font-size="7.5" fill="#22c55e" font-weight="700">CODER</text>
+
+        <circle cx="800" cy="50" r="14" fill="#ef4444" fill-opacity=".3" stroke="#ef4444" stroke-width="1.2"/>
+        <text x="800" y="54" text-anchor="middle" fill="#ef4444">T5</text>
+        <text x="800" y="32" text-anchor="middle" font-size="7.5" fill="#ef4444" font-weight="700">SUP→END</text>
+      </g>
+
+      <!-- Lane 1: messages 누적 -->
+      <text x="20" y="100" font-size="10" font-weight="700" fill="var(--text)">📜 messages</text>
+      <text x="20" y="113" font-size="7.5" fill="var(--text-dim)">(누적)</text>
+
+      <!-- T0 -->
+      <rect x="88" y="90" width="36" height="22" rx="3" fill="#9ca3af" fill-opacity=".25" stroke="#9ca3af" stroke-width="0.7"/>
+      <text x="106" y="105" text-anchor="middle" font-size="7.5" fill="var(--text)">user</text>
+
+      <!-- T1 (no change) -->
+      <rect x="222" y="90" width="36" height="22" rx="3" fill="#9ca3af" fill-opacity=".25" stroke="#9ca3af" stroke-width="0.7"/>
+      <text x="240" y="105" text-anchor="middle" font-size="7.5" fill="var(--text)">user</text>
+      <text x="240" y="130" text-anchor="middle" font-size="8" fill="var(--text-dim)" font-style="italic">변화 없음</text>
+
+      <!-- T2 (researcher adds) -->
+      <rect x="346" y="90" width="36" height="22" rx="3" fill="#9ca3af" fill-opacity=".25" stroke="#9ca3af" stroke-width="0.7"/>
+      <text x="364" y="105" text-anchor="middle" font-size="7.5" fill="var(--text)">user</text>
+      <rect x="384" y="90" width="36" height="22" rx="3" fill="#22c55e" fill-opacity=".30" stroke="#22c55e" stroke-width="0.9"/>
+      <text x="402" y="105" text-anchor="middle" font-size="7.5" fill="#22c55e" font-weight="700">res</text>
+
+      <!-- T3 (no change) -->
+      <rect x="486" y="90" width="36" height="22" rx="3" fill="#9ca3af" fill-opacity=".25" stroke="#9ca3af" stroke-width="0.7"/>
+      <text x="504" y="105" text-anchor="middle" font-size="7.5" fill="var(--text)">user</text>
+      <rect x="524" y="90" width="36" height="22" rx="3" fill="#22c55e" fill-opacity=".30" stroke="#22c55e" stroke-width="0.9"/>
+      <text x="542" y="105" text-anchor="middle" font-size="7.5" fill="#22c55e" font-weight="700">res</text>
+
+      <!-- T4 (coder adds) -->
+      <rect x="586" y="90" width="36" height="22" rx="3" fill="#9ca3af" fill-opacity=".25" stroke="#9ca3af" stroke-width="0.7"/>
+      <text x="604" y="105" text-anchor="middle" font-size="7.5" fill="var(--text)">user</text>
+      <rect x="624" y="90" width="36" height="22" rx="3" fill="#22c55e" fill-opacity=".30" stroke="#22c55e" stroke-width="0.9"/>
+      <text x="642" y="105" text-anchor="middle" font-size="7.5" fill="#22c55e" font-weight="700">res</text>
+      <rect x="662" y="90" width="36" height="22" rx="3" fill="#22c55e" fill-opacity=".30" stroke="#22c55e" stroke-width="0.9"/>
+      <text x="680" y="105" text-anchor="middle" font-size="7.5" fill="#22c55e" font-weight="700">code</text>
+
+      <!-- T5 (no change) -->
+      <rect x="724" y="90" width="36" height="22" rx="3" fill="#9ca3af" fill-opacity=".25" stroke="#9ca3af" stroke-width="0.7"/>
+      <text x="742" y="105" text-anchor="middle" font-size="7.5" fill="var(--text)">user</text>
+      <rect x="762" y="90" width="36" height="22" rx="3" fill="#22c55e" fill-opacity=".30" stroke="#22c55e" stroke-width="0.9"/>
+      <text x="780" y="105" text-anchor="middle" font-size="7.5" fill="#22c55e" font-weight="700">res</text>
+      <rect x="800" y="90" width="36" height="22" rx="3" fill="#22c55e" fill-opacity=".30" stroke="#22c55e" stroke-width="0.9"/>
+      <text x="818" y="105" text-anchor="middle" font-size="7.5" fill="#22c55e" font-weight="700">code</text>
+
+      <!-- 구분선 -->
+      <line x1="80" y1="150" x2="880" y2="150" stroke="var(--text-dim)" stroke-width="0.3" stroke-dasharray="2,3"/>
+
+      <!-- Lane 2: next 필드 변화 -->
+      <text x="20" y="185" font-size="10" font-weight="700" fill="var(--text)">🎯 next</text>
+      <text x="20" y="198" font-size="7.5" fill="var(--text-dim)">(routing)</text>
+
+      <!-- T0 -->
+      <rect x="80" y="175" width="40" height="22" rx="11" fill="#9ca3af" fill-opacity=".2" stroke="#9ca3af" stroke-width="0.7"/>
+      <text x="100" y="190" text-anchor="middle" font-size="8" fill="var(--text-dim)">—</text>
+
+      <!-- T1 -->
+      <rect x="208" y="175" width="64" height="22" rx="11" fill="#22c55e" fill-opacity=".25" stroke="#22c55e" stroke-width="1"/>
+      <text x="240" y="190" text-anchor="middle" font-size="8" font-weight="700" fill="#22c55e">researcher</text>
+
+      <!-- T2 (유지) -->
+      <rect x="348" y="175" width="64" height="22" rx="11" fill="#9ca3af" fill-opacity=".10" stroke="#9ca3af" stroke-width="0.6" stroke-dasharray="2,2"/>
+      <text x="380" y="190" text-anchor="middle" font-size="8" fill="var(--text-dim)" font-style="italic">유지</text>
+
+      <!-- T3 (coder) -->
+      <rect x="490" y="175" width="60" height="22" rx="11" fill="#22c55e" fill-opacity=".25" stroke="#22c55e" stroke-width="1"/>
+      <text x="520" y="190" text-anchor="middle" font-size="8" font-weight="700" fill="#22c55e">coder</text>
+
+      <!-- T4 (유지) -->
+      <rect x="630" y="175" width="60" height="22" rx="11" fill="#9ca3af" fill-opacity=".10" stroke="#9ca3af" stroke-width="0.6" stroke-dasharray="2,2"/>
+      <text x="660" y="190" text-anchor="middle" font-size="8" fill="var(--text-dim)" font-style="italic">유지</text>
+
+      <!-- T5 (FINISH) -->
+      <rect x="768" y="175" width="64" height="22" rx="11" fill="#ef4444" fill-opacity=".30" stroke="#ef4444" stroke-width="1.2"/>
+      <text x="800" y="190" text-anchor="middle" font-size="8" font-weight="700" fill="#ef4444">FINISH</text>
+
+      <!-- 구분선 -->
+      <line x1="80" y1="220" x2="880" y2="220" stroke="var(--text-dim)" stroke-width="0.3" stroke-dasharray="2,3"/>
+
+      <!-- Lane 3: 누구의 행동? -->
+      <text x="20" y="255" font-size="10" font-weight="700" fill="var(--text)">⚙ 행동</text>
+
+      <!-- T0 -->
+      <text x="100" y="248" text-anchor="middle" font-size="8" fill="var(--text-dim)">입력만</text>
+
+      <!-- T1 supervisor -->
+      <rect x="200" y="240" width="80" height="18" rx="9" fill="#a78bfa" fill-opacity=".20" stroke="#a78bfa" stroke-width="0.8"/>
+      <text x="240" y="252" text-anchor="middle" font-size="7.5" fill="#a78bfa" font-weight="700">Router → "researcher"</text>
+
+      <!-- T2 researcher -->
+      <rect x="340" y="240" width="80" height="18" rx="9" fill="#22c55e" fill-opacity=".20" stroke="#22c55e" stroke-width="0.8"/>
+      <text x="380" y="252" text-anchor="middle" font-size="7.5" fill="#22c55e" font-weight="700">Tavily 검색 + 분석</text>
+
+      <!-- T3 supervisor -->
+      <rect x="480" y="240" width="80" height="18" rx="9" fill="#a78bfa" fill-opacity=".20" stroke="#a78bfa" stroke-width="0.8"/>
+      <text x="520" y="252" text-anchor="middle" font-size="7.5" fill="#a78bfa" font-weight="700">Router → "coder"</text>
+
+      <!-- T4 coder -->
+      <rect x="620" y="240" width="80" height="18" rx="9" fill="#22c55e" fill-opacity=".20" stroke="#22c55e" stroke-width="0.8"/>
+      <text x="660" y="252" text-anchor="middle" font-size="7.5" fill="#22c55e" font-weight="700">Python 코드 생성</text>
+
+      <!-- T5 supervisor -->
+      <rect x="760" y="240" width="80" height="18" rx="9" fill="#ef4444" fill-opacity=".20" stroke="#ef4444" stroke-width="0.8"/>
+      <text x="800" y="252" text-anchor="middle" font-size="7.5" fill="#ef4444" font-weight="700">Router → "FINISH"</text>
+
+      <!-- LLM 호출 비용 (마지막 lane) -->
+      <text x="20" y="295" font-size="10" font-weight="700" fill="var(--text)">💰 LLM 호출</text>
+
+      <!-- 각 turn마다 LLM 호출 표시 -->
+      <text x="100" y="295" text-anchor="middle" font-size="11" fill="var(--text-dim)">·</text>
+      <circle cx="240" cy="290" r="8" fill="#a78bfa" fill-opacity=".5"/><text x="240" y="294" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">L</text>
+      <circle cx="380" cy="290" r="8" fill="#22c55e" fill-opacity=".5"/><text x="380" y="294" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">L</text>
+      <circle cx="520" cy="290" r="8" fill="#a78bfa" fill-opacity=".5"/><text x="520" y="294" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">L</text>
+      <circle cx="660" cy="290" r="8" fill="#22c55e" fill-opacity=".5"/><text x="660" y="294" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">L</text>
+      <circle cx="800" cy="290" r="8" fill="#a78bfa" fill-opacity=".5"/><text x="800" y="294" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">L</text>
+
+      <text x="460" y="320" text-anchor="middle" font-size="9" fill="var(--text-dim)" font-style="italic">총 5 LLM 호출 (Sup 3 + Worker 2). 단일 agent라면 worker 2번이면 끝 → 비용 차이</text>
+    </svg>
+  </div>
+
   <div style="padding:.75rem 1rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;font-size:.74rem;color:var(--text);line-height:1.85;margin-bottom:.7rem">
     <strong style="color:var(--violet)">💡 turn 1, 3, 5의 공통점:</strong> Supervisor 차례에는 <strong>messages가 늘어나지 않음</strong> — Router 출력은 <code style="font-size:.85em">next</code> 필드만 업데이트. <strong>worker만 실제 메시지를 추가</strong>. 이게 LangGraph가 "supervisor는 routing 전용, worker는 일 전용"이라는 책임 분리를 강제하는 방식.<br>
-    <strong style="color:var(--violet)">💡 5 turn = 3번의 Supervisor 호출:</strong> 매 routing마다 LLM 1번 추가 비용. 5 worker step 작업이라면 supervisor 호출이 5~6번 더 추가됨 → 비용 ↑.
+    <strong style="color:var(--violet)">💡 5 turn = 5번의 LLM 호출:</strong> Supervisor 3 + Worker 2. 매 routing마다 LLM 1번 추가 비용. 5 worker step 작업이라면 supervisor 호출이 5~6번 더 추가됨 → 비용 ↑.
   </div>
 
   <!-- ─────────────────────────────────
        Part E: 종료 결정 메커니즘
        ───────────────────────────────── -->
   <div style="font-size:.95rem;font-weight:700;color:var(--violet);margin:1.2rem 0 .7rem">E · "FINISH"는 어떻게 결정되나 — Supervisor의 종료 판단 원리</div>
+
+  <!-- FINISH 결정 트리 SVG -->
+  <div style="background:var(--card);border:1px solid var(--violet-border);border-radius:10px;padding:1rem;margin-bottom:.7rem">
+    <div style="font-size:.8rem;color:var(--text-dim);text-align:center;margin-bottom:.7rem">▼ 매 supervisor turn마다 LLM이 내부적으로 따지는 결정 트리</div>
+    <svg viewBox="0 0 920 380" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="ve-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+
+      <!-- 입력: 현재 messages -->
+      <rect x="370" y="15" width="180" height="40" rx="8" fill="#a78bfa" fill-opacity=".15" stroke="#a78bfa" stroke-width="1"/>
+      <text x="460" y="33" text-anchor="middle" font-size="10" font-weight="700" fill="#a78bfa">📜 현재 state["messages"]</text>
+      <text x="460" y="48" text-anchor="middle" font-size="8" fill="var(--text-dim)">user 요청 + 지금까지 worker 결과</text>
+
+      <line x1="460" y1="55" x2="460" y2="72" stroke="#9ca3af" stroke-width="1" marker-end="url(#ve-ar)"/>
+
+      <!-- Q1: 모든 sub-task 완료? (마름모) -->
+      <polygon points="460,72 590,127 460,182 330,127" fill="#f59e0b" fill-opacity=".15" stroke="#f59e0b" stroke-width="1.2"/>
+      <text x="460" y="115" text-anchor="middle" font-size="10" font-weight="700" fill="#f59e0b">Q1. 사용자 요청의</text>
+      <text x="460" y="128" text-anchor="middle" font-size="10" font-weight="700" fill="#f59e0b">모든 sub-task가</text>
+      <text x="460" y="141" text-anchor="middle" font-size="10" font-weight="700" fill="#f59e0b">결과로 답변됐는가?</text>
+
+      <!-- Q1 YES: 우측 → Q2 -->
+      <line x1="590" y1="127" x2="685" y2="127" stroke="#22c55e" stroke-width="1.2" marker-end="url(#ve-ar)"/>
+      <text x="638" y="120" text-anchor="middle" font-size="9" font-weight="700" fill="#22c55e">YES</text>
+
+      <!-- Q1 NO: 좌측 → Q3 -->
+      <line x1="330" y1="127" x2="235" y2="127" stroke="#ef4444" stroke-width="1.2" marker-end="url(#ve-ar)"/>
+      <text x="282" y="120" text-anchor="middle" font-size="9" font-weight="700" fill="#ef4444">NO</text>
+
+      <!-- Q2: 마지막 worker가 "task complete"? -->
+      <polygon points="800,72 880,127 800,182 720,127" fill="#f59e0b" fill-opacity=".15" stroke="#f59e0b" stroke-width="1.2"/>
+      <text x="800" y="120" text-anchor="middle" font-size="9" font-weight="700" fill="#f59e0b">Q2. 마지막</text>
+      <text x="800" y="132" text-anchor="middle" font-size="9" font-weight="700" fill="#f59e0b">worker가</text>
+      <text x="800" y="144" text-anchor="middle" font-size="9" font-weight="700" fill="#f59e0b">"done" 명시?</text>
+
+      <!-- Q2 YES → FINISH -->
+      <line x1="800" y1="182" x2="800" y2="245" stroke="#22c55e" stroke-width="1.5" marker-end="url(#ve-ar)"/>
+      <text x="820" y="215" font-size="9" font-weight="700" fill="#22c55e">YES</text>
+
+      <!-- Q2 NO → 빠진 step 호출 (Q3로 점선) -->
+      <path d="M 720 150 Q 650 240 350 245" fill="none" stroke="#ef4444" stroke-width="0.8" stroke-dasharray="3,2" marker-end="url(#ve-ar)"/>
+      <text x="600" y="225" font-size="8" font-style="italic" fill="#ef4444">NO → 검증 추가 호출</text>
+
+      <!-- Q3: 어느 worker가 필요? -->
+      <polygon points="160,72 235,127 160,182 85,127" fill="#a78bfa" fill-opacity=".20" stroke="#a78bfa" stroke-width="1.2"/>
+      <text x="160" y="120" text-anchor="middle" font-size="9" font-weight="700" fill="#a78bfa">Q3. 어느</text>
+      <text x="160" y="132" text-anchor="middle" font-size="9" font-weight="700" fill="#a78bfa">worker가</text>
+      <text x="160" y="144" text-anchor="middle" font-size="9" font-weight="700" fill="#a78bfa">남은 일을 함?</text>
+
+      <!-- Q3 → 다음 worker -->
+      <line x1="160" y1="182" x2="160" y2="245" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#ve-ar)"/>
+      <text x="180" y="215" font-size="9" font-style="italic" fill="#a78bfa">선택</text>
+
+      <!-- 출력 1: 다음 worker -->
+      <rect x="60" y="245" width="200" height="50" rx="10" fill="#22c55e" fill-opacity=".20" stroke="#22c55e" stroke-width="1.2"/>
+      <text x="160" y="266" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">next: "researcher" | "coder"</text>
+      <text x="160" y="282" text-anchor="middle" font-size="8" fill="var(--text-dim)" font-family="var(--mono)">{"next": "researcher"}</text>
+
+      <!-- 출력 2: FINISH -->
+      <rect x="700" y="245" width="200" height="50" rx="10" fill="#ef4444" fill-opacity=".20" stroke="#ef4444" stroke-width="1.5"/>
+      <text x="800" y="266" text-anchor="middle" font-size="10" font-weight="700" fill="#ef4444">next: "FINISH" → END</text>
+      <text x="800" y="282" text-anchor="middle" font-size="8" fill="var(--text-dim)" font-family="var(--mono)">{"next": "FINISH"}</text>
+
+      <!-- Runtime이 받음 -->
+      <rect x="335" y="320" width="250" height="40" rx="8" fill="#a78bfa" fill-opacity=".10" stroke="#a78bfa" stroke-width="0.8" stroke-dasharray="3,2"/>
+      <text x="460" y="338" text-anchor="middle" font-size="9.5" font-weight="700" fill="#a78bfa">⚙ LangGraph runtime이 next 값 받음</text>
+      <text x="460" y="352" text-anchor="middle" font-size="8" fill="var(--text-dim)">→ conditional_edges로 분기 결정</text>
+
+      <line x1="160" y1="295" x2="335" y2="335" stroke="#9ca3af" stroke-width="0.8" stroke-dasharray="3,2" marker-end="url(#ve-ar)"/>
+      <line x1="800" y1="295" x2="585" y2="335" stroke="#9ca3af" stroke-width="0.8" stroke-dasharray="3,2" marker-end="url(#ve-ar)"/>
+    </svg>
+  </div>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.7rem">
 
@@ -6199,53 +6594,128 @@ graph = g.compile()
        ───────────────────────────────── -->
   <div style="font-size:.95rem;font-weight:700;color:var(--violet);margin:1.2rem 0 .7rem">G · Supervisor 특화 실패 모드 — 실제 발생 + 대응</div>
 
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.7rem">
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:.7rem">
 
-    <div style="padding:.85rem;background:var(--card);border:1px solid #ef444444;border-radius:10px">
-      <div style="font-size:.82rem;font-weight:700;color:#ef4444;margin-bottom:.35rem">① Hallucinated routing</div>
-      <div style="font-size:.72rem;color:var(--text);line-height:1.7">
-        <strong>증상:</strong> 없는 worker 이름 출력 (예: <code style="font-size:.85em">"analyst"</code> 인데 members에 없음)<br>
-        <strong>방어:</strong> <code style="font-size:.85em">Literal[*members]</code> Pydantic 타입 → 다른 값 자동 reject, LLM에 재시도 요청
+    <!-- ① Hallucinated routing -->
+    <div style="padding:.7rem;background:var(--card);border:1px solid #ef444444;border-radius:10px">
+      <div style="font-size:.78rem;font-weight:700;color:#ef4444;margin-bottom:.3rem">① Hallucinated routing</div>
+      <svg viewBox="0 0 220 70" style="max-width:100%;height:auto;display:block;margin:.2rem 0 .35rem" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="g1-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#ef4444"/></marker></defs>
+        <rect x="10" y="22" width="60" height="26" rx="6" fill="#a78bfa" fill-opacity=".20" stroke="#a78bfa" stroke-width="1"/>
+        <text x="40" y="38" text-anchor="middle" font-size="8.5" font-weight="700" fill="#a78bfa">supervisor</text>
+        <line x1="73" y1="35" x2="148" y2="35" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="3,2" marker-end="url(#g1-ar)"/>
+        <text x="110" y="29" text-anchor="middle" font-size="7" fill="#ef4444" font-style="italic">"analyst"?</text>
+        <circle cx="170" cy="35" r="20" fill="none" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="3,2"/>
+        <text x="170" y="42" text-anchor="middle" font-size="16" font-weight="700" fill="#ef4444">?</text>
+        <text x="110" y="62" text-anchor="middle" font-size="7" fill="var(--text-dim)" font-style="italic">members에 없는 worker</text>
+      </svg>
+      <div style="font-size:.7rem;color:var(--text);line-height:1.65">
+        <strong>증상:</strong> 없는 worker 이름 출력<br>
+        <strong style="color:#22c55e">방어:</strong> <code style="font-size:.9em">Literal[*members]</code> → 자동 reject
       </div>
     </div>
 
-    <div style="padding:.85rem;background:var(--card);border:1px solid #ef444444;border-radius:10px">
-      <div style="font-size:.82rem;font-weight:700;color:#ef4444;margin-bottom:.35rem">② Routing loop</div>
-      <div style="font-size:.72rem;color:var(--text);line-height:1.7">
-        <strong>증상:</strong> A → B → A → B 무한 핑퐁 (Tool-calling variant에서 흔함)<br>
-        <strong>방어:</strong> Stall counter — 2 turn 같은 worker pair 반복 시 강제 FINISH + 부분 결과 반환
+    <!-- ② Routing loop -->
+    <div style="padding:.7rem;background:var(--card);border:1px solid #ef444444;border-radius:10px">
+      <div style="font-size:.78rem;font-weight:700;color:#ef4444;margin-bottom:.3rem">② Routing loop</div>
+      <svg viewBox="0 0 220 70" style="max-width:100%;height:auto;display:block;margin:.2rem 0 .35rem" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="g2-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#ef4444"/></marker></defs>
+        <rect x="30" y="22" width="60" height="26" rx="6" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1"/>
+        <text x="60" y="38" text-anchor="middle" font-size="9" font-weight="700" fill="#22c55e">A</text>
+        <rect x="130" y="22" width="60" height="26" rx="6" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1"/>
+        <text x="160" y="38" text-anchor="middle" font-size="9" font-weight="700" fill="#22c55e">B</text>
+        <path d="M 92 30 Q 110 18 128 30" fill="none" stroke="#ef4444" stroke-width="1.2" marker-end="url(#g2-ar)"/>
+        <path d="M 128 42 Q 110 54 92 42" fill="none" stroke="#ef4444" stroke-width="1.2" marker-end="url(#g2-ar)"/>
+        <text x="110" y="65" text-anchor="middle" font-size="7" fill="#ef4444" font-style="italic">↻ 무한 핑퐁</text>
+      </svg>
+      <div style="font-size:.7rem;color:var(--text);line-height:1.65">
+        <strong>증상:</strong> A→B→A→B 무한 핑퐁<br>
+        <strong style="color:#22c55e">방어:</strong> Stall counter 2회 시 강제 FINISH
       </div>
     </div>
 
-    <div style="padding:.85rem;background:var(--card);border:1px solid #ef444444;border-radius:10px">
-      <div style="font-size:.82rem;font-weight:700;color:#ef4444;margin-bottom:.35rem">③ Premature FINISH</div>
-      <div style="font-size:.72rem;color:var(--text);line-height:1.7">
-        <strong>증상:</strong> 사용자 요청 일부만 처리 후 FINISH (MAST 7.82%)<br>
-        <strong>방어:</strong> Supervisor prompt에 "<strong>모든 sub-task 완료 확인 후 FINISH</strong>" 명시 + verification worker 추가
+    <!-- ③ Premature FINISH -->
+    <div style="padding:.7rem;background:var(--card);border:1px solid #ef444444;border-radius:10px">
+      <div style="font-size:.78rem;font-weight:700;color:#ef4444;margin-bottom:.3rem">③ Premature FINISH</div>
+      <svg viewBox="0 0 220 70" style="max-width:100%;height:auto;display:block;margin:.2rem 0 .35rem" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="g3-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+        <!-- 3 sub-tasks: ✓ ✓ ✗ -->
+        <circle cx="40" cy="28" r="9" fill="#22c55e" fill-opacity=".25" stroke="#22c55e" stroke-width="1"/>
+        <text x="40" y="32" text-anchor="middle" font-size="9" font-weight="700" fill="#22c55e">✓</text>
+        <circle cx="65" cy="28" r="9" fill="#22c55e" fill-opacity=".25" stroke="#22c55e" stroke-width="1"/>
+        <text x="65" y="32" text-anchor="middle" font-size="9" font-weight="700" fill="#22c55e">✓</text>
+        <circle cx="90" cy="28" r="9" fill="#ef4444" fill-opacity=".15" stroke="#ef4444" stroke-width="1" stroke-dasharray="2,1"/>
+        <text x="90" y="32" text-anchor="middle" font-size="9" font-weight="700" fill="#ef4444">?</text>
+        <line x1="103" y1="28" x2="135" y2="28" stroke="#ef4444" stroke-width="1.2" marker-end="url(#g3-ar)"/>
+        <rect x="138" y="16" width="60" height="24" rx="6" fill="#ef4444" fill-opacity=".25" stroke="#ef4444" stroke-width="1.2"/>
+        <text x="168" y="32" text-anchor="middle" font-size="8" font-weight="700" fill="#ef4444">FINISH ⚠</text>
+        <text x="110" y="58" text-anchor="middle" font-size="7" fill="var(--text-dim)" font-style="italic">3 sub-task 중 2개만 끝났는데 종료</text>
+      </svg>
+      <div style="font-size:.7rem;color:var(--text);line-height:1.65">
+        <strong>증상:</strong> 일부만 처리 후 종료 (MAST 7.82%)<br>
+        <strong style="color:#22c55e">방어:</strong> "모든 sub-task 확인 후 FINISH" 명시
       </div>
     </div>
 
-    <div style="padding:.85rem;background:var(--card);border:1px solid #ef444444;border-radius:10px">
-      <div style="font-size:.82rem;font-weight:700;color:#ef4444;margin-bottom:.35rem">④ Worker timeout</div>
-      <div style="font-size:.72rem;color:var(--text);line-height:1.7">
-        <strong>증상:</strong> Worker 노드가 5분+ 응답 없음 (외부 API 장애 등)<br>
-        <strong>방어:</strong> Worker 노드에 timeout 래퍼 + Circuit Breaker (3회 실패 시 자동 차단)
+    <!-- ④ Worker timeout -->
+    <div style="padding:.7rem;background:var(--card);border:1px solid #ef444444;border-radius:10px">
+      <div style="font-size:.78rem;font-weight:700;color:#ef4444;margin-bottom:.3rem">④ Worker timeout</div>
+      <svg viewBox="0 0 220 70" style="max-width:100%;height:auto;display:block;margin:.2rem 0 .35rem" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="22" width="60" height="26" rx="6" fill="#a78bfa" fill-opacity=".20" stroke="#a78bfa" stroke-width="1"/>
+        <text x="40" y="38" text-anchor="middle" font-size="8.5" font-weight="700" fill="#a78bfa">supervisor</text>
+        <line x1="73" y1="35" x2="118" y2="35" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+        <rect x="120" y="22" width="60" height="26" rx="6" fill="#ef4444" fill-opacity=".15" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"/>
+        <text x="150" y="38" text-anchor="middle" font-size="8.5" font-weight="700" fill="#ef4444">worker</text>
+        <text x="200" y="34" font-size="14">⏱</text>
+        <text x="110" y="62" text-anchor="middle" font-size="7" fill="#ef4444" font-style="italic">5분+ 응답 없음 (외부 API hang)</text>
+      </svg>
+      <div style="font-size:.7rem;color:var(--text);line-height:1.65">
+        <strong>증상:</strong> Worker 노드 응답 없음<br>
+        <strong style="color:#22c55e">방어:</strong> timeout 래퍼 + Circuit Breaker
       </div>
     </div>
 
-    <div style="padding:.85rem;background:var(--card);border:1px solid #ef444444;border-radius:10px">
-      <div style="font-size:.82rem;font-weight:700;color:#ef4444;margin-bottom:.35rem">⑤ Context bloat</div>
-      <div style="font-size:.72rem;color:var(--text);line-height:1.7">
-        <strong>증상:</strong> 10 turn 후 messages가 50개+ → Supervisor LLM 비용·지연 폭증<br>
-        <strong>방어:</strong> <code style="font-size:.85em">pre_model_hook</code>으로 오래된 메시지 요약 (LangGraph 지원)
+    <!-- ⑤ Context bloat -->
+    <div style="padding:.7rem;background:var(--card);border:1px solid #ef444444;border-radius:10px">
+      <div style="font-size:.78rem;font-weight:700;color:#ef4444;margin-bottom:.3rem">⑤ Context bloat</div>
+      <svg viewBox="0 0 220 70" style="max-width:100%;height:auto;display:block;margin:.2rem 0 .35rem" xmlns="http://www.w3.org/2000/svg">
+        <!-- 누적 메시지 박스가 점점 커짐 -->
+        <rect x="10" y="42" width="14" height="14" rx="2" fill="#9ca3af" fill-opacity=".25" stroke="#9ca3af" stroke-width="0.6"/>
+        <rect x="27" y="38" width="14" height="18" rx="2" fill="#9ca3af" fill-opacity=".25" stroke="#9ca3af" stroke-width="0.6"/>
+        <rect x="44" y="32" width="14" height="24" rx="2" fill="#9ca3af" fill-opacity=".25" stroke="#9ca3af" stroke-width="0.6"/>
+        <rect x="61" y="26" width="14" height="30" rx="2" fill="#f59e0b" fill-opacity=".25" stroke="#f59e0b" stroke-width="0.7"/>
+        <rect x="78" y="18" width="14" height="38" rx="2" fill="#f59e0b" fill-opacity=".30" stroke="#f59e0b" stroke-width="0.8"/>
+        <rect x="95" y="10" width="14" height="46" rx="2" fill="#ef4444" fill-opacity=".30" stroke="#ef4444" stroke-width="1"/>
+        <text x="125" y="32" font-size="11" font-weight="700" fill="#ef4444">→ 💸</text>
+        <text x="170" y="32" font-size="9.5" font-weight="700" fill="#ef4444">비용 ↑</text>
+        <text x="170" y="46" font-size="9.5" font-weight="700" fill="#ef4444">지연 ↑</text>
+        <text x="110" y="68" text-anchor="middle" font-size="7" fill="var(--text-dim)" font-style="italic">messages가 turn마다 누적</text>
+      </svg>
+      <div style="font-size:.7rem;color:var(--text);line-height:1.65">
+        <strong>증상:</strong> 10+ turn 후 messages 50개+<br>
+        <strong style="color:#22c55e">방어:</strong> <code style="font-size:.9em">pre_model_hook</code>로 요약
       </div>
     </div>
 
-    <div style="padding:.85rem;background:var(--card);border:1px solid #ef444444;border-radius:10px">
-      <div style="font-size:.82rem;font-weight:700;color:#ef4444;margin-bottom:.35rem">⑥ Conflicting parallel writes</div>
-      <div style="font-size:.72rem;color:var(--text);line-height:1.7">
-        <strong>증상:</strong> 병렬 worker가 같은 state 키에 다른 값 쓰면 reducer 충돌<br>
-        <strong>방어:</strong> Worker마다 다른 key 쓰기 (예: <code style="font-size:.85em">apple_result</code> · <code style="font-size:.85em">msft_result</code>) 또는 custom reducer
+    <!-- ⑥ Conflicting parallel writes -->
+    <div style="padding:.7rem;background:var(--card);border:1px solid #ef444444;border-radius:10px">
+      <div style="font-size:.78rem;font-weight:700;color:#ef4444;margin-bottom:.3rem">⑥ Conflicting writes</div>
+      <svg viewBox="0 0 220 70" style="max-width:100%;height:auto;display:block;margin:.2rem 0 .35rem" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="g6-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#ef4444"/></marker></defs>
+        <rect x="10" y="10" width="50" height="22" rx="5" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1"/>
+        <text x="35" y="25" text-anchor="middle" font-size="8" font-weight="700" fill="#22c55e">A1</text>
+        <rect x="10" y="38" width="50" height="22" rx="5" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1"/>
+        <text x="35" y="53" text-anchor="middle" font-size="8" font-weight="700" fill="#22c55e">A2</text>
+        <line x1="63" y1="21" x2="118" y2="34" stroke="#ef4444" stroke-width="1.2" marker-end="url(#g6-ar)"/>
+        <line x1="63" y1="49" x2="118" y2="38" stroke="#ef4444" stroke-width="1.2" marker-end="url(#g6-ar)"/>
+        <rect x="120" y="24" width="80" height="22" rx="5" fill="#ef4444" fill-opacity=".15" stroke="#ef4444" stroke-width="1"/>
+        <text x="160" y="39" text-anchor="middle" font-size="8" font-weight="700" fill="#ef4444">state["x"]</text>
+        <text x="180" y="14" font-size="11">⚡</text>
+        <text x="110" y="68" text-anchor="middle" font-size="7" fill="var(--text-dim)" font-style="italic">2 worker가 같은 키에 동시 write</text>
+      </svg>
+      <div style="font-size:.7rem;color:var(--text);line-height:1.65">
+        <strong>증상:</strong> 병렬 worker가 같은 키 충돌<br>
+        <strong style="color:#22c55e">방어:</strong> Worker별 다른 key 또는 custom reducer
       </div>
     </div>
 
