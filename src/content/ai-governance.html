@@ -3453,23 +3453,134 @@
 
 <p class="section-desc">Ch.09에서 Hub-and-Spoke가 "2026 표준"이라고 했지만 — <strong style="color:var(--violet)">정확히 어떻게 생긴 구조인가</strong>, <strong>Hub는 무엇을 하고 Spoke는 무엇을 하나</strong>, <strong>실제로 어떻게 협업하나</strong>는 알려진 게 적습니다. 이 챕터는 Microsoft·JPMC·LG AI 연구원 사례를 기반으로 Hub-Spoke 모델을 <strong>10개 시각화로 완전 해부</strong>합니다.</p>
 
-<!-- 핵심 박스 -->
-<div class="dia reveal" style="border:1.5px solid var(--violet);background:var(--violet-bg);margin-bottom:1.5rem">
-<div style="padding:1.2rem 1.4rem">
-  <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:2px;text-transform:uppercase;margin-bottom:.6rem">KEY DEFINITIONS</div>
-  <div style="font-size:.85rem;color:var(--text);line-height:1.85">
-    <strong style="color:var(--violet)">🎯 Hub</strong> (= Center of Excellence, CoE) — 전사 AI를 떠받치는 <strong>중앙 전문 조직</strong>. 7가지 책임 (전략·플랫폼·재사용 자산·거버넌스·교육·커뮤니티·외부 협력). 보통 10~25명. CEO 또는 CAIO 직속.<br><br>
-    <strong style="color:#22c55e">🛠 Spoke</strong> (= Embedded Team) — 각 사업부에 <strong>임베드된 AI 인력</strong>. 5가지 책임 (도메인 이해·use case 발굴·프로덕션 운영·사업 ROI 책임·Hub 협업). 보통 사업부당 2~5명. 사업부장과 Hub에 점선 dual-report.<br><br>
-    <strong style="color:#f59e0b">🔗 관계</strong> — Hub는 <em>역량</em>을 제공, Spoke는 <em>가치</em>를 만든다. Hub 혼자서는 사업 결과 못 냄, Spoke 혼자서는 표준·재사용 못 함. <strong>둘이 합쳐야 +36% ROI</strong> (IBM 2026).
+<!-- ═══════════════════════════════════════════
+     KEY DEFINITIONS — 3 카드 그리드 (정돈된 디자인)
+     ═══════════════════════════════════════════ -->
+<div class="dia reveal" style="margin-bottom:1.2rem">
+<div style="font-family:var(--mono);font-size:.7rem;color:var(--text-dim);letter-spacing:3px;text-transform:uppercase;text-align:center;margin-bottom:.7rem">Key Definitions</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem;margin-bottom:.3rem">
+
+  <div style="padding:1rem;background:var(--card);border:1.5px solid var(--violet-border);border-radius:12px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:0;left:0;width:100%;height:3px;background:var(--violet)"></div>
+    <div style="display:flex;align-items:baseline;gap:.4rem;margin-bottom:.5rem">
+      <span style="font-size:1.3rem">🎯</span>
+      <div style="font-size:.95rem;font-weight:800;color:var(--violet)">Hub</div>
+      <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-dim);margin-left:auto">= CoE</div>
+    </div>
+    <div style="font-size:.76rem;color:var(--text);line-height:1.75">
+      전사 AI를 떠받치는 <strong>중앙 전문 조직</strong>.<br>
+      <strong style="color:var(--violet)">7 책임</strong> · <strong style="color:var(--violet)">10~25명</strong> · CEO/CAIO 직속
+    </div>
   </div>
+
+  <div style="padding:1rem;background:var(--card);border:1.5px solid #22c55e;border-radius:12px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:0;left:0;width:100%;height:3px;background:#22c55e"></div>
+    <div style="display:flex;align-items:baseline;gap:.4rem;margin-bottom:.5rem">
+      <span style="font-size:1.3rem">🛠</span>
+      <div style="font-size:.95rem;font-weight:800;color:#22c55e">Spoke</div>
+      <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-dim);margin-left:auto">= Embedded</div>
+    </div>
+    <div style="font-size:.76rem;color:var(--text);line-height:1.75">
+      각 사업부에 <strong>임베드된 AI 인력</strong>.<br>
+      <strong style="color:#22c55e">5 책임</strong> · <strong style="color:#22c55e">2~5명/사업부</strong> · 사업부장+Hub 이중 보고
+    </div>
+  </div>
+
+  <div style="padding:1rem;background:var(--card);border:1.5px solid #f59e0b;border-radius:12px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:0;left:0;width:100%;height:3px;background:#f59e0b"></div>
+    <div style="display:flex;align-items:baseline;gap:.4rem;margin-bottom:.5rem">
+      <span style="font-size:1.3rem">🔗</span>
+      <div style="font-size:.95rem;font-weight:800;color:#f59e0b">Hub ↔ Spoke</div>
+      <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-dim);margin-left:auto">관계</div>
+    </div>
+    <div style="font-size:.76rem;color:var(--text);line-height:1.75">
+      Hub는 <em>역량</em>, Spoke는 <em>가치</em>.<br>
+      <strong style="color:#f59e0b">합쳐야 +36% ROI</strong> (IBM 2026)
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CHAPTER TOC — 8 섹션 한눈에 (Mini Navigation)
+     ═══════════════════════════════════════════ -->
+<div class="dia reveal" style="margin-bottom:1.5rem">
+<div style="font-family:var(--mono);font-size:.7rem;color:var(--text-dim);letter-spacing:3px;text-transform:uppercase;text-align:center;margin-bottom:.7rem">In This Chapter · 8 Sections</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem">
+
+  <a href="#ch10-a" style="padding:.7rem .8rem;background:var(--card);border:1px solid var(--violet-border);border-radius:8px;text-decoration:none;color:inherit;display:block;transition:all .2s" onmouseover="this.style.borderColor='var(--violet)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--violet-border)';this.style.transform='translateY(0)'">
+    <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.2rem">
+      <span style="display:inline-flex;width:20px;height:20px;border-radius:50%;background:var(--violet);color:#fff;align-items:center;justify-content:center;font-size:.65rem;font-weight:800">A</span>
+      <span style="font-size:.78rem;font-weight:700;color:var(--text)">어원</span>
+    </div>
+    <div style="font-size:.7rem;color:var(--text-dim);line-height:1.5">자전거→항공→물류→AI</div>
+  </a>
+
+  <a href="#ch10-b" style="padding:.7rem .8rem;background:var(--card);border:1px solid var(--violet-border);border-radius:8px;text-decoration:none;color:inherit;display:block;transition:all .2s" onmouseover="this.style.borderColor='var(--violet)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--violet-border)';this.style.transform='translateY(0)'">
+    <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.2rem">
+      <span style="display:inline-flex;width:20px;height:20px;border-radius:50%;background:var(--violet);color:#fff;align-items:center;justify-content:center;font-size:.65rem;font-weight:800">B</span>
+      <span style="font-size:.78rem;font-weight:700;color:var(--text)">Hub 7 책임</span>
+    </div>
+    <div style="font-size:.7rem;color:var(--text-dim);line-height:1.5">CoE가 무엇을 하는가</div>
+  </a>
+
+  <a href="#ch10-c" style="padding:.7rem .8rem;background:var(--card);border:1px solid var(--violet-border);border-radius:8px;text-decoration:none;color:inherit;display:block;transition:all .2s" onmouseover="this.style.borderColor='#22c55e';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--violet-border)';this.style.transform='translateY(0)'">
+    <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.2rem">
+      <span style="display:inline-flex;width:20px;height:20px;border-radius:50%;background:#22c55e;color:#fff;align-items:center;justify-content:center;font-size:.65rem;font-weight:800">C</span>
+      <span style="font-size:.78rem;font-weight:700;color:var(--text)">Spoke 5 책임</span>
+    </div>
+    <div style="font-size:.7rem;color:var(--text-dim);line-height:1.5">사업부 팀이 무엇을</div>
+  </a>
+
+  <a href="#ch10-d" style="padding:.7rem .8rem;background:var(--card);border:1px solid var(--violet-border);border-radius:8px;text-decoration:none;color:inherit;display:block;transition:all .2s" onmouseover="this.style.borderColor='var(--violet)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--violet-border)';this.style.transform='translateY(0)'">
+    <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.2rem">
+      <span style="display:inline-flex;width:20px;height:20px;border-radius:50%;background:var(--violet);color:#fff;align-items:center;justify-content:center;font-size:.65rem;font-weight:800">D</span>
+      <span style="font-size:.78rem;font-weight:700;color:var(--text)">3 변형</span>
+    </div>
+    <div style="font-size:.7rem;color:var(--text-dim);line-height:1.5">Strong / Balanced / Federated</div>
+  </a>
+
+  <a href="#ch10-e" style="padding:.7rem .8rem;background:var(--card);border:1px solid var(--violet-border);border-radius:8px;text-decoration:none;color:inherit;display:block;transition:all .2s" onmouseover="this.style.borderColor='#f59e0b';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--violet-border)';this.style.transform='translateY(0)'">
+    <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.2rem">
+      <span style="display:inline-flex;width:20px;height:20px;border-radius:50%;background:#f59e0b;color:#fff;align-items:center;justify-content:center;font-size:.65rem;font-weight:800">E</span>
+      <span style="font-size:.78rem;font-weight:700;color:var(--text)">협업 5단계</span>
+    </div>
+    <div style="font-size:.7rem;color:var(--text-dim);line-height:1.5">발굴→평가→설계→빌드→운영</div>
+  </a>
+
+  <a href="#ch10-f" style="padding:.7rem .8rem;background:var(--card);border:1px solid var(--violet-border);border-radius:8px;text-decoration:none;color:inherit;display:block;transition:all .2s" onmouseover="this.style.borderColor='#ef4444';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--violet-border)';this.style.transform='translateY(0)'">
+    <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.2rem">
+      <span style="display:inline-flex;width:20px;height:20px;border-radius:50%;background:#ef4444;color:#fff;align-items:center;justify-content:center;font-size:.65rem;font-weight:800">F</span>
+      <span style="font-size:.78rem;font-weight:700;color:var(--text)">6 실패 패턴</span>
+    </div>
+    <div style="font-size:.7rem;color:var(--text-dim);line-height:1.5">무너지는 이유</div>
+  </a>
+
+  <a href="#ch10-g" style="padding:.7rem .8rem;background:var(--card);border:1px solid var(--violet-border);border-radius:8px;text-decoration:none;color:inherit;display:block;transition:all .2s" onmouseover="this.style.borderColor='#22c55e';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--violet-border)';this.style.transform='translateY(0)'">
+    <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.2rem">
+      <span style="display:inline-flex;width:20px;height:20px;border-radius:50%;background:#22c55e;color:#fff;align-items:center;justify-content:center;font-size:.65rem;font-weight:800">G</span>
+      <span style="font-size:.78rem;font-weight:700;color:var(--text)">6개월 구축</span>
+    </div>
+    <div style="font-size:.7rem;color:var(--text-dim);line-height:1.5">Month-by-Month</div>
+  </a>
+
+  <a href="#ch10-h" style="padding:.7rem .8rem;background:var(--card);border:1px solid var(--violet-border);border-radius:8px;text-decoration:none;color:inherit;display:block;transition:all .2s" onmouseover="this.style.borderColor='var(--violet)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--violet-border)';this.style.transform='translateY(0)'">
+    <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.2rem">
+      <span style="display:inline-flex;width:20px;height:20px;border-radius:50%;background:var(--violet);color:#fff;align-items:center;justify-content:center;font-size:.65rem;font-weight:800">H</span>
+      <span style="font-size:.78rem;font-weight:700;color:var(--text)">실전 사례</span>
+    </div>
+    <div style="font-size:.7rem;color:var(--text-dim);line-height:1.5">JPMC·MS·LG·SK텔레콤</div>
+  </a>
+
 </div>
 </div>
 
 <!-- ──────────────────────────────────────
      A. 어원 — 항공·물류에서 차용
      ────────────────────────────────────── -->
-<div class="dia reveal">
-<div class="dia-title">A · 어원 — 자전거 바퀴에서 AI 조직까지</div>
+<div class="dia reveal" id="ch10-a">
+<div class="dia-title" style="display:flex;align-items:center;gap:.6rem"><span style="display:inline-flex;width:32px;height:32px;border-radius:50%;background:var(--violet);color:#fff;align-items:center;justify-content:center;font-size:.95rem;font-weight:800">A</span>어원 — 자전거 바퀴에서 AI 조직까지</div>
 <div style="max-width:920px;margin:0 auto">
 
   <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
@@ -3584,8 +3695,8 @@
 <!-- ──────────────────────────────────────
      B. Hub의 7 책임 — 방사형 다이어그램
      ────────────────────────────────────── -->
-<div class="dia reveal">
-<div class="dia-title">B · Hub의 7 책임 — CoE가 정확히 무엇을 하는가</div>
+<div class="dia reveal" id="ch10-b">
+<div class="dia-title" style="display:flex;align-items:center;gap:.6rem"><span style="display:inline-flex;width:32px;height:32px;border-radius:50%;background:var(--violet);color:#fff;align-items:center;justify-content:center;font-size:.95rem;font-weight:800">B</span>Hub의 7 책임 — CoE가 정확히 무엇을 하는가</div>
 <div style="max-width:920px;margin:0 auto">
 
   <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
@@ -3711,8 +3822,8 @@
 <!-- ──────────────────────────────────────
      C. Spoke의 5 책임
      ────────────────────────────────────── -->
-<div class="dia reveal">
-<div class="dia-title">C · Spoke의 5 책임 — 사업부 임베드 팀이 무엇을 하는가</div>
+<div class="dia reveal" id="ch10-c">
+<div class="dia-title" style="display:flex;align-items:center;gap:.6rem"><span style="display:inline-flex;width:32px;height:32px;border-radius:50%;background:#22c55e;color:#fff;align-items:center;justify-content:center;font-size:.95rem;font-weight:800">C</span>Spoke의 5 책임 — 사업부 임베드 팀이 무엇을 하는가</div>
 <div style="max-width:920px;margin:0 auto">
 
   <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
@@ -3808,8 +3919,8 @@
 <!-- ──────────────────────────────────────
      D. 3 Hub-Spoke 변형
      ────────────────────────────────────── -->
-<div class="dia reveal">
-<div class="dia-title">D · 3 변형 — Strong Hub / Balanced / Federated</div>
+<div class="dia reveal" id="ch10-d">
+<div class="dia-title" style="display:flex;align-items:center;gap:.6rem"><span style="display:inline-flex;width:32px;height:32px;border-radius:50%;background:var(--violet);color:#fff;align-items:center;justify-content:center;font-size:.95rem;font-weight:800">D</span>3 변형 — Strong Hub / Balanced / Federated</div>
 <div style="max-width:920px;margin:0 auto">
 
   <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
@@ -3951,8 +4062,8 @@
 <!-- ──────────────────────────────────────
      E. 실제 협업 흐름 — PRD에서 Production까지
      ────────────────────────────────────── -->
-<div class="dia reveal">
-<div class="dia-title">E · 실제 협업 흐름 — Use Case 발굴에서 Production까지 5단계</div>
+<div class="dia reveal" id="ch10-e">
+<div class="dia-title" style="display:flex;align-items:center;gap:.6rem"><span style="display:inline-flex;width:32px;height:32px;border-radius:50%;background:#f59e0b;color:#fff;align-items:center;justify-content:center;font-size:.95rem;font-weight:800">E</span>실제 협업 흐름 — Use Case 발굴에서 Production까지 5단계</div>
 <div style="max-width:920px;margin:0 auto">
 
   <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
@@ -4059,8 +4170,8 @@
 <!-- ──────────────────────────────────────
      F. 6 실패 패턴 — Hub-Spoke가 무너지는 이유
      ────────────────────────────────────── -->
-<div class="dia reveal">
-<div class="dia-title">F · Hub-Spoke 6 실패 패턴 — 무너지는 이유</div>
+<div class="dia reveal" id="ch10-f">
+<div class="dia-title" style="display:flex;align-items:center;gap:.6rem"><span style="display:inline-flex;width:32px;height:32px;border-radius:50%;background:#ef4444;color:#fff;align-items:center;justify-content:center;font-size:.95rem;font-weight:800">F</span>Hub-Spoke 6 실패 패턴 — 무너지는 이유</div>
 <div style="max-width:920px;margin:0 auto">
 
   <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
@@ -4196,8 +4307,8 @@
 <!-- ──────────────────────────────────────
      G. 6개월 구축 로드맵
      ────────────────────────────────────── -->
-<div class="dia reveal">
-<div class="dia-title">G · 6개월 구축 로드맵 — Month-by-Month</div>
+<div class="dia reveal" id="ch10-g">
+<div class="dia-title" style="display:flex;align-items:center;gap:.6rem"><span style="display:inline-flex;width:32px;height:32px;border-radius:50%;background:#22c55e;color:#fff;align-items:center;justify-content:center;font-size:.95rem;font-weight:800">G</span>6개월 구축 로드맵 — Month-by-Month</div>
 <div style="max-width:920px;margin:0 auto">
 
   <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
@@ -4349,8 +4460,8 @@
 <!-- ──────────────────────────────────────
      H. 글로벌 + 한국 사례 비교
      ────────────────────────────────────── -->
-<div class="dia reveal">
-<div class="dia-title">H · 글로벌 + 한국 Hub-Spoke 사례 비교</div>
+<div class="dia reveal" id="ch10-h">
+<div class="dia-title" style="display:flex;align-items:center;gap:.6rem"><span style="display:inline-flex;width:32px;height:32px;border-radius:50%;background:var(--violet);color:#fff;align-items:center;justify-content:center;font-size:.95rem;font-weight:800">H</span>글로벌 + 한국 Hub-Spoke 사례 비교</div>
 <div style="max-width:920px;margin:0 auto">
 
   <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
@@ -4409,6 +4520,71 @@
       <strong>5. 모든 회사</strong> — Hub Director가 CEO 직속 또는 Operating Committee 멤버여야 함. CTO/CIO 산하 시 효과 30% 줄어듦 (IBM 2026).
     </div>
   </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CHAPTER 10 SUMMARY — 종합 요약 카드
+     ═══════════════════════════════════════════ -->
+<div class="dia reveal" style="margin-top:1.5rem;border:1.5px solid var(--violet);background:linear-gradient(180deg, var(--violet-bg) 0%, transparent 100%);border-radius:14px">
+<div style="padding:1.5rem 1.7rem">
+
+  <div style="text-align:center;margin-bottom:1.2rem">
+    <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:3px;text-transform:uppercase;margin-bottom:.4rem">Chapter 10 · Take-Aways</div>
+    <div style="font-family:var(--display);font-size:1.15rem;font-weight:800;color:var(--white)">Hub-and-Spoke 한 줄 요약</div>
+  </div>
+
+  <!-- 4 key statements -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:1.2rem">
+
+    <div style="padding:.85rem 1rem;background:var(--card);border-left:3px solid var(--violet);border-radius:0 8px 8px 0">
+      <div style="font-size:.72rem;color:var(--violet);font-weight:700;letter-spacing:1px;margin-bottom:.25rem">WHY</div>
+      <div style="font-size:.82rem;color:var(--text);line-height:1.7">N개 사업부 → N²이 아닌 <strong>N개 관계</strong>로 단순화. 항공·물류·AI 공통 효율 원리.</div>
+    </div>
+
+    <div style="padding:.85rem 1rem;background:var(--card);border-left:3px solid #22c55e;border-radius:0 8px 8px 0">
+      <div style="font-size:.72rem;color:#22c55e;font-weight:700;letter-spacing:1px;margin-bottom:.25rem">WHAT</div>
+      <div style="font-size:.82rem;color:var(--text);line-height:1.7"><strong>Hub = 역량(7책임)</strong>, <strong>Spoke = 가치(5책임)</strong>. 둘이 합쳐야 +36% ROI (IBM).</div>
+    </div>
+
+    <div style="padding:.85rem 1rem;background:var(--card);border-left:3px solid #f59e0b;border-radius:0 8px 8px 0">
+      <div style="font-size:.72rem;color:#f59e0b;font-weight:700;letter-spacing:1px;margin-bottom:.25rem">HOW</div>
+      <div style="font-size:.82rem;color:var(--text);line-height:1.7">발굴(Spoke) → 평가(Hub) → 설계(공동) → 빌드(Spoke) → 운영(Spoke+Hub 모니터링).</div>
+    </div>
+
+    <div style="padding:.85rem 1rem;background:var(--card);border-left:3px solid #ef4444;border-radius:0 8px 8px 0">
+      <div style="font-size:.72rem;color:#ef4444;font-weight:700;letter-spacing:1px;margin-bottom:.25rem">RISK</div>
+      <div style="font-size:.82rem;color:var(--text);line-height:1.7">Ivory Tower · Shadow AI 재발 · 우선순위 충돌 · 인재 이동 · Chargeback · 도구 자유 (6 패턴).</div>
+    </div>
+
+  </div>
+
+  <!-- 3 핵심 숫자 -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-bottom:1.2rem">
+    <div style="padding:1rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px;text-align:center">
+      <div style="font-family:var(--display);font-size:1.6rem;font-weight:800;color:var(--violet);line-height:1">+36%</div>
+      <div style="font-size:.7rem;color:var(--text-dim);margin-top:.3rem">분산형 대비 ROI<br>(IBM 2026)</div>
+    </div>
+    <div style="padding:1rem;background:var(--card);border:1px solid #22c55e;border-radius:10px;text-align:center">
+      <div style="font-family:var(--display);font-size:1.6rem;font-weight:800;color:#22c55e;line-height:1">8~10명</div>
+      <div style="font-size:.7rem;color:var(--text-dim);margin-top:.3rem">CoE 코어 (1,000명 기준)<br>+ Spoke 사업부당 2~5명</div>
+    </div>
+    <div style="padding:1rem;background:var(--card);border:1px solid #f59e0b;border-radius:10px;text-align:center">
+      <div style="font-family:var(--display);font-size:1.6rem;font-weight:800;color:#f59e0b;line-height:1">6개월</div>
+      <div style="font-size:.7rem;color:var(--text-dim);margin-top:.3rem">진단 → Hub-Spoke v1.0<br>(중견기업 표준 일정)</div>
+    </div>
+  </div>
+
+  <!-- 황금률 -->
+  <div style="padding:.95rem 1.1rem;background:var(--violet-bg);border:1px solid var(--violet-border);border-radius:10px;font-size:.82rem;color:var(--text);line-height:1.85;text-align:center">
+    💡 <strong style="color:var(--violet)">황금률:</strong> "Hub는 표준·플랫폼·재사용 자산을, Spoke는 도메인·사업 결과를." 둘 중 하나만 강하면 실패. <strong>Hub Director는 반드시 CEO 직속</strong> — CTO/CIO 산하 시 효과 30% 줄어듦.
+  </div>
+
+  <!-- Cross-link -->
+  <div style="margin-top:1rem;padding:.75rem 1rem;background:var(--surface);border-radius:8px;font-size:.76rem;color:var(--text-dim);line-height:1.8">
+    🔗 <strong style="color:var(--text)">관련 챕터:</strong> <a href="#gov-ch4" style="color:var(--violet);text-decoration:underline">Ch.04 3 Lines of Defense</a> (거버넌스 기본 구조) · <a href="#gov-ch9" style="color:var(--violet);text-decoration:underline">Ch.09 전사 AI Transformation 조직</a> (Hub-Spoke의 더 큰 맥락) · <a href="/04-ai-agents-advanced/#p4-ch13" style="color:var(--violet);text-decoration:underline">Part 4 Ch.13 Multi-Agent</a> (기술적 멀티 에이전트와의 대칭)
+  </div>
+
 </div>
 </div>
 
