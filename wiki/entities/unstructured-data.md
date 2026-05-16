@@ -62,9 +62,9 @@
 
 ## Reference
 
-- [Part 8 — Ch.02 정형 vs 비정형 vs 반정형](https://ai-contents-wine.vercel.app/08-data-basics/)
-- [Part 8 — Ch.03 왜 비정형 데이터가 AI의 핵심인가](https://ai-contents-wine.vercel.app/08-data-basics/)
-- [Part 9 — Ch.05 엔터프라이즈 문서 AI](https://ai-contents-wine.vercel.app/09-data-enterprise/)
+- [Part 10 — Ch.02 정형 vs 비정형 vs 반정형](https://ai-contents-wine.vercel.app/10-data-basics/)
+- [Part 10 — Ch.03 왜 비정형 데이터가 AI의 핵심인가](https://ai-contents-wine.vercel.app/10-data-basics/)
+- [Part 11 — Ch.05 엔터프라이즈 문서 AI](https://ai-contents-wine.vercel.app/11-data-enterprise/)
 
 ## 연관 entity
 

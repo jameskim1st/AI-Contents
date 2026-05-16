@@ -121,7 +121,7 @@ Mythos의 ASL은 공식 미확정. 그러나 **공개 거부 결정 자체**가 
 
 - [Part 12 Ch.07 운영 사이클](https://ai-contents-wine.vercel.app/12-ai-governance/#gov-ch7) ⭐ 핵심 챕터 — Capability Control 원칙·운영 사이클의 핵심 사례
 - [Part 4 — Ch.11 보안과 비용](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch11) — Defensive-first deployment 함의
-- [Part 9 — Ch.13 Synthetic + Security](https://ai-contents-wine.vercel.app/09-data-enterprise/#p9-ch13) — frontier 모델 학습 데이터 측면
+- [Part 11 — Ch.13 Synthetic + Security](https://ai-contents-wine.vercel.app/11-data-enterprise/#p9-ch13) — frontier 모델 학습 데이터 측면
 
 ## 연관 entity
 
@@ -147,4 +147,4 @@ Mythos의 ASL은 공식 미확정. 그러나 **공개 거부 결정 자체**가 
 
 ## 업데이트 이력
 
-- 2026-04-30 — 신규 생성. Part 7 Ch.08 AI 거버넌스 통합 재구성과 함께 ingest. WebSearch 10회 1차 자료 종합. ASL-4 첫 실전 사례·Project Glasswing 거버넌스·샌드박스 탈옥 사건 정리.
+- 2026-04-30 — 신규 생성. Part 9 Ch.08 AI 거버넌스 통합 재구성과 함께 ingest. WebSearch 10회 1차 자료 종합. ASL-4 첫 실전 사례·Project Glasswing 거버넌스·샌드박스 탈옥 사건 정리.

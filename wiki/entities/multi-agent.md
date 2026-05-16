@@ -50,7 +50,7 @@
 - [Part 3 — Ch.07 Multi-Agent 협업](https://ai-contents-wine.vercel.app/03-ai-agents/) (기초)
 - [Part 4 — Ch.04 디자인 패턴 5선](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch4)
 - [Part 4 — Ch.08 A2A 프로토콜](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch8) (운영)
-- [Part 6 — Ch.07 멀티 에이전트 활용](https://ai-contents-wine.vercel.app/06-vibe-master/)
+- [Part 7 — Ch.07 멀티 에이전트 활용](https://ai-contents-wine.vercel.app/07-vibe-master/)
 
 ## 연관 entity
 

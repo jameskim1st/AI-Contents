@@ -5,14 +5,14 @@ date_original: 2026-early
 date_ingested: 2026-04-12
 source_type: web (bundle)
 url_or_path: (여러 URL, 아래 참조)
-used_for: Part 3 Data 기초 · Part 6 Data 실전
+used_for: Part 3 Data 기초 · Part 7 Data 실전
 ---
 
 # Data Pipeline Research Bundle
 
 ## Context
 
-Part 3 (Data 기초) + Part 6 (Data 실전) 동시 합성 사이클(LLM Wiki 사이클 #2)에서 사용된 WebSearch 결과들. 개별 파일로 쪼개면 관리 부담이 커져 bundle 형태로 통합 기록.
+Part 3 (Data 기초) + Part 7 (Data 실전) 동시 합성 사이클(LLM Wiki 사이클 #2)에서 사용된 WebSearch 결과들. 개별 파일로 쪼개면 관리 부담이 커져 bundle 형태로 통합 기록.
 
 ## Sources Used
 
@@ -76,7 +76,7 @@ Part 3/5 사이클에서 활용된 41개 신규 entity 중 주요:
 **Part 3 (Data 기초):**
 - Ch.01-12 전반에 걸친 foundational 자료
 
-**Part 6 (Data 실전):**
+**Part 7 (Data 실전):**
 - Ch.03 Production RAG
 - Ch.04 Chunking 전략
 - Ch.05 임베딩 모델 선택 2026

@@ -5,14 +5,14 @@ date_original: 2026-early
 date_ingested: 2026-04-11
 source_type: web (bundle)
 url_or_path: (여러 URL, 아래 참조)
-used_for: Part 5 AI Agents 실전 (Ch.01-10 전반)
+used_for: Part 6 AI Agents 실전 (Ch.01-10 전반)
 ---
 
 # AI Agents 실전 Research Bundle
 
 ## Context
 
-Part 5 AI Agents 실전 합성 사이클(LLM Wiki 사이클 #1)에서 사용된 WebSearch 결과 bundle. **LangChain State of Agent Engineering 2026**는 중요성이 커서 별도 파일로도 기록 ([여기](./2026-04-12_langchain-state-of-agent-engineering.md)).
+Part 6 AI Agents 실전 합성 사이클(LLM Wiki 사이클 #1)에서 사용된 WebSearch 결과 bundle. **LangChain State of Agent Engineering 2026**는 중요성이 커서 별도 파일로도 기록 ([여기](./2026-04-12_langchain-state-of-agent-engineering.md)).
 
 ## Sources Used
 
@@ -70,4 +70,4 @@ Part 4 사이클 17개 신규 entity 중 주요:
 
 ## Chapters created/updated
 
-Part 5 전 10 챕터 (Ch.01 Production Gap부터 Ch.10 프레임워크 카탈로그까지).
+Part 6 전 10 챕터 (Ch.01 Production Gap부터 Ch.10 프레임워크 카탈로그까지).

@@ -8,7 +8,7 @@ fetched_at: "2026-05-09"
 type: web
 license: "Open standard (cite as source)"
 used_for:
-  - "Part 7 Ch.13 — Agent Protocol APIs 카테고리"
+  - "Part 9 Ch.13 — Agent Protocol APIs 카테고리"
   - "wiki/entities/mcp.md — 핵심 근거"
   - "Part 4 Ch.07 MCP (이미 인용됨)"
 related_entities:
@@ -68,7 +68,7 @@ related_entities:
 ## 본 사이트에서의 사용
 
 - Part 4 Ch.07 — MCP 챕터 (기존)
-- Part 7 Ch.13 — Agent Protocol APIs 카테고리
+- Part 9 Ch.13 — Agent Protocol APIs 카테고리
 
 ## 관련 wiki entity
 

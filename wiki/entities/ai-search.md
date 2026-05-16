@@ -44,8 +44,8 @@ Google의 Gemini API에서 **Grounding with Google Search** 기능을 활성화�
 
 ## Reference
 
-- [Part 9 — Ch.06 엔터프라이즈 RAG 설계](https://ai-contents-wine.vercel.app/09-data-enterprise/)
-- [Part 6 — Ch.04 Augmented LLM](https://ai-contents-wine.vercel.app/05-agent-master/)
+- [Part 11 — Ch.06 엔터프라이즈 RAG 설계](https://ai-contents-wine.vercel.app/11-data-enterprise/)
+- [Part 7 — Ch.04 Augmented LLM](https://ai-contents-wine.vercel.app/05-agent-master/)
 
 ## 연관 entity
 

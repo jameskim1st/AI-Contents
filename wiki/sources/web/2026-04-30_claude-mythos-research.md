@@ -2,7 +2,7 @@
 type: web_research
 date: 2026-04-30
 topic: Claude Mythos · Project Glasswing · Anthropic RSP ASL-4
-used_for: Part 7 Ch.08 AI 거버넌스 통합 재구성, wiki/entities/claude-mythos.md
+used_for: Part 9 Ch.08 AI 거버넌스 통합 재구성, wiki/entities/claude-mythos.md
 ---
 
 # Claude Mythos 종합 리서치
@@ -267,6 +267,6 @@ used_for: Part 7 Ch.08 AI 거버넌스 통합 재구성, wiki/entities/claude-my
 ## 챕터 활용 방안
 
 본 자료는 다음에 직접 인용:
-- Part 7 Ch.08 AI 거버넌스 통합 챕터 — ACT 0(충격 오프닝), 5대 원칙 중 "Capability Control" 원칙의 핵심 사례, ACT 운영 사이클의 실증
+- Part 9 Ch.08 AI 거버넌스 통합 챕터 — ACT 0(충격 오프닝), 5대 원칙 중 "Capability Control" 원칙의 핵심 사례, ACT 운영 사이클의 실증
 - 신규 wiki entity: `wiki/entities/claude-mythos.md`
 - 보조: `wiki/entities/ai-red-team.md`, `wiki/entities/eu-ai-act.md`, `wiki/entities/anthropic-rsp.md` (신규 가능) 갱신/연결

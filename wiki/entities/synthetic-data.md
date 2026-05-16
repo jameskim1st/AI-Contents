@@ -89,8 +89,8 @@ Training set
 
 ## Reference
 
-- [Part 8 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/08-data-basics/)
-- [Part 9 — Ch.09 AI 거버넌스와 데이터 생애주기](https://ai-contents-wine.vercel.app/09-data-enterprise/)
+- [Part 10 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/10-data-basics/)
+- [Part 11 — Ch.09 AI 거버넌스와 데이터 생애주기](https://ai-contents-wine.vercel.app/11-data-enterprise/)
 
 ## 연관 entity
 

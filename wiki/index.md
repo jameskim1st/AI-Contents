@@ -12,7 +12,7 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
   - [Karpathy LLM Wiki gist (2026-04-11)](./sources/web/2026-04-11_karpathy-llm-wiki-gist.md) — 본 repo 운영 모델의 출처
   - [LangChain State of Agent Engineering 2026](./sources/web/2026-04-12_langchain-state-of-agent-engineering.md)
   - [AI Agents 실전 Research Bundle](./sources/web/2026-04-11_ai-agents-research-bundle.md) — Part 4
-  - [Data Pipeline Research Bundle](./sources/web/2026-04-12_data-pipeline-research-bundle.md) — Part 8/9
+  - [Data Pipeline Research Bundle](./sources/web/2026-04-12_data-pipeline-research-bundle.md) — Part 10/11
   - [Ontology × LLM 2024-2025 Research](./sources/web/2026-04-16_ontology-llm-2024-2025-research.md) — GraphRAG·OG-RAG·자동 KG 구축
   - [Ontology — Palantir & Enterprise KG](./sources/web/2026-04-16_ontology-palantir-enterprise.md) — Palantir AIP·Neo4j·Stardog·Ontotext
   - [Ontology — Critique & Revival](./sources/web/2026-04-16_ontology-critique-revival.md) — Gruber·Shirky·Singhal 계보
@@ -200,7 +200,7 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
 - [AGI Levels](./entities/agi-levels.md) — OpenAI 5단계 분류
 - [AI Chip Evolution](./entities/ai-chip-evolution.md) — CPU→GPU→ASIC→뉴로모픽
 
-## IT 개발 기초 (Part 10)
+## IT 개발 기초 (Part 5)
 
 - [운영체제](./entities/operating-system.md) — OS, 커널, Linux 서버 표준
 - [CPU](./entities/cpu.md) — 컴퓨터 시스템 통제, 모든 계산 수행
@@ -233,8 +233,8 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
 - 카테고리: 17개
 - Last ingest: 2026-04-30 (AI 거버넌스 통합 재구성 — Ch.08이 Ch.13 흡수, 6대 원칙·라이프사이클·운영 사이클·Mythos)
 - Prev ingest: 2026-04-17 (에이전트 디자인 패턴 5선 2025-2026 SOTA — Pre-Act/MAR/MCP 1주년/Deep Agents/Anthropic Skills)
-- Last query: 2026-04-12 (Part 2 + Part 9 동시 합성, 45 entity 활용, 5495줄)
+- Last query: 2026-04-12 (Part 2 + Part 11 동시 합성, 45 entity 활용, 5495줄)
 - **완료 사이클 #1**: Part 4 AI Agents 실전 — Sources → Ingest → Lint → Query → Ingest-back
-- **완료 사이클 #2**: Part 8/9 Data 동시 합성 — 완전한 5단계 사이클
+- **완료 사이클 #2**: Part 10/11 Data 동시 합성 — 완전한 5단계 사이클
 - **완료 사이클 #3**: Part 0 AI/ML 기초 (PwC PPTX source) — 2890줄
 - Wiki compound effect 확인: 같은 위키로 여러 파트 동시 합성

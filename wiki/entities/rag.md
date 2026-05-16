@@ -58,9 +58,9 @@ LLM이 답변을 생성하기 전에 외부 지식 저장소에서 관련 문서
 
 ## Reference
 
-- [Part 8 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/08-data-basics/)
-- [Part 9 — Ch.06 엔터프라이즈 RAG 설계](https://ai-contents-wine.vercel.app/09-data-enterprise/)
-- [Part 6 — Ch.09 LLM Wiki](https://ai-contents-wine.vercel.app/06-vibe-master/) (RAG와의 대비)
+- [Part 10 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/10-data-basics/)
+- [Part 11 — Ch.06 엔터프라이즈 RAG 설계](https://ai-contents-wine.vercel.app/11-data-enterprise/)
+- [Part 7 — Ch.09 LLM Wiki](https://ai-contents-wine.vercel.app/07-vibe-master/) (RAG와의 대비)
 
 ## 연관 entity
 

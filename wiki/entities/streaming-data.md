@@ -88,9 +88,9 @@
 
 ## Reference
 
-- [Part 8 — Ch.08 배치 vs 실시간 데이터](https://ai-contents-wine.vercel.app/08-data-basics/)
-- [Part 9 — Ch.10 실시간 데이터 파이프라인](https://ai-contents-wine.vercel.app/09-data-enterprise/)
-- [Part 9 — Ch.11 이벤트 기반 아키텍처](https://ai-contents-wine.vercel.app/09-data-enterprise/)
+- [Part 10 — Ch.08 배치 vs 실시간 데이터](https://ai-contents-wine.vercel.app/10-data-basics/)
+- [Part 11 — Ch.10 실시간 데이터 파이프라인](https://ai-contents-wine.vercel.app/11-data-enterprise/)
+- [Part 11 — Ch.11 이벤트 기반 아키텍처](https://ai-contents-wine.vercel.app/11-data-enterprise/)
 
 ## 연관 entity
 

@@ -5,14 +5,14 @@ date_original: 2024-02 ~ 2026-02 (복수 자료)
 date_ingested: 2026-04-30
 source_type: web
 url_or_path: 복수 URL — 본문 References 섹션 참조
-used_for: src/content/ai-dev.html Part 7 Ch.13 신규 통합 챕터, wiki/entities/{ai-red-team,mitre-atlas,xai}.md
+used_for: src/content/ai-dev.html Part 9 Ch.13 신규 통합 챕터, wiki/entities/{ai-red-team,mitre-atlas,xai}.md
 ---
 
 # AI 신뢰성 — Red Team · MITRE ATLAS · XAI 통합 리서치 (2026-04)
 
 ## Context
 
-기존 사이트에 ① AI 레드팀은 단편 산재(ai-dev Ch.08·10 한 줄, Part 4 Ch.11 prompt injection, Part 9 Ch.13 data poisoning), ② MITRE ATLAS는 사실상 미수록(ATT&CK 한 줄 언급만), ③ XAI/SHAP은 추상적 "설명 가능성" 언급 4건뿐 구체 기법 0건이라는 진단 후 통합 정리. **Part 7 Ch.13 "AI 신뢰성 — Red Team · MITRE ATLAS · XAI"** 신규 챕터의 근거 자료. 세 주제는 한 사이클(공격→분류→해석→패치→재공격)을 이루므로 한 챕터에 통합.
+기존 사이트에 ① AI 레드팀은 단편 산재(ai-dev Ch.08·10 한 줄, Part 4 Ch.11 prompt injection, Part 11 Ch.13 data poisoning), ② MITRE ATLAS는 사실상 미수록(ATT&CK 한 줄 언급만), ③ XAI/SHAP은 추상적 "설명 가능성" 언급 4건뿐 구체 기법 0건이라는 진단 후 통합 정리. **Part 9 Ch.13 "AI 신뢰성 — Red Team · MITRE ATLAS · XAI"** 신규 챕터의 근거 자료. 세 주제는 한 사이클(공격→분류→해석→패치→재공격)을 이루므로 한 챕터에 통합.
 
 ## Key Points
 
@@ -268,8 +268,8 @@ Mitigation (Guardrails, RLHF, Constitutional Classifier)
 - [evaluation](../../entities/evaluation.md) — cross-ref 추가
 
 ## Chapters created/updated
-- src/content/ai-dev.html — Part 7 Ch.13 신규 "AI 신뢰성 — Red Team · MITRE ATLAS · XAI"
-- 기존 cross-ref 추가 (5곳): ai-dev Ch.08·10, Part 4 Ch.11, Part 9 Ch.11·13, Part 8 data-basics
+- src/content/ai-dev.html — Part 9 Ch.13 신규 "AI 신뢰성 — Red Team · MITRE ATLAS · XAI"
+- 기존 cross-ref 추가 (5곳): ai-dev Ch.08·10, Part 4 Ch.11, Part 11 Ch.11·13, Part 10 data-basics
 
 ## Meta
 

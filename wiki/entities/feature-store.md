@@ -86,8 +86,8 @@ RAG·에이전트가 핫하지만 **전통 ML 워크로드**는 사라지지 않
 
 ## Reference
 
-- [Part 8 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/08-data-basics/)
-- [Part 9 — Ch.05 MLOps와 Feature Store](https://ai-contents-wine.vercel.app/09-data-enterprise/)
+- [Part 10 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/10-data-basics/)
+- [Part 11 — Ch.05 MLOps와 Feature Store](https://ai-contents-wine.vercel.app/11-data-enterprise/)
 
 ## 연관 entity
 

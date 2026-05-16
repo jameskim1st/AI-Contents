@@ -6,7 +6,7 @@
 
 ## TL;DR
 
-엔터프라이즈 AI 시스템을 만들 때 마주하는 **API 통합 작업의 10가지 분류**. 각 종류마다 인증·지연·실패·비용 패턴이 달라, "한 종류만 잘 다뤄도 시스템이 죽을 수 있음". 평균 엔터프라이즈 AI 프로젝트는 5~15개의 다른 종류 API를 동시에 다룸. 본 사이트의 [Part 7 Ch.13](https://ai-contents-wine.vercel.app/07-ai-dev/#ad-ch13)이 이 entity의 본격적 풀어쓰기.
+엔터프라이즈 AI 시스템을 만들 때 마주하는 **API 통합 작업의 10가지 분류**. 각 종류마다 인증·지연·실패·비용 패턴이 달라, "한 종류만 잘 다뤄도 시스템이 죽을 수 있음". 평균 엔터프라이즈 AI 프로젝트는 5~15개의 다른 종류 API를 동시에 다룸. 본 사이트의 [Part 9 Ch.13](https://ai-contents-wine.vercel.app/09-ai-dev/#ad-ch13)이 이 entity의 본격적 풀어쓰기.
 
 ## 10가지 분류
 
@@ -50,7 +50,7 @@
 - **한국 클라우드 인증:** CSAP (공공), G-Cloud (정부)
 - **규제:** 개인정보보호법 (PIPA), 전자금융감독규정, AI 기본법(2026-01-22 시행)
 
-자세한 내용은 [Part 7 Ch.13 한국 엔터프라이즈 섹션](https://ai-contents-wine.vercel.app/07-ai-dev/#ad-ch13) 또는 [source meta](../sources/web/2026-05-09_korea-enterprise-ai.md) 참고.
+자세한 내용은 [Part 9 Ch.13 한국 엔터프라이즈 섹션](https://ai-contents-wine.vercel.app/09-ai-dev/#ad-ch13) 또는 [source meta](../sources/web/2026-05-09_korea-enterprise-ai.md) 참고.
 
 ## 통합 우선순위 (성장 단계별)
 
@@ -76,11 +76,11 @@
 
 ## Reference
 
-- [Part 7 Ch.11 — LLM API 마스터](https://ai-contents-wine.vercel.app/07-ai-dev/#ad-ch11)
-- [Part 7 Ch.12 — 시스템 통합 API](https://ai-contents-wine.vercel.app/07-ai-dev/#ad-ch12)
-- [Part 7 Ch.13 — 엔터프라이즈 API 통합 분류](https://ai-contents-wine.vercel.app/07-ai-dev/#ad-ch13) ⭐
+- [Part 9 Ch.11 — LLM API 마스터](https://ai-contents-wine.vercel.app/09-ai-dev/#ad-ch11)
+- [Part 9 Ch.12 — 시스템 통합 API](https://ai-contents-wine.vercel.app/09-ai-dev/#ad-ch12)
+- [Part 9 Ch.13 — 엔터프라이즈 API 통합 분류](https://ai-contents-wine.vercel.app/09-ai-dev/#ad-ch13) ⭐
 - [Part 4 Ch.07 — MCP](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch7)
-- [Part 9 — Feature Store](https://ai-contents-wine.vercel.app/09-data-enterprise/)
+- [Part 11 — Feature Store](https://ai-contents-wine.vercel.app/11-data-enterprise/)
 
 ## 연관 entity
 
@@ -107,4 +107,4 @@
 
 ## 업데이트 이력
 
-- 2026-05-09: 신규 작성. Part 7 Ch.13의 핵심 entity로 자리잡음.
+- 2026-05-09: 신규 작성. Part 9 Ch.13의 핵심 entity로 자리잡음.

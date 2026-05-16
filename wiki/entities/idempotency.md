@@ -68,7 +68,7 @@ Content-Type: application/json
 ## Reference
 
 - Stripe 공식 docs: https://docs.stripe.com/api/idempotent_requests
-- [Part 7 Ch.13 — Cross-cutting concerns](https://ai-contents-wine.vercel.app/07-ai-dev/#ad-ch13)
+- [Part 9 Ch.13 — Cross-cutting concerns](https://ai-contents-wine.vercel.app/09-ai-dev/#ad-ch13)
 - source meta: [2026-05-09_stripe-idempotency.md](../sources/web/2026-05-09_stripe-idempotency.md)
 
 ## 연관 entity
@@ -85,4 +85,4 @@ Content-Type: application/json
 
 ## 업데이트 이력
 
-- 2026-05-09: 신규 작성. Part 7 Ch.13의 핵심 개념.
+- 2026-05-09: 신규 작성. Part 9 Ch.13의 핵심 개념.

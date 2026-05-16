@@ -8,7 +8,7 @@ fetched_at: "2026-05-09"
 type: web
 license: "Public engineering blog (cite as source)"
 used_for:
-  - "Part 7 Ch.13 — 엔터프라이즈 AI API 통합 작업 분류 (workflow vs agent 패턴 5종 + Augmented LLM)"
+  - "Part 9 Ch.13 — 엔터프라이즈 AI API 통합 작업 분류 (workflow vs agent 패턴 5종 + Augmented LLM)"
   - "Part 4 Ch.04 디자인 패턴 5선 (이미 인용됨)"
   - "wiki/entities/api-integration-taxonomy.md — Agent Protocol APIs 카테고리 근거"
 related_entities:
@@ -58,7 +58,7 @@ Anthropic는 **MCP(Model Context Protocol)을 third-party 도구 통합의 권�
 ## 본 사이트에서의 사용
 
 - Part 4 Ch.04 — 디자인 패턴 5선 (기존 인용)
-- Part 7 Ch.13 — 엔터프라이즈 API 통합 분류 (Agent Protocol APIs · Tool/Action APIs 섹션의 이론적 근거)
+- Part 9 Ch.13 — 엔터프라이즈 API 통합 분류 (Agent Protocol APIs · Tool/Action APIs 섹션의 이론적 근거)
 
 ## 관련 wiki entity
 

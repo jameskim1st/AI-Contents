@@ -33,4 +33,4 @@ PwC Korea 공통 모듈 3차시. 현재까지 **ingest되지 않은 상태** —
 - [ ] Day 3 내용 확인
 - [ ] 기존 Part 0~8과 중복 점검
 - [ ] 신규 entity 필요성 판단
-- [ ] 해당 Part에 반영 (가능성: Part 0 심화, Part 1 LLM 보강, 또는 신규 챕터)
+- [ ] 해당 Part에 반영 (가능성: Part 0 심화, Part 2 LLM 보강, 또는 신규 챕터)

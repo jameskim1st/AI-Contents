@@ -47,8 +47,8 @@
 
 ## Reference
 
-- [Part 8 — Ch.01 데이터 저장소의 종류](https://ai-contents-wine.vercel.app/08-data-basics/)
-- [Part 9 — Ch.02 엔터프라이즈 데이터 아키텍처](https://ai-contents-wine.vercel.app/09-data-enterprise/)
+- [Part 10 — Ch.01 데이터 저장소의 종류](https://ai-contents-wine.vercel.app/10-data-basics/)
+- [Part 11 — Ch.02 엔터프라이즈 데이터 아키텍처](https://ai-contents-wine.vercel.app/11-data-enterprise/)
 
 ## 연관 entity
 

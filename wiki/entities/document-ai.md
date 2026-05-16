@@ -67,8 +67,8 @@ PDF·스캔 이미지·표·차트 같은 **비정형(unstructured) 문서**를 
 
 ## Reference
 
-- [Part 8 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/08-data-basics/)
-- [Part 9 — Ch.05 Document AI와 전처리](https://ai-contents-wine.vercel.app/09-data-enterprise/)
+- [Part 10 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/10-data-basics/)
+- [Part 11 — Ch.05 Document AI와 전처리](https://ai-contents-wine.vercel.app/11-data-enterprise/)
 
 ## 연관 entity
 

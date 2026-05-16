@@ -47,7 +47,7 @@
 ## Reference
 
 - [Part 2 — Ch.09 멀티모달 LLM](https://ai-contents-wine.vercel.app/02-llm/#llm-ch9)
-- [Part 10 — Ch.01 이미지 생성 AI](https://ai-contents-wine.vercel.app/09-multimodal/#이미지-생성-ai)
+- [Part 5 — Ch.01 이미지 생성 AI](https://ai-contents-wine.vercel.app/09-multimodal/#이미지-생성-ai)
 
 ## 연관 entity
 
@@ -62,7 +62,7 @@
 - "Denoising Diffusion Probabilistic Models" (Ho et al., 2020)
 - "High-Resolution Image Synthesis with Latent Diffusion Models" (Rombach et al., 2022)
 - "Scalable Diffusion Models with Transformers" (Peebles & Xie, 2023) — DiT 논문
-- Part 10 학습 콘텐츠
+- Part 5 학습 콘텐츠
 
 ## 업데이트 이력
 

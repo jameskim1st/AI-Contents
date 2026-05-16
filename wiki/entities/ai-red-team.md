@@ -70,7 +70,7 @@
 
 - [Part 12 Ch.07 운영 사이클](https://ai-contents-wine.vercel.app/12-ai-governance/#gov-ch7) ⭐ 핵심 챕터 (ACT 6 운영 사이클로 통합 흡수)
 - [Part 4 — Ch.11 보안과 비용](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch11) — 런타임 공격 (prompt injection·jailbreak)
-- [Part 9 — Ch.13 Synthetic + Security](https://ai-contents-wine.vercel.app/09-data-enterprise/#p9-ch13) — 학습 시점 데이터 공격
+- [Part 11 — Ch.13 Synthetic + Security](https://ai-contents-wine.vercel.app/11-data-enterprise/#p9-ch13) — 학습 시점 데이터 공격
 
 ## 연관 entity
 
@@ -92,4 +92,4 @@
 
 ## 업데이트 이력
 
-- 2026-04-30 — 신규 생성. Part 7 Ch.13 AI 신뢰성 통합 챕터 작성과 함께 ingest.
+- 2026-04-30 — 신규 생성. Part 9 Ch.13 AI 신뢰성 통합 챕터 작성과 함께 ingest.

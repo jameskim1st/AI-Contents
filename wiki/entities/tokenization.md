@@ -105,8 +105,8 @@ print(len(tokens))  # 비용 ≈ token 수 × $0.xx
 ## Reference
 
 - [Part 2 — Ch.04 토큰과 임베딩](https://ai-contents-wine.vercel.app/02-llm/#llm-ch4)
-- [Part 8 — Ch.03 LLM의 기본 단위](https://ai-contents-wine.vercel.app/08-data-basics/)
-- [Part 9 — Ch.04 한국어 LLM 비용 구조](https://ai-contents-wine.vercel.app/09-data-enterprise/)
+- [Part 10 — Ch.03 LLM의 기본 단위](https://ai-contents-wine.vercel.app/10-data-basics/)
+- [Part 11 — Ch.04 한국어 LLM 비용 구조](https://ai-contents-wine.vercel.app/11-data-enterprise/)
 
 ## 연관 entity
 

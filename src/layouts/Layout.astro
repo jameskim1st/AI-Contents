@@ -8,29 +8,45 @@ interface Props {
 
 const { title = 'AI Novice 교육 가이드', prev, next } = Astro.props;
 
-// 페이지 순서 정의 (네비게이션 + active tab 탐지용)
-const pages = [
-  { href: '/', label: 'Overview', emoji: '🏠' },
-  { href: '/00-ai-ml-basics', label: 'AI & ML 기초', emoji: '🌱' },
-  { href: '/01-deep-learning', label: '딥러닝 심화', emoji: '🔬' },
-  { href: '/02-llm', label: 'LLM 이해', emoji: '🧠' },
-  { href: '/03-ai-agents', label: 'AI Agents', emoji: '🤖' },
-  { href: '/04-ai-agents-advanced', label: 'AI Agents 실전', emoji: '🎯' },
-  { href: '/05-vibe-basic', label: '바이브코딩', emoji: '💻' },
-  { href: '/06-vibe-master', label: '바이브코딩 심화', emoji: '🚀' },
-  { href: '/07-ai-dev', label: 'AI 개발', emoji: '🛠️' },
-  { href: '/08-data-basics', label: 'Data 기초', emoji: '📊' },
-  { href: '/09-data-enterprise', label: 'Data 실전', emoji: '🏢' },
-  { href: '/10-it-basics', label: 'IT 기초', emoji: '🖥️' },
-  { href: '/11-power-platform', label: 'Power Platform', emoji: '⚡' },
-  { href: '/12-ai-governance', label: 'AI 거버넌스', emoji: '⚖️' },
+// 5 트랙 구조 — 상단 드롭다운 메뉴 + prev/next 계산 공통 소스
+const tracks = [
+  { id: 'home', label: 'Overview', emoji: '🏠', color: 'text-dim', href: '/', parts: [] as any[] },
+  { id: 'understand', label: '이해', emoji: '🧠', color: 'violet', parts: [
+    { href: '/00-ai-ml-basics', num: '0', label: 'AI & ML 기초', emoji: '🌱', color: 'pink' },
+    { href: '/01-deep-learning', num: '1', label: '딥러닝 심화', emoji: '🔬', color: 'pink' },
+    { href: '/02-llm', num: '2', label: 'LLM 완전 이해', emoji: '🧠', color: 'violet' },
+    { href: '/03-ai-agents', num: '3', label: 'AI Agents 기초', emoji: '🤖', color: 'teal' },
+    { href: '/04-ai-agents-advanced', num: '4', label: 'AI Agents 실전', emoji: '🎯', color: 'violet' },
+  ]},
+  { id: 'background', label: '배경', emoji: '🖥', color: 'green', parts: [
+    { href: '/05-it-basics', num: '5', label: 'IT 기초', emoji: '🖥️', color: 'green' },
+  ]},
+  { id: 'build', label: '실행', emoji: '🛠', color: 'accent', parts: [
+    { href: '/06-vibe-basic', num: '6', label: '바이브코딩 입문', emoji: '💻', color: 'accent' },
+    { href: '/07-vibe-master', num: '7', label: '바이브코딩 심화', emoji: '🚀', color: 'accent' },
+    { href: '/08-power-platform', num: '8', label: 'Power Platform', emoji: '⚡', color: 'blue' },
+    { href: '/09-ai-dev', num: '9', label: 'AI 개발', emoji: '🛠️', color: 'accent' },
+  ]},
+  { id: 'data', label: '인프라', emoji: '📊', color: 'amber', parts: [
+    { href: '/10-data-basics', num: '10', label: 'Data 기초', emoji: '📊', color: 'amber' },
+    { href: '/11-data-enterprise', num: '11', label: 'Data 실전', emoji: '🏢', color: 'amber' },
+  ]},
+  { id: 'ops', label: '운영', emoji: '⚖', color: 'violet', parts: [
+    { href: '/12-ai-governance', num: '12', label: 'AI 거버넌스', emoji: '⚖️', color: 'violet' },
+  ]},
 ];
 
-// 현재 페이지의 인덱스 찾기
+// flat 학습 경로 (prev/next 계산용) — 0→1→...→12
+const flatPages = [
+  { href: '/', label: 'Overview' },
+  ...tracks.flatMap(t => t.parts).map(p => ({ href: p.href, label: `Part ${p.num} · ${p.label}` })),
+];
+
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
-const currentIdx = pages.findIndex(p => p.href === currentPath);
-const prevPage = prev || (currentIdx > 0 ? { href: pages[currentIdx - 1].href, label: pages[currentIdx - 1].label } : null);
-const nextPage = next || (currentIdx < pages.length - 1 ? { href: pages[currentIdx + 1].href, label: pages[currentIdx + 1].label } : null);
+const currentIdx = flatPages.findIndex(p => p.href === currentPath);
+const prevPage = prev || (currentIdx > 0 ? { href: flatPages[currentIdx - 1].href, label: flatPages[currentIdx - 1].label } : null);
+const nextPage = next || (currentIdx > -1 && currentIdx < flatPages.length - 1 ? { href: flatPages[currentIdx + 1].href, label: flatPages[currentIdx + 1].label } : null);
+const activeTrackId = tracks.find(t => t.href === currentPath || t.parts.some(p => p.href === currentPath))?.id;
 ---
 
 <!DOCTYPE html>
@@ -74,16 +90,31 @@ const nextPage = next || (currentIdx < pages.length - 1 ? { href: pages[currentI
   <!-- Theme Toggle -->
   <button class="theme-toggle" id="themeToggle" title="라이트/다크 모드 전환">🌙</button>
 
-  <!-- Navigation Tabs (자동 생성 + active 표시) -->
-  <div class="main-tabs" id="mainTabs">
-    <div class="main-tabs-inner">
-      {pages.map((p) => (
-        <a href={p.href} class={`main-tab ${p.href === currentPath ? 'active' : ''}`}>
-          <span class="tab-emoji">{p.emoji}</span>{p.label}
-        </a>
+  <!-- Navigation Tracks — 트랙별 드롭다운 (5 트랙 + Overview) -->
+  <nav class="main-tracks" id="mainTracks" aria-label="사이트 트랙 네비게이션">
+    <div class="main-tracks-inner">
+      {tracks.map((t) => (
+        t.parts.length === 0 ? (
+          <a href={t.href} class={`main-track ${t.id === activeTrackId ? 'active' : ''}`} data-color={t.color}>
+            <span class="track-emoji">{t.emoji}</span><span class="track-label">{t.label}</span>
+          </a>
+        ) : (
+          <div class={`main-track has-dropdown ${t.id === activeTrackId ? 'active' : ''}`} data-color={t.color} tabindex="0">
+            <span class="track-emoji">{t.emoji}</span><span class="track-label">{t.label}</span><span class="track-caret">▾</span>
+            <div class="main-track-dropdown" role="menu">
+              {t.parts.map((p) => (
+                <a href={p.href} class={`main-track-item ${p.href === currentPath ? 'active' : ''}`} role="menuitem" data-color={p.color}>
+                  <span class="item-num">{p.num}</span>
+                  <span class="item-emoji">{p.emoji}</span>
+                  <span class="item-label">{p.label}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        )
       ))}
     </div>
-  </div>
+  </nav>
 
   <!-- Page Content (각 페이지의 내용이 여기에 들어감) -->
   <slot />

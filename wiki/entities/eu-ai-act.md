@@ -93,8 +93,8 @@ EU가 2024년 공식 채택한 세계 최초의 포괄적 AI 규제 법. 위험 
 
 ## Reference
 
-- [Part 9 — Ch.09 AI 거버넌스와 EU AI Act](https://ai-contents-wine.vercel.app/09-data-enterprise/) ⭐
-- [Part 8 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/08-data-basics/)
+- [Part 11 — Ch.09 AI 거버넌스와 EU AI Act](https://ai-contents-wine.vercel.app/11-data-enterprise/) ⭐
+- [Part 10 — Ch.04 데이터의 두 세계](https://ai-contents-wine.vercel.app/10-data-basics/)
 
 ## 연관 entity
 

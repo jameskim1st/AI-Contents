@@ -1,0 +1,19 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    { "source": "/05-vibe-basic", "destination": "/06-vibe-basic", "permanent": true },
+    { "source": "/05-vibe-basic/", "destination": "/06-vibe-basic", "permanent": true },
+    { "source": "/06-vibe-master", "destination": "/07-vibe-master", "permanent": true },
+    { "source": "/06-vibe-master/", "destination": "/07-vibe-master", "permanent": true },
+    { "source": "/07-ai-dev", "destination": "/09-ai-dev", "permanent": true },
+    { "source": "/07-ai-dev/", "destination": "/09-ai-dev", "permanent": true },
+    { "source": "/08-data-basics", "destination": "/10-data-basics", "permanent": true },
+    { "source": "/08-data-basics/", "destination": "/10-data-basics", "permanent": true },
+    { "source": "/09-data-enterprise", "destination": "/11-data-enterprise", "permanent": true },
+    { "source": "/09-data-enterprise/", "destination": "/11-data-enterprise", "permanent": true },
+    { "source": "/10-it-basics", "destination": "/05-it-basics", "permanent": true },
+    { "source": "/10-it-basics/", "destination": "/05-it-basics", "permanent": true },
+    { "source": "/11-power-platform", "destination": "/08-power-platform", "permanent": true },
+    { "source": "/11-power-platform/", "destination": "/08-power-platform", "permanent": true }
+  ]
+}

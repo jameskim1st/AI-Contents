@@ -2,7 +2,7 @@
 type: web_research
 date: 2026-04-30
 topic: AI 거버넌스 종합 — 원칙·프레임워크·조직·라이프사이클·사고·운영
-used_for: Part 7 Ch.08 통합 재구성
+used_for: Part 9 Ch.08 통합 재구성
 ---
 
 # AI 거버넌스 종합 리서치

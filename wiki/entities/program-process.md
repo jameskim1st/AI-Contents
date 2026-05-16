@@ -72,7 +72,7 @@
 
 ## Reference
 
-- [Part 10 — Ch.02 프로그램과 프로세스](https://ai-contents-wine.vercel.app/10-it-basics/#it-ch2)
+- [Part 5 — Ch.02 프로그램과 프로세스](https://ai-contents-wine.vercel.app/05-it-basics/#it-ch2)
 
 ## 연관 entity
 

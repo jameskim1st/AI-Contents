@@ -47,7 +47,7 @@
 ## Reference
 
 - [Part 2 — Ch.10 영상·음성·월드 모델](https://ai-contents-wine.vercel.app/02-llm/#llm-ch10)
-- [Part 10 — Ch.02 비디오 생성 AI](https://ai-contents-wine.vercel.app/09-multimodal/#비디오-생성-ai)
+- [Part 5 — Ch.02 비디오 생성 AI](https://ai-contents-wine.vercel.app/09-multimodal/#비디오-생성-ai)
 
 ## 연관 entity
 
@@ -59,7 +59,7 @@
 ## 출처
 
 - 각 모델 공식 발표 및 벤치마크 (2025~2026)
-- Part 10 학습 콘텐츠
+- Part 5 학습 콘텐츠
 
 ## 업데이트 이력
 

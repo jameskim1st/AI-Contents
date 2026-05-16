@@ -83,8 +83,8 @@ spark.read.format("delta").option("versionAsOf", 42) \
 
 ## Reference
 
-- [Part 8 — Ch.06 Delta Lake 입문](https://ai-contents-wine.vercel.app/08-data-basics/)
-- [Part 9 — Ch.07 오픈 테이블 포맷 전쟁](https://ai-contents-wine.vercel.app/09-data-enterprise/)
+- [Part 10 — Ch.06 Delta Lake 입문](https://ai-contents-wine.vercel.app/10-data-basics/)
+- [Part 11 — Ch.07 오픈 테이블 포맷 전쟁](https://ai-contents-wine.vercel.app/11-data-enterprise/)
 
 ## 연관 entity
 

@@ -8,7 +8,7 @@ fetched_at: "2026-05-09"
 type: web
 license: "공개 자료 인용"
 used_for:
-  - "Part 7 Ch.13 — 한국 엔터프라이즈 특수 사례 섹션"
+  - "Part 9 Ch.13 — 한국 엔터프라이즈 특수 사례 섹션"
   - "wiki/entities/api-integration-taxonomy.md — 한국 사례 부분"
 related_entities:
   - api-integration-taxonomy
@@ -84,7 +84,7 @@ related_entities:
 
 ## 본 사이트에서의 사용
 
-- Part 7 Ch.13 — 한국 엔터프라이즈 특수 사례 섹션 (메인 출처)
+- Part 9 Ch.13 — 한국 엔터프라이즈 특수 사례 섹션 (메인 출처)
 - Part 12 AI 거버넌스 (관련 cross-link)
 
 ## 관련 wiki entity

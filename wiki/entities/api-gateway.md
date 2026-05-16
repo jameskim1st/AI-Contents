@@ -69,7 +69,7 @@
 
 - Microsoft Azure Architecture: Gateway routing pattern
 - Sam Newman, "Backends for Frontends Pattern" (2015)
-- [Part 7 Ch.13 — Cross-cutting concerns](https://ai-contents-wine.vercel.app/07-ai-dev/#ad-ch13)
+- [Part 9 Ch.13 — Cross-cutting concerns](https://ai-contents-wine.vercel.app/09-ai-dev/#ad-ch13)
 - Zuplo "Best API Management Platforms 2026"
 
 ## 연관 entity

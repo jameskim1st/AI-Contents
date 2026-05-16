@@ -35,10 +35,10 @@ Anthropic이 만든 터미널 기반 AI 코딩 에이전트. [CLAUDE.md](./claud
 
 ## Reference
 
-- [Part 6 — 전체](https://ai-contents-wine.vercel.app/06-vibe-master/)
-- [Part 6 — Ch.02 왜 Claude Code인가](https://ai-contents-wine.vercel.app/06-vibe-master/)
-- [Part 6 — Ch.04 하네스 엔지니어링](https://ai-contents-wine.vercel.app/06-vibe-master/)
-- [Part 6 — Ch.09 LLM Wiki](https://ai-contents-wine.vercel.app/06-vibe-master/)
+- [Part 7 — 전체](https://ai-contents-wine.vercel.app/07-vibe-master/)
+- [Part 7 — Ch.02 왜 Claude Code인가](https://ai-contents-wine.vercel.app/07-vibe-master/)
+- [Part 7 — Ch.04 하네스 엔지니어링](https://ai-contents-wine.vercel.app/07-vibe-master/)
+- [Part 7 — Ch.09 LLM Wiki](https://ai-contents-wine.vercel.app/07-vibe-master/)
 
 ## 연관 entity
 

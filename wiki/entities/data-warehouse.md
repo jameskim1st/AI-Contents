@@ -64,8 +64,8 @@ Bill Inmon과 Ralph Kimball이 1990년대에 정립한, **분석 전용**으로 
 
 ## Reference
 
-- [Part 8 — Ch.02 데이터 웨어하우스와 OLAP](https://ai-contents-wine.vercel.app/08-data-basics/)
-- [Part 9 — Ch.03 클라우드 DW 비교](https://ai-contents-wine.vercel.app/09-data-enterprise/)
+- [Part 10 — Ch.02 데이터 웨어하우스와 OLAP](https://ai-contents-wine.vercel.app/10-data-basics/)
+- [Part 11 — Ch.03 클라우드 DW 비교](https://ai-contents-wine.vercel.app/11-data-enterprise/)
 
 ## 연관 entity
 

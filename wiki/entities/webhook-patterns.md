@@ -123,7 +123,7 @@ Slack 메시지 → 우리 에이전트 webhook → LLM 처리 → 응답.
 
 - Stripe webhooks docs
 - GitHub webhooks docs
-- [Part 7 Ch.13 — Streaming/Real-time APIs](https://ai-contents-wine.vercel.app/07-ai-dev/#ad-ch13)
+- [Part 9 Ch.13 — Streaming/Real-time APIs](https://ai-contents-wine.vercel.app/09-ai-dev/#ad-ch13)
 - [Part 4 Ch.09 — Zapier 위임 패턴](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch9)
 
 ## 연관 entity

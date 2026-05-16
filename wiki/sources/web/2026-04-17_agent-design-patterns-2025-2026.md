@@ -246,4 +246,4 @@ MCP와 함께 Linux Foundation 표준 합류 (2025-12). 에이전트 간 통신 
 
 ## Meta
 
-본 소스의 가치: 2025-2026 변화의 핵심 수치(MAR +6.2pt, Pre-Act +70%, Anthropic 다중 +90.2%/15×, MCP 5,800+ servers)와 인용(Karpathy/Chase/Anthropic/Deloitte)을 한 곳에 보존. 향후 각 패턴 entity의 정량 근거 또는 다른 챕터(예: Part 7 AI 개발 실전)에서 재사용 가능.
+본 소스의 가치: 2025-2026 변화의 핵심 수치(MAR +6.2pt, Pre-Act +70%, Anthropic 다중 +90.2%/15×, MCP 5,800+ servers)와 인용(Karpathy/Chase/Anthropic/Deloitte)을 한 곳에 보존. 향후 각 패턴 entity의 정량 근거 또는 다른 챕터(예: Part 9 AI 개발 실전)에서 재사용 가능.

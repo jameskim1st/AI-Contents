@@ -58,7 +58,7 @@
 
 ## Reference
 
-- [Part 9 — Ch.07 RAG 평가와 운영](https://ai-contents-wine.vercel.app/09-data-enterprise/)
+- [Part 11 — Ch.07 RAG 평가와 운영](https://ai-contents-wine.vercel.app/11-data-enterprise/)
 - [Part 4 — Ch.10 Observability + Evaluation (Part B)](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch10)
 
 ## 연관 entity

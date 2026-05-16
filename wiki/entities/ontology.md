@@ -143,9 +143,9 @@
 
 ## Reference
 
-- [Part 9 — Ch.10 온톨로지와 지식 그래프](https://ai-contents-wine.vercel.app/09-data-enterprise/#p9-ch10) — 본 엔티티의 사이트 챕터 ⭐
-- [Part 9 — Ch.09 GraphRAG](https://ai-contents-wine.vercel.app/09-data-enterprise/#p9-ch9) — 온톨로지 기반 GraphRAG
-- [Part 8 — Ch.03 데이터가 사는 곳 (Ontology 사이드 박스)](https://ai-contents-wine.vercel.app/08-data-basics/#sl-special)
+- [Part 11 — Ch.10 온톨로지와 지식 그래프](https://ai-contents-wine.vercel.app/11-data-enterprise/#p9-ch10) — 본 엔티티의 사이트 챕터 ⭐
+- [Part 11 — Ch.09 GraphRAG](https://ai-contents-wine.vercel.app/11-data-enterprise/#p9-ch9) — 온톨로지 기반 GraphRAG
+- [Part 10 — Ch.03 데이터가 사는 곳 (Ontology 사이드 박스)](https://ai-contents-wine.vercel.app/10-data-basics/#sl-special)
 
 ## 연관 entity
 

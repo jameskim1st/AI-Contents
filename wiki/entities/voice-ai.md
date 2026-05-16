@@ -44,7 +44,7 @@ AI 기반 음성 합성(TTS), 음성 인식(STT), 실시간 음성 대화를 아
 ## Reference
 
 - [Part 2 — Ch.10 영상·음성·월드 모델](https://ai-contents-wine.vercel.app/02-llm/#llm-ch10)
-- [Part 10 — Ch.03 음성 AI](https://ai-contents-wine.vercel.app/09-multimodal/#음성-ai)
+- [Part 5 — Ch.03 음성 AI](https://ai-contents-wine.vercel.app/09-multimodal/#음성-ai)
 
 ## 연관 entity
 
@@ -57,7 +57,7 @@ AI 기반 음성 합성(TTS), 음성 인식(STT), 실시간 음성 대화를 아
 - OpenAI Realtime API 공식 문서 (2024)
 - ElevenLabs v3 발표 (2025)
 - Hume AI 기술 문서
-- Part 10 학습 콘텐츠
+- Part 5 학습 콘텐츠
 
 ## 업데이트 이력
 

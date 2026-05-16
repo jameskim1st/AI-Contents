@@ -45,7 +45,7 @@
 
 ## Reference
 
-- [Part 6 — Ch.05 조합하는 패턴 — Plan-Critic-Build, Ralph Loop](https://ai-contents-wine.vercel.app/06-vibe-master/)
+- [Part 7 — Ch.05 조합하는 패턴 — Plan-Critic-Build, Ralph Loop](https://ai-contents-wine.vercel.app/07-vibe-master/)
 - [Part 4 — Ch.04 디자인 패턴 5선](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch4) (간접 언급)
 
 ## 연관 entity

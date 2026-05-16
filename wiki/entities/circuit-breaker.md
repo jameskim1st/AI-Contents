@@ -68,7 +68,7 @@
 
 - Netflix Tech Blog: "Fault Tolerance in a High Volume, Distributed System" (Hystrix 원조)
 - Microsoft Azure Architecture: Circuit Breaker pattern
-- [Part 7 Ch.13 — Cross-cutting concerns](https://ai-contents-wine.vercel.app/07-ai-dev/#ad-ch13)
+- [Part 9 Ch.13 — Cross-cutting concerns](https://ai-contents-wine.vercel.app/09-ai-dev/#ad-ch13)
 - "AI Agent Circuit Breaker Pattern" (Cordum 2026)
 
 ## 연관 entity

@@ -75,9 +75,9 @@ GraphRAG가 "LLM이 문서에서 만든 즉석 그래프"를 쓴다면, OG-RAG(S
 
 ## Reference
 
-- [Part 9 — Ch.09 GraphRAG](https://ai-contents-wine.vercel.app/09-data-enterprise/#p9-ch9)
-- [Part 9 — Ch.10 온톨로지와 지식 그래프](https://ai-contents-wine.vercel.app/09-data-enterprise/#p9-ch10) — OG-RAG 변형과 의미 계층
-- [Part 8 — Ch.03 데이터가 사는 곳](https://ai-contents-wine.vercel.app/08-data-basics/)
+- [Part 11 — Ch.09 GraphRAG](https://ai-contents-wine.vercel.app/11-data-enterprise/#p9-ch9)
+- [Part 11 — Ch.10 온톨로지와 지식 그래프](https://ai-contents-wine.vercel.app/11-data-enterprise/#p9-ch10) — OG-RAG 변형과 의미 계층
+- [Part 10 — Ch.03 데이터가 사는 곳](https://ai-contents-wine.vercel.app/10-data-basics/)
 
 ## 연관 entity
 
