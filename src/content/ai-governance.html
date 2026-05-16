@@ -14,6 +14,7 @@
       <a href="#gov-ch6"><span class="cn">06</span>12개 사고 연표</a>
       <a href="#gov-ch7"><span class="cn">07</span>운영 사이클</a>
       <a href="#gov-ch8"><span class="cn">08</span>한국 시작 가이드</a>
+      <a href="#gov-ch9"><span class="cn">09</span>전사 AI Transformation 조직 체계 ⭐</a>
     </nav>
   </div>
 </div>
@@ -1274,10 +1275,894 @@
     "AI 거버넌스는 윤리 부서의 일이 아니라 <strong style="color:var(--violet)">제품 부서의 일</strong>이다."
   </div>
   <div style="font-size:.83rem;color:var(--text-dim);line-height:1.9;max-width:700px;margin:0 auto">
-    원칙은 종이지만 — 실행은 라이프사이클에서, 책임은 RACI에서, 학습은 운영 사이클에서, 그리고 frontier 모델의 안전은 capability control에서 일어난다. 한국 회사가 마주한 두 마감선 — <strong>2026-01-22 한국 AI 기본법</strong>과 <strong>2026-08-02 EU AI Act 고위험 의무</strong> — 은 거버넌스가 더는 자발적 선택이 아니라는 신호다. <strong>모델 능력은 4개월에 2배, 거버넌스는 4년 입법.</strong> 이 velocity gap을 메우는 것이 다음 챕터(<a href="#ad-ch9" style="color:var(--violet);font-weight:700">Ch.09</a>) 실패·성공 패턴과 <a href="#ad-ch10" style="color:var(--violet);font-weight:700">Ch.10</a> 체크리스트의 출발점이다.
+    원칙은 종이지만 — 실행은 라이프사이클에서, 책임은 RACI에서, 학습은 운영 사이클에서, 그리고 frontier 모델의 안전은 capability control에서 일어난다. 한국 회사가 마주한 두 마감선 — <strong>2026-01-22 한국 AI 기본법</strong>과 <strong>2026-08-02 EU AI Act 고위험 의무</strong> — 은 거버넌스가 더는 자발적 선택이 아니라는 신호다. <strong>모델 능력은 4개월에 2배, 거버넌스는 4년 입법.</strong> 이 velocity gap을 메우는 것이 다음 챕터(<a href="#gov-ch9" style="color:var(--violet);font-weight:700">Ch.09</a>) AI Transformation 조직 체계의 출발점이다.
   </div>
 </div>
 
+</div>
+</div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     CHAPTER 9 — 전사 AI Transformation 조직 체계 (2026 컨센서스)
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="ch reveal" id="gov-ch9">
+<div class="ch-head"><div class="ch-num" style="color:var(--violet)">09</div><h2 class="ch-title">전사 AI Transformation 조직 체계 — 2026 컨센서스 ⭐</h2></div>
+
+<p class="section-desc">전사 AI 도입의 95%가 실패합니다(MIT 2025). 원인은 모델·GPU·예산이 아니라 <strong style="color:var(--violet)">조직 구조의 관성(operating model inertia)</strong> — 사일로, 불명확한 오너십, 정렬되지 않은 인센티브(McKinsey 2025). 이 챕터는 2025-2026년 1년 이내 1차 자료(McKinsey·BCG·Deloitte·Gartner·IDC·Stanford HAI·IBM·NIA·금융위)를 기반으로 <strong>"AI Transformation을 위해 조직을 어떻게 바꿔야 하는가"</strong>를 10 영역에서 해부합니다.</p>
+
+<!-- 핵심 발견 박스 -->
+<div class="dia reveal" style="border:1.5px solid var(--violet);background:var(--violet-bg);margin-bottom:1.5rem">
+<div style="padding:1.2rem 1.4rem">
+  <div style="font-family:var(--mono);font-size:.72rem;color:var(--violet);letter-spacing:2px;text-transform:uppercase;margin-bottom:.6rem">2026 5 KEY FINDINGS</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;font-size:.82rem;line-height:1.85">
+    <div><strong style="color:var(--violet)">①</strong> Hub-and-Spoke가 사실상 표준 — 분산형 대비 <strong>+36% ROI</strong> (IBM 2026)</div>
+    <div><strong style="color:var(--violet)">②</strong> CAIO 폭증 — 2년 만에 <strong>11% → 26%</strong> (IBM) 또는 <strong>76%</strong> (다른 조사)</div>
+    <div><strong style="color:var(--violet)">③</strong> Pilot Purgatory <strong>95%</strong> (MIT 2025) — 원인은 기술이 아닌 조직 구조</div>
+    <div><strong style="color:var(--violet)">④</strong> 3 Lines of Defense — EU 금융권 <strong>88% 채택</strong>, 데이터 침해율 <strong>-18%</strong></div>
+    <div style="grid-column:1/3"><strong style="color:var(--violet)">⑤</strong> 한국 차별점 — CAIO 부재, <strong>CGO(거버넌스 책임자)·윤리위원회</strong> 중심. AI 기본법 2026-01-22 시행</div>
+  </div>
+</div>
+</div>
+
+<!-- ──────────────────────────────────────
+     섹션 1 — 4 운영 모델 비교
+     ────────────────────────────────────── -->
+<div class="dia reveal">
+<div class="dia-title">① 4 운영 모델 — Centralized · Decentralized · Federated · Hub-and-Spoke</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">모든 AI 조직 구조는 결국 이 4개 중 하나. 2026년 컨센서스는 <strong>Hub-and-Spoke</strong>로 수렴.</div>
+
+  <div style="background:var(--card);border:1px solid var(--violet-border);border-radius:10px;padding:1rem;margin-bottom:1rem">
+    <svg viewBox="0 0 920 380" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="org-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+
+      <!-- ① Centralized (좌상) -->
+      <text x="115" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#a78bfa">① Centralized</text>
+      <text x="115" y="36" text-anchor="middle" font-size="8" fill="var(--text-dim)" font-style="italic">중앙 AI팀이 전사 서비스</text>
+      <rect x="80" y="50" width="70" height="32" rx="6" fill="#a78bfa" fill-opacity=".25" stroke="#a78bfa" stroke-width="1.2"/>
+      <text x="115" y="70" text-anchor="middle" font-size="9.5" font-weight="700" fill="#a78bfa">AI팀</text>
+      <line x1="115" y1="82" x2="50" y2="115" stroke="#9ca3af" stroke-width="0.8" marker-end="url(#org-ar)"/>
+      <line x1="115" y1="82" x2="115" y2="115" stroke="#9ca3af" stroke-width="0.8" marker-end="url(#org-ar)"/>
+      <line x1="115" y1="82" x2="180" y2="115" stroke="#9ca3af" stroke-width="0.8" marker-end="url(#org-ar)"/>
+      <rect x="20" y="115" width="60" height="22" rx="5" style="fill:var(--surface);stroke:var(--text-dim)" stroke-width="0.7"/>
+      <text x="50" y="130" text-anchor="middle" font-size="8.5" fill="var(--text)">사업부A</text>
+      <rect x="85" y="115" width="60" height="22" rx="5" style="fill:var(--surface);stroke:var(--text-dim)" stroke-width="0.7"/>
+      <text x="115" y="130" text-anchor="middle" font-size="8.5" fill="var(--text)">사업부B</text>
+      <rect x="150" y="115" width="60" height="22" rx="5" style="fill:var(--surface);stroke:var(--text-dim)" stroke-width="0.7"/>
+      <text x="180" y="130" text-anchor="middle" font-size="8.5" fill="var(--text)">사업부C</text>
+      <text x="115" y="155" text-anchor="middle" font-size="7.5" fill="#22c55e">+ 표준화 / 통제</text>
+      <text x="115" y="167" text-anchor="middle" font-size="7.5" fill="#ef4444">− 병목 / 사업부 갈증</text>
+
+      <!-- ② Decentralized (우상) -->
+      <text x="345" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#a78bfa">② Decentralized (Embedded)</text>
+      <text x="345" y="36" text-anchor="middle" font-size="8" fill="var(--text-dim)" font-style="italic">각 사업부가 자체 AI 인력</text>
+      <rect x="250" y="65" width="60" height="42" rx="5" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="0.8"/>
+      <text x="280" y="82" text-anchor="middle" font-size="8.5" fill="#22c55e" font-weight="600">사업부A</text>
+      <text x="280" y="97" text-anchor="middle" font-size="7.5" fill="#22c55e">+ AI팀</text>
+      <rect x="315" y="65" width="60" height="42" rx="5" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="0.8"/>
+      <text x="345" y="82" text-anchor="middle" font-size="8.5" fill="#22c55e" font-weight="600">사업부B</text>
+      <text x="345" y="97" text-anchor="middle" font-size="7.5" fill="#22c55e">+ AI팀</text>
+      <rect x="380" y="65" width="60" height="42" rx="5" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="0.8"/>
+      <text x="410" y="82" text-anchor="middle" font-size="8.5" fill="#22c55e" font-weight="600">사업부C</text>
+      <text x="410" y="97" text-anchor="middle" font-size="7.5" fill="#22c55e">+ AI팀</text>
+      <text x="345" y="125" text-anchor="middle" font-size="7.5" fill="#22c55e">+ 속도 / 도메인 적합</text>
+      <text x="345" y="137" text-anchor="middle" font-size="7.5" fill="#ef4444">− 중복 / 거버넌스 일관성 ↓</text>
+
+      <!-- ③ Federated (좌하) -->
+      <text x="115" y="220" text-anchor="middle" font-size="11" font-weight="700" fill="#a78bfa">③ Federated</text>
+      <text x="115" y="234" text-anchor="middle" font-size="8" fill="var(--text-dim)" font-style="italic">중앙 정책 + 사업부 실행</text>
+      <rect x="80" y="248" width="70" height="28" rx="5" fill="#a78bfa" fill-opacity=".18" stroke="#a78bfa" stroke-width="1"/>
+      <text x="115" y="266" text-anchor="middle" font-size="9" font-weight="700" fill="#a78bfa">정책팀</text>
+      <line x1="115" y1="276" x2="50" y2="305" stroke="#a78bfa" stroke-width="0.7" stroke-dasharray="3,2"/>
+      <line x1="115" y1="276" x2="115" y2="305" stroke="#a78bfa" stroke-width="0.7" stroke-dasharray="3,2"/>
+      <line x1="115" y1="276" x2="180" y2="305" stroke="#a78bfa" stroke-width="0.7" stroke-dasharray="3,2"/>
+      <rect x="20" y="305" width="60" height="32" rx="5" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="0.8"/>
+      <text x="50" y="320" text-anchor="middle" font-size="8" fill="#22c55e">사업부A</text>
+      <text x="50" y="331" text-anchor="middle" font-size="7" fill="#22c55e">+AI</text>
+      <rect x="85" y="305" width="60" height="32" rx="5" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="0.8"/>
+      <text x="115" y="320" text-anchor="middle" font-size="8" fill="#22c55e">사업부B</text>
+      <text x="115" y="331" text-anchor="middle" font-size="7" fill="#22c55e">+AI</text>
+      <rect x="150" y="305" width="60" height="32" rx="5" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="0.8"/>
+      <text x="180" y="320" text-anchor="middle" font-size="8" fill="#22c55e">사업부C</text>
+      <text x="180" y="331" text-anchor="middle" font-size="7" fill="#22c55e">+AI</text>
+      <text x="115" y="357" text-anchor="middle" font-size="7.5" fill="#22c55e">+ 균형 / 정책+속도</text>
+      <text x="115" y="369" text-anchor="middle" font-size="7.5" fill="#ef4444">− 책임 모호 가능성</text>
+
+      <!-- ④ Hub-and-Spoke (우하) - 강조 -->
+      <text x="630" y="220" text-anchor="middle" font-size="11" font-weight="700" fill="#22c55e">④ Hub-and-Spoke ⭐ (2026 표준)</text>
+      <text x="630" y="234" text-anchor="middle" font-size="8" fill="var(--text-dim)" font-style="italic">중앙 CoE(허브) + 사업부 임베드(스포크)</text>
+      <circle cx="630" cy="295" r="44" fill="#22c55e" fill-opacity=".18" stroke="#22c55e" stroke-width="1.5"/>
+      <text x="630" y="291" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">CoE</text>
+      <text x="630" y="305" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">플랫폼·정책·재사용</text>
+      <line x1="585" y1="270" x2="500" y2="240" stroke="#22c55e" stroke-width="1" marker-end="url(#org-ar)"/>
+      <line x1="500" y1="244" x2="585" y2="280" stroke="#22c55e" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#org-ar)"/>
+      <line x1="585" y1="320" x2="500" y2="350" stroke="#22c55e" stroke-width="1" marker-end="url(#org-ar)"/>
+      <line x1="500" y1="346" x2="585" y2="310" stroke="#22c55e" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#org-ar)"/>
+      <line x1="675" y1="270" x2="760" y2="240" stroke="#22c55e" stroke-width="1" marker-end="url(#org-ar)"/>
+      <line x1="760" y1="244" x2="675" y2="280" stroke="#22c55e" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#org-ar)"/>
+      <line x1="675" y1="320" x2="760" y2="350" stroke="#22c55e" stroke-width="1" marker-end="url(#org-ar)"/>
+      <line x1="760" y1="346" x2="675" y2="310" stroke="#22c55e" stroke-width="1" stroke-dasharray="2,2" marker-end="url(#org-ar)"/>
+      <rect x="445" y="220" width="58" height="36" rx="5" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="0.8"/>
+      <text x="474" y="237" text-anchor="middle" font-size="8.5" fill="#22c55e" font-weight="600">사업부A</text>
+      <text x="474" y="248" text-anchor="middle" font-size="7.5" fill="#22c55e">+spoke</text>
+      <rect x="445" y="335" width="58" height="36" rx="5" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="0.8"/>
+      <text x="474" y="352" text-anchor="middle" font-size="8.5" fill="#22c55e" font-weight="600">사업부B</text>
+      <text x="474" y="363" text-anchor="middle" font-size="7.5" fill="#22c55e">+spoke</text>
+      <rect x="757" y="220" width="58" height="36" rx="5" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="0.8"/>
+      <text x="786" y="237" text-anchor="middle" font-size="8.5" fill="#22c55e" font-weight="600">사업부C</text>
+      <text x="786" y="248" text-anchor="middle" font-size="7.5" fill="#22c55e">+spoke</text>
+      <rect x="757" y="335" width="58" height="36" rx="5" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="0.8"/>
+      <text x="786" y="352" text-anchor="middle" font-size="8.5" fill="#22c55e" font-weight="600">사업부D</text>
+      <text x="786" y="363" text-anchor="middle" font-size="7.5" fill="#22c55e">+spoke</text>
+
+      <!-- 구분선 -->
+      <line x1="20" y1="190" x2="900" y2="190" stroke="var(--text-dim)" stroke-width="0.4" stroke-dasharray="3,4"/>
+      <line x1="460" y1="10" x2="460" y2="380" stroke="var(--text-dim)" stroke-width="0.4" stroke-dasharray="3,4"/>
+    </svg>
+  </div>
+
+  <!-- 4 모델 핵심 정리 카드 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:1rem">
+    <div style="padding:.85rem 1rem;background:var(--card);border:1px solid var(--violet-border);border-radius:8px;font-size:.78rem;line-height:1.8">
+      <div style="font-weight:700;color:var(--violet);margin-bottom:.3rem">① Centralized — "전사 한 팀"</div>
+      <div style="color:var(--text)"><strong>언제:</strong> 초기 단계, 규모 작을 때, 표준 정립 필요<br><strong>장점:</strong> 일관성, 비용 절감, 거버넌스 강함<br><strong>단점:</strong> 사업부 ↔ 중앙팀 갈등, 우선순위 병목</div>
+    </div>
+    <div style="padding:.85rem 1rem;background:var(--card);border:1px solid var(--violet-border);border-radius:8px;font-size:.78rem;line-height:1.8">
+      <div style="font-weight:700;color:var(--violet);margin-bottom:.3rem">② Decentralized — "각자도생"</div>
+      <div style="color:var(--text)"><strong>언제:</strong> 사업부 자율성 강한 콘텐츠 회사, 매우 다른 도메인<br><strong>장점:</strong> 속도, 도메인 적합도<br><strong>단점:</strong> 중복 투자, Shadow AI 양산, 거버넌스 약함</div>
+    </div>
+    <div style="padding:.85rem 1rem;background:var(--card);border:1px solid var(--violet-border);border-radius:8px;font-size:.78rem;line-height:1.8">
+      <div style="font-weight:700;color:var(--violet);margin-bottom:.3rem">③ Federated — "정책은 중앙, 실행은 사업부"</div>
+      <div style="color:var(--text)"><strong>언제:</strong> 강한 사업부 + 거버넌스도 필요할 때<br><strong>장점:</strong> 균형, 의사결정 분산<br><strong>단점:</strong> 책임 모호 (누가 결정?), 정책 vs 실행 간 간극</div>
+    </div>
+    <div style="padding:.85rem 1rem;background:var(--card);border:1.5px solid #22c55e;border-radius:8px;font-size:.78rem;line-height:1.8">
+      <div style="font-weight:700;color:#22c55e;margin-bottom:.3rem">④ Hub-and-Spoke ⭐ "CoE + 사업부 임베드"</div>
+      <div style="color:var(--text)"><strong>2026 표준:</strong> +36% ROI (IBM 2026)<br><strong>허브 = CoE</strong>(전략·플랫폼·정책·재사용 자산·교육)<br><strong>스포크 = 사업부 임베드</strong>(딜리버리·예산·결과 책임)<br><strong>대표:</strong> 대다수 글로벌 대기업</div>
+    </div>
+  </div>
+
+  <div style="padding:.7rem 1rem;background:var(--violet-bg);border:1px solid var(--violet-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.8">
+    <strong style="color:var(--violet)">📌 진화 패턴:</strong> 초기엔 ① Centralized로 시작(작고 빠른 시작) → 성숙도가 오르면 ④ Hub-and-Spoke로 전환 → 매우 성숙한 단계에서 거의 모든 사업부가 자체 AI 능력 갖추면 ② Embedded + 중앙 자문 모델로. 단, ②는 거버넌스 위험 ↑ — Shadow AI 사고 빈발.
+  </div>
+</div>
+</div>
+
+<!-- ──────────────────────────────────────
+     섹션 2 — CAIO·C-suite 보고 라인
+     ────────────────────────────────────── -->
+<div class="dia reveal">
+<div class="dia-title">② CAIO·C-suite — 누가 AI를 책임지나, 누구에게 보고하나</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
+    CAIO(Chief AI Officer)는 2025-2026년 가장 빠르게 부상한 C-level. 2년 만에 <strong>11% → 26%</strong>(IBM 2,300개 기업) 또는 <strong>76%</strong>(2026년 2,000개 기업 별개 조사). 단 <strong>보고 라인이 효과를 좌우</strong>합니다.
+  </div>
+
+  <!-- CAIO 보고 라인 4분면 SVG -->
+  <div style="background:var(--card);border:1px solid var(--violet-border);border-radius:10px;padding:1rem;margin-bottom:.9rem">
+    <div style="font-size:.8rem;color:var(--text-dim);text-align:center;margin-bottom:.6rem">▼ CAIO가 누구에게 보고하는가 — 4 모델 비교</div>
+    <svg viewBox="0 0 920 260" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="caio-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+
+      <!-- ① CEO 직속 (최효과) -->
+      <rect x="20" y="20" width="200" height="115" rx="10" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="1.5"/>
+      <text x="120" y="40" text-anchor="middle" font-size="11" font-weight="700" fill="#22c55e">① CEO 직속 ⭐ (최효과)</text>
+      <rect x="80" y="50" width="80" height="22" rx="4" style="fill:var(--surface);stroke:#22c55e" stroke-width="1"/>
+      <text x="120" y="65" text-anchor="middle" font-size="9.5" font-weight="700" fill="#22c55e">CEO</text>
+      <line x1="120" y1="73" x2="120" y2="85" stroke="#22c55e" stroke-width="1" marker-end="url(#caio-ar)"/>
+      <rect x="80" y="87" width="80" height="22" rx="4" fill="#22c55e" fill-opacity=".30" stroke="#22c55e" stroke-width="1.2"/>
+      <text x="120" y="102" text-anchor="middle" font-size="9.5" font-weight="700" fill="#22c55e">CAIO</text>
+      <text x="120" y="125" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">전사 권한·예산. JPMC 모델</text>
+
+      <!-- ② CTO/CIO 산하 -->
+      <rect x="240" y="20" width="200" height="115" rx="10" fill="#f59e0b" fill-opacity=".10" stroke="#f59e0b" stroke-width="1"/>
+      <text x="340" y="40" text-anchor="middle" font-size="11" font-weight="700" fill="#f59e0b">② CTO/CIO 산하</text>
+      <rect x="300" y="50" width="80" height="22" rx="4" style="fill:var(--surface);stroke:#f59e0b" stroke-width="1"/>
+      <text x="340" y="65" text-anchor="middle" font-size="9.5" font-weight="700" fill="#f59e0b">CTO / CIO</text>
+      <line x1="340" y1="73" x2="340" y2="85" stroke="#f59e0b" stroke-width="1" marker-end="url(#caio-ar)"/>
+      <rect x="300" y="87" width="80" height="22" rx="4" fill="#f59e0b" fill-opacity=".25" stroke="#f59e0b" stroke-width="1"/>
+      <text x="340" y="102" text-anchor="middle" font-size="9.5" font-weight="700" fill="#f59e0b">CAIO</text>
+      <text x="340" y="125" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">⚠ IT 자동화·기술 중심에 한정</text>
+
+      <!-- ③ CDAO 산하 -->
+      <rect x="460" y="20" width="200" height="115" rx="10" fill="#f59e0b" fill-opacity=".10" stroke="#f59e0b" stroke-width="1"/>
+      <text x="560" y="40" text-anchor="middle" font-size="11" font-weight="700" fill="#f59e0b">③ CDAO 산하</text>
+      <rect x="520" y="50" width="80" height="22" rx="4" style="fill:var(--surface);stroke:#f59e0b" stroke-width="1"/>
+      <text x="560" y="65" text-anchor="middle" font-size="9.5" font-weight="700" fill="#f59e0b">CDAO</text>
+      <line x1="560" y1="73" x2="560" y2="85" stroke="#f59e0b" stroke-width="1" marker-end="url(#caio-ar)"/>
+      <rect x="520" y="87" width="80" height="22" rx="4" fill="#f59e0b" fill-opacity=".25" stroke="#f59e0b" stroke-width="1"/>
+      <text x="560" y="102" text-anchor="middle" font-size="9.5" font-weight="700" fill="#f59e0b">CAIO</text>
+      <text x="560" y="125" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">⚠ 데이터 분석 중심에 한정</text>
+
+      <!-- ④ CFO 산하 -->
+      <rect x="680" y="20" width="200" height="115" rx="10" fill="#ef4444" fill-opacity=".10" stroke="#ef4444" stroke-width="1"/>
+      <text x="780" y="40" text-anchor="middle" font-size="11" font-weight="700" fill="#ef4444">④ CFO 산하</text>
+      <rect x="740" y="50" width="80" height="22" rx="4" style="fill:var(--surface);stroke:#ef4444" stroke-width="1"/>
+      <text x="780" y="65" text-anchor="middle" font-size="9.5" font-weight="700" fill="#ef4444">CFO</text>
+      <line x1="780" y1="73" x2="780" y2="85" stroke="#ef4444" stroke-width="1" marker-end="url(#caio-ar)"/>
+      <rect x="740" y="87" width="80" height="22" rx="4" fill="#ef4444" fill-opacity=".25" stroke="#ef4444" stroke-width="1"/>
+      <text x="780" y="102" text-anchor="middle" font-size="9.5" font-weight="700" fill="#ef4444">CAIO</text>
+      <text x="780" y="125" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">⚠ 비용·효율만 보게 됨</text>
+
+      <!-- 효과 비교 막대 -->
+      <text x="20" y="170" font-size="10" font-weight="700" fill="var(--text)">📊 효과·범위:</text>
+      <rect x="20" y="180" width="200" height="22" rx="4" fill="#22c55e" fill-opacity=".30" stroke="#22c55e" stroke-width="1"/>
+      <text x="120" y="195" text-anchor="middle" font-size="9.5" font-weight="700" fill="#22c55e">전사 transformation</text>
+      <rect x="240" y="180" width="140" height="22" rx="4" fill="#f59e0b" fill-opacity=".20" stroke="#f59e0b" stroke-width="1"/>
+      <text x="310" y="195" text-anchor="middle" font-size="9" fill="#f59e0b">IT 한정</text>
+      <rect x="460" y="180" width="140" height="22" rx="4" fill="#f59e0b" fill-opacity=".20" stroke="#f59e0b" stroke-width="1"/>
+      <text x="530" y="195" text-anchor="middle" font-size="9" fill="#f59e0b">데이터 한정</text>
+      <rect x="680" y="180" width="100" height="22" rx="4" fill="#ef4444" fill-opacity=".20" stroke="#ef4444" stroke-width="1"/>
+      <text x="730" y="195" text-anchor="middle" font-size="9" fill="#ef4444">비용 한정</text>
+
+      <!-- 캡션 -->
+      <text x="460" y="230" text-anchor="middle" font-size="9.5" fill="var(--violet)" font-weight="700">💡 CEO 직속만이 사업부 + 기술 + 거버넌스를 횡단해 결정 가능</text>
+      <text x="460" y="245" text-anchor="middle" font-size="8.5" fill="var(--text-dim)" font-style="italic">Gartner 2025: 대기업 35%가 CAIO 보유 예측, CEO 직속 비율 증가 중</text>
+    </svg>
+  </div>
+
+  <!-- C-suite 역할 분담 -->
+  <div style="overflow-x:auto;margin-bottom:.9rem">
+    <table style="width:100%;border-collapse:collapse;font-size:.76rem;min-width:780px">
+      <thead><tr style="background:var(--surface)">
+        <th style="padding:.55rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--violet-border);width:18%">역할</th>
+        <th style="padding:.55rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border);width:32%">책임</th>
+        <th style="padding:.55rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border);width:25%">2026 트렌드</th>
+        <th style="padding:.55rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border);width:25%">한국 사례</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td style="padding:.5rem;color:var(--violet);font-weight:700;border-bottom:1px solid var(--border)">CAIO</td>
+          <td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">전사 AI 전략·예산·거버넌스. AI Operating Model 설계자</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">2년 만에 11→26% (IBM). 연봉 $352K~$380K</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">거의 부재. SK텔레콤은 <strong>CGO 직속 AI 거버넌스팀</strong>으로 대체</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem;color:var(--violet);font-weight:700;border-bottom:1px solid var(--border)">CDAO</td>
+          <td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">데이터+분석+AI 통합 (JPMC 모델). CAIO와 경계 점차 모호</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">2024-2025 정착. AI 시대에 데이터+AI 결합으로 진화</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">신한·KB 등 금융권 일부 도입</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem;color:var(--violet);font-weight:700;border-bottom:1px solid var(--border)">CDO (Data)</td>
+          <td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">데이터 거버넌스·품질·정책. AI의 input 책임자</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">기존 역할. CDAO·CAIO로 흡수되거나 분리 유지</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">공공기관·금융 주로</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem;color:var(--violet);font-weight:700;border-bottom:1px solid var(--border)">CGO/CRO (AI Risk)</td>
+          <td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">AI 위험·컴플라이언스·거버넌스. EU AI Act·한국 AI 기본법 대응</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">한국에서 부상 중 ⭐</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)"><strong>SK텔레콤 CGO</strong>가 표준 모델</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem;color:var(--violet);font-weight:700">Fractional CAIO</td>
+          <td style="padding:.5rem;color:var(--text)">시간제 외부 CAIO (중견·중소기업용)</td>
+          <td style="padding:.5rem;color:var(--text-dim)">월 $2K~$15K (풀타임의 10~25%)</td>
+          <td style="padding:.5rem;color:var(--text-dim)">초기 단계, 컨설팅·자문 형태</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- ──────────────────────────────────────
+     섹션 3 — 거버넌스 위원회 3축 (Steering·Ethics·Risk)
+     ────────────────────────────────────── -->
+<div class="dia reveal">
+<div class="dia-title">③ 거버넌스 위원회 3축 — Steering · Ethics · Risk</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
+    "위원회 하나로 다 한다"는 잘못된 통념. 글로벌 모범 사례는 <strong>3개 위원회 병렬 운영</strong>. Microsoft가 가장 정교한 사례.
+  </div>
+
+  <!-- 3 위원회 카드 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem;margin-bottom:1rem">
+    <div style="padding:.95rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+      <div style="font-size:.92rem;font-weight:700;color:var(--violet);margin-bottom:.4rem">🎯 Steering Committee</div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.75">
+        <strong>역할:</strong> 전략·예산·우선순위. 임원급<br>
+        <strong>의장:</strong> CEO 또는 CAIO<br>
+        <strong>구성:</strong> C-suite + 주요 사업부장<br>
+        <strong>주기:</strong> 분기 1회<br>
+        <strong>산출:</strong> AI 로드맵·투자 결정
+      </div>
+    </div>
+    <div style="padding:.95rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+      <div style="font-size:.92rem;font-weight:700;color:var(--violet);margin-bottom:.4rem">⚖ Ethics Committee/Board</div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.75">
+        <strong>역할:</strong> 윤리·민감 사례 심사<br>
+        <strong>의장:</strong> CGO 또는 외부 전문가<br>
+        <strong>구성:</strong> 윤리·법무·인사·다양성·외부 자문<br>
+        <strong>주기:</strong> 월 1회 + 긴급 시<br>
+        <strong>산출:</strong> 윤리 원칙·가이드·승인/거부
+      </div>
+    </div>
+    <div style="padding:.95rem;background:var(--card);border:1.5px solid #ef4444;border-radius:10px">
+      <div style="font-size:.92rem;font-weight:700;color:#ef4444;margin-bottom:.4rem">⚠ Risk Committee</div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.75">
+        <strong>역할:</strong> 리스크·컴플라이언스·사고 대응<br>
+        <strong>의장:</strong> CRO 또는 CGO<br>
+        <strong>구성:</strong> 리스크·보안·법무·내부감사<br>
+        <strong>주기:</strong> 월 1회 + 사고 시 즉시<br>
+        <strong>산출:</strong> 리스크 등록부·완화 조치
+      </div>
+    </div>
+  </div>
+
+  <!-- Microsoft AETHER+ORA+RAISE 사례 SVG -->
+  <div style="background:var(--card);border:1px solid var(--violet-border);border-radius:10px;padding:1rem;margin-bottom:.7rem">
+    <div style="font-size:.8rem;color:var(--text-dim);text-align:center;margin-bottom:.6rem">▼ Microsoft 거버넌스 3축 — 가장 정교한 글로벌 사례</div>
+    <svg viewBox="0 0 920 280" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="ms-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+
+      <!-- 최상위 RAI Council -->
+      <rect x="280" y="20" width="360" height="55" rx="10" fill="#a78bfa" fill-opacity=".30" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="460" y="40" text-anchor="middle" font-size="11" font-weight="700" fill="#a78bfa">🏛 Responsible AI Council (최상위)</text>
+      <text x="460" y="56" text-anchor="middle" font-size="9" fill="var(--text-dim)">공동 의장: Brad Smith (Vice Chair·President) + Kevin Scott (CTO)</text>
+      <text x="460" y="69" text-anchor="middle" font-size="8.5" fill="#9ca3af">전사 RAI 전략·의사결정 최종 권한</text>
+
+      <!-- 3축으로 분기 -->
+      <line x1="380" y1="78" x2="180" y2="115" stroke="#9ca3af" stroke-width="1" marker-end="url(#ms-ar)"/>
+      <line x1="460" y1="78" x2="460" y2="115" stroke="#9ca3af" stroke-width="1" marker-end="url(#ms-ar)"/>
+      <line x1="540" y1="78" x2="740" y2="115" stroke="#9ca3af" stroke-width="1" marker-end="url(#ms-ar)"/>
+
+      <!-- AETHER -->
+      <rect x="40" y="118" width="280" height="100" rx="10" fill="#a78bfa" fill-opacity=".15" stroke="#a78bfa" stroke-width="1.2"/>
+      <text x="180" y="138" text-anchor="middle" font-size="11" font-weight="700" fill="#a78bfa">🧪 AETHER Committee (2017~)</text>
+      <text x="180" y="154" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">자문·연구·실험 (Working Groups 6개)</text>
+      <text x="180" y="170" text-anchor="middle" font-size="7.5" fill="#9ca3af">• Fairness/Inclusiveness</text>
+      <text x="180" y="182" text-anchor="middle" font-size="7.5" fill="#9ca3af">• Human-AI Interaction</text>
+      <text x="180" y="194" text-anchor="middle" font-size="7.5" fill="#9ca3af">• Transparency</text>
+      <text x="180" y="206" text-anchor="middle" font-size="7.5" fill="#9ca3af">• Reliability·Security·Privacy</text>
+
+      <!-- ORA (가운데) -->
+      <rect x="340" y="118" width="240" height="100" rx="10" fill="#a78bfa" fill-opacity=".20" stroke="#a78bfa" stroke-width="1.2"/>
+      <text x="460" y="138" text-anchor="middle" font-size="11" font-weight="700" fill="#a78bfa">📋 ORA (Office of Resp. AI)</text>
+      <text x="460" y="154" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">정책·거버넌스 구조·민감 사례</text>
+      <text x="460" y="172" text-anchor="middle" font-size="7.5" fill="#9ca3af">• RAI Standard 작성</text>
+      <text x="460" y="184" text-anchor="middle" font-size="7.5" fill="#9ca3af">• 민감 use case 심사</text>
+      <text x="460" y="196" text-anchor="middle" font-size="7.5" fill="#9ca3af">• 외부 정책 engagement</text>
+      <text x="460" y="208" text-anchor="middle" font-size="7.5" fill="#9ca3af">• Internal training</text>
+
+      <!-- RAISE -->
+      <rect x="600" y="118" width="280" height="100" rx="10" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1.2"/>
+      <text x="740" y="138" text-anchor="middle" font-size="11" font-weight="700" fill="#22c55e">⚙ RAISE (Engineering 실행)</text>
+      <text x="740" y="154" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">Responsible AI Strategy in Engineering</text>
+      <text x="740" y="172" text-anchor="middle" font-size="7.5" fill="#9ca3af">• 엔지니어링 표준 운영</text>
+      <text x="740" y="184" text-anchor="middle" font-size="7.5" fill="#9ca3af">• 도구·플랫폼 (Azure AI Content Safety 등)</text>
+      <text x="740" y="196" text-anchor="middle" font-size="7.5" fill="#9ca3af">• 제품팀 가이드 + 평가</text>
+      <text x="740" y="208" text-anchor="middle" font-size="7.5" fill="#9ca3af">• Incident response</text>
+
+      <!-- 3축 간 협업 양방향 화살표 -->
+      <path d="M 320 165 Q 330 165 340 165" fill="none" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="2,2"/>
+      <path d="M 580 165 Q 590 165 600 165" fill="none" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="2,2"/>
+
+      <!-- 하단: 실제 제품팀에 영향 -->
+      <text x="460" y="240" text-anchor="middle" font-size="9" fill="var(--violet)" font-weight="700">↓ 표준·정책·도구를 모든 제품팀에 적용</text>
+      <rect x="200" y="248" width="520" height="22" rx="6" fill="#9ca3af" fill-opacity=".10" stroke="#9ca3af" stroke-width="0.7"/>
+      <text x="460" y="263" text-anchor="middle" font-size="9" fill="var(--text-dim)">Azure · Microsoft 365 · Copilot · Bing · Windows · GitHub 등 모든 제품</text>
+    </svg>
+  </div>
+
+  <div style="padding:.7rem 1rem;background:var(--violet-bg);border:1px solid var(--violet-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.8">
+    <strong style="color:var(--violet)">💡 한국 적용 가이드:</strong> Microsoft 모델 그대로는 과함. 한국 중견기업은 <strong>Steering 1개</strong>로 시작 → Ethics는 위원회 형태(외부 자문 위원 2~3명 포함) → Risk는 별도 조직보다 기존 컴플라이언스팀에 AI 책임 추가. 성숙도 오르면 3축 분리.
+  </div>
+</div>
+</div>
+
+<!-- ──────────────────────────────────────
+     섹션 4 — 3 Lines of Defense for AI
+     ────────────────────────────────────── -->
+<div class="dia reveal">
+<div class="dia-title">④ 3 Lines of Defense for AI — 금융권 88% 채택 표준</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
+    금융 모델 리스크 관리(MRM)에서 차용된 표준. EU 금융권 <strong>88% 채택</strong>, 데이터 침해율 <strong>-18%</strong>. EU AI Act 2026-08 시행으로 사실상 모든 산업의 필수가 됨.
+  </div>
+
+  <!-- 3 Lines 피라미드 SVG -->
+  <div style="background:var(--card);border:1px solid var(--violet-border);border-radius:10px;padding:1rem;margin-bottom:.9rem">
+    <svg viewBox="0 0 920 360" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="lod-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+
+      <!-- 1선: 사업부 (가장 넓음, 하단) -->
+      <polygon points="20,300 900,300 800,230 120,230" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1.2"/>
+      <text x="460" y="265" text-anchor="middle" font-size="14" font-weight="800" fill="#22c55e">1선 — Operating Management (사업부)</text>
+      <text x="460" y="285" text-anchor="middle" font-size="10" fill="var(--text-dim)">model owners · 사업부 · 제품팀 · 엔지니어</text>
+
+      <!-- 2선: 거버넌스 (중간) -->
+      <polygon points="120,230 800,230 700,160 220,160" fill="#f59e0b" fill-opacity=".18" stroke="#f59e0b" stroke-width="1.2"/>
+      <text x="460" y="195" text-anchor="middle" font-size="14" font-weight="800" fill="#f59e0b">2선 — AI Risk·Compliance·Governance</text>
+      <text x="460" y="215" text-anchor="middle" font-size="10" fill="var(--text-dim)">AI 룰북·adversarial testing·EU AI Act 컴플라이언스</text>
+
+      <!-- 3선: 감사 (최상단) -->
+      <polygon points="220,160 700,160 600,90 320,90" fill="#a78bfa" fill-opacity=".25" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="460" y="125" text-anchor="middle" font-size="14" font-weight="800" fill="#a78bfa">3선 — Internal Audit (감사)</text>
+      <text x="460" y="145" text-anchor="middle" font-size="10" fill="var(--text-dim)">독립 보증·이사회 직접 보고</text>
+
+      <!-- 외부 -->
+      <rect x="320" y="20" width="280" height="55" rx="10" fill="#ef4444" fill-opacity=".15" stroke="#ef4444" stroke-width="1.2"/>
+      <text x="460" y="40" text-anchor="middle" font-size="11" font-weight="700" fill="#ef4444">🏛 외부 — 규제·외부 감사</text>
+      <text x="460" y="56" text-anchor="middle" font-size="9" fill="var(--text-dim)">EU AI Act · 한국 AI 기본법 · 금융위 가이드 · ISO 42001 인증</text>
+      <text x="460" y="69" text-anchor="middle" font-size="8.5" fill="#9ca3af">외부 감사·재인증·당국 점검</text>
+
+      <!-- 각 선의 책임 자세히 (오른쪽 박스) -->
+      <rect x="595" y="305" width="305" height="50" rx="6" style="fill:var(--surface);stroke:#22c55e" stroke-width="0.8"/>
+      <text x="747" y="320" text-anchor="middle" font-size="9" fill="#22c55e" font-weight="700">1선 산출: 가드레일·input filter·output 검증</text>
+      <text x="747" y="333" text-anchor="middle" font-size="8" fill="var(--text-dim)">RACI에서 Responsible · Accountable 다수</text>
+      <text x="747" y="345" text-anchor="middle" font-size="8" fill="#9ca3af">제품에 직접 책임</text>
+
+      <rect x="20" y="305" width="305" height="50" rx="6" style="fill:var(--surface);stroke:#f59e0b" stroke-width="0.8"/>
+      <text x="172" y="320" text-anchor="middle" font-size="9" fill="#f59e0b" font-weight="700">2선 산출: AI 룰북·red team·컴플라이언스</text>
+      <text x="172" y="333" text-anchor="middle" font-size="8" fill="var(--text-dim)">RACI에서 Consulted</text>
+      <text x="172" y="345" text-anchor="middle" font-size="8" fill="#9ca3af">정책 + 모니터링</text>
+    </svg>
+  </div>
+
+  <!-- 한국 금융위 7원칙 매핑 -->
+  <div style="padding:.95rem 1.1rem;background:var(--card);border:1.5px solid var(--violet);border-radius:10px">
+    <div style="font-size:.88rem;font-weight:700;color:var(--violet);margin-bottom:.5rem">🇰🇷 한국 금융위 7원칙과 3LoD 매핑 (2025)</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      금융위원회 <strong>금융분야 AI 가이드라인</strong>(2025) 7원칙 중 ① <strong>거버넌스</strong>가 1·2·3선 모두 포괄:<br>
+      <span style="color:var(--violet);font-weight:600">1선:</span> 모델 개발팀이 ⑤ 금융안정성, ⑦ 보안성 → 가드레일 구현<br>
+      <span style="color:var(--violet);font-weight:600">2선:</span> AI 윤리위원회 + 독립 전담조직이 ② 합법성, ③ 보조수단성, ④ 신뢰성, ⑥ 신의성실 → 정책 작성·모니터링<br>
+      <span style="color:var(--violet);font-weight:600">3선:</span> 내부감사·금융감독원 → 전체 점검<br>
+      <strong>의무 조항:</strong> "AI 윤리위원회 설치 + 독립적 전담조직 구축"
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ──────────────────────────────────────
+     섹션 5 — CoE 핵심 직군 (인력 구성)
+     ────────────────────────────────────── -->
+<div class="dia reveal">
+<div class="dia-title">⑤ CoE 핵심 직군 — 6대 역할 + 2025-2026 신규 직책</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
+    Hub-and-Spoke의 <strong>허브(CoE)</strong>에 필요한 핵심 6 직군. 기존 ML/Data 인력에 더해 2025-2026년 신규 직책이 부상.
+  </div>
+
+  <!-- 6 직군 카드 그리드 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem;margin-bottom:1rem">
+    <div style="padding:.85rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+      <div style="font-size:.85rem;font-weight:700;color:var(--violet);margin-bottom:.3rem">🎯 Leadership</div>
+      <div style="font-size:.72rem;color:var(--text);line-height:1.7">CAIO / CoE Director<br><strong>책임:</strong> 방향·예산·외부 협상<br><strong>스킬:</strong> 사업+기술 양다리</div>
+    </div>
+    <div style="padding:.85rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+      <div style="font-size:.85rem;font-weight:700;color:var(--violet);margin-bottom:.3rem">📐 Strategy</div>
+      <div style="font-size:.72rem;color:var(--text);line-height:1.7">AI Strategist / AI PM<br><strong>책임:</strong> 우선순위·use case 발굴<br><strong>스킬:</strong> 사업 이해 + AI 가능성 인식</div>
+    </div>
+    <div style="padding:.85rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+      <div style="font-size:.85rem;font-weight:700;color:var(--violet);margin-bottom:.3rem">⚙ Data/Platform</div>
+      <div style="font-size:.72rem;color:var(--text);line-height:1.7">ML Eng · MLOps · Data Eng<br><strong>책임:</strong> 모델·인프라·플랫폼<br><strong>스킬:</strong> Python·MLOps·Cloud</div>
+    </div>
+    <div style="padding:.85rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+      <div style="font-size:.85rem;font-weight:700;color:var(--violet);margin-bottom:.3rem">🚀 Delivery</div>
+      <div style="font-size:.72rem;color:var(--text);line-height:1.7">AI Solutions Architect<br><strong>책임:</strong> 사업부 솔루션 배포<br><strong>스킬:</strong> 아키텍처 + 사업부 커뮤니케이션</div>
+    </div>
+    <div style="padding:.85rem;background:var(--card);border:1.5px solid #ef4444;border-radius:10px">
+      <div style="font-size:.85rem;font-weight:700;color:#ef4444;margin-bottom:.3rem">⚠ Governance</div>
+      <div style="font-size:.72rem;color:var(--text);line-height:1.7"><strong>AI Risk Officer · AI Safety Eng</strong><br><strong>책임:</strong> 위험·컴플라이언스·red team<br><strong>스킬:</strong> 법규 + 기술 양다리 (2025-2026 부상)</div>
+    </div>
+    <div style="padding:.85rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+      <div style="font-size:.85rem;font-weight:700;color:var(--violet);margin-bottom:.3rem">📚 Adoption</div>
+      <div style="font-size:.72rem;color:var(--text);line-height:1.7">AI Enablement Lead · Trainer<br><strong>책임:</strong> 교육·확산·change mgmt<br><strong>스킬:</strong> 교육 설계 + AI 리터러시</div>
+    </div>
+  </div>
+
+  <!-- 2025-2026 신규 직책 강조 -->
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--violet);border-radius:10px;margin-bottom:.7rem">
+    <div style="font-size:.88rem;font-weight:700;color:var(--violet);margin-bottom:.5rem">🆕 2025-2026 부상한 신규 직책</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;font-size:.76rem;line-height:1.8">
+      <div><strong style="color:var(--violet)">AI Safety Engineer</strong> — 모델 행동 검증, hazard analysis, red team 운영 (Anthropic·OpenAI 등 frontier 랩에서 시작 → 일반 기업 확산)</div>
+      <div><strong style="color:var(--violet)">AI Risk Officer</strong> — EU AI Act·한국 AI 기본법 컴플라이언스 책임자. 법무+기술 하이브리드</div>
+      <div><strong style="color:var(--violet)">AI Product Manager</strong> — 일반 PM과 다름. 비결정성·환각·평가지표·prompt 관리 전문</div>
+      <div><strong style="color:var(--violet)">Prompt Architect</strong> — 프롬프트·context engineering 전문. 한 단계 위는 <strong>Context Engineer</strong>(2026 부상)</div>
+      <div><strong style="color:var(--violet)">AI Ethicist</strong> — 윤리 자문, 민감 use case 심사. 학문적 배경 + 실무 이해</div>
+      <div><strong style="color:var(--violet)">AIOps Engineer</strong> — AI 시스템 운영·모니터링·trace·eval pipeline 운영</div>
+    </div>
+  </div>
+
+  <div style="padding:.7rem 1rem;background:var(--violet-bg);border:1px solid var(--violet-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.8">
+    <strong style="color:var(--violet)">💡 시작 규모 가이드:</strong> 직원 1,000명 기준 CoE 5~7명 (Leadership 1 + Strategy 1 + Eng 2 + Delivery 1 + Governance 1 + Adoption 1). 5,000명 기준 15~20명. 사업부에 임베드된 스포크는 별도 (사업부당 1~3명).
+  </div>
+</div>
+</div>
+
+<!-- ──────────────────────────────────────
+     섹션 6 — 글로벌 4대 표준 비교
+     ────────────────────────────────────── -->
+<div class="dia reveal">
+<div class="dia-title">⑥ 글로벌 4대 표준 비교 — NIST · ISO · EU · 한국</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
+    조직 구조 설계 시 따라야 할 4대 표준. 사실상 상호보완. ISO 42001 인증이 "AI 컴플라이언스의 OS"가 되는 중.
+  </div>
+
+  <div style="overflow-x:auto;margin-bottom:.9rem">
+    <table style="width:100%;border-collapse:collapse;font-size:.76rem;min-width:780px">
+      <thead><tr style="background:var(--surface)">
+        <th style="padding:.55rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--violet-border);width:14%">표준</th>
+        <th style="padding:.55rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border);width:12%">발행/시행</th>
+        <th style="padding:.55rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border);width:12%">강제력</th>
+        <th style="padding:.55rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border);width:30%">핵심 요구사항</th>
+        <th style="padding:.55rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border);width:32%">조직 영향</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td style="padding:.5rem;color:var(--violet);font-weight:700;border-bottom:1px solid var(--border)">NIST AI RMF</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">2023 (GenAI Profile 2024-07)</td>
+          <td style="padding:.5rem;color:#22c55e;border-bottom:1px solid var(--border)">자발적 (미국 표준)</td>
+          <td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">4 함수: <strong>Govern · Map · Measure · Manage</strong>. Govern은 횡단</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">CAIO·Steering·Risk 위원회 권고. 미국 정부 조달에서 사실상 필수</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem;color:var(--violet);font-weight:700;border-bottom:1px solid var(--border)">ISO/IEC 42001</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">2023-12</td>
+          <td style="padding:.5rem;color:#f59e0b;border-bottom:1px solid var(--border)">자발적 (인증 가능)</td>
+          <td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">AI Management System (AIMS). <strong>38통제 · 9영역</strong>. Provider·Producer·User 역할 구분</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Top management 리더십 의무. 인증 시 차별화 + 글로벌 비즈니스 자격</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem;color:#ef4444;font-weight:700;border-bottom:1px solid var(--border)">EU AI Act ⚠</td>
+          <td style="padding:.5rem;color:#ef4444;border-bottom:1px solid var(--border)"><strong>2026-08-02 전면 적용</strong></td>
+          <td style="padding:.5rem;color:#ef4444;border-bottom:1px solid var(--border)">강제 (EU 시민 대상)</td>
+          <td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">고위험 AI: Art.17 QMS, 데이터 거버넌스, 기술 문서, 사후 시장 모니터링, 사고 보고. <strong>conformity assessment + CE 마킹 + EU DB 등록</strong></td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)"><strong>위반 시 매출 7% 과징금</strong>. AI Risk Officer + 컴플라이언스 조직 필수</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem;color:#ef4444;font-weight:700">🇰🇷 한국 AI 기본법</td>
+          <td style="padding:.5rem;color:#ef4444"><strong>2026-01-22 시행</strong></td>
+          <td style="padding:.5rem;color:#ef4444">강제</td>
+          <td style="padding:.5rem;color:var(--text)">5대 의무: ①투명성 ②안전성 ③<strong>고영향 AI 사업자 책무</strong> ④AI 영향평가 ⑤국내 대리인 지정. 대통령 직속 국가인공지능위원회</td>
+          <td style="padding:.5rem;color:var(--text-dim)">1년+ 계도 기간(2027 과태료 가능). 한국 사업 시 거버넌스 조직 정비 의무</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="padding:.7rem 1rem;background:#ef444415;border:1px solid #ef444444;border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.8">
+    <strong style="color:#ef4444">⚠ 2026 데드라인 2개:</strong> 한국 사업자는 <strong>2026-01-22 한국 AI 기본법</strong>, EU 시민 대상 서비스 시 <strong>2026-08-02 EU AI Act 고위험</strong>. 둘 다 거버넌스 조직(CGO/CAIO·위원회·문서화·감사 로그) 사실상 의무.
+  </div>
+</div>
+</div>
+
+<!-- ──────────────────────────────────────
+     섹션 7 — 한국 기업 사례 매트릭스
+     ────────────────────────────────────── -->
+<div class="dia reveal">
+<div class="dia-title">⑦ 🇰🇷 한국 5대 기업 AI 조직 매트릭스</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
+    한국 대기업의 실제 AI 조직 구조. 공통점은 <strong>CAIO 부재</strong>·<strong>다중 AI 조직</strong>·<strong>윤리위원회 중심</strong>.
+  </div>
+
+  <div style="overflow-x:auto;margin-bottom:.9rem">
+    <table style="width:100%;border-collapse:collapse;font-size:.74rem;min-width:780px">
+      <thead><tr style="background:var(--surface)">
+        <th style="padding:.55rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--violet-border);width:12%">기업</th>
+        <th style="padding:.55rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border);width:28%">AI 조직</th>
+        <th style="padding:.55rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border);width:22%">윤리·거버넌스</th>
+        <th style="padding:.55rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border);width:18%">대표 자산</th>
+        <th style="padding:.55rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border);width:20%">특이점</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td style="padding:.5rem;color:var(--violet);font-weight:700;border-bottom:1px solid var(--border)">삼성전자</td>
+          <td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">DS부문 CIO 산하 <strong>AI Center</strong> (송용호 부사장) / DX부문 CTO 산하 <strong>AI 전략팀</strong> / 디바이스플랫폼센터→<strong>AI플랫폼센터</strong> 개명 / 삼성리서치 <strong>AI Center Seoul</strong></td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">AI 윤리 원칙. 다중 조직 운영 (CAIO 부재)</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Brity Copilot, Gauss</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">DS/DX 사업 분리로 AI 조직도 이원화. 통합 CAIO 없음</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem;color:var(--violet);font-weight:700;border-bottom:1px solid var(--border)">LG</td>
+          <td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)"><strong>LG AI 연구원</strong> (2020 설립, 300명). 언어/비전/바이오/소재/데이터 인텔리전스 5 Lab + 프로덕트/인프라 조직</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">LG AI 윤리 원칙</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">EXAONE 시리즈</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">CSAI 이홍락. 연구원이 사실상 그룹 CoE 역할</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem;color:var(--violet);font-weight:700;border-bottom:1px solid var(--border)">SK텔레콤</td>
+          <td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)"><strong>CGO 직속 AI 거버넌스 전담팀</strong> (2024-01) / <strong>AI CIC</strong> (2025-09, Company-In-Company)</td>
+          <td style="padding:.5rem;color:#22c55e;border-bottom:1px solid var(--border)"><strong>T.H.E.AI 원칙</strong> (Telco·Humanity·Ethics) ⭐ 한국 모범 사례</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">A.X, Full Stack AI</td>
+          <td style="padding:.5rem;color:#22c55e;border-bottom:1px solid var(--border)">한국에서 가장 정교한 AI 거버넌스. CGO 모델</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem;color:var(--violet);font-weight:700;border-bottom:1px solid var(--border)">네이버</td>
+          <td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">CLOVA 본부 + 네이버클라우드 AI</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)"><strong>SEED 윤리 준칙</strong> (서울대 SAPI 협업) — 5대 원칙 (사람을 위한 AI·다양성·합리적 설명·안전·프라이버시)</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">HyperCLOVA X</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">학계 협업 모델. 윤리 원칙이 가장 체계적</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem;color:var(--violet);font-weight:700">카카오</td>
+          <td style="padding:.5rem;color:var(--text)">카카오브레인 + 그룹 AI 조직</td>
+          <td style="padding:.5rem;color:#22c55e"><strong>알고리즘 윤리 헌장</strong> (2018, 국내 최초) + <strong>그룹 기술윤리위원회</strong> (2022, 국내 기업 최초) ⭐</td>
+          <td style="padding:.5rem;color:var(--text-dim)">카나나, KoGPT</td>
+          <td style="padding:.5rem;color:#22c55e">한국 윤리 거버넌스 선구자</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="padding:.7rem 1rem;background:var(--violet-bg);border:1px solid var(--violet-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.8">
+    <strong style="color:var(--violet)">📌 한국 패턴:</strong> 글로벌이 CAIO 중심이라면, 한국은 <strong>① CGO/거버넌스 책임자</strong>(SK텔레콤 모델) + <strong>② 윤리위원회</strong>(카카오 모델) + <strong>③ 연구원/CoE</strong>(LG 모델)의 3가지 변형으로 진화. CAIO는 신설 사례 거의 없음 — 기존 임원 직무에 AI 책임 추가가 일반적.
+  </div>
+</div>
+</div>
+
+<!-- ──────────────────────────────────────
+     섹션 8 — 글로벌 대기업 사례 (JPMC dotted-line)
+     ────────────────────────────────────── -->
+<div class="dia reveal">
+<div class="dia-title">⑧ 글로벌 사례 — JPMC Dotted-Line Matrix · Anthropic RSO</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
+    글로벌 대기업의 실제 보고 구조 — 한국 기업이 참고할 모델.
+  </div>
+
+  <!-- JPMC dotted-line matrix SVG -->
+  <div style="background:var(--card);border:1px solid var(--violet-border);border-radius:10px;padding:1rem;margin-bottom:.9rem">
+    <div style="font-size:.85rem;font-weight:700;color:var(--violet);margin-bottom:.5rem;text-align:center">🏦 JPMorgan Chase — Dotted-Line Matrix (CAIO의 정점)</div>
+    <svg viewBox="0 0 920 320" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="jpmc-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+
+      <!-- CEO + Operating Committee -->
+      <rect x="320" y="20" width="280" height="40" rx="8" fill="#a78bfa" fill-opacity=".25" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="460" y="38" text-anchor="middle" font-size="11" font-weight="700" fill="#a78bfa">CEO Jamie Dimon</text>
+      <text x="460" y="52" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">15인 Operating Committee</text>
+
+      <!-- CDAO (Operating Committee 직속) -->
+      <line x1="460" y1="62" x2="460" y2="80" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#jpmc-ar)"/>
+      <rect x="340" y="82" width="240" height="50" rx="8" fill="#22c55e" fill-opacity=".25" stroke="#22c55e" stroke-width="1.5"/>
+      <text x="460" y="102" text-anchor="middle" font-size="11" font-weight="700" fill="#22c55e">CDAO Teresa Heitsenrether</text>
+      <text x="460" y="118" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">Data & Analytics Division 총괄</text>
+      <text x="460" y="129" text-anchor="middle" font-size="8" fill="#9ca3af">Operating Committee 멤버 (15인)</text>
+
+      <!-- 3 통합 부서 -->
+      <line x1="380" y1="135" x2="180" y2="170" stroke="#22c55e" stroke-width="1" marker-end="url(#jpmc-ar)"/>
+      <line x1="460" y1="135" x2="460" y2="170" stroke="#22c55e" stroke-width="1" marker-end="url(#jpmc-ar)"/>
+      <line x1="540" y1="135" x2="740" y2="170" stroke="#22c55e" stroke-width="1" marker-end="url(#jpmc-ar)"/>
+
+      <rect x="80" y="172" width="200" height="40" rx="6" style="fill:var(--surface);stroke:#22c55e" stroke-width="0.8"/>
+      <text x="180" y="190" text-anchor="middle" font-size="9.5" font-weight="700" fill="#22c55e">AI/ML Transformation</text>
+      <text x="180" y="203" text-anchor="middle" font-size="8" fill="var(--text-dim)">Drew Cukor</text>
+      <rect x="360" y="172" width="200" height="40" rx="6" style="fill:var(--surface);stroke:#22c55e" stroke-width="0.8"/>
+      <text x="460" y="190" text-anchor="middle" font-size="9.5" font-weight="700" fill="#22c55e">AI Research</text>
+      <text x="460" y="203" text-anchor="middle" font-size="8" fill="var(--text-dim)">Manuela Veloso</text>
+      <rect x="640" y="172" width="200" height="40" rx="6" style="fill:var(--surface);stroke:#22c55e" stroke-width="0.8"/>
+      <text x="740" y="190" text-anchor="middle" font-size="9.5" font-weight="700" fill="#22c55e">Fusion Data Solutions</text>
+      <text x="740" y="203" text-anchor="middle" font-size="8" fill="var(--text-dim)">Gerard Francis</text>
+
+      <!-- 사업부 CDAO들 (dotted-line) -->
+      <text x="460" y="240" text-anchor="middle" font-size="10" fill="#f59e0b" font-weight="700">⬇ 사업부 CDAO들 — Dotted-Line Matrix</text>
+
+      <rect x="60" y="252" width="140" height="50" rx="6" fill="#f59e0b" fill-opacity=".10" stroke="#f59e0b" stroke-width="0.8"/>
+      <text x="130" y="270" text-anchor="middle" font-size="9" font-weight="700" fill="#f59e0b">CCB CDAO</text>
+      <text x="130" y="284" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">실선: CCB CEO</text>
+      <text x="130" y="296" text-anchor="middle" font-size="7.5" fill="#9ca3af" font-style="italic">점선: Heitsenrether</text>
+
+      <rect x="210" y="252" width="140" height="50" rx="6" fill="#f59e0b" fill-opacity=".10" stroke="#f59e0b" stroke-width="0.8"/>
+      <text x="280" y="270" text-anchor="middle" font-size="9" font-weight="700" fill="#f59e0b">CIB CDAO</text>
+      <text x="280" y="284" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">실선: CIB CEO</text>
+      <text x="280" y="296" text-anchor="middle" font-size="7.5" fill="#9ca3af" font-style="italic">점선: Heitsenrether</text>
+
+      <rect x="360" y="252" width="140" height="50" rx="6" fill="#f59e0b" fill-opacity=".10" stroke="#f59e0b" stroke-width="0.8"/>
+      <text x="430" y="270" text-anchor="middle" font-size="9" font-weight="700" fill="#f59e0b">CB CDAO</text>
+      <text x="430" y="284" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">실선: CB CEO</text>
+      <text x="430" y="296" text-anchor="middle" font-size="7.5" fill="#9ca3af" font-style="italic">점선: Heitsenrether</text>
+
+      <rect x="510" y="252" width="140" height="50" rx="6" fill="#f59e0b" fill-opacity=".10" stroke="#f59e0b" stroke-width="0.8"/>
+      <text x="580" y="270" text-anchor="middle" font-size="9" font-weight="700" fill="#f59e0b">AWM CDAO</text>
+      <text x="580" y="284" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">실선: AWM CEO</text>
+      <text x="580" y="296" text-anchor="middle" font-size="7.5" fill="#9ca3af" font-style="italic">점선: Heitsenrether</text>
+
+      <rect x="660" y="252" width="200" height="50" rx="6" fill="#f59e0b" fill-opacity=".10" stroke="#f59e0b" stroke-width="0.8"/>
+      <text x="760" y="270" text-anchor="middle" font-size="9" font-weight="700" fill="#f59e0b">Corporate Functions CDAO</text>
+      <text x="760" y="284" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">실선: 각 Function장</text>
+      <text x="760" y="296" text-anchor="middle" font-size="7.5" fill="#9ca3af" font-style="italic">점선: Heitsenrether</text>
+
+      <!-- Dotted line from Heitsenrether to each business CDAO -->
+      <path d="M 460 132 Q 130 200 130 252" fill="none" stroke="#f59e0b" stroke-width="0.7" stroke-dasharray="3,3"/>
+      <path d="M 460 132 Q 280 200 280 252" fill="none" stroke="#f59e0b" stroke-width="0.7" stroke-dasharray="3,3"/>
+      <path d="M 460 132 Q 580 200 580 252" fill="none" stroke="#f59e0b" stroke-width="0.7" stroke-dasharray="3,3"/>
+      <path d="M 460 132 Q 760 200 760 252" fill="none" stroke="#f59e0b" stroke-width="0.7" stroke-dasharray="3,3"/>
+    </svg>
+    <div style="font-size:.74rem;color:var(--text-dim);text-align:center;margin-top:.3rem;font-style:italic">실선 = 본업 보고(사업부장), 점선 = 추가 책임(Heitsenrether). Hub-and-Spoke의 정수.</div>
+  </div>
+
+  <!-- Anthropic RSO -->
+  <div style="padding:1rem 1.2rem;background:var(--card);border:1.5px solid var(--violet);border-radius:10px">
+    <div style="font-size:.88rem;font-weight:700;color:var(--violet);margin-bottom:.5rem">🛡 Anthropic — Responsible Scaling Officer (Frontier 안전 모델)</div>
+    <div style="font-size:.78rem;color:var(--text);line-height:1.85">
+      <strong>Responsible Scaling Officer:</strong> Jared Kaplan (Co-founder/CSO) + Head of Responsible Scaling (별도 신설)<br>
+      <strong>RSP v3.0:</strong> 2026-02-24 효력. ASL(AI Safety Levels) 단계별 안전장치 의무화<br>
+      <strong>ASL-3 safeguards:</strong> 2025-05 가동 (생물·화학·핵 능력에 대비)<br>
+      <strong>의미:</strong> Frontier 모델 개발사는 일반 거버넌스 + Responsible Scaling 별도 조직 필요. 능력이 안전장치를 앞지르면 개발 일시 중단.
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ──────────────────────────────────────
+     섹션 9 — 안티패턴 (실패의 95%)
+     ────────────────────────────────────── -->
+<div class="dia reveal">
+<div class="dia-title">⑨ 안티패턴 — 95% Pilot Purgatory의 진짜 원인</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <!-- 깔때기 SVG -->
+  <div style="background:var(--card);border:1px solid var(--violet-border);border-radius:10px;padding:1rem;margin-bottom:.9rem">
+    <div style="font-size:.85rem;font-weight:700;color:var(--violet);margin-bottom:.5rem;text-align:center">🚫 Pilot Purgatory 깔때기 — MIT/Fortune 2025·IDC 데이터</div>
+    <svg viewBox="0 0 920 240" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <!-- 100% 착수 -->
+      <polygon points="20,30 900,30 820,70 100,70" fill="#22c55e" fill-opacity=".25" stroke="#22c55e" stroke-width="1.2"/>
+      <text x="460" y="55" text-anchor="middle" font-size="13" font-weight="800" fill="#22c55e">100% — AI 이니셔티브 착수 (전 기업 78%)</text>
+
+      <!-- 60% PoC -->
+      <polygon points="100,70 820,70 740,110 180,110" fill="#f59e0b" fill-opacity=".25" stroke="#f59e0b" stroke-width="1.2"/>
+      <text x="460" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="#f59e0b">60% — PoC 단계 진입</text>
+
+      <!-- 12% Production -->
+      <polygon points="180,110 740,110 600,150 320,150" fill="#ef4444" fill-opacity=".30" stroke="#ef4444" stroke-width="1.2"/>
+      <text x="460" y="135" text-anchor="middle" font-size="12" font-weight="700" fill="#ef4444">12% — 프로덕션 도달 (88% PoC 실패, IDC)</text>
+
+      <!-- 5% ROI -->
+      <polygon points="320,150 600,150 540,190 380,190" fill="#ef4444" fill-opacity=".40" stroke="#ef4444" stroke-width="1.5"/>
+      <text x="460" y="175" text-anchor="middle" font-size="11" font-weight="800" fill="#ef4444">5% — 실제 ROI 달성 (95% 실패, MIT/Fortune)</text>
+
+      <!-- 수치 캡션 -->
+      <text x="460" y="225" text-anchor="middle" font-size="9.5" fill="var(--text-dim)" font-style="italic">2025년 42%의 기업이 대부분 AI 이니셔티브 폐기 (전년 17%→). 글로벌 GenAI 투자 $30-40B가 파일럿에 묶임.</text>
+    </svg>
+  </div>
+
+  <!-- 5대 안티패턴 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.7rem">
+    <div style="padding:.85rem 1rem;background:var(--card);border:1px solid #ef444444;border-radius:8px">
+      <div style="font-size:.85rem;font-weight:700;color:#ef4444;margin-bottom:.3rem">⚠ ① Operating Model Inertia</div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.75"><strong>증상:</strong> 사일로, 불명확한 오너십, 정렬되지 않은 인센티브 (McKinsey 2025 #1 원인)<br><strong>방어:</strong> Hub-and-Spoke + CAIO + 명확한 RACI</div>
+    </div>
+    <div style="padding:.85rem 1rem;background:var(--card);border:1px solid #ef444444;border-radius:8px">
+      <div style="font-size:.85rem;font-weight:700;color:#ef4444;margin-bottom:.3rem">⚠ ② Governance Bottleneck</div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.75"><strong>증상:</strong> 위원회가 모든 결정 막음. PoC 1년+ 기다림<br><strong>방어:</strong> 위험 등급별 fast-track (저위험 자동 승인, 고위험만 위원회)</div>
+    </div>
+    <div style="padding:.85rem 1rem;background:var(--card);border:1px solid #ef444444;border-radius:8px">
+      <div style="font-size:.85rem;font-weight:700;color:#ef4444;margin-bottom:.3rem">⚠ ③ Shadow AI</div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.75"><strong>증상:</strong> 부서별 비공식 AI 도입. 중복 vector DB, 고립 GPU, partial MLOps<br><strong>방어:</strong> CoE의 셀프서비스 플랫폼 + 사용 모니터링 + 데이터 거버넌스</div>
+    </div>
+    <div style="padding:.85rem 1rem;background:var(--card);border:1px solid #ef444444;border-radius:8px">
+      <div style="font-size:.85rem;font-weight:700;color:#ef4444;margin-bottom:.3rem">⚠ ④ Pilot Purgatory</div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.75"><strong>증상:</strong> PoC만 계속, 프로덕션 못 감. 33개 중 4개만 성공 (IDC)<br><strong>방어:</strong> 시작부터 production-ready 평가지표 + go/no-go gate</div>
+    </div>
+    <div style="padding:.85rem 1rem;background:var(--card);border:1px solid #ef444444;border-radius:8px">
+      <div style="font-size:.85rem;font-weight:700;color:#ef4444;margin-bottom:.3rem">⚠ ⑤ AI Skill Gap</div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.75"><strong>증상:</strong> BCG·Deloitte 공통 #1 장벽. 채용 어려움 + 이직률 높음<br><strong>방어:</strong> 교육·내부 reskill (Deloitte Q4 #1 전략). 단순 채용보다 효과적</div>
+    </div>
+    <div style="padding:.85rem 1rem;background:var(--card);border:1px solid #ef444444;border-radius:8px">
+      <div style="font-size:.85rem;font-weight:700;color:#ef4444;margin-bottom:.3rem">⚠ ⑥ "도구만 깔고 끝"</div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.75"><strong>증상:</strong> Copilot 라이선스 구매했는데 사용률 30%<br><strong>방어:</strong> 워크플로 재설계까지 가야 진짜 가치 (BCG 2025). 34%만이 reimagine 도달 (Deloitte)</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ──────────────────────────────────────
+     섹션 10 — 한국 회사 6단계 실행 로드맵
+     ────────────────────────────────────── -->
+<div class="dia reveal">
+<div class="dia-title">⑩ 🇰🇷 한국 회사를 위한 6단계 실행 로드맵</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
+    위 모든 내용을 한국 중견기업(1,000~5,000명) 기준으로 6단계 실행 가이드로 응축.
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr;gap:.6rem;margin-bottom:.9rem">
+
+    <div style="display:grid;grid-template-columns:42px 1fr;gap:.7rem;align-items:start">
+      <div style="width:34px;height:34px;border-radius:50%;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem;margin-top:.15rem">1</div>
+      <div style="padding:.8rem 1rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.85">
+        <strong style="color:var(--violet)">조직 모델 선택 (1개월)</strong> — 현재 상태 점검. 직원 1,000명+ 권고: <strong>Hub-and-Spoke로 시작</strong>. 500명 미만: Centralized 5명 코어팀.
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:42px 1fr;gap:.7rem;align-items:start">
+      <div style="width:34px;height:34px;border-radius:50%;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem;margin-top:.15rem">2</div>
+      <div style="padding:.8rem 1rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.85">
+        <strong style="color:var(--violet)">CAIO/CGO 임명 (1개월)</strong> — 한국은 CAIO보다 <strong>CGO(거버넌스 책임자) 모델</strong> 우선 (SK텔레콤 사례). 외부 영입 어려우면 기존 CDO/CSO에 AI 책임 부여. CEO 직속 권고.
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:42px 1fr;gap:.7rem;align-items:start">
+      <div style="width:34px;height:34px;border-radius:50%;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem;margin-top:.15rem">3</div>
+      <div style="padding:.8rem 1rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.85">
+        <strong style="color:var(--violet)">3 위원회 설치 (2개월)</strong> — Steering(분기 1회 임원급) + Ethics(외부 자문 2명 포함) + Risk(컴플라이언스팀 흡수). 모든 위원회 의장은 CAIO/CGO.
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:42px 1fr;gap:.7rem;align-items:start">
+      <div style="width:34px;height:34px;border-radius:50%;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem;margin-top:.15rem">4</div>
+      <div style="padding:.8rem 1rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.85">
+        <strong style="color:var(--violet)">CoE 5~7명 채용 (3개월)</strong> — Leadership 1 + Strategy 1 + Eng 2 + Delivery 1 + Governance 1 + Adoption 1. 핵심은 <strong>Governance·Adoption</strong> — 기술 인력은 외부 컨설팅으로도 가능하지만 거버넌스·교육은 내부 인력 필수.
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:42px 1fr;gap:.7rem;align-items:start">
+      <div style="width:34px;height:34px;border-radius:50%;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem;margin-top:.15rem">5</div>
+      <div style="padding:.8rem 1rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.85">
+        <strong style="color:var(--violet)">3LoD 정착 (6개월)</strong> — 사업부에 1선 책임 부여 (model owner 지정) + 2선은 AI 거버넌스팀 + 3선은 기존 내부감사 확장. 한국 AI 기본법 + EU AI Act 컴플라이언스 매핑.
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:42px 1fr;gap:.7rem;align-items:start">
+      <div style="width:34px;height:34px;border-radius:50%;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem;margin-top:.15rem">6</div>
+      <div style="padding:.8rem 1rem;background:#22c55e15;border-left:3px solid #22c55e;border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.85">
+        <strong style="color:#22c55e">✓ ROI 측정 + 진화 (12개월)</strong> — Stanford HAI·McKinsey 권고 KPI: AI 사용률(사용자/전사), 자동화 시간 절약, 새 수익원, 거버넌스 사고 0건 유지. 성숙도 오르면 <strong>사업부 임베드 확대</strong>.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 핵심 인용 -->
+  <div style="padding:1rem 1.2rem;background:var(--violet-bg);border:1.5px solid var(--violet);border-radius:10px;margin-top:.8rem">
+    <div style="font-size:.85rem;color:var(--text);line-height:1.85;font-style:italic">
+      "AI를 잘 쓰는 기업과 못 쓰는 기업의 차이는 <strong style="color:var(--violet)">모델이나 GPU가 아니라 조직 구조</strong>다. 95%가 실패하는 진짜 이유는 기술이 아닌 <strong style="color:var(--violet)">operating model inertia</strong>(McKinsey 2025). 한국 기업이 마주한 두 마감선 — <strong style="color:#ef4444">2026-01-22 AI 기본법</strong>과 <strong style="color:#ef4444">2026-08-02 EU AI Act</strong> — 은 거버넌스 조직이 더는 자발적 선택이 아니라는 신호다."
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ──────────────────────────────────────
+     Reference 박스
+     ────────────────────────────────────── -->
+<div class="dia reveal">
+<div class="dia-title">📚 Reference — 1차 출처 (모두 2025-2026 1년 이내)</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">
+    <div style="padding:1rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+      <div style="font-size:.88rem;font-weight:700;color:var(--violet);margin-bottom:.5rem">🌐 컨설팅·연구 보고서</div>
+      <ul style="font-size:.75rem;color:var(--text);line-height:1.85;padding-left:1.2rem;margin:0">
+        <li><a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">McKinsey State of AI 2025</a> (Nov 2025)</li>
+        <li><a href="https://www.deloitte.com/us/en/about/press-room/state-of-generative-ai.html" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">Deloitte State of GenAI Enterprise Q4 2025</a></li>
+        <li><a href="https://www.bcg.com/publications/2025/ai-at-work-momentum-builds-but-gaps-remain" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">BCG AI at Work 2025</a> (10,600명·11개국)</li>
+        <li><a href="https://hai.stanford.edu/assets/files/hai_annualreport2025_digital_v5_compressed.pdf" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">Stanford HAI AI Index 2025</a></li>
+        <li><a href="https://newsroom.ibm.com/2026-05-05-think-2026-ibm-delivers-the-blueprint-for-the-ai-operating-model-as-the-ai-divide-widens" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">IBM "Blueprint for AI Operating Model"</a> (2026-05-05)</li>
+        <li><a href="https://www.gartner.com/en/articles/strategic-predictions-for-2026" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">Gartner Strategic Predictions 2026</a></li>
+        <li><a href="https://fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pilots-at-companies-failing-cfo/" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">MIT/Fortune "95% GenAI 파일럿 실패"</a> (2025-08)</li>
+      </ul>
+    </div>
+
+    <div style="padding:1rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+      <div style="font-size:.88rem;font-weight:700;color:var(--violet);margin-bottom:.5rem">🏢 기업·정부 자료</div>
+      <ul style="font-size:.75rem;color:var(--text);line-height:1.85;padding-left:1.2rem;margin:0">
+        <li><a href="https://www.microsoft.com/en-us/ai/responsible-ai" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">Microsoft Responsible AI (AETHER·ORA·RAISE)</a></li>
+        <li><a href="https://www.anthropic.com/responsible-scaling-policy" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">Anthropic RSP v3.0</a> (2026-02-24)</li>
+        <li><a href="https://www.jpmorganchase.com/about/leadership/teresa-heitsenrether" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">JPMC CDAO Teresa Heitsenrether</a></li>
+        <li><a href="https://www.sktelecom.com/view/esg/aigovernance.do" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">SK텔레콤 AI 거버넌스 (T.H.E.AI)</a></li>
+        <li><a href="https://www.kakaocorp.com/page/responsible/detail/algorithm" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">카카오 알고리즘 윤리 헌장</a></li>
+        <li><a href="https://www.lgresearch.ai/" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">LG AI Research</a></li>
+        <li><a href="https://www.fsc.go.kr/comm/getFile?srvcId=BBSTY1&upperNo=85908&fileTy=ATTACH&fileNo=13" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">금융위 금융분야 AI 가이드라인 2025</a></li>
+        <li><a href="https://www.nia.or.kr/site/nia_kor/ex/bbs/View.do?cbIdx=26537&bcIdx=28106&parentSeq=28106" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">NIA AI 데이터 품질관리 가이드라인 v3.5</a></li>
+        <li><a href="https://www.law.go.kr/lsInfoP.do?lsiSeq=268543" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">한국 AI 기본법 (2026-01-22 시행)</a></li>
+        <li><a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">NIST AI RMF</a></li>
+        <li><a href="https://www.iso.org/standard/42001" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">ISO/IEC 42001:2023 AIMS</a></li>
+      </ul>
+    </div>
+  </div>
 </div>
 </div>
 
