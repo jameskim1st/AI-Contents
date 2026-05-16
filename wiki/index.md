@@ -23,6 +23,9 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
   - [MCP Introduction](./sources/web/2026-05-09_mcp-introduction.md) — Model Context Protocol 공식 spec
   - [Composio — APIs for AI Agents 2026](./sources/web/2026-05-09_composio-ai-agent-api-patterns.md) — 5 통합 패턴 비교 (Manveer Chawla, 2026-01)
   - [한국 엔터프라이즈 AI](./sources/web/2026-05-09_korea-enterprise-ai.md) — 망분리·HyperCLOVA X·Brity·KT MI:DM·NCP/KT Cloud·PIPA
+  - [Anthropic Multi-Agent Research System](./sources/web/2026-05-16_anthropic-multi-agent-research.md) — Lead+Sub 패턴, +90.2% / 15× chat 비용 (2025-06)
+  - [Cognition — Don't Build Multi-Agents](./sources/web/2026-05-16_cognition-dont-build-multi-agents.md) — Devin 메이커의 반대 시각, Flappy Bird 사례
+  - [MAST — Multi-Agent Failure Modes](./sources/web/2026-05-16_mast-failure-modes.md) — 14 실패 모드 정량 분석 (arXiv:2503.13657)
   - [Claude Mythos Research (2026-04-30)](./sources/web/2026-04-30_claude-mythos-research.md) — Project Glasswing·샌드박스 탈옥·ASL-4·USAMO 97.6%·zero-day
   - [AI Governance Comprehensive Research (2026-04-30)](./sources/web/2026-04-30_ai-governance-research.md) — 10대 원칙·EU AI Act/NIST/ISO 42001/한국 AI 기본법·3 Lines of Defense·11 사고 연표
 - **`sources/papers/`** — 학술 논문
@@ -50,6 +53,8 @@ Karpathy LLM Wiki 3계층 중 Layer 1. 원본 자료의 메타+요약. 자세히
 - [Plan-Critic-Build](./entities/plan-critic-build.md)
 - [Orchestrator-Worker](./entities/orchestrator-worker.md)
 - [Multi-Agent](./entities/multi-agent.md)
+- [Multi-Agent Topologies](./entities/multi-agent-topologies.md) — 6 토폴로지 + 5 통신 + 6 라우팅 + 종료 4단 방어 ⭐
+- [Multi-Agent Failure Modes (MAST)](./entities/multi-agent-failure-modes.md) — 14 실패 모드 + TOP 5 방어 (Berkeley + MultiOn, 2025)
 - [Narrow Scope](./entities/narrow-scope.md)
 - [Human-in-the-Loop](./entities/human-in-the-loop.md)
 - [RAG](./entities/rag.md)

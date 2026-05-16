@@ -19,6 +19,7 @@
       <a href="#p4-ch10"><span class="cn">10</span>Obs + Evaluation</a>
       <a href="#p4-ch11"><span class="cn">11</span>보안과 비용</a>
       <a href="#p4-ch12"><span class="cn">12</span>프레임워크 결정 가이드</a>
+      <a href="#p4-ch13"><span class="cn">13</span>멀티 에이전트 패턴 완전 분석 ⭐</a>
     </nav>
   </div>
 </div>
@@ -5509,6 +5510,1059 @@ graph = g.compile()
 </div>
 </div>
 
+
+<div class="divider"><hr></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CHAPTER 13: 멀티 에이전트 패턴 완전 분석
+     ═══════════════════════════════════════════════════════════ -->
+<section class="ch reveal" id="p4-ch13">
+<div class="ch-head"><div class="ch-num" style="color:var(--violet)">13</div><h2 class="ch-title">멀티 에이전트 패턴 완전 분석 — 토폴로지·통신·실패모드 ⭐</h2></div>
+
+<p class="section-desc">에이전트 1개로 시작했지만 작업이 복잡해지면 자연스럽게 "여러 에이전트가 협업"하는 구조로 가게 됩니다. 그런데 막상 도입하면 <strong style="color:var(--accent)">비용 15배</strong>, 무한 루프, 결과 충돌 같은 문제가 쏟아집니다. 이 챕터는 6가지 표준 토폴로지·5가지 통신 메커니즘·14가지 실패 모드를 <strong style="color:var(--violet)">원리 수준에서 해부</strong>합니다. 출처는 Anthropic Engineering(2025-06), Cognition AI(Devin 메이커), MAST 논문(UC Berkeley + MultiOn, 2025-03), LangChain LangGraph 공식 문서.</p>
+
+<!-- ── SECTION 1: 언제 멀티 에이전트가 필요한가 ── -->
+<div class="dia reveal">
+<div class="dia-title">🎯 먼저 — 멀티 에이전트가 필요한 순간은 의외로 드물다</div>
+<div style="max-width:880px;margin:0 auto">
+
+  <!-- 핵심 인용 박스 -->
+  <div style="padding:1rem 1.2rem;background:var(--violet-bg);border:1px solid var(--violet-border);border-radius:10px;margin-bottom:1rem">
+    <div style="font-size:.85rem;color:var(--text);line-height:1.85">
+      <strong style="color:var(--violet)">"Start with a single agent. A well-designed single agent with appropriate tools can accomplish far more than many developers expect."</strong><br>
+      <span style="font-size:.78rem;color:var(--text-dim)">— Anthropic Engineering, 2025-06 (Claude Multi-Agent Research System 만든 팀의 권고)</span>
+    </div>
+  </div>
+
+  <!-- 3가지 조건 -->
+  <div style="font-size:.85rem;color:var(--text);line-height:1.85;margin-bottom:.9rem">
+    Anthropic과 Cognition(Devin 메이커)이 모두 동의 — 멀티 에이전트는 다음 <strong style="color:var(--violet)">3가지 중 하나라도 명백할 때만</strong> 도입합니다. 그 외에는 단일 에이전트가 거의 항상 우월:
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem;margin-bottom:1rem">
+
+    <div style="padding:.9rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);margin-bottom:.3rem">CONDITION 1</div>
+      <div style="font-size:.92rem;font-weight:700;color:var(--violet);margin-bottom:.4rem">컨텍스트 오염</div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.75">단일 에이전트에 모든 정보를 주면 핵심 흐름이 잡음에 묻힘. 예: 100개 문서를 전부 읽고 답해야 할 때.</div>
+    </div>
+
+    <div style="padding:.9rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);margin-bottom:.3rem">CONDITION 2</div>
+      <div style="font-size:.92rem;font-weight:700;color:var(--violet);margin-bottom:.4rem">진짜 병렬 가능</div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.75">독립적 sub-task가 동시 진행 가능. 예: 5개 회사 동시 리서치, 결과는 마지막에 종합.</div>
+    </div>
+
+    <div style="padding:.9rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+      <div style="font-family:var(--mono);font-size:.7rem;color:var(--violet);margin-bottom:.3rem">CONDITION 3</div>
+      <div style="font-size:.92rem;font-weight:700;color:var(--violet);margin-bottom:.4rem">Tool 폭증</div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.75">50+ tool 시 단일 에이전트의 선택 정확도 ↓. 영역별 전문 에이전트로 분리하면 회복.</div>
+    </div>
+
+  </div>
+
+  <!-- 비용 현실 (가장 중요한 도식) -->
+  <div style="background:var(--card);border:1px solid var(--accent-border);border-radius:10px;padding:1rem;margin-bottom:.9rem">
+    <div style="font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:.6rem;text-align:center">💰 비용 현실 (Anthropic 실제 측정, 2025-06)</div>
+    <svg viewBox="0 0 880 180" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="ch13-bar-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+
+      <!-- y axis label -->
+      <text x="30" y="30" font-size="9.5" fill="var(--text-dim)" font-weight="600">토큰 비용 (chat 대비 배수)</text>
+
+      <!-- 1× bar -->
+      <rect x="100" y="120" width="180" height="40" fill="#22c55e" fill-opacity=".25" stroke="#22c55e" stroke-width="1"/>
+      <text x="190" y="145" text-anchor="middle" font-size="11" font-weight="700" fill="#22c55e">1× (일반 chat)</text>
+      <text x="190" y="175" text-anchor="middle" font-size="9" fill="var(--text-dim)">기준선</text>
+
+      <!-- 4× bar -->
+      <rect x="300" y="60" width="180" height="100" fill="#f59e0b" fill-opacity=".25" stroke="#f59e0b" stroke-width="1"/>
+      <text x="390" y="115" text-anchor="middle" font-size="11" font-weight="700" fill="#f59e0b">4× (Single-agent)</text>
+      <text x="390" y="175" text-anchor="middle" font-size="9" fill="var(--text-dim)">tool 사용 추가</text>
+
+      <!-- 15× bar -->
+      <rect x="500" y="40" width="280" height="120" fill="#d04a02" fill-opacity=".30" stroke="#d04a02" stroke-width="1.5"/>
+      <text x="640" y="105" text-anchor="middle" font-size="13" font-weight="800" fill="#d04a02">15× (Multi-agent)</text>
+      <text x="640" y="175" text-anchor="middle" font-size="9" fill="var(--text-dim)">3~5 sub-agent 병렬</text>
+
+      <!-- 화살표·캡션 -->
+      <text x="440" y="20" text-anchor="middle" font-size="10" font-style="italic" fill="#d04a02" font-weight="700">↑ 단일 에이전트 → 멀티로 가면 비용 4배 추가</text>
+    </svg>
+  </div>
+
+  <!-- Cognition 반대 시각 -->
+  <div style="padding:.85rem 1rem;background:#ef444415;border:1px solid #ef444444;border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.85">
+    <strong style="color:#ef4444">🚧 Cognition (Devin 메이커)의 반대 시각:</strong> "Don't Build Multi-Agents" 글에서 강하게 경고. Flappy Bird 사례 — sub-agent 1이 Super Mario풍 배경, sub-agent 2가 Star Wars풍 캐릭터를 만들면 parent agent가 통합 불가. 결론: <strong>"Writes는 single-threaded, Reads(검색·분석)만 multi-agent 허용"</strong>.
+  </div>
+</div>
+</div>
+
+<!-- ── SECTION 2: 6가지 토폴로지 ── -->
+<div class="dia reveal">
+<div class="dia-title">🏗️ 6가지 표준 토폴로지 — 그림으로 한 번에 비교</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
+    멀티 에이전트 시스템의 모든 구조는 결국 이 6가지 중 하나(또는 조합). 각각 <strong>라우팅 결정자</strong>, <strong>통신 방식</strong>, <strong>실패 패턴</strong>이 다름.
+  </div>
+
+  <!-- 6 토폴로지 카드 그리드 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1rem">
+
+    <!-- ① Supervisor -->
+    <div style="padding:.95rem;background:var(--card);border:1.5px solid var(--violet);border-radius:12px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem">
+        <div style="font-size:.95rem;font-weight:700;color:var(--violet)">① Supervisor (사실상 표준)</div>
+        <div style="font-family:var(--mono);font-size:.68rem;color:var(--violet)">가장 안정</div>
+      </div>
+      <svg viewBox="0 0 350 160" style="max-width:100%;height:auto;display:block;margin:0 auto .5rem" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="t1-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+        <rect x="130" y="15" width="90" height="40" rx="8" fill="#a78bfa" fill-opacity=".25" stroke="#a78bfa" stroke-width="1.2"/>
+        <text x="175" y="32" text-anchor="middle" font-size="10" font-weight="700" fill="#a78bfa">Supervisor</text>
+        <text x="175" y="46" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">routing LLM</text>
+
+        <line x1="155" y1="55" x2="65" y2="90" stroke="#9ca3af" stroke-width="1" marker-end="url(#t1-ar)"/>
+        <line x1="65" y1="105" x2="155" y2="70" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="2,2" marker-end="url(#t1-ar)"/>
+        <line x1="175" y1="55" x2="175" y2="90" stroke="#9ca3af" stroke-width="1" marker-end="url(#t1-ar)"/>
+        <line x1="170" y1="105" x2="170" y2="70" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="2,2" marker-end="url(#t1-ar)"/>
+        <line x1="195" y1="55" x2="285" y2="90" stroke="#9ca3af" stroke-width="1" marker-end="url(#t1-ar)"/>
+        <line x1="285" y1="105" x2="195" y2="70" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="2,2" marker-end="url(#t1-ar)"/>
+
+        <rect x="20" y="90" width="90" height="35" rx="6" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+        <text x="65" y="112" text-anchor="middle" font-size="9.5" fill="var(--text)">Worker 1</text>
+        <rect x="130" y="90" width="90" height="35" rx="6" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+        <text x="175" y="112" text-anchor="middle" font-size="9.5" fill="var(--text)">Worker 2</text>
+        <rect x="240" y="90" width="90" height="35" rx="6" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+        <text x="285" y="112" text-anchor="middle" font-size="9.5" fill="var(--text)">Worker 3</text>
+
+        <text x="175" y="150" text-anchor="middle" font-size="8" fill="#9ca3af" font-style="italic">실선=위임 / 점선=결과 반환</text>
+      </svg>
+      <div style="font-size:.72rem;color:var(--text);line-height:1.7">
+        <strong style="color:var(--violet)">결정:</strong> Supervisor LLM이 구조화 출력 (<code style="font-size:.85em">RouteResponse(next=...)</code>)<br>
+        <strong style="color:var(--violet)">통신:</strong> Shared state<br>
+        <strong style="color:var(--violet)">종료:</strong> <code style="font-size:.85em">"FINISH"</code> 토큰<br>
+        <strong style="color:var(--violet)">대표:</strong> LangGraph Supervisor, Anthropic Multi-Agent Research
+      </div>
+    </div>
+
+    <!-- ② Network -->
+    <div style="padding:.95rem;background:var(--card);border:1px solid var(--violet-border);border-radius:12px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem">
+        <div style="font-size:.95rem;font-weight:700;color:var(--violet)">② Network (Peer-to-peer)</div>
+        <div style="font-family:var(--mono);font-size:.68rem;color:#ef4444">디버깅 지옥 ⚠</div>
+      </div>
+      <svg viewBox="0 0 350 160" style="max-width:100%;height:auto;display:block;margin:0 auto .5rem" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="t2-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+        <!-- 4 nodes -->
+        <circle cx="175" cy="35" r="22" fill="#a78bfa" fill-opacity=".20" stroke="#a78bfa" stroke-width="1"/>
+        <text x="175" y="40" text-anchor="middle" font-size="10" font-weight="700" fill="#a78bfa">A1</text>
+        <circle cx="290" cy="80" r="22" fill="#a78bfa" fill-opacity=".20" stroke="#a78bfa" stroke-width="1"/>
+        <text x="290" y="85" text-anchor="middle" font-size="10" font-weight="700" fill="#a78bfa">A2</text>
+        <circle cx="60" cy="80" r="22" fill="#a78bfa" fill-opacity=".20" stroke="#a78bfa" stroke-width="1"/>
+        <text x="60" y="85" text-anchor="middle" font-size="10" font-weight="700" fill="#a78bfa">A3</text>
+        <circle cx="175" cy="130" r="22" fill="#a78bfa" fill-opacity=".20" stroke="#a78bfa" stroke-width="1"/>
+        <text x="175" y="135" text-anchor="middle" font-size="10" font-weight="700" fill="#a78bfa">A4</text>
+        <!-- edges (K4: 6개) -->
+        <line x1="80" y1="80" x2="155" y2="42" stroke="#9ca3af" stroke-width="0.7"/>
+        <line x1="80" y1="80" x2="270" y2="80" stroke="#9ca3af" stroke-width="0.7"/>
+        <line x1="80" y1="92" x2="155" y2="125" stroke="#9ca3af" stroke-width="0.7"/>
+        <line x1="195" y1="35" x2="275" y2="68" stroke="#9ca3af" stroke-width="0.7"/>
+        <line x1="195" y1="125" x2="275" y2="92" stroke="#9ca3af" stroke-width="0.7"/>
+        <line x1="175" y1="60" x2="175" y2="108" stroke="#9ca3af" stroke-width="0.7"/>
+      </svg>
+      <div style="font-size:.72rem;color:var(--text);line-height:1.7">
+        <strong style="color:var(--violet)">결정:</strong> 현재 agent가 <code style="font-size:.85em">Command(goto="...")</code><br>
+        <strong style="color:var(--violet)">통신:</strong> Shared state + Command<br>
+        <strong style="color:#ef4444">위험:</strong> <strong>무한 핑퐁</strong>, MAST 통계로 step repetition 17%가 여기서<br>
+        <strong style="color:var(--violet)">권고:</strong> 첫 도입 비추천. 익숙해진 후만
+      </div>
+    </div>
+
+    <!-- ③ Hierarchical -->
+    <div style="padding:.95rem;background:var(--card);border:1px solid var(--violet-border);border-radius:12px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem">
+        <div style="font-size:.95rem;font-weight:700;color:var(--violet)">③ Hierarchical (Team of Teams)</div>
+        <div style="font-family:var(--mono);font-size:.68rem;color:var(--violet)">대규모 확장</div>
+      </div>
+      <svg viewBox="0 0 350 160" style="max-width:100%;height:auto;display:block;margin:0 auto .5rem" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="t3-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+        <!-- Top supervisor -->
+        <rect x="130" y="10" width="90" height="30" rx="6" fill="#a78bfa" fill-opacity=".30" stroke="#a78bfa" stroke-width="1.2"/>
+        <text x="175" y="29" text-anchor="middle" font-size="9" font-weight="700" fill="#a78bfa">Top-Sup</text>
+        <!-- arrows down -->
+        <line x1="155" y1="40" x2="90" y2="60" stroke="#9ca3af" stroke-width="1" marker-end="url(#t3-ar)"/>
+        <line x1="195" y1="40" x2="260" y2="60" stroke="#9ca3af" stroke-width="1" marker-end="url(#t3-ar)"/>
+        <!-- Team supervisors -->
+        <rect x="40" y="62" width="100" height="28" rx="6" fill="#a78bfa" fill-opacity=".18" stroke="#a78bfa" stroke-width="1"/>
+        <text x="90" y="80" text-anchor="middle" font-size="9" font-weight="700" fill="#a78bfa">Team-A Sup</text>
+        <rect x="210" y="62" width="100" height="28" rx="6" fill="#a78bfa" fill-opacity=".18" stroke="#a78bfa" stroke-width="1"/>
+        <text x="260" y="80" text-anchor="middle" font-size="9" font-weight="700" fill="#a78bfa">Team-B Sup</text>
+        <!-- workers -->
+        <line x1="65" y1="90" x2="50" y2="110" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#t3-ar)"/>
+        <line x1="115" y1="90" x2="130" y2="110" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#t3-ar)"/>
+        <line x1="235" y1="90" x2="220" y2="110" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#t3-ar)"/>
+        <line x1="285" y1="90" x2="300" y2="110" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#t3-ar)"/>
+        <rect x="20" y="112" width="60" height="25" rx="5" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+        <text x="50" y="129" text-anchor="middle" font-size="8.5" fill="var(--text)">A1</text>
+        <rect x="100" y="112" width="60" height="25" rx="5" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+        <text x="130" y="129" text-anchor="middle" font-size="8.5" fill="var(--text)">A2</text>
+        <rect x="190" y="112" width="60" height="25" rx="5" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+        <text x="220" y="129" text-anchor="middle" font-size="8.5" fill="var(--text)">B1</text>
+        <rect x="270" y="112" width="60" height="25" rx="5" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+        <text x="300" y="129" text-anchor="middle" font-size="8.5" fill="var(--text)">B2</text>
+        <text x="175" y="155" text-anchor="middle" font-size="8" fill="#9ca3af" font-style="italic">Team끼리 escalate: Command.PARENT</text>
+      </svg>
+      <div style="font-size:.72rem;color:var(--text);line-height:1.7">
+        <strong style="color:var(--violet)">결정:</strong> 각 supervisor가 자기 팀 routing<br>
+        <strong style="color:var(--violet)">통신:</strong> 팀별 sub-state + 부모 state<br>
+        <strong style="color:#ef4444">위험:</strong> 깊이 ≥3 시 latency 폭증<br>
+        <strong style="color:var(--violet)">대표:</strong> LangGraph hierarchical, CrewAI
+      </div>
+    </div>
+
+    <!-- ④ Sequential -->
+    <div style="padding:.95rem;background:var(--card);border:1px solid var(--violet-border);border-radius:12px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem">
+        <div style="font-size:.95rem;font-weight:700;color:var(--violet)">④ Sequential (Pipeline)</div>
+        <div style="font-family:var(--mono);font-size:.68rem;color:#22c55e">가장 예측 가능</div>
+      </div>
+      <svg viewBox="0 0 350 160" style="max-width:100%;height:auto;display:block;margin:0 auto .5rem" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="t4-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+        <rect x="15" y="55" width="60" height="50" rx="8" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+        <text x="45" y="78" text-anchor="middle" font-size="9.5" fill="var(--text)" font-weight="600">Input</text>
+        <text x="45" y="95" text-anchor="middle" font-size="7.5" fill="#9ca3af">사용자</text>
+        <line x1="77" y1="80" x2="103" y2="80" stroke="#9ca3af" stroke-width="1" marker-end="url(#t4-ar)"/>
+
+        <rect x="105" y="55" width="55" height="50" rx="8" fill="#a78bfa" fill-opacity=".20" stroke="#a78bfa" stroke-width="1"/>
+        <text x="132" y="78" text-anchor="middle" font-size="10" font-weight="700" fill="#a78bfa">A1</text>
+        <text x="132" y="95" text-anchor="middle" font-size="7" fill="#9ca3af">PM</text>
+        <line x1="162" y1="80" x2="188" y2="80" stroke="#9ca3af" stroke-width="1" marker-end="url(#t4-ar)"/>
+
+        <rect x="190" y="55" width="55" height="50" rx="8" fill="#a78bfa" fill-opacity=".20" stroke="#a78bfa" stroke-width="1"/>
+        <text x="217" y="78" text-anchor="middle" font-size="10" font-weight="700" fill="#a78bfa">A2</text>
+        <text x="217" y="95" text-anchor="middle" font-size="7" fill="#9ca3af">설계</text>
+        <line x1="247" y1="80" x2="273" y2="80" stroke="#9ca3af" stroke-width="1" marker-end="url(#t4-ar)"/>
+
+        <rect x="275" y="55" width="60" height="50" rx="8" style="fill:var(--surface);stroke:#22c55e" stroke-width="1"/>
+        <text x="305" y="78" text-anchor="middle" font-size="9.5" fill="#22c55e" font-weight="600">Output</text>
+        <text x="305" y="95" text-anchor="middle" font-size="7.5" fill="#9ca3af">결과물</text>
+
+        <text x="175" y="135" text-anchor="middle" font-size="8" fill="#9ca3af" font-style="italic">예: MetaGPT (PM → 설계 → 엔지니어 → QA)</text>
+      </svg>
+      <div style="font-size:.72rem;color:var(--text);line-height:1.7">
+        <strong style="color:var(--violet)">결정:</strong> 코드 (정해진 순서)<br>
+        <strong style="color:var(--violet)">통신:</strong> A1.output → A2.input<br>
+        <strong style="color:#22c55e">장점:</strong> 디버깅 가장 쉬움<br>
+        <strong style="color:var(--violet)">대표:</strong> CrewAI sequential, MetaGPT, LLMCompiler
+      </div>
+    </div>
+
+    <!-- ⑤ Swarm -->
+    <div style="padding:.95rem;background:var(--card);border:1px solid var(--violet-border);border-radius:12px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem">
+        <div style="font-size:.95rem;font-weight:700;color:var(--violet)">⑤ Swarm (Handoff)</div>
+        <div style="font-family:var(--mono);font-size:.68rem;color:var(--violet)">OpenAI 표준</div>
+      </div>
+      <svg viewBox="0 0 350 160" style="max-width:100%;height:auto;display:block;margin:0 auto .5rem" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="t5-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+        <rect x="20" y="55" width="80" height="50" rx="8" fill="#a78bfa" fill-opacity=".20" stroke="#a78bfa" stroke-width="1"/>
+        <text x="60" y="78" text-anchor="middle" font-size="10" font-weight="700" fill="#a78bfa">A1</text>
+        <text x="60" y="93" text-anchor="middle" font-size="7" fill="#9ca3af">Triage</text>
+
+        <line x1="102" y1="80" x2="138" y2="80" stroke="#a78bfa" stroke-width="1" marker-end="url(#t5-ar)"/>
+        <text x="120" y="72" text-anchor="middle" font-size="7.5" fill="#a78bfa" font-family="var(--mono)">transfer_to_A2()</text>
+
+        <rect x="140" y="55" width="80" height="50" rx="8" fill="#a78bfa" fill-opacity=".20" stroke="#a78bfa" stroke-width="1"/>
+        <text x="180" y="78" text-anchor="middle" font-size="10" font-weight="700" fill="#a78bfa">A2</text>
+        <text x="180" y="93" text-anchor="middle" font-size="7" fill="#9ca3af">전문 A</text>
+
+        <line x1="222" y1="80" x2="258" y2="80" stroke="#a78bfa" stroke-width="1" marker-end="url(#t5-ar)"/>
+        <text x="240" y="72" text-anchor="middle" font-size="7.5" fill="#a78bfa" font-family="var(--mono)">transfer_to_A3()</text>
+
+        <rect x="260" y="55" width="80" height="50" rx="8" fill="#a78bfa" fill-opacity=".20" stroke="#a78bfa" stroke-width="1"/>
+        <text x="300" y="78" text-anchor="middle" font-size="10" font-weight="700" fill="#a78bfa">A3</text>
+        <text x="300" y="93" text-anchor="middle" font-size="7" fill="#9ca3af">전문 B</text>
+
+        <text x="175" y="135" text-anchor="middle" font-size="8" fill="#9ca3af" font-style="italic">중앙 조정자 없음 — 각 agent가 다음 agent 함수 호출로 지명</text>
+      </svg>
+      <div style="font-size:.72rem;color:var(--text);line-height:1.7">
+        <strong style="color:var(--violet)">결정:</strong> 현재 agent의 handoff function (<code style="font-size:.85em">return agent_X</code>)<br>
+        <strong style="color:var(--violet)">통신:</strong> Handoff 시 conversation 전체 전달<br>
+        <strong style="color:#ef4444">위험:</strong> 누가 끝낼지 불명확 (MAST: 9.82%)<br>
+        <strong style="color:var(--violet)">대표:</strong> OpenAI Swarm / Agents SDK
+      </div>
+    </div>
+
+    <!-- ⑥ Group Chat -->
+    <div style="padding:.95rem;background:var(--card);border:1px solid var(--violet-border);border-radius:12px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem">
+        <div style="font-size:.95rem;font-weight:700;color:var(--violet)">⑥ Group Chat (Broadcast)</div>
+        <div style="font-family:var(--mono);font-size:.68rem;color:var(--violet)">AutoGen 표준</div>
+      </div>
+      <svg viewBox="0 0 350 160" style="max-width:100%;height:auto;display:block;margin:0 auto .5rem" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="t6-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+        <!-- Manager 위 -->
+        <rect x="130" y="10" width="90" height="32" rx="6" fill="#a78bfa" fill-opacity=".30" stroke="#a78bfa" stroke-width="1.2"/>
+        <text x="175" y="30" text-anchor="middle" font-size="9.5" font-weight="700" fill="#a78bfa">Manager (선택)</text>
+        <!-- shared topic 가로선 -->
+        <rect x="20" y="68" width="310" height="22" rx="11" fill="#22c55e" fill-opacity=".08" stroke="#22c55e" stroke-width="1" stroke-dasharray="3,2"/>
+        <text x="175" y="83" text-anchor="middle" font-size="9" fill="#22c55e" font-weight="700">📡 Shared Topic (pub/sub)</text>
+        <!-- manager → topic (양방향) -->
+        <line x1="175" y1="42" x2="175" y2="65" stroke="#9ca3af" stroke-width="0.7"/>
+        <line x1="170" y1="65" x2="170" y2="42" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="2,2"/>
+        <!-- agents 아래 -->
+        <line x1="80" y1="93" x2="80" y2="115" stroke="#9ca3af" stroke-width="0.7"/>
+        <line x1="85" y1="115" x2="85" y2="93" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="2,2"/>
+        <line x1="175" y1="93" x2="175" y2="115" stroke="#9ca3af" stroke-width="0.7"/>
+        <line x1="180" y1="115" x2="180" y2="93" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="2,2"/>
+        <line x1="270" y1="93" x2="270" y2="115" stroke="#9ca3af" stroke-width="0.7"/>
+        <line x1="275" y1="115" x2="275" y2="93" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="2,2"/>
+
+        <rect x="50" y="115" width="65" height="30" rx="6" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+        <text x="82" y="134" text-anchor="middle" font-size="9.5" fill="var(--text)">A1</text>
+        <rect x="142" y="115" width="65" height="30" rx="6" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+        <text x="174" y="134" text-anchor="middle" font-size="9.5" fill="var(--text)">A2</text>
+        <rect x="237" y="115" width="65" height="30" rx="6" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+        <text x="269" y="134" text-anchor="middle" font-size="9.5" fill="var(--text)">A3</text>
+      </svg>
+      <div style="font-size:.72rem;color:var(--text);line-height:1.7">
+        <strong style="color:var(--violet)">결정:</strong> Manager LLM 4 모드 (round_robin · random · manual · auto)<br>
+        <strong style="color:var(--violet)">통신:</strong> Pub/sub event bus<br>
+        <strong style="color:#ef4444">위험:</strong> Context bloat 가속 (모두가 모든 메시지 읽음)<br>
+        <strong style="color:var(--violet)">대표:</strong> AutoGen GroupChat, Magentic-One
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 선택 가이드 -->
+  <div style="padding:.85rem 1rem;background:var(--violet-bg);border:1px solid var(--violet-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.85">
+    <strong style="color:var(--violet)">📌 첫 도입 가이드:</strong> ① <strong>Supervisor</strong>로 시작 → 팀이 커지면 ③ <strong>Hierarchical</strong>로 분할 → 순서가 명확한 작업은 ④ <strong>Sequential</strong>. ② Network는 익숙해진 뒤만, ⑥ Group Chat은 토론·합의가 필요할 때만 (회의록 작성 같은 토론 시뮬레이션). ⑤ Swarm은 OpenAI 생태계 종속.
+  </div>
+</div>
+</div>
+
+<!-- ── SECTION 3: 통신 메커니즘 ── -->
+<div class="dia reveal">
+<div class="dia-title">📡 5가지 통신 메커니즘 — 데이터가 어떻게 흐르나</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
+    토폴로지가 "노드 배치"라면 통신 메커니즘은 "데이터 전달 방식". 같은 Supervisor 토폴로지도 어떤 통신을 쓰느냐에 따라 동작이 완전히 다름.
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr;gap:.7rem;margin-bottom:1rem">
+
+    <!-- Comm 1: Shared State -->
+    <div style="padding:.9rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:1rem;align-items:center">
+        <div>
+          <div style="font-size:.92rem;font-weight:700;color:var(--violet);margin-bottom:.3rem">① Shared State (dict + reducer)</div>
+          <div style="font-size:.72rem;color:var(--text);line-height:1.7">
+            모든 agent가 같은 state(dict)를 읽고 씀. <strong>Reducer 함수</strong>로 여러 agent의 write를 자동 merge.<br>
+            <strong style="color:var(--violet)">대표:</strong> LangGraph <code style="font-size:.85em">MessagesState</code>
+          </div>
+        </div>
+        <svg viewBox="0 0 380 100" style="max-width:100%;height:auto;display:block" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="c1-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+          <rect x="140" y="35" width="110" height="35" rx="6" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1.2"/>
+          <text x="195" y="51" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">📦 Shared State</text>
+          <text x="195" y="64" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">{messages: [...], next: ...}</text>
+
+          <rect x="20" y="10" width="50" height="25" rx="5" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+          <text x="45" y="27" text-anchor="middle" font-size="9" fill="var(--text)">A1</text>
+          <line x1="72" y1="22" x2="138" y2="40" stroke="#9ca3af" stroke-width="0.8" marker-end="url(#c1-ar)"/>
+          <line x1="138" y1="48" x2="72" y2="30" stroke="#9ca3af" stroke-width="0.8" stroke-dasharray="2,2" marker-end="url(#c1-ar)"/>
+
+          <rect x="20" y="75" width="50" height="25" rx="5" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+          <text x="45" y="92" text-anchor="middle" font-size="9" fill="var(--text)">A2</text>
+          <line x1="72" y1="80" x2="138" y2="62" stroke="#9ca3af" stroke-width="0.8" marker-end="url(#c1-ar)"/>
+          <line x1="138" y1="54" x2="72" y2="72" stroke="#9ca3af" stroke-width="0.8" stroke-dasharray="2,2" marker-end="url(#c1-ar)"/>
+
+          <rect x="310" y="10" width="50" height="25" rx="5" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+          <text x="335" y="27" text-anchor="middle" font-size="9" fill="var(--text)">A3</text>
+          <line x1="252" y1="40" x2="308" y2="22" stroke="#9ca3af" stroke-width="0.8" marker-end="url(#c1-ar)"/>
+          <line x1="308" y1="30" x2="252" y2="48" stroke="#9ca3af" stroke-width="0.8" stroke-dasharray="2,2" marker-end="url(#c1-ar)"/>
+
+          <rect x="310" y="75" width="50" height="25" rx="5" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+          <text x="335" y="92" text-anchor="middle" font-size="9" fill="var(--text)">A4</text>
+          <line x1="252" y1="62" x2="308" y2="80" stroke="#9ca3af" stroke-width="0.8" marker-end="url(#c1-ar)"/>
+          <line x1="308" y1="72" x2="252" y2="54" stroke="#9ca3af" stroke-width="0.8" stroke-dasharray="2,2" marker-end="url(#c1-ar)"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Comm 2: Message Passing -->
+    <div style="padding:.9rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:1rem;align-items:center">
+        <div>
+          <div style="font-size:.92rem;font-weight:700;color:var(--violet);margin-bottom:.3rem">② Message Passing</div>
+          <div style="font-size:.72rem;color:var(--text);line-height:1.7">
+            명시적 메시지가 다음 agent의 input. 누가 누구에게 무엇을 전달하는지 코드에 명시.<br>
+            <strong style="color:var(--violet)">대표:</strong> AutoGen, CrewAI
+          </div>
+        </div>
+        <svg viewBox="0 0 380 80" style="max-width:100%;height:auto;display:block" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="c2-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+          <rect x="20" y="25" width="60" height="30" rx="6" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+          <text x="50" y="44" text-anchor="middle" font-size="10" fill="var(--text)">A1</text>
+          <line x1="82" y1="40" x2="158" y2="40" stroke="#9ca3af" stroke-width="1" marker-end="url(#c2-ar)"/>
+          <text x="120" y="32" text-anchor="middle" font-size="8" fill="#9ca3af" font-style="italic">message</text>
+          <rect x="160" y="25" width="60" height="30" rx="6" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+          <text x="190" y="44" text-anchor="middle" font-size="10" fill="var(--text)">A2</text>
+          <line x1="222" y1="40" x2="298" y2="40" stroke="#9ca3af" stroke-width="1" marker-end="url(#c2-ar)"/>
+          <text x="260" y="32" text-anchor="middle" font-size="8" fill="#9ca3af" font-style="italic">message</text>
+          <rect x="300" y="25" width="60" height="30" rx="6" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+          <text x="330" y="44" text-anchor="middle" font-size="10" fill="var(--text)">A3</text>
+          <text x="190" y="75" text-anchor="middle" font-size="8" fill="#9ca3af" font-style="italic">한 방향 — A1만 A2를 알고, A2만 A3를 앎</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Comm 3: Handoff -->
+    <div style="padding:.9rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:1rem;align-items:center">
+        <div>
+          <div style="font-size:.92rem;font-weight:700;color:var(--violet);margin-bottom:.3rem">③ Handoff (with full context)</div>
+          <div style="font-size:.72rem;color:var(--text);line-height:1.7">
+            함수가 다음 agent 객체를 return → 제어권 + 대화 전체 전달. <strong>"바통 넘기기"</strong>.<br>
+            <strong style="color:var(--violet)">대표:</strong> OpenAI Swarm, LangGraph <code style="font-size:.85em">Command</code>
+          </div>
+        </div>
+        <svg viewBox="0 0 380 80" style="max-width:100%;height:auto;display:block" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="c3-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+          <rect x="20" y="25" width="80" height="35" rx="8" fill="#a78bfa" fill-opacity=".15" stroke="#a78bfa" stroke-width="1"/>
+          <text x="60" y="42" text-anchor="middle" font-size="9.5" font-weight="700" fill="#a78bfa">Agent A</text>
+          <text x="60" y="54" text-anchor="middle" font-size="7.5" fill="#9ca3af">+ history</text>
+
+          <line x1="102" y1="42" x2="178" y2="42" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#c3-ar)"/>
+          <text x="140" y="32" text-anchor="middle" font-size="8" fill="#a78bfa" font-family="var(--mono)" font-weight="600">return agent_B</text>
+          <text x="140" y="58" text-anchor="middle" font-size="7.5" fill="#9ca3af" font-style="italic">+ 대화 통째로</text>
+
+          <rect x="180" y="25" width="80" height="35" rx="8" fill="#a78bfa" fill-opacity=".15" stroke="#a78bfa" stroke-width="1"/>
+          <text x="220" y="42" text-anchor="middle" font-size="9.5" font-weight="700" fill="#a78bfa">Agent B</text>
+          <text x="220" y="54" text-anchor="middle" font-size="7.5" fill="#9ca3af">+ same history</text>
+
+          <line x1="262" y1="42" x2="298" y2="42" stroke="#9ca3af" stroke-width="0.8" stroke-dasharray="3,2" marker-end="url(#c3-ar)"/>
+          <text x="335" y="46" text-anchor="middle" font-size="9" fill="var(--text-dim)">...</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Comm 4: Pub/Sub -->
+    <div style="padding:.9rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:1rem;align-items:center">
+        <div>
+          <div style="font-size:.92rem;font-weight:700;color:var(--violet);margin-bottom:.3rem">④ Pub/Sub Event Bus</div>
+          <div style="font-size:.72rem;color:var(--text);line-height:1.7">
+            Topic 구독, broadcast. 누가 보냈는지·누가 받는지 느슨하게 결합.<br>
+            <strong style="color:var(--violet)">대표:</strong> AutoGen GroupChat, A2A protocol
+          </div>
+        </div>
+        <svg viewBox="0 0 380 90" style="max-width:100%;height:auto;display:block" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="c4-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+          <rect x="80" y="35" width="220" height="20" rx="10" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="1" stroke-dasharray="3,2"/>
+          <text x="190" y="48" text-anchor="middle" font-size="9" fill="#22c55e" font-weight="700">📡 Topic (event bus)</text>
+          <rect x="20" y="8" width="50" height="22" rx="5" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+          <text x="45" y="24" text-anchor="middle" font-size="9" fill="var(--text)">A1</text>
+          <line x1="45" y1="32" x2="100" y2="36" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#c4-ar)"/>
+          <rect x="155" y="8" width="50" height="22" rx="5" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+          <text x="180" y="24" text-anchor="middle" font-size="9" fill="var(--text)">A2</text>
+          <line x1="180" y1="32" x2="180" y2="36" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#c4-ar)"/>
+          <rect x="290" y="8" width="50" height="22" rx="5" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+          <text x="315" y="24" text-anchor="middle" font-size="9" fill="var(--text)">A3</text>
+          <line x1="315" y1="32" x2="280" y2="36" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#c4-ar)"/>
+
+          <rect x="80" y="65" width="50" height="22" rx="5" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+          <text x="105" y="80" text-anchor="middle" font-size="9" fill="var(--text)">B1</text>
+          <line x1="135" y1="55" x2="115" y2="64" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#c4-ar)"/>
+          <rect x="180" y="65" width="50" height="22" rx="5" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+          <text x="205" y="80" text-anchor="middle" font-size="9" fill="var(--text)">B2</text>
+          <line x1="200" y1="55" x2="205" y2="64" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#c4-ar)"/>
+          <rect x="270" y="65" width="50" height="22" rx="5" style="fill:var(--surface);stroke:var(--violet-border)" stroke-width="1"/>
+          <text x="295" y="80" text-anchor="middle" font-size="9" fill="var(--text)">B3</text>
+          <line x1="265" y1="55" x2="290" y2="64" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#c4-ar)"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Comm 5: Agent-as-tool -->
+    <div style="padding:.9rem;background:var(--card);border:1.5px solid #22c55e;border-radius:10px">
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:1rem;align-items:center">
+        <div>
+          <div style="font-size:.92rem;font-weight:700;color:#22c55e;margin-bottom:.3rem">⑤ Agent-as-Tool ⭐</div>
+          <div style="font-size:.72rem;color:var(--text);line-height:1.7">
+            Sub-agent를 일반 tool처럼 노출. Manager가 호출하고 string return 받음. <strong>Anthropic이 권장하는 가장 깔끔한 패턴</strong>.<br>
+            <strong style="color:#22c55e">대표:</strong> Anthropic, OpenAI <code style="font-size:.85em">Agent.as_tool()</code>
+          </div>
+        </div>
+        <svg viewBox="0 0 380 90" style="max-width:100%;height:auto;display:block" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="c5-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+          <rect x="20" y="30" width="90" height="35" rx="8" fill="#22c55e" fill-opacity=".20" stroke="#22c55e" stroke-width="1.2"/>
+          <text x="65" y="48" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">Manager</text>
+          <text x="65" y="60" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">tool 카탈로그 보유</text>
+
+          <line x1="112" y1="40" x2="220" y2="20" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#c5-ar)"/>
+          <line x1="220" y1="28" x2="112" y2="48" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="2,2" marker-end="url(#c5-ar)"/>
+          <line x1="112" y1="48" x2="220" y2="48" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#c5-ar)"/>
+          <line x1="220" y1="58" x2="112" y2="55" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="2,2" marker-end="url(#c5-ar)"/>
+          <line x1="112" y1="55" x2="220" y2="78" stroke="#9ca3af" stroke-width="0.7" marker-end="url(#c5-ar)"/>
+          <line x1="220" y1="80" x2="112" y2="60" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="2,2" marker-end="url(#c5-ar)"/>
+
+          <rect x="220" y="8" width="140" height="22" rx="5" style="fill:var(--surface);stroke:#22c55e" stroke-width="1"/>
+          <text x="290" y="23" text-anchor="middle" font-size="9" fill="#22c55e">search_agent(q) → str</text>
+          <rect x="220" y="38" width="140" height="22" rx="5" style="fill:var(--surface);stroke:#22c55e" stroke-width="1"/>
+          <text x="290" y="53" text-anchor="middle" font-size="9" fill="#22c55e">analyze_agent(d) → str</text>
+          <rect x="220" y="68" width="140" height="22" rx="5" style="fill:var(--surface);stroke:#22c55e" stroke-width="1"/>
+          <text x="290" y="83" text-anchor="middle" font-size="9" fill="#22c55e">writer_agent(s) → str</text>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="padding:.85rem 1rem;background:var(--violet-bg);border:1px solid var(--violet-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.85">
+    <strong style="color:var(--violet)">💡 권장 패턴:</strong> 처음에는 ⑤ <strong>Agent-as-Tool</strong>로 시작 — 일반 tool과 같은 멘탈 모델, Manager가 최종 답변 소유, 디버깅 쉬움. 본격적 협업 그래프가 필요해지면 ① Shared State (LangGraph). 토론 시뮬레이션이 필요하면 ④ Pub/Sub.
+  </div>
+</div>
+</div>
+
+<!-- ── SECTION 4: 라우팅 의사결정 ── -->
+<div class="dia reveal">
+<div class="dia-title">🧭 라우팅 의사결정 — 누가 "다음 어디로 갈지"를 결정하나</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
+    멀티 에이전트 시스템의 핵심 변수. <strong>LLM이 결정</strong>하느냐 <strong>코드가 결정</strong>하느냐가 비용·예측가능성·디버깅 난이도를 좌우.
+  </div>
+
+  <div style="overflow-x:auto;margin-bottom:.9rem">
+    <table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:780px">
+      <thead><tr style="background:var(--surface)">
+        <th style="padding:.6rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--violet-border);width:18%">방식</th>
+        <th style="padding:.6rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border);width:14%">결정자</th>
+        <th style="padding:.6rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border);width:30%">구현</th>
+        <th style="padding:.6rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border);width:18%">대표 프레임워크</th>
+        <th style="padding:.6rem;text-align:center;color:var(--violet);border-bottom:1px solid var(--violet-border);width:10%">비용</th>
+        <th style="padding:.6rem;text-align:center;color:var(--violet);border-bottom:1px solid var(--violet-border);width:10%">예측가능</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">Function calling<br>구조화 출력</td>
+          <td style="padding:.55rem;color:#a78bfa;border-bottom:1px solid var(--border)">Supervisor LLM</td>
+          <td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)"><code style="font-size:.85em">RouteResponse(next:str)</code> Pydantic 강제</td>
+          <td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">LangGraph Supervisor</td>
+          <td style="padding:.55rem;text-align:center;color:#f59e0b;border-bottom:1px solid var(--border)">중</td>
+          <td style="padding:.55rem;text-align:center;color:#f59e0b;border-bottom:1px solid var(--border)">중</td>
+        </tr>
+        <tr>
+          <td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">Handoff function</td>
+          <td style="padding:.55rem;color:#a78bfa;border-bottom:1px solid var(--border)">현재 Agent</td>
+          <td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)"><code style="font-size:.85em">def transfer_to_X(): return agent_X</code></td>
+          <td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">OpenAI Swarm/SDK</td>
+          <td style="padding:.55rem;text-align:center;color:#f59e0b;border-bottom:1px solid var(--border)">중</td>
+          <td style="padding:.55rem;text-align:center;color:#f59e0b;border-bottom:1px solid var(--border)">중</td>
+        </tr>
+        <tr>
+          <td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">Speaker selector<br>LLM</td>
+          <td style="padding:.55rem;color:#a78bfa;border-bottom:1px solid var(--border)">Manager LLM</td>
+          <td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">참여자 목록 + history → LLM이 이름 출력</td>
+          <td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">AutoGen GroupChat</td>
+          <td style="padding:.55rem;text-align:center;color:#ef4444;border-bottom:1px solid var(--border)">고</td>
+          <td style="padding:.55rem;text-align:center;color:#ef4444;border-bottom:1px solid var(--border)">낮음</td>
+        </tr>
+        <tr>
+          <td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">Hard-coded 순서</td>
+          <td style="padding:.55rem;color:#22c55e;border-bottom:1px solid var(--border)">코드</td>
+          <td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Pipeline에 정해진 순서</td>
+          <td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">CrewAI sequential, MetaGPT</td>
+          <td style="padding:.55rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">저</td>
+          <td style="padding:.55rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">최고</td>
+        </tr>
+        <tr>
+          <td style="padding:.55rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">Ledger 기반<br>(구조화 메모)</td>
+          <td style="padding:.55rem;color:#a78bfa;border-bottom:1px solid var(--border)">Orchestrator LLM</td>
+          <td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Progress Ledger의 "Q4: 다음 화자는?"</td>
+          <td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Magentic-One</td>
+          <td style="padding:.55rem;text-align:center;color:#ef4444;border-bottom:1px solid var(--border)">고</td>
+          <td style="padding:.55rem;text-align:center;color:#f59e0b;border-bottom:1px solid var(--border)">중</td>
+        </tr>
+        <tr>
+          <td style="padding:.55rem;color:var(--text);font-weight:600">DAG dependency</td>
+          <td style="padding:.55rem;color:#22c55e">코드 + LLM 혼합</td>
+          <td style="padding:.55rem;color:var(--text-dim)">Planner가 task graph 생성 → 의존성 충족된 task 병렬</td>
+          <td style="padding:.55rem;color:var(--text-dim)">LLMCompiler, Plan-and-Execute</td>
+          <td style="padding:.55rem;text-align:center;color:#f59e0b">중</td>
+          <td style="padding:.55rem;text-align:center;color:#22c55e">높음</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="padding:.85rem 1rem;background:var(--violet-bg);border:1px solid var(--violet-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.85">
+    <strong style="color:var(--violet)">📌 핵심 원리:</strong> "LLM이 결정"하는 방식은 유연하지만 매번 토큰 비용 + 비결정성. "코드가 결정"하는 방식은 빠르고 정확하지만 동적 분기 불가. <strong>대부분의 프로덕션 시스템은 두 방식을 섞어 씀</strong> — 큰 단계는 코드 DAG로, 단계 안의 세부 routing은 LLM.
+  </div>
+</div>
+</div>
+
+<!-- ── SECTION 5: 종료 조건 4단 방어 ── -->
+<div class="dia reveal">
+<div class="dia-title">⛔ 종료 조건 4단 방어 — 무한 루프·비용 폭발 차단</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
+    MAST 연구가 발견한 "Unaware of termination"이 단독으로 <strong style="color:#ef4444">9.82%</strong>. 한 가지 종료 조건은 반드시 뚫림. <strong>4단 방어</strong>가 표준.
+  </div>
+
+  <!-- 4단 방어 시각화 -->
+  <div style="background:var(--card);border:1px solid var(--violet-border);border-radius:10px;padding:1rem;margin-bottom:.9rem">
+    <svg viewBox="0 0 880 280" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="ch13-term-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+
+      <!-- Agent in center -->
+      <rect x="380" y="115" width="120" height="50" rx="10" fill="#a78bfa" fill-opacity=".25" stroke="#a78bfa" stroke-width="1.2"/>
+      <text x="440" y="135" text-anchor="middle" font-size="11" font-weight="700" fill="#a78bfa">🤖 Agent Loop</text>
+      <text x="440" y="152" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">매 turn 4 방어 통과 시 계속</text>
+
+      <!-- 4 defense layers around -->
+      <!-- 1: recursion limit (위쪽) -->
+      <rect x="50" y="20" width="220" height="60" rx="8" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="1.2"/>
+      <text x="160" y="38" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">① recursion_limit / max_iter</text>
+      <text x="160" y="54" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">LangGraph 기본 25</text>
+      <text x="160" y="68" text-anchor="middle" font-size="8" fill="#9ca3af">하드 stop, 무조건 종료</text>
+      <line x1="270" y1="60" x2="380" y2="125" stroke="#22c55e" stroke-width="0.8" stroke-dasharray="3,2"/>
+
+      <!-- 2: termination function -->
+      <rect x="610" y="20" width="220" height="60" rx="8" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="1.2"/>
+      <text x="720" y="38" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">② Termination Function</text>
+      <text x="720" y="54" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">"FINISH" 토큰, "approve" 키워드</text>
+      <text x="720" y="68" text-anchor="middle" font-size="8" fill="#9ca3af">정상 완료 시 종료</text>
+      <line x1="610" y1="60" x2="500" y2="125" stroke="#22c55e" stroke-width="0.8" stroke-dasharray="3,2"/>
+
+      <!-- 3: stall counter -->
+      <rect x="50" y="200" width="220" height="60" rx="8" fill="#f59e0b" fill-opacity=".15" stroke="#f59e0b" stroke-width="1.2"/>
+      <text x="160" y="218" text-anchor="middle" font-size="10" font-weight="700" fill="#f59e0b">③ Stall Counter</text>
+      <text x="160" y="234" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">2 turn 진전 없으면 재계획</text>
+      <text x="160" y="248" text-anchor="middle" font-size="8" fill="#9ca3af">Magentic-One 패턴, MAST 17% 차단</text>
+      <line x1="270" y1="220" x2="380" y2="155" stroke="#f59e0b" stroke-width="0.8" stroke-dasharray="3,2"/>
+
+      <!-- 4: cost guard -->
+      <rect x="610" y="200" width="220" height="60" rx="8" fill="#ef4444" fill-opacity=".15" stroke="#ef4444" stroke-width="1.2"/>
+      <text x="720" y="218" text-anchor="middle" font-size="10" font-weight="700" fill="#ef4444">④ Cost Guard</text>
+      <text x="720" y="234" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">토큰/달러 예산 초과 시 hard stop</text>
+      <text x="720" y="248" text-anchor="middle" font-size="8" fill="#9ca3af">청구서 폭탄 최후 방어</text>
+      <line x1="610" y1="220" x2="500" y2="155" stroke="#ef4444" stroke-width="0.8" stroke-dasharray="3,2"/>
+
+      <!-- Caption -->
+      <text x="440" y="280" text-anchor="middle" font-size="9.5" fill="#9ca3af" font-style="italic">한 가지만 있으면 반드시 뚫림 — 4가지 모두 갖춰야 안전</text>
+    </svg>
+  </div>
+
+  <!-- 각 방어 디테일 카드 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+
+    <div style="padding:.9rem;background:var(--card);border:1px solid #22c55e44;border-radius:10px">
+      <div style="font-size:.88rem;font-weight:700;color:#22c55e;margin-bottom:.4rem">① recursion_limit</div>
+      <div style="font-size:.78rem;color:var(--text);line-height:1.75">
+        <strong>역할:</strong> 무조건 종료. "사고 났으니 무조건 멈춰".<br>
+        <strong>설정:</strong> LangGraph 기본 25 turn. <code style="font-size:.85em">{"recursion_limit": 25}</code><br>
+        <strong>한계:</strong> 25 turn 안에 끝나는 정상 워크플로우도 가끔 막힘 — 너무 작으면 안 됨, 너무 크면 비용
+      </div>
+    </div>
+
+    <div style="padding:.9rem;background:var(--card);border:1px solid #22c55e44;border-radius:10px">
+      <div style="font-size:.88rem;font-weight:700;color:#22c55e;margin-bottom:.4rem">② Termination Function</div>
+      <div style="font-size:.78rem;color:var(--text);line-height:1.75">
+        <strong>역할:</strong> 정상 완료 감지. Supervisor LLM이 "FINISH" 출력 시 즉시 종료.<br>
+        <strong>구현:</strong> <code style="font-size:.85em">if state["next"] == "FINISH": END</code><br>
+        <strong>주의:</strong> LLM이 종료 시점 인식 못 함 → prompt에 명시: "작업 완료 시 반드시 FINISH 출력"
+      </div>
+    </div>
+
+    <div style="padding:.9rem;background:var(--card);border:1px solid #f59e0b44;border-radius:10px">
+      <div style="font-size:.88rem;font-weight:700;color:#f59e0b;margin-bottom:.4rem">③ Stall Counter</div>
+      <div style="font-size:.78rem;color:var(--text);line-height:1.75">
+        <strong>역할:</strong> 같은 일 반복 차단. MAST의 1위 실패(step repetition 17.14%)에 대한 직접 방어.<br>
+        <strong>구현:</strong> 매 turn 결과를 hash → 직전 2개와 같으면 stall_count++. ≥2 시 재계획 노드로<br>
+        <strong>대표:</strong> Microsoft Magentic-One의 inner→outer 복귀 메커니즘
+      </div>
+    </div>
+
+    <div style="padding:.9rem;background:var(--card);border:1px solid #ef444444;border-radius:10px">
+      <div style="font-size:.88rem;font-weight:700;color:#ef4444;margin-bottom:.4rem">④ Cost Guard</div>
+      <div style="font-size:.78rem;color:var(--text);line-height:1.75">
+        <strong>역할:</strong> 비용 폭발 최후 방어. 한 작업당 토큰/달러 한도 설정.<br>
+        <strong>구현:</strong> Trace에 누적 토큰 기록 → <code style="font-size:.85em">if total_tokens &gt; budget: hard_stop()</code><br>
+        <strong>왜 필수:</strong> Anthropic 사례 — 간단 쿼리에 50 sub-agent 폭증으로 비용 100배. cost guard 없으면 막을 수 없음
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ── SECTION 6: MAST 14가지 실패 모드 ── -->
+<div class="dia reveal">
+<div class="dia-title">💥 14가지 실패 모드 — MAST 연구 (UC Berkeley + MultiOn, 2025-03)</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;margin-bottom:.7rem">
+    <div style="font-size:.82rem;color:var(--text-dim);line-height:1.7">1,600+ trace 분석 → 14 mode를 3 카테고리로 분류. κ=0.88 (3명 annotator 합의)</div>
+    <div style="padding:.35rem .7rem;background:var(--violet-bg);border:1px solid var(--violet-border);border-radius:6px;font-family:var(--mono);font-size:.7rem;color:var(--violet)">📄 arXiv:2503.13657</div>
+  </div>
+
+  <!-- TOP 5 강조 차트 (가로 바) -->
+  <div style="background:var(--card);border:1px solid var(--violet-border);border-radius:10px;padding:1rem;margin-bottom:.9rem">
+    <div style="font-size:.88rem;font-weight:700;color:var(--violet);margin-bottom:.7rem;text-align:center">TOP 5 — 전체 실패의 63% (5개가 압도적)</div>
+    <svg viewBox="0 0 880 250" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <!-- Y axis labels + bars -->
+      <text x="280" y="30" text-anchor="end" font-size="10" fill="var(--text)" font-weight="600">① Step repetition</text>
+      <rect x="290" y="18" width="343" height="18" fill="#ef4444" fill-opacity=".25" stroke="#ef4444" stroke-width="1"/>
+      <text x="640" y="32" font-size="11" font-weight="700" fill="#ef4444">17.14%</text>
+
+      <text x="280" y="70" text-anchor="end" font-size="10" fill="var(--text)" font-weight="600">② Reasoning-action mismatch</text>
+      <rect x="290" y="58" width="280" height="18" fill="#ef4444" fill-opacity=".22" stroke="#ef4444" stroke-width="1"/>
+      <text x="577" y="72" font-size="11" font-weight="700" fill="#ef4444">13.98%</text>
+
+      <text x="280" y="110" text-anchor="end" font-size="10" fill="var(--text)" font-weight="600">③ Fail to ask clarification</text>
+      <rect x="290" y="98" width="233" height="18" fill="#f59e0b" fill-opacity=".25" stroke="#f59e0b" stroke-width="1"/>
+      <text x="530" y="112" font-size="11" font-weight="700" fill="#f59e0b">11.65%</text>
+
+      <text x="280" y="150" text-anchor="end" font-size="10" fill="var(--text)" font-weight="600">④ Disobey task spec</text>
+      <rect x="290" y="138" width="220" height="18" fill="#f59e0b" fill-opacity=".22" stroke="#f59e0b" stroke-width="1"/>
+      <text x="517" y="152" font-size="11" font-weight="700" fill="#f59e0b">10.98%</text>
+
+      <text x="280" y="190" text-anchor="end" font-size="10" fill="var(--text)" font-weight="600">⑤ Unaware of termination</text>
+      <rect x="290" y="178" width="196" height="18" fill="#f59e0b" fill-opacity=".20" stroke="#f59e0b" stroke-width="1"/>
+      <text x="493" y="192" font-size="11" font-weight="700" fill="#f59e0b">9.82%</text>
+
+      <text x="280" y="230" text-anchor="end" font-size="9.5" fill="var(--text-dim)" font-style="italic">나머지 9개 (합계)</text>
+      <rect x="290" y="218" width="370" height="18" fill="#9ca3af" fill-opacity=".15" stroke="#9ca3af" stroke-width="1"/>
+      <text x="667" y="232" font-size="10" font-weight="600" fill="var(--text-dim)">36.43%</text>
+    </svg>
+    <div style="text-align:center;font-size:.78rem;color:var(--text-dim);margin-top:.5rem">
+      <strong style="color:#ef4444">상위 5개에 방어 집중</strong> — TOP 2개는 step repetition + reasoning mismatch
+    </div>
+  </div>
+
+  <!-- 3 카테고리 분류 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem">
+
+    <div style="padding:.9rem;background:var(--card);border:1px solid #ef4444;border-radius:10px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:.4rem">
+        <div style="font-size:.85rem;font-weight:700;color:#ef4444">FC1 — Specification</div>
+        <div style="font-size:.78rem;color:#ef4444;font-weight:700">41.77%</div>
+      </div>
+      <div style="font-size:.72rem;color:var(--text);line-height:1.7">
+        시스템 설계 자체의 결함:<br>
+        • Disobey task spec (10.98%)<br>
+        • Disobey role (0.50%)<br>
+        • <strong style="color:#ef4444">Step repetition (17.14%)</strong> ⭐<br>
+        • Loss of history (3.33%)<br>
+        • <strong style="color:#ef4444">Unaware of termination (9.82%)</strong> ⭐
+      </div>
+    </div>
+
+    <div style="padding:.9rem;background:var(--card);border:1px solid #f59e0b;border-radius:10px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:.4rem">
+        <div style="font-size:.85rem;font-weight:700;color:#f59e0b">FC2 — Misalignment</div>
+        <div style="font-size:.78rem;color:#f59e0b;font-weight:700">36.94%</div>
+      </div>
+      <div style="font-size:.72rem;color:var(--text);line-height:1.7">
+        Agent 간 정렬 문제:<br>
+        • Conversation reset (2.33%)<br>
+        • <strong style="color:#f59e0b">Fail to ask clarification (11.65%)</strong> ⭐<br>
+        • Task derailment (7.15%)<br>
+        • Info withholding (1.66%)<br>
+        • Ignored input (0.17%)<br>
+        • <strong style="color:#f59e0b">Reasoning-action mismatch (13.98%)</strong> ⭐
+      </div>
+    </div>
+
+    <div style="padding:.9rem;background:var(--card);border:1px solid #a78bfa;border-radius:10px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:.4rem">
+        <div style="font-size:.85rem;font-weight:700;color:#a78bfa">FC3 — Verification</div>
+        <div style="font-size:.78rem;color:#a78bfa;font-weight:700">21.30%</div>
+      </div>
+      <div style="font-size:.72rem;color:var(--text);line-height:1.7">
+        결과 검증 문제:<br>
+        • Premature termination (7.82%)<br>
+        • No/incomplete verification (6.82%)<br>
+        • Incorrect verification (6.66%)<br>
+        <br>
+        <strong style="color:#a78bfa">대책:</strong> Generator-Verifier 패턴 분리
+      </div>
+    </div>
+
+  </div>
+
+  <div style="padding:.85rem 1rem;background:var(--violet-bg);border:1px solid var(--violet-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.85;margin-top:.9rem">
+    <strong style="color:var(--violet)">🎯 MAST 핵심 발견:</strong> "실패는 개별 LLM 능력 부족이 아니라 <strong>조직 설계·코디네이션</strong> 문제에서 발생". 더 똑똑한 LLM으로 바꿔도 해결 안 됨 — 시스템 설계를 고쳐야.
+  </div>
+</div>
+</div>
+
+<!-- ── SECTION 7: 2026년 새 패턴 4선 ── -->
+<div class="dia reveal">
+<div class="dia-title">🚀 2026년 새 패턴 4선 — 최신 연구·프로덕션 사례</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.9rem">
+
+    <!-- Anthropic Multi-Agent Research -->
+    <div style="padding:.95rem;background:var(--card);border:1.5px solid var(--violet);border-radius:12px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:.4rem">
+        <div style="font-size:.95rem;font-weight:700;color:var(--violet)">① Anthropic Multi-Agent Research</div>
+        <div style="font-family:var(--mono);font-size:.65rem;color:var(--violet)">2025-06</div>
+      </div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.75">
+        <strong style="color:var(--violet)">패턴:</strong> Lead (Opus 4) + 3~5 Sub-agent (Sonnet 4) 병렬<br>
+        <strong style="color:var(--violet)">결과:</strong> 단일 Opus 4 대비 <strong>+90.2%</strong> 성능<br>
+        <strong style="color:var(--violet)">비용:</strong> 15× chat tokens (정직하게 공개)<br>
+        <strong style="color:var(--violet)">메커니즘:</strong> Lead가 plan → sub-agent 병렬 spawn → 각자 다른 측면 탐색 → Citations agent로 출처 추적<br>
+        <strong style="color:var(--violet)">실패 사례:</strong> 간단 쿼리에 50 sub-agent 폭증 → cost guard 추가로 해결
+      </div>
+    </div>
+
+    <!-- MAR -->
+    <div style="padding:.95rem;background:var(--card);border:1.5px solid var(--violet);border-radius:12px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:.4rem">
+        <div style="font-size:.95rem;font-weight:700;color:var(--violet)">② Multi-Agent Reflexion (MAR)</div>
+        <div style="font-family:var(--mono);font-size:.65rem;color:var(--violet)">2025-12 · arXiv:2512.20845</div>
+      </div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.75">
+        <strong style="color:var(--violet)">문제:</strong> 단일 Reflexion의 "Degeneration of Thought" (같은 오류 반복)<br>
+        <strong style="color:var(--violet)">해법:</strong> 4역할 분리 — Actor(시도) + Diagnosticians(4~5 페르소나 비평) + Judge(debate 종합) + Evaluator<br>
+        <strong style="color:var(--violet)">HumanEval pass@1:</strong> 67.1% → 76.4%(Reflexion) → <strong>82.6%</strong> (+6.2점)<br>
+        <strong style="color:var(--violet)">비용:</strong> ~3× single agent. Trade-off 명확<br>
+        <strong style="color:var(--violet)">시사점:</strong> 자기비판은 단일 LLM이 잘 못 함 → 페르소나 분리가 효과적
+      </div>
+    </div>
+
+    <!-- Magentic-One -->
+    <div style="padding:.95rem;background:var(--card);border:1.5px solid var(--violet);border-radius:12px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:.4rem">
+        <div style="font-size:.95rem;font-weight:700;color:var(--violet)">③ Microsoft Magentic-One</div>
+        <div style="font-family:var(--mono);font-size:.65rem;color:var(--violet)">2024-11 · arXiv:2411.04468</div>
+      </div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.75">
+        <strong style="color:var(--violet)">아키텍처:</strong> Orchestrator + 4 sub (WebSurfer · FileSurfer · Coder · ComputerTerminal)<br>
+        <strong style="color:var(--violet)">Outer loop = Task Ledger:</strong> Facts · Guesses · Plan with agent assignments<br>
+        <strong style="color:var(--violet)">Inner loop = Progress Ledger:</strong> 매 step 5질문 답 (완료? 루프? 진전? 다음 화자? 지시?)<br>
+        <strong style="color:var(--violet)">Stall counter ≤2:</strong> 초과 시 inner→outer 복귀 + 재계획<br>
+        <strong style="color:var(--violet)">점수:</strong> GAIA 38% (o1-preview 결합), WebArena 32.8%
+      </div>
+    </div>
+
+    <!-- MetaGPT -->
+    <div style="padding:.95rem;background:var(--card);border:1.5px solid var(--violet);border-radius:12px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:.4rem">
+        <div style="font-size:.95rem;font-weight:700;color:var(--violet)">④ MetaGPT (Society of Mind)</div>
+        <div style="font-family:var(--mono);font-size:.65rem;color:var(--violet)">2023-08 · arXiv:2308.00352</div>
+      </div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.75">
+        <strong style="color:var(--violet)">철학:</strong> Marvin Minsky 1986 "Society of Mind"의 LLM 부활<br>
+        <strong style="color:var(--violet)">패턴:</strong> SOP(표준 업무 절차)를 prompt 시퀀스로 인코딩<br>
+        <strong style="color:var(--violet)">에이전트:</strong> ProductManager → Architect → ProjectManager → Engineer → QA<br>
+        <strong style="color:var(--violet)">결과:</strong> 한 줄 요구사항 → PRD + Design + Tasks + Repo 자동 생성<br>
+        <strong style="color:var(--violet)">시사점:</strong> 회사 메타포가 의외로 효과적 (역할이 명확)
+      </div>
+    </div>
+
+  </div>
+
+  <div style="padding:.85rem 1rem;background:var(--violet-bg);border:1px solid var(--violet-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.85">
+    <strong style="color:var(--violet)">📌 공통 패턴:</strong> 4가지 모두 ①과 같은 Supervisor/Orchestrator 토폴로지를 사용. 차이는 (a) sub-agent의 전문화 깊이, (b) 종료 메커니즘, (c) 자기비판 통합 방식. <strong>"Supervisor가 사실상 표준"임을 다시 확인</strong>.
+  </div>
+</div>
+</div>
+
+<!-- ── SECTION 8: 프레임워크 비교 ── -->
+<div class="dia reveal">
+<div class="dia-title">🛠️ 프레임워크 비교 — 멀티 에이전트 구현 방식의 차이</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;font-size:.78rem;min-width:780px">
+      <thead><tr style="background:var(--surface)">
+        <th style="padding:.6rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--violet-border)">프레임워크</th>
+        <th style="padding:.6rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border)">기본 토폴로지</th>
+        <th style="padding:.6rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border)">통신 방식</th>
+        <th style="padding:.6rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border)">라우팅</th>
+        <th style="padding:.6rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border)">강점</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td style="padding:.55rem;color:var(--violet);font-weight:700;border-bottom:1px solid var(--border)">LangGraph</td>
+          <td style="padding:.55rem;color:var(--text);border-bottom:1px solid var(--border)">Custom DAG (어떤 것도)</td>
+          <td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Shared state + reducer</td>
+          <td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Command 또는 Supervisor LLM</td>
+          <td style="padding:.55rem;color:var(--text);border-bottom:1px solid var(--border)">가장 유연, checkpointer로 시간여행</td>
+        </tr>
+        <tr>
+          <td style="padding:.55rem;color:var(--violet);font-weight:700;border-bottom:1px solid var(--border)">AutoGen (Microsoft)</td>
+          <td style="padding:.55rem;color:var(--text);border-bottom:1px solid var(--border)">Group Chat</td>
+          <td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Pub/sub event bus</td>
+          <td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Manager LLM 4 모드</td>
+          <td style="padding:.55rem;color:var(--text);border-bottom:1px solid var(--border)">토론·합의 시뮬레이션 강함</td>
+        </tr>
+        <tr>
+          <td style="padding:.55rem;color:var(--violet);font-weight:700;border-bottom:1px solid var(--border)">OpenAI Agents SDK</td>
+          <td style="padding:.55rem;color:var(--text);border-bottom:1px solid var(--border)">Swarm (Handoff)</td>
+          <td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Handoff w/ context</td>
+          <td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Handoff function 또는 as_tool</td>
+          <td style="padding:.55rem;color:var(--text);border-bottom:1px solid var(--border)">가볍고 빠른 prototyping</td>
+        </tr>
+        <tr>
+          <td style="padding:.55rem;color:var(--violet);font-weight:700;border-bottom:1px solid var(--border)">CrewAI</td>
+          <td style="padding:.55rem;color:var(--text);border-bottom:1px solid var(--border)">Sequential 또는 Hierarchical</td>
+          <td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Message passing</td>
+          <td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Process (sequential / hierarchical)</td>
+          <td style="padding:.55rem;color:var(--text);border-bottom:1px solid var(--border)">Role-based, 회사 메타포 직관적</td>
+        </tr>
+        <tr>
+          <td style="padding:.55rem;color:var(--violet);font-weight:700;border-bottom:1px solid var(--border)">Google ADK + A2A</td>
+          <td style="padding:.55rem;color:var(--text);border-bottom:1px solid var(--border)">Custom + cross-org</td>
+          <td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">A2A protocol (JSON-RPC + SSE)</td>
+          <td style="padding:.55rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Agent Card 기반 발견</td>
+          <td style="padding:.55rem;color:var(--text);border-bottom:1px solid var(--border)">조직 간 에이전트 협업 표준</td>
+        </tr>
+        <tr>
+          <td style="padding:.55rem;color:var(--violet);font-weight:700">MetaGPT</td>
+          <td style="padding:.55rem;color:var(--text)">Sequential (회사 SOP)</td>
+          <td style="padding:.55rem;color:var(--text-dim)">Artifact passing (문서)</td>
+          <td style="padding:.55rem;color:var(--text-dim)">Hard-coded SOP</td>
+          <td style="padding:.55rem;color:var(--text)">소프트웨어 회사 시뮬레이션 특화</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="padding:.85rem 1rem;background:var(--violet-bg);border:1px solid var(--violet-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.85;margin-top:.9rem">
+    <strong style="color:var(--violet)">📌 첫 선택:</strong> 엔터프라이즈 = <strong>LangGraph</strong> (유연·관측·시간여행). 간단 prototype = <strong>CrewAI</strong> (5분 시작) 또는 <strong>OpenAI SDK</strong>. 토론 시뮬레이션 = <strong>AutoGen</strong>. 회사 SOP 자동화 = <strong>MetaGPT</strong>. 조직 간 협업 = <strong>A2A protocol</strong>.
+  </div>
+</div>
+</div>
+
+<!-- ── SECTION 9: 실전 가이드 ── -->
+<div class="dia reveal">
+<div class="dia-title">✅ 실전 가이드 — Anthropic·Cognition·MAST 3개 권위가 동의하는 합의</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="display:grid;grid-template-columns:1fr;gap:.6rem">
+
+    <div style="display:grid;grid-template-columns:36px 1fr;gap:.7rem;align-items:start">
+      <div style="width:30px;height:30px;border-radius:50%;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;margin-top:.15rem">1</div>
+      <div style="padding:.7rem .9rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.75">
+        <strong style="color:var(--violet)">단일 에이전트로 끝까지 짜라.</strong> Anthropic·Cognition·MAST 3개 출처 모두 동의. 단일 한계가 명백할 때만 멀티로. "Start with a single agent."
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:36px 1fr;gap:.7rem;align-items:start">
+      <div style="width:30px;height:30px;border-radius:50%;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;margin-top:.15rem">2</div>
+      <div style="padding:.7rem .9rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.75">
+        <strong style="color:var(--violet)">Supervisor 토폴로지로 시작.</strong> 팀이 커지면 Hierarchical로 분할. <strong>Network는 디버깅 지옥</strong>이라 첫 도입 절대 비추천.
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:36px 1fr;gap:.7rem;align-items:start">
+      <div style="width:30px;height:30px;border-radius:50%;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;margin-top:.15rem">3</div>
+      <div style="padding:.7rem .9rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.75">
+        <strong style="color:var(--violet)">Writes는 single-threaded, Reads는 parallel.</strong> Cognition의 절충안. 검색·분석은 sub-agent 병렬 OK, 최종 작성은 단일 에이전트가 통합.
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:36px 1fr;gap:.7rem;align-items:start">
+      <div style="width:30px;height:30px;border-radius:50%;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;margin-top:.15rem">4</div>
+      <div style="padding:.7rem .9rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.75">
+        <strong style="color:var(--violet)">Sub-agent에 4가지 명시.</strong> Anthropic 권고 — (1) Objective, (2) Output format, (3) Tool guidance, (4) Clear boundaries. 빠짐없이.
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:36px 1fr;gap:.7rem;align-items:start">
+      <div style="width:30px;height:30px;border-radius:50%;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;margin-top:.15rem">5</div>
+      <div style="padding:.7rem .9rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.75">
+        <strong style="color:var(--violet)">Sub-agent 3~5개 한계.</strong> Anthropic 실제 — "lead spins up 3-5 in parallel". MultiAgentBench도 그 이상은 diminishing return 확인.
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:36px 1fr;gap:.7rem;align-items:start">
+      <div style="width:30px;height:30px;border-radius:50%;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;margin-top:.15rem">6</div>
+      <div style="padding:.7rem .9rem;background:#ef444415;border-left:3px solid #ef4444;border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.75">
+        <strong style="color:#ef4444">⚠ 종료 조건 4단 방어 필수.</strong> max_iterations + termination function + stall counter + cost guard. 한 가지만 있으면 반드시 뚫림.
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:36px 1fr;gap:.7rem;align-items:start">
+      <div style="width:30px;height:30px;border-radius:50%;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;margin-top:.15rem">7</div>
+      <div style="padding:.7rem .9rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.75">
+        <strong style="color:var(--violet)">전체 trace 로깅.</strong> 비결정 시스템이라 로깅 없이 디버깅 불가. LangSmith·Langfuse·Helicone 중 하나 환경변수 1줄로 시작.
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:36px 1fr;gap:.7rem;align-items:start">
+      <div style="width:30px;height:30px;border-radius:50%;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;margin-top:.15rem">8</div>
+      <div style="padding:.7rem .9rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.75">
+        <strong style="color:var(--violet)">Prompt cache 활용.</strong> Sub-agent들이 공유하는 system prompt를 캐싱하면 실효 토큰 비용 ~90% 절감. Anthropic·OpenAI 공식 기능.
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:36px 1fr;gap:.7rem;align-items:start">
+      <div style="width:30px;height:30px;border-radius:50%;background:var(--violet);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;margin-top:.15rem">9</div>
+      <div style="padding:.7rem .9rem;background:var(--surface);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.75">
+        <strong style="color:var(--violet)">Eval pipeline 필수.</strong> 단일 에이전트보다 비결정성 ↑. 매 PR마다 시나리오 100~1,000건 자동 채점. 회귀 발견 시 PR 차단.
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ── SECTION 10: Reference 박스 ── -->
+<div class="dia reveal">
+<div class="dia-title">📚 Reference — 1차 출처와 wiki entity</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">
+
+    <div style="padding:1rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+      <div style="font-size:.88rem;font-weight:700;color:var(--violet);margin-bottom:.5rem">🌐 1차 출처 (외부)</div>
+      <ul style="font-size:.75rem;color:var(--text);line-height:1.85;padding-left:1.2rem;margin:0">
+        <li><a href="https://www.anthropic.com/engineering/built-multi-agent-research-system" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">Anthropic — How we built our multi-agent research system</a> (2025-06)</li>
+        <li><a href="https://cognition.ai/blog/dont-build-multi-agents" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">Cognition — Don't Build Multi-Agents</a> (Walden Yan, Devin maker)</li>
+        <li><a href="https://arxiv.org/abs/2503.13657" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">MAST — Why Do Multi-Agent LLM Systems Fail?</a> (arXiv:2503.13657)</li>
+        <li><a href="https://langchain-ai.github.io/langgraph/concepts/multi_agent/" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">LangGraph — Multi-agent concepts</a></li>
+        <li><a href="https://microsoft.github.io/autogen/stable/user-guide/core-user-guide/design-patterns/group-chat.html" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">AutoGen — Group Chat pattern</a></li>
+        <li><a href="https://arxiv.org/html/2411.04468v1" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">Magentic-One</a> (Microsoft, arXiv:2411.04468)</li>
+        <li><a href="https://arxiv.org/abs/2512.20845" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">MAR — Multi-Agent Reflexion</a> (arXiv:2512.20845)</li>
+        <li><a href="https://arxiv.org/abs/2308.00352" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">MetaGPT</a> (arXiv:2308.00352)</li>
+      </ul>
+    </div>
+
+    <div style="padding:1rem;background:var(--card);border:1px solid var(--violet-border);border-radius:10px">
+      <div style="font-size:.88rem;font-weight:700;color:var(--violet);margin-bottom:.5rem">📦 wiki entity (내부)</div>
+      <ul style="font-size:.75rem;color:var(--text);line-height:1.85;padding-left:1.2rem;margin:0">
+        <li><a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/multi-agent-topologies.md" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">multi-agent-topologies.md</a> — 6 토폴로지 + 5 통신 + 6 라우팅 종합</li>
+        <li><a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/multi-agent-failure-modes.md" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">multi-agent-failure-modes.md</a> — MAST 14 모드 + TOP 5 방어</li>
+        <li><a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/mcp.md" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">mcp.md</a> — 에이전트 ↔ 도구 표준</li>
+        <li><a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/a2a.md" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">a2a.md</a> — 에이전트 ↔ 에이전트 표준</li>
+        <li><a href="https://github.com/jameskim1st/AI-Contents/blob/main/wiki/entities/circuit-breaker.md" target="_blank" rel="noopener" style="color:var(--violet);text-decoration:underline">circuit-breaker.md</a> — 장애 격리</li>
+      </ul>
+
+      <div style="font-size:.88rem;font-weight:700;color:var(--violet);margin-top:.9rem;margin-bottom:.4rem">🔗 사이트 내 cross-link</div>
+      <ul style="font-size:.75rem;color:var(--text);line-height:1.85;padding-left:1.2rem;margin:0">
+        <li><a href="#p4-ch4" style="color:var(--violet);text-decoration:underline">Ch.04 — 디자인 패턴 5선</a> (Orchestrator-Worker 상위)</li>
+        <li><a href="#p4-ch5" style="color:var(--violet);text-decoration:underline">Ch.05 — LangGraph 딥다이브</a></li>
+        <li><a href="#p4-ch8" style="color:var(--violet);text-decoration:underline">Ch.08 — A2A 프로토콜</a></li>
+        <li><a href="/07-ai-dev#ad-ch13" style="color:var(--violet);text-decoration:underline">Part 7 Ch.13 — 엔터프라이즈 API 통합</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+</div>
+
+</section>
 
 <div class="divider"><hr></div>
 
