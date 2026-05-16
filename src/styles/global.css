@@ -767,7 +767,7 @@ h3 {
 .main-track{position:relative;display:flex;align-items:center;gap:.4rem;padding:.85rem 1.1rem;font-family:var(--mono);font-size:.78rem;color:var(--text-dim);text-decoration:none;background:none;border:none;border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:color .25s,border-color .25s;outline:none}
 .main-track:hover,.main-track:focus-visible{color:var(--text-bright)}
 .main-track .track-caret{font-size:.65rem;opacity:.55;transition:transform .2s}
-.main-track.has-dropdown:hover .track-caret,.main-track.has-dropdown:focus-within .track-caret{transform:rotate(180deg);opacity:1}
+.main-track.has-dropdown:hover .track-caret{transform:rotate(180deg);opacity:1}
 
 /* active 트랙 — 트랙별 색상으로 강조 */
 .main-track.active[data-color="violet"]{color:var(--violet);border-bottom-color:var(--violet)}
@@ -778,7 +778,7 @@ h3 {
 
 /* 드롭다운 */
 .main-track-dropdown{position:absolute;top:100%;left:0;min-width:240px;background:var(--card);border:1px solid var(--border);border-radius:0 0 10px 10px;padding:.4rem 0;margin-top:-1px;opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .15s,transform .15s;box-shadow:0 12px 32px rgba(0,0,0,.22);z-index:101}
-.main-track.has-dropdown:hover .main-track-dropdown,.main-track.has-dropdown:focus-within .main-track-dropdown{opacity:1;pointer-events:auto;transform:translateY(0)}
+.main-track.has-dropdown:hover .main-track-dropdown{opacity:1;pointer-events:auto;transform:translateY(0)}
 
 .main-track-item{display:flex;align-items:center;gap:.55rem;padding:.55rem .9rem;font-family:var(--sans);font-size:.82rem;color:var(--text);text-decoration:none;transition:background .15s,color .15s;border-left:3px solid transparent}
 .main-track-item:hover{background:var(--surface)}
@@ -803,6 +803,6 @@ h3 {
   .main-track .track-label{display:none}
   .main-track .track-emoji{font-size:1rem}
   .main-track-dropdown{position:fixed;top:auto;left:0;right:0;border-radius:10px 10px 0 0;min-width:0;width:100%;max-height:60vh;overflow-y:auto;bottom:0;transform:translateY(100%)}
-  .main-track.has-dropdown:hover .main-track-dropdown,.main-track.has-dropdown:focus-within .main-track-dropdown{transform:translateY(0)}
+  .main-track.has-dropdown:hover .main-track-dropdown{transform:translateY(0)}
 }
 
