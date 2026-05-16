@@ -759,11 +759,10 @@ h3 {
 .main-panel.active{display:block}
 
 /* ── MAIN TRACKS (트랙 드롭다운 네비게이션) ── */
+/* 주의: .main-tracks-inner에 overflow:auto 절대 금지 — 드롭다운이 잘림 */
 .main-tracks{position:sticky;top:0;z-index:100;background:rgba(8,9,13,.9);border-bottom:1px solid var(--border);backdrop-filter:blur(20px)}
 [data-theme="light"] .main-tracks{background:rgba(248,247,245,.92)}
-.main-tracks-inner{max-width:1200px;margin:0 auto;padding:0 1rem;display:flex;align-items:stretch;gap:0;overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent;-webkit-overflow-scrolling:touch}
-.main-tracks-inner::-webkit-scrollbar{height:4px}
-.main-tracks-inner::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.main-tracks-inner{max-width:1200px;margin:0 auto;padding:0 1rem 0 130px;display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
 
 .main-track{position:relative;display:flex;align-items:center;gap:.4rem;padding:.85rem 1.1rem;font-family:var(--mono);font-size:.78rem;color:var(--text-dim);text-decoration:none;background:none;border:none;border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:color .25s,border-color .25s;outline:none}
 .main-track:hover,.main-track:focus-visible{color:var(--text-bright)}
@@ -799,7 +798,8 @@ h3 {
 
 /* 모바일 — 트랙명만 보이고 드롭다운은 클릭으로 토글 */
 @media (max-width:640px){
-  .main-track{padding:.7rem .8rem;font-size:.72rem}
+  .main-tracks-inner{padding:0 .5rem 0 60px}
+  .main-track{padding:.7rem .65rem;font-size:.72rem}
   .main-track .track-label{display:none}
   .main-track .track-emoji{font-size:1rem}
   .main-track-dropdown{position:fixed;top:auto;left:0;right:0;border-radius:10px 10px 0 0;min-width:0;width:100%;max-height:60vh;overflow-y:auto;bottom:0;transform:translateY(100%)}
