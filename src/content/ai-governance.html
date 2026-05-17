@@ -3703,83 +3703,115 @@
     "Hub는 정확히 뭘 하나?" Microsoft·JPMC·LG AI 연구원 사례 분석 — <strong>7가지 핵심 책임</strong>. 하나라도 빠지면 Hub의 의미가 없음.
   </div>
 
-  <!-- 방사형 7책임 SVG -->
+  <!-- Hub 7 책임 — 3 영역 그룹화 레이아웃 (체계적 재설계) -->
   <div style="background:var(--card);border:1px solid var(--violet-border);border-radius:10px;padding:1rem;margin-bottom:.9rem">
+    <div style="font-size:.8rem;color:var(--text-dim);text-align:center;margin-bottom:.6rem">▼ 3 영역으로 그룹화 — <strong style="color:#22c55e">Build 3</strong> + <strong style="color:#ef4444">Govern 1</strong> + <strong style="color:#a78bfa">Enable 3</strong></div>
     <svg viewBox="0 0 920 480" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
 
-      <!-- 중심 Hub -->
-      <circle cx="460" cy="240" r="65" fill="#22c55e" fill-opacity=".25" stroke="#22c55e" stroke-width="2"/>
-      <text x="460" y="234" text-anchor="middle" font-size="14" font-weight="800" fill="#22c55e">🎯 Hub</text>
-      <text x="460" y="252" text-anchor="middle" font-size="10" fill="var(--text-dim)">(CoE)</text>
-      <text x="460" y="267" text-anchor="middle" font-size="8" fill="#9ca3af">10~25명</text>
+      <!-- 배경 영역 (3개 그룹 시각화) -->
+      <rect x="10" y="15" width="200" height="380" rx="14" fill="#22c55e" fill-opacity=".03" stroke="#22c55e" stroke-width="0.6" stroke-dasharray="4,3"/>
+      <rect x="370" y="370" width="180" height="100" rx="14" fill="#ef4444" fill-opacity=".03" stroke="#ef4444" stroke-width="0.6" stroke-dasharray="4,3"/>
+      <rect x="710" y="15" width="200" height="380" rx="14" fill="#a78bfa" fill-opacity=".03" stroke="#a78bfa" stroke-width="0.6" stroke-dasharray="4,3"/>
 
-      <!-- 7 책임 방사형 배치 -->
+      <!-- 영역 헤더 라벨 -->
+      <rect x="40" y="22" width="140" height="22" rx="11" fill="#22c55e" fill-opacity=".25" stroke="#22c55e" stroke-width="1"/>
+      <text x="110" y="37" text-anchor="middle" font-size="10" font-weight="800" fill="#22c55e">🏗 BUILD (3 책임)</text>
 
-      <!-- ① 12시 방향: 전략 -->
-      <line x1="460" y1="175" x2="460" y2="130" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="3,2"/>
-      <rect x="370" y="50" width="180" height="80" rx="10" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1.2"/>
-      <text x="460" y="70" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">① AI 전략·로드맵</text>
-      <text x="460" y="86" text-anchor="middle" font-size="8" fill="var(--text);">전사 AI 비전·우선순위</text>
-      <text x="460" y="99" text-anchor="middle" font-size="7.5" fill="#9ca3af">• 3년 로드맵 작성</text>
-      <text x="460" y="111" text-anchor="middle" font-size="7.5" fill="#9ca3af">• 분기별 점검</text>
-      <text x="460" y="123" text-anchor="middle" font-size="7.5" fill="#9ca3af">• 이사회 보고</text>
+      <rect x="380" y="377" width="160" height="22" rx="11" fill="#ef4444" fill-opacity=".25" stroke="#ef4444" stroke-width="1"/>
+      <text x="460" y="392" text-anchor="middle" font-size="10" font-weight="800" fill="#ef4444">⚠ GOVERN (1 책임)</text>
 
-      <!-- ② 1.5시 방향: 플랫폼 -->
-      <line x1="510" y1="195" x2="640" y2="115" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="3,2"/>
-      <rect x="640" y="60" width="180" height="80" rx="10" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1.2"/>
-      <text x="730" y="80" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">② AI 플랫폼·인프라</text>
-      <text x="730" y="96" text-anchor="middle" font-size="8" fill="var(--text);">셀프서비스 환경 제공</text>
-      <text x="730" y="109" text-anchor="middle" font-size="7.5" fill="#9ca3af">• GPU·LLM 액세스</text>
-      <text x="730" y="121" text-anchor="middle" font-size="7.5" fill="#9ca3af">• Vector DB·MLOps</text>
-      <text x="730" y="133" text-anchor="middle" font-size="7.5" fill="#9ca3af">• Observability·trace</text>
+      <rect x="740" y="22" width="140" height="22" rx="11" fill="#a78bfa" fill-opacity=".25" stroke="#a78bfa" stroke-width="1"/>
+      <text x="810" y="37" text-anchor="middle" font-size="10" font-weight="800" fill="#a78bfa">📚 ENABLE (3 책임)</text>
 
-      <!-- ③ 4시 방향: 재사용 자산 -->
-      <line x1="525" y1="270" x2="660" y2="320" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="3,2"/>
-      <rect x="660" y="285" width="180" height="80" rx="10" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1.2"/>
-      <text x="750" y="305" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">③ 재사용 자산</text>
-      <text x="750" y="321" text-anchor="middle" font-size="8" fill="var(--text);">Template·Model·Library</text>
-      <text x="750" y="334" text-anchor="middle" font-size="7.5" fill="#9ca3af">• Prompt template 라이브러리</text>
-      <text x="750" y="346" text-anchor="middle" font-size="7.5" fill="#9ca3af">• Pre-built agent</text>
-      <text x="750" y="358" text-anchor="middle" font-size="7.5" fill="#9ca3af">• Common eval suite</text>
+      <!-- ═══ 중앙 Hub ═══ -->
+      <circle cx="460" cy="210" r="62" fill="var(--violet-bg)" stroke="var(--violet)" stroke-width="2.5"/>
+      <text x="460" y="204" text-anchor="middle" font-size="14" font-weight="800" fill="var(--violet)">🎯 Hub</text>
+      <text x="460" y="222" text-anchor="middle" font-size="10" fill="var(--text-dim)">(CoE)</text>
+      <text x="460" y="240" text-anchor="middle" font-size="9" fill="#9ca3af">10~25명</text>
 
-      <!-- ④ 6시 방향: 거버넌스 -->
-      <line x1="460" y1="305" x2="460" y2="360" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="3,2"/>
-      <rect x="370" y="360" width="180" height="80" rx="10" fill="#ef4444" fill-opacity=".15" stroke="#ef4444" stroke-width="1.2"/>
-      <text x="460" y="380" text-anchor="middle" font-size="10" font-weight="700" fill="#ef4444">④ 거버넌스·정책</text>
-      <text x="460" y="396" text-anchor="middle" font-size="8" fill="var(--text);">표준·룰북·심사</text>
-      <text x="460" y="409" text-anchor="middle" font-size="7.5" fill="#9ca3af">• AI Risk 룰북</text>
-      <text x="460" y="421" text-anchor="middle" font-size="7.5" fill="#9ca3af">• 민감 use case 심사</text>
-      <text x="460" y="433" text-anchor="middle" font-size="7.5" fill="#9ca3af">• EU AI Act 컴플라이언스</text>
+      <!-- ═══ Build 영역 (왼쪽) — 3 카드 ═══ -->
 
-      <!-- ⑤ 7.5시 방향: 교육 -->
-      <line x1="395" y1="270" x2="260" y2="320" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="3,2"/>
-      <rect x="80" y="285" width="180" height="80" rx="10" fill="#a78bfa" fill-opacity=".15" stroke="#a78bfa" stroke-width="1.2"/>
-      <text x="170" y="305" text-anchor="middle" font-size="10" font-weight="700" fill="#a78bfa">⑤ 교육·AI literacy</text>
-      <text x="170" y="321" text-anchor="middle" font-size="8" fill="var(--text);">전사 역량 확산</text>
-      <text x="170" y="334" text-anchor="middle" font-size="7.5" fill="#9ca3af">• 임원·직원 교육 트랙</text>
-      <text x="170" y="346" text-anchor="middle" font-size="7.5" fill="#9ca3af">• Prompt 워크숍</text>
-      <text x="170" y="358" text-anchor="middle" font-size="7.5" fill="#9ca3af">• 인증·뱃지 제도</text>
+      <!-- ① 전략 -->
+      <rect x="20" y="60" width="180" height="85" rx="10" fill="var(--card)" stroke="#22c55e" stroke-width="1.2"/>
+      <rect x="20" y="60" width="180" height="3" rx="1.5" fill="#22c55e"/>
+      <text x="30" y="80" font-size="10.5" font-weight="800" fill="#22c55e">① AI 전략·로드맵</text>
+      <text x="30" y="95" font-size="8.5" fill="var(--text)" font-weight="600">전사 AI 비전·우선순위</text>
+      <text x="30" y="111" font-size="7.5" fill="#9ca3af">• 3년 로드맵 작성</text>
+      <text x="30" y="123" font-size="7.5" fill="#9ca3af">• 분기별 점검</text>
+      <text x="30" y="135" font-size="7.5" fill="#9ca3af">• 이사회 보고</text>
 
-      <!-- ⑥ 9시 방향: 커뮤니티 -->
-      <line x1="395" y1="240" x2="270" y2="240" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="3,2"/>
-      <rect x="80" y="200" width="180" height="80" rx="10" fill="#a78bfa" fill-opacity=".15" stroke="#a78bfa" stroke-width="1.2"/>
-      <text x="170" y="220" text-anchor="middle" font-size="10" font-weight="700" fill="#a78bfa">⑥ Community of Practice</text>
-      <text x="170" y="236" text-anchor="middle" font-size="8" fill="var(--text);">사내 AI 커뮤니티</text>
-      <text x="170" y="249" text-anchor="middle" font-size="7.5" fill="#9ca3af">• Spoke 정기 모임</text>
-      <text x="170" y="261" text-anchor="middle" font-size="7.5" fill="#9ca3af">• 사례 공유·peer review</text>
-      <text x="170" y="273" text-anchor="middle" font-size="7.5" fill="#9ca3af">• 사내 Slack/Teams</text>
+      <!-- ② 플랫폼 -->
+      <rect x="20" y="167" width="180" height="85" rx="10" fill="var(--card)" stroke="#22c55e" stroke-width="1.2"/>
+      <rect x="20" y="167" width="180" height="3" rx="1.5" fill="#22c55e"/>
+      <text x="30" y="187" font-size="10.5" font-weight="800" fill="#22c55e">② AI 플랫폼·인프라</text>
+      <text x="30" y="202" font-size="8.5" fill="var(--text)" font-weight="600">셀프서비스 환경 제공</text>
+      <text x="30" y="218" font-size="7.5" fill="#9ca3af">• GPU·LLM 액세스</text>
+      <text x="30" y="230" font-size="7.5" fill="#9ca3af">• Vector DB·MLOps</text>
+      <text x="30" y="242" font-size="7.5" fill="#9ca3af">• Observability·trace</text>
 
-      <!-- ⑦ 10.5시 방향: 외부 협력 -->
-      <line x1="395" y1="210" x2="270" y2="155" stroke="#9ca3af" stroke-width="0.7" stroke-dasharray="3,2"/>
-      <rect x="80" y="120" width="180" height="80" rx="10" fill="#a78bfa" fill-opacity=".15" stroke="#a78bfa" stroke-width="1.2"/>
-      <text x="170" y="140" text-anchor="middle" font-size="10" font-weight="700" fill="#a78bfa">⑦ 외부 협력·벤더</text>
-      <text x="170" y="156" text-anchor="middle" font-size="8" fill="var(--text);">파트너십·평가</text>
-      <text x="170" y="169" text-anchor="middle" font-size="7.5" fill="#9ca3af">• LLM provider 평가</text>
-      <text x="170" y="181" text-anchor="middle" font-size="7.5" fill="#9ca3af">• 외부 컨설팅 관리</text>
-      <text x="170" y="193" text-anchor="middle" font-size="7.5" fill="#9ca3af">• 정책·규제 engagement</text>
+      <!-- ③ 재사용 -->
+      <rect x="20" y="274" width="180" height="85" rx="10" fill="var(--card)" stroke="#22c55e" stroke-width="1.2"/>
+      <rect x="20" y="274" width="180" height="3" rx="1.5" fill="#22c55e"/>
+      <text x="30" y="294" font-size="10.5" font-weight="800" fill="#22c55e">③ 재사용 자산</text>
+      <text x="30" y="309" font-size="8.5" fill="var(--text)" font-weight="600">Template·Model·Library</text>
+      <text x="30" y="325" font-size="7.5" fill="#9ca3af">• Prompt template 라이브러리</text>
+      <text x="30" y="337" font-size="7.5" fill="#9ca3af">• Pre-built agent</text>
+      <text x="30" y="349" font-size="7.5" fill="#9ca3af">• Common eval suite</text>
 
-      <text x="460" y="465" text-anchor="middle" font-size="9" fill="var(--text-dim)" font-style="italic">7 책임이 전부 채워져야 진짜 CoE. 1~2개만 하면 "유사 CoE"</text>
+      <!-- Build 연결선 (3개 → Hub 왼쪽 가장자리) -->
+      <line x1="200" y1="102" x2="398" y2="175" stroke="#22c55e" stroke-width="1" stroke-dasharray="3,2" opacity="0.65"/>
+      <line x1="200" y1="209" x2="398" y2="210" stroke="#22c55e" stroke-width="1" stroke-dasharray="3,2" opacity="0.65"/>
+      <line x1="200" y1="316" x2="398" y2="245" stroke="#22c55e" stroke-width="1" stroke-dasharray="3,2" opacity="0.65"/>
+
+      <!-- ═══ Govern 영역 (아래) — 1 카드 ═══ -->
+
+      <!-- ④ 거버넌스 -->
+      <rect x="380" y="405" width="160" height="60" rx="10" fill="var(--card)" stroke="#ef4444" stroke-width="1.5"/>
+      <rect x="380" y="405" width="160" height="3" rx="1.5" fill="#ef4444"/>
+      <text x="460" y="425" text-anchor="middle" font-size="10.5" font-weight="800" fill="#ef4444">④ 거버넌스·정책</text>
+      <text x="460" y="441" text-anchor="middle" font-size="8" fill="var(--text)" font-weight="600">AI Risk 룰북 · 민감 use case 심사</text>
+      <text x="460" y="455" text-anchor="middle" font-size="7.5" fill="#9ca3af">EU AI Act + 한국 AI 기본법 컴플라이언스</text>
+
+      <!-- Govern 연결선 -->
+      <line x1="460" y1="272" x2="460" y2="402" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="3,2" opacity="0.7"/>
+
+      <!-- ═══ Enable 영역 (오른쪽) — 3 카드 ═══ -->
+
+      <!-- ⑤ 교육 -->
+      <rect x="720" y="60" width="180" height="85" rx="10" fill="var(--card)" stroke="#a78bfa" stroke-width="1.2"/>
+      <rect x="720" y="60" width="180" height="3" rx="1.5" fill="#a78bfa"/>
+      <text x="730" y="80" font-size="10.5" font-weight="800" fill="#a78bfa">⑤ 교육·AI literacy</text>
+      <text x="730" y="95" font-size="8.5" fill="var(--text)" font-weight="600">전사 역량 확산</text>
+      <text x="730" y="111" font-size="7.5" fill="#9ca3af">• 임원·직원 교육 트랙</text>
+      <text x="730" y="123" font-size="7.5" fill="#9ca3af">• Prompt 워크숍</text>
+      <text x="730" y="135" font-size="7.5" fill="#9ca3af">• 인증·뱃지 제도</text>
+
+      <!-- ⑥ Community -->
+      <rect x="720" y="167" width="180" height="85" rx="10" fill="var(--card)" stroke="#a78bfa" stroke-width="1.2"/>
+      <rect x="720" y="167" width="180" height="3" rx="1.5" fill="#a78bfa"/>
+      <text x="730" y="187" font-size="10.5" font-weight="800" fill="#a78bfa">⑥ Community of Practice</text>
+      <text x="730" y="202" font-size="8.5" fill="var(--text)" font-weight="600">사내 AI 커뮤니티</text>
+      <text x="730" y="218" font-size="7.5" fill="#9ca3af">• Spoke 정기 모임</text>
+      <text x="730" y="230" font-size="7.5" fill="#9ca3af">• 사례 공유·peer review</text>
+      <text x="730" y="242" font-size="7.5" fill="#9ca3af">• 사내 Slack/Teams</text>
+
+      <!-- ⑦ 외부협력 -->
+      <rect x="720" y="274" width="180" height="85" rx="10" fill="var(--card)" stroke="#a78bfa" stroke-width="1.2"/>
+      <rect x="720" y="274" width="180" height="3" rx="1.5" fill="#a78bfa"/>
+      <text x="730" y="294" font-size="10.5" font-weight="800" fill="#a78bfa">⑦ 외부 협력·벤더</text>
+      <text x="730" y="309" font-size="8.5" fill="var(--text)" font-weight="600">파트너십·평가</text>
+      <text x="730" y="325" font-size="7.5" fill="#9ca3af">• LLM provider 평가</text>
+      <text x="730" y="337" font-size="7.5" fill="#9ca3af">• 외부 컨설팅 관리</text>
+      <text x="730" y="349" font-size="7.5" fill="#9ca3af">• 정책·규제 engagement</text>
+
+      <!-- Enable 연결선 (Hub 오른쪽 → 3 카드 왼쪽) -->
+      <line x1="522" y1="175" x2="720" y2="102" stroke="#a78bfa" stroke-width="1" stroke-dasharray="3,2" opacity="0.65"/>
+      <line x1="522" y1="210" x2="720" y2="209" stroke="#a78bfa" stroke-width="1" stroke-dasharray="3,2" opacity="0.65"/>
+      <line x1="522" y1="245" x2="720" y2="316" stroke="#a78bfa" stroke-width="1" stroke-dasharray="3,2" opacity="0.65"/>
     </svg>
+    <div style="font-size:.74rem;color:var(--text-dim);text-align:center;margin-top:.5rem;font-style:italic">
+      7 책임이 전부 채워져야 진짜 CoE. <strong>3 영역 중 하나라도 비면 Hub 기능 마비</strong> — Build만 강하면 ivory tower, Enable만 강하면 교육 회사가 됨.
+    </div>
   </div>
 
   <!-- 7 책임 누가 owner -->
