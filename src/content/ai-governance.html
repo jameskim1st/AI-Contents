@@ -3374,6 +3374,358 @@
 </div>
 </div>
 
+<!-- ══════════════════════════════════════════════
+     B-Deep: 3 영역 deep dive — Build·Govern·Enable
+     ══════════════════════════════════════════════ -->
+<div class="dia reveal">
+<div class="dia-title" style="display:flex;align-items:center;gap:.6rem"><span style="display:inline-flex;width:32px;height:32px;border-radius:50%;background:var(--violet);color:#fff;align-items:center;justify-content:center;font-size:.95rem;font-weight:800">B+</span>3 영역 deep dive — 각자 무엇을, 어떻게, 누구와</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
+    각 영역을 <strong>정의 · 입력 · 산출물 · 인력 · 도구 · 주기</strong>로 정확히 분해.
+  </div>
+
+  <!-- 3 영역 deep dive 카드 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem;margin-bottom:1rem">
+
+    <!-- 🏗 BUILD deep dive -->
+    <div style="padding:1rem;background:var(--card);border:1.5px solid #22c55e;border-radius:12px">
+      <div style="display:flex;align-items:center;gap:.5rem;padding-bottom:.6rem;border-bottom:1px solid #22c55e44;margin-bottom:.6rem">
+        <span style="font-size:1.3rem">🏗</span>
+        <div>
+          <div style="font-size:.95rem;font-weight:800;color:#22c55e">BUILD</div>
+          <div style="font-size:.68rem;color:var(--text-dim)">"AI 역량을 만든다"</div>
+        </div>
+      </div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.85">
+        <div style="margin-bottom:.45rem"><strong style="color:#22c55e">🎯 한 줄</strong><br>전사가 쓸 수 있는 <strong>AI 플랫폼·전략·자산</strong>을 만들고 발전시킨다.</div>
+        <div style="margin-bottom:.45rem"><strong style="color:#22c55e">📥 입력</strong><br>• 사업부 use case 백로그<br>• 기술 트렌드 (LLM·MCP·신규 모델)<br>• Govern의 정책 요구사항</div>
+        <div style="margin-bottom:.45rem"><strong style="color:#22c55e">📤 산출물</strong><br>• AI 전략 로드맵 (분기 갱신)<br>• LLM Gateway·Vector DB·MLOps 플랫폼<br>• Prompt template / Pre-built agent 라이브러리<br>• Spoke에 자문·코드 리뷰</div>
+        <div style="margin-bottom:.45rem"><strong style="color:#22c55e">👥 인력 5~7명</strong><br>• Solutions Architect 1~2<br>• Platform Engineer 2~3<br>• Data Engineer 1<br>• AI Strategist 1</div>
+        <div style="margin-bottom:.45rem"><strong style="color:#22c55e">🛠 핵심 도구</strong><br>LangGraph·MLflow·Pinecone·Datadog·Anthropic Console·Azure AI Foundry</div>
+        <div><strong style="color:#22c55e">⏱ 주기</strong><br>분기 sprint + 월 1회 플랫폼 release</div>
+      </div>
+    </div>
+
+    <!-- ⚠ GOVERN deep dive -->
+    <div style="padding:1rem;background:var(--card);border:1.5px solid #ef4444;border-radius:12px">
+      <div style="display:flex;align-items:center;gap:.5rem;padding-bottom:.6rem;border-bottom:1px solid #ef444444;margin-bottom:.6rem">
+        <span style="font-size:1.3rem">⚠</span>
+        <div>
+          <div style="font-size:.95rem;font-weight:800;color:#ef4444">GOVERN</div>
+          <div style="font-size:.68rem;color:var(--text-dim)">"AI를 안전하게 만든다"</div>
+        </div>
+      </div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.85">
+        <div style="margin-bottom:.45rem"><strong style="color:#ef4444">🎯 한 줄</strong><br><strong>위험·규제·윤리</strong>를 다루는 룰북·심사·점검 사이클을 운영한다.</div>
+        <div style="margin-bottom:.45rem"><strong style="color:#ef4444">📥 입력</strong><br>• 외부 규제 (EU AI Act·한국 AI 기본법·금융위)<br>• 사고·near-miss 보고<br>• Spoke의 신규 use case 제안<br>• Frontier capability 변화</div>
+        <div style="margin-bottom:.45rem"><strong style="color:#ef4444">📤 산출물</strong><br>• AI Risk 룰북 (분기 갱신)<br>• 민감 use case 심사 결과 (승인/거부/조건)<br>• 컴플라이언스 리포트 (분기 이사회)<br>• Incident response playbook<br>• Build 팀에 가드레일 요구사항</div>
+        <div style="margin-bottom:.45rem"><strong style="color:#ef4444">👥 인력 2~3명</strong><br>• Risk Officer 1 (법무+기술)<br>• Compliance Specialist 1<br>• AI Ethicist 0.5~1<br>• Red Team 자문</div>
+        <div style="margin-bottom:.45rem"><strong style="color:#ef4444">🛠 핵심 도구</strong><br>Lakera Guard·Microsoft Purview·AI Risk Register·NIST AI RMF 템플릿·ISO 42001 체크리스트</div>
+        <div><strong style="color:#ef4444">⏱ 주기</strong><br>매주 use case 심사 · 월 1회 정책 회의 · 분기 외부 감사</div>
+      </div>
+    </div>
+
+    <!-- 📚 ENABLE deep dive -->
+    <div style="padding:1rem;background:var(--card);border:1.5px solid #a78bfa;border-radius:12px">
+      <div style="display:flex;align-items:center;gap:.5rem;padding-bottom:.6rem;border-bottom:1px solid #a78bfa44;margin-bottom:.6rem">
+        <span style="font-size:1.3rem">📚</span>
+        <div>
+          <div style="font-size:.95rem;font-weight:800;color:#a78bfa">ENABLE</div>
+          <div style="font-size:.68rem;color:var(--text-dim)">"AI 확산을 가속화한다"</div>
+        </div>
+      </div>
+      <div style="font-size:.75rem;color:var(--text);line-height:1.85">
+        <div style="margin-bottom:.45rem"><strong style="color:#a78bfa">🎯 한 줄</strong><br>전사 직원의 <strong>AI literacy·실전 능력</strong>을 키우고 외부 파트너십을 관리한다.</div>
+        <div style="margin-bottom:.45rem"><strong style="color:#a78bfa">📥 입력</strong><br>• 직원 역량 갭 진단<br>• Build의 신규 도구·플랫폼<br>• Govern의 새 정책·룰북<br>• 외부 벤더·연구 트렌드</div>
+        <div style="margin-bottom:.45rem"><strong style="color:#a78bfa">📤 산출물</strong><br>• 임원·직원·개발자 교육 트랙 3종<br>• Prompt 워크숍 (월간)<br>• AI 인증 뱃지 제도<br>• Community of Practice (Slack·정기 모임)<br>• 외부 벤더 평가 리포트</div>
+        <div style="margin-bottom:.45rem"><strong style="color:#a78bfa">👥 인력 2~3명</strong><br>• Enablement Lead 1 (교육 설계)<br>• Community Manager 0.5~1<br>• Partnership Lead 0.5</div>
+        <div style="margin-bottom:.45rem"><strong style="color:#a78bfa">🛠 핵심 도구</strong><br>Notion (교육 콘텐츠)·Slack/Teams (커뮤니티)·Coursera/Anthropic Academy·내부 LMS</div>
+        <div><strong style="color:#a78bfa">⏱ 주기</strong><br>주간 워크숍 · 월 1회 커뮤니티 회의 · 분기 사내 컨퍼런스</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 3 영역 비교 한 줄 요약 -->
+  <div style="padding:.85rem 1.1rem;background:var(--violet-bg);border:1px solid var(--violet-border);border-radius:10px;font-size:.8rem;color:var(--text);line-height:1.85">
+    <strong style="color:var(--violet)">💡 3 영역의 본질 차이:</strong><br>
+    <strong style="color:#22c55e">Build</strong>는 <em>"만든다"</em> (역량·플랫폼·자산) · <strong style="color:#ef4444">Govern</strong>은 <em>"통제한다"</em> (위험·규제·정책) · <strong style="color:#a78bfa">Enable</strong>은 <em>"가속화한다"</em> (교육·커뮤니티·파트너십). 셋 다 Hub 안에 있지만, <strong>시간 단위·산출물 단위·인력 백그라운드가 모두 다름</strong>. 한 사람이 둘을 겸직하기 어려운 이유.
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     B-Flow: 3 영역의 유기적 연결 — 6 cross-flow
+     ══════════════════════════════════════════════ -->
+<div class="dia reveal">
+<div class="dia-title" style="display:flex;align-items:center;gap:.6rem"><span style="display:inline-flex;width:32px;height:32px;border-radius:50%;background:var(--violet);color:#fff;align-items:center;justify-content:center;font-size:.95rem;font-weight:800">B↻</span>3 영역의 유기적 연결 — 어떻게 서로 작동하나</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
+    3 영역은 독립된 부서가 아닌 <strong>서로 입력·출력을 주고받는 사이클</strong>. 6개 cross-flow 화살표가 핵심.
+  </div>
+
+  <!-- 6 cross-flow SVG (삼각형 배치 + 양방향 화살표) -->
+  <div style="background:var(--card);border:1px solid var(--violet-border);border-radius:10px;padding:1rem;margin-bottom:.9rem">
+    <svg viewBox="0 0 920 480" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="b-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#22c55e"/></marker>
+        <marker id="g-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#ef4444"/></marker>
+        <marker id="e-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#a78bfa"/></marker>
+      </defs>
+
+      <!-- 🏗 BUILD (좌상) -->
+      <circle cx="200" cy="130" r="65" fill="#22c55e" fill-opacity=".20" stroke="#22c55e" stroke-width="2"/>
+      <text x="200" y="125" text-anchor="middle" font-size="14" font-weight="800" fill="#22c55e">🏗 BUILD</text>
+      <text x="200" y="145" text-anchor="middle" font-size="9" fill="var(--text-dim)">만든다</text>
+
+      <!-- 📚 ENABLE (우상) -->
+      <circle cx="720" cy="130" r="65" fill="#a78bfa" fill-opacity=".20" stroke="#a78bfa" stroke-width="2"/>
+      <text x="720" y="125" text-anchor="middle" font-size="14" font-weight="800" fill="#a78bfa">📚 ENABLE</text>
+      <text x="720" y="145" text-anchor="middle" font-size="9" fill="var(--text-dim)">가속화한다</text>
+
+      <!-- ⚠ GOVERN (중앙 하단) -->
+      <circle cx="460" cy="370" r="65" fill="#ef4444" fill-opacity=".20" stroke="#ef4444" stroke-width="2"/>
+      <text x="460" y="365" text-anchor="middle" font-size="14" font-weight="800" fill="#ef4444">⚠ GOVERN</text>
+      <text x="460" y="385" text-anchor="middle" font-size="9" fill="var(--text-dim)">통제한다</text>
+
+      <!-- Build ↔ Enable (위쪽 양방향) -->
+      <!-- Build → Enable: 위쪽 arc -->
+      <path d="M 260 105 Q 460 50 660 105" fill="none" stroke="#22c55e" stroke-width="1.5" marker-end="url(#b-arr)"/>
+      <text x="460" y="55" text-anchor="middle" font-size="9.5" font-weight="700" fill="#22c55e">새 도구 → 워크숍 콘텐츠</text>
+      <text x="460" y="68" text-anchor="middle" font-size="8" fill="var(--text-dim)" font-style="italic">"LangGraph v2 릴리스 → 사내 워크숍 자료"</text>
+
+      <!-- Enable → Build: 아래쪽 arc -->
+      <path d="M 660 155 Q 460 105 260 155" fill="none" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#e-arr)"/>
+      <text x="460" y="178" text-anchor="middle" font-size="9.5" font-weight="700" fill="#a78bfa">사용자 피드백 → 플랫폼 개선</text>
+      <text x="460" y="191" text-anchor="middle" font-size="8" fill="var(--text-dim)" font-style="italic">"커뮤니티에서 발견된 pain point → 다음 release"</text>
+
+      <!-- Build ↔ Govern (좌하 양방향) -->
+      <!-- Build → Govern -->
+      <path d="M 230 195 Q 280 290 410 320" fill="none" stroke="#22c55e" stroke-width="1.5" marker-end="url(#b-arr)"/>
+      <text x="280" y="245" text-anchor="middle" font-size="9" font-weight="700" fill="#22c55e">새 플랫폼 → Risk 평가 요청</text>
+      <text x="280" y="258" text-anchor="middle" font-size="7.5" fill="var(--text-dim)" font-style="italic">"신규 LLM 도입 전 위험 점검"</text>
+
+      <!-- Govern → Build -->
+      <path d="M 405 350 Q 250 320 175 195" fill="none" stroke="#ef4444" stroke-width="1.5" marker-end="url(#g-arr)"/>
+      <text x="180" y="290" text-anchor="middle" font-size="9" font-weight="700" fill="#ef4444">정책 요구 → 가드레일</text>
+      <text x="180" y="303" text-anchor="middle" font-size="7.5" fill="var(--text-dim)" font-style="italic">"PII 마스킹 의무 → 플랫폼 내장"</text>
+
+      <!-- Enable ↔ Govern (우하 양방향) -->
+      <!-- Enable → Govern -->
+      <path d="M 690 195 Q 640 290 510 320" fill="none" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#e-arr)"/>
+      <text x="640" y="245" text-anchor="middle" font-size="9" font-weight="700" fill="#a78bfa">교육 중 신규 위험 발견 → 정책</text>
+      <text x="640" y="258" text-anchor="middle" font-size="7.5" fill="var(--text-dim)" font-style="italic">"워크숍 참가자 우회 시도 → 정책 신설"</text>
+
+      <!-- Govern → Enable -->
+      <path d="M 515 350 Q 670 320 745 195" fill="none" stroke="#ef4444" stroke-width="1.5" marker-end="url(#g-arr)"/>
+      <text x="740" y="290" text-anchor="middle" font-size="9" font-weight="700" fill="#ef4444">새 정책 → 교육 콘텐츠</text>
+      <text x="740" y="303" text-anchor="middle" font-size="7.5" fill="var(--text-dim)" font-style="italic">"EU AI Act 시행 → 임원 30분 브리핑"</text>
+
+      <!-- 중앙 캡션 -->
+      <text x="460" y="240" text-anchor="middle" font-size="11" fill="var(--violet)" font-weight="800">🔄 6 cross-flow</text>
+      <text x="460" y="255" text-anchor="middle" font-size="8.5" fill="var(--text-dim)" font-style="italic">각 영역 쌍이 양방향으로 입력·출력 교환</text>
+
+      <!-- 하단 보조 라벨 -->
+      <text x="460" y="465" text-anchor="middle" font-size="9" fill="#9ca3af" font-style="italic">한 영역의 변화가 다른 두 영역에 반드시 영향. 단방향이 아닌 사이클.</text>
+    </svg>
+  </div>
+
+  <!-- 6 flow 정리 표 -->
+  <div style="overflow-x:auto;margin-bottom:.7rem">
+    <table style="width:100%;border-collapse:collapse;font-size:.74rem;min-width:780px">
+      <thead><tr style="background:var(--surface)">
+        <th style="padding:.55rem;text-align:left;color:var(--text-dim);border-bottom:1px solid var(--violet-border);width:20%">Flow</th>
+        <th style="padding:.55rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border);width:30%">트리거</th>
+        <th style="padding:.55rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border);width:30%">전달되는 것</th>
+        <th style="padding:.55rem;text-align:left;color:var(--violet);border-bottom:1px solid var(--violet-border);width:20%">주기</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td style="padding:.5rem;color:#22c55e;font-weight:700;border-bottom:1px solid var(--border)">Build → Enable</td>
+          <td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">새 플랫폼·도구 릴리스</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">사용법 문서·워크숍 자료·데모 영상</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">월 1회 (release 직후)</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem;color:#a78bfa;font-weight:700;border-bottom:1px solid var(--border)">Enable → Build</td>
+          <td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">커뮤니티에서 pain point 발견</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">사용자 피드백 리포트·feature request</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">주 1회 (커뮤니티 미팅 후)</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem;color:#22c55e;font-weight:700;border-bottom:1px solid var(--border)">Build → Govern</td>
+          <td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">신규 LLM·플랫폼 도입 검토</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">기술 spec·위험 영향 평가 요청</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">분기 1회 (큰 결정)</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem;color:#ef4444;font-weight:700;border-bottom:1px solid var(--border)">Govern → Build</td>
+          <td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">새 정책·규제 발효</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">가드레일 spec·필터·차단 룰</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">즉시 (긴급) / 분기 (일반)</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem;color:#a78bfa;font-weight:700;border-bottom:1px solid var(--border)">Enable → Govern</td>
+          <td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">교육·커뮤니티에서 신규 위험 패턴 발견</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">사고 보고·near-miss 케이스</td>
+          <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">발견 즉시</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem;color:#ef4444;font-weight:700">Govern → Enable</td>
+          <td style="padding:.5rem;color:var(--text)">정책 변경·규제 시행</td>
+          <td style="padding:.5rem;color:var(--text-dim)">교육 자료·임원 브리핑·인증 갱신</td>
+          <td style="padding:.5rem;color:var(--text-dim)">즉시 (규제) / 월 (일반)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="padding:.7rem 1rem;background:var(--violet-bg);border:1px solid var(--violet-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.8">
+    <strong style="color:var(--violet)">📌 의존 강도:</strong> Build↔Enable 가장 자주 (주~월 단위) · Govern↔Build 빈도 낮지만 영향 큼 · Govern↔Enable 규제 변화 시 즉각. <strong>한 flow라도 끊어지면 사이클 마비.</strong> 예: Enable→Govern이 끊기면 위험 발견 못 함 → 사고 폭증.
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     B-Week: 1주일 실제 운영 시뮬레이션
+     ══════════════════════════════════════════════ -->
+<div class="dia reveal">
+<div class="dia-title" style="display:flex;align-items:center;gap:.6rem"><span style="display:inline-flex;width:32px;height:32px;border-radius:50%;background:var(--violet);color:#fff;align-items:center;justify-content:center;font-size:.95rem;font-weight:800">B📅</span>1주일 동안 무슨 일이 일어나나 — 실제 CoE 운영</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="font-size:.82rem;color:var(--text-dim);text-align:center;margin-bottom:.9rem">
+    3 영역이 같이 돌아가는 실제 주간 — 어느 날 어디서 무슨 활동이 일어나나.
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--violet-border);border-radius:10px;padding:1rem;margin-bottom:.7rem">
+    <svg viewBox="0 0 920 360" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- 가로 timeline -->
+      <line x1="60" y1="80" x2="860" y2="80" stroke="var(--text-dim)" stroke-width="0.6"/>
+
+      <!-- 5 day markers -->
+      <g font-size="10" font-weight="700" fill="var(--text)">
+        <circle cx="140" cy="80" r="13" fill="#a78bfa" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="140" y="84" text-anchor="middle" fill="#fff" font-size="9">MON</text>
+        <circle cx="320" cy="80" r="13" fill="#a78bfa" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="320" y="84" text-anchor="middle" fill="#fff" font-size="9">TUE</text>
+        <circle cx="500" cy="80" r="13" fill="#a78bfa" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="500" y="84" text-anchor="middle" fill="#fff" font-size="9">WED</text>
+        <circle cx="680" cy="80" r="13" fill="#a78bfa" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="680" y="84" text-anchor="middle" fill="#fff" font-size="9">THU</text>
+        <circle cx="860" cy="80" r="13" fill="#a78bfa" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="860" y="84" text-anchor="middle" fill="#fff" font-size="9">FRI</text>
+      </g>
+
+      <!-- 3 swim lanes -->
+      <text x="40" y="135" text-anchor="end" font-size="10" font-weight="700" fill="#22c55e">🏗 BUILD</text>
+      <text x="40" y="205" text-anchor="end" font-size="10" font-weight="700" fill="#ef4444">⚠ GOVERN</text>
+      <text x="40" y="275" text-anchor="end" font-size="10" font-weight="700" fill="#a78bfa">📚 ENABLE</text>
+
+      <!-- 가로 swim lane 배경 -->
+      <rect x="60" y="105" width="800" height="55" rx="6" fill="#22c55e" fill-opacity=".04" stroke="#22c55e" stroke-width="0.5" stroke-dasharray="3,2"/>
+      <rect x="60" y="175" width="800" height="55" rx="6" fill="#ef4444" fill-opacity=".04" stroke="#ef4444" stroke-width="0.5" stroke-dasharray="3,2"/>
+      <rect x="60" y="245" width="800" height="55" rx="6" fill="#a78bfa" fill-opacity=".04" stroke="#a78bfa" stroke-width="0.5" stroke-dasharray="3,2"/>
+
+      <!-- BUILD activities (lane 1) -->
+      <rect x="100" y="115" width="80" height="35" rx="5" fill="#22c55e" fill-opacity=".25" stroke="#22c55e" stroke-width="0.8"/>
+      <text x="140" y="130" text-anchor="middle" font-size="8" font-weight="700" fill="#22c55e">Sprint 계획</text>
+      <text x="140" y="142" text-anchor="middle" font-size="7" fill="var(--text-dim)">spoke 요청 분류</text>
+
+      <rect x="280" y="115" width="80" height="35" rx="5" fill="#22c55e" fill-opacity=".25" stroke="#22c55e" stroke-width="0.8"/>
+      <text x="320" y="130" text-anchor="middle" font-size="8" font-weight="700" fill="#22c55e">Platform 작업</text>
+      <text x="320" y="142" text-anchor="middle" font-size="7" fill="var(--text-dim)">v2.1 빌드</text>
+
+      <rect x="460" y="115" width="80" height="35" rx="5" fill="#22c55e" fill-opacity=".25" stroke="#22c55e" stroke-width="0.8"/>
+      <text x="500" y="130" text-anchor="middle" font-size="8" font-weight="700" fill="#22c55e">Spoke 코드 review</text>
+      <text x="500" y="142" text-anchor="middle" font-size="7" fill="var(--text-dim)">3개 spoke PR</text>
+
+      <rect x="640" y="115" width="80" height="35" rx="5" fill="#22c55e" fill-opacity=".25" stroke="#22c55e" stroke-width="0.8"/>
+      <text x="680" y="130" text-anchor="middle" font-size="8" font-weight="700" fill="#22c55e">신규 LLM 평가</text>
+      <text x="680" y="142" text-anchor="middle" font-size="7" fill="var(--text-dim)">Claude 4.7 benchmark</text>
+
+      <rect x="820" y="115" width="80" height="35" rx="5" fill="#22c55e" fill-opacity=".30" stroke="#22c55e" stroke-width="1"/>
+      <text x="860" y="130" text-anchor="middle" font-size="8" font-weight="700" fill="#22c55e">Release v2.1 🚀</text>
+      <text x="860" y="142" text-anchor="middle" font-size="7" fill="var(--text-dim)">spoke 배포</text>
+
+      <!-- GOVERN activities (lane 2) -->
+      <rect x="100" y="185" width="80" height="35" rx="5" fill="#ef4444" fill-opacity=".25" stroke="#ef4444" stroke-width="0.8"/>
+      <text x="140" y="200" text-anchor="middle" font-size="8" font-weight="700" fill="#ef4444">Use case 심사 ⚖</text>
+      <text x="140" y="212" text-anchor="middle" font-size="7" fill="var(--text-dim)">2건 (의료·HR)</text>
+
+      <rect x="280" y="185" width="80" height="35" rx="5" fill="#ef4444" fill-opacity=".15" stroke="#ef4444" stroke-width="0.7" stroke-dasharray="2,2"/>
+      <text x="320" y="200" text-anchor="middle" font-size="8" font-weight="700" fill="#ef4444">정책 작성</text>
+      <text x="320" y="212" text-anchor="middle" font-size="7" fill="var(--text-dim)">신규 PII 룰</text>
+
+      <rect x="460" y="185" width="80" height="35" rx="5" fill="#ef4444" fill-opacity=".25" stroke="#ef4444" stroke-width="0.8"/>
+      <text x="500" y="200" text-anchor="middle" font-size="8" font-weight="700" fill="#ef4444">Risk 평가</text>
+      <text x="500" y="212" text-anchor="middle" font-size="7" fill="var(--text-dim)">Claude 4.7 검증</text>
+
+      <rect x="640" y="185" width="80" height="35" rx="5" fill="#ef4444" fill-opacity=".25" stroke="#ef4444" stroke-width="0.8"/>
+      <text x="680" y="200" text-anchor="middle" font-size="8" font-weight="700" fill="#ef4444">Spoke 사고 대응</text>
+      <text x="680" y="212" text-anchor="middle" font-size="7" fill="var(--text-dim)">개인정보 노출 분석</text>
+
+      <rect x="820" y="185" width="80" height="35" rx="5" fill="#ef4444" fill-opacity=".15" stroke="#ef4444" stroke-width="0.7" stroke-dasharray="2,2"/>
+      <text x="860" y="200" text-anchor="middle" font-size="8" font-weight="700" fill="#ef4444">월간 리포트</text>
+      <text x="860" y="212" text-anchor="middle" font-size="7" fill="var(--text-dim)">이사회 준비</text>
+
+      <!-- ENABLE activities (lane 3) -->
+      <rect x="100" y="255" width="80" height="35" rx="5" fill="#a78bfa" fill-opacity=".15" stroke="#a78bfa" stroke-width="0.7" stroke-dasharray="2,2"/>
+      <text x="140" y="270" text-anchor="middle" font-size="8" font-weight="700" fill="#a78bfa">Slack Q&amp;A</text>
+      <text x="140" y="282" text-anchor="middle" font-size="7" fill="var(--text-dim)">8건 답변</text>
+
+      <rect x="280" y="255" width="80" height="35" rx="5" fill="#a78bfa" fill-opacity=".25" stroke="#a78bfa" stroke-width="0.8"/>
+      <text x="320" y="270" text-anchor="middle" font-size="8" font-weight="700" fill="#a78bfa">Prompt 워크숍 📚</text>
+      <text x="320" y="282" text-anchor="middle" font-size="7" fill="var(--text-dim)">30명 참석</text>
+
+      <rect x="460" y="255" width="80" height="35" rx="5" fill="#a78bfa" fill-opacity=".15" stroke="#a78bfa" stroke-width="0.7" stroke-dasharray="2,2"/>
+      <text x="500" y="270" text-anchor="middle" font-size="8" font-weight="700" fill="#a78bfa">교육 자료 갱신</text>
+      <text x="500" y="282" text-anchor="middle" font-size="7" fill="var(--text-dim)">PII 룰 추가</text>
+
+      <rect x="640" y="255" width="80" height="35" rx="5" fill="#a78bfa" fill-opacity=".25" stroke="#a78bfa" stroke-width="0.8"/>
+      <text x="680" y="270" text-anchor="middle" font-size="8" font-weight="700" fill="#a78bfa">CoP 정기 모임 👥</text>
+      <text x="680" y="282" text-anchor="middle" font-size="7" fill="var(--text-dim)">spoke 사례 공유</text>
+
+      <rect x="820" y="255" width="80" height="35" rx="5" fill="#a78bfa" fill-opacity=".25" stroke="#a78bfa" stroke-width="0.8"/>
+      <text x="860" y="270" text-anchor="middle" font-size="8" font-weight="700" fill="#a78bfa">v2.1 데모 영상 🎥</text>
+      <text x="860" y="282" text-anchor="middle" font-size="7" fill="var(--text-dim)">release 발맞춰</text>
+
+      <!-- Cross-flow 표시 (점선) -->
+      <line x1="320" y1="220" x2="500" y2="255" stroke="#ef4444" stroke-width="0.7" stroke-dasharray="3,2" opacity="0.7"/>
+      <text x="410" y="240" text-anchor="middle" font-size="7" fill="#ef4444" font-style="italic">정책 → 교육</text>
+
+      <line x1="680" y1="220" x2="680" y2="255" stroke="#ef4444" stroke-width="0.7" stroke-dasharray="3,2" opacity="0.7"/>
+      <text x="700" y="240" font-size="7" fill="#ef4444" font-style="italic">사고 공유</text>
+
+      <line x1="860" y1="220" x2="860" y2="150" stroke="#ef4444" stroke-width="0.7" stroke-dasharray="3,2" opacity="0.7"/>
+      <line x1="860" y1="245" x2="860" y2="150" stroke="#a78bfa" stroke-width="0.7" stroke-dasharray="3,2" opacity="0.7"/>
+
+      <!-- 하단 캡션 -->
+      <text x="460" y="330" text-anchor="middle" font-size="10" fill="var(--violet)" font-weight="700">💡 5일 동안 3 영역 모두에서 활동 + 4번의 cross-flow 발생</text>
+      <text x="460" y="345" text-anchor="middle" font-size="8.5" fill="var(--text-dim)" font-style="italic">실선 = 정규 활동 · 점선 = 정책·교육 자료 갱신 (조용한 작업)</text>
+    </svg>
+  </div>
+
+  <!-- 1주일 cross-flow 강조 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.5rem">
+    <div style="padding:.7rem .9rem;background:var(--card);border:1px solid #ef444444;border-radius:8px;font-size:.74rem;color:var(--text);line-height:1.75">
+      <strong style="color:#ef4444">⚖ TUE → WED 흐름:</strong><br>
+      Govern이 TUE에 신규 PII 룰 작성 → WED에 Build가 platform v2.1에 가드레일 추가 + Enable이 교육 자료 갱신
+    </div>
+    <div style="padding:.7rem .9rem;background:var(--card);border:1px solid #22c55e44;border-radius:8px;font-size:.74rem;color:var(--text);line-height:1.75">
+      <strong style="color:#22c55e">🚀 FRI 통합 release:</strong><br>
+      Build가 v2.1 배포 + Govern이 위험 평가 완료 + Enable이 데모 영상 → spoke가 안전하게 새 도구 사용 시작
+    </div>
+  </div>
+
+  <div style="padding:.7rem 1rem;background:var(--violet-bg);border:1px solid var(--violet-border);border-radius:8px;font-size:.78rem;color:var(--text);line-height:1.8">
+    <strong style="color:var(--violet)">📌 핵심 통찰:</strong> 3 영역이 따로 일하는 게 아님. <strong>같은 사건(예: 신규 LLM 도입)이 3 영역에서 각자 다른 활동</strong>을 일으킴 — Build는 평가·통합, Govern은 위험 점검, Enable은 교육 콘텐츠. 셋이 동기화되어야 spoke가 안전하게 새 능력을 쓸 수 있음.
+  </div>
+</div>
+</div>
+
 <!-- ──────────────────────────────────────
      C. Spoke의 5 책임
      ────────────────────────────────────── -->
