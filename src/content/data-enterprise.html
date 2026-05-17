@@ -4856,7 +4856,7 @@ chunks = splitter.split_documents(docs)<br>
 <div class="dia-title">🔗 다른 보안 챕터와의 연결 — 3층의 보안</div>
 <div style="max-width:900px;margin:0 auto">
 <div style="padding:1.1rem 1.3rem;background:var(--surface);border-left:3px solid var(--amber);border-radius:0 10px 10px 0;font-size:.82rem;color:var(--text);line-height:1.9">
-  본 챕터(Part 11 Ch.13)가 <strong>학습 시점</strong>의 데이터 공격을 다루고, <a href="/04-ai-agents-advanced/#p4-ch11" style="color:var(--accent);font-weight:700">Part 4 Ch.11 "보안과 비용"</a>이 <strong>런타임 방어</strong>(prompt injection·jailbreak·tool abuse)를 다룬다면, <a href="/12-ai-governance/#gov-ch7" style="color:var(--violet);font-weight:700">Part 12 Ch.07 "운영 사이클"</a>은 그 위에 <strong>탐지·분류·해석 사이클</strong>을 얹습니다 — AI 레드팀, MITRE ATLAS(Data Poisoning은 AML.T0020, Backdoor는 AML.T0018), XAI, frontier capability control(Mythos).
+  본 챕터(Part 11 Ch.13)가 <strong>학습 시점</strong>의 데이터 공격을 다루고, <a href="/04-ai-agents-advanced/#p4-ch11" style="color:var(--accent);font-weight:700">Part 4 Ch.11 "보안과 비용"</a>이 <strong>런타임 방어</strong>(prompt injection·jailbreak·tool abuse)를 다룬다면, <a href="/12-ai-governance/#gov-ch9" style="color:var(--violet);font-weight:700">Part 12 Ch.09 "운영 사이클"</a>은 그 위에 <strong>탐지·분류·해석 사이클</strong>을 얹습니다 — AI 레드팀, MITRE ATLAS(Data Poisoning은 AML.T0020, Backdoor는 AML.T0018), XAI, frontier capability control(Mythos).
   <br><br>
   <strong style="color:var(--amber)">세 층은 함께 움직입니다:</strong> poisoning으로 심어둔 backdoor가 inference 시 특정 prompt로 trigger되고, ATLAS는 그 패턴을 분류·기록하며, XAI(SHAP·SAE)가 어떤 feature가 trigger를 활성화시켰는지 해석합니다. <strong>전체 스택의 보안은 가장 약한 고리의 함수</strong>입니다.
 </div>

@@ -119,7 +119,7 @@ Mythos의 ASL은 공식 미확정. 그러나 **공개 거부 결정 자체**가 
 
 ## Reference
 
-- [Part 12 Ch.07 운영 사이클](https://ai-contents-wine.vercel.app/12-ai-governance/#gov-ch7) ⭐ 핵심 챕터 — Capability Control 원칙·운영 사이클의 핵심 사례
+- [Part 12 Ch.09 운영 사이클](https://ai-contents-wine.vercel.app/12-ai-governance/#gov-ch9) ⭐ 핵심 챕터 — Capability Control 원칙·운영 사이클의 핵심 사례
 - [Part 4 — Ch.11 보안과 비용](https://ai-contents-wine.vercel.app/04-ai-agents-advanced/#p4-ch11) — Defensive-first deployment 함의
 - [Part 11 — Ch.13 Synthetic + Security](https://ai-contents-wine.vercel.app/11-data-enterprise/#p9-ch13) — frontier 모델 학습 데이터 측면
 
