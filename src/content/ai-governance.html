@@ -3456,6 +3456,1055 @@
 </div>
 
 <!-- ══════════════════════════════════════════════
+     🏗 BUILD DEEP DIVE — 4 sub-section + case
+     ══════════════════════════════════════════════ -->
+<div class="dia reveal" style="border-top:3px solid #22c55e;background:linear-gradient(180deg, rgba(34,197,94,0.04) 0%, transparent 60%)">
+<div class="dia-title" style="display:flex;align-items:center;gap:.6rem"><span style="display:inline-flex;width:32px;height:32px;border-radius:50%;background:#22c55e;color:#fff;align-items:center;justify-content:center;font-size:.95rem;font-weight:800">🏗</span>BUILD 깊이 분석 — 무엇을 어떻게 만드나 (4 sub-section)</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="padding:.7rem 1rem;background:#22c55e15;border-left:3px solid #22c55e;border-radius:0 8px 8px 0;font-size:.8rem;color:var(--text);line-height:1.85;margin-bottom:1rem">
+    <strong style="color:#22c55e">🎯 Build의 본질:</strong> Spoke가 사용할 <strong>도구·플랫폼·자산</strong>을 미리 만들어두는 것. Build가 약하면 모든 spoke가 같은 바퀴를 다시 발명 (중복 + 늦음). Build가 강하면 spoke는 <strong>"우리는 사업 로직만 짜면 끝"</strong>.
+  </div>
+
+  <!-- ═══════════════════
+       B-Build-1: 전략·로드맵 작성 5단계
+       ═══════════════════ -->
+  <div style="margin-bottom:1.4rem">
+    <div style="font-size:.95rem;font-weight:700;color:#22c55e;margin-bottom:.6rem">① AI 전략·로드맵 — 분기마다 어떻게 작성하나</div>
+
+    <div style="background:var(--card);border:1px solid #22c55e44;border-radius:10px;padding:1rem;margin-bottom:.7rem">
+      <svg viewBox="0 0 920 240" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="bb1-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9ca3af"/></marker></defs>
+
+        <!-- 5 단계 박스 가로 배치 -->
+        <rect x="20" y="60" width="160" height="100" rx="10" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1.2"/>
+        <text x="100" y="80" text-anchor="middle" font-size="11" font-weight="700" fill="#22c55e">① 수집</text>
+        <text x="100" y="100" text-anchor="middle" font-size="8.5" fill="var(--text)">Spoke 백로그</text>
+        <text x="100" y="113" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">+ 외부 기술 트렌드</text>
+        <text x="100" y="126" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">+ Govern 정책</text>
+        <text x="100" y="148" text-anchor="middle" font-size="7" fill="#9ca3af">📥 입력</text>
+
+        <line x1="180" y1="110" x2="200" y2="110" stroke="#9ca3af" stroke-width="1" marker-end="url(#bb1-ar)"/>
+
+        <rect x="200" y="60" width="160" height="100" rx="10" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1.2"/>
+        <text x="280" y="80" text-anchor="middle" font-size="11" font-weight="700" fill="#22c55e">② 평가</text>
+        <text x="280" y="100" text-anchor="middle" font-size="8.5" fill="var(--text)">ROI × 난이도</text>
+        <text x="280" y="113" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">2×2 매트릭스</text>
+        <text x="280" y="126" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">High·Med·Low 점수</text>
+        <text x="280" y="148" text-anchor="middle" font-size="7" fill="#9ca3af">📊 매트릭스</text>
+
+        <line x1="360" y1="110" x2="380" y2="110" stroke="#9ca3af" stroke-width="1" marker-end="url(#bb1-ar)"/>
+
+        <rect x="380" y="60" width="160" height="100" rx="10" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1.2"/>
+        <text x="460" y="80" text-anchor="middle" font-size="11" font-weight="700" fill="#22c55e">③ 합의</text>
+        <text x="460" y="100" text-anchor="middle" font-size="8.5" fill="var(--text)">Steering Committee</text>
+        <text x="460" y="113" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">CEO + 사업부장</text>
+        <text x="460" y="126" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">Top 10 use case 선정</text>
+        <text x="460" y="148" text-anchor="middle" font-size="7" fill="#9ca3af">🤝 분기 워크숍</text>
+
+        <line x1="540" y1="110" x2="560" y2="110" stroke="#9ca3af" stroke-width="1" marker-end="url(#bb1-ar)"/>
+
+        <rect x="560" y="60" width="160" height="100" rx="10" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1.2"/>
+        <text x="640" y="80" text-anchor="middle" font-size="11" font-weight="700" fill="#22c55e">④ 문서화</text>
+        <text x="640" y="100" text-anchor="middle" font-size="8.5" fill="var(--text)">3년 로드맵 v갱신</text>
+        <text x="640" y="113" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">분기 OKR 작성</text>
+        <text x="640" y="126" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">예산 배정</text>
+        <text x="640" y="148" text-anchor="middle" font-size="7" fill="#9ca3af">📄 산출물</text>
+
+        <line x1="720" y1="110" x2="740" y2="110" stroke="#9ca3af" stroke-width="1" marker-end="url(#bb1-ar)"/>
+
+        <rect x="740" y="60" width="160" height="100" rx="10" fill="#22c55e" fill-opacity=".25" stroke="#22c55e" stroke-width="1.5"/>
+        <text x="820" y="80" text-anchor="middle" font-size="11" font-weight="800" fill="#22c55e">⑤ 실행·점검</text>
+        <text x="820" y="100" text-anchor="middle" font-size="8.5" fill="var(--text)">월간 진척도</text>
+        <text x="820" y="113" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">분기 retrospective</text>
+        <text x="820" y="126" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">이사회 보고</text>
+        <text x="820" y="148" text-anchor="middle" font-size="7" fill="#9ca3af">🔁 cycle 시작</text>
+
+        <!-- 위쪽 캡션 -->
+        <text x="460" y="25" text-anchor="middle" font-size="10" fill="var(--text-dim)" font-weight="600">▼ 분기 1회 · 5단계 워크숍 · 3주 소요</text>
+        <text x="460" y="40" text-anchor="middle" font-size="8.5" fill="#9ca3af" font-style="italic">McKinsey AI Operating Model 2025 권장 절차</text>
+
+        <!-- 하단: 누가 참여 -->
+        <text x="460" y="195" text-anchor="middle" font-size="9" fill="var(--violet)" font-weight="700">참여자: CAIO · Build Lead · 사업부장 5~10명 · Govern Lead · 재무 PM</text>
+        <text x="460" y="215" text-anchor="middle" font-size="8" fill="var(--text-dim)" font-style="italic">CEO는 ③ 합의 단계에서 키노트 + 최종 승인만</text>
+      </svg>
+    </div>
+
+    <!-- 실제 케이스: ROI×난이도 매트릭스 -->
+    <div style="background:var(--card);border:1px solid #22c55e44;border-radius:10px;padding:1rem;margin-bottom:.7rem">
+      <div style="font-size:.85rem;font-weight:700;color:#22c55e;margin-bottom:.5rem">📊 실제 평가 — ROI × 난이도 2×2 매트릭스 (예시)</div>
+      <svg viewBox="0 0 920 320" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+        <!-- 4분면 -->
+        <rect x="80" y="40" width="370" height="120" rx="6" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1"/>
+        <text x="265" y="60" text-anchor="middle" font-size="11" font-weight="800" fill="#22c55e">⭐ Quick Win — 우선 실행</text>
+        <text x="265" y="78" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">고 ROI · 저 난이도</text>
+
+        <rect x="450" y="40" width="370" height="120" rx="6" fill="#f59e0b" fill-opacity=".15" stroke="#f59e0b" stroke-width="1"/>
+        <text x="635" y="60" text-anchor="middle" font-size="11" font-weight="800" fill="#f59e0b">🚀 Strategic — 장기 투자</text>
+        <text x="635" y="78" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">고 ROI · 고 난이도</text>
+
+        <rect x="80" y="160" width="370" height="120" rx="6" fill="#9ca3af" fill-opacity=".10" stroke="#9ca3af" stroke-width="1"/>
+        <text x="265" y="180" text-anchor="middle" font-size="11" font-weight="800" fill="#9ca3af">⚪ Fill-in — 여유 시</text>
+        <text x="265" y="198" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">저 ROI · 저 난이도</text>
+
+        <rect x="450" y="160" width="370" height="120" rx="6" fill="#ef4444" fill-opacity=".10" stroke="#ef4444" stroke-width="1"/>
+        <text x="635" y="180" text-anchor="middle" font-size="11" font-weight="800" fill="#ef4444">✗ Avoid — 거절</text>
+        <text x="635" y="198" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">저 ROI · 고 난이도</text>
+
+        <!-- 실제 use case 배치 -->
+        <circle cx="180" cy="105" r="6" fill="#22c55e"/>
+        <text x="195" y="108" font-size="8.5" font-weight="600" fill="var(--text)">FAQ 챗봇</text>
+        <circle cx="280" cy="125" r="6" fill="#22c55e"/>
+        <text x="295" y="128" font-size="8.5" font-weight="600" fill="var(--text)">회의록 요약</text>
+        <circle cx="370" cy="100" r="6" fill="#22c55e"/>
+        <text x="385" y="103" font-size="8.5" font-weight="600" fill="var(--text)">번역 자동화</text>
+
+        <circle cx="540" cy="100" r="7" fill="#f59e0b"/>
+        <text x="555" y="103" font-size="8.5" font-weight="600" fill="var(--text)">고객 지원 AI</text>
+        <circle cx="650" cy="135" r="7" fill="#f59e0b"/>
+        <text x="665" y="138" font-size="8.5" font-weight="600" fill="var(--text)">AI 코딩 어시스트</text>
+        <circle cx="740" cy="105" r="7" fill="#f59e0b"/>
+        <text x="755" y="108" font-size="8.5" font-weight="600" fill="var(--text)">자동 신용평가</text>
+
+        <circle cx="200" cy="225" r="5" fill="#9ca3af"/>
+        <text x="215" y="228" font-size="8" fill="var(--text-dim)">이메일 자동 분류</text>
+        <circle cx="350" cy="245" r="5" fill="#9ca3af"/>
+        <text x="365" y="248" font-size="8" fill="var(--text-dim)">미팅 일정 자동화</text>
+
+        <circle cx="550" cy="225" r="5" fill="#ef4444"/>
+        <text x="565" y="228" font-size="8" fill="var(--text-dim)">자동 HR 평가</text>
+        <circle cx="710" cy="245" r="5" fill="#ef4444"/>
+        <text x="725" y="248" font-size="8" fill="var(--text-dim)">완전 자율 의사결정</text>
+
+        <!-- 축 라벨 -->
+        <text x="450" y="305" text-anchor="middle" font-size="10" font-weight="700" fill="var(--text-dim)">→ 난이도 (개발·운영·거버넌스 복잡도)</text>
+        <text x="40" y="160" text-anchor="middle" font-size="10" font-weight="700" fill="var(--text-dim)" transform="rotate(-90 40 160)">→ ROI (사업 가치)</text>
+
+        <text x="450" y="28" text-anchor="middle" font-size="9.5" fill="#22c55e" font-weight="700">Top 10 use case 선정 → 분기 OKR로 확정</text>
+      </svg>
+    </div>
+
+    <!-- 실제 사례 -->
+    <div style="padding:.85rem 1rem;background:var(--card);border:1.5px solid #22c55e;border-radius:10px;font-size:.78rem;color:var(--text);line-height:1.85">
+      <div style="font-size:.85rem;font-weight:700;color:#22c55e;margin-bottom:.4rem">💼 실제 케이스 — A 중견기업 2025-Q1 분기 OKR</div>
+      • <strong>Quick Win (3개):</strong> 회의록 요약 봇 (전사 배포) · 사내 FAQ 챗봇 (HR/IT/총무) · 영어→한국어 문서 자동 번역<br>
+      • <strong>Strategic (2개):</strong> 고객 지원 AI agent (콜센터 30% 자동 해결 목표) · AI 코딩 어시스트 전사 도입 (개발자 200명)<br>
+      • <strong>Avoid (1건 거절):</strong> "전 직원 자동 성과 평가" — Govern이 편향 위험으로 거부<br>
+      • <strong>예산:</strong> Q1 $1.2M (Build $800K + Govern $200K + Enable $200K)<br>
+      • <strong>측정:</strong> 회의록 봇 사용률 60% 도달 → Q2 확장 결정
+    </div>
+  </div>
+
+  <!-- ═══════════════════
+       B-Build-2: 플랫폼 4계층 아키텍처
+       ═══════════════════ -->
+  <div style="margin-bottom:1.4rem">
+    <div style="font-size:.95rem;font-weight:700;color:#22c55e;margin-bottom:.6rem">② AI 플랫폼·인프라 — 4계층 아키텍처</div>
+
+    <div style="background:var(--card);border:1px solid #22c55e44;border-radius:10px;padding:1rem;margin-bottom:.7rem">
+      <div style="font-size:.78rem;color:var(--text-dim);text-align:center;margin-bottom:.6rem">▼ Hub가 만들어 Spoke에게 셀프서비스로 제공하는 4계층</div>
+      <svg viewBox="0 0 920 380" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- Layer 4 (top): Observation -->
+        <rect x="40" y="30" width="840" height="65" rx="10" fill="#a78bfa" fill-opacity=".18" stroke="#a78bfa" stroke-width="1.2"/>
+        <text x="100" y="55" font-size="11" font-weight="800" fill="#a78bfa">④ 관찰 계층</text>
+        <text x="100" y="72" font-size="8" fill="var(--text-dim)">Observability</text>
+        <rect x="240" y="44" width="140" height="38" rx="5" style="fill:var(--surface);stroke:#a78bfa" stroke-width="0.8"/>
+        <text x="310" y="60" text-anchor="middle" font-size="9" font-weight="600" fill="var(--text)">LangSmith</text>
+        <text x="310" y="73" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">Trace·Eval</text>
+        <rect x="400" y="44" width="140" height="38" rx="5" style="fill:var(--surface);stroke:#a78bfa" stroke-width="0.8"/>
+        <text x="470" y="60" text-anchor="middle" font-size="9" font-weight="600" fill="var(--text)">Datadog</text>
+        <text x="470" y="73" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">Metric·Alert</text>
+        <rect x="560" y="44" width="140" height="38" rx="5" style="fill:var(--surface);stroke:#a78bfa" stroke-width="0.8"/>
+        <text x="630" y="60" text-anchor="middle" font-size="9" font-weight="600" fill="var(--text)">Helicone</text>
+        <text x="630" y="73" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">Cost track</text>
+        <rect x="720" y="44" width="140" height="38" rx="5" style="fill:var(--surface);stroke:#a78bfa" stroke-width="0.8"/>
+        <text x="790" y="60" text-anchor="middle" font-size="9" font-weight="600" fill="var(--text)">Sentry</text>
+        <text x="790" y="73" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">Error tracking</text>
+
+        <!-- Layer 3: Application -->
+        <rect x="40" y="105" width="840" height="80" rx="10" fill="#22c55e" fill-opacity=".18" stroke="#22c55e" stroke-width="1.2"/>
+        <text x="100" y="130" font-size="11" font-weight="800" fill="#22c55e">③ 응용 계층</text>
+        <text x="100" y="147" font-size="8" fill="var(--text-dim)">Agent · Workflow</text>
+        <text x="100" y="160" font-size="7" fill="#9ca3af">Hub 제공</text>
+        <rect x="240" y="119" width="200" height="50" rx="5" style="fill:var(--surface);stroke:#22c55e" stroke-width="0.8"/>
+        <text x="340" y="138" text-anchor="middle" font-size="9.5" font-weight="700" fill="#22c55e">LangGraph / OpenAI Agents</text>
+        <text x="340" y="153" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">Agent 오케스트레이션</text>
+        <text x="340" y="164" text-anchor="middle" font-size="7" fill="#9ca3af">Spoke가 자체 agent 빌드</text>
+        <rect x="450" y="119" width="200" height="50" rx="5" style="fill:var(--surface);stroke:#22c55e" stroke-width="0.8"/>
+        <text x="550" y="138" text-anchor="middle" font-size="9.5" font-weight="700" fill="#22c55e">n8n / Zapier MCP</text>
+        <text x="550" y="153" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">비주얼 워크플로</text>
+        <text x="550" y="164" text-anchor="middle" font-size="7" fill="#9ca3af">5,000+ 앱 통합</text>
+        <rect x="660" y="119" width="200" height="50" rx="5" style="fill:var(--surface);stroke:#22c55e" stroke-width="0.8"/>
+        <text x="760" y="138" text-anchor="middle" font-size="9.5" font-weight="700" fill="#22c55e">MCP Server 카탈로그</text>
+        <text x="760" y="153" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">사내 도구 wrapping</text>
+        <text x="760" y="164" text-anchor="middle" font-size="7" fill="#9ca3af">JIRA·Confluence·SAP</text>
+
+        <!-- Layer 2: Middleware -->
+        <rect x="40" y="195" width="840" height="80" rx="10" fill="#22c55e" fill-opacity=".22" stroke="#22c55e" stroke-width="1.5"/>
+        <text x="100" y="220" font-size="11" font-weight="800" fill="#22c55e">② 미들웨어 ⭐</text>
+        <text x="100" y="237" font-size="8" fill="var(--text-dim)">LLM Gateway · DB</text>
+        <text x="100" y="250" font-size="7" fill="#9ca3af">핵심 차별화</text>
+        <rect x="240" y="209" width="200" height="50" rx="5" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="1"/>
+        <text x="340" y="228" text-anchor="middle" font-size="9.5" font-weight="700" fill="#22c55e">🔀 LLM Gateway</text>
+        <text x="340" y="243" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">LiteLLM·Portkey·OpenRouter</text>
+        <text x="340" y="254" text-anchor="middle" font-size="7" fill="#9ca3af">Multi-provider · Failover · Cache</text>
+        <rect x="450" y="209" width="200" height="50" rx="5" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="1"/>
+        <text x="550" y="228" text-anchor="middle" font-size="9.5" font-weight="700" fill="#22c55e">📦 Vector DB</text>
+        <text x="550" y="243" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">Pinecone·Weaviate·pgvector</text>
+        <text x="550" y="254" text-anchor="middle" font-size="7" fill="#9ca3af">RAG·검색·메모리</text>
+        <rect x="660" y="209" width="200" height="50" rx="5" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="1"/>
+        <text x="760" y="228" text-anchor="middle" font-size="9.5" font-weight="700" fill="#22c55e">🛡 가드레일 + Auth</text>
+        <text x="760" y="243" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">Lakera·Presidio·Vault</text>
+        <text x="760" y="254" text-anchor="middle" font-size="7" fill="#9ca3af">PII 마스킹·인증</text>
+
+        <!-- Layer 1: Models -->
+        <rect x="40" y="285" width="840" height="75" rx="10" fill="#f59e0b" fill-opacity=".18" stroke="#f59e0b" stroke-width="1.2"/>
+        <text x="100" y="310" font-size="11" font-weight="800" fill="#f59e0b">① 모델 계층</text>
+        <text x="100" y="327" font-size="8" fill="var(--text-dim)">LLM Providers</text>
+        <text x="100" y="340" font-size="7" fill="#9ca3af">외부 또는 자체</text>
+        <rect x="240" y="298" width="140" height="48" rx="5" style="fill:var(--surface);stroke:#f59e0b" stroke-width="0.8"/>
+        <text x="310" y="316" text-anchor="middle" font-size="9" font-weight="600" fill="var(--text)">Anthropic</text>
+        <text x="310" y="330" text-anchor="middle" font-size="7" fill="var(--text-dim)">Claude 4.7</text>
+        <text x="310" y="341" text-anchor="middle" font-size="6.5" fill="#9ca3af">Opus·Sonnet·Haiku</text>
+        <rect x="395" y="298" width="140" height="48" rx="5" style="fill:var(--surface);stroke:#f59e0b" stroke-width="0.8"/>
+        <text x="465" y="316" text-anchor="middle" font-size="9" font-weight="600" fill="var(--text)">OpenAI</text>
+        <text x="465" y="330" text-anchor="middle" font-size="7" fill="var(--text-dim)">GPT-5 / o3</text>
+        <text x="465" y="341" text-anchor="middle" font-size="6.5" fill="#9ca3af">+ Embeddings</text>
+        <rect x="550" y="298" width="140" height="48" rx="5" style="fill:var(--surface);stroke:#f59e0b" stroke-width="0.8"/>
+        <text x="620" y="316" text-anchor="middle" font-size="9" font-weight="600" fill="var(--text)">Google</text>
+        <text x="620" y="330" text-anchor="middle" font-size="7" fill="var(--text-dim)">Gemini 2.5</text>
+        <text x="620" y="341" text-anchor="middle" font-size="6.5" fill="#9ca3af">긴 context</text>
+        <rect x="705" y="298" width="155" height="48" rx="5" style="fill:var(--surface);stroke:#f59e0b" stroke-width="0.8"/>
+        <text x="782" y="316" text-anchor="middle" font-size="9" font-weight="600" fill="var(--text)">한국 LLM</text>
+        <text x="782" y="330" text-anchor="middle" font-size="7" fill="var(--text-dim)">HyperCLOVA X·A.X·EXAONE</text>
+        <text x="782" y="341" text-anchor="middle" font-size="6.5" fill="#9ca3af">망분리·국내</text>
+      </svg>
+    </div>
+
+    <!-- 4 계층 어떻게 만드나 -->
+    <div style="overflow-x:auto;margin-bottom:.7rem">
+      <table style="width:100%;border-collapse:collapse;font-size:.74rem;min-width:780px">
+        <thead><tr style="background:var(--surface)">
+          <th style="padding:.55rem;text-align:left;color:var(--text-dim);border-bottom:1px solid #22c55e44;width:14%">계층</th>
+          <th style="padding:.55rem;text-align:left;color:#22c55e;border-bottom:1px solid #22c55e44;width:28%">Hub 책임</th>
+          <th style="padding:.55rem;text-align:left;color:#22c55e;border-bottom:1px solid #22c55e44;width:28%">Spoke 자유도</th>
+          <th style="padding:.55rem;text-align:left;color:#22c55e;border-bottom:1px solid #22c55e44;width:30%">실제 결정 예시</th>
+        </tr></thead>
+        <tbody>
+          <tr><td style="padding:.5rem;color:#a78bfa;font-weight:700;border-bottom:1px solid var(--border)">④ 관찰</td><td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">하나의 trace 백본 (LangSmith) 강제</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">없음 — 모든 spoke 통일</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">"Datadog vs Helicone? → 둘 다 도입, dashboard 통합"</td></tr>
+          <tr><td style="padding:.5rem;color:#22c55e;font-weight:700;border-bottom:1px solid var(--border)">③ 응용</td><td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">표준 SDK·템플릿 제공</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">중간 — 표준 추천 + 합리적 대안 허용</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">"LangGraph 표준, CrewAI는 PoC만 허용"</td></tr>
+          <tr><td style="padding:.5rem;color:#22c55e;font-weight:700;border-bottom:1px solid var(--border)">② 미들웨어</td><td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">전사 단일 (Gateway 1개·Vector DB 1개)</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">매우 낮음 — 단일 표준</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">"Pinecone 전사 표준, Weaviate는 R&amp;D만"</td></tr>
+          <tr><td style="padding:.5rem;color:#f59e0b;font-weight:700">① 모델</td><td style="padding:.5rem;color:var(--text)">분기 벤치마크 + 승인 리스트 운영</td><td style="padding:.5rem;color:var(--text)">중간 — 승인된 풀에서 spoke 선택</td><td style="padding:.5rem;color:var(--text-dim)">"기본: Claude 4.7 / 비용 중요: Haiku / 긴 context: Gemini 2.5"</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="padding:.7rem 1rem;background:#22c55e15;border-left:3px solid #22c55e;border-radius:0 8px 8px 0;font-size:.76rem;color:var(--text);line-height:1.8">
+      <strong style="color:#22c55e">💡 핵심 원칙:</strong> <strong>하층(미들웨어·관찰)일수록 단일 표준</strong>, 상층(응용)일수록 spoke 자유도. 미들웨어에 spoke마다 다른 Vector DB를 쓰면 RAG 자산 재사용 0 → Hub-Spoke 효과 사라짐.
+    </div>
+  </div>
+
+  <!-- ═══════════════════
+       B-Build-3: 재사용 자산 카탈로그
+       ═══════════════════ -->
+  <div style="margin-bottom:1.4rem">
+    <div style="font-size:.95rem;font-weight:700;color:#22c55e;margin-bottom:.6rem">③ 재사용 자산 — Hub가 만들고 Spoke가 가져다 쓰는 카탈로그</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem;margin-bottom:.7rem">
+
+      <!-- Asset 1: Prompt Template -->
+      <div style="padding:1rem;background:var(--card);border:1px solid #22c55e44;border-radius:10px">
+        <div style="font-size:.88rem;font-weight:700;color:#22c55e;margin-bottom:.4rem">📝 Prompt Template 라이브러리</div>
+        <div style="font-size:.74rem;color:var(--text);line-height:1.8">
+          <strong>구성:</strong> 시나리오별 검증된 prompt 50~150개<br>
+          <strong>카테고리:</strong> 요약·번역·분류·추출·생성·QA·코딩<br>
+          <strong>형식:</strong> Git repo + 메타데이터 (도메인·모델·평가점수)<br>
+          <strong>버전:</strong> SemVer (v1.2.3)
+        </div>
+        <div style="margin-top:.5rem;padding:.5rem .7rem;background:#22c55e15;border-radius:6px;font-size:.7rem;color:var(--text);line-height:1.7">
+          <strong style="color:#22c55e">💼 예시:</strong> 회의록 요약 template v2.3<br>
+          → 5개 사업부가 1주 만에 배포<br>
+          → 직접 짜면 2주 → 80% 시간 절약
+        </div>
+      </div>
+
+      <!-- Asset 2: Pre-built Agent -->
+      <div style="padding:1rem;background:var(--card);border:1px solid #22c55e44;border-radius:10px">
+        <div style="font-size:.88rem;font-weight:700;color:#22c55e;margin-bottom:.4rem">🤖 Pre-built Agent</div>
+        <div style="font-size:.74rem;color:var(--text);line-height:1.8">
+          <strong>구성:</strong> 즉시 배포 가능 agent 10~20개<br>
+          <strong>예시:</strong> FAQ 챗봇·코딩 어시스트·이메일 분류·계약서 검토·CS 트리아지<br>
+          <strong>커스터마이징:</strong> Spoke가 prompt·tool만 교체<br>
+          <strong>운영:</strong> Hub 플랫폼에 docker container로
+        </div>
+        <div style="margin-top:.5rem;padding:.5rem .7rem;background:#22c55e15;border-radius:6px;font-size:.7rem;color:var(--text);line-height:1.7">
+          <strong style="color:#22c55e">💼 예시:</strong> 사내 FAQ 챗봇<br>
+          → HR·IT·총무 spoke가 각자 데이터만 연결<br>
+          → 3 spoke 1개월 만에 production
+        </div>
+      </div>
+
+      <!-- Asset 3: Eval Suite -->
+      <div style="padding:1rem;background:var(--card);border:1px solid #22c55e44;border-radius:10px">
+        <div style="font-size:.88rem;font-weight:700;color:#22c55e;margin-bottom:.4rem">🧪 Common Eval Suite</div>
+        <div style="font-size:.74rem;color:var(--text);line-height:1.8">
+          <strong>구성:</strong> 표준 평가 데이터셋 + 지표<br>
+          <strong>카테고리:</strong> 정확도·환각·안전·편향·비용·지연<br>
+          <strong>실행:</strong> 모든 spoke가 매 release 전 자동 수행<br>
+          <strong>기준:</strong> Hub가 정의한 minimum bar
+        </div>
+        <div style="margin-top:.5rem;padding:.5rem .7rem;background:#22c55e15;border-radius:6px;font-size:.7rem;color:var(--text);line-height:1.7">
+          <strong style="color:#22c55e">💼 예시:</strong> 한국어 안전 eval suite<br>
+          → 5,000 케이스 (욕설·차별·PII·jailbreak)<br>
+          → 95%+ 통과해야 release 가능
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 자산 카탈로그 운영 사이클 SVG -->
+    <div style="background:var(--card);border:1px solid #22c55e44;border-radius:10px;padding:1rem;margin-bottom:.7rem">
+      <div style="font-size:.85rem;font-weight:700;color:#22c55e;margin-bottom:.5rem;text-align:center">🔁 자산 카탈로그 운영 사이클 (월간)</div>
+      <svg viewBox="0 0 920 200" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="cyc-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#22c55e"/></marker></defs>
+
+        <rect x="20" y="60" width="160" height="80" rx="10" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1"/>
+        <text x="100" y="85" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">① Spoke 요청</text>
+        <text x="100" y="103" text-anchor="middle" font-size="8" fill="var(--text)">"이런 template 필요"</text>
+        <text x="100" y="120" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">Slack·GitHub Issue</text>
+
+        <line x1="180" y1="100" x2="200" y2="100" stroke="#22c55e" stroke-width="1" marker-end="url(#cyc-ar)"/>
+
+        <rect x="200" y="60" width="160" height="80" rx="10" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1"/>
+        <text x="280" y="85" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">② Hub 평가</text>
+        <text x="280" y="103" text-anchor="middle" font-size="8" fill="var(--text)">재사용 가능성</text>
+        <text x="280" y="120" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">3+ spoke 쓸까?</text>
+
+        <line x1="360" y1="100" x2="380" y2="100" stroke="#22c55e" stroke-width="1" marker-end="url(#cyc-ar)"/>
+
+        <rect x="380" y="60" width="160" height="80" rx="10" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1"/>
+        <text x="460" y="85" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">③ Hub 빌드</text>
+        <text x="460" y="103" text-anchor="middle" font-size="8" fill="var(--text)">general한 buy</text>
+        <text x="460" y="120" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">테스트 + 문서</text>
+
+        <line x1="540" y1="100" x2="560" y2="100" stroke="#22c55e" stroke-width="1" marker-end="url(#cyc-ar)"/>
+
+        <rect x="560" y="60" width="160" height="80" rx="10" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="1"/>
+        <text x="640" y="85" text-anchor="middle" font-size="10" font-weight="700" fill="#22c55e">④ 카탈로그 등록</text>
+        <text x="640" y="103" text-anchor="middle" font-size="8" fill="var(--text)">repo + 메타데이터</text>
+        <text x="640" y="120" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">Enable이 공지</text>
+
+        <line x1="720" y1="100" x2="740" y2="100" stroke="#22c55e" stroke-width="1" marker-end="url(#cyc-ar)"/>
+
+        <rect x="740" y="60" width="160" height="80" rx="10" fill="#22c55e" fill-opacity=".25" stroke="#22c55e" stroke-width="1.5"/>
+        <text x="820" y="85" text-anchor="middle" font-size="10" font-weight="800" fill="#22c55e">⑤ Spoke 채택</text>
+        <text x="820" y="103" text-anchor="middle" font-size="8" fill="var(--text)">즉시 import</text>
+        <text x="820" y="120" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">사용량 측정</text>
+
+        <!-- 피드백 화살표 (5 → 1) -->
+        <path d="M 820 60 Q 820 20 100 20 Q 100 30 100 60" fill="none" stroke="#22c55e" stroke-width="0.8" stroke-dasharray="3,2" marker-end="url(#cyc-ar)"/>
+        <text x="460" y="15" text-anchor="middle" font-size="8.5" fill="#22c55e" font-style="italic" font-weight="600">⤴ 사용 피드백 → 개선 요청</text>
+
+        <text x="460" y="180" text-anchor="middle" font-size="8.5" fill="var(--text-dim)" font-style="italic">사이클 평균 3~5주 · 신규 자산 월 2~5개 추가</text>
+      </svg>
+    </div>
+
+    <!-- 자산 누적 효과 -->
+    <div style="padding:.85rem 1rem;background:var(--card);border:1.5px solid #22c55e;border-radius:10px;font-size:.78rem;color:var(--text);line-height:1.85">
+      <div style="font-size:.85rem;font-weight:700;color:#22c55e;margin-bottom:.4rem">📈 자산 누적 효과 — 1~3년차 변화</div>
+      • <strong>Year 1:</strong> 10~15 template + 3~5 agent + 1 eval suite → spoke 빌드 시간 -30%<br>
+      • <strong>Year 2:</strong> 50+ template + 10+ agent + 5 eval suite → spoke 빌드 시간 -60%<br>
+      • <strong>Year 3:</strong> 150+ template + 30+ agent + 산업별 eval → 신규 spoke <strong>출범 시간 2주 → 3일</strong><br>
+      <strong style="color:#22c55e">📌 Hub의 진짜 가치는 Year 2 이후</strong> — 자산이 쌓일수록 한계 비용 ↓
+    </div>
+  </div>
+
+  <!-- ═══════════════════
+       B-Build-4: 1년 OKR 예시
+       ═══════════════════ -->
+  <div>
+    <div style="font-size:.95rem;font-weight:700;color:#22c55e;margin-bottom:.6rem">④ Build 1년 OKR — 분기별 목표 진척 예시</div>
+
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:.74rem;min-width:780px">
+        <thead><tr style="background:var(--surface)">
+          <th style="padding:.55rem;text-align:left;color:var(--text-dim);border-bottom:1px solid #22c55e44;width:14%">분기</th>
+          <th style="padding:.55rem;text-align:left;color:#22c55e;border-bottom:1px solid #22c55e44;width:28%">Objective</th>
+          <th style="padding:.55rem;text-align:left;color:#22c55e;border-bottom:1px solid #22c55e44;width:32%">Key Results</th>
+          <th style="padding:.55rem;text-align:left;color:#22c55e;border-bottom:1px solid #22c55e44;width:26%">산출물</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td style="padding:.5rem;color:#22c55e;font-weight:700;border-bottom:1px solid var(--border)">Q1</td>
+            <td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">플랫폼 v1.0 출시</td>
+            <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">• LLM Gateway 운영 (3 provider)<br>• 첫 spoke 2개 임베드 완료<br>• 99% uptime 달성</td>
+            <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Platform v1.0 · template 10개</td>
+          </tr>
+          <tr>
+            <td style="padding:.5rem;color:#22c55e;font-weight:700;border-bottom:1px solid var(--border)">Q2</td>
+            <td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">자산 라이브러리 확장</td>
+            <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">• Template 30개+ 등록<br>• Pre-built agent 5개<br>• Common eval suite v1</td>
+            <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">카탈로그 · eval framework</td>
+          </tr>
+          <tr>
+            <td style="padding:.5rem;color:#22c55e;font-weight:700;border-bottom:1px solid var(--border)">Q3</td>
+            <td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">Spoke 5개 확장 + Multi-agent</td>
+            <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">• 5 사업부 spoke 임베드<br>• LangGraph multi-agent 표준화<br>• 비용 -30% (caching·routing)</td>
+            <td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">Multi-agent 패턴 5개</td>
+          </tr>
+          <tr>
+            <td style="padding:.5rem;color:#22c55e;font-weight:700">Q4</td>
+            <td style="padding:.5rem;color:var(--text)">Production 안정화 + Year 2 계획</td>
+            <td style="padding:.5rem;color:var(--text-dim)">• 10+ production use case<br>• 사고 0건 (SLA 99.9%)<br>• Year 2 로드맵 + 예산</td>
+            <td style="padding:.5rem;color:var(--text-dim)">Y2 roadmap · ROI 보고</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     ⚠ GOVERN DEEP DIVE — 4 sub-section + 3 case
+     ══════════════════════════════════════════════ -->
+<div class="dia reveal" style="border-top:3px solid #ef4444;background:linear-gradient(180deg, rgba(239,68,68,0.04) 0%, transparent 60%)">
+<div class="dia-title" style="display:flex;align-items:center;gap:.6rem"><span style="display:inline-flex;width:32px;height:32px;border-radius:50%;background:#ef4444;color:#fff;align-items:center;justify-content:center;font-size:.95rem;font-weight:800">⚠</span>GOVERN 깊이 분석 — 무엇을 어떻게 통제하나 (4 sub-section)</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="padding:.7rem 1rem;background:#ef444415;border-left:3px solid #ef4444;border-radius:0 8px 8px 0;font-size:.8rem;color:var(--text);line-height:1.85;margin-bottom:1rem">
+    <strong style="color:#ef4444">🎯 Govern의 본질:</strong> "<strong>안 하면 회사가 망할 수 있는 일</strong>"을 미리 막는 것. Build가 빠른 가속이라면 Govern은 안전벨트. 약하면 사고 → 매출 7% 과징금·brand 손상·서비스 정지. 강해서 모든 걸 막으면 Build 마비. <strong>균형이 핵심.</strong>
+  </div>
+
+  <!-- ═══════════════════
+       B-Govern-1: Risk 5등급 분류 + 매트릭스
+       ═══════════════════ -->
+  <div style="margin-bottom:1.4rem">
+    <div style="font-size:.95rem;font-weight:700;color:#ef4444;margin-bottom:.6rem">① AI Risk 5등급 분류 — Use Case 위험 점수 매기기</div>
+
+    <div style="background:var(--card);border:1px solid #ef444444;border-radius:10px;padding:1rem;margin-bottom:.7rem">
+      <div style="font-size:.78rem;color:var(--text-dim);text-align:center;margin-bottom:.6rem">▼ 5등급 분류 — Allowed → Prohibited (각 등급별 처리 절차 다름)</div>
+      <svg viewBox="0 0 920 320" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- 5 등급 가로 -->
+        <rect x="20" y="40" width="170" height="240" rx="10" fill="#22c55e" fill-opacity=".18" stroke="#22c55e" stroke-width="1.2"/>
+        <rect x="20" y="40" width="170" height="32" rx="10" fill="#22c55e" fill-opacity=".40"/>
+        <text x="105" y="62" text-anchor="middle" font-size="11" font-weight="800" fill="#fff">✓ ALLOWED</text>
+        <text x="105" y="90" text-anchor="middle" font-size="9" fill="var(--text-dim)">자동 승인</text>
+        <text x="105" y="110" text-anchor="middle" font-size="8" fill="var(--text)" font-weight="600">예시</text>
+        <text x="105" y="125" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">• 회의록 요약</text>
+        <text x="105" y="138" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">• 번역</text>
+        <text x="105" y="151" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">• 이메일 분류</text>
+        <text x="105" y="180" text-anchor="middle" font-size="8" fill="#22c55e" font-weight="700">절차</text>
+        <text x="105" y="195" text-anchor="middle" font-size="7" fill="var(--text-dim)">Spoke 자율</text>
+        <text x="105" y="207" text-anchor="middle" font-size="7" fill="var(--text-dim)">분기 보고만</text>
+        <text x="105" y="245" text-anchor="middle" font-size="8" fill="#22c55e" font-weight="700">소요</text>
+        <text x="105" y="260" text-anchor="middle" font-size="10" fill="#22c55e" font-weight="800">0~1주</text>
+
+        <rect x="200" y="40" width="170" height="240" rx="10" fill="#f59e0b" fill-opacity=".15" stroke="#f59e0b" stroke-width="1.2"/>
+        <rect x="200" y="40" width="170" height="32" rx="10" fill="#f59e0b" fill-opacity=".35"/>
+        <text x="285" y="62" text-anchor="middle" font-size="11" font-weight="800" fill="#fff">◐ CONDITIONAL</text>
+        <text x="285" y="90" text-anchor="middle" font-size="9" fill="var(--text-dim)">조건부 승인</text>
+        <text x="285" y="110" text-anchor="middle" font-size="8" fill="var(--text)" font-weight="600">예시</text>
+        <text x="285" y="125" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">• 고객 응답 초안</text>
+        <text x="285" y="138" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">• 코드 자동 생성</text>
+        <text x="285" y="151" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">• 마케팅 카피</text>
+        <text x="285" y="180" text-anchor="middle" font-size="8" fill="#f59e0b" font-weight="700">절차</text>
+        <text x="285" y="195" text-anchor="middle" font-size="7" fill="var(--text-dim)">사람 검토 게이트</text>
+        <text x="285" y="207" text-anchor="middle" font-size="7" fill="var(--text-dim)">사용 로그 필수</text>
+        <text x="285" y="245" text-anchor="middle" font-size="8" fill="#f59e0b" font-weight="700">소요</text>
+        <text x="285" y="260" text-anchor="middle" font-size="10" fill="#f59e0b" font-weight="800">1~2주</text>
+
+        <rect x="380" y="40" width="170" height="240" rx="10" fill="#f59e0b" fill-opacity=".25" stroke="#f59e0b" stroke-width="1.5"/>
+        <rect x="380" y="40" width="170" height="32" rx="10" fill="#f59e0b" fill-opacity=".55"/>
+        <text x="465" y="62" text-anchor="middle" font-size="11" font-weight="800" fill="#fff">⚠ REVIEW</text>
+        <text x="465" y="90" text-anchor="middle" font-size="9" fill="var(--text-dim)">위원회 심사</text>
+        <text x="465" y="110" text-anchor="middle" font-size="8" fill="var(--text)" font-weight="600">예시</text>
+        <text x="465" y="125" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">• HR 채용 보조</text>
+        <text x="465" y="138" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">• 의료 진단 보조</text>
+        <text x="465" y="151" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">• 신용 점수 보조</text>
+        <text x="465" y="180" text-anchor="middle" font-size="8" fill="#f59e0b" font-weight="700">절차</text>
+        <text x="465" y="195" text-anchor="middle" font-size="7" fill="var(--text-dim)">Risk Committee 심사</text>
+        <text x="465" y="207" text-anchor="middle" font-size="7" fill="var(--text-dim)">조건·모니터링 spec</text>
+        <text x="465" y="245" text-anchor="middle" font-size="8" fill="#f59e0b" font-weight="700">소요</text>
+        <text x="465" y="260" text-anchor="middle" font-size="10" fill="#f59e0b" font-weight="800">2~4주</text>
+
+        <rect x="560" y="40" width="170" height="240" rx="10" fill="#ef4444" fill-opacity=".20" stroke="#ef4444" stroke-width="1.5"/>
+        <rect x="560" y="40" width="170" height="32" rx="10" fill="#ef4444" fill-opacity=".50"/>
+        <text x="645" y="62" text-anchor="middle" font-size="11" font-weight="800" fill="#fff">⛔ HIGH-RISK</text>
+        <text x="645" y="90" text-anchor="middle" font-size="9" fill="var(--text-dim)">고위험 (EU AI Act)</text>
+        <text x="645" y="110" text-anchor="middle" font-size="8" fill="var(--text)" font-weight="600">예시</text>
+        <text x="645" y="125" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">• 채용 자동 결정</text>
+        <text x="645" y="138" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">• 자율 의료 처방</text>
+        <text x="645" y="151" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">• 자율 대출 결정</text>
+        <text x="645" y="180" text-anchor="middle" font-size="8" fill="#ef4444" font-weight="700">절차</text>
+        <text x="645" y="195" text-anchor="middle" font-size="7" fill="var(--text-dim)">CE 마킹 + EU DB</text>
+        <text x="645" y="207" text-anchor="middle" font-size="7" fill="var(--text-dim)">법무·외부 감사</text>
+        <text x="645" y="245" text-anchor="middle" font-size="8" fill="#ef4444" font-weight="700">소요</text>
+        <text x="645" y="260" text-anchor="middle" font-size="10" fill="#ef4444" font-weight="800">3~6개월</text>
+
+        <rect x="740" y="40" width="170" height="240" rx="10" fill="#ef4444" fill-opacity=".35" stroke="#ef4444" stroke-width="2"/>
+        <rect x="740" y="40" width="170" height="32" rx="10" fill="#ef4444" fill-opacity=".70"/>
+        <text x="825" y="62" text-anchor="middle" font-size="11" font-weight="800" fill="#fff">✗ PROHIBITED</text>
+        <text x="825" y="90" text-anchor="middle" font-size="9" fill="var(--text-dim)">금지 (불승인)</text>
+        <text x="825" y="110" text-anchor="middle" font-size="8" fill="var(--text)" font-weight="600">예시</text>
+        <text x="825" y="125" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">• 사회 신용 점수</text>
+        <text x="825" y="138" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">• 실시간 감시 인식</text>
+        <text x="825" y="151" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">• 인지·행동 조작</text>
+        <text x="825" y="180" text-anchor="middle" font-size="8" fill="#ef4444" font-weight="700">절차</text>
+        <text x="825" y="195" text-anchor="middle" font-size="7" fill="var(--text-dim)">EU AI Act 금지</text>
+        <text x="825" y="207" text-anchor="middle" font-size="7" fill="var(--text-dim)">자동 거부</text>
+        <text x="825" y="245" text-anchor="middle" font-size="8" fill="#ef4444" font-weight="700">결과</text>
+        <text x="825" y="260" text-anchor="middle" font-size="10" fill="#ef4444" font-weight="800">불가</text>
+
+        <text x="460" y="310" text-anchor="middle" font-size="9" fill="var(--text-dim)" font-style="italic">EU AI Act 4 카테고리(Prohibited·High·Limited·Minimal) + Conditional 자체 등급 추가</text>
+      </svg>
+    </div>
+
+    <!-- 위험 점수 매트릭스 (영향 × 가능성) -->
+    <div style="background:var(--card);border:1px solid #ef444444;border-radius:10px;padding:1rem;margin-bottom:.7rem">
+      <div style="font-size:.85rem;font-weight:700;color:#ef4444;margin-bottom:.5rem;text-align:center">📐 위험 점수 매트릭스 — 영향 × 가능성 = Risk Score</div>
+      <svg viewBox="0 0 920 320" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+        <!-- 5×5 grid -->
+        <g font-size="10">
+        <!-- 가로 5 셀, 세로 5 셀, 각 셀 14 단위 -->
+        <!-- (i, j) = (가능성 1~5, 영향 5~1) — y는 위가 영향 5 -->
+        <!-- 색: low=green, med=yellow, high=orange, critical=red -->
+
+        <!-- 첫 줄 (영향 5) -->
+        <rect x="120" y="20" width="120" height="50" fill="#f59e0b" fill-opacity=".25" stroke="#f59e0b" stroke-width="0.6"/><text x="180" y="50" text-anchor="middle" font-weight="700" fill="#f59e0b">5</text>
+        <rect x="240" y="20" width="120" height="50" fill="#ef4444" fill-opacity=".25" stroke="#ef4444" stroke-width="0.6"/><text x="300" y="50" text-anchor="middle" font-weight="700" fill="#ef4444">10</text>
+        <rect x="360" y="20" width="120" height="50" fill="#ef4444" fill-opacity=".40" stroke="#ef4444" stroke-width="0.8"/><text x="420" y="50" text-anchor="middle" font-weight="700" fill="#ef4444">15</text>
+        <rect x="480" y="20" width="120" height="50" fill="#ef4444" fill-opacity=".55" stroke="#ef4444" stroke-width="1"/><text x="540" y="50" text-anchor="middle" font-weight="800" fill="#fff">20</text>
+        <rect x="600" y="20" width="120" height="50" fill="#ef4444" fill-opacity=".70" stroke="#ef4444" stroke-width="1.2"/><text x="660" y="50" text-anchor="middle" font-weight="800" fill="#fff">25 ⚠</text>
+
+        <!-- 영향 4 -->
+        <rect x="120" y="70" width="120" height="50" fill="#22c55e" fill-opacity=".20" stroke="#22c55e" stroke-width="0.6"/><text x="180" y="100" text-anchor="middle" font-weight="600" fill="#22c55e">4</text>
+        <rect x="240" y="70" width="120" height="50" fill="#f59e0b" fill-opacity=".25" stroke="#f59e0b" stroke-width="0.6"/><text x="300" y="100" text-anchor="middle" font-weight="600" fill="#f59e0b">8</text>
+        <rect x="360" y="70" width="120" height="50" fill="#ef4444" fill-opacity=".25" stroke="#ef4444" stroke-width="0.6"/><text x="420" y="100" text-anchor="middle" font-weight="600" fill="#ef4444">12</text>
+        <rect x="480" y="70" width="120" height="50" fill="#ef4444" fill-opacity=".40" stroke="#ef4444" stroke-width="0.8"/><text x="540" y="100" text-anchor="middle" font-weight="700" fill="#ef4444">16</text>
+        <rect x="600" y="70" width="120" height="50" fill="#ef4444" fill-opacity=".55" stroke="#ef4444" stroke-width="1"/><text x="660" y="100" text-anchor="middle" font-weight="700" fill="#fff">20</text>
+
+        <!-- 영향 3 -->
+        <rect x="120" y="120" width="120" height="50" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="0.6"/><text x="180" y="150" text-anchor="middle" font-weight="600" fill="#22c55e">3</text>
+        <rect x="240" y="120" width="120" height="50" fill="#22c55e" fill-opacity=".20" stroke="#22c55e" stroke-width="0.6"/><text x="300" y="150" text-anchor="middle" font-weight="600" fill="#22c55e">6</text>
+        <rect x="360" y="120" width="120" height="50" fill="#f59e0b" fill-opacity=".25" stroke="#f59e0b" stroke-width="0.6"/><text x="420" y="150" text-anchor="middle" font-weight="600" fill="#f59e0b">9</text>
+        <rect x="480" y="120" width="120" height="50" fill="#f59e0b" fill-opacity=".35" stroke="#f59e0b" stroke-width="0.8"/><text x="540" y="150" text-anchor="middle" font-weight="600" fill="#f59e0b">12</text>
+        <rect x="600" y="120" width="120" height="50" fill="#ef4444" fill-opacity=".30" stroke="#ef4444" stroke-width="0.8"/><text x="660" y="150" text-anchor="middle" font-weight="600" fill="#ef4444">15</text>
+
+        <!-- 영향 2 -->
+        <rect x="120" y="170" width="120" height="50" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="0.6"/><text x="180" y="200" text-anchor="middle" font-weight="500" fill="#22c55e">2</text>
+        <rect x="240" y="170" width="120" height="50" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="0.6"/><text x="300" y="200" text-anchor="middle" font-weight="500" fill="#22c55e">4</text>
+        <rect x="360" y="170" width="120" height="50" fill="#22c55e" fill-opacity=".20" stroke="#22c55e" stroke-width="0.6"/><text x="420" y="200" text-anchor="middle" font-weight="500" fill="#22c55e">6</text>
+        <rect x="480" y="170" width="120" height="50" fill="#f59e0b" fill-opacity=".25" stroke="#f59e0b" stroke-width="0.6"/><text x="540" y="200" text-anchor="middle" font-weight="500" fill="#f59e0b">8</text>
+        <rect x="600" y="170" width="120" height="50" fill="#f59e0b" fill-opacity=".30" stroke="#f59e0b" stroke-width="0.6"/><text x="660" y="200" text-anchor="middle" font-weight="500" fill="#f59e0b">10</text>
+
+        <!-- 영향 1 -->
+        <rect x="120" y="220" width="120" height="50" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="0.6"/><text x="180" y="250" text-anchor="middle" fill="#22c55e">1</text>
+        <rect x="240" y="220" width="120" height="50" fill="#22c55e" fill-opacity=".10" stroke="#22c55e" stroke-width="0.6"/><text x="300" y="250" text-anchor="middle" fill="#22c55e">2</text>
+        <rect x="360" y="220" width="120" height="50" fill="#22c55e" fill-opacity=".15" stroke="#22c55e" stroke-width="0.6"/><text x="420" y="250" text-anchor="middle" fill="#22c55e">3</text>
+        <rect x="480" y="220" width="120" height="50" fill="#22c55e" fill-opacity=".20" stroke="#22c55e" stroke-width="0.6"/><text x="540" y="250" text-anchor="middle" fill="#22c55e">4</text>
+        <rect x="600" y="220" width="120" height="50" fill="#22c55e" fill-opacity=".25" stroke="#22c55e" stroke-width="0.6"/><text x="660" y="250" text-anchor="middle" fill="#22c55e">5</text>
+        </g>
+
+        <!-- 축 라벨 -->
+        <text x="40" y="50" font-size="9" font-weight="700" fill="var(--text-dim)">치명</text>
+        <text x="40" y="100" font-size="9" font-weight="700" fill="var(--text-dim)">큼</text>
+        <text x="40" y="150" font-size="9" font-weight="700" fill="var(--text-dim)">중간</text>
+        <text x="40" y="200" font-size="9" font-weight="700" fill="var(--text-dim)">작음</text>
+        <text x="40" y="250" font-size="9" font-weight="700" fill="var(--text-dim)">미미</text>
+        <text x="35" y="285" text-anchor="end" font-size="10" font-weight="800" fill="var(--text)">영향 ↑</text>
+
+        <text x="180" y="295" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-dim)">희박</text>
+        <text x="300" y="295" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-dim)">낮음</text>
+        <text x="420" y="295" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-dim)">보통</text>
+        <text x="540" y="295" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-dim)">자주</text>
+        <text x="660" y="295" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-dim)">매우 자주</text>
+        <text x="420" y="315" text-anchor="middle" font-size="10" font-weight="800" fill="var(--text)">가능성 →</text>
+
+        <!-- 등급 매핑 -->
+        <text x="770" y="50" font-size="8.5" font-weight="700" fill="#ef4444">20+ → HIGH-RISK</text>
+        <text x="770" y="65" font-size="8.5" font-weight="700" fill="#f59e0b">10~19 → REVIEW</text>
+        <text x="770" y="80" font-size="8.5" font-weight="700" fill="#f59e0b">5~9 → CONDITIONAL</text>
+        <text x="770" y="95" font-size="8.5" font-weight="700" fill="#22c55e">1~4 → ALLOWED</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ═══════════════════
+       B-Govern-2: 5단계 심사 flowchart
+       ═══════════════════ -->
+  <div style="margin-bottom:1.4rem">
+    <div style="font-size:.95rem;font-weight:700;color:#ef4444;margin-bottom:.6rem">② 민감 Use Case 5단계 심사 프로세스</div>
+
+    <div style="background:var(--card);border:1px solid #ef444444;border-radius:10px;padding:1rem;margin-bottom:.7rem">
+      <svg viewBox="0 0 920 320" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="gov-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#ef4444"/></marker></defs>
+
+        <!-- 5단계 -->
+        <rect x="20" y="100" width="160" height="80" rx="10" fill="#ef4444" fill-opacity=".15" stroke="#ef4444" stroke-width="1"/>
+        <text x="100" y="125" text-anchor="middle" font-size="10" font-weight="700" fill="#ef4444">① 접수</text>
+        <text x="100" y="143" text-anchor="middle" font-size="8" fill="var(--text)">Spoke 신청서</text>
+        <text x="100" y="156" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">use case 설명</text>
+        <text x="100" y="168" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">데이터·영향 명시</text>
+
+        <line x1="180" y1="140" x2="200" y2="140" stroke="#ef4444" stroke-width="1" marker-end="url(#gov-ar)"/>
+
+        <rect x="200" y="100" width="160" height="80" rx="10" fill="#ef4444" fill-opacity=".15" stroke="#ef4444" stroke-width="1"/>
+        <text x="280" y="125" text-anchor="middle" font-size="10" font-weight="700" fill="#ef4444">② Risk 점수화</text>
+        <text x="280" y="143" text-anchor="middle" font-size="8" fill="var(--text)">영향 × 가능성</text>
+        <text x="280" y="156" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">등급 분류</text>
+        <text x="280" y="168" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">Risk Officer 1차</text>
+
+        <line x1="360" y1="140" x2="380" y2="140" stroke="#ef4444" stroke-width="1" marker-end="url(#gov-ar)"/>
+
+        <rect x="380" y="100" width="160" height="80" rx="10" fill="#ef4444" fill-opacity=".15" stroke="#ef4444" stroke-width="1"/>
+        <text x="460" y="125" text-anchor="middle" font-size="10" font-weight="700" fill="#ef4444">③ Committee 심의</text>
+        <text x="460" y="143" text-anchor="middle" font-size="8" fill="var(--text)">위험 등급에 따라</text>
+        <text x="460" y="156" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">법무·기술·윤리</text>
+        <text x="460" y="168" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">월 2회 회의</text>
+
+        <line x1="540" y1="140" x2="560" y2="140" stroke="#ef4444" stroke-width="1" marker-end="url(#gov-ar)"/>
+
+        <!-- 분기 (마름모) -->
+        <polygon points="560,140 640,90 720,140 640,190" fill="#f59e0b" fill-opacity=".15" stroke="#f59e0b" stroke-width="1.2"/>
+        <text x="640" y="135" text-anchor="middle" font-size="10" font-weight="700" fill="#f59e0b">④ 결정</text>
+        <text x="640" y="150" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">승인/조건/거부/보류</text>
+
+        <!-- 분기 결과 -->
+        <line x1="720" y1="120" x2="760" y2="60" stroke="#22c55e" stroke-width="1" marker-end="url(#gov-ar)"/>
+        <rect x="760" y="40" width="140" height="40" rx="5" fill="#22c55e" fill-opacity=".25" stroke="#22c55e" stroke-width="1"/>
+        <text x="830" y="55" text-anchor="middle" font-size="9" font-weight="700" fill="#22c55e">✓ 승인</text>
+        <text x="830" y="70" text-anchor="middle" font-size="7" fill="var(--text-dim)">즉시 또는 조건부</text>
+
+        <line x1="720" y1="160" x2="760" y2="220" stroke="#ef4444" stroke-width="1" marker-end="url(#gov-ar)"/>
+        <rect x="760" y="200" width="140" height="40" rx="5" fill="#ef4444" fill-opacity=".25" stroke="#ef4444" stroke-width="1"/>
+        <text x="830" y="215" text-anchor="middle" font-size="9" font-weight="700" fill="#ef4444">✗ 거부</text>
+        <text x="830" y="230" text-anchor="middle" font-size="7" fill="var(--text-dim)">사유서 + 대안</text>
+
+        <line x1="640" y1="190" x2="640" y2="230" stroke="#9ca3af" stroke-width="0.8" stroke-dasharray="2,2" marker-end="url(#gov-ar)"/>
+
+        <rect x="560" y="230" width="160" height="60" rx="10" fill="#a78bfa" fill-opacity=".20" stroke="#a78bfa" stroke-width="1"/>
+        <text x="640" y="250" text-anchor="middle" font-size="10" font-weight="700" fill="#a78bfa">⑤ 사후 모니터링</text>
+        <text x="640" y="266" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">분기 점검 · 사고 추적</text>
+        <text x="640" y="278" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">조건 위반 시 재심사</text>
+
+        <!-- 시간 라벨 -->
+        <text x="100" y="60" text-anchor="middle" font-size="8" fill="#9ca3af" font-style="italic">1일</text>
+        <text x="280" y="60" text-anchor="middle" font-size="8" fill="#9ca3af" font-style="italic">3~5일</text>
+        <text x="460" y="60" text-anchor="middle" font-size="8" fill="#9ca3af" font-style="italic">1~2주</text>
+        <text x="640" y="40" text-anchor="middle" font-size="8" fill="#9ca3af" font-style="italic">즉시</text>
+
+        <text x="460" y="310" text-anchor="middle" font-size="9.5" fill="var(--text-dim)" font-style="italic">전체 소요: ALLOWED 1주 · CONDITIONAL 2주 · REVIEW 2~4주 · HIGH-RISK 3~6개월</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ═══════════════════
+       B-Govern-3: 컴플라이언스 분기 사이클
+       ═══════════════════ -->
+  <div style="margin-bottom:1.4rem">
+    <div style="font-size:.95rem;font-weight:700;color:#ef4444;margin-bottom:.6rem">③ EU AI Act + 한국 AI 기본법 컴플라이언스 — 분기 점검 사이클</div>
+
+    <div style="background:var(--card);border:1px solid #ef444444;border-radius:10px;padding:1rem;margin-bottom:.7rem">
+      <svg viewBox="0 0 920 280" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="comp-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#ef4444"/></marker></defs>
+
+        <!-- 4 분기 사이클 -->
+        <circle cx="460" cy="140" r="50" fill="#ef4444" fill-opacity=".10" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"/>
+        <text x="460" y="138" text-anchor="middle" font-size="11" font-weight="800" fill="#ef4444">분기 사이클</text>
+        <text x="460" y="155" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">매 3개월 반복</text>
+
+        <!-- 4 단계 박스 (시계방향) -->
+        <rect x="380" y="20" width="160" height="60" rx="10" fill="#ef4444" fill-opacity=".18" stroke="#ef4444" stroke-width="1.2"/>
+        <text x="460" y="40" text-anchor="middle" font-size="10" font-weight="700" fill="#ef4444">① 자산 인벤토리</text>
+        <text x="460" y="55" text-anchor="middle" font-size="8" fill="var(--text)">모든 AI use case 매핑</text>
+        <text x="460" y="68" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">EU 4 카테고리로 분류</text>
+
+        <line x1="540" y1="60" x2="620" y2="105" stroke="#ef4444" stroke-width="1" marker-end="url(#comp-ar)"/>
+
+        <rect x="620" y="105" width="180" height="70" rx="10" fill="#ef4444" fill-opacity=".18" stroke="#ef4444" stroke-width="1.2"/>
+        <text x="710" y="125" text-anchor="middle" font-size="10" font-weight="700" fill="#ef4444">② 기술 문서 작성</text>
+        <text x="710" y="140" text-anchor="middle" font-size="8" fill="var(--text)">Article 11 의무 spec</text>
+        <text x="710" y="153" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">데이터셋·모델·평가·로그</text>
+        <text x="710" y="165" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">High-Risk 시 필수</text>
+
+        <line x1="710" y1="175" x2="540" y2="220" stroke="#ef4444" stroke-width="1" marker-end="url(#comp-ar)"/>
+
+        <rect x="380" y="200" width="160" height="60" rx="10" fill="#ef4444" fill-opacity=".18" stroke="#ef4444" stroke-width="1.2"/>
+        <text x="460" y="220" text-anchor="middle" font-size="10" font-weight="700" fill="#ef4444">③ Conformity 평가</text>
+        <text x="460" y="235" text-anchor="middle" font-size="8" fill="var(--text)">Article 43 · CE 마킹</text>
+        <text x="460" y="248" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">외부 감사 (Notified Body)</text>
+
+        <line x1="380" y1="220" x2="300" y2="175" stroke="#ef4444" stroke-width="1" marker-end="url(#comp-ar)"/>
+
+        <rect x="120" y="105" width="180" height="70" rx="10" fill="#ef4444" fill-opacity=".18" stroke="#ef4444" stroke-width="1.2"/>
+        <text x="210" y="125" text-anchor="middle" font-size="10" font-weight="700" fill="#ef4444">④ 사후 모니터링·보고</text>
+        <text x="210" y="140" text-anchor="middle" font-size="8" fill="var(--text)">Article 72 · Article 73</text>
+        <text x="210" y="153" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">사고 보고 + 시장 모니터링</text>
+        <text x="210" y="165" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">한국 AI 기본법 영향평가</text>
+
+        <line x1="300" y1="105" x2="380" y2="60" stroke="#ef4444" stroke-width="1" marker-end="url(#comp-ar)"/>
+
+        <!-- 외부 -->
+        <rect x="320" y="240" width="280" height="30" rx="6" fill="#a78bfa" fill-opacity=".15" stroke="#a78bfa" stroke-width="0.8" stroke-dasharray="3,2"/>
+        <text x="460" y="260" text-anchor="middle" font-size="9" fill="#a78bfa" font-weight="700">→ EU 데이터베이스 등록 + 한국 AI 기본법 신고</text>
+      </svg>
+    </div>
+
+    <!-- 두 법 비교 표 -->
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:.74rem;min-width:780px">
+        <thead><tr style="background:var(--surface)">
+          <th style="padding:.55rem;text-align:left;color:var(--text-dim);border-bottom:1px solid #ef444444;width:18%">의무</th>
+          <th style="padding:.55rem;text-align:left;color:#ef4444;border-bottom:1px solid #ef444444;width:35%">EU AI Act (2026-08 고위험)</th>
+          <th style="padding:.55rem;text-align:left;color:#ef4444;border-bottom:1px solid #ef444444;width:35%">한국 AI 기본법 (2026-01)</th>
+          <th style="padding:.55rem;text-align:left;color:#ef4444;border-bottom:1px solid #ef444444;width:12%">소요</th>
+        </tr></thead>
+        <tbody>
+          <tr><td style="padding:.5rem;color:#ef4444;font-weight:700;border-bottom:1px solid var(--border)">분류</td><td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">4 카테고리 매핑 (Prohibited·High·Limited·Minimal)</td><td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">고영향 AI 식별 + 자체 평가</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">1주</td></tr>
+          <tr><td style="padding:.5rem;color:#ef4444;font-weight:700;border-bottom:1px solid var(--border)">기술 문서</td><td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">Article 11 (40+ 항목)</td><td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">자체 안전성 보고서</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">2~4주</td></tr>
+          <tr><td style="padding:.5rem;color:#ef4444;font-weight:700;border-bottom:1px solid var(--border)">평가·인증</td><td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">Conformity assessment + CE 마킹 + EU DB 등록</td><td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">AI 영향평가 (NIA 가이드)</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">2~3개월</td></tr>
+          <tr><td style="padding:.5rem;color:#ef4444;font-weight:700;border-bottom:1px solid var(--border)">사후 모니터링</td><td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">시장 모니터링 + 심각 사고 보고 (15일)</td><td style="padding:.5rem;color:var(--text);border-bottom:1px solid var(--border)">사후 영향평가 + 보고</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">지속</td></tr>
+          <tr><td style="padding:.5rem;color:#ef4444;font-weight:700">사용자 안내</td><td style="padding:.5rem;color:var(--text)">투명성·설명 (Article 13/26)</td><td style="padding:.5rem;color:var(--text)">AI 사용 명시 + 결정 이유 제공</td><td style="padding:.5rem;color:var(--text-dim)">즉시</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══════════════════
+       B-Govern-4: 3 실제 심사 사례
+       ═══════════════════ -->
+  <div>
+    <div style="font-size:.95rem;font-weight:700;color:#ef4444;margin-bottom:.6rem">④ 실제 심사 사례 3개 — 결정 + 사유</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem">
+
+      <!-- Case 1: 승인 -->
+      <div style="padding:1rem;background:var(--card);border:1.5px solid #22c55e;border-radius:10px">
+        <div style="display:flex;align-items:center;gap:.3rem;margin-bottom:.4rem">
+          <span style="padding:.15rem .5rem;background:#22c55e;color:#fff;border-radius:11px;font-size:.7rem;font-weight:700">✓ 승인</span>
+          <span style="font-size:.8rem;font-weight:700;color:var(--text)">CASE A</span>
+        </div>
+        <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+          <strong style="color:#22c55e">📌 사례:</strong> 사내 회의록 자동 요약<br>
+          <strong style="color:#22c55e">위험 점수:</strong> 3 (영향 1·가능성 3)<br>
+          <strong style="color:#22c55e">등급:</strong> ALLOWED<br>
+          <strong style="color:#22c55e">근거:</strong> 외부 노출 0 · 내부 텍스트만 처리 · 사용자가 결과 확인 후 채택<br>
+          <strong style="color:#22c55e">조건:</strong> Anthropic Claude 사용 · 회의록 30일 후 자동 삭제<br>
+          <strong style="color:#22c55e">소요:</strong> 4일
+        </div>
+      </div>
+
+      <!-- Case 2: 조건부 -->
+      <div style="padding:1rem;background:var(--card);border:1.5px solid #f59e0b;border-radius:10px">
+        <div style="display:flex;align-items:center;gap:.3rem;margin-bottom:.4rem">
+          <span style="padding:.15rem .5rem;background:#f59e0b;color:#fff;border-radius:11px;font-size:.7rem;font-weight:700">◐ 조건부</span>
+          <span style="font-size:.8rem;font-weight:700;color:var(--text)">CASE B</span>
+        </div>
+        <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+          <strong style="color:#f59e0b">📌 사례:</strong> 의료 진단 보조 (방사선과)<br>
+          <strong style="color:#f59e0b">위험 점수:</strong> 15 (영향 5·가능성 3)<br>
+          <strong style="color:#f59e0b">등급:</strong> REVIEW → 조건부 승인<br>
+          <strong style="color:#f59e0b">근거:</strong> 환자 영향 큼 BUT 의사 최종 결정<br>
+          <strong style="color:#f59e0b">조건:</strong> 의사 검토 100% 강제 · 모든 결과 로그·감사 · 분기 정확도 평가<br>
+          <strong style="color:#f59e0b">소요:</strong> 3주 (외부 의료자문 1주 포함)
+        </div>
+      </div>
+
+      <!-- Case 3: 거부 -->
+      <div style="padding:1rem;background:var(--card);border:1.5px solid #ef4444;border-radius:10px">
+        <div style="display:flex;align-items:center;gap:.3rem;margin-bottom:.4rem">
+          <span style="padding:.15rem .5rem;background:#ef4444;color:#fff;border-radius:11px;font-size:.7rem;font-weight:700">✗ 거부</span>
+          <span style="font-size:.8rem;font-weight:700;color:var(--text)">CASE C</span>
+        </div>
+        <div style="font-size:.78rem;color:var(--text);line-height:1.8">
+          <strong style="color:#ef4444">📌 사례:</strong> 자동 HR 평가 (성과 점수)<br>
+          <strong style="color:#ef4444">위험 점수:</strong> 20 (영향 4·가능성 5)<br>
+          <strong style="color:#ef4444">등급:</strong> HIGH-RISK → 거부<br>
+          <strong style="color:#ef4444">근거:</strong> EU AI Act Annex III "고용 평가"는 고위험 · 편향 위험 + 한국 노동법 충돌 · CE 마킹 불가능 (입증 데이터 부족)<br>
+          <strong style="color:#ef4444">대안 제시:</strong> "AI는 평가 보조 자료 추출만, 점수는 사람이"<br>
+          <strong style="color:#ef4444">소요:</strong> 1.5주 (Risk Committee 정식 거부)
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:.7rem;padding:.7rem 1rem;background:#ef444415;border-left:3px solid #ef4444;border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.8">
+      <strong style="color:#ef4444">💡 심사 통계 (성숙한 CoE 기준):</strong> 분기 평균 30~50건 신청 → 80% Allowed, 12% Conditional, 5% Review (승인), 3% Reject. <strong>Reject 사례가 적어도 매우 중요</strong> — Govern 존재 가치의 증명.
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     📚 ENABLE DEEP DIVE — 4 sub-section
+     ══════════════════════════════════════════════ -->
+<div class="dia reveal" style="border-top:3px solid #a78bfa;background:linear-gradient(180deg, rgba(167,139,250,0.04) 0%, transparent 60%)">
+<div class="dia-title" style="display:flex;align-items:center;gap:.6rem"><span style="display:inline-flex;width:32px;height:32px;border-radius:50%;background:#a78bfa;color:#fff;align-items:center;justify-content:center;font-size:.95rem;font-weight:800">📚</span>ENABLE 깊이 분석 — 누구를 어떻게 가르치고 연결하나 (4 sub-section)</div>
+<div style="max-width:920px;margin:0 auto">
+
+  <div style="padding:.7rem 1rem;background:#a78bfa15;border-left:3px solid #a78bfa;border-radius:0 8px 8px 0;font-size:.8rem;color:var(--text);line-height:1.85;margin-bottom:1rem">
+    <strong style="color:#a78bfa">🎯 Enable의 본질:</strong> Build가 만든 도구·자산을 <strong>전 직원이 쓸 수 있게</strong> 하는 것. Deloitte 2025 #1 장벽 = AI 스킬 갭. Enable이 약하면 비싼 플랫폼만 깔리고 사용률 30%. 강하면 spoke가 자생적으로 확장 → CoE 부담 ↓.
+  </div>
+
+  <!-- ═══════════════════
+       B-Enable-1: 3 교육 트랙
+       ═══════════════════ -->
+  <div style="margin-bottom:1.4rem">
+    <div style="font-size:.95rem;font-weight:700;color:#a78bfa;margin-bottom:.6rem">① 3 교육 트랙 — 누구에게 무엇을</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem;margin-bottom:.7rem">
+
+      <!-- 임원 트랙 -->
+      <div style="padding:1rem;background:var(--card);border:1px solid #a78bfa44;border-radius:10px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:.4rem">
+          <div style="font-size:.92rem;font-weight:700;color:#a78bfa">👔 임원 트랙</div>
+          <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-dim)">분기 1회 · 2h</div>
+        </div>
+        <div style="font-size:.74rem;color:var(--text);line-height:1.8">
+          <strong style="color:#a78bfa">대상:</strong> 사업부장·임원 30~50명<br>
+          <strong style="color:#a78bfa">콘텐츠:</strong><br>
+          • AI 트렌드 brief<br>
+          • 사업 임팩트 사례<br>
+          • 거버넌스 의무 (AI 기본법·EU)<br>
+          • 의사결정자 책임<br>
+          <strong style="color:#a78bfa">형식:</strong> CAIO 발표 + Q&amp;A + 케이스 토론<br>
+          <strong style="color:#a78bfa">참석률 목표:</strong> 90%+
+        </div>
+      </div>
+
+      <!-- 일반 직원 -->
+      <div style="padding:1rem;background:var(--card);border:1px solid #a78bfa44;border-radius:10px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:.4rem">
+          <div style="font-size:.92rem;font-weight:700;color:#a78bfa">👥 일반 직원 트랙</div>
+          <div style="font-family:var(--mono);font-size:.65rem;color:var(--text-dim)">입사 시 + 연 1회 · 4h</div>
+        </div>
+        <div style="font-size:.74rem;color:var(--text);line-height:1.8">
+          <strong style="color:#a78bfa">대상:</strong> 전사 5,000명<br>
+          <strong style="color:#a78bfa">콘텐츠:</strong><br>
+          • AI 리터러시 (LLM·환각·prompt)<br>
+          • 사내 도구 사용법<br>
+          • Prompt 워크숍 1h 실습<br>
+          • 보안·PII 가이드<br>
+          <strong style="color:#a78bfa">형식:</strong> 온라인 e-learning + 대면 워크숍<br>
+          <strong style="color:#a78bfa">완료율 목표:</strong> 70%+ (1년 내)
+        </div>
+      </div>
+
+      <!-- 개발자 -->
+      <div style="padding:1rem;background:var(--card);border:1.5px solid #a78bfa;border-radius:10px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:.4rem">
+          <div style="font-size:.92rem;font-weight:700;color:#a78bfa">⚙ 개발자 트랙</div>
+          <div style="font-family:var(--mono);font-size:.65rem;color:#a78bfa">40h 자격증</div>
+        </div>
+        <div style="font-size:.74rem;color:var(--text);line-height:1.8">
+          <strong style="color:#a78bfa">대상:</strong> 개발자·데이터 200~500명<br>
+          <strong style="color:#a78bfa">콘텐츠:</strong><br>
+          • LangGraph·MCP·Vector DB<br>
+          • Hub 플랫폼 사용법<br>
+          • Eval·Observability<br>
+          • 보안·가드레일 구현<br>
+          • Capstone (실제 use case)<br>
+          <strong style="color:#a78bfa">형식:</strong> 40시간 자격증 코스<br>
+          <strong style="color:#a78bfa">목표:</strong> spoke 인력의 100% 자격증
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 트랙별 콘텐츠 매트릭스 -->
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:.74rem;min-width:780px">
+        <thead><tr style="background:var(--surface)">
+          <th style="padding:.55rem;text-align:left;color:var(--text-dim);border-bottom:1px solid #a78bfa44;width:22%">모듈</th>
+          <th style="padding:.55rem;text-align:center;color:#a78bfa;border-bottom:1px solid #a78bfa44;width:18%">👔 임원</th>
+          <th style="padding:.55rem;text-align:center;color:#a78bfa;border-bottom:1px solid #a78bfa44;width:18%">👥 직원</th>
+          <th style="padding:.55rem;text-align:center;color:#a78bfa;border-bottom:1px solid #a78bfa44;width:18%">⚙ 개발자</th>
+          <th style="padding:.55rem;text-align:left;color:#a78bfa;border-bottom:1px solid #a78bfa44;width:24%">시간 (총)</th>
+        </tr></thead>
+        <tbody>
+          <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">AI/LLM 기초</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">30분</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">1시간</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">2시간</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">전사 공통</td></tr>
+          <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">사업 임팩트·ROI</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">45분</td><td style="padding:.5rem;text-align:center;color:#9ca3af;border-bottom:1px solid var(--border)">—</td><td style="padding:.5rem;text-align:center;color:#9ca3af;border-bottom:1px solid var(--border)">—</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">임원 전용</td></tr>
+          <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">거버넌스 의무</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">45분</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">30분</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">2시간</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">전사</td></tr>
+          <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">Prompt 엔지니어링</td><td style="padding:.5rem;text-align:center;color:#9ca3af;border-bottom:1px solid var(--border)">—</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">1.5시간</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">4시간</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">실습 위주</td></tr>
+          <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">Hub 플랫폼 사용</td><td style="padding:.5rem;text-align:center;color:#9ca3af;border-bottom:1px solid var(--border)">—</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">1시간</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">8시간</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">도구 실습</td></tr>
+          <tr><td style="padding:.5rem;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">LangGraph·MCP</td><td style="padding:.5rem;text-align:center;color:#9ca3af;border-bottom:1px solid var(--border)">—</td><td style="padding:.5rem;text-align:center;color:#9ca3af;border-bottom:1px solid var(--border)">—</td><td style="padding:.5rem;text-align:center;color:#22c55e;border-bottom:1px solid var(--border)">12시간</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">개발자만</td></tr>
+          <tr><td style="padding:.5rem;color:var(--text);font-weight:600">Capstone 프로젝트</td><td style="padding:.5rem;text-align:center;color:#9ca3af">—</td><td style="padding:.5rem;text-align:center;color:#9ca3af">—</td><td style="padding:.5rem;text-align:center;color:#22c55e">12시간</td><td style="padding:.5rem;color:var(--text-dim)">실제 use case</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══════════════════
+       B-Enable-2: 인증 뱃지 + 채택률
+       ═══════════════════ -->
+  <div style="margin-bottom:1.4rem">
+    <div style="font-size:.95rem;font-weight:700;color:#a78bfa;margin-bottom:.6rem">② 인증 뱃지 + 1년 채택률 목표</div>
+
+    <div style="background:var(--card);border:1px solid #a78bfa44;border-radius:10px;padding:1rem;margin-bottom:.7rem">
+      <svg viewBox="0 0 920 280" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="bdg-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#a78bfa"/></marker></defs>
+
+        <!-- 3 단계 뱃지 -->
+        <!-- Bronze -->
+        <rect x="80" y="60" width="200" height="120" rx="15" fill="#cd7f3215" stroke="#cd7f32" stroke-width="1.5"/>
+        <circle cx="180" cy="100" r="22" fill="#cd7f32" fill-opacity=".40" stroke="#cd7f32" stroke-width="1.5"/>
+        <text x="180" y="105" text-anchor="middle" font-size="11" font-weight="800" fill="#fff">🥉</text>
+        <text x="180" y="140" text-anchor="middle" font-size="11" font-weight="800" fill="#cd7f32">BRONZE</text>
+        <text x="180" y="155" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">기초 AI 리터러시</text>
+        <text x="180" y="170" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">4시간 e-learning + 시험</text>
+
+        <line x1="280" y1="120" x2="320" y2="120" stroke="#a78bfa" stroke-width="1" marker-end="url(#bdg-ar)"/>
+
+        <!-- Silver -->
+        <rect x="320" y="60" width="200" height="120" rx="15" fill="#c0c0c022" stroke="#9ca3af" stroke-width="1.5"/>
+        <circle cx="420" cy="100" r="22" fill="#c0c0c044" stroke="#9ca3af" stroke-width="1.5"/>
+        <text x="420" y="105" text-anchor="middle" font-size="11" font-weight="800" fill="#fff">🥈</text>
+        <text x="420" y="140" text-anchor="middle" font-size="11" font-weight="800" fill="#9ca3af">SILVER</text>
+        <text x="420" y="155" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">실전 prompt + 도구 사용</text>
+        <text x="420" y="170" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">8시간 + Capstone 1개</text>
+
+        <line x1="520" y1="120" x2="560" y2="120" stroke="#a78bfa" stroke-width="1" marker-end="url(#bdg-ar)"/>
+
+        <!-- Gold -->
+        <rect x="560" y="60" width="200" height="120" rx="15" fill="#ffd70022" stroke="#f59e0b" stroke-width="1.5"/>
+        <circle cx="660" cy="100" r="22" fill="#ffd70044" stroke="#f59e0b" stroke-width="1.5"/>
+        <text x="660" y="105" text-anchor="middle" font-size="11" font-weight="800" fill="#fff">🥇</text>
+        <text x="660" y="140" text-anchor="middle" font-size="11" font-weight="800" fill="#f59e0b">GOLD</text>
+        <text x="660" y="155" text-anchor="middle" font-size="8.5" fill="var(--text-dim)">개발자·AI 전문가</text>
+        <text x="660" y="170" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">40시간 자격증 + 실전</text>
+
+        <!-- 채택률 -->
+        <text x="40" y="225" font-size="9.5" font-weight="700" fill="var(--text-dim)">1년 목표</text>
+        <rect x="100" y="215" width="200" height="20" rx="4" fill="#cd7f3244" stroke="#cd7f32" stroke-width="0.8"/>
+        <text x="200" y="229" text-anchor="middle" font-size="10" font-weight="700" fill="#cd7f32">70%</text>
+        <text x="180" y="250" text-anchor="middle" font-size="8" fill="var(--text-dim)">전 직원의 70%</text>
+
+        <rect x="320" y="215" width="120" height="20" rx="4" fill="#9ca3af44" stroke="#9ca3af" stroke-width="0.8"/>
+        <text x="380" y="229" text-anchor="middle" font-size="10" font-weight="700" fill="#9ca3af">20%</text>
+        <text x="420" y="250" text-anchor="middle" font-size="8" fill="var(--text-dim)">스킬업 의지자</text>
+
+        <rect x="560" y="215" width="60" height="20" rx="4" fill="#f59e0b44" stroke="#f59e0b" stroke-width="0.8"/>
+        <text x="590" y="229" text-anchor="middle" font-size="10" font-weight="700" fill="#f59e0b">5%</text>
+        <text x="660" y="250" text-anchor="middle" font-size="8" fill="var(--text-dim)">개발자·spoke 인력</text>
+
+        <!-- 혜택 -->
+        <text x="180" y="200" text-anchor="middle" font-size="8" fill="#cd7f32" font-weight="600">+ 사내 디렉토리 표시</text>
+        <text x="420" y="200" text-anchor="middle" font-size="8" fill="#9ca3af" font-weight="600">+ 사내 인사 평가 가점</text>
+        <text x="660" y="200" text-anchor="middle" font-size="8" fill="#f59e0b" font-weight="600">+ Spoke 채용 자격</text>
+
+        <text x="460" y="275" text-anchor="middle" font-size="9" fill="var(--text-dim)" font-style="italic">출처: Deloitte AI Skills Strategy 2025 / Anthropic Academy 사례</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ═══════════════════
+       B-Enable-3: CoP 활동 주기
+       ═══════════════════ -->
+  <div style="margin-bottom:1.4rem">
+    <div style="font-size:.95rem;font-weight:700;color:#a78bfa;margin-bottom:.6rem">③ Community of Practice — 4 단위 주기</div>
+
+    <div style="background:var(--card);border:1px solid #a78bfa44;border-radius:10px;padding:1rem;margin-bottom:.7rem">
+      <svg viewBox="0 0 920 240" style="max-width:100%;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- 4 단위 -->
+        <rect x="20" y="50" width="200" height="160" rx="12" fill="#a78bfa" fill-opacity=".10" stroke="#a78bfa" stroke-width="1"/>
+        <text x="120" y="75" text-anchor="middle" font-size="12" font-weight="800" fill="#a78bfa">💬 매일 (24/7)</text>
+        <text x="120" y="95" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--text)">Slack 채널</text>
+        <text x="120" y="115" text-anchor="middle" font-size="8" fill="var(--text-dim)">#ai-help · #ai-news</text>
+        <text x="120" y="128" text-anchor="middle" font-size="8" fill="var(--text-dim)">#ai-showcase</text>
+        <text x="120" y="155" text-anchor="middle" font-size="8.5" fill="#a78bfa" font-weight="700">활동</text>
+        <text x="120" y="170" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">Q&amp;A · 사례 공유</text>
+        <text x="120" y="182" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">실시간 도움</text>
+        <text x="120" y="200" text-anchor="middle" font-size="8" fill="#22c55e" font-weight="700">평균 8 Q/일</text>
+
+        <rect x="240" y="50" width="200" height="160" rx="12" fill="#a78bfa" fill-opacity=".15" stroke="#a78bfa" stroke-width="1"/>
+        <text x="340" y="75" text-anchor="middle" font-size="12" font-weight="800" fill="#a78bfa">📚 주간 (1h)</text>
+        <text x="340" y="95" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--text)">Prompt 워크숍</text>
+        <text x="340" y="115" text-anchor="middle" font-size="8" fill="var(--text-dim)">목요일 오후 4시</text>
+        <text x="340" y="128" text-anchor="middle" font-size="8" fill="var(--text-dim)">선착순 30명</text>
+        <text x="340" y="155" text-anchor="middle" font-size="8.5" fill="#a78bfa" font-weight="700">콘텐츠</text>
+        <text x="340" y="170" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">신규 도구 데모</text>
+        <text x="340" y="182" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">prompt 실습</text>
+        <text x="340" y="200" text-anchor="middle" font-size="8" fill="#22c55e" font-weight="700">50주 × 30명 = 1,500</text>
+
+        <rect x="460" y="50" width="200" height="160" rx="12" fill="#a78bfa" fill-opacity=".20" stroke="#a78bfa" stroke-width="1.2"/>
+        <text x="560" y="75" text-anchor="middle" font-size="12" font-weight="800" fill="#a78bfa">👥 월간 (2h)</text>
+        <text x="560" y="95" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--text)">Spoke 사례 공유</text>
+        <text x="560" y="115" text-anchor="middle" font-size="8" fill="var(--text-dim)">매월 둘째 주 금</text>
+        <text x="560" y="128" text-anchor="middle" font-size="8" fill="var(--text-dim)">전 spoke 의무 참석</text>
+        <text x="560" y="155" text-anchor="middle" font-size="8.5" fill="#a78bfa" font-weight="700">콘텐츠</text>
+        <text x="560" y="170" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">3 spoke 발표 (각 20m)</text>
+        <text x="560" y="182" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">+ peer review</text>
+        <text x="560" y="200" text-anchor="middle" font-size="8" fill="#22c55e" font-weight="700">12달 × 3사례 = 36</text>
+
+        <rect x="680" y="50" width="220" height="160" rx="12" fill="#a78bfa" fill-opacity=".30" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="790" y="75" text-anchor="middle" font-size="12" font-weight="800" fill="#a78bfa">🎉 연간 (반나절)</text>
+        <text x="790" y="95" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--text)">사내 AI Day</text>
+        <text x="790" y="115" text-anchor="middle" font-size="8" fill="var(--text-dim)">11월 (예산 결산 전)</text>
+        <text x="790" y="128" text-anchor="middle" font-size="8" fill="var(--text-dim)">전사 200~500명</text>
+        <text x="790" y="155" text-anchor="middle" font-size="8.5" fill="#a78bfa" font-weight="700">콘텐츠</text>
+        <text x="790" y="170" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">CAIO 기조연설</text>
+        <text x="790" y="182" text-anchor="middle" font-size="7.5" fill="var(--text-dim)">사업부 demo + 외부 keynote</text>
+        <text x="790" y="200" text-anchor="middle" font-size="8" fill="#22c55e" font-weight="700">Top 10 prototype 시상</text>
+
+        <text x="460" y="30" text-anchor="middle" font-size="10" fill="var(--violet)" font-weight="700">↻ 4 주기가 동시 운영 — Slack에서 발견된 케이스가 워크숍·월간·연간에 등장</text>
+      </svg>
+    </div>
+
+    <!-- 카카오 AI Day 사례 -->
+    <div style="padding:.85rem 1rem;background:var(--card);border:1.5px solid #a78bfa;border-radius:10px;font-size:.78rem;color:var(--text);line-height:1.85">
+      <div style="font-size:.85rem;font-weight:700;color:#a78bfa;margin-bottom:.4rem">💼 실제 사례 — 한국 K사 "AI Day 2025" 운영 결과</div>
+      • <strong>참석:</strong> 220명 (전사 1,500명의 15%) + 외부 30명<br>
+      • <strong>프로그램:</strong> CAIO 기조연설 (40분) + 사업부 데모 8개 (각 15분) + 외부 keynote (Anthropic·OpenAI 30분) + 패널 토론<br>
+      • <strong>Hackathon 결과:</strong> 24시간 prototype 12개 → Top 3 시상 → 그 중 1개는 6개월 후 production 진입<br>
+      • <strong>설문:</strong> NPS 72 / "내년에도 참석하겠다" 91%<br>
+      • <strong>예산:</strong> $80K (장소·연사·식사·시상)<br>
+      • <strong>효과:</strong> AI Day 이후 Slack #ai-help 질문 +200%, Bronze 인증 신청 +150%
+    </div>
+  </div>
+
+  <!-- ═══════════════════
+       B-Enable-4: 외부 벤더 평가 매트릭스
+       ═══════════════════ -->
+  <div>
+    <div style="font-size:.95rem;font-weight:700;color:#a78bfa;margin-bottom:.6rem">④ 외부 벤더 평가 — 분기 LLM Provider 매트릭스</div>
+
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:.74rem;min-width:780px;text-align:center">
+        <thead><tr style="background:var(--surface)">
+          <th style="padding:.55rem;text-align:left;color:var(--text-dim);border-bottom:1px solid #a78bfa44;width:16%">평가 항목</th>
+          <th style="padding:.55rem;color:#a78bfa;border-bottom:1px solid #a78bfa44">Claude 4.7</th>
+          <th style="padding:.55rem;color:#a78bfa;border-bottom:1px solid #a78bfa44">GPT-5</th>
+          <th style="padding:.55rem;color:#a78bfa;border-bottom:1px solid #a78bfa44">Gemini 2.5</th>
+          <th style="padding:.55rem;color:#a78bfa;border-bottom:1px solid #a78bfa44">HyperCLOVA X</th>
+          <th style="padding:.55rem;color:#a78bfa;border-bottom:1px solid #a78bfa44">결정</th>
+        </tr></thead>
+        <tbody>
+          <tr><td style="padding:.5rem;text-align:left;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">한국어 정확도</td><td style="padding:.5rem;color:#22c55e;font-weight:700;border-bottom:1px solid var(--border)">92%</td><td style="padding:.5rem;color:#22c55e;border-bottom:1px solid var(--border)">88%</td><td style="padding:.5rem;color:#f59e0b;border-bottom:1px solid var(--border)">85%</td><td style="padding:.5rem;color:#22c55e;font-weight:700;border-bottom:1px solid var(--border)">94%</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">한국어 → CLOVA</td></tr>
+          <tr><td style="padding:.5rem;text-align:left;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">코딩 능력</td><td style="padding:.5rem;color:#22c55e;font-weight:700;border-bottom:1px solid var(--border)">95%</td><td style="padding:.5rem;color:#22c55e;border-bottom:1px solid var(--border)">93%</td><td style="padding:.5rem;color:#f59e0b;border-bottom:1px solid var(--border)">82%</td><td style="padding:.5rem;color:#ef4444;border-bottom:1px solid var(--border)">65%</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">코딩 → Claude</td></tr>
+          <tr><td style="padding:.5rem;text-align:left;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">긴 context (1M+)</td><td style="padding:.5rem;color:#22c55e;border-bottom:1px solid var(--border)">200K</td><td style="padding:.5rem;color:#22c55e;border-bottom:1px solid var(--border)">256K</td><td style="padding:.5rem;color:#22c55e;font-weight:700;border-bottom:1px solid var(--border)">2M ⭐</td><td style="padding:.5rem;color:#9ca3af;border-bottom:1px solid var(--border)">128K</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">긴 문서 → Gemini</td></tr>
+          <tr><td style="padding:.5rem;text-align:left;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">비용 (M tokens)</td><td style="padding:.5rem;color:#f59e0b;border-bottom:1px solid var(--border)">$3.0</td><td style="padding:.5rem;color:#ef4444;border-bottom:1px solid var(--border)">$5.0</td><td style="padding:.5rem;color:#22c55e;border-bottom:1px solid var(--border)">$1.5</td><td style="padding:.5rem;color:#22c55e;font-weight:700;border-bottom:1px solid var(--border)">$0.8 ⭐</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">비용 → CLOVA·Haiku</td></tr>
+          <tr><td style="padding:.5rem;text-align:left;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">한국 데이터센터</td><td style="padding:.5rem;color:#f59e0b;border-bottom:1px solid var(--border)">AWS</td><td style="padding:.5rem;color:#f59e0b;border-bottom:1px solid var(--border)">Azure</td><td style="padding:.5rem;color:#f59e0b;border-bottom:1px solid var(--border)">GCP</td><td style="padding:.5rem;color:#22c55e;font-weight:700;border-bottom:1px solid var(--border)">국내 ⭐</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">망분리 → CLOVA</td></tr>
+          <tr><td style="padding:.5rem;text-align:left;color:var(--text);font-weight:600;border-bottom:1px solid var(--border)">안전성 (jailbreak 저항)</td><td style="padding:.5rem;color:#22c55e;font-weight:700;border-bottom:1px solid var(--border)">98%</td><td style="padding:.5rem;color:#22c55e;border-bottom:1px solid var(--border)">95%</td><td style="padding:.5rem;color:#22c55e;border-bottom:1px solid var(--border)">93%</td><td style="padding:.5rem;color:#f59e0b;border-bottom:1px solid var(--border)">88%</td><td style="padding:.5rem;color:var(--text-dim);border-bottom:1px solid var(--border)">안전 → Claude</td></tr>
+          <tr><td style="padding:.5rem;text-align:left;color:#a78bfa;font-weight:700">종합 점수</td><td style="padding:.5rem;color:#22c55e;font-weight:800;font-size:.85rem">89</td><td style="padding:.5rem;color:#f59e0b;font-weight:700;font-size:.85rem">86</td><td style="padding:.5rem;color:#f59e0b;font-weight:700;font-size:.85rem">82</td><td style="padding:.5rem;color:#22c55e;font-weight:800;font-size:.85rem">85</td><td style="padding:.5rem;color:#a78bfa;font-weight:700">📊 Multi-LLM 채택</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:.7rem;padding:.7rem 1rem;background:#a78bfa15;border-left:3px solid #a78bfa;border-radius:0 8px 8px 0;font-size:.78rem;color:var(--text);line-height:1.85">
+      <strong style="color:#a78bfa">💡 평가 결과 → 결정:</strong> <strong>단일 LLM이 아닌 multi-LLM 라우팅</strong>. 한국어 일반 = HyperCLOVA X · 코딩·복잡 추론 = Claude 4.7 · 긴 문서 = Gemini 2.5. Build의 LLM Gateway가 use case별 자동 라우팅. <strong>분기마다 재평가</strong> → 새 모델 등장 시 빠른 채택.
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
      B-Flow: 3 영역의 유기적 연결 — 6 cross-flow
      ══════════════════════════════════════════════ -->
 <div class="dia reveal">
